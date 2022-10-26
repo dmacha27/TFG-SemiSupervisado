@@ -58,11 +58,6 @@ data_train = data_train[['reading score', 'writing score', 'Etiqueta']]
 data_train['Iter'] = 0
 data_train['group'] = 0
 
-# Show target value distribution
-print('Clase - Número de datos')
-print(data_train['Etiqueta'].value_counts())
-
-
 """
                     PREPARACIÓN DE LOS DATOS PARA EL ALGORITMO
 """
@@ -139,7 +134,7 @@ while i < 25:
     y_train = np.append(y_train, topX_pred)
 
     #Se eleminan los datos que antes eran no etiquetados pero ahora sí lo son
-    x_train_unlabelled.drop(x_train_unlabelled.index[topX], inplace=True)
+    x_train_unlabelled = x_train_unlabelled.drop(x_train_unlabelled.index[topX])
 
     #Preparación de datos para la siguiente iteración
     data_train_labeled = x_train.copy()
