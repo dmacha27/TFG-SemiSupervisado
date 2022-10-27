@@ -42,7 +42,7 @@
 % 3 --> Tamaño en tanto por uno relativo al ancho de página
 \usepackage{graphicx}
 \newcommand{\imagen}[3]{
-	\begin{figure}[!h]
+	\begin{figure}[!ht]
 		\centering
 		\includegraphics[width=#3\textwidth]{#1}
 		\caption{#2}\label{fig:#1}
@@ -314,6 +314,7 @@
 \makeatletter
 \usepackage{xcolor}
 \newcommand{\tutor}[1]{\def\@tutor{#1}}
+\newcommand{\cotutor}[1]{\def\@cotutor{#1}}
 \newcommand{\course}[1]{\def\@course{#1}}
 \definecolor{cpardoBox}{HTML}{E6E6FF}
 \def\maketitle{
@@ -345,6 +346,7 @@
     Presentado por \@author{}\\ 
     en Universidad de Burgos --- \@date{}\\
     Tutor: \@tutor{}\\
+    Cotutor: \@cotutor{}\\
   }%
   \end{center}%
   \null
@@ -352,12 +354,13 @@
   }
 \makeatother
 
-\newcommand{\nombre}{Nombre del alumno} %%% cambio de comando
+\newcommand{\nombre}{David Martínez Acha} %%% cambio de comando
 
 % Datos de portada
-\title{título del TFG}
+\title{Herramienta docente para la visualización en Web de algoritmos de aprendizaje Semi-Supervisado}
 \author{\nombre}
-\tutor{nombre tutor}
+\tutor{Álvar Arnaiz González}
+\cotutor{César Ignacio García Osorio}
 \date{\today}
 
 \begin{document}
@@ -378,7 +381,7 @@
 
 \noindent Expone:
 
-\noindent Que el alumno D. \nombre, con DNI dni, ha realizado el Trabajo final de Grado en Ingeniería Informática titulado título de TFG. 
+\noindent Que el alumno D. \nombre, con DNI 71310644H, ha realizado el Trabajo final de Grado en Ingeniería Informática titulado título de TFG. 
 
 \noindent Y que dicho trabajo ha sido realizado por el alumno bajo la dirección del que suscribe, en virtud de lo cual se autoriza su presentación y defensa.
 
@@ -427,7 +430,7 @@ En este primer apartado se hace una \textbf{breve} presentación del tema que se
 
 \renewcommand*\abstractname{Descriptores}
 \begin{abstract}
-Palabras separadas por comas que identifiquen el contenido del proyecto Ej: servidor web, buscador de vuelos, android \ldots
+aprendizaje automático, aprendizaje semi-supervisado, visualización de algoritmos, web
 \end{abstract}
 
 \clearpage
@@ -440,7 +443,7 @@ A \textbf{brief} presentation of the topic addressed in the project.
 
 \renewcommand*\abstractname{Keywords}
 \begin{abstract}
-keywords separated by commas.
+machine learning, semi-supervised learning, algorithm visualization, web
 \end{abstract}
 
 \clearpage
