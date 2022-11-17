@@ -171,6 +171,9 @@ sympy-plots-for-*.tex/
 *.pytxcode
 pythontex-files-*/
 
+# pycharm
+.idea/
+
 # thmtools
 *.loe
 
