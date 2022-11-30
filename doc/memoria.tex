@@ -52,6 +52,15 @@
 	\FloatBarrier
 }
 
+\newcommand{\imagenconurl}[4]{
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=#4\textwidth]{#1}
+		\caption[#2]{#3}\label{fig:#1}
+	\end{figure}
+	\FloatBarrier
+}
+
 % Comando para insertar una imagen sin posición.
 % Los parámetros son:
 % 1 --> Ruta absoluta/relativa de la figura
@@ -356,13 +365,16 @@
   }
 \makeatother
 
-\newcommand{\nombre}{David Martínez Acha} %%% cambio de comando
+\newcommand{\titulo}{Herramienta docente para la visualización en Web de algoritmos de aprendizaje Semi-Supervisado}
+\newcommand{\nombre}{David Martínez Acha}
+\newcommand{\tut}{Álvar Arnaiz González}
+\newcommand{\cotut}{César Ignacio García Osorio}
 
 % Datos de portada
-\title{Herramienta docente para la visualización en Web de algoritmos de aprendizaje Semi-Supervisado}
+\title{\titulo}
 \author{\nombre}
-\tutor{Álvar Arnaiz González}
-\cotutor{César Ignacio García Osorio}
+\tutor{\tut}
+\cotutor{\cotut}
 \date{\today}
 
 \begin{document}
@@ -379,11 +391,15 @@
 
 \noindent\includegraphics[width=\textwidth]{cabecera}\vspace{1cm}
 
-\noindent D. nombre tutor, profesor del departamento de nombre departamento, área de nombre área.
+\noindent D. \tut, profesor del departamento de Ingeniería Informática, área
+de Lenguajes y Sistemas informáticos, junto a D. \cotut,
+profesor del departamento de Ingeniería Informática, área de Lenguajes y
+Sistemas informáticos.
 
-\noindent Expone:
+\noindent Exponen:
 
-\noindent Que el alumno D. \nombre, con DNI 71310644H, ha realizado el Trabajo final de Grado en Ingeniería Informática titulado título de TFG. 
+\noindent Que el alumno D. \nombre, con DNI 71310644H, ha realizado el Trabajo final de Grado en Ingeniería Informática titulado \titulo.
+
 
 \noindent Y que dicho trabajo ha sido realizado por el alumno bajo la dirección del que suscribe, en virtud de lo cual se autoriza su presentación y defensa.
 
@@ -397,14 +413,14 @@ En Burgos, {\large \today}
 \begin{minipage}{0.45\textwidth}
 \begin{flushleft} %\large
 Vº. Bº. del Tutor:\\[2cm]
-D. nombre tutor
+\tut
 \end{flushleft}
 \end{minipage}
 \hfill
 \begin{minipage}{0.45\textwidth}
 \begin{flushleft} %\large
 Vº. Bº. del co-tutor:\\[2cm]
-D. nombre co-tutor
+\cotut
 \end{flushleft}
 \end{minipage}
 \hfill

@@ -313,6 +313,7 @@
 \makeatletter
 \usepackage{xcolor}
 \newcommand{\tutor}[1]{\def\@tutor{#1}}
+\newcommand{\cotutor}[1]{\def\@cotutor{#1}}
 \newcommand{\course}[1]{\def\@course{#1}}
 \definecolor{cpardoBox}{HTML}{E6E6FF}
 \def\maketitle{
@@ -344,6 +345,7 @@
     Presentado por \@author{}\\ 
     en Universidad de Burgos --- \@date{}\\
     Tutor: \@tutor{}\\
+    Cotutor: \@cotutor{}\\
   }%
   \end{center}%
   \null
@@ -351,12 +353,16 @@
   }
 \makeatother
 
+\newcommand{\titulo}{Herramienta docente para la visualización en Web de algoritmos de aprendizaje Semi-Supervisado}
+\newcommand{\nombre}{David Martínez Acha}
+\newcommand{\tut}{Álvar Arnaiz González}
+\newcommand{\cotut}{César Ignacio García Osorio}
 
 % Datos de portada
-\title{Herramienta docente para la visualización en Web de algoritmos de aprendizaje Semi-Supervisado\\Documentación técnica}
-\author{David Martínez Acha}
-\tutor{Álvar Arnaiz González}
-%\cotutor{César Ignacio García Osorio}
+\title{\titulo\\Documentación técnica}
+\author{\nombre}
+\tutor{\tut}
+\cotutor{\cotut}
 \date{\today}
 
 \begin{document}

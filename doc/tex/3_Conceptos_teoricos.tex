@@ -14,13 +14,15 @@ mediante los cuales, los algoritmos son capaces de generalizar comportamientos
 que se encuentran ocultos. 
 
 La característica principal de estos algoritmos es que son capaces de mejorar su
-rendimiento de forma automática basándose en procesos de entrenamiento y también en
-las fases posteriores de explotación. Debido a sus propiedades, el aprendizaje
-automático se ha convertido en un campo de alta importancia, aplicándose a
-multitud de campos como medicina, automoción, visión artificial\ldots los tipos
-de aprendizaje automático se suelen clasificar en los siguientes: aprendizaje
-supervisado, aprendizaje no supervisado, aprendizaje por refuerzo y aprendizaje
-semi-supervisado. 
+rendimiento de forma automática basándose en procesos de entrenamiento y también
+en las fases posteriores de explotación. Debido a sus propiedades, el
+aprendizaje automático se ha convertido en un campo de alta importancia,
+aplicándose a multitud de campos como medicina, automoción, visión
+artificial\ldots Los tipos de aprendizaje automático se suelen clasificar en los
+siguientes: aprendizaje supervisado, aprendizaje no supervisado y aprendizaje
+por refuerzo. Sin embargo, aparece una nueva disciplina que se encuentra a
+caballo entre el supervisado y no supervisado (utiliza tanto datos etiquetados
+como no etiquetados para el entrenamiento) \cite{vanEngelen2020}.
 
 En la figura \ref{fig:taxonomia} se puede ver una
 clasificación de aprendizaje automático.
@@ -41,7 +43,7 @@ y todas ellas pueden ser binarias, categóricas o continuas \cite{salim:sl}.
 Es común que antes del entrenamiento, estos datos son particionados en: conjunto de
 entrenamiento, conjunto de test o conjunto de validación. De forma resumida, el
 conjunto de entrenamiento serán los datos que utilice el propio algoritmo para
-aprender y generalizar los comportamientos ocultos de los mismos. EL conjunto de
+aprender y generalizar los comportamientos ocultos de los mismos. El conjunto de
 validación se utilizará para tener un control de que el modelo está
 generalizando y no sobreajustando (memorizando los datos) y por último, el
 conjunto de test sirve para estimar el rendimiento real que podrá tener el
@@ -50,13 +52,12 @@ modelo en explotación \cite{enwiki:conjuntos}. En la figura
 
 \imagen{aprendizajesupervisado}{Funcionamiento general del aprendizaje supervisado \cite{salim:sl}.}{1}
 
-Como se ha indicado, las etiquetas pueden ser binarias, categóricas o continuas.
 El aprendizaje supervisado está altamente influenciado por esto. Por un lado, si
 las etiquetas son categóricas o binarias el modelo será de
 \textbf{clasificación} y por otro, si las etiquetas son continuas el modelo será
 de \textbf{regresión}.
 
-\begin{enumerate}
+\begin{itemize}
     \item \textbf{Clasificación}: Los algoritmos de clasificación, a veces
     denominados simplemente como clasificadores, tratan de predecir la clase de
     una nueva entrada a partir del entrenamiento previo realizado. Estas clases
@@ -67,7 +68,7 @@ de \textbf{regresión}.
     continuo a una entrada. Es decir, trata de encontrar una función continua
     basándose en las variables de entrada. Se denomina también ajuste de
     funciones.
-\end{enumerate}
+\end{itemize}
 
 \clearpage
 
@@ -91,7 +92,7 @@ Como principales usos del aprendizaje, suele aplicarse a:
     modelos pueden tanto descubrir por ellos mismos los ``clústeres'' o grupos
     que se encuentran o indicarle cuántos debe identificar \cite{salim:usl}.
     \item \textbf{Reducción de la dimensionalidad}: Para empezar, el término
-    ``dimensionalidad'' hace referencia al número de variables de entrada que
+    "<dimensionalidad"> hace referencia al número de variables de entrada que
     tienen los datos. En la realidad, los conjuntos de datos sobre los que se
     trabaja suelen tener una dimensionalidad grande. Según
     \cite{javatpoint:reduccionsdims} la reducción de dimensionalidad se denomina
@@ -106,7 +107,7 @@ Como principales usos del aprendizaje, suele aplicarse a:
     \end{itemize}
 \end{enumerate}
 
-\imagen{clustering}{\footnotesize{Clusters - By hellisp - Own work, Public Domain, \url{https://commons.wikimedia.org/w/index.php?curid=36929773}}}{0.5}
+\imagenconurl{clustering}{Clusters}{\footnotesize{Clusters - By hellisp - Own work, Public Domain, \url{https://commons.wikimedia.org/w/index.php?curid=36929773}}}{0.5}
 
 \subsection{Aprendizaje semi-supervisado}
 
