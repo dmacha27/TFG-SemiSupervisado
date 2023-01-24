@@ -1,5 +1,4 @@
 import pandas as pd
-import time
 import numpy as np
 
 import plotly.express as px
@@ -8,15 +7,14 @@ from pandas import DataFrame
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 
-
-# from sklearn.semi_supervised import SelfTrainingClassifier ¿Próximo prototipo?
+from utilidades import DatasetLoader
 
 
 def mostrar(data: DataFrame):
     """Muestra una gráfica por cada iteración en un mismo eje de coordenadas. Cada punto codificado con "reading
-    score" como la x y "writing score" como la y
+    score" como la "x" y "writing score" como la "y"
 
-    :param DataFrame data: Contiene cada uno de los datos (con sus características) por cada iteración para ser
+    :param data: Contiene cada uno de los datos (con sus características) por cada iteración para ser
     visualizado con plotly.
     """
     #
@@ -36,10 +34,9 @@ def preparar(data: DataFrame, iteraciones: int):
     """Prepara los datos para poder ser mostrados. Genera una fila nueva de cada dato por cada una de las
     iteraciones. Si la iteración un dato se ha etiquetado en la iteración X, las iteraciones anteriores será no
     etiquetado, en la iteración X y las siguientes se establecerá la generada por el algoritmo.
-
-    :param DataFrame data: Conjunto de datos con sus características y la iteración en la que se establece la etiqueta
-    :param int iteraciones:
-    :return: Conjutno de datos preparado para la visualización
+    :param data: Conjunto de datos con sus características y la iteración en la que se establece la etiqueta.
+    :param iteraciones.
+    :return: Conjunto de datos preparados para la visualización.
     :rtype: DataFrame
     """
     data_show = pd.DataFrame()
@@ -60,14 +57,14 @@ def datos():
     elegido.
 
     :returns:
-        - data_train_labeled - Conjunto de de datos de entrada etiquetados
-        - data_train_unlabelled - Conjunto de de datos no etiquetados
+        - data_train_labeled - Conjunto de datos de entrada etiquetados
+        - data_train_unlabelled - Conjunto de datos no etiquetados
         - x_train - Cojunto de datos de entrenamiento
         - y_train - Etiquetas del conjunto de datos "x_train"
         - x_train_unlabelled - Conjunto de datos de entrenamiento no etiquetados
     """
     # Obtención de los datos
-    df = pd.read_csv('./datasets/exams.csv',
+    df = pd.read_csv('../datasets/exams.csv',
                      encoding='utf-8', delimiter=',',
                      usecols=['reading score', 'writing score']
                      )
@@ -98,7 +95,7 @@ def datos():
     data_train_unlabelled['IterClasificado'] = None
 
     # Datos de entrenamiento
-    x_train = data_train_labeled[['reading score', 'writing score']]
+    x_train = data_train_labeled[['reading score', 'writing score']].values
     y_train = data_train_labeled['Etiqueta'].values
 
     # Datos de entrenamiento no etiquetados
@@ -115,18 +112,18 @@ def datos():
 NTOP = 100  # Se seleccionarán los 100 mejores datos (predicción más acertada) (cambiar si se desea)
 
 
-def entrenamiento(data_train_labeled: DataFrame, data_train_unlabelled: DataFrame, x_train: DataFrame,
-                  y_train: DataFrame, x_train_unlabelled: DataFrame):
+def entrenamiento(data_train_labeled: DataFrame, data_train_unlabelled: DataFrame, x_train,
+                  y_train, x_train_unlabelled: DataFrame):
     """Se encarga del entrenamiento de un clasificador (Supor Vector Classification) mediante algoritmo Self-Training
 
-    :param DataFrame data_train_labeled: Conjunto de de datos de entrada etiquetados
-    :param DataFrame data_train_unlabelled: Conjunto de de datos no etiquetados
-    :param DataFrame x_train: Cojunto de datos de entrenamiento (cada iteración aumentará)
-    :param DataFrame y_train: Etiquetas del conjunto de datos "x_train"
-    :param DataFrame x_train_unlabelled: Conjunto de datos de entrenamiento no etiquetados
+    :param DataFrame data_train_labeled: Conjunto de datos de entrada etiquetados.
+    :param DataFrame data_train_unlabelled: Conjunto de datos no etiquetados.
+    :param DataFrame x_train: Cojunto de datos de entrenamiento (cada iteración aumentará).
+    :param DataFrame y_train: Etiquetas del conjunto de datos "x_train".
+    :param DataFrame x_train_unlabelled: Conjunto de datos de entrenamiento no etiquetados.
     :returns:
         - data_train_labeled - Conjunto de todos los datos ya etiquetados
-        - iteracion - iteración en la que para el algoritmo
+        - iteration - iteración en la que para el algoritmo
     """
     clf = SVC(kernel='rbf',
               probability=True,
@@ -136,33 +133,29 @@ def entrenamiento(data_train_labeled: DataFrame, data_train_unlabelled: DataFram
               )
 
     # Iteración
-    iteracion = 1
+    iteration = 1
 
-    while iteracion < 25:
-        time.sleep(1)
-
-        if len(x_train_unlabelled) == 0:
-            break
+    while len(x_train_unlabelled) != 0:
 
         clf = clf.fit(x_train, y_train)
 
         # Puntuación de las predicciones para datos no etiquetados todavía (son los que luego se seleccionarán los X
         # mejores)
 
-        puntos = clf.predict_proba(x_train_unlabelled).max(axis=1)
+        puntos = clf.predict_proba(x_train_unlabelled.values).max(axis=1)
         x = NTOP  # Establece el número de mejores datos no etiquetados a añadir
         if len(x_train_unlabelled.index) < NTOP:
             x = len(x_train_unlabelled.index)
 
-        # La posición de los mejores X datos (en base a su predicción)
+        # La posición de los mejores X datos (con base en su predicción)
         topx = puntos.argsort()[-x:][::-1]
 
         # Los nuevos datos a añadir (el dato y la predicción o etiqueta)
         topx_new_labelled = x_train_unlabelled.iloc[topx]
-        topx_pred = clf.predict(topx_new_labelled)
+        topx_pred = clf.predict(topx_new_labelled.values)
 
         # El conjunto de entrenamiento se ha extendido
-        x_train = pd.concat([x_train, topx_new_labelled])
+        x_train = np.append(x_train, topx_new_labelled.values, axis=0)
         y_train = np.append(y_train, topx_pred)
 
         # Se eliminan los datos que antes eran no etiquetados pero ahora sí lo son
@@ -171,15 +164,16 @@ def entrenamiento(data_train_labeled: DataFrame, data_train_unlabelled: DataFram
 
         # Preparación de datos para la siguiente iteración
         new_classified = topx_new_labelled.copy()
-        new_classified['IterClasificado'] = iteracion
+        new_classified['IterClasificado'] = iteration
         data_train_labeled = pd.concat([data_train_labeled, new_classified])
         data_train_labeled['Etiqueta'] = y_train
 
         data_train_unlabelled = data_train_unlabelled.drop(indexs)
-        iteracion += 1
-    return data_train_labeled, iteracion
+        iteration += 1
+    return data_train_labeled, iteration
 
 
 d_l, d_u, x_train, y_train, x_u = datos()
-data, iteraciones = entrenamiento(d_l, d_u, x_train, y_train, x_u)
+dl = DatasetLoader("exams.csv")
+data, iteraciones = entrenamiento(*dl.data())
 mostrar(preparar(data, iteraciones))
