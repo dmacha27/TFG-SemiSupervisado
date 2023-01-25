@@ -5,7 +5,8 @@ from sklearn.datasets import load_breast_cancer
 from sklearn.metrics import confusion_matrix, accuracy_score, f1_score
 from sklearn.svm import SVC
 
-from utilidades import data_split, log_dim_reduction
+from algoritmos.utilidades.datasplitter import data_split
+from algoritmos.utilidades.dimreduction import log_dim_reduction
 
 
 class SelfTraining:
@@ -111,3 +112,20 @@ class SelfTraining:
         """
         f1 = f1_score(y_test, self.clf.predict(x_test), average='micro')
         return f1
+
+
+if __name__ == '__main__':
+    data = load_breast_cancer()
+    x = pd.DataFrame(data['data'], columns=data['feature_names'])
+    y = pd.DataFrame(data['target'], columns=['target'])
+
+    st = SelfTraining(clf=SVC(kernel='rbf',
+                              probability=True,
+                              C=1.0,
+                              gamma='scale',
+                              random_state=0
+                              ), n=10)
+
+    log, it = st.fit(x, y)
+
+    pca_df = log_dim_reduction(log, 2)

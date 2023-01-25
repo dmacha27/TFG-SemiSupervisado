@@ -7,7 +7,6 @@ from pandas import DataFrame
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 
-from utilidades import DatasetLoader
 
 
 def mostrar(data: DataFrame):
@@ -171,9 +170,3 @@ def entrenamiento(data_train_labeled: DataFrame, data_train_unlabelled: DataFram
         data_train_unlabelled = data_train_unlabelled.drop(indexs)
         iteration += 1
     return data_train_labeled, iteration
-
-
-d_l, d_u, x_train, y_train, x_u = datos()
-dl = DatasetLoader("exams.csv")
-data, iteraciones = entrenamiento(*dl.data())
-mostrar(preparar(data, iteraciones))

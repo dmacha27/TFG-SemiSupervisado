@@ -1,9 +1,9 @@
 import pandas as pd
-from algorithms.selftrainingclass import SelfTraining
 from flask import Flask, render_template
 from sklearn.datasets import load_breast_cancer
 from sklearn.svm import SVC
-from utilidades import log_dim_reduction
+from algoritmos import SelfTraining
+from algoritmos.utilidades.dimreduction import log_dim_reduction
 
 app = Flask(__name__)
 
