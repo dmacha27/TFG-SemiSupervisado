@@ -76,6 +76,7 @@ class SelfTraining:
         print(self.get_confusion_matrix(x_test, y_test))
         print(self.get_accuracy_score(x_test, y_test))
         print(self.get_f1_score(x_test, y_test))
+        print(log)
         return log, iteration
 
     def get_confusion_matrix(self, x_test, y_test):
@@ -128,4 +129,4 @@ if __name__ == '__main__':
 
     log, it = st.fit(x, y)
 
-    pca_df = log_dim_reduction(log, 2)
+    df = log_dim_reduction(log, 2)

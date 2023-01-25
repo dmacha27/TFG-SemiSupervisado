@@ -5,7 +5,7 @@ from pandas import DataFrame
 from scipy.io import arff
 from sklearn.model_selection import train_test_split
 
-from utilidades import FileType
+from algoritmos.utilidades.filetype import FileType
 
 
 class DatasetLoader:

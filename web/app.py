@@ -3,6 +3,7 @@ from flask import Flask, render_template
 from sklearn.datasets import load_breast_cancer
 from sklearn.svm import SVC
 from algoritmos import SelfTraining
+from algoritmos.cotraining import CoTraining
 from algoritmos.utilidades.dimreduction import log_dim_reduction
 
 app = Flask(__name__)
@@ -27,6 +28,30 @@ def datosselftraining():
                               ), n=80)
 
     log, it = st.fit(x, y)
+    return log_dim_reduction(log).to_json()
+
+
+@app.route('/datoscotraining', methods=['GET'])
+def datoscotraining():
+    data = load_breast_cancer()
+    x = pd.DataFrame(data['data'], columns=data['feature_names'])
+    y = pd.DataFrame(data['target'], columns=['target'])
+
+    st = CoTraining(clf1=SVC(kernel='rbf',
+                             probability=True,
+                             C=1.0,
+                             gamma='scale',
+                             random_state=0
+                             ),
+                    clf2=SVC(kernel='rbf',
+                             probability=True,
+                             C=1.0,
+                             gamma='scale',
+                             random_state=0
+                             ), n=25)
+
+    log, it = st.fit(x, y)
+
     return log_dim_reduction(log).to_json()
 
 
