@@ -1,29 +1,44 @@
 import pandas as pd
 import numpy as np
 
-from sklearn.datasets import load_breast_cancer
+from sklearn.datasets import load_breast_cancer, load_wine
 from sklearn.metrics import confusion_matrix, accuracy_score, f1_score
 from sklearn.svm import SVC
 
 from algoritmos.utilidades.datasplitter import data_split
 from algoritmos.utilidades.dimreduction import log_dim_reduction
+from sklearn.semi_supervised import SelfTrainingClassifier
 
 
 class SelfTraining:
 
-    def __init__(self, clf, n):
+    def __init__(self, clf, n=None, th=None, n_iter=20):
         """
-        Constructor del algoritmo SelfTraining, preparado para la obtención de todo
-        el proceso de entrenamiento (con sus estadísticas).
+        Algoritmo SelfTraining, preparado para la obtención de todo
+        el proceso de entrenamiento (con sus estadísticas)
 
-        :param clf: Clasificador a usar
-        :param n: Número de mejores predicciones a añadir en cada iteración
+        :param clf: Clasificador a usar.
+        :param n: Número de mejores predicciones a añadir en cada iteración.
+        :param th: Límite (threshold) de probabilidad de correcta clasificación a considerar.
+        :param n_iter: Número de iteraciones (si n_iter == 0 finalizará al terminar de clasificar todas las muestras).
         """
         self.clf = clf
         self.n = n
+        self.th = th
+        self.n_iter = n_iter
+
+        if self.n is None and self.th is None:
+            raise ValueError("Se debe seleccionar un criterio de adición")
+        if self.n is not None and self.th is not None:
+            raise ValueError("Se debe seleccionar un único criterio de adición")
+        if self.clf is None:
+            raise ValueError("El clasificador base no puede ser nulo")
+        if self.n_iter < 0:
+            raise ValueError("El número de iteraciones no puede ser negativo")
 
     def fit(self, x, y):
         """
+        Proceso de entrenamiento y obtención de la evolución
 
         :param x: Muestras (con el nombre de las características).
         :param y: Objetivos de las muestras.
@@ -39,20 +54,24 @@ class SelfTraining:
             y_test
         ) = data_split(x, y)
 
-        iteration = 1
+        iteration = 0
         stats = pd.DataFrame()
-        while len(x_train_unlabelled) != 0:  # Criterio generalmente seguido
+
+        while len(x_train_unlabelled) != 0 and (
+                iteration < self.n_iter or not self.n_iter):  # Criterio generalmente seguido
 
             self.clf.fit(x_train, y_train)
 
+            # Predicción
             points = self.clf.predict_proba(x_train_unlabelled.values).max(axis=1)
 
-            top = self.n
-            if len(x_train_unlabelled.index) < top:
-                top = len(x_train_unlabelled.index)
-
-            # La posición de los mejores X datos (con base en su predicción)
-            topx = points.argsort()[-top:][::-1]
+            if self.n is not None:  # n mejores
+                top = min(self.n, len(x_train_unlabelled.index))
+                topx = points.argsort()[-top:][::-1]
+            else:  # mejores con límite
+                topx = np.where(points > self.th)
+                if len(topx[0]) == 0:
+                    break
 
             # Los nuevos datos a añadir (el dato y la predicción o etiqueta)
             topx_new_labelled = x_train_unlabelled.iloc[topx]
@@ -68,15 +87,14 @@ class SelfTraining:
 
             # Preparación de datos para la siguiente iteración
             new_classified = topx_new_labelled.copy()
-            new_classified['iter'] = iteration
+            new_classified['iter'] = iteration + 1
             new_classified['target'] = topx_pred
             log = pd.concat([log, new_classified])
 
             iteration += 1
         print(self.get_confusion_matrix(x_test, y_test))
-        print(self.get_accuracy_score(x_test, y_test))
-        print(self.get_f1_score(x_test, y_test))
-        print(log)
+        print(iteration)
+        print("Precisión Implementación: ", self.get_accuracy_score(x_test, y_test))
         return log, iteration
 
     def get_confusion_matrix(self, x_test, y_test):
@@ -102,18 +120,6 @@ class SelfTraining:
         p = accuracy_score(y_test, self.clf.predict(x_test))
         return p
 
-    def get_f1_score(self, x_test, y_test):
-        """
-        Obtiene la puntuación de precisión del clasificador
-        respecto a unos datos de prueba
-
-        :param x_test: Conjunto de datos de test.
-        :param y_test: Objetivo de los datos.
-        :return: F1 Score
-        """
-        f1 = f1_score(y_test, self.clf.predict(x_test), average='micro')
-        return f1
-
 
 if __name__ == '__main__':
     data = load_breast_cancer()
@@ -125,8 +131,27 @@ if __name__ == '__main__':
                               C=1.0,
                               gamma='scale',
                               random_state=0
-                              ), n=10)
+                              ), th=0.75, n_iter=10)
 
     log, it = st.fit(x, y)
-
     df = log_dim_reduction(log, 2)
+
+    stsk = SelfTrainingClassifier(base_estimator=SVC(kernel='rbf',
+                                                     probability=True,
+                                                     C=1.0,
+                                                     gamma='scale',
+                                                     random_state=0
+                                                     ))
+    (
+        log,
+        x_train,
+        y_train,
+        x_train_unlabelled,
+        x_test,
+        y_test
+    ) = data_split(x, y)
+
+    x_train = np.append(x_train, x_train_unlabelled.values, axis=0)
+    y_train = np.append(y_train, [-1] * len(x_train_unlabelled))
+    stsk.fit(x_train, y_train)
+    print("Precisión Sklearn: ", stsk.score(x_test, y_test))

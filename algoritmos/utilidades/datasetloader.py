@@ -12,7 +12,7 @@ class DatasetLoader:
 
     def __init__(self, file, labelled_p=0.1, unlabelled_p=0.9):
         """
-        Constructor del cargador para archivos (ARFF o CSV).
+        Cargador para archivos (ARFF o CSV).
 
         :param file: Nombre del dataset a cargar (contenido en '../datasets/')
         :param labelled_p: Porcentaje de datos etiquetados

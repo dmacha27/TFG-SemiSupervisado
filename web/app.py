@@ -1,6 +1,6 @@
 import pandas as pd
 from flask import Flask, render_template
-from sklearn.datasets import load_breast_cancer
+from sklearn.datasets import load_breast_cancer, load_wine
 from sklearn.svm import SVC
 from algoritmos import SelfTraining
 from algoritmos.cotraining import CoTraining
@@ -25,7 +25,7 @@ def datosselftraining():
                               C=1.0,
                               gamma='scale',
                               random_state=0
-                              ), n=80)
+                              ), th=0.75, n_iter=10)
 
     log, it = st.fit(x, y)
     return log_dim_reduction(log).to_json()
@@ -33,7 +33,7 @@ def datosselftraining():
 
 @app.route('/datoscotraining', methods=['GET'])
 def datoscotraining():
-    data = load_breast_cancer()
+    data = load_wine()
     x = pd.DataFrame(data['data'], columns=data['feature_names'])
     y = pd.DataFrame(data['target'], columns=['target'])
 
@@ -48,7 +48,7 @@ def datoscotraining():
                              C=1.0,
                              gamma='scale',
                              random_state=0
-                             ), n=25)
+                             ), n=4, u=50)
 
     log, it = st.fit(x, y)
 
