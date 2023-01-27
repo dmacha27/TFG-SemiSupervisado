@@ -57,20 +57,19 @@ class SelfTraining:
         iteration = 0
         stats = pd.DataFrame()
 
-        while len(x_train_unlabelled) != 0 and (
+        while len(x_train_unlabelled) and (
                 iteration < self.n_iter or not self.n_iter):  # Criterio generalmente seguido
 
             self.clf.fit(x_train, y_train)
 
             # Predicción
             points = self.clf.predict_proba(x_train_unlabelled.values).max(axis=1)
-
             if self.n is not None:  # n mejores
                 top = min(self.n, len(x_train_unlabelled.index))
                 topx = points.argsort()[-top:][::-1]
             else:  # mejores con límite
                 topx = np.where(points > self.th)
-                if len(topx[0]) == 0:
+                if not len(topx[0]):
                     break
 
             # Los nuevos datos a añadir (el dato y la predicción o etiqueta)

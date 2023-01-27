@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-from sklearn.datasets import load_breast_cancer
+from sklearn.datasets import load_breast_cancer, load_wine
 from sklearn.metrics import confusion_matrix, accuracy_score, f1_score
 from sklearn.svm import SVC
 
@@ -11,18 +11,24 @@ from algoritmos.utilidades.dimreduction import log_dim_reduction
 
 class CoTraining:
 
-    def __init__(self, clf1, clf2, n):
+    def __init__(self, clf1, clf2, p, n, u):
         """
-        Constructor del algoritmo SelfTraining, preparado para la obtención de todo
+        Algoritmo CoTraining, preparado para la obtención de todo
         el proceso de entrenamiento (con sus estadísticas).
 
-        :param clf1: Clasificador a usar
-        :param clf2: Clasificador a usar
-        :param n: Número de mejores predicciones a añadir en cada iteración
+        :param clf1: Clasificador a usar.
+        :param clf2: Clasificador a usar.
+        :param p: Número de predicciones positivas a añadir. Se entiende como positiva de aquellas predicciones
+                    que corresponde con la clase minoritaria.
+        :param n: Número de predicciones negativas a añadir. No positivas
+        :param u: Número de muestras seleccionadas al inicio.
         """
         self.clf1 = clf1
         self.clf2 = clf2
+        self.p = p
         self.n = n
+        self.u = u
+        self.replenish = 2 * self.p + 2 * self.n
 
     def fit(self, x, y):
         """
@@ -44,39 +50,45 @@ class CoTraining:
         iteration = 1
         stats = pd.DataFrame()
 
-        while len(x_train_unlabelled) != 0:  # Criterio generalmente seguido
+        selected_unlabelled_samples = x_train_unlabelled.sample(n=self.u)
+        x_train_unlabelled = x_train_unlabelled.drop(selected_unlabelled_samples.index)
+        positive = np.argmin(np.bincount(y_train)[::-1])
+
+        while len(x_train_unlabelled) or len(selected_unlabelled_samples):  # Criterio generalmente seguido
 
             x1, x2 = np.array_split(x_train, 2, axis=1)
 
             self.clf1.fit(x1, y_train)
             self.clf2.fit(x2, y_train)
 
-            x1_u, x2_u = np.array_split(x_train_unlabelled.values, 2, axis=1)
+            x1_u, x2_u = np.array_split(selected_unlabelled_samples.values, 2, axis=1)
 
-            points1 = self.clf1.predict_proba(x1_u).max(axis=1)
-            points2 = self.clf2.predict_proba(x2_u).max(axis=1)
+            pred1, points1 = self.clf1.predict(x1_u), self.clf1.predict_proba(x1_u)
+            pred2, points2 = self.clf2.predict(x2_u), self.clf2.predict_proba(x2_u)
 
-            top = self.n
-            if len(x_train_unlabelled.index) < top:
-                top = len(x_train_unlabelled.index)
+            # TODO: Comprobar duplicados
+            best_p_ipoints1 = points1[:, positive].argsort()[-self.p:]
+            best_n_ipoints1 = np.delete(points1, positive, axis=1).max(axis=1, initial=0).argsort()[-self.n:]
 
-            # La posición de los mejores X datos (con base en su predicción)
-            topx1 = points1.argsort()[-top:][::-1]
-            topx2 = points2.argsort()[-top:][::-1]
+            best_p_ipoints2 = points2[:, positive].argsort()[-self.p:]
+            best_n_ipoints2 = np.delete(points2, positive, axis=1).max(axis=1, initial=0).argsort()[-self.n:]
+
+            topx1 = np.concatenate((best_p_ipoints1, best_n_ipoints1), dtype=int)
+            topx2 = np.concatenate((best_p_ipoints2, best_n_ipoints2), dtype=int)
 
             # Las mejores predicciones pueden coincidir (desempate)
             duplicates = np.intersect1d(topx1, topx2)
             for d in duplicates:
-                if points1[d] > points2[d]:
+                if points1[d][int(pred1[d])] > points2[d][int(pred2[d])]:
                     topx2 = topx2[topx2 != d]
                 else:
                     topx1 = topx1[topx1 != d]
 
             # Los nuevos datos a añadir (el dato y la predicción o etiqueta)
-            topx1_new_labelled = x_train_unlabelled.iloc[topx1]
-            topx1_pred = self.clf1.predict(x1_u[topx1]) if len(topx1) > 0 else []
-            topx2_new_labelled = x_train_unlabelled.iloc[topx2]
-            topx2_pred = self.clf2.predict(x2_u[topx2]) if len(topx2) > 0 else []
+            topx1_new_labelled = selected_unlabelled_samples.iloc[topx1]
+            topx1_pred = pred1[topx1] if len(topx1) > 0 else topx1
+            topx2_new_labelled = selected_unlabelled_samples.iloc[topx2]
+            topx2_pred = pred1[topx2] if len(topx2) > 0 else topx2
 
             # El conjunto de entrenamiento se ha extendido
             x_train = np.append(x_train, topx1_new_labelled.values, axis=0)
@@ -85,16 +97,25 @@ class CoTraining:
             y_train = np.append(y_train, topx2_pred)
 
             # Se eliminan los datos que antes eran no etiquetados pero ahora sí lo son
-            indexes = x_train_unlabelled.index[topx1].union(x_train_unlabelled.index[topx2])
-            x_train_unlabelled = x_train_unlabelled.drop(indexes)
+            indexes = selected_unlabelled_samples.index[topx1].union(selected_unlabelled_samples.index[topx2])
+            selected_unlabelled_samples = selected_unlabelled_samples.drop(indexes)
 
-            # Preparación de datos para la siguiente iteración
+            # Preparación de datos para la siguiente iteración (reponer)
+            aux = x_train_unlabelled.sample(
+                n=self.replenish if len(x_train_unlabelled) >= self.replenish else len(x_train_unlabelled))
+            x_train_unlabelled = x_train_unlabelled.drop(aux.index)
+            selected_unlabelled_samples = pd.concat([selected_unlabelled_samples, aux])
+
+            # Log
             new_classified = pd.concat([topx1_new_labelled.copy(), topx2_new_labelled.copy()])
             new_classified['iter'] = iteration
             new_classified['target'] = np.concatenate((topx1_pred, topx2_pred))
             log = pd.concat([log, new_classified])
             iteration += 1
 
+        # TODO: Duplicados
+        ddd = log.drop(columns=['iter', 'target'])
+        print(ddd.duplicated(subset=ddd.columns.values).to_string())
         return log, iteration
 
 
@@ -114,7 +135,7 @@ if __name__ == '__main__':
                              C=1.0,
                              gamma='scale',
                              random_state=0
-                             ), n=10)
+                             ), p=1, n=3, u=50)
 
     log, it = st.fit(x, y)
 
