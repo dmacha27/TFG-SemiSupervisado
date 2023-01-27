@@ -1,5 +1,15 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# Autor: David Martínez Acha
+# Fecha: 27/01/2023 13:25
+# Descripción: Algoritmo CoTraining
+# Version: 1.0
+
+
 import pandas as pd
 import numpy as np
+from sklearn.base import BaseEstimator
 
 from sklearn.datasets import load_breast_cancer, load_wine
 from sklearn.metrics import confusion_matrix, accuracy_score, f1_score
@@ -11,7 +21,7 @@ from algoritmos.utilidades.dimreduction import log_dim_reduction
 
 class CoTraining:
 
-    def __init__(self, clf1, clf2, p, n, u):
+    def __init__(self, clf1, clf2, p, n, u, n_iter):
         """
         Algoritmo CoTraining, preparado para la obtención de todo
         el proceso de entrenamiento (con sus estadísticas).
@@ -21,17 +31,39 @@ class CoTraining:
         :param p: Número de predicciones positivas a añadir. Se entiende como positiva de aquellas predicciones
                     que corresponde con la clase minoritaria.
         :param n: Número de predicciones negativas a añadir. No positivas
-        :param u: Número de muestras seleccionadas al inicio.
+        :param u: Número de muestras seleccionadas en el inicio.
+        :param n_iter: Número de iteraciones
         """
+
         self.clf1 = clf1
         self.clf2 = clf2
         self.p = p
         self.n = n
         self.u = u
         self.replenish = 2 * self.p + 2 * self.n
+        self.n_iter = n_iter
+
+        if self.clf1 is None or not issubclass(type(self.clf1), BaseEstimator):
+            raise ValueError("El primer clasificador base no puede ser nulo y tiene que ser un estimador de "
+                             "Scikit-Learn")
+        if self.clf2 is None or not issubclass(type(self.clf2), BaseEstimator):
+            raise ValueError("El segundo clasificador base no puede ser nulo y tiene que ser un estimador de "
+                             "Scikit-Learn")
+        if self.n_iter < 0:
+            raise ValueError("El número de iteraciones no puede ser negativo")
+        if self.p < 0:
+            raise ValueError("El número de positivos no puede ser negativo")
+        if self.n < 0:
+            raise ValueError("El número de negativos no puede ser negativo")
+        if not self.n and not self.p:
+            raise ValueError("Los positivos y negativos no pueden ser ambos nulos "
+                             "(no se añadirían nuevas predicciones)")
+        if self.u <= 0:
+            raise ValueError("El número de elementos iniciales debe ser, al menos, 1")
 
     def fit(self, x, y):
         """
+        Proceso de entrenamiento y obtención de la evolución
 
         :param x: Muestras (con el nombre de las características).
         :param y: Objetivos de las muestras.
@@ -47,14 +79,15 @@ class CoTraining:
             y_test
         ) = data_split(x, y)
 
-        iteration = 1
+        iteration = 0
         stats = pd.DataFrame()
 
         selected_unlabelled_samples = x_train_unlabelled.sample(n=self.u)
         x_train_unlabelled = x_train_unlabelled.drop(selected_unlabelled_samples.index)
         positive = np.argmin(np.bincount(y_train)[::-1])
 
-        while len(x_train_unlabelled) or len(selected_unlabelled_samples):  # Criterio generalmente seguido
+        while len(selected_unlabelled_samples) and (
+                iteration < self.n_iter or not self.n_iter):  # Criterio generalmente seguido
 
             x1, x2 = np.array_split(x_train, 2, axis=1)
 
@@ -66,15 +99,14 @@ class CoTraining:
             pred1, points1 = self.clf1.predict(x1_u), self.clf1.predict_proba(x1_u)
             pred2, points2 = self.clf2.predict(x2_u), self.clf2.predict_proba(x2_u)
 
-            # TODO: Comprobar duplicados
             best_p_ipoints1 = points1[:, positive].argsort()[-self.p:]
             best_n_ipoints1 = np.delete(points1, positive, axis=1).max(axis=1, initial=0).argsort()[-self.n:]
 
             best_p_ipoints2 = points2[:, positive].argsort()[-self.p:]
             best_n_ipoints2 = np.delete(points2, positive, axis=1).max(axis=1, initial=0).argsort()[-self.n:]
 
-            topx1 = np.concatenate((best_p_ipoints1, best_n_ipoints1), dtype=int)
-            topx2 = np.concatenate((best_p_ipoints2, best_n_ipoints2), dtype=int)
+            topx1 = np.unique(np.concatenate((best_p_ipoints1, best_n_ipoints1), dtype=int))
+            topx2 = np.unique(np.concatenate((best_p_ipoints2, best_n_ipoints2), dtype=int))
 
             # Las mejores predicciones pueden coincidir (desempate)
             duplicates = np.intersect1d(topx1, topx2)
@@ -88,7 +120,7 @@ class CoTraining:
             topx1_new_labelled = selected_unlabelled_samples.iloc[topx1]
             topx1_pred = pred1[topx1] if len(topx1) > 0 else topx1
             topx2_new_labelled = selected_unlabelled_samples.iloc[topx2]
-            topx2_pred = pred1[topx2] if len(topx2) > 0 else topx2
+            topx2_pred = pred2[topx2] if len(topx2) > 0 else topx2
 
             # El conjunto de entrenamiento se ha extendido
             x_train = np.append(x_train, topx1_new_labelled.values, axis=0)
@@ -108,15 +140,35 @@ class CoTraining:
 
             # Log
             new_classified = pd.concat([topx1_new_labelled.copy(), topx2_new_labelled.copy()])
-            new_classified['iter'] = iteration
+            new_classified['iter'] = iteration + 1
             new_classified['target'] = np.concatenate((topx1_pred, topx2_pred))
             log = pd.concat([log, new_classified])
             iteration += 1
 
-        # TODO: Duplicados
-        ddd = log.drop(columns=['iter', 'target'])
-        print(ddd.duplicated(subset=ddd.columns.values).to_string())
+        x1, x2 = np.array_split(x_train, 2, axis=1)
+        # Entrenar con los últimos etiquetados
+        self.clf1.fit(x1, y_train)
+        self.clf2.fit(x2, y_train)
+
+        print(log)
+        print(self.get_accuracy_score(x_test, y_test))
         return log, iteration
+
+    def get_accuracy_score(self, x_test, y_test):
+        """
+        Obtiene la puntuación de precisión del clasificador
+        respecto a unos datos de prueba
+
+        :param x_test: Conjunto de datos de test.
+        :param y_test: Objetivo de los datos.
+        :return: Precisión
+        """
+        x1, x2 = np.array_split(x_test, 2, axis=1)
+
+        p1 = accuracy_score(y_test, self.clf1.predict(x1))
+        p2 = accuracy_score(y_test, self.clf2.predict(x2))
+
+        return (p1 + p2) / 2
 
 
 if __name__ == '__main__':
@@ -135,7 +187,7 @@ if __name__ == '__main__':
                              C=1.0,
                              gamma='scale',
                              random_state=0
-                             ), p=1, n=3, u=50)
+                             ), p=1, n=3, u=20, n_iter=120)
 
     log, it = st.fit(x, y)
 

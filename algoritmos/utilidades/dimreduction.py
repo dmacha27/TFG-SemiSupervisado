@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# Autor: David Martínez Acha
+# Fecha: 27/01/2023 12:37
+# Descripción: Reduce la dimensionalidad de los datos para ser representados
+# Version: 1.0
+
 import pandas as pd
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler

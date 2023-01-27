@@ -1,8 +1,18 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# Autor: David Martínez Acha
+# Fecha: 27/01/2023 13:25
+# Descripción: Algoritmo SelfTraining
+# Version: 1.0
+
 import pandas as pd
 import numpy as np
+from sklearn.base import BaseEstimator
 
 from sklearn.datasets import load_breast_cancer, load_wine
 from sklearn.metrics import confusion_matrix, accuracy_score, f1_score
+from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 
 from algoritmos.utilidades.datasplitter import data_split
@@ -31,8 +41,8 @@ class SelfTraining:
             raise ValueError("Se debe seleccionar un criterio de adición")
         if self.n is not None and self.th is not None:
             raise ValueError("Se debe seleccionar un único criterio de adición")
-        if self.clf is None:
-            raise ValueError("El clasificador base no puede ser nulo")
+        if self.clf is None or not issubclass(type(self.clf), BaseEstimator):
+            raise ValueError("El clasificador base no puede ser nulo y tiene que ser un estimador de Scikit-Learn")
         if self.n_iter < 0:
             raise ValueError("El número de iteraciones no puede ser negativo")
 
@@ -91,8 +101,12 @@ class SelfTraining:
             log = pd.concat([log, new_classified])
 
             iteration += 1
+
+        self.clf.fit(x_train, y_train)  # Entrenar con los últimos etiquetados
+
         print(self.get_confusion_matrix(x_test, y_test))
         print(iteration)
+        print(log)
         print("Precisión Implementación: ", self.get_accuracy_score(x_test, y_test))
         return log, iteration
 
@@ -121,7 +135,7 @@ class SelfTraining:
 
 
 if __name__ == '__main__':
-    data = load_breast_cancer()
+    data = load_wine()
     x = pd.DataFrame(data['data'], columns=data['feature_names'])
     y = pd.DataFrame(data['target'], columns=['target'])
 
@@ -130,7 +144,7 @@ if __name__ == '__main__':
                               C=1.0,
                               gamma='scale',
                               random_state=0
-                              ), th=0.75, n_iter=10)
+                              ), n=25, n_iter=30)
 
     log, it = st.fit(x, y)
     df = log_dim_reduction(log, 2)
