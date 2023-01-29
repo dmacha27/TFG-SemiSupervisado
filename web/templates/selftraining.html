@@ -62,7 +62,7 @@ let svg, x, y, maxit;
 
 let xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function () {
-    if (this.readyState === 4) {
+    if (this.readyState === XMLHttpRequest.DONE) {
         let datos = JSON.parse(xhr.responseText);
         let carga = document.getElementById("cargando");
         carga.style.visibility = 'hidden';
@@ -101,8 +101,12 @@ xhr.onreadystatechange = function () {
         chartdatabinding()
     }
 }
-xhr.open("GET","/datoscotraining");
-xhr.send();
+xhr.open("POST","/selftrainingd");
+var parametros= new FormData()
+parametros.append("n", {{ n }})
+parametros.append("th", {{ th }})
+parametros.append("n_iter", {{ n_iter }})
+xhr.send(parametros);
 
 let cont = 0;
 
