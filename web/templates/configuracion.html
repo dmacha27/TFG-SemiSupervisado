@@ -16,5 +16,13 @@
         <label for="n_iter">Número de iteraciones:</label>
         <input type="number" id="n_iter" name="n_iter">
     </div>
+    <div>
+        <label for="sel_target">Selecciona el target/clase del dataset seleccionado:</label>
+        <select name="target">
+            {% for c in caracteristicas %}
+                <option value="{{c}}">{{c}}</option>
+            {% endfor %}
+        </select>
+    </div>
     <button type="submit">Ejecutar</button>
 </form>

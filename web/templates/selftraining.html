@@ -106,6 +106,7 @@ var parametros= new FormData()
 parametros.append("n", {{ n }})
 parametros.append("th", {{ th }})
 parametros.append("n_iter", {{ n_iter }})
+parametros.append("target", "{{ target }}")
 xhr.send(parametros);
 
 let cont = 0;

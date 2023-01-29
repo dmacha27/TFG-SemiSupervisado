@@ -1,24 +1,21 @@
 import os
 
 import pandas as pd
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory, session, flash
+from flask import Flask, render_template, request, redirect, session
+from flask_session import Session
 from sklearn.datasets import load_breast_cancer, load_wine
-from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 from werkzeug.utils import secure_filename
 
 from algoritmos import SelfTraining
 from algoritmos import CoTraining
+from algoritmos.utilidades.datasetloader import DatasetLoader
 from algoritmos.utilidades.dimreduction import log_dim_reduction
 
 app = Flask(__name__)
 app.config['CARPETA_DATASETS'] = 'datasets'
-
-
-@app.route('/selftraining', methods=['GET', 'POST'])
-def selftraining():
-    return render_template('selftraining.html', n=request.form['n'],
-                           th=request.form['th'], n_iter=request.form['n_iter'])
+app.config['SESSION_TYPE'] = 'filesystem'
+Session(app)
 
 
 @app.route('/', methods=['GET'])
@@ -36,7 +33,7 @@ def subida():
 
         if file:
             filename = secure_filename(file.filename)
-            session['FICHERO'] = filename
+            session['FICHERO'] = os.path.join(app.config['CARPETA_DATASETS'], filename)
             file.save(os.path.join(app.config['CARPETA_DATASETS'], filename))
 
     return render_template('subida.html')
@@ -44,7 +41,14 @@ def subida():
 
 @app.route('/configuracion', methods=['GET'])
 def configuracion():
-    return render_template('configuracion.html')
+    dl = DatasetLoader(session['FICHERO'])
+    return render_template('configuracion.html', caracteristicas=dl.features())
+
+
+@app.route('/selftraining', methods=['GET', 'POST'])
+def selftraining():
+    return render_template('selftraining.html', n=request.form['n'],
+                           th=request.form['th'], n_iter=request.form['n_iter'], target=request.form['target'])
 
 
 @app.route('/selftrainingd', methods=['GET', 'POST'])
@@ -56,6 +60,10 @@ def datosselftraining():
     data = load_breast_cancer()
     x = pd.DataFrame(data['data'], columns=data['feature_names'])
     y = pd.DataFrame(data['target'], columns=['target'])
+
+    dl = DatasetLoader(session['FICHERO'])
+    dl.set_target(request.form['target'])
+    x, y, _, _ = dl.get_x_y()
 
     st = SelfTraining(clf=SVC(kernel='rbf',
                               probability=True,
