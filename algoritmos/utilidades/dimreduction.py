@@ -4,7 +4,7 @@
 # Autor: David Martínez Acha
 # Fecha: 27/01/2023 12:37
 # Descripción: Reduce la dimensionalidad de los datos para ser representados
-# Version: 1.0
+# Version: 1.1
 
 import pandas as pd
 from sklearn.decomposition import PCA
@@ -14,7 +14,7 @@ from sklearn.preprocessing import StandardScaler
 def log_dim_reduction(log, n_com=2):
     """
     Reduce las características (features) de los datos para ser representado
-    en un gráfico. En principio para 2 componentes
+    en un gráfico. En principio para 2 componentes, arbitrariamente etiquetadas como C1, C2..
 
     :param log: Información de entrenamiento.
     :param n_com: Número de componentes a reducir.
@@ -36,7 +36,7 @@ def log_dim_reduction(log, n_com=2):
 
     df = pd.DataFrame(
         data=pca_features,
-        columns=['C1', 'C2'])
+        columns=[f"C{i}" for i in range(1, n_com + 1)])
 
     df['target'] = rest['target'].values
     df['iter'] = rest['iter'].values

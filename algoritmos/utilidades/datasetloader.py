@@ -1,12 +1,18 @@
+# !/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# Autor: David Martínez Acha
+# Fecha: 29/01/2023 23:24
+# Descripción: Permite cargar datasets
+# Version: 1.0
+
 from os.path import isfile
 
 import pandas as pd
-from pandas import DataFrame
 from scipy.io import arff
-from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 
-from algoritmos.utilidades.filetype import FileType
+from algoritmos.utilidades import FileType
 
 
 class DatasetLoader:
@@ -40,7 +46,7 @@ class DatasetLoader:
         :return: Listado de las características de los datos.
         """
 
-        return self.get_data().columns.values
+        return self._get_data().columns.values
 
     def set_target(self, target):
         """
@@ -50,7 +56,7 @@ class DatasetLoader:
         """
         self.target = target
 
-    def get_data(self):
+    def _get_data(self):
         """
         Obtiene los datos sin procesar (directamente del fichero) según
         el tipo de fichero que sea
@@ -88,7 +94,7 @@ class DatasetLoader:
             raise ValueError("La clase o target no ha sido establecida, selecciona primero la característica que "
                              "actúa como target")
 
-        data = self.get_data()
+        data = self._get_data()
 
         x = data.loc[:, data.columns != self.target]
 
@@ -102,7 +108,7 @@ class DatasetLoader:
 
 if __name__ == '__main__':
     dl = DatasetLoader('iris.csv')
-    print(dl.get_data())
+    print(dl._get_data())
     print(dl.features())
     # dl.set_target("variety")
     print(dl.get_x_y())

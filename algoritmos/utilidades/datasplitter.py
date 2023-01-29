@@ -1,7 +1,3 @@
-from pandas import DataFrame
-from sklearn.model_selection import train_test_split
-
-
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
@@ -9,6 +5,10 @@ from sklearn.model_selection import train_test_split
 # Fecha: 27/01/2023 12:37
 # Descripción: Divide los datos para los algoritmos
 # Version: 1.0
+
+from pandas import DataFrame
+from sklearn.model_selection import train_test_split
+
 
 def data_split(x: DataFrame, y: DataFrame):
     """

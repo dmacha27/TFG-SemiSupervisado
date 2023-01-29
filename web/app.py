@@ -9,8 +9,8 @@ from werkzeug.utils import secure_filename
 
 from algoritmos import SelfTraining
 from algoritmos import CoTraining
-from algoritmos.utilidades.datasetloader import DatasetLoader
-from algoritmos.utilidades.dimreduction import log_dim_reduction
+from algoritmos.utilidades import DatasetLoader
+from algoritmos.utilidades import log_dim_reduction
 
 app = Flask(__name__)
 app.config['CARPETA_DATASETS'] = 'datasets'
