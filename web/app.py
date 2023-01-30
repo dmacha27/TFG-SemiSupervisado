@@ -64,29 +64,37 @@ def configuracionselftraining():
 
 @app.route('/selftraining', methods=['GET', 'POST'])
 def selftraining():
-    if ('n' or 'th' or 'n_iter' or 'target') not in request.form:
+    if 'target' not in request.form:
         flash("Debe seleccionar los parámetros del algoritmo")
         return redirect('/selftrainingc')
-    return render_template('selftraining.html', n=request.form['n'],
-                           th=request.form['th'], n_iter=request.form['n_iter'], target=request.form['target'])
+
+    return render_template('selftraining.html',
+                           n=request.form['n'] if 'n' in request.form else -1,
+                           th=request.form['th'] if 'th' in request.form else -1,
+                           n_iter=request.form['n_iter'],
+                           target=request.form['target'])
 
 
 @app.route('/selftrainingd', methods=['GET', 'POST'])
 def datosselftraining():
     n = int(request.form['n'])
-    th = int(request.form['th'])
+    th = float(request.form['th'])
     n_iter = int(request.form['n_iter'])
+    clf = SVC(kernel='rbf',
+              probability=True,
+              C=1.0,
+              gamma='scale',
+              random_state=0
+              )
+
+    st = SelfTraining(clf=clf,
+                      n=n if n != -1 else None,
+                      th=th if th != -1 else None,
+                      n_iter=n_iter)
 
     dl = DatasetLoader(session['FICHERO'])
     dl.set_target(request.form['target'])
     x, y, mapa, _ = dl.get_x_y()
-    
-    st = SelfTraining(clf=SVC(kernel='rbf',
-                              probability=True,
-                              C=1.0,
-                              gamma='scale',
-                              random_state=0
-                              ), n=n, n_iter=n_iter)
 
     log, it = st.fit(x, y)
 
