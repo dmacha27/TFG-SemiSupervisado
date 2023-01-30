@@ -1,10 +1,11 @@
 let dataset = [];
+let mapa;
 
 let margin = {top: 10, right: 30, bottom: 30, left: 60},
     width = 800 - margin.left - margin.right,
     height = 670 - margin.top - margin.bottom;
 
-let svg, x, y, maxit;
+let svg, x, y, maxit, color;
 
 let xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function () {
@@ -18,8 +19,12 @@ xhr.onreadystatechange = function () {
         let controles = document.getElementById("controles");
         controles.style.visibility = 'visible';
 
-        dataset = preparardataset(datos);
+        dataset = preparardataset(JSON.parse(datos['log']));
+        mapa = JSON.parse(datos['mapa']);
         maxit = d3.max(dataset, d => d[3]);
+        color = d3.scaleOrdinal()
+            .domain(Object.keys(mapa))
+            .range(d3.schemeCategory10)
 
         svg = d3.select("#semisupervisedchart")
             .append("svg")
@@ -62,7 +67,7 @@ function preparardataset(datos) {
     let xs = datos['C1'];
     let ys = datos['C2'];
     let etiq = datos['target'];
-    let iter = datos['iter']
+    let iter = datos['iter'];
 
 
     for (const key in xs){
@@ -71,7 +76,6 @@ function preparardataset(datos) {
 
     return dataset;
 }
-
 
 function chartdatabinding(){
     svg.append('g')
@@ -84,37 +88,52 @@ function chartdatabinding(){
         .attr("r", 2)
         .style("fill", function (d) {
             if (d[3] <= cont) {
-                if (d[2] === 0) {
-                    return "blue";
-                } else if (d[2] === 1) {
-                    return "red";
-                } else{
-                    return "green";
-                }
+                return color(d[2])
             } else {
                 return "grey";
             }
         })
+
+    svg.append('g')
+        .selectAll("target")
+        .data(Object.keys(mapa))
+        .enter()
+        .append("text")
+        .attr("x", 120)
+        .attr("y", function(d,i){ return 100 + i*25})
+        .style("fill", function(d){ return color(parseInt(d))})
+        .text(function(d){ return mapa[d]})
+        .attr("text-anchor", "left")
+        .style("alignment-baseline", "middle")
 }
 
 let nexit = d3.select("#nextit");
+nexit.on("click", next);
 
 function next(){
     if (cont < maxit){
         cont++;
-        chartdatabinding()
+        d3.selectAll("circle")
+            .filter(function(d) {
+                return d[3] === cont;
+            })
+            .style("fill", function(d){ return color(d[2])})
     }
 }
 
-nexit.on("click", next);
+
 
 let previt = d3.select("#previt");
+previt.on("click", prev);
 
 function prev(){
     if (cont > 0){
         cont--;
-        chartdatabinding()
+        d3.selectAll("circle")
+            .filter(function(d) {
+                return d[3] > cont;
+            })
+            .style("fill", "grey")
     }
 }
 
-previt.on("click", prev);

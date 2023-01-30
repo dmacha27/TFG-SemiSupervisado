@@ -4,7 +4,7 @@
 # Autor: David Martínez Acha
 # Fecha: 29/01/2023 23:24
 # Descripción: Permite cargar datasets
-# Version: 1.0
+# Version: 1.1
 
 from os.path import isfile
 
@@ -101,7 +101,8 @@ class DatasetLoader:
         le = LabelEncoder()
 
         y = pd.DataFrame(le.fit_transform(data[self.target]), columns=['target'])
-        mapping = dict(zip(le.transform(le.classes_), le.classes_))
+
+        mapping = {int(t): str(c, encoding='utf-8') for t, c in zip(le.transform(le.classes_), le.classes_)}
 
         return x, y, mapping, le
 
