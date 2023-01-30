@@ -2,7 +2,7 @@ import os
 import json
 
 import pandas as pd
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, flash, render_template, request, redirect, session
 from flask_session import Session
 from sklearn.datasets import load_breast_cancer, load_wine
 from sklearn.svm import SVC
@@ -14,6 +14,7 @@ from algoritmos.utilidades import DatasetLoader
 from algoritmos.utilidades import log_dim_reduction
 
 app = Flask(__name__)
+app.secret_key = "secreta"
 app.config.update(SESSION_COOKIE_SAMESITE='Strict')
 app.config['CARPETA_DATASETS'] = 'datasets'
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -22,7 +23,8 @@ Session(app)
 
 @app.route('/', methods=['GET'])
 def inicio():
-    session.clear()
+    session.pop('ALGORITMO', None)
+    session.pop('FICHERO', None)
     return render_template('inicio.html')
 
 
@@ -34,8 +36,11 @@ def sel_selftraining():
 
 @app.route('/subida', methods=['GET', 'POST'])
 def subida():
-    if request.method == 'POST':
+    if 'ALGORITMO' not in session:
+        flash("Debe seleccionar un algoritmo")
+        return redirect('/')
 
+    if request.method == 'POST':
         file = request.files['archivo']
         if file.filename == '':
             return redirect(request.url)
@@ -49,13 +54,19 @@ def subida():
 
 
 @app.route('/selftrainingc', methods=['GET'])
-def configuracion():
+def configuracionselftraining():
+    if 'FICHERO' not in session:
+        flash("Debe subir un fichero")
+        return redirect('/subida')
     dl = DatasetLoader(session['FICHERO'])
     return render_template('selftrainingconfig.html', caracteristicas=dl.features())
 
 
 @app.route('/selftraining', methods=['GET', 'POST'])
 def selftraining():
+    if ('n' or 'th' or 'n_iter' or 'target') not in request.form:
+        flash("Debe seleccionar los parámetros del algoritmo")
+        return redirect('/selftrainingc')
     return render_template('selftraining.html', n=request.form['n'],
                            th=request.form['th'], n_iter=request.form['n_iter'], target=request.form['target'])
 
@@ -69,7 +80,7 @@ def datosselftraining():
     dl = DatasetLoader(session['FICHERO'])
     dl.set_target(request.form['target'])
     x, y, mapa, _ = dl.get_x_y()
-    print(mapa)
+    
     st = SelfTraining(clf=SVC(kernel='rbf',
                               probability=True,
                               C=1.0,

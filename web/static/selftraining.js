@@ -11,7 +11,7 @@ let xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE) {
         let datos = JSON.parse(xhr.responseText);
-        let carga = document.getElementById("div_cargandado");
+        let carga = document.getElementById("div_cargando");
         carga.style.visibility = 'hidden';
         carga.style.opacity = '0';
         carga.style.height = '0';

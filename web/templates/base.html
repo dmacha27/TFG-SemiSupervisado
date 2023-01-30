@@ -18,6 +18,13 @@
         <div id="content">{% block content %}{% endblock %}</div>
         <div id="footer">
             {% block footer %}{% endblock %}
+            {% with mensajes = get_flashed_messages() %}
+                {% if mensajes %}
+                    {% for mensaje in mensajes|reverse %}
+                        <p style="background-color: gold; color: black;"> {{ loop.index }} - {{ mensaje }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
             <p>Universidad de Burgos</p>
         </div>
     </body>
