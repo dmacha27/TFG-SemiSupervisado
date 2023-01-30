@@ -11,7 +11,7 @@ let xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE) {
         let datos = JSON.parse(xhr.responseText);
-        let carga = document.getElementById("cargando");
+        let carga = document.getElementById("div_cargandado");
         carga.style.visibility = 'hidden';
         carga.style.opacity = '0';
         carga.style.height = '0';
@@ -19,12 +19,12 @@ xhr.onreadystatechange = function () {
         let controles = document.getElementById("controles");
         controles.style.visibility = 'visible';
 
-        dataset = preparardataset(JSON.parse(datos['log']));
-        mapa = JSON.parse(datos['mapa']);
+        dataset = preparardataset(JSON.parse(datos.log));
+        mapa = JSON.parse(datos.mapa);
         maxit = d3.max(dataset, d => d[3]);
         color = d3.scaleOrdinal()
             .domain(Object.keys(mapa))
-            .range(d3.schemeCategory10)
+            .range(d3.schemeCategory10);
 
         svg = d3.select("#semisupervisedchart")
             .append("svg")
@@ -49,15 +49,15 @@ xhr.onreadystatechange = function () {
         svg.append("g")
             .call(d3.axisLeft(y));
 
-        chartdatabinding()
+        chartdatabinding();
     }
 }
 xhr.open("POST","/selftrainingd");
-var parametros= new FormData()
-parametros.append("n", n)
-parametros.append("th", th)
-parametros.append("n_iter", n_iter )
-parametros.append("target", target)
+var parametros= new FormData();
+parametros.append("n", n);
+parametros.append("th", th);
+parametros.append("n_iter", n_iter );
+parametros.append("target", target);
 xhr.send(parametros);
 
 let cont = 0;
@@ -88,11 +88,11 @@ function chartdatabinding(){
         .attr("r", 2)
         .style("fill", function (d) {
             if (d[3] <= cont) {
-                return color(d[2])
+                return color(d[2]);
             } else {
                 return "grey";
             }
-        })
+        });
 
     svg.append('g')
         .selectAll("target")
@@ -100,11 +100,11 @@ function chartdatabinding(){
         .enter()
         .append("text")
         .attr("x", 120)
-        .attr("y", function(d,i){ return 100 + i*25})
-        .style("fill", function(d){ return color(parseInt(d))})
-        .text(function(d){ return mapa[d]})
+        .attr("y", function(d,i){ return 100 + i*25;})
+        .style("fill", function(d){ return color(parseInt(d));})
+        .text(function(d){ return mapa[d];})
         .attr("text-anchor", "left")
-        .style("alignment-baseline", "middle")
+        .style("alignment-baseline", "middle");
 }
 
 let nexit = d3.select("#nextit");
@@ -117,7 +117,7 @@ function next(){
             .filter(function(d) {
                 return d[3] === cont;
             })
-            .style("fill", function(d){ return color(d[2])})
+            .style("fill", function(d){ return color(d[2]);});
     }
 }
 
@@ -133,7 +133,7 @@ function prev(){
             .filter(function(d) {
                 return d[3] > cont;
             })
-            .style("fill", "grey")
+            .style("fill", "grey");
     }
 }
 

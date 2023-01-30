@@ -1,11 +1,20 @@
 {% extends "base.html" %}
 {% block title %}Selección de dataset{% endblock %}
 {% block content %}
-    <form action="" method="post" enctype="multipart/form-data">
-        <input type="file" name="archivo">
-        <input type="submit" value="Subir">
-    </form>
+    <div class="container">
+        <div id="soltar">
+            Arrastra y suelta aquí tu archivo.
+        </div>
+    </div>
+    <div class="container">
+        <progress id="progreso" max=100 value=0></progress>
+    </div>
+    <div class="container">
+        <form action="/{{ alg }}c">
+            <input id="config_btn" type="submit" value="Configurar algoritmo" />
+        </form>
+    </div>
     <br>
-    <a href="/{{ alg }}c">Configurar algoritmo</a>
+    <script type="text/javascript" src="/static/subida.js"></script>
 {% endblock %}
 

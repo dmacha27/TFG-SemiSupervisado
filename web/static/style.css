@@ -11,11 +11,13 @@ body {
 }
 
 #navbar a {
+    padding: 8px 16px;
     color: #FFFFFF;
+    text-decoration: none;
 }
 
 #navbar a:hover {
-    color: #FFFFFF;
+    background: #80192c;
 }
 
 #footer {
@@ -30,6 +32,21 @@ body {
 
 #footer p {
     margin: 0;
+}
+
+.container {
+  margin: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#soltar {
+    border: 2px dashed;
+    text-align: center;
+    width: 400px;
+    height: 300px;
+    margin:0 auto;
 }
 
 .cargando {
@@ -54,3 +71,4 @@ body {
 .grid-child {
     margin: 10px;
 }
+
