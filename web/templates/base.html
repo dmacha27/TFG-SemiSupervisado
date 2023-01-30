@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        {% block head %}
+        <link rel="stylesheet" href="/static/style.css" />
+        <meta charset="UTF-8" />
+        <title>{% block title %}{% endblock %} - VASS</title>
+        {% endblock %}
+    </head>
+    <body>
+        <div id="header">{% block header %}
+            <div id="navbar">
+                <a href="/">Inicio</a>
+            </div>
+            <br>
+        {% endblock %}</div>
+        <div id="content">{% block content %}{% endblock %}</div>
+        <div id="footer">
+            {% block footer %}{% endblock %}
+            <p>Universidad de Burgos</p>
+        </div>
+    </body>
+</html>

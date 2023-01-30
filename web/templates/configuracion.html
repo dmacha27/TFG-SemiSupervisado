@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-
-<title>Configuración de la ejecución</title>
-
+{% extends "base.html" %}
+{% block title %}Configuración de la ejecución{% endblock %}
+{% block content %}
 <form action="/selftraining" method="POST">
     <div>
         <label for="n">N:</label>
@@ -26,3 +24,5 @@
     </div>
     <button type="submit">Ejecutar</button>
 </form>
+
+{% endblock %}

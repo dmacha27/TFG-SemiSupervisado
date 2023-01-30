@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
+{% extends "base.html" %}
+{% block title %}Selección de dataset{% endblock %}
+{% block content %}
+    <form action="" method="post" enctype="multipart/form-data">
+        <input type="file" name="archivo">
+        <input type="submit" value="Subir">
+    </form>
+    <a href="/configuracion">Configurar algoritmo</a>
+{% endblock %}
 
-<title>Subida fichero ARFF o CSV</title>
-
-<form action="" method="post" enctype="multipart/form-data">
-    <input type="file" name="archivo">
-    <input type="submit" value="Subir">
-</form>
-
-<a href="/configuracion">Ir</a>
