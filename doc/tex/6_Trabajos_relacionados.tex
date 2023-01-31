@@ -1,3 +1,63 @@
 \capitulo{6}{Trabajos relacionados}
 
-Este apartado sería parecido a un estado del arte de una tesis o tesina. En un trabajo final grado no parece obligada su presencia, aunque se puede dejar a juicio del tutor el incluir un pequeño resumen comentado de los trabajos y proyectos ya realizados en el campo del proyecto en curso. 
+Con el aprendizaje automático y el uso de gran cantidad de datos, es
+completamente necesaria la visualización de los datos, procesos de entrenamiento
+y ciertas estadísticas. Al fin y al cabo, cuando se construyen modelos, se debe
+tener una realimentación de cómo de bien está funcionando para poder extraer
+conclusiones sobre el mismo.
+
+De forma general, sin centrarse directamente en el aprendizaje automático,
+resulta interesante y conveniente que los visualizadores de algoritmos sean
+accesibles y que, como están apareciendo, se creen aplicaciones Web que resultan
+mucho más directas. Desde el punto de vista de la docencia y aprendizaje los
+visualizadores permiten culminar la comprensión los aspectos teóricos
+subyacentes.
+
+\section{Visualizadores}
+
+\textbf{Seshat} es una herramienta web que trata de facilitar el aprendizaje de
+la teoría de lenguajes y autómatas (análisis léxico) que utilizan los
+compiladores \cite{arnaiz2018seshat} , puede accederse desde
+\url{http://cgosorio.es/Seshat}. La herramienta propone en primera instancia
+unas explicaciones teóricas de los algoritmos con sus conceptos generales, el
+concepto concreto de las expresiones regulares y qué es un autómata finito. A
+partir de la teoría, se encuentran implementados varios algoritmos que se
+visualizan paso a paso. En el momento de la ejecución también se tienen
+elementos de interés como la propia descripción o explicación del algoritmo. Los
+algoritmos implementados por la herramienta son:
+\begin{enumerate}
+    \item Construcción de un autómata finito no determinista (AFND) a partir de una expresión regular.
+    \item Conversión de un autómata finito no determinista (AFND) a un autómata finito determinista (AFD).
+    \item Construcción de un autómata finito determinista (AFD) a partir de una expresión regular.
+    \item Minimización de un autómata finito.
+\end{enumerate}
+Para su construcción se ha usado el framework Flask en Python que actúa como
+servidor. La interfaz de usuario está construida con HTML, SVGs y Javascript
+para proporcionar el contenido dinámico.
+
+
+\textbf{Herramienta de apoyo a la docencia de algoritmos de selección de instancias}
+\cite{arnaiz2012herramienta}. Es una herramienta de escritorio para la
+visualización de la ejecución y resultados de los algoritmos de selección de
+instancias debido a la carencia de este tipo de aplicaciones para dichos
+algoritmos. La herramienta es altamente personalizable pudiendo subir el
+conjunto de datos o seleccionar qué característica visualizar en los ejes. En la
+visualización se pueden ver todos los pasos de los algoritmos junto, por
+ejemplo, a las regiones de Boronoi o el pseudocódigo. Esto hace que el alumno
+pueda conocer el progreso y los conceptos particulares (influencia, vecindad...). Los
+algoritmos implementados por la herramienta son:
+\begin{enumerate}
+    \item Algoritmo Condensado de Hart (CNN)
+    \item Algoritmo Condensado Reducido (RNN).
+    \item Algoritmo Subconjunto Selectivo Modificado (MSS)
+    \item Algoritmos Decremental Reduction Optimization Preocedure (DROP)
+    \item Algoritmo Iterative Case Filtering (ICF)
+    \item Algoritmo Democratic Instance Selection (DIS)
+\end{enumerate}
+Está desarrollado completamente en Java lo que lo hace portable a cualquier
+plataforma y sin instalación.
+
+\section{Otras herramientas/librerías}
+Existen algunas herramientas bastante interesantes y visuales pero más pequeñas.
+
+

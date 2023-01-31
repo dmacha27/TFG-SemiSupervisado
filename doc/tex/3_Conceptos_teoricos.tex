@@ -75,30 +75,30 @@ de \textbf{regresión}.
 \subsection{Aprendizaje no supervisado}
 
 A diferencia del aprendizaje supervisado, en el no supervisado, los algoritmos
-no se nutren de datos etiquetados. Los usuarios no "<supervisan"> el modelo
+no se nutren de datos etiquetados. En otras palabras, los usuarios no "<supervisan"> el modelo
 \cite{salim:usl}. Esto quiere decir que no aprenderán de etiquetas, sino de la
 propia estructura que se encuentre en los datos (patrones). Por ejemplo, dadas
 unas imágenes de animales, sin especificar cuál es cuál, el aprendizaje no
 supervisado identificará las similitudes entre imágenes y como resultado podría
-dar la separación de estas dos especies (o separaciones entre colores, pelaje,
+dar la separación de las especies (o separaciones entre colores, pelaje,
 raza...).
 
-Como principales usos del aprendizaje, suele aplicarse a:
+Como principales usos del aprendizaje no supervisado, suele aplicarse a:
 \vspace{-4px}
 \begin{enumerate}
     \item \textbf{Agrupamiento (Clustering)}: Este modelo de aprendizaje no
     supervisado trata de dividir los datos en grupos. Para ello, estudia las
     similitudes entre ellos y también en las disimilitudes con otros. Estos
-    modelos pueden tanto descubrir por ellos mismos los ``clústeres'' o grupos
+    modelos pueden tanto descubrir por ellos mismos los "<clústeres"> o grupos
     que se encuentran o indicarle cuántos debe identificar \cite{salim:usl}.
     \item \textbf{Reducción de la dimensionalidad}: Para empezar, el término
     "<dimensionalidad"> hace referencia al número de variables de entrada que
     tienen los datos. En la realidad, los conjuntos de datos sobre los que se
     trabaja suelen tener una dimensionalidad grande. Según
     \cite{javatpoint:reduccionsdims} la reducción de dimensionalidad se denomina
-    como \say{Una forma de convertir conjuntos de datos de alta dimensionalidad en
+    como "<Una forma de convertir conjuntos de datos de alta dimensionalidad en
     conjunto de datos de menor dimensionalidad, pero garantizando que proporciona
-    información similar}. Es decir, simplificar el problema pero sin perder
+    información similar">. Es decir, simplificar el problema pero sin perder
     toda esa estructura interesante de los datos. Algunos ejemplos pueden ser:
     \begin{itemize}
         \item Análisis de Componentes Principales (PCA)
@@ -107,8 +107,12 @@ Como principales usos del aprendizaje, suele aplicarse a:
     \end{itemize}
 \end{enumerate}
 
-\imagenconurl{clustering}{Clusters}{\footnotesize{Clusters - By hellisp - Own work, Public Domain, \url{https://commons.wikimedia.org/w/index.php?curid=36929773}}}{0.5}
-
+\imagenconurl{clustering}{Clusters}{\footnotesize{Clusters - By hellisp - Own
+work, Public Domain,
+\url{https://commons.wikimedia.org/w/index.php?curid=36929773}. Ejemplo de
+clustering, a la izquierda los datos no etiquetados y a la derecha los datos
+coloreados según las clases identificadas por el algoritmo de clustering.
+}}{0.5} 
 \subsection{Aprendizaje semi-supervisado}
 
 Según \cite{vanEngelen2020} el aprendizaje semi-supervisado es la rama del
@@ -149,11 +153,10 @@ no siempre es la misma:
     Los datos pueden tener una dimensionalidad alta (muchas características)
     pero generalmente no todas las características son completamente útiles. Los
     datos a menudo se encuentran en unas estructuras de más baja
-    dimensionalidad. Estas estructuras se conocen como ``manifolds''. Esa
+    dimensionalidad. Estas estructuras se conocen como "<manifolds">. Esta
     suposición indica que si los datos del espacio de entrada se encuentran en
-    estas ``manifolds'' entonces aquellos puntos que se encuentren en el mismo
-    ``manifold'' tendrán la misma etiqueta. \cite{towardsdatascience:semi}
-    \cite{vanEngelen2020}
+    estas "<manifolds"> entonces aquellos puntos que se encuentren en el mismo
+    "<manifolds"> tendrán la misma etiqueta. \cite{towardsdatascience:semi,vanEngelen2020}
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=\textit{Cluster assumption}]
@@ -162,9 +165,10 @@ no siempre es la misma:
 \end{tcolorbox}
 
 
-De estas suposiciones se extrae el concepto de ``similitud'' en el que en todas
-ellas se encuentra presente. Y en realidad, todas las suposiciones anteriores
-son versiones de ``\textit{Cluster assumption}'': Puntos similares tienden a pertenecer
-al mismo grupo. Además, la suposición de clúster resulta necesaria para que el
-aprendizaje semi-supervisado mejore al supervisado. Si los datos no pueden ser
-agrupados, entonces no mejorará ningún método supervisado~\cite{vanEngelen2020}.
+De estas suposiciones se extrae el concepto de "<similitud"> en el que en todas
+ellas se encuentra presente. Y en realidad, todas son versiones de
+\textit{Cluster assumption} en la que los puntos similares tienden a
+pertenecer al mismo grupo. Además, la suposición de clúster resulta necesaria
+para que el aprendizaje semi-supervisado mejore al supervisado. Si los datos no
+pueden ser agrupados, entonces no mejorará ningún método
+supervisado~\cite{vanEngelen2020}.
