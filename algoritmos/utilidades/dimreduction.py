@@ -11,7 +11,7 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 
 
-def log_dim_reduction(log, n_com=2):
+def log_pca_reduction(log, n_com=2):
     """
     Reduce las características (features) de los datos para ser representado
     en un gráfico. En principio para 2 componentes, arbitrariamente etiquetadas como C1, C2..
@@ -42,3 +42,21 @@ def log_dim_reduction(log, n_com=2):
     df['iter'] = rest['iter'].values
 
     return df
+
+
+def log_cxcy_reduction(log, cx, cy):
+    """
+    Reduce las características (features) de los datos para ser representado
+    en un gráfico. Con las dos componentes cx y cy
+
+    :param log: Información de entrenamiento.
+    :param cx: Componente X.
+    :param cy: Componente Y.
+    :return: El log transformado
+    """
+
+    # Está planteado para que las dos últimas columnas sean la iteración y el target u objetivo
+    if len(log.columns) == 4:
+        return log
+
+    return log[[cx, cy, 'target', 'iter']]

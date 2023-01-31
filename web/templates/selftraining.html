@@ -8,14 +8,18 @@
 {% block content %}
     <div class="grid-container">
         <div id="grafico" class="grid-child">
-            <div id="div_cargando" class="container">
-                <div id ="cargando" class="cargando"></div>
-            </div>
-            <div id="semisupervisedchart"></div>
-            <div id="controles" style="visibility: hidden">
-                <button id="previt">Anterior</button>
-                <button id="play">Play</button>
-                <button id="nextit">Siguiente</button>
+            <div class="padre">
+                <div id="div_cargando" class="hijo">
+                    <div id ="cargando" class="cargando"></div>
+                </div>
+                <div id="semisupervisedchart" class="hijo"></div>
+                <div class="hijo" id="controles" style="visibility: hidden">
+                    <progress id="progreso" value=0></progress>
+                    <br>
+                    <button id="previt">Anterior</button>
+                    <button id="reproducir">Reproducir</button>
+                    <button id="nextit">Siguiente</button>
+                </div>
             </div>
         </div>
         <div id="info" class="grid-child">
@@ -24,6 +28,7 @@
     </div>
     <script>
         let n = {{ n }}, th = {{ th }}, n_iter = {{ n_iter }}, target = "{{ target }}";
+        let cx = "{{ cx }}", cy = "{{ cy }}", pca = "{{ pca }}";
     </script>
     <script type="text/javascript" src="/static/selftraining.js"></script>
 

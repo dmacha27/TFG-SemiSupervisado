@@ -1,30 +1,51 @@
 {% extends "base.html" %}
 {% block title %}Configuración de la ejecución{% endblock %}
 {% block content %}
-<form action="/selftraining" method="POST">
-    <div>
-        <label for="n">N:</label>
-        <input type="number" id="n" min=0 max=Infinity required oninput="limitarUnicoMetodoST(this.value,'th')" name="n">
-    </div>
-    <div>
-        <label for="th">Límite (threshold):</label>
-        <input type="number" id="th" min=0 max=0.99 step="any" oninput="limitarUnicoMetodoST(this.value,'n')" name="th">
-    </div>
-    <div>
-        <label for="n_iter">Número de iteraciones:</label>
-        <input type="number" id="n_iter" required name="n_iter">
-    </div>
-    <div>
-        <label for="sel_target">Selecciona el target/clase del dataset seleccionado:</label>
-        <select name="target" required>
-            {% for c in caracteristicas %}
-                <option value="{{c}}">{{c}}</option>
-            {% endfor %}
-        </select>
-    </div>
-    <button type="submit">Ejecutar</button>
-</form>
+    <form action="/selftraining" method="POST">
+        <div>
+            <label for="n">N:</label>
+            <input type="number" id="n" min=0 max=Infinity required oninput="limitarUnicoMetodoST(this.value,'th')" name="n">
+        </div>
+        <div>
+            <label for="th">Límite (threshold):</label>
+            <input type="number" id="th" min=0 max=0.99 step="any" oninput="limitarUnicoMetodoST(this.value,'n')" name="th">
+        </div>
+        <div>
+            <label for="n_iter">Número de iteraciones:</label>
+            <input type="number" id="n_iter" required name="n_iter">
+        </div>
+        <div>
+            <label for="sel_target">Selecciona el target/clase del dataset seleccionado:</label>
+            <select name="target" required>
+                {% for c in caracteristicas %}
+                    <option value="{{c}}">{{c}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="cx">Selecciona la componente X:</label>
+            <select id="cx" name="cx" required>
+                {% for c in caracteristicas %}
+                    <option value="{{c}}">{{c}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="cy">Selecciona la componente Y:</label>
+            <select id="cy" name="cy" required>
+                {% for c in caracteristicas %}
+                    <option value="{{c}}">{{c}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="pca">Utilizar PCA:</label>
+            <input type="checkbox" id="pca" oninput="componentesPCA(this.checked,'cx','cy')" name="pca">
+            <label>(al utilizar PCA se reduce a 2 las componentes directamente):</label>
+        </div>
+        <button type="submit">Ejecutar</button>
+    </form>
 
-<script type="text/javascript" src="/static/configuracion.js"></script>
+    <script type="text/javascript" src="/static/configuracion.js"></script>
 
 {% endblock %}

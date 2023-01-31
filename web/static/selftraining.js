@@ -1,7 +1,7 @@
 let dataset = [];
 let mapa;
 
-let margin = {top: 10, right: 30, bottom: 30, left: 60},
+let margin = {top: 10, right: 30, bottom: 70, left: 60},
     width = 800 - margin.left - margin.right,
     height = 670 - margin.top - margin.bottom;
 
@@ -19,9 +19,12 @@ xhr.onreadystatechange = function () {
         let controles = document.getElementById("controles");
         controles.style.visibility = 'visible';
 
+
         dataset = preparardataset(JSON.parse(datos.log));
         mapa = JSON.parse(datos.mapa);
         maxit = d3.max(dataset, d => d[3]);
+        document.getElementById("progreso").max = maxit;
+
         color = d3.scaleOrdinal()
             .domain(Object.keys(mapa))
             .range(d3.schemeCategory10);
@@ -34,6 +37,22 @@ xhr.onreadystatechange = function () {
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
             .style("display", "block")
             .style("margin", "auto");
+
+        svg.append("text")
+            .attr("class", "cx")
+            .attr("text-anchor", "end")
+            .attr("x", width/2)
+            .attr("y", height + margin.bottom/2)
+            .text(cx);
+
+        svg.append("text")
+            .attr("class", "cy")
+            .attr("text-anchor", "end")
+            .attr("y", -margin.left)
+            .attr("x", -width/2)
+            .attr("dy", "1em")
+            .attr("transform", "rotate(-90)")
+            .text(cy);
 
         x = d3.scaleLinear()
             .domain([d3.min(dataset, d => d[0]), d3.max(dataset, d => d[0])])
@@ -50,6 +69,9 @@ xhr.onreadystatechange = function () {
             .call(d3.axisLeft(y));
 
         chartdatabinding();
+
+
+
     }
 }
 xhr.open("POST","/selftrainingd");
@@ -58,14 +80,17 @@ parametros.append("n", n);
 parametros.append("th", th);
 parametros.append("n_iter", n_iter );
 parametros.append("target", target);
+parametros.append("cx", cx);
+parametros.append("cy", cy );
+parametros.append("pca", pca);
 xhr.send(parametros);
 
 let cont = 0;
 
 function preparardataset(datos) {
     let dataset = [];
-    let xs = datos['C1'];
-    let ys = datos['C2'];
+    let xs = datos[cx];
+    let ys = datos[cy];
     let etiq = datos['target'];
     let iter = datos['iter'];
 
@@ -105,8 +130,10 @@ function chartdatabinding(){
         .text(function(d){ return mapa[d];})
         .attr("text-anchor", "left")
         .style("alignment-baseline", "middle");
+
 }
 
+let progreso = d3.select("#progreso");
 let nexit = d3.select("#nextit");
 nexit.on("click", next);
 
@@ -117,7 +144,14 @@ function next(){
             .filter(function(d) {
                 return d[3] === cont;
             })
-            .style("fill", function(d){ return color(d[2]);});
+            .style("fill", function(d){ return color(d[2]);})
+            .transition()
+            .duration(300)
+            .attr("r", 5)
+            .transition()
+            .duration(300)
+            .attr("r", 2);
+        document.getElementById("progreso").value=cont;
     }
 }
 
@@ -134,6 +168,19 @@ function prev(){
                 return d[3] > cont;
             })
             .style("fill", "grey");
+        document.getElementById("progreso").value=cont;
     }
 }
 
+let rep = d3.select("#reproducir")
+rep.on("click",reproducir);
+
+function reproducir(){
+    // Si vuelve a clickar que pare
+    var intervalo = setInterval(function () {
+        if (cont >= maxit){
+            clearInterval(intervalo);
+        }
+        next();
+    }, 750)
+}

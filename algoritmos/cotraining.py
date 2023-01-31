@@ -16,7 +16,7 @@ from sklearn.metrics import confusion_matrix, accuracy_score, f1_score
 from sklearn.svm import SVC
 
 from algoritmos.utilidades.datasplitter import data_split
-from algoritmos.utilidades.dimreduction import log_dim_reduction
+from algoritmos.utilidades.dimreduction import log_pca_reduction
 
 
 class CoTraining:
@@ -191,4 +191,4 @@ if __name__ == '__main__':
 
     log, it = st.fit(x, y)
 
-    df = log_dim_reduction(log, 2)
+    df = log_pca_reduction(log, 2)

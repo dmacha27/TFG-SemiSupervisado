@@ -20,3 +20,13 @@ function validarNumeroFlotante(id,min,max) {
 function limitarUnicoMetodoST(value,id){
     document.getElementById(id).disabled = !!value;
 }
+
+function componentesPCA(checked,x,y){
+    if (checked) {
+        document.getElementById(x).disabled = true;
+        document.getElementById(y).disabled = true;
+    }else{
+        document.getElementById(x).disabled = false;
+        document.getElementById(y).disabled = false;
+    }
+}

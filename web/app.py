@@ -10,8 +10,7 @@ from werkzeug.utils import secure_filename
 
 from algoritmos import SelfTraining
 from algoritmos import CoTraining
-from algoritmos.utilidades import DatasetLoader
-from algoritmos.utilidades import log_dim_reduction
+from algoritmos.utilidades import DatasetLoader, log_pca_reduction, log_cxcy_reduction
 
 app = Flask(__name__)
 app.secret_key = "secreta"
@@ -72,7 +71,10 @@ def selftraining():
                            n=request.form['n'] if 'n' in request.form else -1,
                            th=request.form['th'] if 'th' in request.form else -1,
                            n_iter=request.form['n_iter'],
-                           target=request.form['target'])
+                           target=request.form['target'],
+                           cx=request.form['cx'] if 'cx' in request.form else 'C1',
+                           cy=request.form['cy'] if 'cy' in request.form else 'C2',
+                           pca=request.form['pca'] if 'pca' in request.form else 'off')
 
 
 @app.route('/selftrainingd', methods=['GET', 'POST'])
@@ -80,6 +82,9 @@ def datosselftraining():
     n = int(request.form['n'])
     th = float(request.form['th'])
     n_iter = int(request.form['n_iter'])
+    cx = request.form['cx']
+    cy = request.form['cy']
+    pca = request.form['pca']
     clf = SVC(kernel='rbf',
               probability=True,
               C=1.0,
@@ -95,10 +100,14 @@ def datosselftraining():
     dl = DatasetLoader(session['FICHERO'])
     dl.set_target(request.form['target'])
     x, y, mapa, _ = dl.get_x_y()
-
     log, it = st.fit(x, y)
 
-    info = {'log': log_dim_reduction(log).to_json(),
+    if pca == 'on':
+        _2d = log_pca_reduction(log).to_json()
+    else:
+        _2d = log_cxcy_reduction(log, cx, cy).to_json()
+
+    info = {'log': _2d,
             'mapa': json.dumps(mapa)}
 
     return json.dumps(info)
@@ -124,7 +133,7 @@ def datoscotraining():
                              ), p=1, n=3, u=30, n_iter=100)
 
     log, it = st.fit(x, y)
-    return log_dim_reduction(log).to_json()
+    return log_pca_reduction(log).to_json()
 
 
 if __name__ == '__main__':

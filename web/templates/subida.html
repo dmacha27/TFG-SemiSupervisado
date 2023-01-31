@@ -1,18 +1,22 @@
 {% extends "base.html" %}
 {% block title %}Selección de dataset{% endblock %}
 {% block content %}
-    <div class="container">
-        <div id="soltar">
-            Arrastra y suelta aquí tu archivo.
+    <div class="padre">
+        <div class="hijo">
+            <div id="soltar">
+                Arrastra y suelta aquí tu archivo.
+            </div>
         </div>
-    </div>
-    <div class="container">
-        <progress id="progreso" max=100 value=0></progress>
-    </div>
-    <div class="container">
-        <form action="/{{ alg }}c">
-            <input id="config_btn" type="submit" value="Configurar algoritmo" />
-        </form>
+        <br>
+        <div class="hijo" style="margin: 15px">
+            <progress id="progreso" max=100 value=0></progress>
+        </div>
+        <br>
+        <div class="hijo" style="margin: 15px">
+            <form action="/{{ alg }}c">
+                <input id="config_btn" type="submit" value="Configurar algoritmo" />
+            </form>
+        </div>
     </div>
     <br>
     <script type="text/javascript" src="/static/subida.js"></script>

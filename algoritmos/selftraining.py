@@ -16,7 +16,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 
 from algoritmos.utilidades.datasplitter import data_split
-from algoritmos.utilidades.dimreduction import log_dim_reduction
+from algoritmos.utilidades.dimreduction import log_pca_reduction
 from sklearn.semi_supervised import SelfTrainingClassifier
 
 
@@ -147,7 +147,7 @@ if __name__ == '__main__':
                               ), n=25, n_iter=30)
 
     log, it = st.fit(x, y)
-    df = log_dim_reduction(log, 2)
+    df = log_pca_reduction(log, 2)
 
     stsk = SelfTrainingClassifier(base_estimator=SVC(kernel='rbf',
                                                      probability=True,
