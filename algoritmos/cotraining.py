@@ -82,7 +82,8 @@ class CoTraining:
         iteration = 0
         stats = pd.DataFrame()
 
-        selected_unlabelled_samples = x_train_unlabelled.sample(n=self.u)
+        selected_unlabelled_samples = x_train_unlabelled.sample(
+            n=self.u if self.u <= len(x_train_unlabelled) else len(x_train_unlabelled))
         x_train_unlabelled = x_train_unlabelled.drop(selected_unlabelled_samples.index)
         positive = np.argmin(np.bincount(y_train)[::-1])
 

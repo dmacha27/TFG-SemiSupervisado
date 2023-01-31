@@ -33,6 +33,12 @@ def sel_selftraining():
     return redirect('/subida')
 
 
+@app.route('/sel_cotraining')
+def sel_cotraining():
+    session['ALGORITMO'] = 'cotraining'
+    return redirect('/subida')
+
+
 @app.route('/subida', methods=['GET', 'POST'])
 def subida():
     if 'ALGORITMO' not in session:
@@ -49,7 +55,7 @@ def subida():
             session['FICHERO'] = os.path.join(app.config['CARPETA_DATASETS'], filename)
             file.save(os.path.join(app.config['CARPETA_DATASETS'], filename))
 
-    return render_template('subida.html', alg=session['ALGORITMO'])
+    return render_template('subida.html')
 
 
 @app.route('/selftrainingc', methods=['GET'])
@@ -57,8 +63,19 @@ def configuracionselftraining():
     if 'FICHERO' not in session:
         flash("Debe subir un fichero")
         return redirect('/subida')
+
     dl = DatasetLoader(session['FICHERO'])
     return render_template('selftrainingconfig.html', caracteristicas=dl.features())
+
+
+@app.route('/cotrainingc', methods=['GET'])
+def configuracioncotraining():
+    if 'FICHERO' not in session:
+        flash("Debe subir un fichero")
+        return redirect('/subida')
+
+    dl = DatasetLoader(session['FICHERO'])
+    return render_template('cotrainingconfig.html', caracteristicas=dl.features())
 
 
 @app.route('/selftraining', methods=['GET', 'POST'])
@@ -70,6 +87,23 @@ def selftraining():
     return render_template('selftraining.html',
                            n=request.form['n'] if 'n' in request.form else -1,
                            th=request.form['th'] if 'th' in request.form else -1,
+                           n_iter=request.form['n_iter'],
+                           target=request.form['target'],
+                           cx=request.form['cx'] if 'cx' in request.form else 'C1',
+                           cy=request.form['cy'] if 'cy' in request.form else 'C2',
+                           pca=request.form['pca'] if 'pca' in request.form else 'off')
+
+
+@app.route('/cotraining', methods=['GET', 'POST'])
+def cotraining():
+    if 'target' not in request.form:
+        flash("Debe seleccionar los parámetros del algoritmo")
+        return redirect('/cotrainingc')
+
+    return render_template('cotraining.html',
+                           p=request.form['p'] if 'p' in request.form else -1,
+                           n=request.form['n'] if 'n' in request.form else -1,
+                           u=request.form['u'] if 'u' in request.form else -1,
                            n_iter=request.form['n_iter'],
                            target=request.form['target'],
                            cx=request.form['cx'] if 'cx' in request.form else 'C1',
@@ -113,27 +147,49 @@ def datosselftraining():
     return json.dumps(info)
 
 
-@app.route('/cotrainingd', methods=['GET'])
+@app.route('/cotrainingd', methods=['GET', 'POST'])
 def datoscotraining():
-    data = load_breast_cancer()
-    x = pd.DataFrame(data['data'], columns=data['feature_names'])
-    y = pd.DataFrame(data['target'], columns=['target'])
+    p = int(request.form['p'])
+    n = int(request.form['n'])
+    u = int(request.form['u'])
+    n_iter = int(request.form['n_iter'])
+    cx = request.form['cx']
+    cy = request.form['cy']
+    pca = request.form['pca']
 
-    st = CoTraining(clf1=SVC(kernel='rbf',
-                             probability=True,
-                             C=1.0,
-                             gamma='scale',
-                             random_state=0
-                             ),
-                    clf2=SVC(kernel='rbf',
-                             probability=True,
-                             C=1.0,
-                             gamma='scale',
-                             random_state=0
-                             ), p=1, n=3, u=30, n_iter=100)
+    clf1 = SVC(kernel='rbf',
+               probability=True,
+               C=1.0,
+               gamma='scale',
+               random_state=0
+               )
+    clf2 = SVC(kernel='rbf',
+               probability=True,
+               C=1.0,
+               gamma='scale',
+               random_state=0
+               )
 
-    log, it = st.fit(x, y)
-    return log_pca_reduction(log).to_json()
+    ct = CoTraining(clf1=clf1,
+                    clf2=clf2,
+                    p=p,
+                    n=n,
+                    u=u,
+                    n_iter=n_iter)
+
+    dl = DatasetLoader(session['FICHERO'])
+    dl.set_target(request.form['target'])
+    x, y, mapa, _ = dl.get_x_y()
+    log, it = ct.fit(x, y)
+
+    if pca == 'on':
+        _2d = log_pca_reduction(log).to_json()
+    else:
+        _2d = log_cxcy_reduction(log, cx, cy).to_json()
+
+    info = {'log': _2d,
+            'mapa': json.dumps(mapa)}
+    return json.dumps(info)
 
 
 if __name__ == '__main__':

@@ -1,5 +1,5 @@
 {% extends "base_visualizacion.html" %}
-{% block title %}Self-Training{% endblock %}
+{% block title %}Co-Training{% endblock %}
 {% block estadisticas %}
     <p>STATS</p>
 {% endblock %}
@@ -7,8 +7,9 @@
     <script type="text/javascript" src="/static/grafico.js"></script>
     <script>
         let elementos = [
+            { nombre: "p", valor: {{ p }} },
             { nombre: "n", valor: {{ n }} },
-            { nombre: "th", valor: {{ th }} },
+            { nombre: "u", valor: {{ u }} },
             { nombre: "n_iter", valor: {{ n_iter }} },
             { nombre: "target", valor: "{{ target }}" },
             { nombre: "cx", valor: "{{ cx }}" },

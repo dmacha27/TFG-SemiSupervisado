@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Self-Training{% endblock %}
+{% block head %}
+    {{ super() }}
+    <script src="https://d3js.org/d3.v7.js"></script>
+{% endblock %}
+{% block content %}
+    <div class="grid-container">
+        <div id="grafico" class="grid-child">
+            <div class="padre">
+                <div id="div_cargando" class="hijo">
+                    <div id ="cargando" class="cargando"></div>
+                </div>
+                <div id="semisupervisedchart" class="hijo"></div>
+                <div class="hijo" id="controles" style="visibility: hidden">
+                    <progress id="progreso" value=0></progress>
+                    <br>
+                    <button id="previt">Anterior</button>
+                    <button id="reproducir">Reproducir</button>
+                    <button id="nextit">Siguiente</button>
+                </div>
+            </div>
+        </div>
+        <div id="info" class="grid-child">
+            {% block estadisticas %}{% endblock %}
+        </div>
+    </div>
+    {% block scripts %}{% endblock %}
+{% endblock %}
