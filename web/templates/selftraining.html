@@ -16,6 +16,6 @@
             { nombre: "pca", valor: "{{ pca }}" }
         ];
         let cx = "{{ cx }}", cy = "{{ cy }}";
-        inicializarGrafico("/{{ session['ALGORITMO'] }}d", elementos);
+        inicializarGrafico("/{{ session['ALGORITMO'] }}d", elementos, STpreparardataset, STdatabinding);
     </script>
 {% endblock %}

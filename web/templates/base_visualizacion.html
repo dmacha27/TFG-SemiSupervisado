@@ -5,14 +5,20 @@
     <script src="https://d3js.org/d3.v7.js"></script>
 {% endblock %}
 {% block content %}
+    <button type="button" onclick="history.back()" class="btn btn-outline-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 25 18">
+            <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"></path>
+        </svg>Volver</button>
     <div class="grid-container">
         <div id="grafico" class="grid-child">
             <div class="padre">
                 <div id="div_cargando" class="hijo">
-                    <div id ="cargando" class="cargando"></div>
+                    <div id="cargando" class="cargando"></div>
                 </div>
                 <div id="semisupervisedchart" class="hijo"></div>
                 <div class="hijo" id="controles" style="visibility: hidden">
+                    <label>Iteracion: </label><label id="iteracion">0</label>
+                    <br>
                     <progress id="progreso" value=0></progress>
                     <br>
                     <button id="previt">Anterior</button>
@@ -25,5 +31,8 @@
             {% block estadisticas %}{% endblock %}
         </div>
     </div>
+    <script type="text/javascript">
+        let fichero = "{{ session['FICHERO']|nombredataset }}";
+    </script>
     {% block scripts %}{% endblock %}
 {% endblock %}

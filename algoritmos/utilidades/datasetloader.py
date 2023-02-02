@@ -8,6 +8,7 @@
 
 from os.path import isfile
 
+import numpy as np
 import pandas as pd
 from scipy.io import arff
 from sklearn.preprocessing import LabelEncoder
@@ -22,8 +23,6 @@ class DatasetLoader:
         Cargador para archivos (ARFF o CSV).
 
         :param file: Ruta del fichero
-        :param labelled_p: Porcentaje de datos etiquetados
-        :param unlabelled_p: Porcentaje de datos no etiquetados
         """
 
         self.target = None
@@ -39,7 +38,7 @@ class DatasetLoader:
 
         self.file = file
 
-    def features(self):
+    def get_allfeatures(self):
         """
         Obtiene las características de los datos. NO distingue el target (también se incluye)
 
@@ -55,6 +54,18 @@ class DatasetLoader:
         :param target: El target o clase para la posterior clasificación
         """
         self.target = target
+
+    def get_only_features(self):
+        """
+        Obtiene las características de los datos. NO incluye target
+
+        :return: Listado de las características de los datos (sin target).
+        """
+        if self.target is None:
+            raise ValueError("La clase o target no ha sido establecida, selecciona primero la característica que "
+                             "actúa como target")
+
+        return np.setdiff1d(self._get_data().columns.values, self.target)
 
     def _get_data(self):
         """
@@ -110,6 +121,6 @@ class DatasetLoader:
 if __name__ == '__main__':
     dl = DatasetLoader('iris.csv')
     print(dl._get_data())
-    print(dl.features())
+    print(dl.get_allfeatures())
     # dl.set_target("variety")
     print(dl.get_x_y())

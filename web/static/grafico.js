@@ -1,26 +1,26 @@
-let dataset = [];
+let datos, dataset = [];
 let mapa;
 
-let margin = {top: 10, right: 30, bottom: 70, left: 60},
-    width = 800 - margin.left - margin.right,
-    height = 670 - margin.top - margin.bottom;
+let margin = {top: 50, right: 5, bottom: 60, left: 60},
+    width = 900 - margin.left - margin.right,
+    height = 700 - margin.top - margin.bottom;
 
 let svg, x, y, maxit, color;
 let cont = 0;
 
-function inicializarGrafico(rutadatos, elementos) {
+function inicializarGrafico(rutadatos, elementos, preparar, binding) {
 
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE) {
-            let datos = JSON.parse(xhr.responseText);
+            datos = JSON.parse(xhr.responseText);
             document.getElementById("div_cargando").remove();
 
             let controles = document.getElementById("controles");
             controles.style.visibility = 'visible';
 
 
-            dataset = preparardataset(JSON.parse(datos.log));
+            dataset = preparar(JSON.parse(datos.log));
             mapa = JSON.parse(datos.mapa);
             maxit = d3.max(dataset, d => d[3]);
             document.getElementById("progreso").max = maxit;
@@ -38,6 +38,7 @@ function inicializarGrafico(rutadatos, elementos) {
                 .style("display", "block")
                 .style("margin", "auto");
 
+            //Etiqueta eje X
             svg.append("text")
                 .attr("class", "cx")
                 .attr("text-anchor", "end")
@@ -45,14 +46,23 @@ function inicializarGrafico(rutadatos, elementos) {
                 .attr("y", height + margin.bottom / 2)
                 .text(cx);
 
+            //Etiqueta eje Y
             svg.append("text")
                 .attr("class", "cy")
                 .attr("text-anchor", "end")
                 .attr("y", -margin.left)
-                .attr("x", -width / 2)
+                .attr("x", -height / 2)
                 .attr("dy", "1em")
                 .attr("transform", "rotate(-90)")
                 .text(cy);
+
+            // Nombre del dataset
+            svg.append("text")
+                .attr("x", width/2)
+                .attr("y", -margin.top/2)
+                .attr("text-anchor", "middle")
+                .style("font-size", "16px")
+                .text("Dataset: " + fichero);
 
             x = d3.scaleLinear()
                 .domain([d3.min(dataset, d => d[0]), d3.max(dataset, d => d[0])])
@@ -68,27 +78,44 @@ function inicializarGrafico(rutadatos, elementos) {
             svg.append("g")
                 .call(d3.axisLeft(y));
 
-            chartdatabinding();
+            binding();
+
+            // Marcar los de la iteración 0
+            svg.selectAll("circle")
+                .filter(function(d) {
+                    return d[3] === 0;})
+                .style("stroke","yellow");
+
+            //Leyenda
+            svg.append('g')
+                .selectAll("target")
+                .data(Object.keys(mapa))
+                .enter()
+                .append("text")
+                .attr("x", 120)
+                .attr("y", function(d,i){ return 100 + i*25;})
+                .style("fill", function(d){ return color(parseInt(d));})
+                .text(function(d){ return mapa[d];})
+                .attr("text-anchor", "left")
+                .style("alignment-baseline", "middle");
         }
     }
 
     xhr.open("POST", rutadatos);
     let parametros = new FormData();
     elementos.forEach(el => {
-       parametros.append(el.nombre,el.valor)
+        parametros.append(el.nombre,el.valor)
     });
     xhr.send(parametros);
 
-
 }
 
-function preparardataset(datos) {
+function STpreparardataset(datos) {
     let dataset = [];
     let xs = datos[cx];
     let ys = datos[cy];
     let etiq = datos['target'];
     let iter = datos['iter'];
-
 
     for (const key in xs){
         dataset.push([xs[key],ys[key],etiq[key],iter[key]])
@@ -97,7 +124,22 @@ function preparardataset(datos) {
     return dataset;
 }
 
-function chartdatabinding(){
+function CTpreparardataset(datos) {
+    let dataset = [];
+    let xs = datos[cx];
+    let ys = datos[cy];
+    let etiq = datos['target'];
+    let iter = datos['iter'];
+    let clfs = datos['clf'];
+
+    for (const key in xs){
+        dataset.push([xs[key],ys[key],etiq[key],iter[key],clfs[key]])
+    }
+
+    return dataset;
+}
+
+function STdatabinding(){
     svg.append('g')
         .selectAll("dot")
         .data(dataset)
@@ -105,7 +147,7 @@ function chartdatabinding(){
         .append("circle")
         .attr("cx", function (d) { return x(d[0]); } )
         .attr("cy", function (d) { return y(d[1]); } )
-        .attr("r", 2)
+        .attr("r", 3)
         .style("fill", function (d) {
             if (d[3] <= cont) {
                 return color(d[2]);
@@ -113,19 +155,27 @@ function chartdatabinding(){
                 return "grey";
             }
         });
+}
 
+function CTdatabinding(){
     svg.append('g')
-        .selectAll("target")
-        .data(Object.keys(mapa))
+        .selectAll("dot")
+        .data(dataset)
         .enter()
-        .append("text")
-        .attr("x", 120)
-        .attr("y", function(d,i){ return 100 + i*25;})
-        .style("fill", function(d){ return color(parseInt(d));})
-        .text(function(d){ return mapa[d];})
-        .attr("text-anchor", "left")
-        .style("alignment-baseline", "middle");
+        .append(function (d) {return forma(d)});
+}
 
+function forma(d){
+    console.log(d[0])
+    var svgns = "http://www.w3.org/2000/svg";
+    var forma = document.createElementNS(svgns, "rect");
+    forma.setAttribute("x", function () { return x(d[0]); });
+    forma.setAttribute("y", function () { return y(d[1]); });
+    forma.setAttribute("width",  2);
+    forma.setAttribute("height", 2);
+    forma.setAttribute("fill", "skyblue");
+
+    return forma;
 }
 
 let nexit = d3.select("#nextit");
@@ -134,7 +184,7 @@ nexit.on("click", next);
 function next(){
     if (cont < maxit){
         cont++;
-        d3.selectAll("circle")
+        svg.selectAll("circle")
             .filter(function(d) {
                 return d[3] === cont;
             })
@@ -144,8 +194,8 @@ function next(){
             .attr("r", 5)
             .transition()
             .duration(300)
-            .attr("r", 2);
-        document.getElementById("progreso").value=cont;
+            .attr("r", 3);
+        actualizaProgreso();
     }
 }
 
@@ -157,12 +207,12 @@ previt.on("click", prev);
 function prev(){
     if (cont > 0){
         cont--;
-        d3.selectAll("circle")
+        svg.selectAll("circle")
             .filter(function(d) {
                 return d[3] > cont;
             })
             .style("fill", "grey");
-        document.getElementById("progreso").value=cont;
+        actualizaProgreso();
     }
 }
 
@@ -177,4 +227,9 @@ function reproducir(){
         }
         next();
     }, 750)
+}
+
+function actualizaProgreso(){
+    document.getElementById("progreso").value=cont;
+    document.getElementById("iteracion").innerHTML = cont;
 }

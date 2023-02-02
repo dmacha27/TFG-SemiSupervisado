@@ -82,6 +82,8 @@ class CoTraining:
         iteration = 0
         stats = pd.DataFrame()
 
+        log['clf'] = 'inicio'
+
         selected_unlabelled_samples = x_train_unlabelled.sample(
             n=self.u if self.u <= len(x_train_unlabelled) else len(x_train_unlabelled))
         x_train_unlabelled = x_train_unlabelled.drop(selected_unlabelled_samples.index)
@@ -140,7 +142,12 @@ class CoTraining:
             selected_unlabelled_samples = pd.concat([selected_unlabelled_samples, aux])
 
             # Log
-            new_classified = pd.concat([topx1_new_labelled.copy(), topx2_new_labelled.copy()])
+            topx1_aux = topx1_new_labelled.copy()
+            topx1_aux['clf'] = f'CLF1({self.clf1.__class__.__name__})'
+            topx2_aux = topx2_new_labelled.copy()
+            topx2_aux['clf'] = f'CLF2({self.clf2.__class__.__name__})'
+
+            new_classified = pd.concat([topx1_aux, topx2_aux])
             new_classified['iter'] = iteration + 1
             new_classified['target'] = np.concatenate((topx1_pred, topx2_pred))
             log = pd.concat([log, new_classified])
@@ -151,7 +158,7 @@ class CoTraining:
         self.clf1.fit(x1, y_train)
         self.clf2.fit(x2, y_train)
 
-        print(log)
+        # print(log)
         print(self.get_accuracy_score(x_test, y_test))
         return log, iteration
 
@@ -192,4 +199,5 @@ if __name__ == '__main__':
 
     log, it = st.fit(x, y)
 
-    df = log_pca_reduction(log, 2)
+    df = log_pca_reduction(log, data['feature_names'], 2)
+    print(df.to_string())

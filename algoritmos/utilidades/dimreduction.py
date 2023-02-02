@@ -11,22 +11,20 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 
 
-def log_pca_reduction(log, n_com=2):
+def log_pca_reduction(log, features, n_com=2):
     """
     Reduce las características (features) de los datos para ser representado
     en un gráfico. En principio para 2 componentes, arbitrariamente etiquetadas como C1, C2..
 
     :param log: Información de entrenamiento.
     :param n_com: Número de componentes a reducir.
+    :param features: Lista de características que se van a reducir.
     :return: El log transformado al número de componentes
     """
 
-    # Está planteado para que las dos últimas columnas sean la iteración y el target u objetivo
-    if len(log.columns) == 4:
-        return log.columns['C1', 'C2', 'target', 'iter']
-
-    rest = log.iloc[:, len(log.columns) - 2:]
-    features = log.iloc[:, :len(log.columns) - 2]
+    not_features = log.columns.difference(features)
+    rest = log[not_features]
+    features = log[features]
 
     features_standard = StandardScaler().fit_transform(features)
 
@@ -38,13 +36,11 @@ def log_pca_reduction(log, n_com=2):
         data=pca_features,
         columns=[f"C{i}" for i in range(1, n_com + 1)])
 
-    df['target'] = rest['target'].values
-    df['iter'] = rest['iter'].values
-
+    df[not_features] = rest[not_features].values
     return df
 
 
-def log_cxcy_reduction(log, cx, cy):
+def log_cxcy_reduction(log, cx, cy, features):
     """
     Reduce las características (features) de los datos para ser representado
     en un gráfico. Con las dos componentes cx y cy
@@ -52,11 +48,7 @@ def log_cxcy_reduction(log, cx, cy):
     :param log: Información de entrenamiento.
     :param cx: Componente X.
     :param cy: Componente Y.
-    :return: El log transformado
+    :return: El log transformado.
     """
 
-    # Está planteado para que las dos últimas columnas sean la iteración y el target u objetivo
-    if len(log.columns) == 4:
-        return log
-
-    return log[[cx, cy, 'target', 'iter']]
+    return log[[cx, cy] + list(log.columns.difference(features))]

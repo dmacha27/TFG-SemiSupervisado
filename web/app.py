@@ -65,7 +65,7 @@ def configuracionselftraining():
         return redirect('/subida')
 
     dl = DatasetLoader(session['FICHERO'])
-    return render_template('selftrainingconfig.html', caracteristicas=dl.features())
+    return render_template('selftrainingconfig.html', caracteristicas=dl.get_allfeatures())
 
 
 @app.route('/cotrainingc', methods=['GET'])
@@ -75,7 +75,7 @@ def configuracioncotraining():
         return redirect('/subida')
 
     dl = DatasetLoader(session['FICHERO'])
-    return render_template('cotrainingconfig.html', caracteristicas=dl.features())
+    return render_template('cotrainingconfig.html', caracteristicas=dl.get_allfeatures())
 
 
 @app.route('/selftraining', methods=['GET', 'POST'])
@@ -137,9 +137,9 @@ def datosselftraining():
     log, it = st.fit(x, y)
 
     if pca == 'on':
-        _2d = log_pca_reduction(log).to_json()
+        _2d = log_pca_reduction(log, dl.get_only_features()).to_json()
     else:
-        _2d = log_cxcy_reduction(log, cx, cy).to_json()
+        _2d = log_cxcy_reduction(log, cx, cy, dl.get_only_features()).to_json()
 
     info = {'log': _2d,
             'mapa': json.dumps(mapa)}
@@ -183,13 +183,20 @@ def datoscotraining():
     log, it = ct.fit(x, y)
 
     if pca == 'on':
-        _2d = log_pca_reduction(log).to_json()
+        _2d = log_pca_reduction(log, dl.get_only_features()).to_json()
     else:
-        _2d = log_cxcy_reduction(log, cx, cy).to_json()
+        _2d = log_cxcy_reduction(log, cx, cy, dl.get_only_features()).to_json()
 
     info = {'log': _2d,
             'mapa': json.dumps(mapa)}
     return json.dumps(info)
+
+
+@app.template_filter()
+def nombredataset(text):
+    """Obtiene solo el nombre del conjunto de datos
+    eliminado la ruta completa"""
+    return text.split("\\", )[1]
 
 
 if __name__ == '__main__':
