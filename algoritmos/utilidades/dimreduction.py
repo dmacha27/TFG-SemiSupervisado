@@ -50,5 +50,4 @@ def log_cxcy_reduction(log, cx, cy, features):
     :param cy: Componente Y.
     :return: El log transformado.
     """
-
     return log[[cx, cy] + list(log.columns.difference(features))]

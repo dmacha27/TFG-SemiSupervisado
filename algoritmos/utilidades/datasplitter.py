@@ -2,15 +2,15 @@
 # -*- coding: utf-8 -*-
 #
 # Autor: David Martínez Acha
-# Fecha: 27/01/2023 12:37
+# Fecha: 04/02/2023 14:30
 # Descripción: Divide los datos para los algoritmos
-# Version: 1.0
-
+# Version: 1.1
+import numpy as np
 from pandas import DataFrame
 from sklearn.model_selection import train_test_split
 
 
-def data_split(x: DataFrame, y: DataFrame):
+def data_split(x: DataFrame, y: DataFrame, p_unlabelled=0.8, p_test=0.2):
     """
     A partir de todos los datos con el nombre de sus características
     crea un conjunto de datos etiquetados y no etiquetados. A partir de estos,
@@ -20,26 +20,20 @@ def data_split(x: DataFrame, y: DataFrame):
 
     :param x: Muestras (con el nombre de las características).
     :param y: Objetivos de las muestras.
-    :return: Un log, el conjunto de entrenamiento (features -> x_train y targets -> y_train), los datos no etiquetados
+    :param p_unlabelled: Porcentaje no etiquetados.
+    :param p_test: Porcentaje de test.
+    :return: El conjunto de entrenamiento (features -> x_train y targets -> y_train), los datos no etiquetados
             y el conjunto de test (features -> x_test y targets -> y_test)
     """
 
-    data_train, data_test, train_labels, test_labels = train_test_split(x, y, test_size=0.2, random_state=0)
+    x = np.array(x)
+    y = np.array(y)
 
-    data_train_labelled = data_train.sample(frac=0.2)  # POSIBLE PARÁMETRO PERSONALIZABLE
-    x_train = data_train_labelled.values
-    y_train = train_labels.loc[data_train_labelled.index].values.ravel()
+    x_train, x_unlabelled, y_train, _ = train_test_split(x, y, test_size=p_unlabelled, random_state=0)
 
-    # El resto son no etiquetados
-    x_train_unlabelled = data_train.drop(data_train_labelled.index)
+    x_train, x_test, y_train, y_test = train_test_split(x_train, y_train, test_size=p_test, random_state=0)
 
-    # Datos de TEST
-    x_test = data_test.values
-    y_test = test_labels.values
+    x_train = np.append(x_train, x_unlabelled, axis=0)
+    y_train = np.append(y_train, [-1] * len(x_unlabelled))
 
-    # Logger con la información de entrenamiento
-    log = data_train_labelled.copy()
-    log['target'] = y_train
-    log['iter'] = 0
-
-    return log, x_train, y_train, x_train_unlabelled, x_test, y_test
+    return x_train, y_train, x_test, y_test

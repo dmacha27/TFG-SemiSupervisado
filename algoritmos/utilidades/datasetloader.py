@@ -2,14 +2,16 @@
 # -*- coding: utf-8 -*-
 #
 # Autor: David Martínez Acha
-# Fecha: 29/01/2023 23:24
+# Fecha: 04/02/2023 14:30
 # Descripción: Permite cargar datasets
-# Version: 1.1
+# Version: 1.2
 
 from os.path import isfile
 
 import numpy as np
 import pandas as pd
+from pandas import DataFrame
+from pandas.api import types
 from scipy.io import arff
 from sklearn.preprocessing import LabelEncoder
 
@@ -45,7 +47,7 @@ class DatasetLoader:
         :return: Listado de las características de los datos.
         """
 
-        return self._get_data().columns.values
+        return self.get_data().columns.values
 
     def set_target(self, target):
         """
@@ -65,9 +67,9 @@ class DatasetLoader:
             raise ValueError("La clase o target no ha sido establecida, selecciona primero la característica que "
                              "actúa como target")
 
-        return np.setdiff1d(self._get_data().columns.values, self.target)
+        return np.setdiff1d(self.get_data().columns.values, self.target)
 
-    def _get_data(self):
+    def get_data(self):
         """
         Obtiene los datos sin procesar (directamente del fichero) según
         el tipo de fichero que sea
@@ -93,6 +95,19 @@ class DatasetLoader:
 
         return df
 
+    def _detect_categorical_features(self, x: DataFrame):
+        """
+
+        :param x: Características
+        :return: True si todas son numéricas, False en caso contrario
+        """
+        return not all(types.is_numeric_dtype(t) for t in list(x.dtypes))
+
+    def _detect_unlabelled_targets(self, y: DataFrame):
+        if -1 in y:
+            return True
+        return False
+
     def get_x_y(self):
         """
         Obtiene por separado los datos (las características) y los target o clases
@@ -105,9 +120,14 @@ class DatasetLoader:
             raise ValueError("La clase o target no ha sido establecida, selecciona primero la característica que "
                              "actúa como target")
 
-        data = self._get_data()
+        data = self.get_data()
 
         x = data.loc[:, data.columns != self.target]
+
+        if self._detect_categorical_features(x):
+            raise ValueError("Se han detectado características categóricas")
+
+        is_unlabelled = self._detect_unlabelled_targets(data[self.target])
 
         le = LabelEncoder()
 
@@ -115,12 +135,11 @@ class DatasetLoader:
 
         mapping = {int(t): str(c, encoding='utf-8') for t, c in zip(le.transform(le.classes_), le.classes_)}
 
-        return x, y, mapping, le
+        return x, y, mapping
 
 
 if __name__ == '__main__':
     dl = DatasetLoader('iris.csv')
-    print(dl._get_data())
     print(dl.get_allfeatures())
-    # dl.set_target("variety")
+    dl.set_target("variety")
     print(dl.get_x_y())

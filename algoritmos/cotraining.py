@@ -15,6 +15,7 @@ from sklearn.datasets import load_breast_cancer, load_wine
 from sklearn.metrics import confusion_matrix, accuracy_score, f1_score
 from sklearn.svm import SVC
 
+from algoritmos.utilidades import DatasetLoader
 from algoritmos.utilidades.datasplitter import data_split
 from algoritmos.utilidades.dimreduction import log_pca_reduction
 
@@ -61,7 +62,7 @@ class CoTraining:
         if self.u <= 0:
             raise ValueError("El número de elementos iniciales debe ser, al menos, 1")
 
-    def fit(self, x, y):
+    def fit(self, x, y, x_test, y_test, features):
         """
         Proceso de entrenamiento y obtención de la evolución
 
@@ -70,26 +71,26 @@ class CoTraining:
         :return: El log con la información de entrenamiento y el número de iteraciones
                 realizadas.
         """
-        (
-            log,
-            x_train,
-            y_train,
-            x_train_unlabelled,
-            x_test,
-            y_test
-        ) = data_split(x, y)
+
+        i_u = np.where(y == -1)[0][0]
+        x_u = x[i_u:]
+        x_train = x[:i_u]
+        y_train = y[:i_u]
+
+        log = pd.DataFrame(x_train, columns=features)
+        log['iter'] = 0
+        log['target'] = y_train
+        log['clf'] = 'inicio'
 
         iteration = 0
         stats = pd.DataFrame()
 
-        log['clf'] = 'inicio'
-
-        selected_unlabelled_samples = x_train_unlabelled.sample(
-            n=self.u if self.u <= len(x_train_unlabelled) else len(x_train_unlabelled))
-        x_train_unlabelled = x_train_unlabelled.drop(selected_unlabelled_samples.index)
+        ids = np.random.choice(len(x_u), size=self.u if self.u <= len(x_u) else len(x_u), replace=False)
+        s_u_s = x_u[ids]  # Selected unlabelled samples
+        x_u = np.delete(x_u, ids, axis=0)
         positive = np.argmin(np.bincount(y_train)[::-1])
 
-        while len(selected_unlabelled_samples) and (
+        while len(s_u_s) and (
                 iteration < self.n_iter or not self.n_iter):  # Criterio generalmente seguido
 
             x1, x2 = np.array_split(x_train, 2, axis=1)
@@ -97,7 +98,7 @@ class CoTraining:
             self.clf1.fit(x1, y_train)
             self.clf2.fit(x2, y_train)
 
-            x1_u, x2_u = np.array_split(selected_unlabelled_samples.values, 2, axis=1)
+            x1_u, x2_u = np.array_split(s_u_s, 2, axis=1)
 
             pred1, points1 = self.clf1.predict(x1_u), self.clf1.predict_proba(x1_u)
             pred2, points2 = self.clf2.predict(x2_u), self.clf2.predict_proba(x2_u)
@@ -120,37 +121,36 @@ class CoTraining:
                     topx1 = topx1[topx1 != d]
 
             # Los nuevos datos a añadir (el dato y la predicción o etiqueta)
-            topx1_new_labelled = selected_unlabelled_samples.iloc[topx1]
+            topx1_new_labelled = s_u_s[topx1]
             topx1_pred = pred1[topx1] if len(topx1) > 0 else topx1
-            topx2_new_labelled = selected_unlabelled_samples.iloc[topx2]
+            topx2_new_labelled = s_u_s[topx2]
             topx2_pred = pred2[topx2] if len(topx2) > 0 else topx2
 
             # El conjunto de entrenamiento se ha extendido
-            x_train = np.append(x_train, topx1_new_labelled.values, axis=0)
+            x_train = np.append(x_train, topx1_new_labelled, axis=0)
             y_train = np.append(y_train, topx1_pred)
-            x_train = np.append(x_train, topx2_new_labelled.values, axis=0)
+            x_train = np.append(x_train, topx2_new_labelled, axis=0)
             y_train = np.append(y_train, topx2_pred)
 
             # Se eliminan los datos que antes eran no etiquetados pero ahora sí lo son
-            indexes = selected_unlabelled_samples.index[topx1].union(selected_unlabelled_samples.index[topx2])
-            selected_unlabelled_samples = selected_unlabelled_samples.drop(indexes)
+            indexes = np.concatenate((topx1, topx2))
+            s_u_s = np.delete(s_u_s, indexes, axis=0)
 
             # Preparación de datos para la siguiente iteración (reponer)
-            aux = x_train_unlabelled.sample(
-                n=self.replenish if len(x_train_unlabelled) >= self.replenish else len(x_train_unlabelled))
-            x_train_unlabelled = x_train_unlabelled.drop(aux.index)
-            selected_unlabelled_samples = pd.concat([selected_unlabelled_samples, aux])
+            ids_replenish = np.random.choice(len(x_u), size=self.replenish if len(x_u) >= self.replenish else len(x_u), replace=False)
+            s_u_s = np.append(s_u_s, x_u[ids_replenish], axis=0)
+            x_u = np.delete(x_u, ids_replenish, axis=0)
 
             # Log
-            topx1_aux = topx1_new_labelled.copy()
+            topx1_aux = pd.DataFrame(topx1_new_labelled, columns=features)
             topx1_aux['clf'] = f'CLF1({self.clf1.__class__.__name__})'
-            topx2_aux = topx2_new_labelled.copy()
+            topx2_aux = pd.DataFrame(topx2_new_labelled, columns=features)
             topx2_aux['clf'] = f'CLF2({self.clf2.__class__.__name__})'
 
-            new_classified = pd.concat([topx1_aux, topx2_aux])
+            new_classified = pd.concat([topx1_aux, topx2_aux], ignore_index=True)
             new_classified['iter'] = iteration + 1
             new_classified['target'] = np.concatenate((topx1_pred, topx2_pred))
-            log = pd.concat([log, new_classified])
+            log = pd.concat([log, new_classified], ignore_index=True)
             iteration += 1
 
         x1, x2 = np.array_split(x_train, 2, axis=1)
@@ -180,9 +180,9 @@ class CoTraining:
 
 
 if __name__ == '__main__':
-    data = load_breast_cancer()
-    x = pd.DataFrame(data['data'], columns=data['feature_names'])
-    y = pd.DataFrame(data['target'], columns=['target'])
+    dl = DatasetLoader('utilidades/breast.w.arff')
+    dl.set_target("Class")
+    x, y, mapa = dl.get_x_y()
 
     st = CoTraining(clf1=SVC(kernel='rbf',
                              probability=True,
@@ -197,7 +197,11 @@ if __name__ == '__main__':
                              random_state=0
                              ), p=1, n=3, u=20, n_iter=120)
 
-    log, it = st.fit(x, y)
+    (
+        x,
+        y,
+        x_test,
+        y_test
+    ) = data_split(x, y)
 
-    df = log_pca_reduction(log, data['feature_names'], 2)
-    print(df.to_string())
+    log, it = st.fit(x, y, x_test, y_test, dl.get_only_features())

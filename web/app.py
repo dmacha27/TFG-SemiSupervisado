@@ -10,7 +10,7 @@ from werkzeug.utils import secure_filename
 
 from algoritmos import SelfTraining
 from algoritmos import CoTraining
-from algoritmos.utilidades import DatasetLoader, log_pca_reduction, log_cxcy_reduction
+from algoritmos.utilidades import DatasetLoader, log_pca_reduction, log_cxcy_reduction, data_split
 
 app = Flask(__name__)
 app.secret_key = "secreta"
@@ -65,7 +65,8 @@ def configuracionselftraining():
         return redirect('/subida')
 
     dl = DatasetLoader(session['FICHERO'])
-    return render_template('selftrainingconfig.html', caracteristicas=dl.get_allfeatures())
+    return render_template('selftrainingconfig.html', caracteristicas=dl.get_allfeatures(),
+                           data=dl.get_data().to_json())
 
 
 @app.route('/cotrainingc', methods=['GET'])
@@ -133,8 +134,16 @@ def datosselftraining():
 
     dl = DatasetLoader(session['FICHERO'])
     dl.set_target(request.form['target'])
-    x, y, mapa, _ = dl.get_x_y()
-    log, it = st.fit(x, y)
+    x, y, mapa = dl.get_x_y()
+
+    (
+        x,
+        y,
+        x_test,
+        y_test
+    ) = data_split(x, y)
+
+    log, it = st.fit(x, y, x_test, y_test, dl.get_only_features())
 
     if pca == 'on':
         _2d = log_pca_reduction(log, dl.get_only_features()).to_json()
@@ -179,8 +188,16 @@ def datoscotraining():
 
     dl = DatasetLoader(session['FICHERO'])
     dl.set_target(request.form['target'])
-    x, y, mapa, _ = dl.get_x_y()
-    log, it = ct.fit(x, y)
+    x, y, mapa = dl.get_x_y()
+
+    (
+        x,
+        y,
+        x_test,
+        y_test
+    ) = data_split(x, y)
+
+    log, it = ct.fit(x, y, x_test, y_test, dl.get_only_features())
 
     if pca == 'on':
         _2d = log_pca_reduction(log, dl.get_only_features()).to_json()

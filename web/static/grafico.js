@@ -155,6 +155,7 @@ function STdatabinding(){
                 return "grey";
             }
         });
+
 }
 
 function CTdatabinding(){
@@ -163,17 +164,30 @@ function CTdatabinding(){
         .data(dataset)
         .enter()
         .append(function (d) {return forma(d)});
+
+    // Marcar los de la iteración 0
+    svg.selectAll("rect")
+        .filter(function(d) {
+            return d[3] === 0;})
+        .style("stroke","yellow");
 }
 
 function forma(d){
-    console.log(d[0])
     var svgns = "http://www.w3.org/2000/svg";
+    let c = () =>{
+        if (d[3] <= cont) {
+            return color(d[2]);
+        } else {
+            return "grey";
+        }
+    };
+
     var forma = document.createElementNS(svgns, "rect");
-    forma.setAttribute("x", function () { return x(d[0]); });
-    forma.setAttribute("y", function () { return y(d[1]); });
-    forma.setAttribute("width",  2);
-    forma.setAttribute("height", 2);
-    forma.setAttribute("fill", "skyblue");
+    forma.setAttributeNS(null, "x", x(d[0]));
+    forma.setAttributeNS(null, "y", y(d[1]));
+    forma.setAttributeNS(null, "width", 5);
+    forma.setAttributeNS(null, "height",5);
+    forma.setAttributeNS(null, "fill", c());
 
     return forma;
 }

@@ -15,6 +15,7 @@ from sklearn.metrics import confusion_matrix, accuracy_score, f1_score
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 
+from algoritmos.utilidades import DatasetLoader
 from algoritmos.utilidades.datasplitter import data_split
 from algoritmos.utilidades.dimreduction import log_pca_reduction
 from sklearn.semi_supervised import SelfTrainingClassifier
@@ -46,7 +47,7 @@ class SelfTraining:
         if self.n_iter < 0:
             raise ValueError("El número de iteraciones no puede ser negativo")
 
-    def fit(self, x, y):
+    def fit(self, x, y, x_test, y_test, features):
         """
         Proceso de entrenamiento y obtención de la evolución
 
@@ -55,27 +56,28 @@ class SelfTraining:
         :return: El log con la información de entrenamiento y el número de iteraciones
                 realizadas.
         """
-        (
-            log,
-            x_train,
-            y_train,
-            x_train_unlabelled,
-            x_test,
-            y_test
-        ) = data_split(x, y)
+
+        i_u = np.where(y == -1)[0][0]
+        x_u = x[i_u:]
+        x_train = x[:i_u]
+        y_train = y[:i_u]
+
+        log = pd.DataFrame(x_train, columns=features)
+        log['iter'] = 0
+        log['target'] = y_train
 
         iteration = 0
         stats = pd.DataFrame()
 
-        while len(x_train_unlabelled) and (
+        while len(x_u) and (
                 iteration < self.n_iter or not self.n_iter):  # Criterio generalmente seguido
 
             self.clf.fit(x_train, y_train)
 
             # Predicción
-            points = self.clf.predict_proba(x_train_unlabelled.values).max(axis=1)
+            points = self.clf.predict_proba(x_u).max(axis=1)
             if self.n is not None:  # n mejores
-                top = min(self.n, len(x_train_unlabelled.index))
+                top = min(self.n, len(x_u))
                 topx = points.argsort()[-top:][::-1]
             else:  # mejores con límite
                 topx = np.where(points > self.th)
@@ -83,22 +85,20 @@ class SelfTraining:
                     break
 
             # Los nuevos datos a añadir (el dato y la predicción o etiqueta)
-            topx_new_labelled = x_train_unlabelled.iloc[topx]
-            topx_pred = self.clf.predict(topx_new_labelled.values)
-
+            topx_pred = self.clf.predict(x_u[topx])
             # El conjunto de entrenamiento se ha extendido
-            x_train = np.append(x_train, topx_new_labelled.values, axis=0)
+            x_train = np.append(x_train, x_u[topx], axis=0)
             y_train = np.append(y_train, topx_pred)
 
             # Se eliminan los datos que antes eran no etiquetados pero ahora sí lo son
-            indexes = x_train_unlabelled.index[topx]
-            x_train_unlabelled = x_train_unlabelled.drop(indexes)
+            topx_new_labelled = x_u[topx]
+            x_u = np.delete(x_u, topx, axis=0)
 
             # Preparación de datos para la siguiente iteración
-            new_classified = topx_new_labelled.copy()
+            new_classified = pd.DataFrame(topx_new_labelled, columns=features)
             new_classified['iter'] = iteration + 1
             new_classified['target'] = topx_pred
-            log = pd.concat([log, new_classified])
+            log = pd.concat([log, new_classified], ignore_index=True)
 
             iteration += 1
 
@@ -135,19 +135,25 @@ class SelfTraining:
 
 
 if __name__ == '__main__':
-    data = load_wine()
-    x = pd.DataFrame(data['data'], columns=data['feature_names'])
-    y = pd.DataFrame(data['target'], columns=['target'])
+    dl = DatasetLoader('utilidades/breast.w.arff')
+    dl.set_target("Class")
+    x, y, mapa = dl.get_x_y()
 
     st = SelfTraining(clf=SVC(kernel='rbf',
                               probability=True,
                               C=1.0,
                               gamma='scale',
                               random_state=0
-                              ), n=25, n_iter=30)
+                              ), n=10, n_iter=20)
 
-    log, it = st.fit(x, y)
-    df = log_pca_reduction(log, 2)
+    (
+        x,
+        y,
+        x_test,
+        y_test
+    ) = data_split(x, y)
+
+    log, it = st.fit(x, y, x_test, y_test, dl.get_only_features())
 
     stsk = SelfTrainingClassifier(base_estimator=SVC(kernel='rbf',
                                                      probability=True,
@@ -155,16 +161,6 @@ if __name__ == '__main__':
                                                      gamma='scale',
                                                      random_state=0
                                                      ))
-    (
-        log,
-        x_train,
-        y_train,
-        x_train_unlabelled,
-        x_test,
-        y_test
-    ) = data_split(x, y)
 
-    x_train = np.append(x_train, x_train_unlabelled.values, axis=0)
-    y_train = np.append(y_train, [-1] * len(x_train_unlabelled))
-    stsk.fit(x_train, y_train)
+    stsk.fit(x, y)
     print("Precisión Sklearn: ", stsk.score(x_test, y_test))
