@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 #
 # Autor: David Martínez Acha
-# Fecha: 27/01/2023 13:25
+# Fecha: 04/02/2023 21:30
 # Descripción: Algoritmo SelfTraining
-# Version: 1.0
+# Version: 1.1
 
 import pandas as pd
 import numpy as np
@@ -17,7 +17,6 @@ from sklearn.svm import SVC
 
 from algoritmos.utilidades import DatasetLoader
 from algoritmos.utilidades.datasplitter import data_split
-from algoritmos.utilidades.dimreduction import log_pca_reduction
 from sklearn.semi_supervised import SelfTrainingClassifier
 
 
@@ -57,10 +56,12 @@ class SelfTraining:
                 realizadas.
         """
 
-        i_u = np.where(y == -1)[0][0]
-        x_u = x[i_u:]
-        x_train = x[:i_u]
-        y_train = y[:i_u]
+        mask = np.ones(len(x), bool)
+        i_u = np.where(y == -1)
+        mask[i_u] = 0  # A cero los no etiquetados
+        x_u = x[~mask]
+        x_train = x[mask]
+        y_train = y[mask]
 
         log = pd.DataFrame(x_train, columns=features)
         log['iter'] = 0
@@ -105,7 +106,6 @@ class SelfTraining:
         self.clf.fit(x_train, y_train)  # Entrenar con los últimos etiquetados
 
         print(self.get_confusion_matrix(x_test, y_test))
-        print(iteration)
         print(log)
         print("Precisión Implementación: ", self.get_accuracy_score(x_test, y_test))
         return log, iteration
@@ -137,7 +137,7 @@ class SelfTraining:
 if __name__ == '__main__':
     dl = DatasetLoader('utilidades/breast.w.arff')
     dl.set_target("Class")
-    x, y, mapa = dl.get_x_y()
+    x, y, mapa, is_unlabelled = dl.get_x_y()
 
     st = SelfTraining(clf=SVC(kernel='rbf',
                               probability=True,
@@ -151,7 +151,7 @@ if __name__ == '__main__':
         y,
         x_test,
         y_test
-    ) = data_split(x, y)
+    ) = data_split(x, y, p_unlabelled=0.9, p_test=0.7)
 
     log, it = st.fit(x, y, x_test, y_test, dl.get_only_features())
 

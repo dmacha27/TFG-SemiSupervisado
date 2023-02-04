@@ -13,7 +13,10 @@
             { nombre: "target", valor: "{{ target }}" },
             { nombre: "cx", valor: "{{ cx }}" },
             { nombre: "cy", valor: "{{ cy }}" },
-            { nombre: "pca", valor: "{{ pca }}" }
+            { nombre: "pca", valor: "{{ pca }}"},
+            { nombre: "no_etiquetados", valor: "{{ no_etiquetados }}" },
+            { nombre: "p_unlabelled", valor: {{ p_unlabelled }} },
+            { nombre: "p_test", valor: "{{ p_test }}" }
         ];
         let cx = "{{ cx }}", cy = "{{ cy }}";
         inicializarGrafico("/{{ session['ALGORITMO'] }}d", elementos, STpreparardataset, STdatabinding);

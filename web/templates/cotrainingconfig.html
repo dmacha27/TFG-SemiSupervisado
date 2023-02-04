@@ -47,6 +47,18 @@
             <input type="checkbox" id="pca" oninput="componentesPCA(this.checked,'cx','cy')" name="pca">
             <label>(al utilizar PCA se reduce a 2 las componentes directamente):</label>
         </div>
+        <div>
+            <label for="no_etiquetados">¿El conjunto de datos ya es semi-supervisado?:</label>
+            <input type="checkbox" id="no_etiquetados" oninput="noetiquetados(this.checked,'p_unlabelled')" name="no_etiquetados">
+        </div>
+        <div>
+            <label for="p_unlabelled">Porcentaje de no etiquetados:</label>
+            <input type="number" id="p_unlabelled" min=0 max=0.99 step="any" name="p_unlabelled">
+        </div>
+        <div>
+            <label for="p_test">Porcentaje de test (después de aplicar el de no etiquetados):</label>
+            <input type="number" id="p_test" min=0 max=0.99 step="any" name="p_test">
+        </div>
         <button type="submit">Ejecutar</button>
     </form>
 

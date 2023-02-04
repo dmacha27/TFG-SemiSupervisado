@@ -30,3 +30,7 @@ function componentesPCA(checked,x,y){
         document.getElementById(y).disabled = false;
     }
 }
+
+function noetiquetados(checked,id){
+    document.getElementById(id).disabled = !!checked;
+}

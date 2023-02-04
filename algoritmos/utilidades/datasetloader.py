@@ -16,6 +16,7 @@ from scipy.io import arff
 from sklearn.preprocessing import LabelEncoder
 
 from algoritmos.utilidades import FileType
+from algoritmos.utilidades.labelencoder import OwnLabelEncoder
 
 
 class DatasetLoader:
@@ -104,16 +105,15 @@ class DatasetLoader:
         return not all(types.is_numeric_dtype(t) for t in list(x.dtypes))
 
     def _detect_unlabelled_targets(self, y: DataFrame):
-        if -1 in y:
-            return True
-        return False
+        values = y[self.target].astype(str).values
+        return "-1" in values or "-1.0" in values
 
     def get_x_y(self):
         """
         Obtiene por separado los datos (las características) y los target o clases
 
         :return: Las características (x), las clases o targets (y), el mapeo de las clases codificadas a las
-        originales y el codificador utilizado para ello
+        originales y si el conjunto de datos ya era semi-supervisado
         """
 
         if self.target is None:
@@ -122,24 +122,32 @@ class DatasetLoader:
 
         data = self.get_data()
 
-        x = data.loc[:, data.columns != self.target]
+        x = data.drop(columns=[self.target])
 
         if self._detect_categorical_features(x):
-            raise ValueError("Se han detectado características categóricas")
+            raise ValueError("Se han detectado características categóricas o indefinidas ('O' de Object),"
+                             " es necesario que se aseguren características numéricas")
 
-        is_unlabelled = self._detect_unlabelled_targets(data[self.target])
+        if self.type == FileType.CSV:
+            y = pd.DataFrame(data[self.target], columns=[self.target])
+        else:
+            y = pd.DataFrame(
+                np.array([v.decode("utf-8") if not types.is_numeric_dtype(type(v)) else v for v in
+                          data[self.target].values]),
+                columns=[self.target])
+            y.replace("?", "-1", inplace=True)
 
-        le = LabelEncoder()
+        is_unlabelled = self._detect_unlabelled_targets(y)
 
-        y = pd.DataFrame(le.fit_transform(data[self.target]), columns=['target'])
+        le = OwnLabelEncoder()
 
-        mapping = {int(t): str(c, encoding='utf-8') for t, c in zip(le.transform(le.classes_), le.classes_)}
+        y, mapping = le.transform(y)
 
-        return x, y, mapping
+        return x, y, mapping, is_unlabelled
 
 
 if __name__ == '__main__':
     dl = DatasetLoader('iris.csv')
-    print(dl.get_allfeatures())
+    # print(dl.get_allfeatures())
     dl.set_target("variety")
-    print(dl.get_x_y())
+    dl.get_x_y()

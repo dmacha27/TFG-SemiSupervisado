@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 #
 # Autor: David Martínez Acha
-# Fecha: 27/01/2023 13:25
+# Fecha: 04/02/2023 21:30
 # Descripción: Algoritmo CoTraining
-# Version: 1.0
+# Version: 1.1
 
 
 import pandas as pd
@@ -17,7 +17,6 @@ from sklearn.svm import SVC
 
 from algoritmos.utilidades import DatasetLoader
 from algoritmos.utilidades.datasplitter import data_split
-from algoritmos.utilidades.dimreduction import log_pca_reduction
 
 
 class CoTraining:
@@ -72,10 +71,12 @@ class CoTraining:
                 realizadas.
         """
 
-        i_u = np.where(y == -1)[0][0]
-        x_u = x[i_u:]
-        x_train = x[:i_u]
-        y_train = y[:i_u]
+        mask = np.ones(len(x), bool)
+        i_u = np.where(y == -1)
+        mask[i_u] = 0  # A cero los no etiquetados
+        x_u = x[~mask]
+        x_train = x[mask]
+        y_train = y[mask]
 
         log = pd.DataFrame(x_train, columns=features)
         log['iter'] = 0
@@ -182,7 +183,7 @@ class CoTraining:
 if __name__ == '__main__':
     dl = DatasetLoader('utilidades/breast.w.arff')
     dl.set_target("Class")
-    x, y, mapa = dl.get_x_y()
+    x, y, mapa, is_unlabelled = dl.get_x_y()
 
     st = CoTraining(clf1=SVC(kernel='rbf',
                              probability=True,

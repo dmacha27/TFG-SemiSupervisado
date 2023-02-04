@@ -65,8 +65,7 @@ def configuracionselftraining():
         return redirect('/subida')
 
     dl = DatasetLoader(session['FICHERO'])
-    return render_template('selftrainingconfig.html', caracteristicas=dl.get_allfeatures(),
-                           data=dl.get_data().to_json())
+    return render_template('selftrainingconfig.html', caracteristicas=dl.get_allfeatures())
 
 
 @app.route('/cotrainingc', methods=['GET'])
@@ -92,7 +91,11 @@ def selftraining():
                            target=request.form['target'],
                            cx=request.form['cx'] if 'cx' in request.form else 'C1',
                            cy=request.form['cy'] if 'cy' in request.form else 'C2',
-                           pca=request.form['pca'] if 'pca' in request.form else 'off')
+                           pca=request.form['pca'] if 'pca' in request.form else 'off',
+                           no_etiquetados=request.form['no_etiquetados'] if 'no_etiquetados' in request.form else 'off',
+                           p_unlabelled=request.form['p_unlabelled'] if 'p_unlabelled' in request.form else -1,
+                           p_test=request.form['p_test'] if 'p_test' in request.form else -1
+                           )
 
 
 @app.route('/cotraining', methods=['GET', 'POST'])
@@ -109,7 +112,11 @@ def cotraining():
                            target=request.form['target'],
                            cx=request.form['cx'] if 'cx' in request.form else 'C1',
                            cy=request.form['cy'] if 'cy' in request.form else 'C2',
-                           pca=request.form['pca'] if 'pca' in request.form else 'off')
+                           pca=request.form['pca'] if 'pca' in request.form else 'off',
+                           no_etiquetados=request.form['no_etiquetados'] if 'no_etiquetados' in request.form else 'off',
+                           p_unlabelled=request.form['p_unlabelled'] if 'p_unlabelled' in request.form else -1,
+                           p_test=request.form['p_test'] if 'p_test' in request.form else -1
+                           )
 
 
 @app.route('/selftrainingd', methods=['GET', 'POST'])
@@ -120,6 +127,10 @@ def datosselftraining():
     cx = request.form['cx']
     cy = request.form['cy']
     pca = request.form['pca']
+    no_etiquetados = request.form['no_etiquetados']
+    p_unlabelled = float(request.form['p_unlabelled'])
+    p_test = float(request.form['p_test'])
+
     clf = SVC(kernel='rbf',
               probability=True,
               C=1.0,
@@ -134,14 +145,14 @@ def datosselftraining():
 
     dl = DatasetLoader(session['FICHERO'])
     dl.set_target(request.form['target'])
-    x, y, mapa = dl.get_x_y()
+    x, y, mapa, is_unlabelled = dl.get_x_y()
 
     (
         x,
         y,
         x_test,
         y_test
-    ) = data_split(x, y)
+    ) = data_split(x, y, p_unlabelled=p_unlabelled, p_test=p_test)
 
     log, it = st.fit(x, y, x_test, y_test, dl.get_only_features())
 
@@ -165,6 +176,9 @@ def datoscotraining():
     cx = request.form['cx']
     cy = request.form['cy']
     pca = request.form['pca']
+    no_etiquetados = request.form['no_etiquetados']
+    p_unlabelled = float(request.form['p_unlabelled'])
+    p_test = float(request.form['p_test'])
 
     clf1 = SVC(kernel='rbf',
                probability=True,
@@ -188,14 +202,14 @@ def datoscotraining():
 
     dl = DatasetLoader(session['FICHERO'])
     dl.set_target(request.form['target'])
-    x, y, mapa = dl.get_x_y()
+    x, y, mapa, is_unlabelled = dl.get_x_y()
 
     (
         x,
         y,
         x_test,
         y_test
-    ) = data_split(x, y)
+    ) = data_split(x, y, p_unlabelled=p_unlabelled, p_test=p_test)
 
     log, it = ct.fit(x, y, x_test, y_test, dl.get_only_features())
 
