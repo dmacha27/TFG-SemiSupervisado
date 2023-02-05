@@ -2,6 +2,21 @@
 
 \section{Introducción}
 
+En el presente apartado de los anexos se analizará la gestión del proyecto
+software desarrollado. Este proyecto será organizado mediante la metodología
+Scrum en la que el trabajo estará dividido en Sprints. Por cada Sprint se
+realiza una reunión para la revisión del avance y los objetivos para el
+siguiente.  Con esta metodología se mantendrá en todo momento lo que se conoce
+como \texttt{Product Backlog} que es una lista de las tareas a realizar. Esta
+lista será actualizada, en principio, en cada reunión para así mantener un
+desarrollo constante. Las reuniones en un principio se realizan cada dos
+semanas, intensificando a cada semana en el momento del inicio del periodo
+temporal del segundo cuatrimestre.
+
+El objetivo de este plan es servir como herramienta para registrar el avance del
+proyecto y también para poder cumplir con el objetivo final del desarrollo.
+
+
 \section{Planificación temporal}
 La planificación temporal se llevará a cabo mediante Sprint de 2 semanas.
 En la presente sección se comentará el desarrollo realiza en cada uno de ellos.
@@ -23,7 +38,7 @@ Corresponde con el periodo temporal del 5 al 19 de octubre de 2022.
 El mismo día 5 tuvo lugar una reunión de seguimiento del trabajo. Durante el sprint se
 realizaron unos arreglos de la plantilla y una lectura de conceptos teóricos
 para posteriormente añadirlos a la documentación. Concretamente se crearon las
-tareas ``Añadir conceptos teóricos aprendizaje'' y ``Trabajos relacionados'' a
+tareas "<Añadir conceptos teóricos aprendizaje"> y "<Trabajos relacionados"> a
 día 9 de octubre.
 
 \subsection{Sprint 2}
@@ -32,14 +47,11 @@ Corresponde con el periodo temporal del 19 de octubre al 2 de noviembre de 2022.
 
 Durante el sprint se implementó un prototipo del algoritmo Self-Training en el
 que posteriormente se hicieron unas correcciones en el código. También se
-comenzó con la redacción de conceptos teóricos (tarea ``In progess''), concretamente, sobre el
+comenzó con la redacción de conceptos teóricos (tarea "<In progess">), concretamente, sobre el
 aprendizaje automático.
 
+
 \subsection{Sprint 3}
-
-Corresponde con el periodo temporal del 2 al 16 de noviembre de 2022.
-
-\subsection{Sprint 4}
 
 Corresponde con el periodo temporal del 16 al 30 de noviembre de 2022.
 
@@ -50,19 +62,80 @@ su documentación (PEP), evitar datos duplicados y modularizando el código.
 La memoria fue parcialmente modificada basándose en las correcciones propuestas
 de los tutores.
 
-\subsection{Sprint 5}
+\subsection{Sprint 4}
 
-Corresponde con el periodo temporal del 25 al 8 de febrero de 2023.
+Corresponde con el periodo temporal del 25 de enero al 1 de febrero de 2023. En este
+momento las duraciones de los Sprints cambiaron a una semana, iniciando así el
+periodo temporal real del desarrollo del proyecto (segundo cuatrimestre)
 
 Durante el sprint se retomaron las tareas y el desarrollo general del proyecto.
-Se mejoró el algoritmo de SelfTraining que estaba como prototipo y se avanzó en
+Se mejoró el algoritmo de \texttt{SelfTraining} que estaba como prototipo y se avanzó en
 la tarea de primera aproximación en Web mediante Flask. Sobre esto último, se creó
 una visualización del proceso de entrenamiento muy básica por cada iteración.
 
-Se creó un prototipo del algoritmo Co-Training sin cumplir con todas sus
+Se creó un prototipo del algoritmo \texttt{CoTraining} sin cumplir con todas sus
 condiciones que posteriormente se completaron a falta de revisión. 
 
 Sobre estos dos algoritmos se propuso la versión 1.0. 
+
+Continuando con la Web, se realizó la interfaz general funcional. Incluye:
+\begin{itemize}
+    \item Página de Inicio donde seleccionar el algoritmo.
+    \item Página de subida de archivos en formatos ARFF y CSV de los conjuntos de datos
+    \item Páginas correspondientes para SelfTraining y CoTraining: Cada una
+    tiene sus parámetros específicos con la posibilidad de seleccionar si
+    utilizar PCA (Principal Component Analysis) o dos componentes que elija el usuario.
+    \item Página de visualización del algoritmo (su entrenamiento): Se tiene la
+    vista principal que será común a todos los algoritmos (con algunas
+    variaciones en caso necesario) con la posibilidad de avanzar en la
+    visualización (con controles) y barra de progreso. Desde el punto de vista
+    del gráfico los colores están automatizados dependiendo del número de
+    clases, leyenda y etiqueta de ejes. 
+\end{itemize}
+En el servidor (Flask) a nivel de programación se añadieron los "<endpoints">
+correspondientes (subida, configuración, visualización...) y un control de
+acceso a las páginas muy básico (por ejemplo, si no se configuró el algoritmo,
+no se puede visualizar y le redirecciona a la configuración con un mensaje de error)
+
+\subsection{Sprint 5}
+Corresponde con el periodo temporal del 1 al 8 de febrero de 2023.
+
+En la reunión del 1 de febrero se revisó lo realizado en el anterior y se fijó
+una serie de mejoras/modificaciones y nuevas tareas:
+\begin{enumerate}
+    \item Modificación de los algoritmos para trabajar con la convención de
+    "<-1s"> en el conjunto de datos para los datos no etiquetados. Así el
+    usuario podrá subir un archivo ya \texttt{Semi-Supervisado}.
+    \item Permitir al usuario seleccionar los porcentajes de no etiquetados y de
+    test (para las futuras estadísticas)
+    \item De la página (no gráfico) visualización de los algoritmos: volver a la configuración, el
+    "<feedback"> de la iteración actual y el nombre del conjunto de datos utilizado.
+    \item Del gráfico de la visualización: Diferenciar en el algoritmo
+    CoTraining cuál de los dos clasificadores han etiquetado cada punto y los
+    puntos "<etiquetados"> en la iteración 0 deben mostrarse de forma diferente.
+    \item Avanzar con los trabajos relacionados.
+    \item Avanzar con la documentación teórica y anexos.
+\end{enumerate}
+
+El punto 1 ha llevado unas 12 horas de compresión y desarrollo. Esto es debido a
+que los dos algoritmos implementados hasta ahora debían ser modificados para
+trabajar con la nueva convención. Además, el problema principal fue (aunque no
+implementado en este Sprint) dejar preparado una forma de carga del conjunto de
+datos que permita tratar datos no etiquetados ("<?"> por ejemplo en el caso de
+ARFF) pues además los algoritmos (su correcto funcionamiento) se han probado con
+ficheros. También conllevó la creación de un codificador de etiquetas propio
+para ignorar los no etiquetados en clases categóricas (y no realizar la
+conversión en esos casos)
+
+El punto 2 volvió a causar bastantes problemas tanto en la ejecución de los
+algoritmos como en la Web. Hasta el momento, el usuario no seleccionaba los
+porcentajes de las divisiones. Al incluir esto, los algoritmos ya no se encargan
+de esta tarea y había que modificar tanto los algoritmos como aquellas rutas de
+la Web que debían encargarse de esto. Aproximadamente 4 horas.
+
+El punto 3 no resultó demasiado difícil más allá de seguir habituándose a
+Javascript/HTML. Unas 3 horas.
+
 
 
 \section{Estudio de viabilidad}
