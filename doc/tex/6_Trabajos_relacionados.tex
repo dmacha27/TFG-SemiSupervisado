@@ -15,7 +15,8 @@ subyacentes.
 
 \section{Visualizadores}
 
-\textbf{Seshat} es una herramienta web que trata de facilitar el aprendizaje de
+\subsubsection{Seshat} 
+Es una herramienta web que trata de facilitar el aprendizaje de
 la teoría de lenguajes y autómatas (análisis léxico) que utilizan los
 compiladores \cite{arnaiz2018seshat} , puede accederse desde
 \url{http://cgosorio.es/Seshat}. La herramienta propone en primera instancia
@@ -35,8 +36,16 @@ Para su construcción se ha usado el framework Flask en Python que actúa como
 servidor. La interfaz de usuario está construida con HTML, SVGs y Javascript
 para proporcionar el contenido dinámico.
 
+En este proyecto se realizó un estudio de la opinión de 42 estudiantes después
+de su uso. El estudio consistía en unas afirmaciones (5) respecto a la buena
+utilidad, buen diseño o el interés que puede producir al visualizar los
+algoritmos de esa forma. De forma general, en una escala del 1 al 5 (donde el 5
+representa que están profundamente de acuerdo con la afirmación) el 95\% de los
+resultados se concentran entre el 4 y el 5 en la valoración. Esto indicó que la
+herramienta sí que resultó útil e incluso ellos mismos solicitaban este recurso
+para facilitar su aprendizaje.
 
-\textbf{Herramienta de apoyo a la docencia de algoritmos de selección de instancias}
+\subsubsection{Herramienta de apoyo a la docencia de algoritmos de selección de instancias}
 \cite{arnaiz2012herramienta}. Es una herramienta de escritorio para la
 visualización de la ejecución y resultados de los algoritmos de selección de
 instancias debido a la carencia de este tipo de aplicaciones para dichos
@@ -57,17 +66,74 @@ algoritmos implementados por la herramienta son:
 Está desarrollado completamente en Java lo que lo hace portable a cualquier
 plataforma y sin instalación.
 
-\textbf{MLDemos} \url{https://basilio.dev/}
+Como punto característico a tener en cuenta, la herramienta estaba muy orientada
+a ofrecer bastante granularidad en cada paso, de tal forma que mediante, por
+ejemplo, la visualización del pseudocódigo (al mismo tiempo que la visualización
+gráfica), permite para analizar el comportamiento subyacente.
+
+Los estudiantes, de forma general, valoraron muy positivamente la herramienta
+pues les ayudó a comprender los algoritmos.
+
+\subsubsection{Towards Developing an Effective Algorithm Visualization Tool for
+Online Learning} 
+
+Este artículo resulta especialmente interesante de cara a las
+consideraciones a la hora del desarrollo de una buena visualización.
+
+
+La realidad actual es que resulta muy difícil hacer que los alumnos entiendan
+todos los conceptos que involucran los algoritmos y más aún en la cada vez más
+común modalidad "<a distancia">. Para solventar este problema se haya
+desarrollado múltiples herramientas de visualización de algoritmos (AV) que
+pretenden facilitar la compresión de los mismos, pero la realidad de estas
+herramientas es que se desarrollan con una fuerte componente "<bonita"> y no
+enriquecedora o pedagógica. En este artículo se trata de abordar este último
+problema, el cómo construir herramientas de visualización de algoritmos que sean
+divertidas y atractivas, pero siendo fieles a los conceptos y cómo estas pueden
+ayudar a los docentes a asegurar el aprendizaje de sus alumnos \cite{8560314}.
+
+Para lograr el objetivo de desarrollar un visualizador efectivo, se analiza
+desde el punto de vista de la pedagogía, usabilidad y accesibilidad. En la Tabla
+\ref{tabla:objetivospedagogicos} se pueden algunos de las características que se
+deben tener en cuenta a la hora de desarrollar una herramienta de este estilo.
+
+\begin{table}[]
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|l|l|}
+    \hline
+    \rowcolor[HTML]{FFFFFF} 
+    \textbf{\begin{tabular}[c]{@{}l@{}}Incrementar\\ comprensión\end{tabular}} & \begin{tabular}[c]{@{}l@{}}Explicaciones textuales\\ Realimentación con las acciones del usuario\\ Ayuda integrada\\ Comodidad en la entrada de datos\end{tabular}                                                              \\ \hline
+    \textbf{\begin{tabular}[c]{@{}l@{}}Promocionar\\ interés\end{tabular}}     & \begin{tabular}[c]{@{}l@{}}Permitir introducir datos al algoritmo\\ Manipular la visualización\\ Capacidad de volver "\textless{}rebobinar"\textgreater\\ Variación de la velocidad\\ Avanzar en la ejecución\end{tabular}         \\ \hline
+    \textbf{Aprendibilidad}                                                    & \begin{tabular}[c]{@{}l@{}}Controles familiares\\ Generalidad con otros sistemas\\ Predictibilidad de las acciones\\ Interfaz simple\end{tabular}                                                                                  \\ \hline
+    \textbf{Memorabilidad}                                                     & Interfaz común que soporte múltiples animaciones                                                                                                                                                                                   \\ \hline
+    \textbf{Facilidad de uso}                                                  & \begin{tabular}[c]{@{}l@{}}Interfaz común que soporte múltiples animaciones\\ Claridad de los modelos y conceptos\end{tabular}                                                                                                     \\ \hline
+    \textbf{Robustez}                                                          & \begin{tabular}[c]{@{}l@{}}Explicaciones de la visualización\\ Integración de ajustes predefinidos\\ Recuperación de errores\end{tabular}                                                                                       \\ \hline
+    \textbf{Eficacia}                                                          & \begin{tabular}[c]{@{}l@{}}Visibilidad del estado del sistema\\ Control y libertad del usuario\\ Prevención de errores\\ Flexibilidad de uso\\ Ayuda al usuario para reconocer, diagnosticar y recuperarse de errores\end{tabular} \\ \hline
+    \rowcolor[HTML]{FFFFFF} 
+    \textbf{Accesibilidad}                                                     & \begin{tabular}[c]{@{}l@{}}Globalmente disponible\\ Plataforma y dispositivo independiente\end{tabular}                                                                                                                            \\ \hline
+    \end{tabular}%
+    }
+    \caption{Características que influencian los objetivos pedagógicos}
+\label{tabla:objetivospedagogicos}
+    \end{table}
+
+
+\subsubsection{Interactive System for Algorithm and Data Structure
+Visualization} 
+
+En la línea del anterior artículo en \cite{perhavc2022interactive} se presenta
+un proyecto en desarrollo de una página abierta para la visualización de
+algoritmos interactivos. En el que precisamente la "<interactividad"> busca
+conseguir esos objetivos anteriores (pedagogía, usabilidad y accesibilidad).
 
 \section{Otras herramientas/librerías}
-Existen algunas herramientas bastante interesantes y visuales pero más generales.
 
 Algorithm-Visualizer, \url{https://algorithm-visualizer.org/}. Se trata de una
 Web que incluye una cantidad enorme de algoritmos, todos están programados
 directamente en Javascript que genera una visualización de los mismos y también
 incluye una explicación corta de cada uno. Algunos de los algoritmos son:
 \texttt{Backtracking}, \texttt{Divide and Conquer}, \texttt{Greedy} o más
-concretamente \texttt{K-Means Clustering}.
+concretamente \texttt{K-Means Clustering}, entre muchos otros.
 
 VISUALGO, \url{https://visualgo.net/en}. Es una página web creada por la
 Universidad Nacional de Singapur. Esta Web permite visualizar algoritmos básico
@@ -86,4 +152,8 @@ Clutering-Visualizer, \url{https://clustering-visualizer.web.app/}. Es una
 página Web para visualizar algoritmos de clustering. Realmente, no tiene muchos
 implementados, pero las visualizaciones son muy descriptivas.
 
-
+MLDemos, puede visitarse desde \url{https://basilio.dev/}. Es una herramienta de
+visualización de código abierto para algoritmos de aprendizaje automático creada
+específicamente para ayudar en el estudio y compresión del funcionamiento de una
+gran cantidad de algoritmos. Entre ellos: clasificación, regresión, reducción de
+dimensionalidad y clustering.
