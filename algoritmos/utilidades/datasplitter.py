@@ -53,10 +53,12 @@ def data_split_already_unlabelled(x: DataFrame, y: DataFrame, p_test=0.2):
     x = np.array(x)
     y = np.array(y)
 
-    i_u = np.where(x == -1)
-    x_unlabelled = x[i_u]
-    x = x[~i_u]
-    y = y[~i_u]
+    mask = np.ones(len(x), bool)
+    i_u = np.where(y == -1)
+    mask[i_u] = 0  # A cero los no etiquetados
+    x_unlabelled = x[~mask]
+    x = x[mask]
+    y = y[mask]
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=p_test, random_state=0)
 
