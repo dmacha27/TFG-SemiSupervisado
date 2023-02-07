@@ -1,2 +1,19 @@
 {% extends "base.html" %}
 {% block title %}Configuración de la ejecución{% endblock %}
+{% block content %}
+    <div class="grid-container" style="min-height: calc(100vh - 80px);" >
+        <div class="grid-child">
+            <div class="padre">
+                {% block parametros %}
+                {% endblock %}
+            </div>
+        </div>
+        <div class="grid-child">
+            <div class="padre">
+                {% block explicaciones %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/static/configuracion.js"></script>
+{% endblock %}

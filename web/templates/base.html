@@ -9,16 +9,17 @@
         <title>{% block title %}{% endblock %} - VASS</title>
     {% endblock %}
 </head>
-<body>
-<div id="header">{% block header %}
-    <div id="navbar">
+<header>
+    <nav id="navbar">
         <a href="/">Inicio</a>
         <a href="/sel_selftraining">Self-Training</a>
         <a href="/sel_cotraining">Co-Training</a>
-    </div>
-{% endblock %}</div>
-<div id="content">{% block content %}{% endblock %}</div>
-<div id="footer">
+    </nav>
+</header>
+<body>
+<div id="content" style="height: calc(100vh - 80px);">{% block content %}{% endblock %}</div>
+</body>
+<footer id="footer">
     {% block footer %}{% endblock %}
     {% with mensajes = get_flashed_messages() %}
         {% if mensajes %}
@@ -28,6 +29,5 @@
         {% endif %}
     {% endwith %}
     <p>Universidad de Burgos</p>
-</div>
-</body>
+</footer>
 </html>

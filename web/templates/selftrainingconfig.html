@@ -1,6 +1,5 @@
-{% extends "base.html" %}
-{% block title %}Configuración de la ejecución{% endblock %}
-{% block content %}
+{% extends "base_configuracion.html" %}
+{% block parametros %}
     <form action="/selftraining" method="POST">
         <div>
             <label for="n">N:</label>
@@ -57,7 +56,7 @@
         </div>
         <button type="submit">Ejecutar</button>
     </form>
-
-    <script type="text/javascript" src="/static/configuracion.js"></script>
-
+{% endblock %}
+{% block explicaciones %}
+    Explicaciones
 {% endblock %}

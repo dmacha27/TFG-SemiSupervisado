@@ -7,14 +7,24 @@ document.getElementById("config_btn").disabled = true;
 });
 
 let area = document.getElementById('soltar');
+area.param = 'soltar'
 let progreso = document.getElementById('progreso');
 
-area.addEventListener('drop',soltado,false)
+let boton = document.getElementById('archivo');
+boton.param = 'boton'
 
-function soltado(e){
+area.addEventListener('drop',subir,false)
+boton.addEventListener('change',subir)
+
+function subir(e){
     e.preventDefault();
-    let archivo = e.dataTransfer.files;
+    let archivo;
 
+    if (e.currentTarget.param === 'soltar') {
+        archivo = e.dataTransfer.files;
+    }else{
+        archivo = e.target.files;
+    }
     if (archivo.length >= 2) {
         return false;
     }

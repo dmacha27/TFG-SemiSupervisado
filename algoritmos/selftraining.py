@@ -52,6 +52,9 @@ class SelfTraining:
 
         :param x: Muestras (con el nombre de las características).
         :param y: Objetivos de las muestras.
+        :param x_test: Conjunto de test.
+        :param y_test: Etiquetas de test.
+        :param features: Nombre de las características de los datos (para el log).
         :return: El log con la información de entrenamiento y el número de iteraciones
                 realizadas.
         """

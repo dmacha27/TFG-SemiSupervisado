@@ -1,9 +1,9 @@
-
 body {
-    margin: 0;
-}
+    height: calc(100vh - 80px);
+  }
 
 #navbar {
+    height: 40px;
     padding: 0.5em;
     background-color: #AA223C;
     color: #FFFFFF;
@@ -21,6 +21,7 @@ body {
 }
 
 #footer {
+    height: 40px;
     padding: 0.5em;
     background-color: #3A3A3A;
     font-size: smaller;
@@ -39,6 +40,8 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 15px;
+    margin: auto;
     height: 100%;
 }
 
@@ -49,9 +52,11 @@ body {
 #soltar {
     border: 2px dashed;
     text-align: center;
-    width: 600px;
-    height: 500px;
+    width: 550px;
+    height: 400px;
+    line-height: 50px;
 }
+
 
 .cargando {
     border: 16px solid #a09c9c;
@@ -72,6 +77,7 @@ body {
     grid-auto-columns: 1fr;
     grid-auto-flow: column;
 }
+
 .grid-child {
     margin: 5px;
 }

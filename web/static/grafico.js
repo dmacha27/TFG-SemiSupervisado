@@ -56,6 +56,19 @@ function inicializarGrafico(rutadatos, elementos, preparar, binding) {
                 .attr("transform", "rotate(-90)")
                 .text(cy);
 
+            //Leyenda
+            svg.append('g')
+                .selectAll("target")
+                .data(Object.keys(mapa))
+                .enter()
+                .append("text")
+                .attr("x", 120)
+                .attr("y", function(d,i){ return 100 + i*25;})
+                .style("fill", function(d){ return color(parseInt(d));})
+                .text(function(d){ return mapa[d];})
+                .attr("text-anchor", "left")
+                .style("alignment-baseline", "middle");
+
             // Nombre del dataset
             svg.append("text")
                 .attr("x", width/2)
@@ -86,18 +99,7 @@ function inicializarGrafico(rutadatos, elementos, preparar, binding) {
                     return d[3] === 0;})
                 .style("stroke","yellow");
 
-            //Leyenda
-            svg.append('g')
-                .selectAll("target")
-                .data(Object.keys(mapa))
-                .enter()
-                .append("text")
-                .attr("x", 120)
-                .attr("y", function(d,i){ return 100 + i*25;})
-                .style("fill", function(d){ return color(parseInt(d));})
-                .text(function(d){ return mapa[d];})
-                .attr("text-anchor", "left")
-                .style("alignment-baseline", "middle");
+
         }
     }
 
