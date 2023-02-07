@@ -4,7 +4,7 @@
     <p>STATS</p>
 {% endblock %}
 {% block scripts %}
-    <script type="text/javascript" src="/static/grafico.js"></script>
+    <script type="text/javascript" src="/static/grafico_selftraining.js"></script>
     <script>
         let elementos = [
             { nombre: "n", valor: {{ n }} },
@@ -19,6 +19,6 @@
             { nombre: "p_test", valor: "{{ p_test }}" }
         ];
         let cx = "{{ cx }}", cy = "{{ cy }}";
-        inicializarGrafico("/{{ session['ALGORITMO'] }}d", elementos, STpreparardataset, STdatabinding);
+        inicializarGrafico("/{{ session['ALGORITMO'] }}d", elementos, preparardataset, databinding);
     </script>
 {% endblock %}

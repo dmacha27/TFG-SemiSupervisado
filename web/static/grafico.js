@@ -93,12 +93,6 @@ function inicializarGrafico(rutadatos, elementos, preparar, binding) {
 
             binding();
 
-            // Marcar los de la iteración 0
-            svg.selectAll("circle")
-                .filter(function(d) {
-                    return d[3] === 0;})
-                .style("stroke","yellow");
-
 
         }
     }
@@ -112,138 +106,10 @@ function inicializarGrafico(rutadatos, elementos, preparar, binding) {
 
 }
 
-function STpreparardataset(datos) {
-    let dataset = [];
-    let xs = datos[cx];
-    let ys = datos[cy];
-    let etiq = datos['target'];
-    let iter = datos['iter'];
-
-    for (const key in xs){
-        dataset.push([xs[key],ys[key],etiq[key],iter[key]])
-    }
-
-    return dataset;
-}
-
-function CTpreparardataset(datos) {
-    let dataset = [];
-    let xs = datos[cx];
-    let ys = datos[cy];
-    let etiq = datos['target'];
-    let iter = datos['iter'];
-    let clfs = datos['clf'];
-
-    for (const key in xs){
-        dataset.push([xs[key],ys[key],etiq[key],iter[key],clfs[key]])
-    }
-
-    return dataset;
-}
-
-function STdatabinding(){
-    svg.append('g')
-        .selectAll("dot")
-        .data(dataset)
-        .enter()
-        .append("circle")
-        .attr("cx", function (d) { return x(d[0]); } )
-        .attr("cy", function (d) { return y(d[1]); } )
-        .attr("r", 3)
-        .style("fill", function (d) {
-            if (d[3] <= cont) {
-                return color(d[2]);
-            } else {
-                return "grey";
-            }
-        });
-
-}
-
-function CTdatabinding(){
-    svg.append('g')
-        .selectAll("dot")
-        .data(dataset)
-        .enter()
-        .append(function (d) {return forma(d)});
-
-    // Marcar los de la iteración 0
-    svg.selectAll("rect")
-        .filter(function(d) {
-            return d[3] === 0;})
-        .style("stroke","yellow");
-}
-
-function forma(d){
-    var svgns = "http://www.w3.org/2000/svg";
-    let c = () =>{
-        if (d[3] <= cont) {
-            return color(d[2]);
-        } else {
-            return "grey";
-        }
-    };
-
-    var forma = document.createElementNS(svgns, "rect");
-    forma.setAttributeNS(null, "x", x(d[0]));
-    forma.setAttributeNS(null, "y", y(d[1]));
-    forma.setAttributeNS(null, "width", 5);
-    forma.setAttributeNS(null, "height",5);
-    forma.setAttributeNS(null, "fill", c());
-
-    return forma;
-}
-
 let nexit = d3.select("#nextit");
-nexit.on("click", next);
-
-function next(){
-    if (cont < maxit){
-        cont++;
-        svg.selectAll("circle")
-            .filter(function(d) {
-                return d[3] === cont;
-            })
-            .style("fill", function(d){ return color(d[2]);})
-            .transition()
-            .duration(300)
-            .attr("r", 5)
-            .transition()
-            .duration(300)
-            .attr("r", 3);
-        actualizaProgreso();
-    }
-}
-
-
-
 let previt = d3.select("#previt");
-previt.on("click", prev);
-
-function prev(){
-    if (cont > 0){
-        cont--;
-        svg.selectAll("circle")
-            .filter(function(d) {
-                return d[3] > cont;
-            })
-            .style("fill", "grey");
-        actualizaProgreso();
-    }
-}
-
 let rep = d3.select("#reproducir")
-rep.on("click",reproducir);
 
-function reproducir(){
-    // Si vuelve a clickar que pare
-    var intervalo = setInterval(function () {
-        if (cont >= maxit){
-            clearInterval(intervalo);
-        }
-        next();
-    }, 750)
-}
 
 function actualizaProgreso(){
     document.getElementById("progreso").value=cont;
