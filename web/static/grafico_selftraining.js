@@ -16,6 +16,20 @@ function preparardataset(datos) {
     return dataset;
 }
 
+const mousemove = function(e, dot) {
+    d3.select(".tooltip")
+        .html(function() {
+            if (dot[3] <= cont) {
+                return "X: " + dot[0] +" <br>Y: " + dot[1] + "<br>Etiqueta: " + mapa[dot[2]];
+            } else {
+                return "X: " + dot[0] +" <br>Y: " + dot[1] + "<br>Etiqueta: Sin clasificar";
+            }
+        })
+        .style("left", (e.pageX + 10) + "px")
+        .style("top", (e.pageY +5 ) + "px");
+};
+
+
 function databinding(){
     svg.append('g')
         .selectAll("dot")
@@ -31,7 +45,10 @@ function databinding(){
             } else {
                 return "grey";
             }
-        });
+        })
+        .on("mouseover", mouseover)
+        .on("mousemove", function(e) { mousemove(e, d3.select(this).datum()); })
+        .on("mouseleave", mouseleave);
 
     // Marcar los de la iteración 0
     svg.selectAll("circle")
@@ -69,14 +86,4 @@ function next(){
             .attr("r", 3);
         actualizaProgreso();
     }
-}
-
-function reproducir(){
-    // Si vuelve a clickear que pare
-    var intervalo = setInterval(function () {
-        if (cont >= maxit){
-            clearInterval(intervalo);
-        }
-        next();
-    }, 750)
 }

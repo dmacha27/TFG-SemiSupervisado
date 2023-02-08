@@ -27,16 +27,25 @@ function preparardataset(datos) {
 
 let simbolos = d3.symbol();
 let puntos;
+const mousemove = function(e, dot) {
+    d3.select(".tooltip")
+        .html(function() {
+            if (dot[3] <= cont) {
+                return "X: " + dot[0] +" <br>Y: " + dot[1] +"<br>Clasificador: " + dot[4] + "<br>Etiqueta: " + mapa[dot[2]];
+            } else {
+                return "X: " + dot[0] +" <br>Y: " + dot[1] +"<br>Clasificador: Sin clasificar" + "<br>Etiqueta: Sin clasificar";
+            }
+        })
+        .style("left", (e.pageX + 10) + "px")
+        .style("top", (e.pageY +5 ) + "px");
+};
+
 function databinding(){
     puntos = svg.selectAll("dot")
         .data(dataset)
         .enter()
         .append("path")
-        .attr("d", simbolos.type(function(d){
-            if(clf_forma.indexOf(d[4]) === 0){ return d3.symbolCircle
-            } else if (clf_forma.indexOf(d[4]) === 1){ return d3.symbolCross
-            } else if (clf_forma.indexOf(d[4]) === 2){ return d3.symbolTriangle
-            }}).size(35))
+        .attr("d", simbolos.type(d3.symbolCircle).size(35))
         .attr("transform", function(d) {
             return "translate(" + x(d[0]) + "," + y(d[1]) + ")";
         })
@@ -46,9 +55,12 @@ function databinding(){
             } else {
                 return "grey";
             }
-        });
-
+        })
+        .on("mouseover", mouseover)
+        .on("mousemove", function(e) { mousemove(e, d3.select(this).datum()); })
+        .on("mouseleave", mouseleave);
 }
+
 
 function prev(){
     if (cont > 0){
@@ -56,6 +68,7 @@ function prev(){
         puntos.filter(function(d) {
             return d[3] > cont;
         })
+            .attr("d", simbolos.type(d3.symbolCircle).size(35))
             .style("fill", "grey");
         actualizaProgreso();
     }
@@ -70,27 +83,21 @@ function next(){
             .style("fill", function(d){ return color(d[2]);})
             .transition()
             .duration(0)
-            .attr("d", simbolos.type(function(d){
-                if(clf_forma.indexOf(d[4]) === 0){ return d3.symbolCircle
-                } else if (clf_forma.indexOf(d[4]) === 1){ return d3.symbolCross
-                } else if (clf_forma.indexOf(d[4]) === 2){ return d3.symbolTriangle
-                }}).size(35))
+            .style("z-index", 100)
+            .attr("d", simbolos.type(function(d){return obtenerSimbolo(d)}).size(35))
             .transition()
             .duration(300)
             .attr("d", simbolos.size(125))
             .transition()
             .duration(300)
-            .attr("d", simbolos.size(35))
+            .attr("d", simbolos.size(35));
+
         actualizaProgreso();
     }
 }
 
-function reproducir(){
-    // Si vuelve a clickear que pare
-    var intervalo = setInterval(function () {
-        if (cont >= maxit){
-            clearInterval(intervalo);
-        }
-        next();
-    }, 750)
-}
+function obtenerSimbolo(d){
+    if(clf_forma.indexOf(d[4]) === 0){ return d3.symbolCircle
+    } else if (clf_forma.indexOf(d[4]) === 1){ return d3.symbolCross
+    } else if (clf_forma.indexOf(d[4]) === 2){ return d3.symbolTriangle
+    }}

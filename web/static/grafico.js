@@ -77,6 +77,7 @@ function inicializarGrafico(rutadatos, elementos, preparar, binding) {
                 .style("font-size", "16px")
                 .text("Dataset: " + fichero);
 
+
             x = d3.scaleLinear()
                 .domain([d3.min(dataset, d => d[0]), d3.max(dataset, d => d[0])])
                 .range([0, width]);
@@ -90,6 +91,18 @@ function inicializarGrafico(rutadatos, elementos, preparar, binding) {
                 .call(d3.axisBottom(x));
             svg.append("g")
                 .call(d3.axisLeft(y));
+
+            //Basado en https://d3-graph-gallery.com/graph/interactivity_tooltip.html#template
+            d3.select("#semisupervisedchart")
+                .append("div")
+                .style("opacity", 0)
+                .attr("class", "tooltip")
+                .style("background-color", "white")
+                .style("border", "solid")
+                .style("border-width", "2px")
+                .style("border-radius", "5px")
+                .style("padding", "5px")
+                .style("position", "absolute")
 
             binding();
 
@@ -106,6 +119,23 @@ function inicializarGrafico(rutadatos, elementos, preparar, binding) {
 
 }
 
+const mouseover = function (d) {
+    d3.select(".tooltip")
+        .style("opacity", 1)
+    d3.select(this)
+        .style("stroke", "black")
+        .style("opacity", 1)
+};
+
+const mouseleave = function (d) {
+    d3.select(".tooltip")
+        .style("opacity", 0)
+    d3.select(this)
+        .style("stroke", "none")
+        .style("opacity", 0.8)
+};
+
+
 let nexit = d3.select("#nextit");
 let previt = d3.select("#previt");
 let rep = d3.select("#reproducir")
@@ -114,4 +144,23 @@ let rep = d3.select("#reproducir")
 function actualizaProgreso(){
     document.getElementById("progreso").value=cont;
     document.getElementById("iteracion").innerHTML = cont;
+}
+
+let intervalo = null;
+function reproducir(){
+    if (!intervalo){
+        document.getElementById("reproducir").innerHTML = "Pausar";
+        intervalo = setInterval(function () {
+            if (cont >= maxit){
+                document.getElementById("reproducir").innerHTML = "Reproducir";
+                clearInterval(intervalo);
+                intervalo = null;
+            }
+            next();
+        }, 750)
+    } else {
+        document.getElementById("reproducir").innerHTML = "Reproducir";
+        clearInterval(intervalo);
+        intervalo = null;
+    }
 }
