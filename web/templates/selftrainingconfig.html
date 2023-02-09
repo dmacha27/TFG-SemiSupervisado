@@ -2,16 +2,18 @@
 {% block parametros %}
     <form action="/selftraining" method="POST">
         <div>
-            <label for="n">N:</label>
-            <input type="number" id="n" min=0 max=Infinity required oninput="limitarUnicoMetodoST(this.value,'th')" name="n">
+            <label for="n">N (Número de datos a seleccionar/iteración:</label>
+            <input type="number" id="n" min=0 max=Infinity required oninput="limitarUnicoMetodoST(this.value,'th')"
+                   name="n" value=10>
         </div>
         <div>
             <label for="th">Límite (threshold):</label>
-            <input type="number" id="th" min=0 max=0.99 step="any" oninput="limitarUnicoMetodoST(this.value,'n')" name="th">
+            <input type="number" id="th" min=0 max=0.99 step="any" oninput="limitarUnicoMetodoST(this.value,'n')"
+                   name="th" disabled>
         </div>
         <div>
             <label for="n_iter">Número de iteraciones:</label>
-            <input type="number" id="n_iter" required name="n_iter">
+            <input type="number" id="n_iter" required name="n_iter" value=10>
         </div>
         <div>
             <label for="sel_target">Selecciona el target/clase del dataset seleccionado:</label>
@@ -23,7 +25,7 @@
         </div>
         <div>
             <label for="cx">Selecciona la componente X:</label>
-            <select id="cx" name="cx" required>
+            <select id="cx" name="cx" required disabled>
                 {% for c in caracteristicas %}
                     <option value="{{c}}">{{c}}</option>
                 {% endfor %}
@@ -31,7 +33,7 @@
         </div>
         <div>
             <label for="cy">Selecciona la componente Y:</label>
-            <select id="cy" name="cy" required>
+            <select id="cy" name="cy" required disabled>
                 {% for c in caracteristicas %}
                     <option value="{{c}}">{{c}}</option>
                 {% endfor %}
@@ -39,20 +41,21 @@
         </div>
         <div>
             <label for="pca">Utilizar PCA:</label>
-            <input type="checkbox" id="pca" oninput="componentesPCA(this.checked,'cx','cy')" name="pca">
+            <input type="checkbox" id="pca" oninput="componentesPCA(this.checked,'cx','cy')" name="pca" checked>
             <label>(al utilizar PCA se reduce a 2 las componentes directamente):</label>
         </div>
         <div>
             <label for="no_etiquetados">¿El conjunto de datos ya es semi-supervisado?:</label>
-            <input type="checkbox" id="no_etiquetados" oninput="noetiquetados(this.checked,'p_unlabelled')" name="no_etiquetados">
+            <input type="checkbox" id="no_etiquetados" oninput="noetiquetados(this.checked,'p_unlabelled')"
+                   name="no_etiquetados">
         </div>
         <div>
             <label for="p_unlabelled">Porcentaje de no etiquetados:</label>
-            <input type="number" id="p_unlabelled" min=0 max=0.99 step="any" name="p_unlabelled">
+            <input type="number" id="p_unlabelled" min=0 max=0.99 step="any" name="p_unlabelled" value=0.8>
         </div>
         <div>
             <label for="p_test">Porcentaje de test (después de aplicar el de no etiquetados):</label>
-            <input type="number" id="p_test" min=0 max=0.99 step="any" name="p_test">
+            <input type="number" id="p_test" min=0 max=0.99 step="any" name="p_test" value=0.2>
         </div>
         <button type="submit">Ejecutar</button>
     </form>
