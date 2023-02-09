@@ -31,7 +31,11 @@ const mousemove = function(e, dot) {
     d3.select(".tooltip")
         .html(function() {
             if (dot[3] <= cont) {
-                return "X: " + dot[0] +" <br>Y: " + dot[1] +"<br>Clasificador: " + dot[4] + "<br>Etiqueta: " + mapa[dot[2]];
+                if (dot[3] === 0){
+                    return "DATO INICIAL" +"<br>X: " + dot[0] +" <br>Y: " + dot[1] + "<br>Etiqueta: " + mapa[dot[2]];
+                }else {
+                    return "X: " + dot[0] +" <br>Y: " + dot[1] +"<br>Clasificador: " + dot[4] + "<br>Etiqueta: " + mapa[dot[2]];
+                }
             } else {
                 return "X: " + dot[0] +" <br>Y: " + dot[1] +"<br>Clasificador: Sin clasificar" + "<br>Etiqueta: Sin clasificar";
             }
@@ -83,7 +87,6 @@ function next(){
             .style("fill", function(d){ return color(d[2]);})
             .transition()
             .duration(0)
-            .style("z-index", 100)
             .attr("d", simbolos.type(function(d){return obtenerSimbolo(d)}).size(35))
             .transition()
             .duration(300)
@@ -97,7 +100,7 @@ function next(){
 }
 
 function obtenerSimbolo(d){
-    if(clf_forma.indexOf(d[4]) === 0){ return d3.symbolCircle
+    if(clf_forma.indexOf(d[4]) === 0){ return d3.symbolCircle // Dato inicial
     } else if (clf_forma.indexOf(d[4]) === 1){ return d3.symbolCross
     } else if (clf_forma.indexOf(d[4]) === 2){ return d3.symbolTriangle
     }}

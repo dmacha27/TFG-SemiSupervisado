@@ -20,7 +20,11 @@ const mousemove = function(e, dot) {
     d3.select(".tooltip")
         .html(function() {
             if (dot[3] <= cont) {
-                return "X: " + dot[0] +" <br>Y: " + dot[1] + "<br>Etiqueta: " + mapa[dot[2]];
+                if (dot[3] === 0){
+                    return "DATO INICIAL" +"<br>X: " + dot[0] +" <br>Y: " + dot[1] + "<br>Etiqueta: " + mapa[dot[2]];
+                }else {
+                    return "X: " + dot[0] + " <br>Y: " + dot[1] + "<br>Etiqueta: " + mapa[dot[2]];
+                }
             } else {
                 return "X: " + dot[0] +" <br>Y: " + dot[1] + "<br>Etiqueta: Sin clasificar";
             }
@@ -29,16 +33,23 @@ const mousemove = function(e, dot) {
         .style("top", (e.pageY +5 ) + "px");
 };
 
-
+let simbolos = d3.symbol();
+let puntos;
 function databinding(){
-    svg.append('g')
-        .selectAll("dot")
+    puntos = svg.selectAll("dot")
         .data(dataset)
         .enter()
-        .append("circle")
-        .attr("cx", function (d) { return x(d[0]); } )
-        .attr("cy", function (d) { return y(d[1]); } )
-        .attr("r", 3)
+        .append("path")
+        .attr("d", simbolos.type(function(d){
+            if (d[3] === 0){
+                return d3.symbolCircle; // Dato inicial
+            }else{
+                return d3.symbolCross;
+            }
+        }).size(35))
+        .attr("transform", function(d) {
+            return "translate(" + x(d[0]) + "," + y(d[1]) + ")";
+        })
         .style("fill", function (d) {
             if (d[3] <= cont) {
                 return color(d[2]);
@@ -50,21 +61,14 @@ function databinding(){
         .on("mousemove", function(e) { mousemove(e, d3.select(this).datum()); })
         .on("mouseleave", mouseleave);
 
-    // Marcar los de la iteración 0
-    svg.selectAll("circle")
-        .filter(function(d) {
-            return d[3] === 0;})
-        .style("stroke","yellow");
-
 }
 
 function prev(){
     if (cont > 0){
         cont--;
-        svg.selectAll("circle")
-            .filter(function(d) {
-                return d[3] > cont;
-            })
+        puntos.filter(function(d) {
+            return d[3] > cont;
+        })
             .style("fill", "grey");
         actualizaProgreso();
     }
@@ -73,17 +77,19 @@ function prev(){
 function next(){
     if (cont < maxit){
         cont++;
-        svg.selectAll("circle")
-            .filter(function(d) {
-                return d[3] === cont;
-            })
+        puntos.filter(function(d) {
+            return d[3] === cont;
+        })
             .style("fill", function(d){ return color(d[2]);})
             .transition()
-            .duration(300)
-            .attr("r", 5)
+            .duration(0)
+            .attr("d", simbolos.type(d3.symbolCross).size(35))
             .transition()
             .duration(300)
-            .attr("r", 3);
+            .attr("d", simbolos.size(125))
+            .transition()
+            .duration(300)
+            .attr("d", simbolos.size(35));
         actualizaProgreso();
     }
 }
