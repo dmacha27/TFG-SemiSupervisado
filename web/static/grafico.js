@@ -1,8 +1,8 @@
 let datos, dataset = [];
 let mapa;
 
-let margin = {top: 50, right: 5, bottom: 60, left: 60},
-    width = 900 - margin.left - margin.right,
+let margin = {top: 80, right: 90, bottom: 40, left: 35},
+    width = 850 - margin.left - margin.right,
     height = 700 - margin.top - margin.bottom;
 
 let svg, x, y, maxit, color;
@@ -43,7 +43,7 @@ function inicializarGrafico(rutadatos, elementos, preparar, binding) {
                 .attr("class", "cx")
                 .attr("text-anchor", "end")
                 .attr("x", width / 2)
-                .attr("y", height + margin.bottom / 2)
+                .attr("y", height + margin.bottom)
                 .text(cx);
 
             //Etiqueta eje Y
@@ -58,6 +58,7 @@ function inicializarGrafico(rutadatos, elementos, preparar, binding) {
 
             //Leyenda
             svg.append('g')
+                .attr("id","leyenda")
                 .selectAll("target")
                 .data(Object.keys(mapa))
                 .enter()
@@ -67,7 +68,8 @@ function inicializarGrafico(rutadatos, elementos, preparar, binding) {
                 .style("fill", function(d){ return color(parseInt(d));})
                 .text(function(d){ return mapa[d];})
                 .attr("text-anchor", "left")
-                .style("alignment-baseline", "middle");
+                .style("alignment-baseline", "middle")
+                .attr("transform", "translate(" + (width -110) + "," + -120 + ")");
 
             // Nombre del dataset
             svg.append("text")
