@@ -67,12 +67,14 @@ class SelfTraining:
         log['target'] = y_train
 
         iteration = 0
-        stats = pd.DataFrame()
+        stats = pd.DataFrame(columns=['iter', 'train_error', 'test_error'])
 
         while len(x_u) and (
                 iteration < self.n_iter or not self.n_iter):  # Criterio generalmente seguido
 
             self.clf.fit(x_train, y_train)
+            stats.loc[len(stats)] = [iteration,
+                                     self.get_training_score(x_train, y_train), self.get_accuracy_score(x_test, y_test)]
 
             # Predicción
             points = self.clf.predict_proba(x_u).max(axis=1)
@@ -104,10 +106,15 @@ class SelfTraining:
 
         self.clf.fit(x_train, y_train)  # Entrenar con los últimos etiquetados
 
+        rest = pd.DataFrame(x_u, columns=features)
+        rest['iter'] = iteration
+        rest['target'] = -1
+        log = pd.concat([log, rest], ignore_index=True)
+
         print(self.get_confusion_matrix(x_test, y_test))
         print(log)
         print("Precisión Implementación: ", self.get_accuracy_score(x_test, y_test))
-        return log, iteration
+        return log
 
     def get_confusion_matrix(self, x_test, y_test):
         """
@@ -132,10 +139,22 @@ class SelfTraining:
         p = accuracy_score(y_test, self.clf.predict(x_test))
         return p
 
+    def get_training_score(self, x_train, y_train):
+        """
+        Obtiene la puntuación de precisión del clasificador
+        respecto a los datos de entrenamiento
+
+        :param x_train: Conjunto de datos de entrenamiento.
+        :param y_train: Objetivo de los datos.
+        :return: Precisión
+        """
+        p = accuracy_score(y_train, self.clf.predict(x_train))
+        return p
+
 
 if __name__ == '__main__':
-    dl = DatasetLoader('utilidades/datasets/iris.ss.csv')
-    dl.set_target("variety")
+    dl = DatasetLoader('utilidades/datasets/breast.w.arff')
+    dl.set_target("Class")
     x, y, mapa, is_unlabelled = dl.get_x_y()
 
     print(x.to_string(), y.to_string())
@@ -145,16 +164,16 @@ if __name__ == '__main__':
                               C=1.0,
                               gamma='scale',
                               random_state=0
-                              ), n=10, n_iter=20)
+                              ), n=10, n_iter=10)
 
     (
         x,
         y,
         x_test,
         y_test
-    ) = data_split(x, y, is_unlabelled, p_unlabelled=0.7, p_test=0.2)
+    ) = data_split(x, y, is_unlabelled, p_unlabelled=0.95, p_test=0.8)
 
-    log, it = st.fit(x, y, x_test, y_test, dl.get_only_features())
+    log = st.fit(x, y, x_test, y_test, dl.get_only_features())
 
     stsk = SelfTrainingClassifier(base_estimator=SVC(kernel='rbf',
                                                      probability=True,

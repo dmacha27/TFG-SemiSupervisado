@@ -2,6 +2,7 @@ import os
 import json
 
 import datetime
+import re
 from flask import Flask, flash, render_template, request, redirect, session
 from flask_session import Session
 from sklearn.datasets import load_breast_cancer, load_wine
@@ -50,7 +51,7 @@ def subida():
         if file.filename == '':
             return redirect(request.url)
         if file:
-            filename = secure_filename(file.filename) + str(int(datetime.datetime.now().timestamp()))
+            filename = secure_filename(file.filename) + "-" + str(int(datetime.datetime.now().timestamp()))
             session['FICHERO'] = os.path.join(app.config['CARPETA_DATASETS'], filename)
             file.save(os.path.join(app.config['CARPETA_DATASETS'], filename))
 
@@ -153,7 +154,7 @@ def datosselftraining():
         y_test
     ) = data_split(x, y, is_unlabelled, p_unlabelled=p_unlabelled, p_test=p_test)
 
-    log, it = st.fit(x, y, x_test, y_test, dl.get_only_features())
+    log = st.fit(x, y, x_test, y_test, dl.get_only_features())
 
     if pca == 'on':
         _2d = log_pca_reduction(log, dl.get_only_features()).to_json()
@@ -210,7 +211,7 @@ def datoscotraining():
         y_test
     ) = data_split(x, y, is_unlabelled, p_unlabelled=p_unlabelled, p_test=p_test)
 
-    log, it = ct.fit(x, y, x_test, y_test, dl.get_only_features())
+    log = ct.fit(x, y, x_test, y_test, dl.get_only_features())
 
     if pca == 'on':
         _2d = log_pca_reduction(log, dl.get_only_features()).to_json()
@@ -226,7 +227,8 @@ def datoscotraining():
 def nombredataset(text):
     """Obtiene solo el nombre del conjunto de datos
     eliminado la ruta completa"""
-    return text.split("\\", )[1]
+
+    return re.split(r"-|\\", text)[1]
 
 
 if __name__ == '__main__':

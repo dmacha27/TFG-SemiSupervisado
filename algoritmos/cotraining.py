@@ -127,17 +127,16 @@ class CoTraining:
             topx2_pred = pred2[topx2] if len(topx2) > 0 else topx2
 
             # El conjunto de entrenamiento se ha extendido
-            x_train = np.append(x_train, topx1_new_labelled, axis=0)
-            y_train = np.append(y_train, topx1_pred)
-            x_train = np.append(x_train, topx2_new_labelled, axis=0)
-            y_train = np.append(y_train, topx2_pred)
+            x_train = np.concatenate((x_train, topx1_new_labelled, topx2_new_labelled), axis=0)
+            y_train = np.concatenate((y_train, topx1_pred, topx2_pred))
 
             # Se eliminan los datos que antes eran no etiquetados pero ahora sí lo son
             indexes = np.concatenate((topx1, topx2))
             s_u_s = np.delete(s_u_s, indexes, axis=0)
 
             # Preparación de datos para la siguiente iteración (reponer)
-            ids_replenish = np.random.choice(len(x_u), size=self.replenish if len(x_u) >= self.replenish else len(x_u), replace=False)
+            ids_replenish = np.random.choice(len(x_u), size=self.replenish if len(x_u) >= self.replenish else len(x_u),
+                                             replace=False)
             s_u_s = np.append(s_u_s, x_u[ids_replenish], axis=0)
             x_u = np.delete(x_u, ids_replenish, axis=0)
 
@@ -158,9 +157,15 @@ class CoTraining:
         self.clf1.fit(x1, y_train)
         self.clf2.fit(x2, y_train)
 
-        # print(log)
+        rest = pd.DataFrame(np.concatenate((x_u, s_u_s), axis=0), columns=features)
+        rest['iter'] = iteration
+        rest['target'] = -1
+        rest['clf'] = -1
+        log = pd.concat([log, rest], ignore_index=True)
+
+        print(log)
         print(self.get_accuracy_score(x_test, y_test))
-        return log, iteration
+        return log
 
     def get_accuracy_score(self, x_test, y_test):
         """
@@ -180,8 +185,8 @@ class CoTraining:
 
 
 if __name__ == '__main__':
-    dl = DatasetLoader('utilidades/datasets/iris.ss.csv')
-    dl.set_target("variety")
+    dl = DatasetLoader('utilidades/datasets/breast.w.arff')
+    dl.set_target("Class")
     x, y, mapa, is_unlabelled = dl.get_x_y()
 
     st = CoTraining(clf1=SVC(kernel='rbf',
@@ -195,13 +200,13 @@ if __name__ == '__main__':
                              C=1.0,
                              gamma='scale',
                              random_state=0
-                             ), p=1, n=3, u=20, n_iter=120)
+                             ), p=1, n=3, u=5, n_iter=10)
 
     (
         x,
         y,
         x_test,
         y_test
-    ) = data_split(x, y, is_unlabelled, p_unlabelled=0.7, p_test=0.2)
+    ) = data_split(x, y, is_unlabelled, p_unlabelled=0.8, p_test=0.2)
 
-    log, it = st.fit(x, y, x_test, y_test, dl.get_only_features())
+    log = st.fit(x, y, x_test, y_test, dl.get_only_features())

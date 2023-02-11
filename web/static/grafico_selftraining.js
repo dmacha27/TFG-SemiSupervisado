@@ -19,7 +19,7 @@ function preparardataset(datos) {
 const mousemove = function(e, dot) {
     d3.select(".tooltip")
         .html(function() {
-            if (dot[3] <= cont) {
+            if (dot[3] <= cont && dot[2] !== -1) {
                 if (dot[3] === 0){
                     return "DATO INICIAL" +"<br>X: " + dot[0] +" <br>Y: " + dot[1] + "<br>Etiqueta: " + mapa[dot[2]];
                 }else {
@@ -30,7 +30,7 @@ const mousemove = function(e, dot) {
             }
         })
         .style("left", (e.pageX + 10) + "px")
-        .style("top", (e.pageY +5 ) + "px");
+        .style("top", (e.pageY + 5 ) + "px");
 };
 
 let simbolos = d3.symbol();
@@ -78,7 +78,7 @@ function next(){
     if (cont < maxit){
         cont++;
         puntos.filter(function(d) {
-            return d[3] === cont;
+            return d[3] === cont && d[2] !== -1;
         })
             .style("fill", function(d){ return color(d[2]);})
             .transition()
