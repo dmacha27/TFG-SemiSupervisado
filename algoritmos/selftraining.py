@@ -16,6 +16,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 
 from algoritmos.utilidades import DatasetLoader
+from algoritmos.utilidades.common import obtain_train_unlabelled
 from algoritmos.utilidades.datasplitter import data_split
 from sklearn.semi_supervised import SelfTrainingClassifier
 
@@ -59,12 +60,7 @@ class SelfTraining:
                 realizadas.
         """
 
-        mask = np.ones(len(x), bool)
-        i_u = np.where(y == -1)
-        mask[i_u] = 0  # A cero los no etiquetados
-        x_u = x[~mask]
-        x_train = x[mask]
-        y_train = y[mask]
+        x_train, y_train, x_u = obtain_train_unlabelled(x, y)
 
         log = pd.DataFrame(x_train, columns=features)
         log['iter'] = 0
@@ -138,9 +134,11 @@ class SelfTraining:
 
 
 if __name__ == '__main__':
-    dl = DatasetLoader('utilidades/breast.w.arff')
-    dl.set_target("Class")
+    dl = DatasetLoader('utilidades/datasets/iris.ss.csv')
+    dl.set_target("variety")
     x, y, mapa, is_unlabelled = dl.get_x_y()
+
+    print(x.to_string(), y.to_string())
 
     st = SelfTraining(clf=SVC(kernel='rbf',
                               probability=True,
@@ -154,7 +152,7 @@ if __name__ == '__main__':
         y,
         x_test,
         y_test
-    ) = data_split(x, y, p_unlabelled=0.9, p_test=0.7)
+    ) = data_split(x, y, is_unlabelled, p_unlabelled=0.7, p_test=0.2)
 
     log, it = st.fit(x, y, x_test, y_test, dl.get_only_features())
 
