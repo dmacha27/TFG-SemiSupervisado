@@ -20,6 +20,6 @@
             { nombre: "p_test", valor: "{{ p_test }}" }
         ];
         let cx = "{{ cx }}", cy = "{{ cy }}";
-        inicializarGrafico("/{{ session['ALGORITMO'] }}d", elementos, preparardataset, databinding);
+        inicializar("/{{ session['ALGORITMO'] }}d", elementos);
     </script>
 {% endblock %}

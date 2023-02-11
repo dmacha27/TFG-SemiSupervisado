@@ -21,12 +21,12 @@ const mousemove = function(e, dot) {
         .html(function() {
             if (dot[3] <= cont && dot[2] !== -1) {
                 if (dot[3] === 0){
-                    return "DATO INICIAL" +"<br>X: " + dot[0] +" <br>Y: " + dot[1] + "<br>Etiqueta: " + mapa[dot[2]];
+                    return "DATO INICIAL<br>" + cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] + "<br>Etiqueta: " + mapa[dot[2]];
                 }else {
-                    return "X: " + dot[0] + " <br>Y: " + dot[1] + "<br>Etiqueta: " + mapa[dot[2]];
+                    return cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] + "<br>Etiqueta: " + mapa[dot[2]];
                 }
             } else {
-                return "X: " + dot[0] +" <br>Y: " + dot[1] + "<br>Etiqueta: Sin clasificar";
+                return cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] + "<br>Etiqueta: Sin clasificar";
             }
         })
         .style("left", (e.pageX + 10) + "px")
