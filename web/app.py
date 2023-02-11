@@ -1,7 +1,7 @@
 import os
 import json
 
-import pandas as pd
+import datetime
 from flask import Flask, flash, render_template, request, redirect, session
 from flask_session import Session
 from sklearn.datasets import load_breast_cancer, load_wine
@@ -49,9 +49,8 @@ def subida():
         file = request.files['archivo']
         if file.filename == '':
             return redirect(request.url)
-
         if file:
-            filename = secure_filename(file.filename)
+            filename = secure_filename(file.filename) + str(int(datetime.datetime.now().timestamp()))
             session['FICHERO'] = os.path.join(app.config['CARPETA_DATASETS'], filename)
             file.save(os.path.join(app.config['CARPETA_DATASETS'], filename))
 
@@ -152,7 +151,7 @@ def datosselftraining():
         y,
         x_test,
         y_test
-    ) = data_split(x, y, p_unlabelled=p_unlabelled, p_test=p_test)
+    ) = data_split(x, y, is_unlabelled, p_unlabelled=p_unlabelled, p_test=p_test)
 
     log, it = st.fit(x, y, x_test, y_test, dl.get_only_features())
 
@@ -209,7 +208,7 @@ def datoscotraining():
         y,
         x_test,
         y_test
-    ) = data_split(x, y, p_unlabelled=p_unlabelled, p_test=p_test)
+    ) = data_split(x, y, is_unlabelled, p_unlabelled=p_unlabelled, p_test=p_test)
 
     log, it = ct.fit(x, y, x_test, y_test, dl.get_only_features())
 

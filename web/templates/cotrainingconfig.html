@@ -47,12 +47,9 @@
             <label>(al utilizar PCA se reduce a 2 las componentes directamente):</label>
         </div>
         <div>
-            <label for="no_etiquetados">¿El conjunto de datos ya es semi-supervisado?:</label>
-            <input type="checkbox" id="no_etiquetados" oninput="noetiquetados(this.checked,'p_unlabelled')" name="no_etiquetados">
-        </div>
-        <div>
             <label for="p_unlabelled">Porcentaje de no etiquetados:</label>
             <input type="number" id="p_unlabelled" min=0 max=0.99 step="any" name="p_unlabelled" value=0.8>
+            <label >(si ya fuera semi-supervisado, será ignorado)</label>
         </div>
         <div>
             <label for="p_test">Porcentaje de test (después de aplicar el de no etiquetados):</label>

@@ -122,17 +122,14 @@ function inicializarGrafico(rutadatos, elementos, preparar, binding) {
 const mouseover = function (d) {
     d3.select(".tooltip")
         .style("opacity", 1)
-    d3.select(this)
-        .style("stroke", "black")
         .style("opacity", 1)
+
 };
 
 const mouseleave = function (d) {
     d3.select(".tooltip")
-        .style("opacity", 0)
-    d3.select(this)
         .style("stroke", "none")
-        .style("opacity", 0.8)
+        .style("opacity", 0)
 };
 
 
