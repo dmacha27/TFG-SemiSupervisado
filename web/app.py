@@ -212,7 +212,7 @@ def datoscotraining():
         y_test
     ) = data_split(x, y, is_unlabelled, p_unlabelled=p_unlabelled, p_test=p_test)
 
-    log = ct.fit(x, y, x_test, y_test, dl.get_only_features())
+    log, stats = ct.fit(x, y, x_test, y_test, dl.get_only_features())
 
     if pca == 'on':
         _2d = log_pca_reduction(log, dl.get_only_features()).to_json()
@@ -220,6 +220,7 @@ def datoscotraining():
         _2d = log_cxcy_reduction(log, cx, cy, dl.get_only_features()).to_json()
 
     info = {'log': _2d,
+            'stats': stats.to_json(),
             'mapa': json.dumps(mapa)}
     return json.dumps(info)
 

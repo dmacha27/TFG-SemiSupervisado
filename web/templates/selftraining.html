@@ -1,8 +1,42 @@
 {% extends "base_visualizacion.html" %}
 {% block title %}Self-Training{% endblock %}
 {% block estadisticas %}
-    <div class="padre">
-        <div id="precision"></div>
+    <div style="overflow-y: auto; max-height: 85vh ">
+        <div class="card">
+            <div class="card-header">
+                <a class="btn" data-bs-toggle="collapse" href="#precision">
+                    Precisión
+                </a>
+            </div>
+            <div id="precision" class="collapse show" data-bs-parent="#accordion">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <a class="collapsed btn" data-bs-toggle="collapse" href="#stat2">
+                    ESTADÍSTICA 2
+                </a>
+            </div>
+            <div id="stat2" class="collapse" data-bs-parent="#accordion">
+                <div class="card-body">
+                    ESTADÍSTICA
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <a class="collapsed btn" data-bs-toggle="collapse" href="#stat3">
+                    ESTADÍSTICA 3
+                </a>
+            </div>
+            <div id="stat3" class="collapse" data-bs-parent="#accordion">
+                <div class="card-body">
+                    ESTADÍSTICA
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 {% block scripts %}
@@ -21,9 +55,9 @@
             { nombre: "p_test", valor: "{{ p_test }}" }
         ];
         let cx = "{{ cx }}", cy = "{{ cy }}";
-        inicializar("/{{ session['ALGORITMO'] }}d", elementos).then(function () {
-            inicializarGrafico(preparardataset,databinding);
-            precision();
+        inicializar("/{{ session['ALGORITMO'] }}d", elementos).then(function (datos) {
+            inicializarGrafico(datos, preparardataset,databinding);
+            precision(datos);
         });
 
     </script>

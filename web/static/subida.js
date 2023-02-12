@@ -39,8 +39,7 @@ function subir(e){
 
     xhr.upload.onprogress = function (evento) {
         if (evento.lengthComputable) {
-            let percent = Math.floor(evento.loaded / evento.total * 100);
-            progreso.value = percent;
+            progreso.value = Math.floor(evento.loaded / evento.total * 100);
         }
     };
 

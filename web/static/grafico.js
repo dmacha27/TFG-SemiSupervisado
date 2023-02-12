@@ -1,15 +1,17 @@
-let mapa;
-let dataset = [];
+const nexit = d3.select("#nextit");
+const previt = d3.select("#previt");
+const rep = d3.select("#reproducir");
+const simbolos = d3.symbol();
 
-let svg, gx, gy, maxit, color;
+let graficosvg, gx, gy, maxit, color, mapa;
 
-function inicializarGrafico(preparar, binding) {
+function inicializarGrafico(datos, preparar, binding) {
     let margin = {top: 80, right: 90, bottom: 60, left: 45},
     width = 850 - margin.left - margin.right,
     height = 700 - margin.top - margin.bottom;
 
 
-    dataset = preparar(JSON.parse(datos.log));
+    let dataset = preparar(JSON.parse(datos.log));
     mapa = JSON.parse(datos.mapa);
     maxit = d3.max(dataset, d => d[3]);
     document.getElementById("progreso").max = maxit;
@@ -18,7 +20,7 @@ function inicializarGrafico(preparar, binding) {
         .domain(Object.keys(mapa))
         .range(d3.schemeCategory10);
 
-    svg = d3.select("#semisupervisedchart")
+    graficosvg = d3.select("#semisupervisedchart")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -28,7 +30,7 @@ function inicializarGrafico(preparar, binding) {
         .style("margin", "auto");
 
     //Etiqueta eje X
-    svg.append("text")
+    graficosvg.append("text")
         .attr("class", "cx")
         .attr("text-anchor", "middle")
         .attr("x", width / 2)
@@ -36,7 +38,7 @@ function inicializarGrafico(preparar, binding) {
         .text(cx);
 
     //Etiqueta eje Y
-    svg.append("text")
+    graficosvg.append("text")
         .attr("class", "cy")
         .attr("text-anchor", "middle")
         .attr("y", -margin.left)
@@ -46,7 +48,7 @@ function inicializarGrafico(preparar, binding) {
         .text(cy);
 
     //Leyenda
-    svg.append('g')
+    graficosvg.append('g')
         .attr("id","leyenda")
         .selectAll("target")
         .data(Object.keys(mapa))
@@ -60,7 +62,7 @@ function inicializarGrafico(preparar, binding) {
         .attr("transform", "translate(" + (width -110) + "," + -120 + ")");
 
     // Nombre del dataset
-    svg.append("text")
+    graficosvg.append("text")
         .attr("x", width/2)
         .attr("y", -margin.top/2)
         .attr("text-anchor", "middle")
@@ -76,10 +78,10 @@ function inicializarGrafico(preparar, binding) {
         .domain([d3.min(dataset, d => d[1]), d3.max(dataset, d => d[1])])
         .range([height, 0]);
 
-    svg.append("g")
+    graficosvg.append("g")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(gx));
-    svg.append("g")
+    graficosvg.append("g")
         .call(d3.axisLeft(gy));
 
     //Basado en https://d3-graph-gallery.com/graph/interactivity_tooltip.html#template
@@ -94,7 +96,7 @@ function inicializarGrafico(preparar, binding) {
         .style("padding", "5px")
         .style("position", "absolute")
 
-    binding();
+    binding(dataset);
 
 }
 
@@ -110,12 +112,6 @@ const mouseleave = function (d) {
         .style("stroke", "none")
         .style("opacity", 0)
 };
-
-
-let nexit = d3.select("#nextit");
-let previt = d3.select("#previt");
-let rep = d3.select("#reproducir");
-
 
 function actualizaProgreso(){
     document.getElementById("progreso").value=cont;

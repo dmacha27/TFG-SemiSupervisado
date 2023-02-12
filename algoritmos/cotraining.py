@@ -83,7 +83,7 @@ class CoTraining:
         log['clf'] = 'inicio'
 
         iteration = 0
-        stats = pd.DataFrame()
+        stats = pd.DataFrame(columns=['iter', 'precision'])
 
         ids = np.random.choice(len(x_u), size=self.u if self.u <= len(x_u) else len(x_u), replace=False)
         s_u_s = x_u[ids]  # Selected unlabelled samples
@@ -97,6 +97,7 @@ class CoTraining:
 
             self.clf1.fit(x1, y_train)
             self.clf2.fit(x2, y_train)
+            stats.loc[len(stats)] = [iteration, self.get_accuracy_score(x_test, y_test)]
 
             x1_u, x2_u = np.array_split(s_u_s, 2, axis=1)
 
@@ -162,10 +163,11 @@ class CoTraining:
         rest['target'] = -1
         rest['clf'] = -1
         log = pd.concat([log, rest], ignore_index=True)
+        stats.loc[len(stats)] = [iteration, self.get_accuracy_score(x_test, y_test)]
 
         print(log)
         print(self.get_accuracy_score(x_test, y_test))
-        return log
+        return log, stats
 
     def get_accuracy_score(self, x_test, y_test):
         """

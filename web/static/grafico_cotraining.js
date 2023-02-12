@@ -1,7 +1,26 @@
 nexit.on("click", next);
 previt.on("click", prev);
 rep.on("click",reproducir);
+
 let clf_forma;
+let puntos;
+
+const mousemove = function(e, dot) {
+    d3.select(".tooltip")
+        .html(function() {
+            if (dot[3] <= cont && dot[2] !== -1) {
+                if (dot[3] === 0){
+                    return "DATO INICIAL<br>" + cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] + "<br>Etiqueta: " + mapa[dot[2]];
+                }else {
+                    return cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] +"<br>Clasificador: " + dot[4] + "<br>Etiqueta: " + mapa[dot[2]];
+                }
+            } else {
+                return cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] +"<br>Clasificador: Sin clasificar" + "<br>Etiqueta: Sin clasificar";
+            }
+        })
+        .style("left", (e.pageX + 10) + "px")
+        .style("top", (e.pageY + 5 ) + "px");
+};
 
 function preparardataset(datos) {
     let dataset = [];
@@ -25,27 +44,8 @@ function preparardataset(datos) {
     return dataset;
 }
 
-let simbolos = d3.symbol();
-let puntos;
-const mousemove = function(e, dot) {
-    d3.select(".tooltip")
-        .html(function() {
-            if (dot[3] <= cont && dot[2] !== -1) {
-                if (dot[3] === 0){
-                    return "DATO INICIAL<br>" + cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] + "<br>Etiqueta: " + mapa[dot[2]];
-                }else {
-                    return cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] +"<br>Clasificador: " + dot[4] + "<br>Etiqueta: " + mapa[dot[2]];
-                }
-            } else {
-                return cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] +"<br>Clasificador: Sin clasificar" + "<br>Etiqueta: Sin clasificar";
-            }
-        })
-        .style("left", (e.pageX + 10) + "px")
-        .style("top", (e.pageY + 5 ) + "px");
-};
-
-function databinding(){
-    puntos = svg.selectAll("dot")
+function databinding(dataset){
+    puntos = graficosvg.selectAll("dot")
         .data(dataset)
         .enter()
         .append("path")

@@ -2,19 +2,7 @@ nexit.on("click", next);
 previt.on("click", prev);
 rep.on("click",reproducir);
 
-function preparardataset(datos) {
-    let dataset = [];
-    let xs = datos[cx];
-    let ys = datos[cy];
-    let etiq = datos['target'];
-    let iter = datos['iter'];
-
-    for (const key in xs){
-        dataset.push([xs[key],ys[key],etiq[key],iter[key]])
-    }
-
-    return dataset;
-}
+let puntos;
 
 const mousemove = function(e, dot) {
     d3.select(".tooltip")
@@ -33,10 +21,23 @@ const mousemove = function(e, dot) {
         .style("top", (e.pageY + 5 ) + "px");
 };
 
-let simbolos = d3.symbol();
-let puntos;
-function databinding(){
-    puntos = svg.selectAll("dot")
+
+function preparardataset(datos) {
+    let dataset = [];
+    let xs = datos[cx];
+    let ys = datos[cy];
+    let etiq = datos['target'];
+    let iter = datos['iter'];
+
+    for (const key in xs){
+        dataset.push([xs[key],ys[key],etiq[key],iter[key]])
+    }
+
+    return dataset;
+}
+
+function databinding(dataset){
+    puntos = graficosvg.selectAll("dot")
         .data(dataset)
         .enter()
         .append("path")
@@ -60,7 +61,6 @@ function databinding(){
         .on("mouseover", mouseover)
         .on("mousemove", function(e) { mousemove(e, d3.select(this).datum()); })
         .on("mouseleave", mouseleave);
-
 }
 
 function prev(){

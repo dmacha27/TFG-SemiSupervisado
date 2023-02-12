@@ -1,10 +1,10 @@
 
-function precision() {
+function precision(datos) {
 
-    let lista = crearlista(JSON.parse(datos.stats),"precision");
+    let lista = crearListaStat(JSON.parse(datos.stats),"precision");
 
-    let margin = {top: 10, right: 30, bottom: 30, left: 60},
-        width = 460 - margin.left - margin.right,
+    let margin = {top: 10, right: 30, bottom: 40, left: 60},
+        width = 850 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 
 
@@ -17,11 +17,11 @@ function precision() {
         .style("display", "block")
         .style("margin", "auto");
 
-    precisionx = d3.scaleLinear()
+    let precisionx = d3.scaleLinear()
         .domain([0, maxit])
         .range([0, width]);
 
-    precisiony = d3.scaleLinear()
+    let precisiony = d3.scaleLinear()
         .domain([0, 1])
         .range([height, 0]);
 
@@ -30,6 +30,24 @@ function precision() {
         .call(d3.axisBottom(precisionx));
     precisionsvg.append("g")
         .call(d3.axisLeft(precisiony));
+
+    //Etiqueta eje X
+    precisionsvg.append("text")
+        .attr("class", "cx")
+        .attr("text-anchor", "middle")
+        .attr("x", width / 2)
+        .attr("y", height + margin.bottom)
+        .text("Iteración");
+
+    //Etiqueta eje Y
+    precisionsvg.append("text")
+        .attr("class", "cy")
+        .attr("text-anchor", "middle")
+        .attr("y", -margin.left)
+        .attr("x", -height / 2)
+        .attr("dy", "1em")
+        .attr("transform", "rotate(-90)")
+        .text("Precisión");
 
     let pts = precisionsvg.selectAll("dot")
         .data(lista)
@@ -46,9 +64,9 @@ function precision() {
                 return "hidden";
             }
         })
-    console.log(pts)
+
     for (let i = 0; i < lista.length - 1; i++) {
-        let linea = precisionsvg.append("line")
+        precisionsvg.append("line")
             .data([i+1])
             .attr("id", "nueva")
             .attr("x1", precisionx(i))
@@ -63,7 +81,6 @@ function precision() {
     let lineas = precisionsvg.selectAll('line[id="nueva"]');
 
 
-    console.log(lineas);
     document.addEventListener('Iteracion', function (){
         next();
         prev();
@@ -98,7 +115,7 @@ function precision() {
 }
 
 
-function crearlista(stats,stat){
+function crearListaStat(stats,stat){
     let lista = [];
     let aux = stats[stat];
 

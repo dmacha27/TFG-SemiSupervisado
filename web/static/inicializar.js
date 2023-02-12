@@ -1,4 +1,3 @@
-let datos;
 let cont = 0;
 
 async function inicializar(rutadatos, elementos) {
@@ -10,7 +9,7 @@ async function inicializar(rutadatos, elementos) {
                 document.getElementById("div_cargando").remove();
                 document.getElementById("controles").style.visibility = 'visible';
 
-                resolve("RECIBIDO");
+                resolve(datos);
             }
         }
 

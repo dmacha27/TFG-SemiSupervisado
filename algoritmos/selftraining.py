@@ -67,14 +67,13 @@ class SelfTraining:
         log['target'] = y_train
 
         iteration = 0
-        stats = pd.DataFrame(columns=['iter', 'train_error', 'precision'])
+        stats = pd.DataFrame(columns=['iter', 'precision'])
 
         while len(x_u) and (
                 iteration < self.n_iter or not self.n_iter):  # Criterio generalmente seguido
 
             self.clf.fit(x_train, y_train)
-            stats.loc[len(stats)] = [iteration,
-                                     self.get_training_score(x_train, y_train), self.get_accuracy_score(x_test, y_test)]
+            stats.loc[len(stats)] = [iteration, self.get_accuracy_score(x_test, y_test)]
 
             # Predicción
             points = self.clf.predict_proba(x_u).max(axis=1)
@@ -111,8 +110,7 @@ class SelfTraining:
         rest['target'] = -1
         log = pd.concat([log, rest], ignore_index=True)
 
-        stats.loc[len(stats)] = [iteration,
-                                 self.get_training_score(x_train, y_train), self.get_accuracy_score(x_test, y_test)]
+        stats.loc[len(stats)] = [iteration, self.get_accuracy_score(x_test, y_test)]
 
         print(self.get_confusion_matrix(x_test, y_test))
         print(log)
