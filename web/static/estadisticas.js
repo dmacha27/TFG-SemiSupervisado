@@ -75,27 +75,33 @@ function precision(datos) {
             .attr("y2", precisiony(lista[i + 1][1]))
             .attr("stroke", "#69b3a2")
             .attr("stroke-width", 1.5)
-            .style("visibility", "hidden");
+            .style("display", "none");
     }
 
     let lineas = precisionsvg.selectAll('line[id="nueva"]');
 
+    document.addEventListener('next', next);
+    document.addEventListener('prev', prev);
 
-    document.addEventListener('Iteracion', function (){
-        next();
-        prev();
-    })
 
     function next() {
         pts.filter(function(d) {
             return d[0] === cont;
         })
+            .style("opacity", 0)
+            .transition()
+            .duration(600)
+            .style("opacity", 1)
             .style("visibility", "visible")
 
         lineas.filter(function (d) {
             return d === cont;
         })
-            .style("visibility", "visible");
+            .attr("stroke-width", 0)
+            .transition()
+            .duration(600)
+            .attr("stroke-width", 1.5)
+            .style("display", "block");
 
 
     }
@@ -109,7 +115,7 @@ function precision(datos) {
         lineas.filter(function (d) {
             return d > cont;
         })
-            .style("visibility", "hidden");
+            .style("display", "none");
     }
 
 }

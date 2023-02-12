@@ -74,7 +74,7 @@ function prev(){
         })
             .attr("d", simbolos.type(d3.symbolCircle).size(35))
             .style("fill", "grey");
-        actualizaProgreso();
+        actualizaProgreso("prev");
     }
 }
 
@@ -95,7 +95,7 @@ function next(){
             .duration(300)
             .attr("d", simbolos.size(35));
 
-        actualizaProgreso();
+        actualizaProgreso("next");
     }
 }
 

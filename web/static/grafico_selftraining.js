@@ -70,7 +70,7 @@ function prev(){
             return d[3] > cont;
         })
             .style("fill", "grey");
-        actualizaProgreso();
+        actualizaProgreso("prev");
     }
 }
 
@@ -90,6 +90,6 @@ function next(){
             .transition()
             .duration(300)
             .attr("d", simbolos.size(35));
-        actualizaProgreso();
+        actualizaProgreso("next");
     }
 }

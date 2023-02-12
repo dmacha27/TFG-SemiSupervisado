@@ -113,10 +113,14 @@ const mouseleave = function (d) {
         .style("opacity", 0)
 };
 
-function actualizaProgreso(){
+function actualizaProgreso(paso){
     document.getElementById("progreso").value=cont;
     document.getElementById("iteracion").innerHTML = cont;
-    document.dispatchEvent(new Event('Iteracion'));
+    if (paso === "next"){
+        document.dispatchEvent(new Event('next'));
+    }else{
+        document.dispatchEvent(new Event('prev'));
+    }
 }
 
 let intervalo = null;
