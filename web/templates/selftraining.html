@@ -1,7 +1,9 @@
 {% extends "base_visualizacion.html" %}
 {% block title %}Self-Training{% endblock %}
 {% block estadisticas %}
-    <p>STATS</p>
+    <div class="padre">
+        <div id="precision"></div>
+    </div>
 {% endblock %}
 {% block scripts %}
     <script type="text/javascript" src="/static/grafico_selftraining.js"></script>
@@ -19,6 +21,10 @@
             { nombre: "p_test", valor: "{{ p_test }}" }
         ];
         let cx = "{{ cx }}", cy = "{{ cy }}";
-        inicializar("/{{ session['ALGORITMO'] }}d", elementos);
+        inicializar("/{{ session['ALGORITMO'] }}d", elementos).then(function () {
+            inicializarGrafico(preparardataset,databinding);
+            precision();
+        });
+
     </script>
 {% endblock %}

@@ -51,7 +51,7 @@ function databinding(){
         .append("path")
         .attr("d", simbolos.type(d3.symbolCircle).size(35))
         .attr("transform", function(d) {
-            return "translate(" + x(d[0]) + "," + y(d[1]) + ")";
+            return "translate(" + gx(d[0]) + "," + gy(d[1]) + ")";
         })
         .style("fill", function (d) {
             if (d[3] <= cont) {

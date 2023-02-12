@@ -1,12 +1,13 @@
 let mapa;
+let dataset = [];
 
-let margin = {top: 80, right: 90, bottom: 60, left: 45},
+let svg, gx, gy, maxit, color;
+
+function inicializarGrafico(preparar, binding) {
+    let margin = {top: 80, right: 90, bottom: 60, left: 45},
     width = 850 - margin.left - margin.right,
     height = 700 - margin.top - margin.bottom;
 
-let svg, x, y, maxit, color;
-
-function inicializarGrafico(preparar, binding) {
 
     dataset = preparar(JSON.parse(datos.log));
     mapa = JSON.parse(datos.mapa);
@@ -67,19 +68,19 @@ function inicializarGrafico(preparar, binding) {
         .text("Dataset: " + fichero);
 
 
-    x = d3.scaleLinear()
+    gx = d3.scaleLinear()
         .domain([d3.min(dataset, d => d[0]), d3.max(dataset, d => d[0])])
         .range([0, width]);
 
-    y = d3.scaleLinear()
+    gy = d3.scaleLinear()
         .domain([d3.min(dataset, d => d[1]), d3.max(dataset, d => d[1])])
         .range([height, 0]);
 
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
+        .call(d3.axisBottom(gx));
     svg.append("g")
-        .call(d3.axisLeft(y));
+        .call(d3.axisLeft(gy));
 
     //Basado en https://d3-graph-gallery.com/graph/interactivity_tooltip.html#template
     d3.select("#semisupervisedchart")
@@ -113,12 +114,13 @@ const mouseleave = function (d) {
 
 let nexit = d3.select("#nextit");
 let previt = d3.select("#previt");
-let rep = d3.select("#reproducir")
+let rep = d3.select("#reproducir");
 
 
 function actualizaProgreso(){
     document.getElementById("progreso").value=cont;
     document.getElementById("iteracion").innerHTML = cont;
+    document.dispatchEvent(new Event('Iteracion'));
 }
 
 let intervalo = null;
