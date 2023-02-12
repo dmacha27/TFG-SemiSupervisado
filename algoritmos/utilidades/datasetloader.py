@@ -13,7 +13,6 @@ import pandas as pd
 from pandas import DataFrame
 from pandas.api import types
 from scipy.io import arff
-from sklearn.preprocessing import LabelEncoder
 
 from algoritmos.utilidades import FileType
 from algoritmos.utilidades.labelencoder import OwnLabelEncoder
