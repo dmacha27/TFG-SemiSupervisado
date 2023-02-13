@@ -1,19 +1,21 @@
 {% extends "base.html" %}
 {% block title %}Selección de dataset{% endblock %}
 {% block content %}
-
-    <div class="col">
-        <div id="soltar">
-            <p>Arrastra y suelta aquí tu archivo.</p>
-            <p>o</p>
-            <input type=file id="archivo" name=archivo>
+    <div class="container text-center pb-5">
+        <div class="row align-items-center" style="height: 800px">
+            <div class="col">
+                <div id="soltar">
+                    <p>Arrastra y suelta aquí tu archivo.</p>
+                    <p>o</p>
+                    <input type=file id="archivo" name=archivo>
+                </div>
+                <progress id="progreso" max=100 value=0></progress>
+                <form action="/{{ session['ALGORITMO'] }}c">
+                    <input id="config_btn" type="submit" value="Configurar algoritmo" />
+                </form>
+            </div>
         </div>
-        <progress id="progreso" max=100 value=0></progress>
-        <form action="/{{ session['ALGORITMO'] }}c">
-            <input id="config_btn" type="submit" value="Configurar algoritmo" />
-        </form>
     </div>
-    <br>
     <script type="text/javascript" src="/static/subida.js"></script>
 {% endblock %}
 

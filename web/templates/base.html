@@ -31,11 +31,7 @@
     </div>
 </nav>
 
-<div class="container text-center pb-5">
-    <div class="row align-items-center" style="height: 800px">
-        {% block content %}{% endblock %}
-    </div>
-</div>
+{% block content %}{% endblock %}
 
 <footer class="container-fluid fixed-bottom text-center">
     {% with mensajes = get_flashed_messages() %}

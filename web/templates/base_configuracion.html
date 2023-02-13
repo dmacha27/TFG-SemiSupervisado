@@ -1,17 +1,19 @@
 {% extends "base.html" %}
 {% block title %}Configuración de la ejecución{% endblock %}
 {% block content %}
-    <div class="grid-container" style="min-height: calc(100vh - 80px);" >
-        <div class="grid-child">
-            <div class="padre">
-                {% block parametros %}
-                {% endblock %}
+    <div class="container pb-5">
+        <div class="row align-items-center" style="height: 800px">
+            <div class="col">
+                <div class="padre">
+                    {% block parametros %}
+                    {% endblock %}
+                </div>
             </div>
-        </div>
-        <div class="grid-child">
-            <div class="padre">
-                {% block explicaciones %}
-                {% endblock %}
+            <div class="col">
+                <div class="padre">
+                    {% block explicaciones %}
+                    {% endblock %}
+                </div>
             </div>
         </div>
     </div>
