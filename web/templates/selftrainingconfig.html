@@ -1,59 +1,56 @@
 {% extends "base_configuracion.html" %}
 {% block parametros %}
     <form action="/selftraining" method="POST">
-        <div>
+        <div class="mb-3">
             <label for="n">N (Número de datos a seleccionar/iteración:</label>
-            <input type="number" id="n" min=0 max=Infinity required oninput="limitarUnicoMetodoST(this.value,'th')"
-                   name="n" value=10>
+            <input type="number" class="form-control" id="n" min="0" max="Infinity" required oninput="limitarUnicoMetodoST(this.value,'th')" name="n" value="10">
         </div>
-        <div>
+        <div class="mb-3">
             <label for="th">Límite (threshold):</label>
-            <input type="number" id="th" min=0 max=0.99 step="any" oninput="limitarUnicoMetodoST(this.value,'n')"
-                   name="th" disabled>
+            <input type="number" class="form-control" id="th" min="0" max="0.99" step="any" oninput="limitarUnicoMetodoST(this.value,'n')" name="th" disabled>
         </div>
-        <div>
+        <div class="mb-3">
             <label for="n_iter">Número de iteraciones:</label>
-            <input type="number" id="n_iter" required name="n_iter" value=10>
+            <input type="number" class="form-control" id="n_iter" required name="n_iter" value="10">
         </div>
-        <div>
+        <div class="mb-3">
             <label for="sel_target">Selecciona el target/clase del dataset seleccionado:</label>
-            <select name="target" required>
+            <select class="form-select" name="target" required>
                 {% for c in caracteristicas %}
                     <option value="{{c}}">{{c}}</option>
                 {% endfor %}
             </select>
         </div>
-        <div>
+        <div class="mb-3">
             <label for="cx">Selecciona la componente X:</label>
-            <select id="cx" name="cx" required disabled>
+            <select class="form-select" id="cx" name="cx" required disabled>
                 {% for c in caracteristicas %}
                     <option value="{{c}}">{{c}}</option>
                 {% endfor %}
             </select>
         </div>
-        <div>
+        <div class="mb-3">
             <label for="cy">Selecciona la componente Y:</label>
-            <select id="cy" name="cy" required disabled>
+            <select class="form-select" id="cy" name="cy" required disabled>
                 {% for c in caracteristicas %}
                     <option value="{{c}}">{{c}}</option>
                 {% endfor %}
             </select>
         </div>
-        <div>
-            <label for="pca">Utilizar PCA:</label>
-            <input type="checkbox" id="pca" oninput="componentesPCA(this.checked,'cx','cy')" name="pca" checked>
-            <label>(al utilizar PCA se reduce a 2 las componentes directamente):</label>
+        <div class="mb-3">
+            <input type="checkbox" class="form-check-input" id="pca" oninput="componentesPCA(this.checked,'cx','cy')" name="pca" checked>
+            <label for="pca">Utilizar PCA (al utilizar PCA se reduce a 2 las componentes directamente)</label>
         </div>
-        <div>
+        <div class="mb-3">
             <label for="p_unlabelled">Porcentaje de no etiquetados:</label>
-            <input type="number" id="p_unlabelled" min=0 max=0.99 step="any" name="p_unlabelled" value=0.8>
-            <label >(si ya fuera semi-supervisado, será ignorado)</label>
+            <input type="number" class="form-control" id="p_unlabelled" min="0" max="0.99" step="any" name="p_unlabelled" value="0.8">
+            <label>(si ya fuera semi-supervisado, será ignorado)</label>
         </div>
-        <div>
+        <div class="mb-3">
             <label for="p_test">Porcentaje de test (después de aplicar el de no etiquetados):</label>
-            <input type="number" id="p_test" min=0 max=0.99 step="any" name="p_test" value=0.2>
+            <input type="number" class="form-control" id="p_test" min="0" max="0.99" step="any" name="p_test" value=0.2>
         </div>
-        <button type="submit">Ejecutar</button>
+        <button type="submit" class="btn btn-primary">Ejecutar</button>
     </form>
 {% endblock %}
 {% block explicaciones %}

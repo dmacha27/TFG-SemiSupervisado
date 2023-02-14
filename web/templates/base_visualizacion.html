@@ -5,12 +5,12 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
 {% endblock %}
 {% block content %}
-    <button type="button" onclick="history.back()" class="btn btn-outline-primary">
+    <button id="btn_volver" type="button" onclick="history.back()" class="btn btn-outline-info">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 25 18">
             <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"></path>
         </svg>Volver</button>
-    <div class="grid-container">
-        <div class="grid-child">
+    <div class="d-flex justify-content-around mb-3">
+        <div>
             <div class="padre" id="grafico">
                 <div id="div_cargando">
                     <div id="cargando" class="cargando"></div>
@@ -21,13 +21,13 @@
                     <br>
                     <progress id="progreso" value=0></progress>
                     <br>
-                    <button id="previt">Anterior</button>
-                    <button id="reproducir">Reproducir</button>
-                    <button id="nextit">Siguiente</button>
+                    <button id="previt" class="btn btn-primary">Anterior</button>
+                    <button id="reproducir" class="btn btn-primary">Reproducir</button>
+                    <button id="nextit" class="btn btn-primary">Siguiente</button>
                 </div>
             </div>
         </div>
-        <div id="info" class="grid-child">
+        <div class="padre" id="info">
             {% block estadisticas %}{% endblock %}
         </div>
     </div>

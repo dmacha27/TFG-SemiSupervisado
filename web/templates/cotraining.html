@@ -1,40 +1,33 @@
 {% extends "base_visualizacion.html" %}
 {% block title %}Co-Training{% endblock %}
 {% block estadisticas %}
-    <div style="overflow-y: auto; max-height: 85vh ">
-        <div class="card">
-            <div class="card-header">
-                <a class="btn" data-bs-toggle="collapse" href="#precision">
+    <div class="accordion" id="acordeon">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="primer_fuelle">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#precision" aria-expanded="true" aria-controls="precision">
                     Precisión
-                </a>
-            </div>
-            <div id="precision" class="collapse show" data-bs-parent="#accordion">
-            </div>
+                </button>
+            </h2>
+            <div id="precision" class="accordion-collapse collapse show" aria-labelledby="primer_fuelle"></div>
         </div>
-
-        <div class="card">
-            <div class="card-header">
-                <a class="collapsed btn" data-bs-toggle="collapse" href="#stat2">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="segundo_fuelle">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#stat2" aria-expanded="false" aria-controls="stat2">
                     ESTADÍSTICA 2
-                </a>
-            </div>
-            <div id="stat2" class="collapse" data-bs-parent="#accordion">
-                <div class="card-body">
-                    ESTADÍSTICA
-                </div>
+                </button>
+            </h2>
+            <div id="stat2" class="accordion-collapse collapse" aria-labelledby="segundo_fuelle">
+                ESTADÍSTICA
             </div>
         </div>
-
-        <div class="card">
-            <div class="card-header">
-                <a class="collapsed btn" data-bs-toggle="collapse" href="#stat3">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="tercer_fuelle">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#stat3" aria-expanded="false" aria-controls="stat3">
                     ESTADÍSTICA 3
-                </a>
-            </div>
-            <div id="stat3" class="collapse" data-bs-parent="#accordion">
-                <div class="card-body">
-                    ESTADÍSTICA
-                </div>
+                </button>
+            </h2>
+            <div id="stat3" class="accordion-collapse collapse" aria-labelledby="tercer_fuelle">
+                ESTADÍSTICA 3
             </div>
         </div>
     </div>

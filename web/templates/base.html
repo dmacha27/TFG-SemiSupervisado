@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+<nav class="navbar navbar-expand-sm navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">VASS</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
@@ -33,7 +33,8 @@
 
 {% block content %}{% endblock %}
 
-<footer class="container-fluid fixed-bottom text-center">
+
+<footer class="container-fluid text-center">
     {% with mensajes = get_flashed_messages() %}
         {% if mensajes %}
             {% for mensaje in mensajes|reverse %}

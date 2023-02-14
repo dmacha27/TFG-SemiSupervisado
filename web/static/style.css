@@ -1,15 +1,18 @@
 
+.navbar{
+    background-color: #AA223C;
+}
+
 footer {
     background-color: #555;
     color: white;
-    padding: 15px;
-    height: 50px;
+    padding: 10px;
 }
 
-@media only screen and (max-width: 1400px) {
-    footer {
-        display: none;
-    }
+.card {
+  border-radius: 0;
+  width: 200px;
+  height: 200px;
 }
 
 .padre {
@@ -19,10 +22,6 @@ footer {
     justify-content: center;
     margin: auto;
     height: 100%;
-}
-
-.hijo {
-    text-align: center;
 }
 
 #soltar {
@@ -36,7 +35,6 @@ footer {
     line-height: 50px;
     margin: 0 auto;
 }
-
 
 .cargando {
     border: 16px solid #a09c9c;
@@ -52,13 +50,4 @@ footer {
     100% { transform: rotate(360deg); }
 }
 
-.grid-container {
-    display: grid;
-    grid-auto-columns: 1fr;
-    grid-auto-flow: column;
-}
-
-.grid-child {
-    margin: 5px;
-}
 

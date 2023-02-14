@@ -1,8 +1,31 @@
 {% extends "base.html" %}
 {% block title %}Inicio{% endblock %}
 {% block content %}
-    <a href="/sel_selftraining">Self-Training</a>
-    <a href="/sel_cotraining">Co-Training</a>
+    <div class="mt-4 p-5 bg-info text-white">
+        <h1>VASS</h1>
+        <p>Trabajo Fin de Grado sobre algoritmos semi-supervisados y su visualización</p>
+    </div>
+    <div class="container-fluid bg-3 text-center">
+        <br><h3>Algoritmos</h3><br>
+        <div class="row">
+            <div class="col-sm-3">
+                <p>Self-Training</p>
+                <a href="/sel_selftraining"><img src="https://picsum.photos/640/360" style="width:100%"></a>
+            </div>
+            <div class="col-sm-3">
+                <p>Co-Training</p>
+                <a href="/sel_cotraining"><img src="https://picsum.photos/640/360" style="width:100%"></a>
+            </div>
+            <div class="col-sm-3">
+                <p>Democratic Co-Learning</p>
+                <img src="https://picsum.photos/640/360" style="width:100%">
+            </div>
+            <div class="col-sm-3">
+                <p>Co-Forest</p>
+                <img src="https://picsum.photos/640/360" style="width:100%">
+            </div>
+        </div>
+    </div><br>
 {% endblock %}
 
 
