@@ -1,61 +1,80 @@
 \capitulo{4}{Técnicas y herramientas}
 
-Esta parte de la memoria tiene como objetivo presentar las técnicas metodológicas y las herramientas de desarrollo que se han utilizado para llevar a cabo el proyecto. Si se han estudiado diferentes alternativas de metodologías, herramientas, bibliotecas se puede hacer un resumen de los aspectos más destacados de cada alternativa, incluyendo comparativas entre las distintas opciones y una justificación de las elecciones realizadas. 
-No se pretende que este apartado se convierta en un capítulo de un libro dedicado a cada una de las alternativas, sino comentar los aspectos más destacados de cada opción, con un repaso somero a los fundamentos esenciales y referencias bibliográficas para que el lector pueda ampliar su conocimiento sobre el tema.
+En este apartado se presentarán las técnicas (procedimientos) y herramientas que
+se han utilizado para el desarrollo del presente proyecto. En algunos de los
+casos la experiencia u otros aspectos han hecho decantarse por una u otra o
+simplemente se seleccionaron directamente.
 
 
-Las secciones se incluyen con el comando section.
+\section{Herramientas}
+
+\paragraph{PyCharm}
+Se trata de un \texttt{entorno de desarrollo integrado} ("<IDE">) desarrollado por
+JetBrains. Está creado para la programación en lenguaje Python y aunque no se ha
+usado en este proyecto también Java. Este "<IDE"> se ha convertido junto con Visual
+Studio Code y Jupyter en el más utilizado por los desarrolladores.
+
+Ofrece multitud de funcionalidades (\url{https://www.jetbrains.com/es-es/pycharm/features/}):
+\begin{itemize}
+	\item Inspección de código
+	\item Indicación de errores (compilación)
+	\item Refactorización de código automática (rápidas y seguras)
+	\item Depuración
+	\item Pruebas
+	\item Herramientas para bases de datos
+	\item Integración con Git
+\end{itemize}
+
+Estas son solo algunas de las muchas funcionalidades que permite y que han hecho
+que se haya seleccionado para este proyecto. Además, dado que el proyecto tiene
+una fuerte componente de desarrollo Web así como frameworks, PyCharm tiene una
+integración completa con estos ámbitos, pudiendo desarrollar también de forma
+nativa con JavaScript o lenguajes de marcas (HTML o CSS).
+
+Otra ventaja del uso de PyCharm y concretamente gracias a la \texttt{Universidad
+de Burgos} es que el alumnado tiene acceso a la edición "<Professional"> que
+habilita ese desarrollo Web, por ejemplo.
+
+Por último, esta aplicación ya había sido usada con anterioridad y por tanto su
+aprendizaje básico no era necesario.
+
+\paragraph{Visual Studio Code}
+Se trata de un editor de código fuente desarrollado por Microsoft. Es el editor
+por excelencia en todo el ámbito de la programación pues permite la programación
+en casi cualquier lenguaje de programación haciéndole muy versátil y un "<todo
+en uno">.
+
+Ofrece todas las funcionalidades que cabe esperar (incluyendo a las que ofrece
+PyCharm): sintaxis, depuración, personalización, integración git...
+
+Además del núcleo propio del editor y su constante actualización, uno de sus
+puntos fuertes son las extensiones que empresas o incluso la comunidad
+desarrollan y que permiten agilizar en lo posible las tareas del programador.
+
+A pesar de todas las ventajas, el manejo de PyCharm ha resultado más sencillo de
+utilizar (durante la experiencia previa a este proyecto) en el desarrollo del
+\textbf{software}. Pero debido a su versatilidad y al desarrollo de esta
+documentación en Latex, VS Code es el editor adecuado para ello. Gracias a las
+extensiones y a la instalación local de Latex, permite tener un control completo
+para la creación de este tipo de documentos. 
+
+
+\paragraph{GitHub Desktop}
+Es una aplicación que permite interactuar con GitHub utilizando una interfaz
+gráfica respecto al manejo tradicional mediante la línea de comandos. Permite
+realizar las operaciones más comunes y básicas de Git.
+
+Pese a que no tiene toda la funcionalidad que sí ofrece la línea de comandos no
+se prevee un uso muy exhaustivo de Git y, por tanto, es suficiente
+("<Commit">,"<Push">,"<Pull">,"<Merge">...).
+
+Además, puede visualizarse cada cambio respecto a la última versión de un
+vistazo y seleccionar dinámicamente los cambios que se deseen aplicar.
+
+Aún con todo esto, no es más que una aplicación para agilizar el ya por lo
+general rápido proceso de control de versiones.
 
 \section{Secciones}
-
-\subsection{Subsecciones}
-
-Además de secciones tenemos subsecciones.
-
-\subsubsection{Subsubsecciones}
-
-Y subsecciones. 
-
-
-\section{Referencias}
-
-
-
-
-\section{Imágenes}
-
-Se pueden incluir imágenes con los comandos standard de \LaTeX, pero esta plantilla dispone de comandos propios como por ejemplo el siguiente:
-
-\imagen{escudoInfor}{Autómata para una expresión vacía}{.5}
-
-
-
-\section{Listas de items}
-
-Existen tres posibilidades:
-
-\begin{itemize}
-	\item primer item.
-	\item segundo item.
-\end{itemize}
-
-\begin{enumerate}
-	\item primer item.
-	\item segundo item.
-\end{enumerate}
-
-\begin{description}
-	\item[Primer item] más información sobre el primer item.
-	\item[Segundo item] más información sobre el segundo item.
-\end{description}
-	
-\begin{itemize}
-\item 
-\end{itemize}
-
-\section{Tablas}
-
-Igualmente se pueden usar los comandos específicos de \LaTeX o bien usar alguno de los comandos de la plantilla.
 
 \tablaSmall{Herramientas y tecnologías utilizadas en cada parte del proyecto}{l c c c c}{herramientasportipodeuso}
 { \multicolumn{1}{l}{Herramientas} & App AngularJS & API REST & BD & Memoria \\}{ 
