@@ -112,9 +112,6 @@ class SelfTraining:
 
         stats.loc[len(stats)] = [iteration, self.get_accuracy_score(x_test, y_test)]
 
-        print(self.get_confusion_matrix(x_test, y_test))
-        print(log)
-        print("Precisión Implementación: ", self.get_accuracy_score(x_test, y_test))
         return log, stats
 
     def get_confusion_matrix(self, x_test, y_test):
@@ -154,34 +151,33 @@ class SelfTraining:
 
 
 if __name__ == '__main__':
-    dl = DatasetLoader('utilidades/datasets/breast.w.arff')
-    dl.set_target("Class")
+    dl = DatasetLoader('utilidades/datasets/waveform5000.arff')
+    dl.set_target("class")
     x, y, mapa, is_unlabelled = dl.get_x_y()
 
-    print(x.to_string(), y.to_string())
+    # print(x.to_string(), y.to_string())
 
     st = SelfTraining(clf=SVC(kernel='rbf',
                               probability=True,
                               C=1.0,
                               gamma='scale',
                               random_state=0
-                              ), n=10, n_iter=10)
+                              ), n=10, n_iter=150)
 
     (
         x,
         y,
         x_test,
         y_test
-    ) = data_split(x, y, is_unlabelled, p_unlabelled=0.95, p_test=0.8)
+    ) = data_split(x, y, is_unlabelled, p_unlabelled=0.8, p_test=0.2)
 
     log, stats = st.fit(x, y, x_test, y_test, dl.get_only_features())
+    print("Precisión Implementación: ", st.get_accuracy_score(x_test, y_test))
 
-    stsk = SelfTrainingClassifier(base_estimator=SVC(kernel='rbf',
-                                                     probability=True,
+    stsk = SelfTrainingClassifier(base_estimator=SVC(probability=True,
                                                      C=1.0,
-                                                     gamma='scale',
                                                      random_state=0
-                                                     ))
+                                                     ), max_iter=150)
 
     stsk.fit(x, y)
     print("Precisión Sklearn: ", stsk.score(x_test, y_test))

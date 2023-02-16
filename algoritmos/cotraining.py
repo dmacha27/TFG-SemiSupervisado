@@ -165,8 +165,6 @@ class CoTraining:
         log = pd.concat([log, rest], ignore_index=True)
         stats.loc[len(stats)] = [iteration, self.get_accuracy_score(x_test, y_test)]
 
-        print(log)
-        print(self.get_accuracy_score(x_test, y_test))
         return log, stats
 
     def get_accuracy_score(self, x_test, y_test):
@@ -211,4 +209,6 @@ if __name__ == '__main__':
         y_test
     ) = data_split(x, y, is_unlabelled, p_unlabelled=0.8, p_test=0.2)
 
-    log = st.fit(x, y, x_test, y_test, dl.get_only_features())
+    log, stats = st.fit(x, y, x_test, y_test, dl.get_only_features())
+
+    print(st.get_accuracy_score(x_test, y_test))
