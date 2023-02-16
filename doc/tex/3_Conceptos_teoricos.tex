@@ -120,10 +120,10 @@ aprendizaje automático referido al uso de datos tanto etiquetados como no
 etiquetados simultáneamente para realizar tareas de aprendizaje. Se encuentra a
 caballo  entre el aprendizaje supervisado y no supervisado. Concretamente, los
 problemas donde más se aplica, y donde más investigación se realiza es en
-clasificación. Los métodos semi-supervisados resultan especialmente útil cuando
-se tienen escasos datos etiquetados, que, aparte de ser una situación común en
-problemas reales, el proceso de etiquetado es una labor compleja, que consume
-tiempo y es costosa.
+clasificación. Los métodos semi-supervisados resultan especialmente útiles
+cuando se tienen escasos datos etiquetados, que, aparte de ser una situación
+común en problemas reales, el proceso de etiquetado es una labor compleja, que
+consume tiempo y es costosa.
 
 \subsubsection{Suposiciones}
 El objetivo de usar datos no etiquetados es construir un clasificador que sea
@@ -167,8 +167,32 @@ no siempre es la misma:
 
 De estas suposiciones se extrae el concepto de "<similitud"> en el que en todas
 ellas se encuentra presente. Y en realidad, todas son versiones de
-\textit{Cluster assumption} en la que los puntos similares tienden a
-pertenecer al mismo grupo. Además, la suposición de clúster resulta necesaria
-para que el aprendizaje semi-supervisado mejore al supervisado. Si los datos no
-pueden ser agrupados, entonces no mejorará ningún método
-supervisado~\cite{vanEngelen2020}.
+\textit{Cluster assumption} en la que los puntos similares tienden a pertenecer
+al mismo grupo. 
+
+Además, la suposición de clúster resulta necesaria para que el aprendizaje
+semi-supervisado mejore al supervisado. Si los datos no pueden ser agrupados,
+entonces no mejorará ningún método supervisado~\cite{vanEngelen2020}.
+
+
+Para tener un punto de vista general, en la figura \ref{fig:aprendizajesemisupervisado} se presenta la
+taxonomía de los métodos de aprendizaje semi-supervisado.
+
+\imagen{aprendizajesemisupervisado}{Métodos semi-supervisados \cite{vanEngelen2020}.}{1}
+
+El núcleo de este proyecto está basado en los métodos inductivos. Su idea es muy
+sencilla y está altamente relacionada con el objetivo del aprendizaje
+supervisado, trata de crear un clasificador que prediga etiquetas para datos
+nuevos. Por lo tanto, los algoritmos construidos tendrán este objetivo, aunque
+con un punto más de concreción: los métodos "<wrapper"> o de envoltura.
+
+Los conocidos métodos "<wrapper"> se basan en el \texttt{pseudo etiquetado}
+("<pseudo-labelling">), es el proceso en el que los clasificadores entrenados
+con datos etiquetados generan etiquetas para los no etiquetados (de alguna
+forma). Una vez completado este proceso, el clasificador se vuelve a entrenar
+pero añadiendo estos nuevos datos.
+
+La gran ventaja que suponen estos métodos es que puede utilizarse con casi todos
+los clasificadores (supervisados) existentes \cite{vanEngelen2020}.
+
+\paragraph{SelfTraining}
