@@ -10,9 +10,9 @@ footer {
 }
 
 .card {
-  border-radius: 0;
-  width: 200px;
-  height: 200px;
+    border-radius: 0;
+    width: 200px;
+    height: 200px;
 }
 
 .padre {
@@ -48,6 +48,23 @@ footer {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+#btn_info {
+    border-radius: 10px 0 0 10px;
+}
+
+#panel_info{
+    position: absolute;
+    top: 70%;
+    right: 0;
+}
+
+#card_info {
+    width: 0;
+    border-radius: 0;
+    transition:300ms linear;
+    height: 220px;
 }
 
 

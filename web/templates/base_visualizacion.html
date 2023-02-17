@@ -9,8 +9,8 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 25 18">
             <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"></path>
         </svg>Volver</button>
-    <div class="d-flex justify-content-around mb-3">
-        <div>
+    <div class="d-flex justify-content-around mb-3 position-relative">
+        <div class="col">
             <div class="padre" id="grafico">
                 <div id="div_cargando">
                     <div id="cargando" class="cargando"></div>
@@ -27,10 +27,24 @@
                 </div>
             </div>
         </div>
-        <div class="padre" id="info">
-            {% block estadisticas %}{% endblock %}
+        <div class="col">
+            <div class="padre" id="info">
+                {% block estadisticas %}{% endblock %}
+            </div>
+        </div>
+        <div id="panel_info" class="d-flex justify-content-center mb-3">
+            <div class=col">
+                <button class="btn btn-primary" style="min-height: 100%" onclick="panelInfo()" id="btn_info">INFO</button>
+            </div>
+            <div id="card_info" class="card col text-white bg-warning">
+                <div id="card_info_text" class="card-body" style="display: none">
+                    <h5 class="card-title">Algoritmo</h5>
+                    <p class="card-text text-white">AYUDA/DESCRIPCIÓN</p>
+                </div>
+            </div>
         </div>
     </div>
+
     <script type="text/javascript">
         let fichero = "{{ session['FICHERO']|nombredataset }}";
     </script>

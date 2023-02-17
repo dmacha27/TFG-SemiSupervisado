@@ -21,3 +21,17 @@ async function inicializar(rutadatos, elementos) {
         xhr.send(parametros);
     });
 }
+
+function panelInfo(){
+    let card_info = document.getElementById("card_info")
+    let card_info_text = document.getElementById("card_info_text")
+
+    console.log(card_info.style.width)
+    if (card_info.style.width === "400px"){
+        card_info.style.width = "0px";
+        card_info_text.style.display = "none";
+    }else{
+        card_info.style.width = "400px";
+        card_info_text.style.display = "block";
+    }
+}
