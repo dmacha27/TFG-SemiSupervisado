@@ -17,8 +17,8 @@ const mousemove = function(e, dot) {
                 return cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] + "<br>Etiqueta: Sin clasificar";
             }
         })
-        .style("left", (e.pageX + 10) + "px")
-        .style("top", (e.pageY + 5 ) + "px");
+        .style("left", (e.clientX + 10) + "px")
+        .style("top", (e.clientY - 75) + "px");
 };
 
 

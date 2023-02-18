@@ -18,8 +18,8 @@ const mousemove = function(e, dot) {
                 return cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] +"<br>Clasificador: Sin clasificar" + "<br>Etiqueta: Sin clasificar";
             }
         })
-        .style("left", (e.pageX + 10) + "px")
-        .style("top", (e.pageY + 5 ) + "px");
+        .style("left", (e.clientX + 120) + "px")
+        .style("top", (e.clientY + 20) + "px");
 };
 
 function preparardataset(datos) {
