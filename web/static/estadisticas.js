@@ -1,14 +1,14 @@
 
-function precision(datos) {
+function estadisticagenerica(datos,id,y) {
 
-    let lista = crearListaStat(JSON.parse(datos.stats),"precision");
+    let lista = crearListaStat(JSON.parse(datos.stats),id);
 
     let margin = {top: 10, right: 30, bottom: 40, left: 60},
         width = 850 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 
 
-    let precisionsvg = d3.select("#precision")
+    let statsvg = d3.select("#"+id)
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -17,22 +17,22 @@ function precision(datos) {
         .style("display", "block")
         .style("margin", "auto");
 
-    let precisionx = d3.scaleLinear()
+    let statx = d3.scaleLinear()
         .domain([0, maxit])
         .range([0, width]);
 
-    let precisiony = d3.scaleLinear()
+    let staty = d3.scaleLinear()
         .domain([0, 1])
         .range([height, 0]);
 
-    precisionsvg.append("g")
+    statsvg.append("g")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(precisionx));
-    precisionsvg.append("g")
-        .call(d3.axisLeft(precisiony));
+        .call(d3.axisBottom(statx));
+    statsvg.append("g")
+        .call(d3.axisLeft(staty));
 
     //Etiqueta eje X
-    precisionsvg.append("text")
+    statsvg.append("text")
         .attr("class", "cx")
         .attr("text-anchor", "middle")
         .attr("x", width / 2)
@@ -40,21 +40,21 @@ function precision(datos) {
         .text("Iteración");
 
     //Etiqueta eje Y
-    precisionsvg.append("text")
+    statsvg.append("text")
         .attr("class", "cy")
         .attr("text-anchor", "middle")
         .attr("y", -margin.left)
         .attr("x", -height / 2)
         .attr("dy", "1em")
         .attr("transform", "rotate(-90)")
-        .text("Precisión");
+        .text(y);
 
-    let pts = precisionsvg.selectAll("dot")
+    let pts = statsvg.selectAll("dot")
         .data(lista)
         .enter()
         .append("circle")
-        .attr("cx", function (d) { return precisionx(d[0]); } )
-        .attr("cy", function (d) { return precisiony(d[1]); } )
+        .attr("cx", function (d) { return statx(d[0]); } )
+        .attr("cy", function (d) { return staty(d[1]); } )
         .attr("r", 5)
         .attr("fill", "#69b3a2")
         .style("visibility", function (d) {
@@ -66,19 +66,19 @@ function precision(datos) {
         })
 
     for (let i = 0; i < lista.length - 1; i++) {
-        precisionsvg.append("line")
+        statsvg.append("line")
             .data([i+1])
             .attr("id", "nueva")
-            .attr("x1", precisionx(i))
-            .attr("y1", precisiony(lista[i][1]))
-            .attr("x2", precisionx(i + 1))
-            .attr("y2", precisiony(lista[i + 1][1]))
+            .attr("x1", statx(i))
+            .attr("y1", staty(lista[i][1]))
+            .attr("x2", statx(i + 1))
+            .attr("y2", staty(lista[i + 1][1]))
             .attr("stroke", "#69b3a2")
             .attr("stroke-width", 1.5)
             .style("display", "none");
     }
 
-    let lineas = precisionsvg.selectAll('line[id="nueva"]');
+    let lineas = statsvg.selectAll('line[id="nueva"]');
 
     document.addEventListener('next', next);
     document.addEventListener('prev', prev);

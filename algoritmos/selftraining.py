@@ -11,7 +11,7 @@ import numpy as np
 from sklearn.base import BaseEstimator
 
 from sklearn.datasets import load_breast_cancer, load_wine
-from sklearn.metrics import confusion_matrix, accuracy_score, f1_score
+from sklearn.metrics import confusion_matrix, accuracy_score, precision_score
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 
@@ -67,13 +67,15 @@ class SelfTraining:
         log['target'] = y_train
 
         iteration = 0
-        stats = pd.DataFrame(columns=['iter', 'precision'])
+        stats = pd.DataFrame(columns=['iter', 'accuracy', 'precision'])
 
         while len(x_u) and (
                 iteration < self.n_iter or not self.n_iter):  # Criterio generalmente seguido
 
             self.clf.fit(x_train, y_train)
-            stats.loc[len(stats)] = [iteration, self.get_accuracy_score(x_test, y_test)]
+            stats.loc[len(stats)] = [iteration,
+                                     self.get_accuracy_score(x_test, y_test),
+                                     self.get_precision_score(x_test, y_test)]
 
             # Predicción
             points = self.clf.predict_proba(x_u).max(axis=1)
@@ -110,7 +112,9 @@ class SelfTraining:
         rest['target'] = -1
         log = pd.concat([log, rest], ignore_index=True)
 
-        stats.loc[len(stats)] = [iteration, self.get_accuracy_score(x_test, y_test)]
+        stats.loc[len(stats)] = [iteration,
+                                 self.get_accuracy_score(x_test, y_test),
+                                 self.get_precision_score(x_test, y_test)]
 
         return log, stats
 
@@ -127,6 +131,17 @@ class SelfTraining:
 
     def get_accuracy_score(self, x_test, y_test):
         """
+        Obtiene la puntuación de exactitud del clasificador
+        respecto a unos datos de prueba
+
+        :param x_test: Conjunto de datos de test.
+        :param y_test: Objetivo de los datos.
+        :return: Exactitud
+        """
+        return accuracy_score(y_test, self.clf.predict(x_test))
+
+    def get_precision_score(self, x_test, y_test):
+        """
         Obtiene la puntuación de precisión del clasificador
         respecto a unos datos de prueba
 
@@ -134,20 +149,7 @@ class SelfTraining:
         :param y_test: Objetivo de los datos.
         :return: Precisión
         """
-        p = accuracy_score(y_test, self.clf.predict(x_test))
-        return p
-
-    def get_training_score(self, x_train, y_train):
-        """
-        Obtiene la puntuación de precisión del clasificador
-        respecto a los datos de entrenamiento
-
-        :param x_train: Conjunto de datos de entrenamiento.
-        :param y_train: Objetivo de los datos.
-        :return: Precisión
-        """
-        p = accuracy_score(y_train, self.clf.predict(x_train))
-        return p
+        return precision_score(y_test, self.clf.predict(x_test))
 
 
 if __name__ == '__main__':

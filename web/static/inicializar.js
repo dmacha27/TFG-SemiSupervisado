@@ -5,7 +5,7 @@ async function inicializar(rutadatos, elementos) {
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
             if (this.readyState === XMLHttpRequest.DONE) {
-                datos = JSON.parse(xhr.responseText);
+                let datos = JSON.parse(xhr.responseText);
                 document.getElementById("div_cargando").remove();
                 document.getElementById("controles").style.visibility = 'visible';
 
@@ -26,7 +26,6 @@ function panelInfo(){
     let card_info = document.getElementById("card_info")
     let card_info_text = document.getElementById("card_info_text")
 
-    console.log(card_info.style.width)
     if (card_info.style.width === "400px"){
         card_info.style.width = "0px";
         card_info_text.style.display = "none";

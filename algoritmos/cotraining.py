@@ -12,7 +12,7 @@ import numpy as np
 from sklearn.base import BaseEstimator
 
 from sklearn.datasets import load_breast_cancer, load_wine
-from sklearn.metrics import confusion_matrix, accuracy_score, f1_score
+from sklearn.metrics import confusion_matrix, accuracy_score, f1_score, precision_score
 from sklearn.svm import SVC
 
 from algoritmos.utilidades import DatasetLoader
@@ -83,7 +83,7 @@ class CoTraining:
         log['clf'] = 'inicio'
 
         iteration = 0
-        stats = pd.DataFrame(columns=['iter', 'precision'])
+        stats = pd.DataFrame(columns=['iter', 'accuracy', 'precision'])
 
         ids = np.random.choice(len(x_u), size=self.u if self.u <= len(x_u) else len(x_u), replace=False)
         s_u_s = x_u[ids]  # Selected unlabelled samples
@@ -97,7 +97,9 @@ class CoTraining:
 
             self.clf1.fit(x1, y_train)
             self.clf2.fit(x2, y_train)
-            stats.loc[len(stats)] = [iteration, self.get_accuracy_score(x_test, y_test)]
+            stats.loc[len(stats)] = [iteration,
+                                     self.get_accuracy_score(x_test, y_test),
+                                     self.get_precision_score(x_test, y_test)]
 
             x1_u, x2_u = np.array_split(s_u_s, 2, axis=1)
 
@@ -163,11 +165,29 @@ class CoTraining:
         rest['target'] = -1
         rest['clf'] = -1
         log = pd.concat([log, rest], ignore_index=True)
-        stats.loc[len(stats)] = [iteration, self.get_accuracy_score(x_test, y_test)]
+        stats.loc[len(stats)] = [iteration,
+                                 self.get_accuracy_score(x_test, y_test),
+                                 self.get_precision_score(x_test, y_test)]
 
         return log, stats
 
     def get_accuracy_score(self, x_test, y_test):
+        """
+        Obtiene la puntuación de exactitud del clasificador
+        respecto a unos datos de prueba
+
+        :param x_test: Conjunto de datos de test.
+        :param y_test: Objetivo de los datos.
+        :return: Exactitud
+        """
+        x1, x2 = np.array_split(x_test, 2, axis=1)
+
+        a1 = accuracy_score(y_test, self.clf1.predict(x1))
+        a2 = accuracy_score(y_test, self.clf2.predict(x2))
+
+        return (a1 + a2) / 2
+
+    def get_precision_score(self, x_test, y_test):
         """
         Obtiene la puntuación de precisión del clasificador
         respecto a unos datos de prueba
@@ -178,8 +198,8 @@ class CoTraining:
         """
         x1, x2 = np.array_split(x_test, 2, axis=1)
 
-        p1 = accuracy_score(y_test, self.clf1.predict(x1))
-        p2 = accuracy_score(y_test, self.clf2.predict(x2))
+        p1 = precision_score(y_test, self.clf1.predict(x1))
+        p2 = precision_score(y_test, self.clf2.predict(x2))
 
         return (p1 + p2) / 2
 

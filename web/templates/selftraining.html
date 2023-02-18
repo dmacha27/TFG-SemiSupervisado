@@ -1,7 +1,7 @@
 {% extends "base_visualizacion.html" %}
 {% block title %}Self-Training{% endblock %}
 {% block estadisticas %}
-    <div class="accordion" id="acordeon">
+    <div class="accordion" style="overflow-y: auto; max-height: 80vh" id="acordeon">
         <div class="accordion-item">
             <h2 class="accordion-header" id="primer_fuelle">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#precision" aria-expanded="true" aria-controls="precision">
@@ -12,13 +12,11 @@
         </div>
         <div class="accordion-item">
             <h2 class="accordion-header" id="segundo_fuelle">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#stat2" aria-expanded="false" aria-controls="stat2">
-                    ESTADÍSTICA 2
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accuracy" aria-expanded="false" aria-controls="accuracy">
+                    Exactitud (accuracy)
                 </button>
             </h2>
-            <div id="stat2" class="accordion-collapse collapse" aria-labelledby="segundo_fuelle">
-                ESTADÍSTICA
-            </div>
+            <div id="accuracy" class="accordion-collapse collapse" aria-labelledby="segundo_fuelle"></div>
         </div>
         <div class="accordion-item">
             <h2 class="accordion-header" id="tercer_fuelle">
@@ -50,7 +48,8 @@
         let cx = "{{ cx }}", cy = "{{ cy }}";
         inicializar("/{{ session['ALGORITMO'] }}d", elementos).then(function (datos) {
             inicializarGrafico(datos, preparardataset,databinding);
-            precision(datos);
+            estadisticagenerica(datos, "precision", "Precisión");
+            estadisticagenerica(datos, "accuracy", "Accuracy");
         });
 
     </script>

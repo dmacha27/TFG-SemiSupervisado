@@ -92,7 +92,6 @@ def selftraining():
                            cx=request.form['cx'] if 'cx' in request.form else 'C1',
                            cy=request.form['cy'] if 'cy' in request.form else 'C2',
                            pca=request.form['pca'] if 'pca' in request.form else 'off',
-                           no_etiquetados=request.form['no_etiquetados'] if 'no_etiquetados' in request.form else 'off',
                            p_unlabelled=request.form['p_unlabelled'] if 'p_unlabelled' in request.form else -1,
                            p_test=request.form['p_test'] if 'p_test' in request.form else -1
                            )
@@ -113,7 +112,6 @@ def cotraining():
                            cx=request.form['cx'] if 'cx' in request.form else 'C1',
                            cy=request.form['cy'] if 'cy' in request.form else 'C2',
                            pca=request.form['pca'] if 'pca' in request.form else 'off',
-                           no_etiquetados=request.form['no_etiquetados'] if 'no_etiquetados' in request.form else 'off',
                            p_unlabelled=request.form['p_unlabelled'] if 'p_unlabelled' in request.form else -1,
                            p_test=request.form['p_test'] if 'p_test' in request.form else -1
                            )
@@ -127,7 +125,6 @@ def datosselftraining():
     cx = request.form['cx']
     cy = request.form['cy']
     pca = request.form['pca']
-    no_etiquetados = request.form['no_etiquetados']
     p_unlabelled = float(request.form['p_unlabelled'])
     p_test = float(request.form['p_test'])
 
@@ -177,7 +174,6 @@ def datoscotraining():
     cx = request.form['cx']
     cy = request.form['cy']
     pca = request.form['pca']
-    no_etiquetados = request.form['no_etiquetados']
     p_unlabelled = float(request.form['p_unlabelled'])
     p_test = float(request.form['p_test'])
 

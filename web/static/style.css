@@ -67,4 +67,9 @@ footer {
     height: 220px;
 }
 
+#card_info_text{
+    display: none;
+    overflow: hidden;
+}
+
 
