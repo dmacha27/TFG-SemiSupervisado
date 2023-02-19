@@ -90,8 +90,8 @@ class SelfTraining:
             # Los nuevos datos a añadir (el dato y la predicción o etiqueta)
             topx_pred = self.clf.predict(x_u[topx])
             # El conjunto de entrenamiento se ha extendido
-            x_train = np.append(x_train, x_u[topx], axis=0)
-            y_train = np.append(y_train, topx_pred)
+            x_train = np.concatenate((x_train, x_u[topx]), axis=0)
+            y_train = np.concatenate((y_train, topx_pred))
 
             # Se eliminan los datos que antes eran no etiquetados pero ahora sí lo son
             topx_new_labelled = x_u[topx]
