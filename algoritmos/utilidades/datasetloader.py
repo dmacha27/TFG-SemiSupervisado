@@ -47,7 +47,7 @@ class DatasetLoader:
         :return: Listado de las características de los datos.
         """
 
-        return self.get_data().columns.values
+        return self._get_data().columns.values
 
     def set_target(self, target):
         """
@@ -67,9 +67,9 @@ class DatasetLoader:
             raise ValueError("La clase o target no ha sido establecida, selecciona primero la característica que "
                              "actúa como target")
 
-        return np.setdiff1d(self.get_data().columns.values, self.target)
+        return np.setdiff1d(self._get_data().columns.values, self.target)
 
-    def get_data(self):
+    def _get_data(self):
         """
         Obtiene los datos sin procesar (directamente del fichero) según
         el tipo de fichero que sea
@@ -119,7 +119,7 @@ class DatasetLoader:
             raise ValueError("La clase o target no ha sido establecida, selecciona primero la característica que "
                              "actúa como target")
 
-        data = self.get_data()
+        data = self._get_data()
 
         x = data.drop(columns=[self.target])
 

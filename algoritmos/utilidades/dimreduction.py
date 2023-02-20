@@ -48,6 +48,7 @@ def log_cxcy_reduction(log, cx, cy, features):
     :param log: Información de entrenamiento.
     :param cx: Componente X.
     :param cy: Componente Y.
+    :param features: Características de los datos (sin target o información adicional).
     :return: El log transformado.
     """
     return log[[cx, cy] + list(log.columns.difference(features))]

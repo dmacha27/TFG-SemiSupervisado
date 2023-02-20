@@ -1,0 +1,12 @@
+@RELATION prueba
+
+@ATTRIBUTE feature1 REAL
+@ATTRIBUTE feature2 REAL
+@ATTRIBUTE feature3 REAL
+@ATTRIBUTE feature4 REAL
+@ATTRIBUTE class 	{A,B}
+
+@DATA
+5.1,3.5,1.4,0.2,A
+4.9,3.0,1.4,0.2,B
+4.7,3.2,1.3,0.2,?
