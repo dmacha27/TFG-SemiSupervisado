@@ -94,10 +94,10 @@ class DemocraticCoLearning:
 
             for index, x in enumerate(x_u):
                 left = [wi for n_i, wi in enumerate(ws) if n_i in votes[index]]
-                left = sum(left) if left else 0
+                left = sum(left) if left else 0  # REVISAR
 
                 right = [wi for n_i, wi in enumerate(ws) if n_i not in votes[index]]
-                right = max(right) if right else 0
+                right = max(right) if right else 0  # REVISAR
 
                 if left > right:
                     for i in range(len(self.clfs)):
@@ -105,15 +105,16 @@ class DemocraticCoLearning:
                             ls_prime[i].append(x)
                             ls_prime_y[i].append(xs_cks[index])
 
+            average_l = [self._confidence_interval(n, ls[index], ls_y[index])[0] for index, n in enumerate(self.clfs)]
+            average_l = sum(average_l) / len(self.clfs) if average_l else 0
+
             for index, n in enumerate(self.clfs):
                 len_li = len(ls[index])
                 len_li_prime = len(ls_prime[index])
 
-                l, h, mean = self._confidence_interval(n, ls[index], ls_y[index])
-
                 qi = len_li * (1 - 2 * (errors[index] / len_li)) ** 2
 
-                ei_prime = (1 - ((l * len_li) / len_li) * len_li_prime)
+                ei_prime = (1 - average_l) * len_li_prime
 
                 qi_prime = (len_li + len_li_prime) * (
                         1 - ((2 * (errors[index] + ei_prime)) / (len_li + len_li_prime))) ** 2
@@ -130,14 +131,59 @@ class DemocraticCoLearning:
 
         return iteration
 
-    def _confidence_interval(self, n, x_train, y_train):
-        y_pred = n.predict(x_train)
-        accuracy = accuracy_score(y_train, y_pred)
-        inf = accuracy - self.confidence * np.sqrt(accuracy * (1 - accuracy) / len(y_train))  # l
-        sup = accuracy + self.confidence * np.sqrt(accuracy * (1 - accuracy) / len(y_train))  # h
-        mean = (inf + sup) / 2
+    def predict(self, instances):
+        """
+        Predice las etiquetas de una serie de instancias
 
-        return inf, sup, mean
+        :param instances: Datos a predecir.
+        :return: Predicciones
+        """
+
+        if not self.ws:
+            raise ValueError("Es necesario entrenamiento")
+
+        confidences_per_x = []
+
+        for x in instances:
+            group: List[List[int]] = [[] for _ in range(self.labels)]
+            for index, n in enumerate(self.clfs):
+                if self.ws[index] > 0.5:
+                    label = n.predict([x])[0]
+                    group[label].append(index)
+
+            confidences = []
+            for j in range(self.labels):
+                op1 = (len(group[j]) + 0.5) / (len(group[j]) + 1)
+
+                if group[j]:
+                    num = [self.ws[index] for index in group[j]]
+                    num = sum(num) if num else 0
+                    op2 = num / len(group[j])
+                else:
+                    op2 = 1  # REVISAR
+
+                confidences.append(op1 * op2)
+
+            confidences_per_x.append(confidences)
+
+        return np.array([np.argmax(c) for c in confidences_per_x])
+
+    def _confidence_interval(self, n, x, y):
+        """
+        Calcula el intervalo de confianza del clasificador
+
+        :param n: Clasificador.
+        :param x: intancias con las que calcular el intervalo.
+        :param y: etiquetas de las instancias.
+        :return: límite inferior, superior y su media
+        """
+        y_pred = n.predict(x)
+        accuracy = accuracy_score(y, y_pred)
+        lower = accuracy - self.confidence * np.sqrt(accuracy * (1 - accuracy) / len(y))  # l
+        upper = accuracy + self.confidence * np.sqrt(accuracy * (1 - accuracy) / len(y))  # h
+        mean = (lower + upper) / 2
+
+        return lower, upper, mean
 
 
 if __name__ == '__main__':
@@ -152,6 +198,9 @@ if __name__ == '__main__':
         y,
         x_test,
         y_test
-    ) = data_split(x, y, is_unlabelled, p_unlabelled=0.9, p_test=0.5)
+    ) = data_split(x, y, is_unlabelled, p_unlabelled=0.8, p_test=0.95)
 
     st.fit(x, y, x_test, y_test)
+
+    pred = st.predict(x_test)
+    print(accuracy_score(y_test, pred))
