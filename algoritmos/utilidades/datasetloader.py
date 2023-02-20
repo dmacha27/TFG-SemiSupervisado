@@ -14,7 +14,7 @@ from pandas import DataFrame
 from pandas.api import types
 from scipy.io import arff
 
-from algoritmos.utilidades import FileType
+from algoritmos.utilidades.filetype import FileType
 from algoritmos.utilidades.labelencoder import OwnLabelEncoder
 
 
@@ -143,10 +143,3 @@ class DatasetLoader:
         y, mapping = le.transform(y)
 
         return x, y, mapping, is_unlabelled
-
-
-if __name__ == '__main__':
-    dl = DatasetLoader('iris.csv')
-    # print(dl.get_allfeatures())
-    dl.set_target("variety")
-    dl.get_x_y()

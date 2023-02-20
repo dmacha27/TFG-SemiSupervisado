@@ -17,7 +17,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 
-from algoritmos.utilidades import DatasetLoader
+from algoritmos.utilidades.datasetloader import DatasetLoader
 from algoritmos.utilidades.common import obtain_train_unlabelled
 from algoritmos.utilidades.datasplitter import data_split
 

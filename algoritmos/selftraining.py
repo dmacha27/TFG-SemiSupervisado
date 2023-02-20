@@ -15,7 +15,7 @@ from sklearn.metrics import confusion_matrix, accuracy_score, precision_score
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 
-from algoritmos.utilidades import DatasetLoader
+from algoritmos.utilidades.datasetloader import DatasetLoader
 from algoritmos.utilidades.common import obtain_train_unlabelled
 from algoritmos.utilidades.datasplitter import data_split
 from sklearn.semi_supervised import SelfTrainingClassifier
@@ -153,8 +153,8 @@ class SelfTraining:
 
 
 if __name__ == '__main__':
-    dl = DatasetLoader('utilidades/datasets/waveform5000.arff')
-    dl.set_target("class")
+    dl = DatasetLoader('utilidades/datasets/breast.w.arff')
+    dl.set_target("Class")
     x, y, mapa, is_unlabelled = dl.get_x_y()
 
     # print(x.to_string(), y.to_string())

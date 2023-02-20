@@ -4,6 +4,10 @@ import json
 import datetime
 import re
 from flask import Flask, flash, render_template, request, redirect, session
+
+from algoritmos.utilidades.datasetloader import DatasetLoader
+from algoritmos.utilidades.datasplitter import data_split
+from algoritmos.utilidades.dimreduction import log_pca_reduction, log_cxcy_reduction
 from flask_session import Session
 from sklearn.datasets import load_breast_cancer, load_wine
 from sklearn.svm import SVC
@@ -11,7 +15,6 @@ from werkzeug.utils import secure_filename
 
 from algoritmos import SelfTraining
 from algoritmos import CoTraining
-from algoritmos.utilidades import DatasetLoader, log_pca_reduction, log_cxcy_reduction, data_split
 
 app = Flask(__name__)
 app.secret_key = "secreta"

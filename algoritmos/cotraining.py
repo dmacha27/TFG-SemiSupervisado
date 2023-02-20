@@ -15,8 +15,8 @@ from sklearn.datasets import load_breast_cancer, load_wine
 from sklearn.metrics import confusion_matrix, accuracy_score, f1_score, precision_score
 from sklearn.svm import SVC
 
-from algoritmos.utilidades import DatasetLoader
 from algoritmos.utilidades.common import obtain_train_unlabelled
+from algoritmos.utilidades.datasetloader import DatasetLoader
 from algoritmos.utilidades.datasplitter import data_split
 
 
