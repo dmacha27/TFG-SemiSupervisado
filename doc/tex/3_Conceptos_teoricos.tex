@@ -188,11 +188,53 @@ con un punto más de concreción: los métodos "<wrapper"> o de envoltura.
 
 Los conocidos métodos "<wrapper"> se basan en el \texttt{pseudo etiquetado}
 ("<pseudo-labelling">), es el proceso en el que los clasificadores entrenados
-con datos etiquetados generan etiquetas para los no etiquetados (de alguna
-forma). Una vez completado este proceso, el clasificador se vuelve a entrenar
-pero añadiendo estos nuevos datos.
+con datos etiquetados generan etiquetas para los no etiquetados. Una vez
+completado este proceso, el clasificador se vuelve a entrenar pero añadiendo
+estos nuevos datos.
 
-La gran ventaja que suponen estos métodos es que puede utilizarse con casi todos
-los clasificadores (supervisados) existentes \cite{vanEngelen2020}.
+La gran ventaja que suponen estos métodos es que pueden utilizarse con casi
+todos los clasificadores (supervisados) existentes \cite{vanEngelen2020}.
 
-\paragraph{SelfTraining}
+\paragraph{Self-Training}
+Se trata del método de aprendizaje semi-supervisado más sencillo y "<directo">.
+Este método envuelve un único clasificador base, que entrena con los datos
+etiquetados iniciales y aprovecha el proceso de pseudo etiquetado comentado para
+continuar su entrenamiento.
+
+El método comienza por entrenar ese clasificador con los datos etiquetados que
+se tienen. A partir de este aprendizaje, se etiqueta el resto de datos. De todas
+las nuevas predicciones se seleccionan aquellas que parecen haber acertado con
+mayor probabilidad. Una vez seleccionados, el clasificador es reentrenado con la
+unión los ya etiquetados y estos nuevos. El proceso continúa hasta un criterio
+de parada (generalmente hasta etiquetar todos los datos o un número máximo de
+iteraciones).
+
+En este proceso, el paso más importante es la incorporación de nuevos datos al
+de conjunto de etiquetados, porque, \textbf{probablemente}, la predicción sea la
+correcta. Es importante entonces que el cálculo de la probabilidad se realice
+correctamente para asegurar que los nuevos datos son de interés. En caso
+contrario, no es posible aprovechar los beneficios que ofrece self-training
+\cite{vanEngelen2020}. Todo este proceso queda descrito en
+\ref{pseudo:self-training}.
+
+\begin{algorithm}
+    \KwIn{Conjunto de datos etiquetados \textbf{L}, 
+    no etiquetados \textbf{U} y clasificador \textbf{H}}
+    \KwOut{Clasificador}
+     \While{$|U| \neq 0$}{
+        Entrenar \textbf{H} con \textbf{L}\;
+        Predecir etiquetas de \textbf{U}\;
+        Seleccionar un conjunto \textbf{T} con aquellos datos que tenga la mayor probabilidad\;
+        $L = L \cup T$
+        $U = U - T$
+     }
+     Entrenar \textbf{H} con \textbf{L}\;
+     \textbf{return} \textbf{H}
+     \caption{Self-Training}\label{pseudo:self-training}
+\end{algorithm}
+
+Sobre esta base, el algoritmo tiene muchas formas de diseñarse. En algunos casos
+la condición de parada suele tomarse como un número de máximo de iteraciones.
+También, la cantidad de datos que se incorporan al conjunto \textbf{L} (con
+mayor confianza) puede ser fija, o mediante un límite mínimo de
+confianza/probabilidad (todas las instancias con mayor probabilidad se añaden).

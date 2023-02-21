@@ -157,8 +157,46 @@ comentaron algunas tareas a realizar:
     \item Sobre el gráfico: mejorar la diferenciación de los puntos, información
     útil en los "<tooltips"> y colocación leyenda.
     \item Avanzar con los trabajos relacionados.
-    \item Avanzar con la documentación teórica y anexos.
+    \item Avanzar con la memoria y anexos.
 \end{enumerate}
+
+El punto 1 y 2 estaba muy avanzado gracias al trabajo adicional del sprint
+anterior, ya que ya estaba prácticamente implementada la forma en la que
+detectar datos no etiquetados de forma automática. Unas 5 horas para terminar de
+implementar, corregir errores sobre la marcha y realizar alguna prueba
+confeccionando ficheros semi-supervisados.
+
+Al realizar las pruebas anteriores se encontró un error en la visualización
+provocado que los datos que, por la iteración máxima, no se habían clasificado
+ni siquiera eran retornadas a la Web. Entre descubrir como hacerlo y sus
+modificaciones se tardó unas 3 horas.
+
+El punto 3 fue el más complicado, pese a que era una idea sencilla, se optó por
+visualizar la gráfica de la evolución de la precisión. Cada punto del gráfico
+está unido por una serie de líneas. Este tipo de gráficos (según la
+documentación) se suelen hacer mediante "<paths"> o caminos, que son una única
+línea, pero como en este caso era necesario no visualizar todo, sino por cada
+iteración, no se encontró una solución rápida. Unas 6 horas para probar muchas
+posibilidades hasta encontrar la que funcionó, acoplarla a los controles del
+paso de iteración e incluir alguna animación.
+
+Adicionalmente se retocó por completo toda la Web mediante los estilos de
+\texttt{Bootstrap} para establecer ya una base vistosa y bonita. Unas 5 horas
+(la mayor parte del tiempo para probar y adquirir algo de soltura con estos
+estilos)
+
+\subsection{Sprint 7}
+Corresponde con el periodo temporal del 15 al 22 de febrero de 2023.
+
+Puntos a desarrollar:
+\begin{enumerate}
+    \item Implementación Democratic Co-Learning
+    \item Profiling (tiempos de ejecución)
+    \item Estadísticas en Web
+    \item Test de las implementaciones
+    \item Avanzar con la memoria y anexos.
+\end{enumerate}
+
 
 
 \section{Estudio de viabilidad}
