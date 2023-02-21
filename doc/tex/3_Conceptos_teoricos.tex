@@ -218,18 +218,18 @@ contrario, no es posible aprovechar los beneficios que ofrece self-training
 \ref{pseudo:self-training}.
 
 \begin{algorithm}
-    \KwIn{Conjunto de datos etiquetados \textbf{L}, 
-    no etiquetados \textbf{U} y clasificador \textbf{H}}
+    \KwIn{Conjunto de datos etiquetados \textbf{\textit{L}}, 
+    no etiquetados \textbf{\textit{U}} y clasificador \textbf{\textit{H}}}
     \KwOut{Clasificador}
      \While{$|U| \neq 0$}{
-        Entrenar \textbf{H} con \textbf{L}\;
-        Predecir etiquetas de \textbf{U}\;
-        Seleccionar un conjunto \textbf{T} con aquellos datos que tenga la mayor probabilidad\;
-        $L = L \cup T$
-        $U = U - T$
+        Entrenar \textbf{\textit{H}} con \textbf{\textit{L}}\;
+        Predecir etiquetas de \textbf{\textit{U}}\;
+        Seleccionar un conjunto \textbf{\textit{T}} con aquellos datos que tenga la mayor probabilidad\;
+        $\textbf{\textit{L}} = \textbf{\textit{L}} \cup \textbf{\textit{T}}$\;
+        $\textbf{\textit{U}} = \textbf{\textit{U}} - \textbf{\textit{T}}$\;
      }
-     Entrenar \textbf{H} con \textbf{L}\;
-     \textbf{return} \textbf{H}
+     Entrenar \textbf{\textit{H}} con \textbf{\textit{L}}\;
+     \textbf{return} \textbf{\textit{H}}
      \caption{Self-Training}\label{pseudo:self-training}
 \end{algorithm}
 
@@ -238,3 +238,45 @@ la condición de parada suele tomarse como un número de máximo de iteraciones.
 También, la cantidad de datos que se incorporan al conjunto \textbf{L} (con
 mayor confianza) puede ser fija, o mediante un límite mínimo de
 confianza/probabilidad (todas las instancias con mayor probabilidad se añaden).
+
+\paragraph{Co-Training}
+Basado fuertemente en Self-Training, en este caso \textbf{varios} clasificadores
+(normalmente dos) se encargan del proceso e <<interactúan>> entre sí. Del mismo
+modo, una vez entrenados predicen las etiquetas de los no clasificados y todos
+los clasificadores añaden las mejores predicciones (mayor
+confianza/probabilidad).
+
+En \cite{blum1998combining}, Blum y Mitchel propusieron el funcionamiento básico
+de Co-Training con dos vistas sobre los datos (<<multi-view>>). Estas vistas
+corresponden no con subconjuntos de las instancias sino de subconjuntos de las
+características de las mismas. Es decir, cada clasificador va a entrenarse
+teniendo en cuenta características distintas. Idealmente estas vistas son
+independientes y pueden predecir por sí solas la etiqueta (aunque no siempre se
+cumplirá). Cuando los clasificadores predicen etiquetas sobre los datos se
+seleccionan de ambos los de mayor confianza y construyen el nuevo conjunto de
+entrenamiento para la siguiente iteración.
+
+
+\begin{algorithm}
+    \KwIn{Conjunto de datos etiquetados \textbf{\textit{L}}, 
+    no etiquetados \textbf{\textit{U}}, clasificadores \textbf{\textit{H\textsubscript{1}}}
+    y \textbf{\textit{H\textsubscript{2}}}, \textit{p} (positivos), 
+    \textit{n} (negativos), \textit{u} (datos iniciales), \textit{k} (iteraciones)}
+    \KwOut{Clasificadores entrenados}
+    Crear subconjunto \textbf{\textit{U'}} seleccionando \textit{u} instancias aleatorias de \textbf{\textit{U}}\;
+    \For{k iteraciones}{
+        Entrenar \textbf{\textit{H\textsubscript{1}}} con \textbf{\textit{L}}
+        solo considerando un subconjunto (\textit{x\textsubscript{1}}) de las características de cada instancia (\textit{x})\;
+        Entrenar \textbf{\textit{H\textsubscript{2}}} con \textbf{\textit{L}}
+        solo considerando el otro subconjunto (\textit{x\textsubscript{2}}) de las características de cada instancia (\textit{x})\;
+
+        Hacer que \textbf{\textit{H\textsubscript{1}}} prediga \textit{p} instancias positivas y \textit{n} negativas de \textbf{\textit{U'}} que tengan la mejor confianza\;
+        Hacer que \textbf{\textit{H\textsubscript{2}}} prediga \textit{p} instancias positivas y \textit{n} negativas de \textbf{\textit{U'}} que tengan la mejor confianza\;
+        Añadir estas instancias seleccionadas a \textbf{\textit{L}}\;
+        Reponer \textbf{\textit{U'}} añadiendo 2p + 2n instancias de \textbf{\textit{U}}\;
+     }
+     \textbf{return} \textbf{\textit{H\textsubscript{1}}},\textbf{\textit{H\textsubscript{2}}}
+     \caption{Co-Training}\label{pseudo:co-training}
+\end{algorithm}
+
+
