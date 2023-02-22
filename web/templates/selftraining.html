@@ -3,30 +3,44 @@
 {% block estadisticas %}
     <div class="accordion" style="overflow-y: auto; max-height: 75vh; width: 100%" id="acordeon">
         <div class="accordion-item">
-            <h2 class="accordion-header" id="primer_fuelle">
+            <h2 class="accordion-header" id="primera">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#precision" aria-expanded="true" aria-controls="precision">
                     Precisión
                 </button>
             </h2>
-            <div id="precision" class="accordion-collapse collapse show" aria-labelledby="primer_fuelle"></div>
+            <div id="precision" class="accordion-collapse collapse show" aria-labelledby="primera"></div>
         </div>
         <div class="accordion-item">
-            <h2 class="accordion-header" id="segundo_fuelle">
+            <h2 class="accordion-header" id="segunda">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accuracy" aria-expanded="false" aria-controls="accuracy">
                     Exactitud (accuracy)
                 </button>
             </h2>
-            <div id="accuracy" class="accordion-collapse collapse" aria-labelledby="segundo_fuelle"></div>
+            <div id="accuracy" class="accordion-collapse collapse" aria-labelledby="segunda"></div>
         </div>
         <div class="accordion-item">
-            <h2 class="accordion-header" id="tercer_fuelle">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#stat3" aria-expanded="false" aria-controls="stat3">
-                    ESTADÍSTICA 3
+            <h2 class="accordion-header" id="tercera">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#error" aria-expanded="false" aria-controls="error">
+                    Error
                 </button>
             </h2>
-            <div id="stat3" class="accordion-collapse collapse" aria-labelledby="tercer_fuelle">
-                ESTADÍSTICA 3
-            </div>
+            <div id="error" class="accordion-collapse collapse" aria-labelledby="tercera"></div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="cuarta">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f1_score" aria-expanded="false" aria-controls="f1_score">
+                    F1-Score
+                </button>
+            </h2>
+            <div id="f1_score" class="accordion-collapse collapse" aria-labelledby="cuarta"></div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="quinta">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#recall" aria-expanded="false" aria-controls="recall">
+                    Recall
+                </button>
+            </h2>
+            <div id="recall" class="accordion-collapse collapse" aria-labelledby="quinta"></div>
         </div>
     </div>
 {% endblock %}
@@ -51,6 +65,9 @@
             inicializarGrafico(datos, preparardataset,databinding);
             estadisticagenerica(datos, "precision", "Precisión");
             estadisticagenerica(datos, "accuracy", "Accuracy");
+            estadisticagenerica(datos, "error", "Error");
+            estadisticagenerica(datos, "f1_score", "F1-Score");
+            estadisticagenerica(datos, "recall", "Recall");
         });
 
     </script>
