@@ -4,6 +4,10 @@ import json
 import datetime
 import re
 from flask import Flask, flash, render_template, request, redirect, session
+from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import GaussianNB, MultinomialNB
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
 
 from algoritmos.utilidades.datasetloader import DatasetLoader
 from algoritmos.utilidades.datasplitter import data_split
@@ -22,6 +26,10 @@ app.config.update(SESSION_COOKIE_SAMESITE='Strict')
 app.config['CARPETA_DATASETS'] = 'datasets'
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
+
+clasificadores = ["GaussianNB", "LogisticRegression", "SVC",
+                  "MultinomialNB", "KNeighborsClassifier",
+                  "DecisionTreeClassifier"]
 
 
 @app.route('/', methods=['GET'])
@@ -68,7 +76,8 @@ def configuracionselftraining():
         return redirect('/subida')
 
     dl = DatasetLoader(session['FICHERO'])
-    return render_template('selftrainingconfig.html', caracteristicas=dl.get_allfeatures())
+    return render_template('selftrainingconfig.html', caracteristicas=dl.get_allfeatures(),
+                           clasificadores=clasificadores)
 
 
 @app.route('/cotrainingc', methods=['GET'])
@@ -88,6 +97,7 @@ def selftraining():
         return redirect('/selftrainingc')
 
     return render_template('selftraining.html',
+                           clasificador=request.form['clasificador'],
                            n=request.form['n'] if 'n' in request.form else -1,
                            th=request.form['th'] if 'th' in request.form else -1,
                            n_iter=request.form['n_iter'],
@@ -122,6 +132,7 @@ def cotraining():
 
 @app.route('/selftrainingd', methods=['GET', 'POST'])
 def datosselftraining():
+    clasificador = request.form['clasificador']
     n = int(request.form['n'])
     th = float(request.form['th'])
     n_iter = int(request.form['n_iter'])
@@ -138,7 +149,7 @@ def datosselftraining():
               random_state=0
               )
 
-    st = SelfTraining(clf=clf,
+    st = SelfTraining(clf=obtener_clasificador(clasificador),
                       n=n if n != -1 else None,
                       th=th if th != -1 else None,
                       n_iter=n_iter)
@@ -230,6 +241,21 @@ def nombredataset(text):
     eliminado la ruta completa"""
 
     return re.split(r"-|\\", text)[1]
+
+
+def obtener_clasificador(nombre):
+    if nombre == "LogisticRegression":
+        return LogisticRegression()
+    elif nombre == "SVC":
+        return SVC(probability=True)
+    elif nombre == "GaussianNB":
+        return GaussianNB()
+    elif nombre == "MultinomialNB":
+        return MultinomialNB()
+    elif nombre == "KNeighborsClassifier":
+        return KNeighborsClassifier()
+    elif nombre == "DecisionTreeClassifier":
+        return DecisionTreeClassifier()
 
 
 if __name__ == '__main__':

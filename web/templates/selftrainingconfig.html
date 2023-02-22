@@ -2,6 +2,14 @@
 {% block parametros %}
     <form action="/selftraining" method="POST">
         <div class="mb-3">
+            <label for="clasificador">Selecciona clasificador:</label>
+            <select class="form-select" id="clasificador" name="clasificador" required>
+                {% for c in clasificadores %}
+                    <option value="{{c}}">{{c}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
             <label for="n">N (Número de datos a seleccionar/iteración:</label>
             <input type="number" class="form-control" id="n" min="0" max="Infinity" required oninput="limitarUnicoMetodoST(this.value,'th')" name="n" value="10">
         </div>
