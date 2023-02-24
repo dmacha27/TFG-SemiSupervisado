@@ -238,7 +238,7 @@ def datoscotraining():
 @app.template_filter()
 def nombredataset(text):
     """Obtiene solo el nombre del conjunto de datos
-    eliminado la ruta completa"""
+    eliminando la ruta completa"""
 
     return re.split(r"-|\\", text)[1]
 

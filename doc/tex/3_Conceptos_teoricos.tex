@@ -107,15 +107,14 @@ Como principales usos del aprendizaje no supervisado, suele aplicarse a:
     \end{itemize}
 \end{enumerate}
 
-\imagenconurl{clustering}{Clusters}{\footnotesize{Clusters - By hellisp - Own
-work, Public Domain,
-\url{https://commons.wikimedia.org/w/index.php?curid=36929773}. Ejemplo de
+\imagenconurl{clustering}{Clusters}{\footnotesize{Clusters. Ejemplo de
 clustering, a la izquierda los datos no etiquetados y a la derecha los datos
-coloreados según las clases identificadas por el algoritmo de clustering.
-}}{0.5} 
+coloreados según las clases identificadas por el algoritmo de clustering. By
+hellisp - Own work, Public Domain,
+\url{https://commons.wikimedia.org/w/index.php?curid=36929773}. }}{0.5} 
 \subsection{Aprendizaje semi-supervisado}
 
-Según \cite{vanEngelen2020} el aprendizaje semi-supervisado es la rama del
+Según \cite{vanEngelen2020}, el aprendizaje semi-supervisado es la rama del
 aprendizaje automático referido al uso de datos tanto etiquetados como no
 etiquetados simultáneamente para realizar tareas de aprendizaje. Se encuentra a
 caballo  entre el aprendizaje supervisado y no supervisado. Concretamente, los
@@ -178,7 +177,8 @@ entonces no mejorará ningún método supervisado~\cite{vanEngelen2020}.
 Para tener un punto de vista general, en la figura \ref{fig:aprendizajesemisupervisado} se presenta la
 taxonomía de los métodos de aprendizaje semi-supervisado.
 
-\imagen{aprendizajesemisupervisado}{Métodos semi-supervisados \cite{vanEngelen2020}.}{1}
+\imagen{aprendizajesemisupervisado}{Taxonomía de métodos semi-supervisados
+\cite{vanEngelen2020}.}{1}
 
 El núcleo de este proyecto está basado en los métodos inductivos. Su idea es muy
 sencilla y está altamente relacionada con el objetivo del aprendizaje
@@ -186,7 +186,7 @@ supervisado, trata de crear un clasificador que prediga etiquetas para datos
 nuevos. Por lo tanto, los algoritmos construidos tendrán este objetivo, aunque
 con un punto más de concreción: los métodos "<wrapper"> o de envoltura.
 
-Los conocidos métodos "<wrapper"> se basan en el \texttt{pseudo etiquetado}
+Los conocidos métodos "<wrapper"> se basan en el \textit{pseudo etiquetado}
 ("<pseudo-labelling">), es el proceso en el que los clasificadores entrenados
 con datos etiquetados generan etiquetas para los no etiquetados. Una vez
 completado este proceso, el clasificador se vuelve a entrenar pero añadiendo
@@ -213,8 +213,8 @@ En este proceso, el paso más importante es la incorporación de nuevos datos al
 de conjunto de etiquetados, porque, \textbf{probablemente}, la predicción sea la
 correcta. Es importante entonces que el cálculo de la probabilidad se realice
 correctamente para asegurar que los nuevos datos son de interés. En caso
-contrario, no es posible aprovechar los beneficios que ofrece self-training
-\cite{vanEngelen2020}. Todo este proceso queda descrito en
+contrario, no es posible aprovechar los beneficios que ofrece self-training~
+\cite{vanEngelen2020}. Todo este proceso queda descrito en el algoritmo
 \ref{pseudo:self-training}.
 
 \begin{algorithm}
@@ -234,10 +234,11 @@ contrario, no es posible aprovechar los beneficios que ofrece self-training
 \end{algorithm}
 
 Sobre esta base, el algoritmo tiene muchas formas de diseñarse. En algunos casos
-la condición de parada suele tomarse como un número de máximo de iteraciones.
+la condición de parada suele tomarse como un número máximo de iteraciones.
 También, la cantidad de datos que se incorporan al conjunto \textbf{L} (con
 mayor confianza) puede ser fija, o mediante un límite mínimo de
-confianza/probabilidad (todas las instancias con mayor probabilidad se añaden).
+confianza/probabilidad (todas las instancias con mayor probabilidad se
+añadirían).
 
 \paragraph{Co-Training}
 Basado fuertemente en Self-Training, en este caso \textbf{varios} clasificadores
