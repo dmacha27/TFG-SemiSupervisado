@@ -5,7 +5,7 @@
 # Fecha: 19/02/2023 19:20
 # Descripción: Algoritmo Democratic Co-Learning
 # Version: 0.1
-
+import math
 from typing import List
 
 import numpy as np
@@ -170,17 +170,25 @@ class DemocraticCoLearning:
 
     def _confidence_interval(self, n, x, y):
         """
-        Calcula el intervalo de confianza del clasificador
+        Calcula el intervalo de confianza del clasificador.
+
+        Implementación por César Ignacio García Osorio
 
         :param n: Clasificador.
-        :param x: intancias con las que calcular el intervalo.
+        :param x: instancias con las que calcular el intervalo.
         :param y: etiquetas de las instancias.
         :return: límite inferior, superior y su media
         """
-        y_pred = n.predict(x)
-        accuracy = accuracy_score(y, y_pred)
-        lower = accuracy - self.confidence * np.sqrt(accuracy * (1 - accuracy) / len(y))  # l
-        upper = accuracy + self.confidence * np.sqrt(accuracy * (1 - accuracy) / len(y))  # h
+
+        hits = np.sum(n.predict(x) == y)
+        total = len(x)
+        p_hat = hits / total  # Proporción
+        margin = self.confidence * math.sqrt(p_hat * (1 - p_hat) / total)
+
+        # p +- margin
+
+        lower = p_hat - margin
+        upper = p_hat + margin
         mean = (lower + upper) / 2
 
         return lower, upper, mean
@@ -198,7 +206,7 @@ if __name__ == '__main__':
         y,
         x_test,
         y_test
-    ) = data_split(x, y, is_unlabelled, p_unlabelled=0.8, p_test=0.95)
+    ) = data_split(x, y, is_unlabelled, p_unlabelled=0.85, p_test=0.7)
 
     st.fit(x, y, x_test, y_test)
 
