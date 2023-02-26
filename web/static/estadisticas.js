@@ -35,7 +35,7 @@ function estadisticagenerica(stats) {
         .attr("text-anchor", "middle")
         .attr("x", width / 2)
         .attr("y", height + margin.bottom)
-        .text("Iteración");
+        .text(traducir('Iteration'));
 
     //Etiqueta eje Y
     statsvg.append("text")
@@ -45,7 +45,7 @@ function estadisticagenerica(stats) {
         .attr("x", -height / 2)
         .attr("dy", "1em")
         .attr("transform", "rotate(-90)")
-        .text("Valor");
+        .text(traducir('Rate'));
 
     let color = d3.scaleOrdinal()
         .domain(stats)

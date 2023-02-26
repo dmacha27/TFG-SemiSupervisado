@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-02-26 17:31+0100\n"
+"POT-Creation-Date: 2023-02-26 20:51+0100\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -34,7 +34,7 @@ msgstr "Configuración del algoritmo"
 msgid "Go back"
 msgstr "Volver"
 
-#: templates/base_visualizacion.html:20
+#: templates/base_visualizacion.html:20 templates/base_visualizacion.html:60
 msgid "Iteration"
 msgstr "Iteración"
 
@@ -78,6 +78,62 @@ msgstr "Etiqueta: No clasificado"
 msgid "Pause"
 msgstr "Pausar"
 
+#: templates/base_visualizacion.html:59
+msgid "Rate"
+msgstr "Valor"
+
+#: templates/cotrainingconfig.html:5
+msgid "Positives"
+msgstr "Positivos"
+
+#: templates/cotrainingconfig.html:9
+msgid "Negatives"
+msgstr "Negativos"
+
+#: templates/cotrainingconfig.html:13
+msgid "Initial data number"
+msgstr "Número de datos iniciales"
+
+#: templates/cotrainingconfig.html:14
+msgid "if it is greater that the total, it will be limited to it"
+msgstr "si es mayor que el total, se limitará a él"
+
+#: templates/cotrainingconfig.html:17 templates/selftrainingconfig.html:21
+msgid "Number of iterations"
+msgstr "Número de iteraciones"
+
+#: templates/cotrainingconfig.html:21 templates/selftrainingconfig.html:25
+msgid "Select the target/class attribute of the dataset"
+msgstr "Selecciona el atributo de la clase/etiqueta del conjunto de datos"
+
+#: templates/cotrainingconfig.html:29 templates/selftrainingconfig.html:33
+msgid "Select X component"
+msgstr "Selecciona la componente X"
+
+#: templates/cotrainingconfig.html:37 templates/selftrainingconfig.html:41
+msgid "Select Y component"
+msgstr "Selecciona la componente Y"
+
+#: templates/cotrainingconfig.html:46 templates/selftrainingconfig.html:50
+msgid "Use PCA to automatically reduce to 2 components"
+msgstr "Utilizar PCA para reducir automáticamente a 2 componentes"
+
+#: templates/cotrainingconfig.html:49 templates/selftrainingconfig.html:53
+msgid "Unlabelled percentage"
+msgstr "Porcentaje de no etiquetados"
+
+#: templates/cotrainingconfig.html:51 templates/selftrainingconfig.html:55
+msgid "if already semi-supervised, it will be ignored"
+msgstr "si ya fuera semi-supervisado, será ignorado"
+
+#: templates/cotrainingconfig.html:54 templates/selftrainingconfig.html:58
+msgid "Test percentage (after unlabelled percentage)"
+msgstr "Porcentaje de test (después de aplicar el no etiquetados)"
+
+#: templates/cotrainingconfig.html:57 templates/selftrainingconfig.html:61
+msgid "Run"
+msgstr "Ejecutar"
+
 #: templates/inicio.html:2
 msgid "Home"
 msgstr "Inicio"
@@ -89,6 +145,18 @@ msgstr "Trabajo Fin de Grado sobre algoritmos semi-supervisados y su visualizaci
 #: templates/inicio.html:9
 msgid "Algorithms"
 msgstr "Algoritmos"
+
+#: templates/selftrainingconfig.html:5
+msgid "Select classifier"
+msgstr "Etiqueta: No clasificado"
+
+#: templates/selftrainingconfig.html:13
+msgid "N (Number of instances to select in each iteration)"
+msgstr "N (Número de datos a seleccionar en cada iteración)"
+
+#: templates/selftrainingconfig.html:17
+msgid "Threshold"
+msgstr "Límite"
 
 #: templates/subida.html:2
 msgid "Dataset selection"
