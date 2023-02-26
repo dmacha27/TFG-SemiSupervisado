@@ -1,47 +1,19 @@
 {% extends "base_visualizacion.html" %}
 {% block title %}Self-Training{% endblock %}
 {% block estadisticas %}
-    <div class="accordion" style="overflow-y: auto; max-height: 75vh; width: 100%" id="acordeon">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="primera">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#precision" aria-expanded="true" aria-controls="precision">
-                    Precisión
-                </button>
-            </h2>
-            <div id="precision" class="accordion-collapse collapse show" aria-labelledby="primera"></div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="segunda">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accuracy" aria-expanded="false" aria-controls="accuracy">
-                    Exactitud (accuracy)
-                </button>
-            </h2>
-            <div id="accuracy" class="accordion-collapse collapse" aria-labelledby="segunda"></div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="tercera">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#error" aria-expanded="false" aria-controls="error">
-                    Error
-                </button>
-            </h2>
-            <div id="error" class="accordion-collapse collapse" aria-labelledby="tercera"></div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="cuarta">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f1_score" aria-expanded="false" aria-controls="f1_score">
-                    F1-Score
-                </button>
-            </h2>
-            <div id="f1_score" class="accordion-collapse collapse" aria-labelledby="cuarta"></div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="quinta">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#recall" aria-expanded="false" aria-controls="recall">
-                    Recall
-                </button>
-            </h2>
-            <div id="recall" class="accordion-collapse collapse" aria-labelledby="quinta"></div>
-        </div>
+    <div class="text-center">
+        <div id="graficoestadisticas"></div>
+        <br>
+        <input id="chk_Precision"  type="checkbox" class="form-check-input" onclick="habilitar(this.checked,'Precision')" checked>
+        <label for="chk_Precision">Precision</label>
+        <input id="chk_Accuracy" type="checkbox" class="form-check-input" onclick="habilitar(this.checked,'Accuracy')">
+        <label for="chk_Accuracy">Accuracy</label>
+        <input id="chk_Error" type="checkbox" class="form-check-input" onclick="habilitar(this.checked,'Error')">
+        <label for="chk_Error">Error</label>
+        <input id="chk_F1_score" type="checkbox" class="form-check-input" onclick="habilitar(this.checked,'F1_score')">
+        <label id="chk_recall" for="chk_F1_score">F1-Score</label>
+        <input id="chk_Recall" type="checkbox" class="form-check-input" onclick="habilitar(this.checked,'Recall')">
+        <label for="chk_Recall">Recall</label>
     </div>
 {% endblock %}
 {% block scripts %}
@@ -63,11 +35,13 @@
         let cx = "{{ cx }}", cy = "{{ cy }}";
         inicializar("/{{ session['ALGORITMO'] }}d", elementos).then(function (datos) {
             inicializarGrafico(datos, preparardataset,databinding);
-            estadisticagenerica(datos, "precision", "Precisión");
-            estadisticagenerica(datos, "accuracy", "Accuracy");
-            estadisticagenerica(datos, "error", "Error");
-            estadisticagenerica(datos, "f1_score", "F1-Score");
-            estadisticagenerica(datos, "recall", "Recall");
+            let stats = ["Precision", "Accuracy", "Error", "F1_score", "Recall"]
+            let color = estadisticagenerica(stats);
+            anadirestadistica(datos, "Precision", color);
+            anadirestadistica(datos, "Accuracy", color);
+            anadirestadistica(datos, "Error", color);
+            anadirestadistica(datos, "F1_score", color);
+            anadirestadistica(datos, "Recall", color);
         });
 
     </script>
