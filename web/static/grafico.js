@@ -67,7 +67,7 @@ function inicializarGrafico(datos, preparar, binding) {
         .attr("y", -margin.top/2)
         .attr("text-anchor", "middle")
         .style("font-size", "16px")
-        .text("Dataset: " + fichero);
+        .text(traducir('Dataset') + ": " + fichero);
 
 
     gx = d3.scaleLinear()
@@ -126,17 +126,17 @@ function actualizaProgreso(paso){
 let intervalo = null;
 function reproducir(){
     if (!intervalo){
-        document.getElementById("reproducir").innerHTML = "Pausar";
+        document.getElementById("reproducir").innerHTML = traducir('Pause');
         intervalo = setInterval(function () {
             if (cont >= maxit){
-                document.getElementById("reproducir").innerHTML = "Reproducir";
+                document.getElementById("reproducir").innerHTML = traducir('Play');
                 clearInterval(intervalo);
                 intervalo = null;
             }
             next();
         }, 750)
     } else {
-        document.getElementById("reproducir").innerHTML = "Reproducir";
+        document.getElementById("reproducir").innerHTML = traducir('Play');
         clearInterval(intervalo);
         intervalo = null;
     }

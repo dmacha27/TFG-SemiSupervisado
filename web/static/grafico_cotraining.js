@@ -10,16 +10,16 @@ const mousemove = function(e, dot) {
         .html(function() {
             if (dot[3] <= cont && dot[2] !== -1) {
                 if (dot[3] === 0){
-                    return "DATO INICIAL<br>" + cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] + "<br>Etiqueta: " + mapa[dot[2]];
+                    return traducir('Initial data') + "<br>" + cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] + "<br>" + traducir('Label') + ": " + mapa[dot[2]];
                 }else {
-                    return cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] +"<br>Clasificador: " + dot[4] + "<br>Etiqueta: " + mapa[dot[2]];
+                    return cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] +"<br>" + traducir('Classifier') + ": " + dot[4] + "<br>" + traducir('Label') + ": " + mapa[dot[2]];
                 }
             } else {
-                return cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] +"<br>Clasificador: Sin clasificar" + "<br>Etiqueta: Sin clasificar";
+                return cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] +"<br>" + traducir('Classifier: Not classified') + "<br>" + traducir('Label: Not classified');
             }
         })
-        .style("left", (e.clientX + 120) + "px")
-        .style("top", (e.clientY + 20) + "px");
+        .style("left", (e.clientX + 10) + "px")
+        .style("top", (e.clientY - 75) + "px");
 };
 
 function preparardataset(datos) {

@@ -8,7 +8,7 @@
     <button id="btn_volver" type="button" onclick="history.back()" class="btn btn-outline-info">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 25 18">
             <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"></path>
-        </svg>Volver</button>
+        </svg>{{ gettext('Go back') }}</button>
     <div class="d-flex justify-content-around mb-3 position-relative">
         <div class="col">
             <div class="padre" id="grafico">
@@ -17,13 +17,13 @@
                 </div>
                 <div id="semisupervisedchart"></div>
                 <div id="controles" style="visibility: hidden; text-align: center;">
-                    <label>Iteración: </label><label id="iteracion">0</label>
+                    <label>{{ gettext('Iteration') }}: </label><label id="iteracion">0</label>
                     <br>
                     <progress id="progreso" value=0></progress>
                     <br>
-                    <button id="previt" class="btn btn-primary">Anterior</button>
-                    <button id="reproducir" class="btn btn-primary">Reproducir</button>
-                    <button id="nextit" class="btn btn-primary">Siguiente</button>
+                    <button id="previt" class="btn btn-primary">{{ gettext('Previous') }}</button>
+                    <button id="reproducir" class="btn btn-primary">{{ gettext('Play') }}</button>
+                    <button id="nextit" class="btn btn-primary">{{ gettext('Next') }}</button>
                 </div>
             </div>
         </div>
@@ -45,6 +45,20 @@
 
     <script type="text/javascript">
         let fichero = "{{ session['FICHERO']|nombredataset }}";
+
+        function traducir(texto) {
+            let traducciones = {
+                'Dataset': "{{ gettext('Dataset') }}",
+                'Initial data': "{{ gettext('Initial data') }}",
+                'Label': "{{ gettext('Label') }}",
+                'Classifier': "{{ gettext('Classifier') }}",
+                'Classifier: Not classified': "{{ gettext('Classifier: Not classified') }}",
+                'Label: Not classified': "{{ gettext('Label: Not classified') }}",
+                'Pause': "{{ gettext('Pause') }}",
+                'Play': "{{ gettext('Play') }}"
+            }
+            return traducciones[texto]
+        }
     </script>
     <script type="text/javascript" src="/static/inicializar.js"></script>
     <script type="text/javascript" src="/static/grafico.js"></script>

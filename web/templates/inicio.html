@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% block title %}Inicio{% endblock %}
+{% block title %}{{ gettext('Home') }}{% endblock %}
 {% block content %}
     <div class="mt-4 p-5 bg-info text-white">
         <h1>VASS</h1>
-        <p>Trabajo Fin de Grado sobre algoritmos semi-supervisados y su visualización</p>
+        <p>{{ gettext('Final Degree Project on semi-supervised algorithms and their visualization') }}</p>
     </div>
     <div class="container-fluid bg-3 text-center">
-        <br><h3>Algoritmos</h3><br>
+        <br><h3>{{ gettext('Algorithms') }}</h3><br>
         <div class="row">
             <div class="col-sm-3">
                 <p>Self-Training</p>

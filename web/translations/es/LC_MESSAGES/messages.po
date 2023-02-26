@@ -1,0 +1,112 @@
+# Spanish translations for PROJECT.
+# Copyright (C) 2023 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2023-02-26 17:31+0100\n"
+"PO-Revision-Date: 2023-02-26 14:39+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.11.0\n"
+
+#: templates/base.html:45
+msgid "University of Burgos"
+msgstr "Universidad de Burgos"
+
+#: templates/base_configuracion.html:2
+msgid "Run configuration"
+msgstr "Configuración de la ejecución"
+
+#: templates/base_configuracion.html:6
+msgid "Algorithm configuration"
+msgstr "Configuración del algoritmo"
+
+#: templates/base_visualizacion.html:11
+msgid "Go back"
+msgstr "Volver"
+
+#: templates/base_visualizacion.html:20
+msgid "Iteration"
+msgstr "Iteración"
+
+#: templates/base_visualizacion.html:24
+msgid "Previous"
+msgstr "Anterior"
+
+#: templates/base_visualizacion.html:25 templates/base_visualizacion.html:58
+msgid "Play"
+msgstr "Reproducir"
+
+#: templates/base_visualizacion.html:26
+msgid "Next"
+msgstr "Siguiente"
+
+#: templates/base_visualizacion.html:51
+msgid "Dataset"
+msgstr "Conjunto de datos"
+
+#: templates/base_visualizacion.html:52
+msgid "Initial data"
+msgstr "Dato inicial"
+
+#: templates/base_visualizacion.html:53
+msgid "Label"
+msgstr "Etiqueta"
+
+#: templates/base_visualizacion.html:54
+msgid "Classifier"
+msgstr "Clasificador"
+
+#: templates/base_visualizacion.html:55
+msgid "Classifier: Not classified"
+msgstr "Clasificador: No clasificado"
+
+#: templates/base_visualizacion.html:56
+msgid "Label: Not classified"
+msgstr "Etiqueta: No clasificado"
+
+#: templates/base_visualizacion.html:57
+msgid "Pause"
+msgstr "Pausar"
+
+#: templates/inicio.html:2
+msgid "Home"
+msgstr "Inicio"
+
+#: templates/inicio.html:6
+msgid "Final Degree Project on semi-supervised algorithms and their visualization"
+msgstr "Trabajo Fin de Grado sobre algoritmos semi-supervisados y su visualización"
+
+#: templates/inicio.html:9
+msgid "Algorithms"
+msgstr "Algoritmos"
+
+#: templates/subida.html:2
+msgid "Dataset selection"
+msgstr "Selección del conjunto de datos"
+
+#: templates/subida.html:6
+msgid "Dataset upload"
+msgstr "Subida del conjunto de datos"
+
+#: templates/subida.html:13
+msgid "Drag and drop your file"
+msgstr "Arrastra y suelta tu archivo"
+
+#: templates/subida.html:14
+msgid "or"
+msgstr "o"
+
+#: templates/subida.html:19
+msgid "Configure algorithm"
+msgstr "Configurar algoritmo"
+

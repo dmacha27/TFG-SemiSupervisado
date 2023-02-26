@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Configuración de la ejecución{% endblock %}
+{% block title %}{{ gettext('Run configuration') }}{% endblock %}
 {% block content %}
     <br>
     <div class="d-flex justify-content-center align-items-center">
-        <p class="h2 text-center">Configuración del algoritmo: {{ session['ALGORITMO'] }}</p>
+        <p class="h2 text-center">{{ gettext('Algorithm configuration') }}: {{ session['ALGORITMO'] }}</p>
     </div>
     <br>
     <div class="container pb-5">
