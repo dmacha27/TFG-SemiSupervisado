@@ -191,13 +191,58 @@ Corresponde con el periodo temporal del 15 al 22 de febrero de 2023.
 
 Puntos a desarrollar:
 \begin{enumerate}
-    \item Implementación Democratic Co-Learning
-    \item Profiling (tiempos de ejecución)
-    \item Estadísticas en Web
-    \item Test de las implementaciones
+    \item Implementación Democratic Co-Learning.
+    \item Profiling (tiempos de ejecución).
+    \item Estadísticas en Web.
+    \item Test de las implementaciones.
     \item Avanzar con la memoria y anexos.
 \end{enumerate}
 
+La implementación del algoritmo Democratic Co-Learning supuso unas 14 horas
+divididas en varios días. Al principio se dedicó un tiempo para leer el artículo
+en el que se presentaba su implementación en forma de pseudocódigo junto con sus
+explicaciones teóricas. La realidad es que en primera instancia parecía algo
+fácil de realizar y entender, pero una vez comenzada la implementación se
+encontraban muchas alternativas a la hora de resolverlo. Además, pese a que en
+el artículo estaba bien explicado, el formato de pseudocódigo (en el archivo
+encontrado) las indentaciones eran incorrectas y se perdió mucho tiempo
+comprobando si era una interpretación errónea o si realmente era un fallo.
+
+Se realizaron algunas pruebas de rendimiento para comprobar si los algoritmo
+tardaban demasiado con conjuntos de datos muy grandes (5000 instancias). Se vió
+que, dada la configuración que se tenía, tardaba alrededor de 40-50 segundos en
+terminar la ejecución. Es por esto que para este Sprint se añadió la tarea de
+hacer un pequeño estudio dedicado al medir los tiempos de ejecución para ver qué
+se podía optimizar. Este proceso fue de unas 2 horas y el resultado es que el
+código implementado no afectaba mucho, eran los propios algoritmos de
+entrenamiento de los clasificadores de Scikit-Learn los que tardaban tanto. Por
+ejemplo, para un estimador gaussiano el tiempo se reducía drásticamente.
+
+Para el caso de las estadísticas, se modificaron un poco las plantillas y la
+generación de sus gráficas para incluir más y revisarlas en la reunión. Unas 2
+horas.
+
+Los test son una parte importante para validar que el comportamiento que se
+espera de la implementación sea el correcto. Sin ejecutar, se realizaron unos
+casos de pruebas sobre las utilidades que se usan a lo largo de todo el proyecto
+con la intención de encontrar errores (no ver cuál es el resultado y replicarlo
+en los casos, sino realizar los casos basándose en lo que se espera de esas
+utilidades). Se tardó unas 4 horas en realizar todos los tests.
+
+\subsection{Sprint 8}
+Corresponde con el periodo temporal del 22 de febrero al 1 de marzo de 2023.
+Además, aprovechando la herramienta Zenhub, se han modificado la duración de los
+Sprints también en ella para poder extraer los gráficos del trabajo realizado.
+
+Puntos a desarrollar:
+\begin{enumerate}
+    \item Intervalo de confianza en Democratic Co-Learning.
+    \item Control re-etiquetado en Democratic Co-Learning
+    \item Correcciones sobre memoria y anexos.
+    \item Gráfico de estadísticas unificado.
+    \item Internacionalización Web.
+    \item Visualización principal de Democratic Co-Learning en Web
+\end{enumerate}
 
 
 \section{Estudio de viabilidad}
