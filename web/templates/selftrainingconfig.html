@@ -1,3 +1,4 @@
+{%  from "macros.html" import formulario_comun %}
 {% extends "base_configuracion.html" %}
 {% block parametros %}
     <form action="/selftraining" method="POST">
@@ -21,44 +22,7 @@
             <label for="n_iter">{{ gettext('Number of iterations') }}:</label>
             <input type="number" class="form-control" id="n_iter" required name="n_iter" value="10">
         </div>
-        <div class="mb-3">
-            <label for="sel_target">{{ gettext('Select the target/class attribute of the dataset') }}:</label>
-            <select class="form-select" name="target" required>
-                {% for c in caracteristicas %}
-                    <option value="{{c}}">{{c}}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="cx">{{ gettext('Select X component') }}:</label>
-            <select class="form-select" id="cx" name="cx" required disabled>
-                {% for c in caracteristicas %}
-                    <option value="{{c}}">{{c}}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="cy">{{ gettext('Select Y component') }}:</label>
-            <select class="form-select" id="cy" name="cy" required disabled>
-                {% for c in caracteristicas %}
-                    <option value="{{c}}">{{c}}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="mb-3">
-            <input type="checkbox" class="form-check-input" id="pca" oninput="componentesPCA(this.checked,'cx','cy')" name="pca" checked>
-            <label for="pca">{{ gettext('Use PCA to automatically reduce to 2 components') }}</label>
-        </div>
-        <div class="mb-3">
-            <label for="p_unlabelled">{{ gettext('Unlabelled percentage') }}:</label>
-            <input type="number" class="form-control" id="p_unlabelled" min="0" max="0.99" step="any" name="p_unlabelled" value="0.8">
-            <label>({{ gettext('if already semi-supervised, it will be ignored') }})</label>
-        </div>
-        <div class="mb-3">
-            <label for="p_test">{{ gettext('Test percentage (after unlabelled percentage)') }}:</label>
-            <input type="number" class="form-control" id="p_test" min="0" max="0.99" step="any" name="p_test" value=0.2>
-        </div>
-        <button type="submit" class="btn btn-primary">{{ gettext('Run') }}</button>
+        {{ formulario_comun(caracteristicas) }}
     </form>
 {% endblock %}
 {% block explicaciones %}

@@ -4,7 +4,6 @@ import json
 import datetime
 import re
 from flask import Flask, flash, render_template, request, redirect, session
-from flask_session import Session
 from flask_babel import Babel
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import GaussianNB, MultinomialNB
@@ -23,17 +22,16 @@ from algoritmos import CoTraining
 
 
 def get_locale():
-    return 'en'
+    return request.accept_languages.best_match(['es', 'en'])
 
 
 app = Flask(__name__)
 babel = Babel(app, locale_selector=get_locale)
 
-app.secret_key = "secreta"
+app.secret_key = "ae4c977b14e2ecf38d485869018ec8f924b312132ee3d11d1ce755cdff9bc0af"
 app.config.update(SESSION_COOKIE_SAMESITE='Strict')
 app.config['CARPETA_DATASETS'] = 'datasets'
 app.config['SESSION_TYPE'] = 'filesystem'
-Session(app)
 
 clasificadores = ["GaussianNB", "LogisticRegression", "SVC",
                   "MultinomialNB", "KNeighborsClassifier",
@@ -47,15 +45,9 @@ def inicio():
     return render_template('inicio.html')
 
 
-@app.route('/sel_selftraining')
-def sel_selftraining():
-    session['ALGORITMO'] = 'selftraining'
-    return redirect('/subida')
-
-
-@app.route('/sel_cotraining')
-def sel_cotraining():
-    session['ALGORITMO'] = 'cotraining'
+@app.route('/seleccionar/<algoritmo>')
+def seleccionar_algoritmo(algoritmo=None):
+    session['ALGORITMO'] = algoritmo
     return redirect('/subida')
 
 
