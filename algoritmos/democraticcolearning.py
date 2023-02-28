@@ -54,9 +54,11 @@ class DemocraticCoLearning:
 
         errors = []
         ls = []
+        ls_new_ids = []
         ls_y = []
         for _ in self.clfs:
             ls.append(x_train)
+            ls_new_ids.append(dict())
             ls_y.append(y_train)
             errors.append(0)
 
@@ -87,9 +89,11 @@ class DemocraticCoLearning:
                 ws.append(mean)
 
             ls_prime = []
+            ls_prime_ids = []
             ls_prime_y = []
             for _ in self.clfs:
                 ls_prime.append([])
+                ls_prime_ids.append([])
                 ls_prime_y.append([])
 
             for index, x in enumerate(x_u):
@@ -103,6 +107,7 @@ class DemocraticCoLearning:
                     for i in range(len(self.clfs)):
                         if i not in votes[index]:
                             ls_prime[i].append(x)
+                            ls_prime_ids[i].append(index)
                             ls_prime_y[i].append(xs_cks[index])
 
             average_l = [self._confidence_interval(n, ls[index], ls_y[index])[0] for index, n in enumerate(self.clfs)]
@@ -121,8 +126,15 @@ class DemocraticCoLearning:
 
                 if qi_prime > qi:
                     change = True
-                    ls[index] = np.concatenate((ls[index], ls_prime[index]), axis=0)
-                    ls_y[index] = np.concatenate((ls_y[index], ls_prime_y[index]))
+
+                    for x_id, x, y in zip(ls_prime_ids[index], ls_prime[index], ls_prime_y[index]):
+                        if x_id in ls_new_ids[index]:
+                            ls_y[index][ls_new_ids[index][x_id]] = y
+                        else:
+                            ls_new_ids[index][x_id] = len(ls[index])
+                            ls[index] = np.append(ls[index], [x], axis=0)
+                            ls_y[index] = np.append(ls_y[index], [y])
+
                     errors[index] += ei_prime
 
             self.ws = ws
@@ -206,7 +218,7 @@ if __name__ == '__main__':
         y,
         x_test,
         y_test
-    ) = data_split(x, y, is_unlabelled, p_unlabelled=0.85, p_test=0.7)
+    ) = data_split(x, y, is_unlabelled, p_unlabelled=0.85, p_test=0.8)
 
     st.fit(x, y, x_test, y_test)
 
