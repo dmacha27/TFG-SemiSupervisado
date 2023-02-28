@@ -15,7 +15,7 @@
                     <input type=file id="archivo" name=archivo>
                 </div>
                 <progress id="progreso" max=100 value=0></progress>
-                <form action="/{{ session['ALGORITMO'] }}c">
+                <form action="{{ url_for('configurar_algoritmo', algoritmo=session['ALGORITMO']) }}">
                     <input id="config_btn" class="btn btn-primary" type="submit" value="{{ gettext('Configure algorithm') }}" />
                 </form>
             </div>

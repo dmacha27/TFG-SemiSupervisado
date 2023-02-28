@@ -1,7 +1,7 @@
-{%  from "macros.html" import formulario_comun %}
 {% extends "base_configuracion.html" %}
+{%  from "macros.html" import formulario_comun %}
 {% block parametros %}
-    <form action="/selftraining" method="POST">
+    <form action="{{ url_for('selftraining') }}" method="POST">
         <div class="mb-3">
             <label for="clasificador">{{ gettext('Select classifier') }}:</label>
             <select class="form-select" id="clasificador" name="clasificador" required>

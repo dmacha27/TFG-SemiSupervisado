@@ -1,7 +1,7 @@
-{%  from "macros.html" import formulario_comun %}
 {% extends "base_configuracion.html" %}
+{%  from "macros.html" import formulario_comun %}
 {% block parametros %}
-    <form action="/cotraining" method="POST">
+    <form action="{{ url_for('cotraining') }}" method="POST">
         <div class="mb-3">
             <label for="p">{{ gettext('Positives') }} (p):</label>
             <input type="number" class="form-control" id="p" min=0 max=Infinity required name="p" value=1>

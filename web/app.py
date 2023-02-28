@@ -3,7 +3,7 @@ import json
 
 import datetime
 import re
-from flask import Flask, flash, render_template, request, redirect, session
+from flask import Flask, flash, render_template, request, redirect, session, url_for
 from flask_babel import Babel
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import GaussianNB, MultinomialNB
@@ -48,14 +48,14 @@ def inicio():
 @app.route('/seleccionar/<algoritmo>')
 def seleccionar_algoritmo(algoritmo=None):
     session['ALGORITMO'] = algoritmo
-    return redirect('/subida')
+    return redirect(url_for('subida'))
 
 
 @app.route('/subida', methods=['GET', 'POST'])
 def subida():
     if 'ALGORITMO' not in session:
         flash("Debe seleccionar un algoritmo")
-        return redirect('/')
+        return redirect(url_for('inicio'))
 
     if request.method == 'POST':
         file = request.files['archivo']
@@ -69,65 +69,77 @@ def subida():
     return render_template('subida.html')
 
 
-@app.route('/selftrainingc', methods=['GET'])
-def configuracionselftraining():
+@app.route('/configuracion/<algoritmo>', methods=['GET'])
+def configurar_algoritmo(algoritmo=None):
     if 'FICHERO' not in session:
         flash("Debe subir un fichero")
-        return redirect('/subida')
+        return redirect(url_for('subida'))
 
     dl = DatasetLoader(session['FICHERO'])
-    return render_template('selftrainingconfig.html', caracteristicas=dl.get_allfeatures(),
+    return render_template(algoritmo + 'config.html', caracteristicas=dl.get_allfeatures(),
                            clasificadores=clasificadores)
-
-
-@app.route('/cotrainingc', methods=['GET'])
-def configuracioncotraining():
-    if 'FICHERO' not in session:
-        flash("Debe subir un fichero")
-        return redirect('/subida')
-
-    dl = DatasetLoader(session['FICHERO'])
-    return render_template('cotrainingconfig.html', caracteristicas=dl.get_allfeatures())
 
 
 @app.route('/selftraining', methods=['GET', 'POST'])
 def selftraining():
     if 'target' not in request.form:
         flash("Debe seleccionar los parámetros del algoritmo")
-        return redirect('/selftrainingc')
+        return redirect(url_for('configurar_algoritmo', algoritmo='selftraining'))
 
-    return render_template('selftraining.html',
-                           clasificador=request.form['clasificador'],
-                           n=request.form['n'] if 'n' in request.form else -1,
-                           th=request.form['th'] if 'th' in request.form else -1,
-                           n_iter=request.form['n_iter'],
-                           target=request.form['target'],
-                           cx=request.form['cx'] if 'cx' in request.form else 'C1',
-                           cy=request.form['cy'] if 'cy' in request.form else 'C2',
-                           pca=request.form['pca'] if 'pca' in request.form else 'off',
-                           p_unlabelled=request.form['p_unlabelled'] if 'p_unlabelled' in request.form else -1,
-                           p_test=request.form['p_test'] if 'p_test' in request.form else -1
-                           )
+    params = {"clasificador": request.form['clasificador'],
+              "n": request.form.get('n', -1),
+              "th": request.form.get('th', -1),
+              "n_iter": request.form.get('n_iter'),
+              "target": request.form.get('target'),
+              "cx": request.form.get('cx', 'C1'),
+              "cy": request.form.get('cy', 'C2'),
+              "pca": request.form.get('pca', 'off'),
+              "p_unlabelled": request.form.get('p_unlabelled', -1),
+              "p_test": request.form.get('p_test', -1)
+              }
+
+    return render_template('selftraining.html', **params)
 
 
 @app.route('/cotraining', methods=['GET', 'POST'])
 def cotraining():
     if 'target' not in request.form:
         flash("Debe seleccionar los parámetros del algoritmo")
-        return redirect('/cotrainingc')
+        return redirect(url_for('configurar_algoritmo', algoritmo='cotraining'))
 
-    return render_template('cotraining.html',
-                           p=request.form['p'] if 'p' in request.form else -1,
-                           n=request.form['n'] if 'n' in request.form else -1,
-                           u=request.form['u'] if 'u' in request.form else -1,
-                           n_iter=request.form['n_iter'],
-                           target=request.form['target'],
-                           cx=request.form['cx'] if 'cx' in request.form else 'C1',
-                           cy=request.form['cy'] if 'cy' in request.form else 'C2',
-                           pca=request.form['pca'] if 'pca' in request.form else 'off',
-                           p_unlabelled=request.form['p_unlabelled'] if 'p_unlabelled' in request.form else -1,
-                           p_test=request.form['p_test'] if 'p_test' in request.form else -1
-                           )
+    params = {"p": request.form.get('p', -1),
+              "n": request.form.get('n', -1),
+              "u": request.form.get('u', -1),
+              "n_iter": request.form.get('n_iter'),
+              "target": request.form.get('target'),
+              "cx": request.form.get('cx', 'C1'),
+              "cy": request.form.get('cy', 'C2'),
+              "pca": request.form.get('pca', 'off'),
+              "p_unlabelled": request.form.get('p_unlabelled', -1),
+              "p_test": request.form.get('p_test', -1)
+              }
+
+    return render_template('cotraining.html', **params)
+
+
+@app.route('/democraticcolearning', methods=['GET', 'POST'])
+def democraticcolearning():
+    if 'target' not in request.form:
+        flash("Debe seleccionar los parámetros del algoritmo")
+        return redirect(url_for('configurar_algoritmo', algoritmo='democraticcolearning'))
+
+    params = {"clasificador1": request.form['clasificador1'],
+              "clasificador2": request.form['clasificador2'],
+              "clasificador3": request.form['clasificador3'],
+              "target": request.form.get('target'),
+              "cx": request.form.get('cx', 'C1'),
+              "cy": request.form.get('cy', 'C2'),
+              "pca": request.form.get('pca', 'off'),
+              "p_unlabelled": request.form.get('p_unlabelled', -1),
+              "p_test": request.form.get('p_test', -1)
+              }
+
+    return render_template('democraticcolearning.html', **params)
 
 
 @app.route('/selftrainingd', methods=['GET', 'POST'])
