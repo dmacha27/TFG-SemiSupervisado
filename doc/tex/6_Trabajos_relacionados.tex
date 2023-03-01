@@ -18,7 +18,7 @@ subyacentes.
 \subsubsection{Seshat} 
 Es una herramienta web que trata de facilitar el aprendizaje de
 la teoría de lenguajes y autómatas (análisis léxico) que utilizan los
-compiladores \cite{arnaiz2018seshat} , puede accederse desde
+compiladores~\cite{arnaiz2018seshat} , puede accederse desde
 \url{http://cgosorio.es/Seshat}. La herramienta propone en primera instancia
 unas explicaciones teóricas de los algoritmos con sus conceptos generales, el
 concepto concreto de las expresiones regulares y qué es un autómata finito. A
@@ -46,22 +46,22 @@ herramienta sí que resultó útil e incluso ellos mismos solicitaban este recur
 para facilitar su aprendizaje.
 
 \subsubsection{Herramienta de apoyo a la docencia de algoritmos de selección de instancias}
-\cite{arnaiz2012herramienta}. Es una herramienta de escritorio para la
-visualización de la ejecución y resultados de los algoritmos de selección de
-instancias debido a la carencia de este tipo de aplicaciones para dichos
+En \cite{arnaiz2012herramienta} se presenta una herramienta de escritorio para
+la visualización de la ejecución y resultados de los algoritmos de selección de
+instancias, debido a la carencia de este tipo de aplicaciones para dichos
 algoritmos. La herramienta es altamente personalizable pudiendo subir el
 conjunto de datos o seleccionar qué característica visualizar en los ejes. En la
 visualización se pueden ver todos los pasos de los algoritmos junto, por
 ejemplo, a las regiones de Boronoi o el pseudocódigo. Esto hace que el alumno
-pueda conocer el progreso y los conceptos particulares (influencia, vecindad...). Los
-algoritmos implementados por la herramienta son:
+pueda conocer el progreso y los conceptos particulares (influencia,
+vecindad...). Los algoritmos implementados por la herramienta son:
 \begin{enumerate}
-    \item Algoritmo Condensado de Hart (CNN)
-    \item Algoritmo Condensado Reducido (RNN).
-    \item Algoritmo Subconjunto Selectivo Modificado (MSS)
-    \item Algoritmos Decremental Reduction Optimization Preocedure (DROP)
-    \item Algoritmo Iterative Case Filtering (ICF)
-    \item Algoritmo Democratic Instance Selection (DIS)
+    \item Algoritmo Condensado de Hart (CNN) \cite{CNNHart1968}.
+    \item Algoritmo Condensado Reducido (RNN) \cite{RNNGates1972}.
+    \item Algoritmo Subconjunto Selectivo Modificado (MSS) \cite{MSSBarandela2005}.
+    \item Algoritmos Decremental Reduction Optimization Preocedure (DROP) \cite{DROPWilson2000}.
+    \item Algoritmo Iterative Case Filtering (ICF) \cite{ICFBrighton2002}.
+    \item Algoritmo Democratic Instance Selection (DIS) \cite{DemoISGarcia2010}.
 \end{enumerate}
 Está desarrollado completamente en Java lo que lo hace portable a cualquier
 plataforma y sin instalación.
@@ -78,7 +78,8 @@ pues les ayudó a comprender los algoritmos.
 Online Learning} 
 
 En \cite{8560314} se presenta una <<guía>> especialmente interesante con las
-consideraciones a tener en cuenta para el desarrollo de una buena visualización.
+consideraciones a tener en cuenta para el desarrollo de una correcta herramienta
+de visualización de algoritmos.
 
 
 La realidad actual es que resulta muy difícil hacer que los alumnos entiendan
@@ -87,7 +88,7 @@ distancia">. Para solventar este problema se han desarrollado múltiples
 herramientas de visualización de algoritmos (AV) que pretenden facilitar la
 compresión de los mismos, pero la realidad de estas herramientas es que se
 desarrollan con una fuerte componente "<elegante"> y no enriquecedora o
-pedagógica. En este artículo trata de abordar este último problema, el cómo
+pedagógica. Este artículo trata de abordar este último problema, el cómo
 construir herramientas de visualización de algoritmos que sean divertidas y
 atractivas, pero siendo fieles a los conceptos, y también cómo estas pueden
 ayudar a los docentes a asegurar el aprendizaje de sus alumnos.
@@ -104,7 +105,7 @@ estilo.
     \rowcolor[HTML]{C0C0C0} 
     \textbf{Característica}     & \textbf{Cómo lograrlo}   \\ \hline
     \rowcolor[HTML]{FFFFFF} 
-    \textbf{\begin{tabular}[c]{@{}l@{}}Incrementar\\ comprensión\end{tabular}} & \begin{tabular}[c]{@{}l@{}}Explicaciones textuales\\ Realimentación con las acciones del usuario\\ Ayuda integrada\\ Comodidad en la entrada de datos\end{tabular}                                                              \\ \hline
+    \textbf{\begin{tabular}[c]{@{}l@{}}Incrementar la\\comprensión\end{tabular}} & \begin{tabular}[c]{@{}l@{}}Explicaciones textuales\\ Realimentación con las acciones del usuario\\ Ayuda integrada\\ Comodidad en la entrada de datos\end{tabular}                                                              \\ \hline
     \textbf{\begin{tabular}[c]{@{}l@{}}Promocionar\\ interés\end{tabular}}     & \begin{tabular}[c]{@{}l@{}}Permitir introducir datos al algoritmo\\ Manipular la visualización\\ Capacidad de volver <<rebobinar>>\\ Variación de la velocidad\\ Avanzar en la ejecución\end{tabular}         \\ \hline
     \textbf{Aprendibilidad}                                                    & \begin{tabular}[c]{@{}l@{}}Controles familiares\\ Generalidad con otros sistemas\\ Predictibilidad de las acciones\\ Interfaz simple\end{tabular}                                                                                  \\ \hline
     \textbf{Memorabilidad}                                                     & Interfaz común que soporte múltiples animaciones                                                                                                                                                                                   \\ \hline
@@ -115,12 +116,12 @@ estilo.
     \textbf{Accesibilidad}                                                     & \begin{tabular}[c]{@{}l@{}}Globalmente disponible\\ Plataforma y dispositivo independiente\end{tabular}                                                                                                                            \\ \hline
     \end{tabular}%
     }
-    \caption{Características que influencian los objetivos pedagógicos}
+    \caption{Características que influyen en los objetivos pedagógicos.}
 \label{tabla:objetivospedagogicos}
     \end{table}
 
 
-\section{Otras herramientas/librerías}
+\section{Otras herramientas/bibliotecas}
 
 Algorithm-Visualizer, \url{https://algorithm-visualizer.org/}. Se trata de una
 Web que incluye una cantidad enorme de algoritmos, todos están programados
@@ -129,14 +130,14 @@ incluye una explicación corta de cada uno. Algunos de los algoritmos son:
 \texttt{Backtracking}, \texttt{Divide and Conquer}, \texttt{Greedy} o más
 concretamente \texttt{K-Means Clustering}, entre muchos otros.
 
-\imagen{algorithm-visualizer}{K-Means Clustering en algorithm-visualizer}{1}
+\imagen{algorithm-visualizer}{K-Means Clustering en algorithm-visualizer.}{1}
 
 VISUALGO, \url{https://visualgo.net/en}. Es una página web creada por la
 Universidad Nacional de Singapur. Esta Web permite visualizar algoritmos básicos
 (como de ordenación o camino más corto) pero también estructuras de datos (como
 "<hash tables"> o conjuntos disjuntos).
 
-\imagen{visualgo}{Viajante de comercio en visualgo}{1}
+\imagen{visualgo}{Viajante de comercio en VISUALGO.}{1}
 
 Visualizer, por Zhenbang Feng, \url{https://jasonfenggit.github.io/Visualizer/}
 \footnote{ Github: \url{https://github.com/JasonFengGit/Visualizer}}. Su autor
@@ -146,16 +147,16 @@ visualizaciones son muy visuales con las que se capta muy bien el funcionamiento
 de los algoritmos. Implementa algoritmos de búsqueda de caminos, ordenamiento e
 inteligencia artificial (como minimax).
 
-\imagen{visualizer}{Mergesort en Visualizer (Zhenbang Feng)}{1}
+\imagen{visualizer}{Mergesort en Visualizer (Zhenbang Feng).}{1}
 
 
 Clutering-Visualizer, \url{https://clustering-visualizer.web.app/}. Es una
 página Web para visualizar algoritmos de clustering. Realmente, no tiene muchos
 implementados, pero las visualizaciones son muy descriptivas. En cada paso
-muestra cuál es la evolución/posición de los distintos clusters y mediante línea
+muestra cuál es la evolución/posición de los distintos \textit{clusters} y mediante línea
 es posible ver las distancias en ellos y los datos.
 
-\imagen{Clutering-Visualizer}{K-Means en Clutering-Visualizer}{1}
+\imagen{Clutering-Visualizer}{K-Means en Clutering-Visualizer.}{1}
 
 
 MLDemos, puede visitarse desde \url{https://basilio.dev/}. Es una herramienta de
@@ -164,4 +165,4 @@ específicamente para ayudar en el estudio y compresión del funcionamiento de u
 gran cantidad de algoritmos. Entre ellos: clasificación, regresión, reducción de
 dimensionalidad y clustering.
 
-\imagen{MLDemos}{Clasificación mediante Support Vector Machine en MLDemos}{1}
+\imagen{MLDemos}{Clasificación mediante Support Vector Machine en MLDemos.}{1}

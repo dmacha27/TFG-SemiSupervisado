@@ -101,16 +101,17 @@ no se puede visualizar y le redirecciona a la configuración con un mensaje de e
 \subsection{Sprint 5}
 Corresponde con el periodo temporal del 1 al 8 de febrero de 2023.
 
-En la reunión del 1 de febrero se revisó lo realizado en el anterior y se fijó
+En la reunión del 1 de febrero se revisó lo realizado en el anterior y se fijaron
 una serie de mejoras/modificaciones y nuevas tareas:
 \begin{enumerate}
     \item Modificación de los algoritmos para trabajar con la convención de
     "<-1s"> en el conjunto de datos para los datos no etiquetados. Así el
     usuario podrá subir un archivo ya \textit{Semi-Supervisado}.
     \item Permitir al usuario seleccionar los porcentajes de no etiquetados y de
-    test (para las futuras estadísticas)
-    \item De la página (no gráfico) visualización de los algoritmos: volver a la configuración, el
-    "<feedback"> de la iteración actual y el nombre del conjunto de datos utilizado.
+    test (para las futuras estadísticas).
+    \item Sobre la página general de la visualización de los algoritmos: volver
+    a la configuración, el "<feedback"> de la iteración actual y el nombre del
+    conjunto de datos utilizado.
     \item Del gráfico de la visualización: Diferenciar en el algoritmo
     CoTraining cuál de los dos clasificadores han etiquetado cada punto y los
     puntos "<etiquetados"> en la iteración 0 deben mostrarse de forma diferente.
@@ -168,8 +169,8 @@ implementar, corregir errores sobre la marcha y realizar alguna prueba
 confeccionando ficheros semi-supervisados.
 
 Al realizar las pruebas anteriores se encontró un error en la visualización
-provocado que los datos que, por la iteración máxima, no se habían clasificado
-ni siquiera eran retornadas a la Web. Entre descubrir como hacerlo y sus
+provocando que los datos que, por la iteración máxima, no se habían clasificado
+ni siquiera eran retornadas a la Web. Entre descubrir cómo hacerlo y sus
 modificaciones se tardó unas 3 horas.
 
 El punto 3 fue el más complicado, pese a que era una idea sencilla, se optó por
@@ -184,7 +185,7 @@ paso de iteración e incluir alguna animación.
 Adicionalmente se retocó por completo toda la Web mediante los estilos de
 \texttt{Bootstrap} para establecer ya una base vistosa y bonita. Unas 5 horas
 (la mayor parte del tiempo para probar y adquirir algo de soltura con estos
-estilos)
+estilos).
 
 \subsection{Sprint 7}
 Corresponde con el periodo temporal del 15 al 22 de febrero de 2023.
@@ -208,13 +209,13 @@ el artículo estaba bien explicado, el formato de pseudocódigo (en el archivo
 encontrado) las indentaciones eran incorrectas y se perdió mucho tiempo
 comprobando si era una interpretación errónea o si realmente era un fallo.
 
-Se realizaron algunas pruebas de rendimiento para comprobar si los algoritmo
-tardaban demasiado con conjuntos de datos muy grandes (5000 instancias). Se vió
-que, dada la configuración que se tenía, tardaba alrededor de 40-50 segundos en
-terminar la ejecución. Es por esto que para este Sprint se añadió la tarea de
-hacer un pequeño estudio dedicado al medir los tiempos de ejecución para ver qué
-se podía optimizar. Este proceso fue de unas 2 horas y el resultado es que el
-código implementado no afectaba mucho, eran los propios algoritmos de
+Se realizaron algunas pruebas de rendimiento para comprobar si los algoritmos
+tardaban demasiado con conjuntos de datos muy grandes (5\,000 instancias). Se
+observó que, dada la configuración que se tenía, tardaba alrededor de 40-50
+segundos en terminar la ejecución. Es por esto que para este Sprint se añadió la
+tarea de hacer un pequeño estudio dedicado a medir los tiempos de ejecución para
+ver qué se podía optimizar. Este proceso fue de unas 2 horas y el resultado fue
+que el código implementado no afectaba mucho, eran los propios algoritmos de
 entrenamiento de los clasificadores de Scikit-Learn los que tardaban tanto. Por
 ejemplo, para un estimador gaussiano el tiempo se reducía drásticamente.
 
@@ -222,16 +223,16 @@ Para el caso de las estadísticas, se modificaron un poco las plantillas y la
 generación de sus gráficas para incluir más y revisarlas en la reunión. Unas 2
 horas.
 
-Los test son una parte importante para validar que el comportamiento que se
-espera de la implementación sea el correcto. Sin ejecutar, se realizaron unos
-casos de pruebas sobre las utilidades que se usan a lo largo de todo el proyecto
-con la intención de encontrar errores (no ver cuál es el resultado y replicarlo
-en los casos, sino realizar los casos basándose en lo que se espera de esas
+Los tests son una parte importante para validar que el comportamiento que se
+espera de la implementación sea el correcto. Se realizaron unos casos de pruebas
+sobre las utilidades que se usan a lo largo de todo el proyecto con la intención
+de encontrar errores (todo esto sin ver cuál es el resultado y replicarlo en los
+casos, sino realizar los casos basándose en lo que se espera de esas
 utilidades). Se tardó unas 4 horas en realizar todos los tests.
 
 \subsection{Sprint 8}
 Corresponde con el periodo temporal del 22 de febrero al 1 de marzo de 2023.
-Además, aprovechando la herramienta Zenhub, se han modificado la duración de los
+Además, aprovechando la herramienta Zenhub, se modificó la duración de los
 Sprints también en ella para poder extraer los gráficos del trabajo realizado.
 
 Puntos a desarrollar:
