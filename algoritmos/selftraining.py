@@ -122,7 +122,7 @@ class SelfTraining:
                                  self.get_f1_score(x_test, y_test),
                                  self.get_recall_score(x_test, y_test)]
 
-        return log, stats
+        return log, stats, iteration
 
     def get_confusion_matrix(self, x_test, y_test):
         """

@@ -4,16 +4,18 @@
 # Autor: David Martínez Acha
 # Fecha: 19/02/2023 19:20
 # Descripción: Algoritmo Democratic Co-Learning
-# Version: 0.1
+# Version: 1.0
 import math
 from typing import List
 
 import numpy as np
+import pandas as pd
 import scipy
 
 from sklearn.datasets import load_breast_cancer, load_wine
 from sklearn.metrics import accuracy_score, precision_score
 from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 
@@ -35,7 +37,7 @@ class DemocraticCoLearning:
         self.clfs = clfs
         self.confidence = scipy.stats.norm.ppf(1.95 / 2.0)
 
-    def fit(self, x, y, x_test, y_test):
+    def fit(self, x, y, x_test, y_test, features):
         """
         Proceso de entrenamiento y obtención de la evolución.
 
@@ -51,6 +53,18 @@ class DemocraticCoLearning:
 
         x_train, y_train, x_u = obtain_train_unlabelled(x, y)
         self.labels = max(y_train) + 1
+
+        log = pd.DataFrame(x_train, columns=features)
+        log['iters'] = [[0]] * len(log)
+        log['targets'] = [[lab] for lab in y_train]
+        log['clfs'] = [['inicio']] * len(log)
+
+        rest = pd.DataFrame(x_u, columns=features)
+        rest['iters'] = [[-1] * len(self.clfs) for _ in range(len(rest))]
+        rest['targets'] = [[-1] * len(self.clfs) for _ in range(len(rest))]
+        rest['clfs'] = [[n.__class__.__name__ for n in self.clfs]] * len(rest)
+
+        log = pd.concat([log, rest], ignore_index=True)
 
         errors = []
         ls = []
@@ -127,11 +141,16 @@ class DemocraticCoLearning:
                 if qi_prime > qi:
                     change = True
 
+                    # self.clf1.__class__.__name__
                     for x_id, x, y in zip(ls_prime_ids[index], ls_prime[index], ls_prime_y[index]):
                         if x_id in ls_new_ids[index]:
                             ls_y[index][ls_new_ids[index][x_id]] = y
+                            log.loc[len(x_train) + x_id, 'iters'][index] = iteration + 1
+                            log.loc[len(x_train) + x_id, 'targets'][index] = y
                         else:
                             ls_new_ids[index][x_id] = len(ls[index])
+                            log.loc[len(x_train) + x_id, 'iters'][index] = iteration + 1
+                            log.loc[len(x_train) + x_id, 'targets'][index] = y
                             ls[index] = np.append(ls[index], [x], axis=0)
                             ls_y[index] = np.append(ls_y[index], [y])
 
@@ -141,7 +160,7 @@ class DemocraticCoLearning:
 
             iteration += 1
 
-        return iteration
+        return log, iteration
 
     def predict(self, instances):
         """
@@ -211,7 +230,7 @@ if __name__ == '__main__':
     dl.set_target("Class")
     x, y, mapa, is_unlabelled = dl.get_x_y()
 
-    st = DemocraticCoLearning(clfs=[GaussianNB(), SVC(), DecisionTreeClassifier()])
+    st = DemocraticCoLearning(clfs=[GaussianNB(), KNeighborsClassifier(), DecisionTreeClassifier()])
 
     (
         x,
@@ -220,7 +239,7 @@ if __name__ == '__main__':
         y_test
     ) = data_split(x, y, is_unlabelled, p_unlabelled=0.85, p_test=0.8)
 
-    st.fit(x, y, x_test, y_test)
+    st.fit(x, y, x_test, y_test, dl.get_only_features())
 
     pred = st.predict(x_test)
     print(accuracy_score(y_test, pred))

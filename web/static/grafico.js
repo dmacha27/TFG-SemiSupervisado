@@ -13,7 +13,7 @@ function inicializarGrafico(datos, preparar, binding) {
 
     let dataset = preparar(JSON.parse(datos.log));
     mapa = JSON.parse(datos.mapa);
-    maxit = d3.max(dataset, d => d[3]);
+    maxit = datos.iterations;
     document.getElementById("progreso").max = maxit;
 
     color = d3.scaleOrdinal()

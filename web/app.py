@@ -17,7 +17,7 @@ from sklearn.datasets import load_breast_cancer, load_wine
 from sklearn.svm import SVC
 from werkzeug.utils import secure_filename
 
-from algoritmos import SelfTraining
+from algoritmos import SelfTraining, DemocraticCoLearning
 from algoritmos import CoTraining
 
 
@@ -177,14 +177,15 @@ def datosselftraining():
         y_test
     ) = data_split(x, y, is_unlabelled, p_unlabelled=p_unlabelled, p_test=p_test)
 
-    log, stats = st.fit(x, y, x_test, y_test, dl.get_only_features())
+    log, stats, iteration = st.fit(x, y, x_test, y_test, dl.get_only_features())
 
     if pca == 'on':
         _2d = log_pca_reduction(log, dl.get_only_features()).to_json()
     else:
         _2d = log_cxcy_reduction(log, cx, cy, dl.get_only_features()).to_json()
 
-    info = {'log': _2d,
+    info = {'iterations': iteration,
+            'log': _2d,
             'stats': stats.to_json(),
             'mapa': json.dumps(mapa)}
 
@@ -234,18 +235,61 @@ def datoscotraining():
         y_test
     ) = data_split(x, y, is_unlabelled, p_unlabelled=p_unlabelled, p_test=p_test)
 
-    log, stats = ct.fit(x, y, x_test, y_test, dl.get_only_features())
+    log, stats, iteration = ct.fit(x, y, x_test, y_test, dl.get_only_features())
 
     if pca == 'on':
         _2d = log_pca_reduction(log, dl.get_only_features()).to_json()
     else:
         _2d = log_cxcy_reduction(log, cx, cy, dl.get_only_features()).to_json()
 
-    info = {'log': _2d,
+    info = {'iterations': iteration,
+            'log': _2d,
             'stats': stats.to_json(),
             'mapa': json.dumps(mapa)}
     return json.dumps(info)
 
+
+@app.route('/democraticcolearningd', methods=['GET', 'POST'])
+def datosdemocraticcolearning():
+    clasificador1 = request.form['clasificador1']
+    clasificador2 = request.form['clasificador2']
+    clasificador3 = request.form['clasificador3']
+    cx = request.form['cx']
+    cy = request.form['cy']
+    pca = request.form['pca']
+    p_unlabelled = float(request.form['p_unlabelled'])
+    p_test = float(request.form['p_test'])
+
+    clf1 = obtener_clasificador(clasificador1)
+    clf2 = obtener_clasificador(clasificador2)
+    clf3 = obtener_clasificador(clasificador3)
+
+    dcl = DemocraticCoLearning([clf1, clf2, clf3])
+
+    dl = DatasetLoader(session['FICHERO'])
+    dl.set_target(request.form['target'])
+    x, y, mapa, is_unlabelled = dl.get_x_y()
+
+    (
+        x,
+        y,
+        x_test,
+        y_test
+    ) = data_split(x, y, is_unlabelled, p_unlabelled=p_unlabelled, p_test=p_test)
+
+    log, iteration = dcl.fit(x, y, x_test, y_test, dl.get_only_features())
+
+    if pca == 'on':
+        _2d = log_pca_reduction(log, dl.get_only_features()).to_json()
+    else:
+        _2d = log_cxcy_reduction(log, cx, cy, dl.get_only_features()).to_json()
+
+    info = {'iterations': iteration,
+            'log': _2d,
+            'mapa': json.dumps(mapa)}
+    import sys
+    print(info, file=sys.stderr)
+    return json.dumps(info)
 
 @app.template_filter()
 def nombredataset(text):

@@ -169,7 +169,7 @@ class CoTraining:
                                  self.get_accuracy_score(x_test, y_test),
                                  self.get_precision_score(x_test, y_test)]
 
-        return log, stats
+        return log, stats, iteration
 
     def get_accuracy_score(self, x_test, y_test):
         """
