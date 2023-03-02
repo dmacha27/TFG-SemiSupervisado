@@ -287,8 +287,7 @@ def datosdemocraticcolearning():
     info = {'iterations': iteration,
             'log': _2d,
             'mapa': json.dumps(mapa)}
-    import sys
-    print(info, file=sys.stderr)
+
     return json.dumps(info)
 
 @app.template_filter()
