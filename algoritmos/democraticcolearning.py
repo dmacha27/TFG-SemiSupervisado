@@ -62,7 +62,7 @@ class DemocraticCoLearning:
         rest = pd.DataFrame(x_u, columns=features)
         rest['iters'] = [[-1] * len(self.clfs) for _ in range(len(rest))]
         rest['targets'] = [[-1] * len(self.clfs) for _ in range(len(rest))]
-        rest['clfs'] = [[n.__class__.__name__ for n in self.clfs]] * len(rest)
+        rest['clfs'] = [[f"CLF{i + 1}({n.__class__.__name__})" for i, n in enumerate(self.clfs)]] * len(rest)
 
         log = pd.concat([log, rest], ignore_index=True)
 
@@ -230,7 +230,7 @@ if __name__ == '__main__':
     dl.set_target("Class")
     x, y, mapa, is_unlabelled = dl.get_x_y()
 
-    st = DemocraticCoLearning(clfs=[GaussianNB(), KNeighborsClassifier(), DecisionTreeClassifier()])
+    st = DemocraticCoLearning(clfs=[GaussianNB(), GaussianNB(), GaussianNB()])
 
     (
         x,
@@ -239,7 +239,7 @@ if __name__ == '__main__':
         y_test
     ) = data_split(x, y, is_unlabelled, p_unlabelled=0.85, p_test=0.8)
 
-    st.fit(x, y, x_test, y_test, dl.get_only_features())
-
+    log, _ = st.fit(x, y, x_test, y_test, dl.get_only_features())
+    print(log.to_string())
     pred = st.predict(x_test)
     print(accuracy_score(y_test, pred))

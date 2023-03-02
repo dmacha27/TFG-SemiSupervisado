@@ -10,10 +10,9 @@ function inicializarGrafico(datos, preparar, binding) {
     width = 850 - margin.left - margin.right,
     height = 700 - margin.top - margin.bottom;
 
-
+    maxit = datos.iterations;
     let dataset = preparar(JSON.parse(datos.log));
     mapa = JSON.parse(datos.mapa);
-    maxit = datos.iterations;
     document.getElementById("progreso").max = maxit;
 
     color = d3.scaleOrdinal()
