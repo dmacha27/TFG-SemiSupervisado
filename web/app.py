@@ -290,6 +290,7 @@ def datosdemocraticcolearning():
 
     return json.dumps(info)
 
+
 @app.template_filter()
 def nombredataset(text):
     """Obtiene solo el nombre del conjunto de datos

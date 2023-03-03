@@ -12,6 +12,13 @@ function obtenerSimbolo(d){
     } else if (clf_forma.indexOf(d[4]) === 3){ return d3.symbolSquare
     }}
 
+function obtenerSimboloUnicode(d){
+    if(d[4] === -1 || clf_forma.indexOf(d[4]) === 0){ return "&#9679"
+    } else if (clf_forma.indexOf(d[4]) === 1){ return "&#128934"
+    } else if (clf_forma.indexOf(d[4]) === 2){ return "&#9650"
+    } else if (clf_forma.indexOf(d[4]) === 3){ return "&#9632"
+    }}
+
 function puntos_en_x_y(x,y) {
     return puntos.filter(function(d) {
         return d[0] === x && d[1] === y;
@@ -78,7 +85,7 @@ const mousemove = function(e, dot) {
                     if (p_data[3] === 0){
                         cadena_tooltip += traducir('Initial data') + "<br>" + cx +": " + p_data[0] +"<br>" + cy + ": " + p_data[1] + "<br>" + traducir('Label') + ": " + mapa[p_data[2]];
                     }else {
-                        cadena_tooltip += cx +": " + p_data[0] +"<br>" + cy + ": " + p_data[1] +"<br>" + traducir('Classifier') + ": " + p_data[4] + "<br>" + traducir('Label') + ": " + mapa[p_data[2]];
+                        cadena_tooltip += cx +": " + p_data[0] +"<br>" + cy + ": " + p_data[1] +"<br>" + traducir('Classifier') + ": " + obtenerSimboloUnicode(p_data) + p_data[4] + "<br>" + traducir('Label') + ": " + mapa[p_data[2]];
                     }
                 } else {
                     cadena_tooltip += cx +": " + p_data[0] +"<br>" + cy + ": " + p_data[1] +"<br>" + traducir('Classifier: Not classified') + "<br>" + traducir('Label: Not classified');

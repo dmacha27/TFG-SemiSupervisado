@@ -12,7 +12,7 @@ const mousemove = function(e, dot) {
                 if (dot[3] === 0){
                     return traducir('Initial data') + "<br>" + cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] + "<br>" + traducir('Label') + ": " + mapa[dot[2]];
                 }else {
-                    return cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] +"<br>" + traducir('Classifier') + ": " + dot[4] + "<br>" + traducir('Label') + ": " + mapa[dot[2]];
+                    return cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] +"<br>" + traducir('Classifier') + ": " + obtenerSimboloUnicode(dot) + dot[4] + "<br>" + traducir('Label') + ": " + mapa[dot[2]];
                 }
             } else {
                 return cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] +"<br>" + traducir('Classifier: Not classified') + "<br>" + traducir('Label: Not classified');
@@ -103,4 +103,10 @@ function obtenerSimbolo(d){
     if(clf_forma.indexOf(d[4]) === 0){ return d3.symbolCircle // Dato inicial
     } else if (clf_forma.indexOf(d[4]) === 1){ return d3.symbolCross
     } else if (clf_forma.indexOf(d[4]) === 2){ return d3.symbolTriangle
+    }}
+
+function obtenerSimboloUnicode(d){
+    if(d[4] === -1 || clf_forma.indexOf(d[4]) === 0){ return "&#9679"
+    } else if (clf_forma.indexOf(d[4]) === 1){ return "&#128934"
+    } else if (clf_forma.indexOf(d[4]) === 2){ return "&#9650"
     }}
