@@ -148,7 +148,7 @@ msgstr "Algoritmos"
 
 #: templates/selftrainingconfig.html:5
 msgid "Select classifier"
-msgstr "Etiqueta: No clasificado"
+msgstr "Selecciona clasificador"
 
 #: templates/selftrainingconfig.html:13
 msgid "N (Number of instances to select in each iteration)"

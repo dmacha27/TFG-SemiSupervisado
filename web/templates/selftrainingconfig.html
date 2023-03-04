@@ -10,6 +10,8 @@
                 {% endfor %}
             </select>
         </div>
+        <div id="parametros" style="border: 1px solid black; padding: 5px">
+        </div>
         <div class="mb-3">
             <label for="n">{{ gettext('N (Number of instances to select in each iteration)') }}:</label>
             <input type="number" class="form-control" id="n" min="0" max="Infinity" required oninput="limitarUnicoMetodoST(this.value,'th')" name="n" value="10">
@@ -24,6 +26,17 @@
         </div>
         {{ formulario_comun(caracteristicas) }}
     </form>
+
+    <script>
+        const clasificador = document.querySelector('#clasificador');
+        const div_parametros= document.querySelector('#parametros');
+
+        const todos_parametros = {{ parametros|tojson }};
+
+        clasificador.addEventListener('change', (event) => {
+            generarFormParametros(event.target.value, div_parametros);
+        });
+    </script>
 {% endblock %}
 {% block explicaciones %}
     Explicaciones

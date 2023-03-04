@@ -1,0 +1,33 @@
+{
+  "SVC": {
+    "C": {
+      "label": "C:",
+      "type": "number",
+      "default": 1.0
+    },
+    "max_iter": {
+      "label": "Number of iterations:",
+      "type": "number",
+      "default": -1
+    },
+    "kernel": {
+      "label": "Kernel:",
+      "type": "select",
+      "options": ["linear", "poly", "rbf", "sigmoid", "precomputed"],
+      "default": "rbf"
+    }
+  },
+  "M": {
+    "C": {
+      "label": "C:",
+      "type": "number",
+      "default": 1.0
+    },
+    "max_iter": {
+      "label": "Number of iterations:",
+      "type": "number",
+      "default": -1
+    }
+  }
+}
+

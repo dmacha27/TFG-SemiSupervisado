@@ -33,10 +33,6 @@ app.config.update(SESSION_COOKIE_SAMESITE='Strict')
 app.config['CARPETA_DATASETS'] = 'datasets'
 app.config['SESSION_TYPE'] = 'filesystem'
 
-clasificadores = ["GaussianNB", "LogisticRegression", "SVC",
-                  "MultinomialNB", "KNeighborsClassifier",
-                  "DecisionTreeClassifier"]
-
 
 @app.route('/', methods=['GET'])
 def inicio():
@@ -76,8 +72,11 @@ def configurar_algoritmo(algoritmo=None):
         return redirect(url_for('subida'))
 
     dl = DatasetLoader(session['FICHERO'])
+    with open("static/parametros.json") as f:
+        clasificadores = json.load(f)
+
     return render_template(algoritmo + 'config.html', caracteristicas=dl.get_allfeatures(),
-                           clasificadores=clasificadores)
+                           clasificadores=list(clasificadores.keys()), parametros=clasificadores)
 
 
 @app.route('/selftraining', methods=['GET', 'POST'])
@@ -86,19 +85,32 @@ def selftraining():
         flash("Debe seleccionar los parámetros del algoritmo")
         return redirect(url_for('configurar_algoritmo', algoritmo='selftraining'))
 
-    params = {"clasificador": request.form['clasificador'],
-              "n": request.form.get('n', -1),
-              "th": request.form.get('th', -1),
-              "n_iter": request.form.get('n_iter'),
-              "target": request.form.get('target'),
-              "cx": request.form.get('cx', 'C1'),
-              "cy": request.form.get('cy', 'C2'),
-              "pca": request.form.get('pca', 'off'),
-              "p_unlabelled": request.form.get('p_unlabelled', -1),
-              "p_test": request.form.get('p_test', -1)
-              }
+    with open("static/parametros.json") as f:
+        clasificadores = json.load(f)
 
-    return render_template('selftraining.html', **params)
+    clasificador = request.form['clasificador']
+    parametros_clasificador = clasificadores[clasificador]
+
+    params = [
+        {"nombre": "clasificador", "valor": request.form['clasificador']},
+        {"nombre": "n", "valor": request.form.get('n', -1)},
+        {"nombre": "th", "valor": request.form.get('th', -1)},
+        {"nombre": "n_iter", "valor": request.form.get('n_iter')},
+        {"nombre": "target", "valor": request.form.get('target')},
+        {"nombre": "cx", "valor": request.form.get('cx', 'C1')},
+        {"nombre": "cy", "valor": request.form.get('cy', 'C2')},
+        {"nombre": "pca", "valor": request.form.get('pca', 'off')},
+        {"nombre": "p_unlabelled", "valor": request.form.get('p_unlabelled', -1)},
+        {"nombre": "p_test", "valor": request.form.get('p_test', -1)},
+    ]
+
+    for key in parametros_clasificador.keys():
+        params.append({"nombre": key, "valor": request.form.get(key, -1)})
+
+    return render_template('selftraining.html',
+                           params=params,
+                           cx=request.form.get('cx', 'C1'),
+                           cy=request.form.get('cy', 'C2'))
 
 
 @app.route('/cotraining', methods=['GET', 'POST'])
@@ -145,6 +157,18 @@ def democraticcolearning():
 @app.route('/selftrainingd', methods=['GET', 'POST'])
 def datosselftraining():
     clasificador = request.form['clasificador']
+
+    with open("static/parametros.json") as f:
+        clasificadores = json.load(f)
+
+    parametros_clasificador = {}
+    for key in clasificadores[clasificador].keys():
+        try:
+            p = float(request.form[key])
+            parametros_clasificador[key] = p
+        except ValueError:
+            parametros_clasificador[key] = request.form[key]
+
     n = int(request.form['n'])
     th = float(request.form['th'])
     n_iter = int(request.form['n_iter'])
@@ -161,7 +185,7 @@ def datosselftraining():
               random_state=0
               )
 
-    st = SelfTraining(clf=obtener_clasificador(clasificador),
+    st = SelfTraining(clf=obtener_clasificador(clasificador, parametros_clasificador),
                       n=n if n != -1 else None,
                       th=th if th != -1 else None,
                       n_iter=n_iter)
@@ -299,19 +323,16 @@ def nombredataset(text):
     return re.split(r"-|\\", text)[1]
 
 
-def obtener_clasificador(nombre):
-    if nombre == "LogisticRegression":
-        return LogisticRegression()
-    elif nombre == "SVC":
-        return SVC(probability=True)
+def obtener_clasificador(nombre, params):
+    if nombre == "SVC":
+        params = params | {"probability": True}
+        return SVC(**params)
     elif nombre == "GaussianNB":
-        return GaussianNB()
-    elif nombre == "MultinomialNB":
-        return MultinomialNB()
+        return GaussianNB(**params)
     elif nombre == "KNeighborsClassifier":
-        return KNeighborsClassifier()
+        return KNeighborsClassifier(**params)
     elif nombre == "DecisionTreeClassifier":
-        return DecisionTreeClassifier()
+        return DecisionTreeClassifier(**params)
 
 
 if __name__ == '__main__':

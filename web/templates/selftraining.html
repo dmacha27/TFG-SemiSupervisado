@@ -19,20 +19,15 @@
 {% block scripts %}
     <script type="text/javascript" src="/static/grafico_selftraining.js"></script>
     <script>
-        let elementos = [
-            { nombre: "clasificador", valor: "{{ clasificador }}" },
-            { nombre: "n", valor: {{ n }} },
-            { nombre: "th", valor: {{ th }} },
-            { nombre: "n_iter", valor: {{ n_iter }} },
-            { nombre: "target", valor: "{{ target }}" },
-            { nombre: "cx", valor: "{{ cx }}" },
-            { nombre: "cy", valor: "{{ cy }}" },
-            { nombre: "pca", valor: "{{ pca }}"},
-            { nombre: "no_etiquetados", valor: "{{ no_etiquetados }}" },
-            { nombre: "p_unlabelled", valor: {{ p_unlabelled }} },
-            { nombre: "p_test", valor: "{{ p_test }}" }
-        ];
+
+        let elementos = [];
+
+        {% for param in params %}
+            elementos.push({nombre: "{{ param.nombre }}", valor: "{{ param.valor }}"});
+        {% endfor %}
+
         let cx = "{{ cx }}", cy = "{{ cy }}";
+
         inicializar("/{{ session['ALGORITMO'] }}d", elementos).then(function (datos) {
             inicializarGrafico(datos, preparardataset,databinding);
             let stats = ["Precision", "Accuracy", "Error", "F1_score", "Recall"]
