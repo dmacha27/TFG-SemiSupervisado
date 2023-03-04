@@ -16,6 +16,7 @@ from algoritmos.utilidades.dimreduction import log_pca_reduction, log_cxcy_reduc
 from sklearn.datasets import load_breast_cancer, load_wine
 from sklearn.svm import SVC
 from werkzeug.utils import secure_filename
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 from algoritmos import SelfTraining, DemocraticCoLearning
 from algoritmos import CoTraining
@@ -26,6 +27,11 @@ def get_locale():
 
 
 app = Flask(__name__)
+app.wsgi_app = ProxyFix(
+    app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
+)
+
+
 babel = Babel(app, locale_selector=get_locale)
 
 app.secret_key = "ae4c977b14e2ecf38d485869018ec8f924b312132ee3d11d1ce755cdff9bc0af"
@@ -163,10 +169,14 @@ def datosselftraining():
 
     parametros_clasificador = {}
     for key in clasificadores[clasificador].keys():
-        try:
+        parametro = clasificadores[clasificador][key]
+        if parametro["type"] == "number" and parametro["step"] == 0.1:
             p = float(request.form[key])
             parametros_clasificador[key] = p
-        except ValueError:
+        elif parametro["type"] == "number" and parametro["step"] == 1:
+            p = int(request.form[key])
+            parametros_clasificador[key] = p
+        else:
             parametros_clasificador[key] = request.form[key]
 
     n = int(request.form['n'])
@@ -328,7 +338,7 @@ def obtener_clasificador(nombre, params):
         params = params | {"probability": True}
         return SVC(**params)
     elif nombre == "GaussianNB":
-        return GaussianNB(**params)
+        return GaussianNB()
     elif nombre == "KNeighborsClassifier":
         return KNeighborsClassifier(**params)
     elif nombre == "DecisionTreeClassifier":

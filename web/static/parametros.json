@@ -1,33 +1,71 @@
 {
   "SVC": {
     "C": {
-      "label": "C:",
+      "label": "C",
       "type": "number",
+      "step": 0.1,
       "default": 1.0
     },
     "max_iter": {
-      "label": "Number of iterations:",
+      "label": "Number of iterations",
       "type": "number",
+      "step": 1,
       "default": -1
     },
     "kernel": {
-      "label": "Kernel:",
+      "label": "Kernel",
       "type": "select",
       "options": ["linear", "poly", "rbf", "sigmoid", "precomputed"],
       "default": "rbf"
+    },
+    "gamma": {
+      "label": "Gamma",
+      "type": "select",
+      "options": ["scale", "auto"],
+      "default": "scale"
     }
   },
-  "M": {
-    "C": {
-      "label": "C:",
+  "KNeighborsClassifier": {
+    "n_neighbors": {
+      "label": "Neighbors number",
       "type": "number",
-      "default": 1.0
+      "step": 1,
+      "default": 5
     },
-    "max_iter": {
-      "label": "Number of iterations:",
+    "weights": {
+      "label": "Weights",
+      "type": "select",
+      "options": ["uniform", "distance"],
+      "default": "uniform"
+    },
+    "algorithm": {
+      "label": "Algorithm",
+      "type": "select",
+      "options": ["auto", "ball_tree", "kd_tree", "brute"],
+      "default": "auto"
+    },
+    "p": {
+      "label": "p",
       "type": "number",
-      "default": -1
+      "step": 1,
+      "default": 2
     }
+  },
+  "DecisionTreeClassifier": {
+    "criterion": {
+      "label": "Criterion",
+      "type": "select",
+      "options": ["gini", "entropy", "log_loss"],
+      "default": "gini"
+    },
+    "splitter": {
+      "label": "Algorithm",
+      "type": "select",
+      "options": ["best", "random"],
+      "default": "best"
+    }
+  },
+  "GaussianNB": {
   }
 }
 

@@ -40,6 +40,7 @@ function generarFormParametros(algoritmo, div) {
         }else{
             const input = document.createElement('input');
             input.type = parametro.type;
+            input.step = parametro.step
             input.name = p;
             input.classList.add('form-control');
             input.value = parametro.default;

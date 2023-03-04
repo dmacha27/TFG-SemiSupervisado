@@ -195,6 +195,5 @@ function habilitar(checked,stat) {
 
 function comprobarvisibilidad(stat) {
     let check = document.getElementById("chk_" + stat);
-    console.log(check.checked)
     return check.checked;
 }
