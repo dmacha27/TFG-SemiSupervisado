@@ -26,10 +26,14 @@ function puntos_en_x_y(x,y) {
 }
 
 function expandir_puntos(x,y, nuevas_posiciones) {
+    graficosvg.selectAll('path[id=multi' +
+        gx(x).toString().replace(".","") +
+        gy(y).toString().replace(".","") +']')
+        .style("opacity", 0)
+
     let seleccionados = puntos.filter(function(d) {
         return d[0] === x && d[1] === y;
     })
-        .style("opacity", 0)
 
     seleccionados = seleccionados._groups[0]
 
@@ -37,23 +41,20 @@ function expandir_puntos(x,y, nuevas_posiciones) {
         let d = seleccionados[i].__data__
         graficosvg.append("path")
             .attr("id","eliminar")
-            .attr("transform","translate(" + gx(d[0] + nuevas_posiciones[i])  + "," + (gy(d[1])) + ")")
+            .attr("transform","translate(" + gx(x + nuevas_posiciones[i])  + "," + (gy(y)) + ")")
             .attr("d", simbolos.type(obtenerSimbolo(d)).size(35))
             .style("fill", function () {
-
-                if (d[2] !== -1){
+                if (d[3] <= cont && d[2] !== -1){
                     return color(d[2])
                 }else{
                     return "grey"
                 }
             })
+            .style("pointer-events","none")
     }
-
-
 }
 
 function reducir_puntos(x,y) {
-
     puntos.filter(function(d) {
         return d[0] === x && d[1] === y;
     }).style("opacity", 1)
@@ -101,7 +102,12 @@ const mousemove = function(e, dot) {
 const mouseleave_democratic = function(e, dot) {
     d3.select(".tooltip")
         .style("stroke", "none")
-        .style("opacity", 0)
+        .style("display", "none")
+
+    graficosvg.selectAll('path[id=multi' +
+        gx(dot[0]).toString().replace(".","") +
+        gy(dot[1]).toString().replace(".","") +']')
+        .style("opacity", 1)
 
     let puntos_posicion = []
     puntos_posicion = puntos_en_x_y(dot[0], dot[1])._groups[0];
@@ -158,6 +164,33 @@ function databinding(dataset){
         .on("mouseover", mouseover)
         .on("mousemove", function(e) { mousemove(e, d3.select(this).datum()); })
         .on("mouseleave", function(e) { mouseleave_democratic(e, d3.select(this).datum()); })
+
+    puntos.each(function(d) {
+        let puntos_posicion = []
+        puntos_posicion = puntos_en_x_y(d[0], d[1])._groups[0];
+
+        if (puntos_posicion.length > 1){
+            d3.select(this).style("display", "none")
+            if (graficosvg.selectAll('path[id=multi' +
+                gx(d[0]).toString().replace(".","") +
+                gy(d[1]).toString().replace(".","") +']').empty()){
+
+                let datos = [d[0],d[1],d[2],d[3],d[4]]
+                graficosvg.append("path")
+                    .attr("id","multi" +
+                        gx(d[0]).toString().replace(".","") + gy(d[1]).toString().replace(".",""))
+                    .attr("transform","translate(" + gx(d[0])  + "," + (gy(d[1])) + ")")
+                    .attr("d", simbolos.type(d3.symbolStar).size(38))
+                    .style("fill", "black")
+                    .style("stroke", "transparent")
+                    .style("stroke-width", "3px")
+                    .on("mouseover", mouseover)
+                    .on("mousemove", function(e) { mousemove(e, datos); })
+                    .on("mouseleave", function(e) { mouseleave_democratic(e, datos); })
+            }
+        }
+
+    })
 }
 
 

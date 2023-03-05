@@ -58,6 +58,8 @@ function databinding(dataset){
                 return "grey";
             }
         })
+        .style("stroke", "transparent")
+        .style("stroke-width", "3px")
         .on("mouseover", mouseover)
         .on("mousemove", function(e) { mousemove(e, d3.select(this).datum()); })
         .on("mouseleave", mouseleave);

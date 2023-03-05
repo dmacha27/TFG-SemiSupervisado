@@ -102,14 +102,14 @@ function inicializarGrafico(datos, preparar, binding) {
 const mouseover = function (d) {
     d3.select(".tooltip")
         .style("opacity", 1)
-        .style("opacity", 1)
+        .style("display", "block")
 
 };
 
 const mouseleave = function (d) {
     d3.select(".tooltip")
         .style("stroke", "none")
-        .style("opacity", 0)
+        .style("display", "none")
 };
 
 function actualizaProgreso(paso){
