@@ -21,6 +21,9 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 from algoritmos import SelfTraining, DemocraticCoLearning
 from algoritmos import CoTraining
 
+with open("static/parametros.json") as f:
+    clasificadores = json.load(f)
+
 
 def get_locale():
     return request.accept_languages.best_match(['es', 'en'])
@@ -30,7 +33,6 @@ app = Flask(__name__)
 app.wsgi_app = ProxyFix(
     app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
 )
-
 
 babel = Babel(app, locale_selector=get_locale)
 
@@ -78,8 +80,6 @@ def configurar_algoritmo(algoritmo=None):
         return redirect(url_for('subida'))
 
     dl = DatasetLoader(session['FICHERO'])
-    with open("static/parametros.json") as f:
-        clasificadores = json.load(f)
 
     return render_template(algoritmo + 'config.html', caracteristicas=dl.get_allfeatures(),
                            clasificadores=list(clasificadores.keys()), parametros=clasificadores)
@@ -91,11 +91,7 @@ def selftraining():
         flash("Debe seleccionar los parámetros del algoritmo")
         return redirect(url_for('configurar_algoritmo', algoritmo='selftraining'))
 
-    with open("static/parametros.json") as f:
-        clasificadores = json.load(f)
-
     clasificador = request.form['clasificador']
-    parametros_clasificador = clasificadores[clasificador]
 
     params = [
         {"nombre": "clasificador", "valor": request.form['clasificador']},
@@ -110,8 +106,8 @@ def selftraining():
         {"nombre": "p_test", "valor": request.form.get('p_test', -1)},
     ]
 
-    for key in parametros_clasificador.keys():
-        params.append({"nombre": key, "valor": request.form.get(key, -1)})
+    for key in clasificadores[clasificador].keys():
+        params.append({"nombre": "clasificador_" + key, "valor": request.form.get("clasificador_" + key, -1)})
 
     return render_template('selftraining.html',
                            params=params,
@@ -125,19 +121,34 @@ def cotraining():
         flash("Debe seleccionar los parámetros del algoritmo")
         return redirect(url_for('configurar_algoritmo', algoritmo='cotraining'))
 
-    params = {"p": request.form.get('p', -1),
-              "n": request.form.get('n', -1),
-              "u": request.form.get('u', -1),
-              "n_iter": request.form.get('n_iter'),
-              "target": request.form.get('target'),
-              "cx": request.form.get('cx', 'C1'),
-              "cy": request.form.get('cy', 'C2'),
-              "pca": request.form.get('pca', 'off'),
-              "p_unlabelled": request.form.get('p_unlabelled', -1),
-              "p_test": request.form.get('p_test', -1)
-              }
+    clasificador1 = request.form['clasificador1']
+    clasificador2 = request.form['clasificador2']
 
-    return render_template('cotraining.html', **params)
+    params = [
+        {"nombre": "clasificador1", "valor": request.form['clasificador1']},
+        {"nombre": "clasificador2", "valor": request.form['clasificador2']},
+        {"nombre": "p", "valor": request.form.get('p', -1)},
+        {"nombre": "n", "valor": request.form.get('n', -1)},
+        {"nombre": "u", "valor": request.form.get('u', -1)},
+        {"nombre": "n_iter", "valor": request.form.get('n_iter')},
+        {"nombre": "target", "valor": request.form.get('target')},
+        {"nombre": "cx", "valor": request.form.get('cx', 'C1')},
+        {"nombre": "cy", "valor": request.form.get('cy', 'C2')},
+        {"nombre": "pca", "valor": request.form.get('pca', 'off')},
+        {"nombre": "p_unlabelled", "valor": request.form.get('p_unlabelled', -1)},
+        {"nombre": "p_test", "valor": request.form.get('p_test', -1)},
+    ]
+
+    for key in clasificadores[clasificador1].keys():
+        params.append({"nombre": "clasificador1_" + key, "valor": request.form.get("clasificador1_" + key, -1)})
+
+    for key in clasificadores[clasificador2].keys():
+        params.append({"nombre": "clasificador2_" + key, "valor": request.form.get("clasificador2_" + key, -1)})
+
+    return render_template('cotraining.html',
+                           params=params,
+                           cx=request.form.get('cx', 'C1'),
+                           cy=request.form.get('cy', 'C2'))
 
 
 @app.route('/democraticcolearning', methods=['GET', 'POST'])
@@ -146,38 +157,40 @@ def democraticcolearning():
         flash("Debe seleccionar los parámetros del algoritmo")
         return redirect(url_for('configurar_algoritmo', algoritmo='democraticcolearning'))
 
-    params = {"clasificador1": request.form['clasificador1'],
-              "clasificador2": request.form['clasificador2'],
-              "clasificador3": request.form['clasificador3'],
-              "target": request.form.get('target'),
-              "cx": request.form.get('cx', 'C1'),
-              "cy": request.form.get('cy', 'C2'),
-              "pca": request.form.get('pca', 'off'),
-              "p_unlabelled": request.form.get('p_unlabelled', -1),
-              "p_test": request.form.get('p_test', -1)
-              }
+    clasificador1 = request.form['clasificador1']
+    clasificador2 = request.form['clasificador2']
+    clasificador3 = request.form['clasificador3']
 
-    return render_template('democraticcolearning.html', **params)
+    params = [
+        {"nombre": "clasificador1", "valor": request.form['clasificador1']},
+        {"nombre": "clasificador2", "valor": request.form['clasificador2']},
+        {"nombre": "clasificador3", "valor": request.form['clasificador3']},
+        {"nombre": "target", "valor": request.form.get('target')},
+        {"nombre": "cx", "valor": request.form.get('cx', 'C1')},
+        {"nombre": "cy", "valor": request.form.get('cy', 'C2')},
+        {"nombre": "pca", "valor": request.form.get('pca', 'off')},
+        {"nombre": "p_unlabelled", "valor": request.form.get('p_unlabelled', -1)},
+        {"nombre": "p_test", "valor": request.form.get('p_test', -1)},
+    ]
+
+    for key in clasificadores[clasificador1].keys():
+        params.append({"nombre": "clasificador1_" + key, "valor": request.form.get("clasificador1_" + key, -1)})
+
+    for key in clasificadores[clasificador2].keys():
+        params.append({"nombre": "clasificador2_" + key, "valor": request.form.get("clasificador2_" + key, -1)})
+
+    for key in clasificadores[clasificador3].keys():
+        params.append({"nombre": "clasificador3_" + key, "valor": request.form.get("clasificador3_" + key, -1)})
+
+    return render_template('democraticcolearning.html',
+                           params=params,
+                           cx=request.form.get('cx', 'C1'),
+                           cy=request.form.get('cy', 'C2'))
 
 
 @app.route('/selftrainingd', methods=['GET', 'POST'])
 def datosselftraining():
     clasificador = request.form['clasificador']
-
-    with open("static/parametros.json") as f:
-        clasificadores = json.load(f)
-
-    parametros_clasificador = {}
-    for key in clasificadores[clasificador].keys():
-        parametro = clasificadores[clasificador][key]
-        if parametro["type"] == "number" and parametro["step"] == 0.1:
-            p = float(request.form[key])
-            parametros_clasificador[key] = p
-        elif parametro["type"] == "number" and parametro["step"] == 1:
-            p = int(request.form[key])
-            parametros_clasificador[key] = p
-        else:
-            parametros_clasificador[key] = request.form[key]
 
     n = int(request.form['n'])
     th = float(request.form['th'])
@@ -188,14 +201,7 @@ def datosselftraining():
     p_unlabelled = float(request.form['p_unlabelled'])
     p_test = float(request.form['p_test'])
 
-    clf = SVC(kernel='rbf',
-              probability=True,
-              C=1.0,
-              gamma='scale',
-              random_state=0
-              )
-
-    st = SelfTraining(clf=obtener_clasificador(clasificador, parametros_clasificador),
+    st = SelfTraining(clf=obtener_clasificador(clasificador, obtener_parametros(clasificador, "clasificador")),
                       n=n if n != -1 else None,
                       th=th if th != -1 else None,
                       n_iter=n_iter)
@@ -228,6 +234,9 @@ def datosselftraining():
 
 @app.route('/cotrainingd', methods=['GET', 'POST'])
 def datoscotraining():
+    clasificador1 = request.form['clasificador1']
+    clasificador2 = request.form['clasificador2']
+
     p = int(request.form['p'])
     n = int(request.form['n'])
     u = int(request.form['u'])
@@ -238,21 +247,8 @@ def datoscotraining():
     p_unlabelled = float(request.form['p_unlabelled'])
     p_test = float(request.form['p_test'])
 
-    clf1 = SVC(kernel='rbf',
-               probability=True,
-               C=1.0,
-               gamma='scale',
-               random_state=0
-               )
-    clf2 = SVC(kernel='rbf',
-               probability=True,
-               C=1.0,
-               gamma='scale',
-               random_state=0
-               )
-
-    ct = CoTraining(clf1=clf1,
-                    clf2=clf2,
+    ct = CoTraining(clf1=obtener_clasificador(clasificador1, obtener_parametros(clasificador1, "clasificador1")),
+                    clf2=obtener_clasificador(clasificador2, obtener_parametros(clasificador2, "clasificador2")),
                     p=p,
                     n=n,
                     u=u,
@@ -288,15 +284,16 @@ def datosdemocraticcolearning():
     clasificador1 = request.form['clasificador1']
     clasificador2 = request.form['clasificador2']
     clasificador3 = request.form['clasificador3']
+
     cx = request.form['cx']
     cy = request.form['cy']
     pca = request.form['pca']
     p_unlabelled = float(request.form['p_unlabelled'])
     p_test = float(request.form['p_test'])
 
-    clf1 = obtener_clasificador(clasificador1)
-    clf2 = obtener_clasificador(clasificador2)
-    clf3 = obtener_clasificador(clasificador3)
+    clf1 = obtener_clasificador(clasificador1, obtener_parametros(clasificador1, "clasificador1"))
+    clf2 = obtener_clasificador(clasificador2, obtener_parametros(clasificador2, "clasificador2"))
+    clf3 = obtener_clasificador(clasificador3, obtener_parametros(clasificador3, "clasificador3"))
 
     dcl = DemocraticCoLearning([clf1, clf2, clf3])
 
@@ -331,6 +328,22 @@ def nombredataset(text):
     eliminando la ruta completa"""
 
     return re.split(r"-|\\", text)[1]
+
+
+def obtener_parametros(clasificador, nombre):
+    parametros_clasificador = {}
+    for key in clasificadores[clasificador].keys():
+        parametro = clasificadores[clasificador][key]
+        if parametro["type"] == "number" and parametro["step"] == 0.1:
+            p = float(request.form[nombre + "_" + key])
+            parametros_clasificador[key] = p
+        elif parametro["type"] == "number" and parametro["step"] == 1:
+            p = int(request.form[nombre + "_" + key])
+            parametros_clasificador[key] = p
+        else:
+            parametros_clasificador[key] = request.form[nombre + "_" + key]
+
+    return parametros_clasificador
 
 
 def obtener_clasificador(nombre, params):

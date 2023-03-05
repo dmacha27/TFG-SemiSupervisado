@@ -9,19 +9,14 @@
 {% block scripts %}
     <script type="text/javascript" src="/static/grafico_democraticcolearning.js"></script>
     <script>
-        let elementos = [
-            { nombre: "clasificador1", valor: "{{ clasificador1 }}" },
-            { nombre: "clasificador2", valor: "{{ clasificador2 }}" },
-            { nombre: "clasificador3", valor: "{{ clasificador3 }}" },
-            { nombre: "target", valor: "{{ target }}" },
-            { nombre: "cx", valor: "{{ cx }}" },
-            { nombre: "cy", valor: "{{ cy }}" },
-            { nombre: "pca", valor: "{{ pca }}" },
-            { nombre: "no_etiquetados", valor: "{{ no_etiquetados }}" },
-            { nombre: "p_unlabelled", valor: {{ p_unlabelled }} },
-            { nombre: "p_test", valor: "{{ p_test }}" }
-        ];
+        let elementos = [];
+
+        {% for param in params %}
+            elementos.push({nombre: "{{ param.nombre }}", valor: "{{ param.valor }}"});
+        {% endfor %}
+
         let cx = "{{ cx }}", cy = "{{ cy }}";
+
         inicializar("/{{ session['ALGORITMO'] }}d", elementos).then(function (datos) {
             inicializarGrafico(datos, preparardataset,databinding);
         });

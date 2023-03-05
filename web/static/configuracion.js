@@ -12,7 +12,7 @@ function componentesPCA(checked,x,y){
     }
 }
 
-function generarFormParametros(algoritmo, div) {
+function generarFormParametros(algoritmo, div, div_clasificador) {
     const parametros = Object.keys(todos_parametros[algoritmo]);
     div.innerHTML = '';
 
@@ -25,7 +25,7 @@ function generarFormParametros(algoritmo, div) {
         if (parametro.type === 'select') {
             const select = document.createElement('select');
             select.classList.add('form-select');
-            select.name = p;
+            select.name = div_clasificador + "_" +p;
 
             for (const opcion of parametro.options) {
                 const option = document.createElement('option');
@@ -41,7 +41,7 @@ function generarFormParametros(algoritmo, div) {
             const input = document.createElement('input');
             input.type = parametro.type;
             input.step = parametro.step
-            input.name = p;
+            input.name = div_clasificador + "_" +p;
             input.classList.add('form-control');
             input.value = parametro.default;
             div.appendChild(label);
@@ -49,7 +49,6 @@ function generarFormParametros(algoritmo, div) {
         }
 
     }
-    div.appendChild(document.createElement('br'));
 }
 
 function validarNumeroEntero(id,min,max) {
