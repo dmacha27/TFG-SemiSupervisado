@@ -5,18 +5,18 @@ rep.on("click",reproducir);
 let clf_forma;
 let puntos;
 
-function obtenerSimbolo(d){
-    if(d[4] === -1 || clf_forma.indexOf(d[4]) === 0){ return d3.symbolCircle
-    } else if (clf_forma.indexOf(d[4]) === 1){ return d3.symbolCross
-    } else if (clf_forma.indexOf(d[4]) === 2){ return d3.symbolTriangle
-    } else if (clf_forma.indexOf(d[4]) === 3){ return d3.symbolSquare
+function obtenerSimbolo(clf){
+    if(clf === -1 || clf_forma.indexOf(clf) === 0){ return d3.symbolCircle
+    } else if (clf_forma.indexOf(clf) === 1){ return d3.symbolCross
+    } else if (clf_forma.indexOf(clf) === 2){ return d3.symbolTriangle
+    } else if (clf_forma.indexOf(clf) === 3){ return d3.symbolSquare
     }}
 
-function obtenerSimboloUnicode(d){
-    if(d[4] === -1 || clf_forma.indexOf(d[4]) === 0){ return "&#9679"
-    } else if (clf_forma.indexOf(d[4]) === 1){ return "&#128934"
-    } else if (clf_forma.indexOf(d[4]) === 2){ return "&#9650"
-    } else if (clf_forma.indexOf(d[4]) === 3){ return "&#9632"
+function obtenerSimboloUnicode(clf){
+    if(clf === -1 || clf_forma.indexOf(clf) === 0){ return "&#9679"
+    } else if (clf_forma.indexOf(clf) === 1){ return "&#128934"
+    } else if (clf_forma.indexOf(clf) === 2){ return "&#9650"
+    } else if (clf_forma.indexOf(clf) === 3){ return "&#9632"
     }}
 
 function puntos_en_x_y(x,y) {
@@ -25,56 +25,11 @@ function puntos_en_x_y(x,y) {
     })
 }
 
-function expandir_puntos(x,y, nuevas_posiciones) {
-    graficosvg.selectAll('path[id=multi' +
-        gx(x).toString().replace(".","") +
-        gy(y).toString().replace(".","") +']')
-        .style("opacity", 0)
-
-    let seleccionados = puntos.filter(function(d) {
-        return d[0] === x && d[1] === y;
-    })
-
-    seleccionados = seleccionados._groups[0]
-
-    for (let i = 0; i < seleccionados.length; i++) {
-        let d = seleccionados[i].__data__
-        graficosvg.append("path")
-            .attr("id","eliminar")
-            .attr("transform","translate(" + gx(x + nuevas_posiciones[i])  + "," + (gy(y)) + ")")
-            .attr("d", simbolos.type(obtenerSimbolo(d)).size(35))
-            .style("fill", function () {
-                if (d[3] <= cont && d[2] !== -1){
-                    return color(d[2])
-                }else{
-                    return "grey"
-                }
-            })
-            .style("pointer-events","none")
-    }
-}
-
-function reducir_puntos(x,y) {
-    puntos.filter(function(d) {
-        return d[0] === x && d[1] === y;
-    }).style("opacity", 1)
-
-    graficosvg.selectAll('path[id=eliminar]')
-        .remove();
-
-}
-
 const mousemove = function(e, dot) {
     d3.select(".tooltip")
         .html(function() {
             let puntos_posicion = []
             puntos_posicion = puntos_en_x_y(dot[0], dot[1])._groups[0];
-
-            if (puntos_posicion.length === 2){
-                expandir_puntos(dot[0], dot[1], [-0.1,0.1])
-            }else if (puntos_posicion.length === 3){
-                expandir_puntos(dot[0], dot[1], [-0.15,0,0.15])
-            }
 
             let cadena_tooltip = "";
 
@@ -86,7 +41,7 @@ const mousemove = function(e, dot) {
                     if (p_data[3] === 0){
                         cadena_tooltip += traducir('Initial data') + "<br>" + cx +": " + p_data[0] +"<br>" + cy + ": " + p_data[1] + "<br>" + traducir('Label') + ": " + mapa[p_data[2]];
                     }else {
-                        cadena_tooltip += cx +": " + p_data[0] +"<br>" + cy + ": " + p_data[1] +"<br>" + traducir('Classifier') + ": " + obtenerSimboloUnicode(p_data) + p_data[4] + "<br>" + traducir('Label') + ": " + mapa[p_data[2]];
+                        cadena_tooltip += cx +": " + p_data[0] +"<br>" + cy + ": " + p_data[1] +"<br>" + traducir('Classifier') + ": " + obtenerSimboloUnicode(p_data[4]) + p_data[4] + "<br>" + traducir('Label') + ": " + mapa[p_data[2]];
                     }
                 } else {
                     cadena_tooltip += cx +": " + p_data[0] +"<br>" + cy + ": " + p_data[1] +"<br>" + traducir('Classifier: Not classified') + "<br>" + traducir('Label: Not classified');
@@ -103,18 +58,6 @@ const mouseleave_democratic = function(e, dot) {
     d3.select(".tooltip")
         .style("stroke", "none")
         .style("display", "none")
-
-    graficosvg.selectAll('path[id=multi' +
-        gx(dot[0]).toString().replace(".","") +
-        gy(dot[1]).toString().replace(".","") +']')
-        .style("opacity", 1)
-
-    let puntos_posicion = []
-    puntos_posicion = puntos_en_x_y(dot[0], dot[1])._groups[0];
-    if (puntos_posicion.length > 1){
-        reducir_puntos(dot[0], dot[1])
-    }
-
 };
 
 function preparardataset(datos) {
@@ -155,7 +98,7 @@ function databinding(dataset){
             return "translate(" + gx(d[0]) + "," + gy(d[1]) + ")";
         })
         .style("fill", function (d) {
-            if (d[4] === "inicio") { // Si solo tiene un elemento es dato inicial
+            if (d[4] === "inicio") {
                 return color(d[2]);
             } else {
                 return "grey";
@@ -164,33 +107,6 @@ function databinding(dataset){
         .on("mouseover", mouseover)
         .on("mousemove", function(e) { mousemove(e, d3.select(this).datum()); })
         .on("mouseleave", function(e) { mouseleave_democratic(e, d3.select(this).datum()); })
-
-    puntos.each(function(d) {
-        let puntos_posicion = []
-        puntos_posicion = puntos_en_x_y(d[0], d[1])._groups[0];
-
-        if (puntos_posicion.length > 1){
-            d3.select(this).style("display", "none")
-            if (graficosvg.selectAll('path[id=multi' +
-                gx(d[0]).toString().replace(".","") +
-                gy(d[1]).toString().replace(".","") +']').empty()){
-
-                let datos = [d[0],d[1],d[2],d[3],d[4]]
-                graficosvg.append("path")
-                    .attr("id","multi" +
-                        gx(d[0]).toString().replace(".","") + gy(d[1]).toString().replace(".",""))
-                    .attr("transform","translate(" + gx(d[0])  + "," + (gy(d[1])) + ")")
-                    .attr("d", simbolos.type(d3.symbolStar).size(38))
-                    .style("fill", "black")
-                    .style("stroke", "transparent")
-                    .style("stroke-width", "3px")
-                    .on("mouseover", mouseover)
-                    .on("mousemove", function(e) { mousemove(e, datos); })
-                    .on("mouseleave", function(e) { mouseleave_democratic(e, datos); })
-            }
-        }
-
-    })
 }
 
 
@@ -215,7 +131,7 @@ function next(){
             .style("fill", function(d){ return color(d[2]);})
             .transition()
             .duration(0)
-            .attr("d", simbolos.type(function(d){return obtenerSimbolo(d)}).size(35))
+            .attr("d", simbolos.type(function(d){return obtenerSimbolo(d[4])}).size(35))
             .transition()
             .duration(300)
             .attr("d", simbolos.size(125))

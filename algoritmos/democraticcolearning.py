@@ -139,15 +139,14 @@ class DemocraticCoLearning:
                         1 - ((2 * (errors[index] + ei_prime)) / (len_li + len_li_prime))) ** 2
 
                 if qi_prime > qi:
-                    change = True
 
-                    # self.clf1.__class__.__name__
                     for x_id, x, y in zip(ls_prime_ids[index], ls_prime[index], ls_prime_y[index]):
                         if x_id in ls_new_ids[index]:
                             ls_y[index][ls_new_ids[index][x_id]] = y
                             log.loc[len(x_train) + x_id, 'iters'][index] = iteration + 1
                             log.loc[len(x_train) + x_id, 'targets'][index] = y
-                        else:
+                        else:  # Nueva etiqueta
+                            change = True
                             ls_new_ids[index][x_id] = len(ls[index])
                             log.loc[len(x_train) + x_id, 'iters'][index] = iteration + 1
                             log.loc[len(x_train) + x_id, 'targets'][index] = y
@@ -159,8 +158,8 @@ class DemocraticCoLearning:
             self.ws = ws
 
             iteration += 1
-
-        return log, iteration
+        print(log.to_string())
+        return log, iteration-1
 
     def predict(self, instances):
         """
