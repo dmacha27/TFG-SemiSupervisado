@@ -158,7 +158,7 @@ class DemocraticCoLearning:
             self.ws = ws
 
             iteration += 1
-        print(log.to_string())
+
         return log, iteration-1
 
     def predict(self, instances):
@@ -222,6 +222,18 @@ class DemocraticCoLearning:
         mean = (lower + upper) / 2
 
         return lower, upper, mean
+
+    def get_accuracy_score(self, x_test, y_test):
+        """
+        Obtiene la puntuación de exactitud del clasificador
+        respecto a unos datos de prueba
+
+        :param x_test: Conjunto de datos de test.
+        :param y_test: Objetivo de los datos.
+        :return: Exactitud
+        """
+
+        return accuracy_score(y_test, self.predict(x_test))
 
 
 if __name__ == '__main__':
