@@ -43,10 +43,12 @@ const mousemove = function(e, dot) {
                     }else {
                         cadena_tooltip += cx +": " + p_data[0] +"<br>" + cy + ": " + p_data[1] +"<br>" + traducir('Classifier') + ": " + obtenerSimboloUnicode(p_data[4]) + p_data[4] + "<br>" + traducir('Label') + ": " + mapa[p_data[2]];
                     }
-                } else {
-                    cadena_tooltip += cx +": " + p_data[0] +"<br>" + cy + ": " + p_data[1] +"<br>" + traducir('Classifier: Not classified') + "<br>" + traducir('Label: Not classified');
+                    cadena_tooltip += "<br>-------<br>";
+                } else if (p_data[2] === -1){
+                    cadena_tooltip += cx + ": " + p_data[0] + "<br>" + cy + ": " + p_data[1] + "<br>" + traducir('Classifier: Not classified') + "<br>" + traducir('Label: Not classified');
+                    cadena_tooltip += "<br>-------<br>";
                 }
-                cadena_tooltip += "<br>-------<br>";
+
             }
             return cadena_tooltip
         })
