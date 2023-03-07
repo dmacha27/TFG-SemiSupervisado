@@ -5,6 +5,8 @@
         <div id="general"></div>
         <br>
         <div id="checkboxes_general"></div>
+        <br><br>
+        <div id="especificas"></div>
     </div>
 {% endblock %}
 {% block scripts %}
@@ -23,7 +25,9 @@
 
             let stats = Object.keys(JSON.parse(datos.stats));
             generarcheckboxes("checkboxes_general", "general", stats);
-            generargraficoestadistico("general", datos, stats);
+            generargraficoestadistico("general", JSON.parse(datos.stats), stats);
+
+            generarespecificas("especificas", datos.specific_stats);
         });
     </script>
 {% endblock %}

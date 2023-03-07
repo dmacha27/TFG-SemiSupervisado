@@ -77,7 +77,11 @@ class DemocraticCoLearning:
             errors.append(0)
 
         iteration = 0
-        stats = pd.DataFrame(columns=['Accuracy', 'Precision', 'Error', 'F1_score', 'Recall'])
+        stat_columns = ['Accuracy', 'Precision', 'Error', 'F1_score', 'Recall']
+        stats = pd.DataFrame(columns=stat_columns)
+
+        specific_stats = {f"CLF{i + 1}({n.__class__.__name__})": pd.DataFrame(columns=stat_columns) for i, n in
+                          enumerate(self.clfs)}
 
         change = True
         while change:
@@ -85,6 +89,14 @@ class DemocraticCoLearning:
 
             for i, n in enumerate(self.clfs):
                 n.fit(ls[i], ls_y[i])
+
+            for i, n in enumerate(self.clfs):
+                clf_stat = specific_stats[f"CLF{i + 1}({n.__class__.__name__})"]
+                clf_stat.loc[len(clf_stat)] = [accuracy_score(y_test, n.predict(x_test)),
+                                               precision_score(y_test, n.predict(x_test), average='weighted'),
+                                               1 - accuracy_score(y_test, n.predict(x_test)),
+                                               f1_score(y_test, n.predict(x_test), average='weighted'),
+                                               recall_score(y_test, n.predict(x_test), average='weighted')]
 
             xs_cks = []
             votes = []
@@ -167,7 +179,7 @@ class DemocraticCoLearning:
 
             iteration += 1
 
-        return log, stats, iteration - 1
+        return log, stats, specific_stats, iteration - 1
 
     def predict(self, instances):
         """
@@ -280,7 +292,7 @@ if __name__ == '__main__':
     dl.set_target("Class")
     x, y, mapa, is_unlabelled = dl.get_x_y()
 
-    st = DemocraticCoLearning(clfs=[GaussianNB(), GaussianNB(), GaussianNB()])
+    st = DemocraticCoLearning(clfs=[DecisionTreeClassifier(), GaussianNB(), GaussianNB()])
 
     (
         x,

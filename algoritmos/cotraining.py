@@ -174,7 +174,6 @@ class CoTraining:
                                  self.get_f1_score(x_test, y_test),
                                  self.get_recall_score(x_test, y_test)]
 
-        print(stats.to_string())
         return log, stats, iteration
 
     def get_accuracy_score(self, x_test, y_test):
@@ -204,8 +203,8 @@ class CoTraining:
         """
         x1, x2 = np.array_split(x_test, 2, axis=1)
 
-        p1 = precision_score(y_test, self.clf1.predict(x1))
-        p2 = precision_score(y_test, self.clf2.predict(x2))
+        p1 = precision_score(y_test, self.clf1.predict(x1), average='weighted')
+        p2 = precision_score(y_test, self.clf2.predict(x2), average='weighted')
 
         return (p1 + p2) / 2
 

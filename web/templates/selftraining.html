@@ -24,7 +24,7 @@
 
             let stats = Object.keys(JSON.parse(datos.stats));
             generarcheckboxes("checkboxes_general", "general", stats);
-            generargraficoestadistico("general", datos, stats);
+            generargraficoestadistico("general", JSON.parse(datos.stats), stats);
         });
 
     </script>

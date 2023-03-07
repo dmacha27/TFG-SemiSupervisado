@@ -308,7 +308,7 @@ def datosdemocraticcolearning():
         y_test
     ) = data_split(x, y, is_unlabelled, p_unlabelled=p_unlabelled, p_test=p_test)
 
-    log, stats, iteration = dcl.fit(x, y, x_test, y_test, dl.get_only_features())
+    log, stats, specific_stats, iteration = dcl.fit(x, y, x_test, y_test, dl.get_only_features())
 
     if pca == 'on':
         _2d = log_pca_reduction(log, dl.get_only_features()).to_json()
@@ -318,6 +318,7 @@ def datosdemocraticcolearning():
     info = {'iterations': iteration,
             'log': _2d,
             'stats': stats.to_json(),
+            'specific_stats': {key: specific_stats[key].to_json() for key in specific_stats},
             'mapa': json.dumps(mapa)}
 
     return json.dumps(info)

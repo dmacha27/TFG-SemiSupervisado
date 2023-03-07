@@ -1,3 +1,86 @@
+function generarespecificas(id_div_especificas, specific_stats) {
+    let clasificadores = Object.keys(specific_stats);
+
+    let div_especificas = document.querySelector("#" + id_div_especificas);
+
+    // Crear selector para los algoritmos
+    let select = document.createElement("select");
+    select.setAttribute("id", "selector_clasificador");
+    select.setAttribute("class", "form-select");
+    select.style.width = "25%";
+    select.style.margin = "auto";
+
+
+    for (let i = 0; i < clasificadores.length; i++) {
+        let option = document.createElement("option");
+        option.value = clasificadores[i];
+        option.text = clasificadores[i];
+        select.appendChild(option);
+    }
+
+    select.addEventListener('change', (event) => {
+        seleccionarclasificador(event.target.value, clasificadores);
+    });
+
+    div_especificas.appendChild(select);
+
+    //Crear los contenedores donde irá cada gráfico específico
+    for (let i = 0; i < clasificadores.length; i++) {
+        let nombre_clasificador = clasificadores[i]
+            .replace("(","")
+            .replace(")","");
+
+        let div = document.createElement("div");
+        div.setAttribute("id", nombre_clasificador);
+        div.style.display = "none";
+
+        let div_especifico = document.createElement("div");
+        div_especifico.setAttribute("id", "especifico_" + nombre_clasificador);
+
+        let div_checkboxes = document.createElement("div");
+        div_checkboxes.setAttribute("id", "checkboxes_especifico_" + nombre_clasificador);
+        div.appendChild(div_especifico);
+        div.appendChild(div_checkboxes);
+
+        div_especificas.appendChild(div);
+
+    }
+
+    for (let i = 0; i < clasificadores.length; i++) {
+        let nombre_clasificador = clasificadores[i]
+            .replace("(","")
+            .replace(")","");
+
+        let id_div_especifico = "especifico_" + nombre_clasificador;
+        let id_div_checkboxes = "checkboxes_especifico_" + nombre_clasificador;
+
+        let datos_json = JSON.parse(specific_stats[clasificadores[i]]);
+        let stats = Object.keys(datos_json);
+
+        generarcheckboxes(id_div_checkboxes, id_div_especifico, stats)
+        generargraficoestadistico(id_div_especifico, datos_json, stats)
+    }
+
+    seleccionarclasificador(clasificadores[0], clasificadores);
+
+}
+
+function seleccionarclasificador(clasificador_seleccionado, lista_clasificadores) {
+
+    for (let i = 0; i < lista_clasificadores.length; i++) {
+        let nombre_clasificador = lista_clasificadores[i]
+            .replace("(","")
+            .replace(")","");
+        let div = document.querySelector("#" + nombre_clasificador);
+        if (clasificador_seleccionado === lista_clasificadores[i]){
+            div.style.display = "block";
+        }else{
+            div.style.display = "none";
+        }
+    }
+
+}
+
 function generarcheckboxes(id_div_objetivo, id_div_estadisticas, stats) {
     let div_objetivo = document.querySelector("#" + id_div_objetivo);
 
@@ -28,7 +111,7 @@ function generarcheckboxes(id_div_objetivo, id_div_estadisticas, stats) {
 }
 
 
-function generargraficoestadistico(id_div_objetivo, datos, stats) {
+function generargraficoestadistico(id_div_objetivo, datos_stats, stats) {
 
     let margin = {top: 10, right: 120, bottom: 40, left: 50},
         width = 950 - margin.left - margin.right,
@@ -95,17 +178,17 @@ function generargraficoestadistico(id_div_objetivo, datos, stats) {
     // Con el gráfico creado se dibuja cada estadística
     // vinculando los eventos
     for (let index in stats){
-        anadirestadistica(id_div_objetivo, datos, stats[index], color);
+        anadirestadistica(id_div_objetivo, datos_stats, stats[index], color);
     }
 
 }
 
-function anadirestadistica(id_div_objetivo, datos, stat, color) {
+function anadirestadistica(id_div_objetivo, datos_stats, stat, color) {
     let margin = {top: 10, right: 120, bottom: 40, left: 50},
         width = 950 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 
-    let lista = crearListaStat(JSON.parse(datos.stats), stat);
+    let lista = crearListaStat(datos_stats, stat);
 
     let statsvg = d3.select("#" + id_div_objetivo).select("svg").select("g");
 
