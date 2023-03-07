@@ -13,7 +13,7 @@ import pandas as pd
 import scipy
 
 from sklearn.datasets import load_breast_cancer, load_wine
-from sklearn.metrics import accuracy_score, precision_score
+from sklearn.metrics import accuracy_score, precision_score, f1_score, recall_score
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
@@ -77,6 +77,8 @@ class DemocraticCoLearning:
             errors.append(0)
 
         iteration = 0
+        stats = pd.DataFrame(columns=['iter', 'accuracy', 'precision', 'error', 'f1_score', 'recall'])
+
         change = True
         while change:
             change = False
@@ -157,9 +159,16 @@ class DemocraticCoLearning:
 
             self.ws = ws
 
+            stats.loc[len(stats)] = [iteration,
+                                     self.get_accuracy_score(x_test, y_test),
+                                     self.get_precision_score(x_test, y_test),
+                                     1 - self.get_accuracy_score(x_test, y_test),
+                                     self.get_f1_score(x_test, y_test),
+                                     self.get_recall_score(x_test, y_test)]
+
             iteration += 1
 
-        return log, iteration-1
+        return log, stats, iteration - 1
 
     def predict(self, instances):
         """
@@ -235,6 +244,37 @@ class DemocraticCoLearning:
 
         return accuracy_score(y_test, self.predict(x_test))
 
+    def get_precision_score(self, x_test, y_test):
+        """
+        Obtiene la puntuación de precisión del clasificador
+        respecto a unos datos de prueba
+
+        :param x_test: Conjunto de datos de test.
+        :param y_test: Objetivo de los datos.
+        :return: Precisión
+        """
+        return precision_score(y_test, self.predict(x_test), average="weighted")
+
+    def get_f1_score(self, x_test, y_test):
+        """
+        Obtiene el F1-Score
+
+        :param x_test: Conjunto de datos de test.
+        :param y_test: Objetivo de los datos.
+        :return: F1-Score
+        """
+        return f1_score(y_test, self.predict(x_test), average='weighted')
+
+    def get_recall_score(self, x_test, y_test):
+        """
+        Obtiene el recall
+
+        :param x_test: Conjunto de datos de test.
+        :param y_test: Objetivo de los datos.
+        :return: Recall
+        """
+        return recall_score(y_test, self.predict(x_test), average='weighted')
+
 
 if __name__ == '__main__':
     dl = DatasetLoader('utilidades/datasets/breast.w.arff')
@@ -251,6 +291,6 @@ if __name__ == '__main__':
     ) = data_split(x, y, is_unlabelled, p_unlabelled=0.85, p_test=0.8)
 
     log, _ = st.fit(x, y, x_test, y_test, dl.get_only_features())
-    print(log.to_string())
+
     pred = st.predict(x_test)
     print(accuracy_score(y_test, pred))

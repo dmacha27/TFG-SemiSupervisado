@@ -4,6 +4,16 @@
     <div class="text-center">
         <div id="graficoestadisticas"></div>
         <br>
+        <input id="chk_Precision"  type="checkbox" class="form-check-input" onclick="habilitar(this.checked,'Precision')" checked>
+        <label for="chk_Precision">Precision</label>
+        <input id="chk_Accuracy" type="checkbox" class="form-check-input" onclick="habilitar(this.checked,'Accuracy')">
+        <label for="chk_Accuracy">Accuracy</label>
+        <input id="chk_Error" type="checkbox" class="form-check-input" onclick="habilitar(this.checked,'Error')">
+        <label for="chk_Error">Error</label>
+        <input id="chk_F1_score" type="checkbox" class="form-check-input" onclick="habilitar(this.checked,'F1_score')">
+        <label id="chk_recall" for="chk_F1_score">F1-Score</label>
+        <input id="chk_Recall" type="checkbox" class="form-check-input" onclick="habilitar(this.checked,'Recall')">
+        <label for="chk_Recall">Recall</label>
     </div>
 {% endblock %}
 {% block scripts %}
@@ -19,6 +29,13 @@
 
         inicializar("/{{ session['ALGORITMO'] }}d", elementos).then(function (datos) {
             inicializarGrafico(datos, preparardataset,databinding);
+            let stats = ["Precision", "Accuracy", "Error", "F1_score", "Recall"]
+            let color = estadisticagenerica(stats);
+            anadirestadistica(datos, "Precision", color);
+            anadirestadistica(datos, "Accuracy", color);
+            anadirestadistica(datos, "Error", color);
+            anadirestadistica(datos, "F1_score", color);
+            anadirestadistica(datos, "Recall", color);
         });
     </script>
 {% endblock %}

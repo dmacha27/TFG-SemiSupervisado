@@ -56,7 +56,7 @@ class SelfTraining:
         :param x_test: Conjunto de test.
         :param y_test: Etiquetas de test.
         :param features: Nombre de las características de los datos (para el log).
-        :return: El log con la información de entrenamiento y el número de iteraciones
+        :return: El log con la información de entrenamiento, estadísticas y el número de iteraciones
                 realizadas.
         """
 

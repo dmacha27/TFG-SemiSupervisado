@@ -12,7 +12,7 @@ import numpy as np
 from sklearn.base import BaseEstimator
 
 from sklearn.datasets import load_breast_cancer, load_wine
-from sklearn.metrics import confusion_matrix, accuracy_score, f1_score, precision_score
+from sklearn.metrics import confusion_matrix, accuracy_score, f1_score, precision_score, recall_score
 from sklearn.svm import SVC
 
 from algoritmos.utilidades.common import obtain_train_unlabelled
@@ -71,7 +71,7 @@ class CoTraining:
         :param x_test: Conjunto de test.
         :param y_test: Etiquetas de test.
         :param features: Nombre de las características de los datos (para el log).
-        :return: El log con la información de entrenamiento y el número de iteraciones
+        :return: El log con la información de entrenamiento, estadísticas y el número de iteraciones
                 realizadas.
         """
 
@@ -83,7 +83,7 @@ class CoTraining:
         log['clf'] = 'inicio'
 
         iteration = 0
-        stats = pd.DataFrame(columns=['iter', 'accuracy', 'precision'])
+        stats = pd.DataFrame(columns=['iter', 'accuracy', 'precision', 'error', 'f1_score', 'recall'])
 
         ids = np.random.choice(len(x_u), size=self.u if self.u <= len(x_u) else len(x_u), replace=False)
         s_u_s = x_u[ids]  # Selected unlabelled samples
@@ -99,7 +99,10 @@ class CoTraining:
             self.clf2.fit(x2, y_train)
             stats.loc[len(stats)] = [iteration,
                                      self.get_accuracy_score(x_test, y_test),
-                                     self.get_precision_score(x_test, y_test)]
+                                     self.get_precision_score(x_test, y_test),
+                                     1 - self.get_accuracy_score(x_test, y_test),
+                                     self.get_f1_score(x_test, y_test),
+                                     self.get_recall_score(x_test, y_test)]
 
             x1_u, x2_u = np.array_split(s_u_s, 2, axis=1)
 
@@ -165,9 +168,13 @@ class CoTraining:
         rest['target'] = -1
         rest['clf'] = -1
         log = pd.concat([log, rest], ignore_index=True)
+
         stats.loc[len(stats)] = [iteration,
                                  self.get_accuracy_score(x_test, y_test),
-                                 self.get_precision_score(x_test, y_test)]
+                                 self.get_precision_score(x_test, y_test),
+                                 1 - self.get_accuracy_score(x_test, y_test),
+                                 self.get_f1_score(x_test, y_test),
+                                 self.get_recall_score(x_test, y_test)]
 
         return log, stats, iteration
 
@@ -203,32 +210,32 @@ class CoTraining:
 
         return (p1 + p2) / 2
 
+    def get_f1_score(self, x_test, y_test):
+        """
+        Obtiene el F1-Score
 
-if __name__ == '__main__':
-    dl = DatasetLoader('utilidades/datasets/breast.w.arff')
-    dl.set_target("Class")
-    x, y, mapa, is_unlabelled = dl.get_x_y()
+        :param x_test: Conjunto de datos de test.
+        :param y_test: Objetivo de los datos.
+        :return: F1-Score
+        """
+        x1, x2 = np.array_split(x_test, 2, axis=1)
 
-    st = CoTraining(clf1=SVC(kernel='rbf',
-                             probability=True,
-                             C=1.0,
-                             gamma='scale',
-                             random_state=0
-                             ),
-                    clf2=SVC(kernel='rbf',
-                             probability=True,
-                             C=1.0,
-                             gamma='scale',
-                             random_state=0
-                             ), p=1, n=3, u=5, n_iter=10)
+        f1_score1 = f1_score(y_test, self.clf1.predict(x1), average='weighted')
+        f1_score2 = f1_score(y_test, self.clf2.predict(x2), average='weighted')
 
-    (
-        x,
-        y,
-        x_test,
-        y_test
-    ) = data_split(x, y, is_unlabelled, p_unlabelled=0.8, p_test=0.2)
+        return (f1_score1 + f1_score2) / 2
 
-    log, stats = st.fit(x, y, x_test, y_test, dl.get_only_features())
+    def get_recall_score(self, x_test, y_test):
+        """
+        Obtiene el recall
 
-    print(st.get_accuracy_score(x_test, y_test))
+        :param x_test: Conjunto de datos de test.
+        :param y_test: Objetivo de los datos.
+        :return: Recall
+        """
+        x1, x2 = np.array_split(x_test, 2, axis=1)
+
+        r1 = recall_score(y_test, self.clf1.predict(x1), average='weighted')
+        r2 = recall_score(y_test, self.clf2.predict(x2), average='weighted')
+
+        return (r1 + r2) / 2
