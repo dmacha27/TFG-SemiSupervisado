@@ -77,7 +77,7 @@ class DemocraticCoLearning:
             errors.append(0)
 
         iteration = 0
-        stats = pd.DataFrame(columns=['iter', 'accuracy', 'precision', 'error', 'f1_score', 'recall'])
+        stats = pd.DataFrame(columns=['Accuracy', 'Precision', 'Error', 'F1_score', 'Recall'])
 
         change = True
         while change:
@@ -159,8 +159,7 @@ class DemocraticCoLearning:
 
             self.ws = ws
 
-            stats.loc[len(stats)] = [iteration,
-                                     self.get_accuracy_score(x_test, y_test),
+            stats.loc[len(stats)] = [self.get_accuracy_score(x_test, y_test),
                                      self.get_precision_score(x_test, y_test),
                                      1 - self.get_accuracy_score(x_test, y_test),
                                      self.get_f1_score(x_test, y_test),

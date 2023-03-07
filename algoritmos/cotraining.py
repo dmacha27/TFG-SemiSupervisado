@@ -83,7 +83,7 @@ class CoTraining:
         log['clf'] = 'inicio'
 
         iteration = 0
-        stats = pd.DataFrame(columns=['iter', 'accuracy', 'precision', 'error', 'f1_score', 'recall'])
+        stats = pd.DataFrame(columns=['Accuracy', 'Precision', 'Error', 'F1_score', 'Recall'])
 
         ids = np.random.choice(len(x_u), size=self.u if self.u <= len(x_u) else len(x_u), replace=False)
         s_u_s = x_u[ids]  # Selected unlabelled samples
@@ -97,8 +97,7 @@ class CoTraining:
 
             self.clf1.fit(x1, y_train)
             self.clf2.fit(x2, y_train)
-            stats.loc[len(stats)] = [iteration,
-                                     self.get_accuracy_score(x_test, y_test),
+            stats.loc[len(stats)] = [self.get_accuracy_score(x_test, y_test),
                                      self.get_precision_score(x_test, y_test),
                                      1 - self.get_accuracy_score(x_test, y_test),
                                      self.get_f1_score(x_test, y_test),
@@ -169,13 +168,13 @@ class CoTraining:
         rest['clf'] = -1
         log = pd.concat([log, rest], ignore_index=True)
 
-        stats.loc[len(stats)] = [iteration,
-                                 self.get_accuracy_score(x_test, y_test),
+        stats.loc[len(stats)] = [self.get_accuracy_score(x_test, y_test),
                                  self.get_precision_score(x_test, y_test),
                                  1 - self.get_accuracy_score(x_test, y_test),
                                  self.get_f1_score(x_test, y_test),
                                  self.get_recall_score(x_test, y_test)]
 
+        print(stats.to_string())
         return log, stats, iteration
 
     def get_accuracy_score(self, x_test, y_test):

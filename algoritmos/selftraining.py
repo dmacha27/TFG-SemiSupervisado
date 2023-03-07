@@ -67,14 +67,13 @@ class SelfTraining:
         log['target'] = y_train
 
         iteration = 0
-        stats = pd.DataFrame(columns=['iter', 'accuracy', 'precision', 'error', 'f1_score', 'recall'])
+        stats = pd.DataFrame(columns=['Accuracy', 'Precision', 'Error', 'F1_score', 'Recall'])
 
         while len(x_u) and (
                 iteration < self.n_iter or not self.n_iter):  # Criterio generalmente seguido
 
             self.clf.fit(x_train, y_train)
-            stats.loc[len(stats)] = [iteration,
-                                     self.get_accuracy_score(x_test, y_test),
+            stats.loc[len(stats)] = [self.get_accuracy_score(x_test, y_test),
                                      self.get_precision_score(x_test, y_test),
                                      1 - self.get_accuracy_score(x_test, y_test),
                                      self.get_f1_score(x_test, y_test),
@@ -115,8 +114,7 @@ class SelfTraining:
         rest['target'] = -1
         log = pd.concat([log, rest], ignore_index=True)
 
-        stats.loc[len(stats)] = [iteration,
-                                 self.get_accuracy_score(x_test, y_test),
+        stats.loc[len(stats)] = [self.get_accuracy_score(x_test, y_test),
                                  self.get_precision_score(x_test, y_test),
                                  1 - self.get_accuracy_score(x_test, y_test),
                                  self.get_f1_score(x_test, y_test),

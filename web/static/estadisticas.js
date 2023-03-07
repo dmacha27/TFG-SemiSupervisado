@@ -1,18 +1,45 @@
+function generarcheckboxes(id_div_objetivo, id_div_estadisticas, stats) {
+    let div_objetivo = document.querySelector("#" + id_div_objetivo);
 
-function estadisticagenerica(stats) {
+    for (let index in stats){
+        let stat = stats[index];
+
+        let input = document.createElement("input");
+        input.setAttribute("id", "chk_" + id_div_estadisticas + "_" + stat);
+        input.setAttribute("type", "checkbox");
+        input.setAttribute("class", "form-check-input");
+        if (index === "0"){
+            input.checked = true;
+        }
+
+        input.addEventListener("click", function() {
+            habilitar(id_div_estadisticas, this.checked, stat);
+        });
+
+        let label = document.createElement("label");
+        label.setAttribute("for", "chk_" + id_div_estadisticas + "_" + stat);
+        label.textContent = stat;
+
+        div_objetivo.appendChild(input);
+        div_objetivo.appendChild(label);
+        div_objetivo.append(" ");
+    }
+
+}
+
+
+function generargraficoestadistico(id_div_objetivo, datos, stats) {
 
     let margin = {top: 10, right: 120, bottom: 40, left: 50},
         width = 950 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 
-
-    let statsvg = d3.select("#graficoestadisticas")
+    let statsvg = d3.select("#" + id_div_objetivo)
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-        .style("display", "block")
         .style("margin", "auto");
 
     let statx = d3.scaleLinear()
@@ -64,17 +91,23 @@ function estadisticagenerica(stats) {
         .style("alignment-baseline", "top")
         .attr("transform", "translate(" + (width -110) + "," + -90 + ")");
 
-    return color
+
+    // Con el gráfico creado se dibuja cada estadística
+    // vinculando los eventos
+    for (let index in stats){
+        anadirestadistica(id_div_objetivo, datos, stats[index], color);
+    }
+
 }
 
-function anadirestadistica(datos, stat, color) {
-    let lista = crearListaStat(JSON.parse(datos.stats),stat);
-
-    let margin = {top: 10, right: 30, bottom: 40, left: 60},
-        width = 850 - margin.left - margin.right,
+function anadirestadistica(id_div_objetivo, datos, stat, color) {
+    let margin = {top: 10, right: 120, bottom: 40, left: 50},
+        width = 950 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 
-    let statsvg = d3.select("#graficoestadisticas").select("svg").select("g");
+    let lista = crearListaStat(JSON.parse(datos.stats), stat);
+
+    let statsvg = d3.select("#" + id_div_objetivo).select("svg").select("g");
 
     let statx = d3.scaleLinear()
         .domain([0, maxit])
@@ -88,23 +121,27 @@ function anadirestadistica(datos, stat, color) {
         .data(lista)
         .enter()
         .append("circle")
-        .attr("id", stat)
-        .attr("cx", function (d) { return statx(d[0]); } )
-        .attr("cy", function (d) { return staty(d[1]); } )
+        .attr("id", id_div_objetivo + "_" + stat)
+        .attr("cx", function (d) {
+            return statx(d[0]);
+        })
+        .attr("cy", function (d) {
+            return staty(d[1]);
+        })
         .attr("r", 5)
         .attr("fill", color(stat))
         .style("visibility", function (d) {
-            if (d[0] <= cont && comprobarvisibilidad(stat)){
+            if (d[0] <= cont && comprobarvisibilidad(id_div_objetivo, stat)) {
                 return "visible";
-            }else{
+            } else {
                 return "hidden";
             }
         })
 
     for (let i = 0; i < lista.length - 1; i++) {
         statsvg.append("line")
-            .data([i+1])
-            .attr("id", stat)
+            .data([i + 1])
+            .attr("id", id_div_objetivo + "_" + stat)
             .attr("x1", statx(i))
             .attr("y1", staty(lista[i][1]))
             .attr("x2", statx(i + 1))
@@ -112,22 +149,22 @@ function anadirestadistica(datos, stat, color) {
             .attr("stroke", color(stat))
             .attr("stroke-width", 1.5)
             .style("display", function (d) {
-                if (d < cont && comprobarvisibilidad(stat)){
+                if (d < cont && comprobarvisibilidad(id_div_objetivo, stat)) {
                     return "block";
-                }else{
+                } else {
                     return "none";
                 }
             })
     }
 
-    let lineas = statsvg.selectAll('line[id='+stat+']');
+    let lineas = statsvg.selectAll('line[id=' + id_div_objetivo + '_' + stat + ']');
 
     document.addEventListener('next', next);
     document.addEventListener('prev', prev);
 
 
     function next() {
-        if(comprobarvisibilidad(stat)) {
+        if (comprobarvisibilidad(id_div_objetivo, stat)) {
             pts.filter(function (d) {
                 return d[0] === cont;
             })
@@ -149,7 +186,7 @@ function anadirestadistica(datos, stat, color) {
     }
 
     function prev() {
-        pts.filter(function(d) {
+        pts.filter(function (d) {
             return d[0] > cont;
         })
             .style("visibility", "hidden")
@@ -164,7 +201,7 @@ function anadirestadistica(datos, stat, color) {
 
 function crearListaStat(stats,stat){
     let lista = [];
-    let aux = stats[stat.toLowerCase()];
+    let aux = stats[stat];
 
     for (let i = 0; i <= maxit; i++) {
         lista.push([i,aux[i]]);
@@ -173,10 +210,11 @@ function crearListaStat(stats,stat){
     return lista;
 }
 
-function habilitar(checked,stat) {
-    let statsvg = d3.select("#graficoestadisticas").select("svg").select("g");
-    let pts = statsvg.selectAll('circle[id='+stat+']');
-    let lineas = statsvg.selectAll('line[id='+stat+']');
+function habilitar(id_div_objetivo, checked, stat) {
+    let statsvg = d3.select("#" + id_div_objetivo).select("svg").select("g");
+    let pts = statsvg.selectAll('circle[id='+ id_div_objetivo + '_' + stat +']');
+    let lineas = statsvg.selectAll('line[id='+ id_div_objetivo + '_' + stat +']');
+
     if(checked){
         pts.filter(function(d) {
             return d[0] <= cont;
@@ -193,7 +231,7 @@ function habilitar(checked,stat) {
     }
 }
 
-function comprobarvisibilidad(stat) {
-    let check = document.getElementById("chk_" + stat);
+function comprobarvisibilidad(id_div_objetivo, stat) {
+    let check = document.getElementById("chk_" + id_div_objetivo + "_" + stat);
     return check.checked;
 }
