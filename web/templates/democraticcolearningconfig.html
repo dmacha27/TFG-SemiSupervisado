@@ -2,37 +2,46 @@
 {%  from "macros.html" import formulario_comun %}
 {% block parametros %}
     <form action="{{ url_for('democraticcolearning') }}" method="POST">
-        <div class="mb-3">
-            <label for="clasificador1">{{ gettext('Select classifier') }}:</label>
-            <select class="form-select" id="clasificador1" name="clasificador1" required>
-                {% for c in clasificadores %}
-                    <option value="{{c}}">{{c}}</option>
-                {% endfor %}
-            </select>
+        <div class="row">
+            <div class="col-md">
+                <div class="mb-3">
+                    <label for="clasificador1">{{ gettext('Select classifier') }}:</label>
+                    <select class="form-select" id="clasificador1" name="clasificador1" required>
+                        {% for c in clasificadores %}
+                            <option value="{{c}}">{{c}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div id="parametros1" style="border: 1px solid black; padding: 5px;"></div>
+                <br>
+                <div class="mb-3">
+                    <label for="clasificador2">{{ gettext('Select classifier') }}:</label>
+                    <select class="form-select" id="clasificador2" name="clasificador2" required>
+                        {% for c in clasificadores %}
+                            <option value="{{c}}">{{c}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div id="parametros2" style="border: 1px solid black; padding: 5px;"></div>
+                <br>
+                <div class="mb-3">
+                    <label for="clasificador3">{{ gettext('Select classifier') }}:</label>
+                    <select class="form-select" id="clasificador3" name="clasificador3" required>
+                        {% for c in clasificadores %}
+                            <option value="{{c}}">{{c}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div id="parametros3" style="border: 1px solid black; padding: 5px;"></div>
+            </div>
+            <div class="col-md">
+                {{ formulario_comun(caracteristicas) }}
+            </div>
         </div>
-        <div id="parametros1" style="border: 1px solid black; padding: 5px;"></div>
         <br>
-        <div class="mb-3">
-            <label for="clasificador2">{{ gettext('Select classifier') }}:</label>
-            <select class="form-select" id="clasificador2" name="clasificador2" required>
-                {% for c in clasificadores %}
-                    <option value="{{c}}">{{c}}</option>
-                {% endfor %}
-            </select>
+        <div class="row">
+            <button type="submit" class="btn btn-primary" style="margin: auto; width: 50%">{{ gettext('Run') }}</button>
         </div>
-        <div id="parametros2" style="border: 1px solid black; padding: 5px;"></div>
-        <br>
-        <div class="mb-3">
-            <label for="clasificador3">{{ gettext('Select classifier') }}:</label>
-            <select class="form-select" id="clasificador3" name="clasificador3" required>
-                {% for c in clasificadores %}
-                    <option value="{{c}}">{{c}}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div id="parametros3" style="border: 1px solid black; padding: 5px;"></div>
-        <br>
-        {{ formulario_comun(caracteristicas) }}
     </form>
 
     <script>

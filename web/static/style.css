@@ -6,7 +6,7 @@
 footer {
     background-color: #555;
     color: white;
-    padding: 10px;
+    padding: 20px;
 }
 
 .card {
@@ -30,10 +30,9 @@ footer {
     align-items: center;
     justify-content: center;
     border: 2px dashed;
-    width: 550px;
-    height: 400px;
     line-height: 50px;
     margin: 0 auto;
+    padding: 10vh;
 }
 
 .cargando {

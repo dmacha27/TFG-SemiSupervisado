@@ -36,16 +36,15 @@
 
 {% block content %}{% endblock %}
 
-
-<footer class="container-fluid text-center">
-    {% with mensajes = get_flashed_messages() %}
-        {% if mensajes %}
-            {% for mensaje in mensajes|reverse %}
-                <p style="background-color: gold; color: black;"> {{ loop.index }} - {{ mensaje }}</p>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-    <p>{{ gettext('University of Burgos') }}</p>
+{% with mensajes = get_flashed_messages() %}
+    {% if mensajes %}
+        {% for mensaje in mensajes|reverse %}
+            <p style="background-color: gold; color: black; margin:0; text-align: center;"> {{ loop.index }} - {{ mensaje }}</p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<footer class="text-center">
+    Universidad de Burgos
 </footer>
 
 </body>
