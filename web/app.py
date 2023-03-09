@@ -42,6 +42,13 @@ app.config['CARPETA_DATASETS'] = 'datasets'
 app.config['SESSION_TYPE'] = 'filesystem'
 
 
+@app.context_processor
+def variables_globales():
+    return {'titulos': {'selftraining': 'Self-Training',
+                        'cotraining': 'Co-Training',
+                        'democraticcolearning': 'Democratic Co-Learning'}}
+
+
 @app.route('/', methods=['GET'])
 def inicio():
     session.pop('ALGORITMO', None)

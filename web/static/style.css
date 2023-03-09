@@ -24,6 +24,12 @@ footer {
     height: 100%;
 }
 
+.parametros {
+    border: 2px dotted black;
+    border-radius: 2%;
+    padding: 5px;"
+}
+
 #soltar {
     display: flex;
     flex-direction: column;

@@ -37,3 +37,12 @@
         <input type="number" class="form-control" id="p_test" min="0" max="0.99" step="any" name="p_test" value=0.2>
     </div>
 {% endmacro %}
+
+{% macro selector(id, clasificadores) %}
+    <label for="{{ id }}">{{ gettext('Select classifier') }}:</label>
+    <select class="form-select" id="{{ id }}" name="{{ id }}" required>
+        {% for c in clasificadores %}
+            <option value="{{c}}">{{c}}</option>
+        {% endfor %}
+    </select>
+{% endmacro %}

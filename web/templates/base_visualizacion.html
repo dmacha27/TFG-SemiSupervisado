@@ -1,8 +1,10 @@
 {% extends "base.html" %}
-{% block title %}Self-Training{% endblock %}
 {% block head %}
     {{ super() }}
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script type="text/javascript" src="/static/inicializar.js"></script>
+    <script type="text/javascript" src="/static/estadisticas.js"></script>
+    <script type="text/javascript" src="/static/grafico.js"></script>
 {% endblock %}
 {% block content %}
     <button id="btn_volver" type="button" onclick="history.back()" class="btn btn-outline-info">
@@ -10,40 +12,38 @@
             <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"></path>
         </svg>{{ gettext('Go back') }}</button>
     <div class="d-flex justify-content-around mb-3 position-relative">
-        <div class="col">
-            <div class="padre" id="grafico">
-                <div id="div_cargando">
-                    <div id="cargando" class="cargando"></div>
-                </div>
-                <div id="semisupervisedchart"></div>
-                <div id="controles" style="visibility: hidden; text-align: center;">
-                    <label>{{ gettext('Iteration') }}: </label><label id="iteracion">0</label>
+        <div class="row">
+            <div class="col-md">
+                <div class="text-center">
+                    <div id="div_cargando">
+                        <div id="cargando" class="cargando"></div>
+                    </div>
+                    <div id="semisupervisedchart"></div>
+                    <div class="text_center" id="controles" style="visibility: hidden;">
+                        <label>{{ gettext('Iteration') }}: </label><label id="iteracion">0</label>
+                        <br>
+                        <progress id="progreso" value=0></progress>
+                        <br>
+                        <button id="previt" class="btn btn-primary">{{ gettext('Previous') }}</button>
+                        <button id="reproducir" class="btn btn-primary">{{ gettext('Play') }}</button>
+                        <button id="nextit" class="btn btn-primary">{{ gettext('Next') }}</button>
+                    </div>
                     <br>
-                    <progress id="progreso" value=0></progress>
-                    <br>
-                    <button id="previt" class="btn btn-primary">{{ gettext('Previous') }}</button>
-                    <button id="reproducir" class="btn btn-primary">{{ gettext('Play') }}</button>
-                    <button id="nextit" class="btn btn-primary">{{ gettext('Next') }}</button>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            {% block estadisticas %}{% endblock %}
-        </div>
-        <div id="panel_info" class="d-flex justify-content-center mb-3">
-            <div class=col">
-                <button class="btn btn-primary" style="min-height: 100%" onclick="panelInfo()" id="btn_info">INFO</button>
-            </div>
-            <div id="card_info" class="card col text-white bg-warning">
-                <div id="card_info_text" class="card-body">
-                    <h5 class="card-title">Algoritmo</h5>
-                    <p class="card-text text-white">AYUDA/DESCRIPCIÓN</p>
+            <div class="col-md">
+                <div class="text-center">
+                    <div id="general"></div>
+                    <br>
+                    <div id="checkboxes_general"></div>
+                    <!-- Si fuesen necesarias más estadísticas se incluirán aquí -->
+                    {% block mas_estadisticas %}{% endblock %}
                 </div>
             </div>
         </div>
     </div>
 
-    <script type="text/javascript">
+    <script>
         let fichero = "{{ session['FICHERO']|nombredataset }}";
 
         function traducir(texto) {
@@ -61,9 +61,18 @@
             }
             return traducciones[texto]
         }
+
+        /* Datos para la petición POST de la ejecución del algortimo.
+        * Es decir, cada elemento es uno de los parámetros configurados */
+        let elementos = [];
+
+        {% for param in params %}
+            elementos.push({nombre: "{{ param.nombre }}", valor: "{{ param.valor }}"});
+        {% endfor %}
+
+        let cx = "{{ cx }}", cy = "{{ cy }}";
     </script>
-    <script type="text/javascript" src="/static/inicializar.js"></script>
-    <script type="text/javascript" src="/static/grafico.js"></script>
-    <script type="text/javascript" src="/static/estadisticas.js"></script>
-    {% block scripts %}{% endblock %}
+    <!-- Si fuesen necesarios más se incluirán aquí -->
+    <!-- En principio siempre (al menos) se ejecutará la petición POST -->
+    {% block mas_scripts %}{% endblock %}
 {% endblock %}

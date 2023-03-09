@@ -1,55 +1,34 @@
 {% extends "base_configuracion.html" %}
-{%  from "macros.html" import formulario_comun %}
+{%  from "macros.html" import selector %}
 {% block parametros %}
-    <form action="{{ url_for('cotraining') }}" method="POST">
-        <div class="row">
-            <div class="col-md">
-                <div class="mb-3">
-                    <label for="clasificador1">{{ gettext('Select classifier') }}:</label>
-                    <select class="form-select" id="clasificador1" name="clasificador1" required>
-                        {% for c in clasificadores %}
-                            <option value="{{c}}">{{c}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div id="parametros1" style="border: 1px solid black; padding: 5px;"></div>
-                <br>
-                <div class="mb-3">
-                    <label for="clasificador2">{{ gettext('Select classifier') }}:</label>
-                    <select class="form-select" id="clasificador2" name="clasificador2" required>
-                        {% for c in clasificadores %}
-                            <option value="{{c}}">{{c}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div id="parametros2" style="border: 1px solid black; padding: 5px;"></div>
-                <br>
-                <div class="mb-3">
-                    <label for="p">{{ gettext('Positives') }} (p):</label>
-                    <input type="number" class="form-control" id="p" min=0 max=Infinity required name="p" value=1>
-                </div>
-                <div class="mb-3">
-                    <label for="n">{{ gettext('Negatives') }} (n):</label>
-                    <input type="number" class="form-control" id="n" min=0 max=Infinity required name="n" value=3>
-                </div>
-                <div class="mb-3">
-                    <label for="u">{{ gettext('Initial data number') }}:</label>
-                    <input type="number" class="form-control" id="u" min=1 required name="u" value=75> <label>({{ gettext('if it is greater that the total, it will be limited to it') }})</label>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="mb-3">
-                    <label for="n_iter">{{ gettext('Number of iterations') }}:</label>
-                    <input type="number" class="form-control" id="n_iter" min=0 required name="n_iter" value=30>
-                </div>
-                {{ formulario_comun(caracteristicas) }}
-            </div>
-        </div>
-        <div class="row">
-            <button type="submit" class="btn btn-primary" style="margin: auto; width: 50%">{{ gettext('Run') }}</button>
-        </div>
-    </form>
-
+    <div class="mb-3">
+        {{ selector("clasificador1", clasificadores) }}
+    </div>
+    <div class="parametros" id="parametros1"></div>
+    <br>
+    <div class="mb-3">
+        {{ selector("clasificador2", clasificadores) }}
+    </div>
+    <div class="parametros" id="parametros2"></div>
+    <br>
+    <div class="mb-3">
+        <label for="p">{{ gettext('Positives') }} (p):</label>
+        <input type="number" class="form-control" id="p" min=0 max=Infinity required name="p" value=1>
+    </div>
+    <div class="mb-3">
+        <label for="n">{{ gettext('Negatives') }} (n):</label>
+        <input type="number" class="form-control" id="n" min=0 max=Infinity required name="n" value=3>
+    </div>
+    <div class="mb-3">
+        <label for="u">{{ gettext('Initial data number') }}:</label>
+        <input type="number" class="form-control" id="u" min=1 required name="u" value=75> <label>({{ gettext('if it is greater that the total, it will be limited to it') }})</label>
+    </div>
+    <div class="mb-3">
+        <label for="n_iter">{{ gettext('Number of iterations') }}:</label>
+        <input type="number" class="form-control" id="n_iter" min=0 required name="n_iter" value=30>
+    </div>
+{% endblock %}
+{% block form_scripts %}
     <script>
         const clasificador1 = document.querySelector('#clasificador1');
         const clasificador2 = document.querySelector('#clasificador2');
@@ -69,7 +48,6 @@
 
         generarFormParametros(clasificador1.value, div_parametros1, "clasificador1");
         generarFormParametros(clasificador2.value, div_parametros2, "clasificador2");
-
     </script>
 {% endblock %}
 {% block explicaciones %}

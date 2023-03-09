@@ -1,43 +1,25 @@
 {% extends "base_configuracion.html" %}
-{%  from "macros.html" import formulario_comun %}
+{%  from "macros.html" import selector %}
 {% block parametros %}
-    <form action="{{ url_for('selftraining') }}" method="POST">
-        <div class="row">
-            <div class="col-md">
-                <div class="mb-3">
-                    <label for="clasificador">{{ gettext('Select classifier') }}:</label>
-                    <select class="form-select" id="clasificador" name="clasificador" required>
-                        {% for c in clasificadores %}
-                            <option value="{{c}}">{{c}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div id="parametros" style="border: 1px solid black; padding: 5px;"></div>
-                <br>
-                <div class="mb-3">
-                    <label for="n">{{ gettext('N (Number of instances to select in each iteration)') }}:</label>
-                    <input type="number" class="form-control" id="n" min="0" max="Infinity" required oninput="limitarUnicoMetodoST(this.value,'th')" name="n" value="10">
-                </div>
-                <div class="mb-3">
-                    <label for="th">{{ gettext('Threshold') }}:</label>
-                    <input type="number" class="form-control" id="th" min="0" max="0.99" step="any" oninput="limitarUnicoMetodoST(this.value,'n')" name="th" disabled>
-                </div>
-                <div class="mb-3">
-                    <label for="n_iter">{{ gettext('Number of iterations') }}:</label>
-                    <input type="number" class="form-control" id="n_iter" required name="n_iter" value="10">
-                </div>
-            </div>
-            <div class="col-md">
-                {{ formulario_comun(caracteristicas) }}
-            </div>
-        </div>
-        <div class="row">
-            <button type="submit" class="btn btn-primary" style="margin: auto; width: 50%">{{ gettext('Run') }}</button>
-        </div>
-
-
-    </form>
-
+    <div class="mb-3">
+        {{ selector("clasificador", clasificadores) }}
+    </div>
+    <div class="parametros" id="parametros"></div>
+    <br>
+    <div class="mb-3">
+        <label for="n">{{ gettext('N (Number of instances to select in each iteration)') }}:</label>
+        <input type="number" class="form-control" id="n" min="0" max="Infinity" required oninput="limitarUnicoMetodoST(this.value,'th')" name="n" value="10">
+    </div>
+    <div class="mb-3">
+        <label for="th">{{ gettext('Threshold') }}:</label>
+        <input type="number" class="form-control" id="th" min="0" max="0.99" step="any" oninput="limitarUnicoMetodoST(this.value,'n')" name="th" disabled>
+    </div>
+    <div class="mb-3">
+        <label for="n_iter">{{ gettext('Number of iterations') }}:</label>
+        <input type="number" class="form-control" id="n_iter" required name="n_iter" value="10">
+    </div>
+{% endblock %}
+{% block form_scripts %}
     <script>
         const clasificador = document.querySelector('#clasificador');
         const div_parametros= document.querySelector('#parametros');
@@ -49,7 +31,6 @@
         });
 
         generarFormParametros(clasificador.value, div_parametros, "clasificador");
-
     </script>
 {% endblock %}
 {% block explicaciones %}

@@ -1,25 +1,36 @@
 {% extends "base.html" %}
+{%  from "macros.html" import formulario_comun %}
 {% block title %}{{ gettext('Run configuration') }}{% endblock %}
 {% block content %}
     <script type="text/javascript" src="/static/configuracion.js"></script>
     <br>
     <div class="d-flex justify-content-center align-items-center">
-        <p class="h2 text-center">{{ gettext('Algorithm configuration') }}: {{ session['ALGORITMO'] }}</p>
+        <p class="h2 text-center">{{ gettext('Algorithm configuration') }}: {{ titulos[session['ALGORITMO']] }}</p>
     </div>
     <br>
     <div class="container-fluid pb-5">
         <div class="row flex-column flex-md-row align-items-center">
-            <div class="col-md mb-3 mb-md-0">
-                <div class="padre">
+            <div class="col-md">
+                <div class="text-center">
                     {% block explicaciones %}
                     {% endblock %}
                 </div>
             </div>
             <div class="col-md">
-                <div class="padre">
-                    {% block parametros %}
-                    {% endblock %}
-                </div>
+                <form action="{{ url_for(session['ALGORITMO']) }}" method="POST">
+                    <div class="row">
+                        <div class="col-md">
+                            {% block parametros %}{% endblock %}
+                        </div>
+                        <div class="col-md">
+                            {{ formulario_comun(caracteristicas) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button type="submit" class="btn btn-primary" style="margin: auto; width: 50%">{{ gettext('Run') }}</button>
+                    </div>
+                </form>
+                {% block form_scripts %}{% endblock %}
             </div>
         </div>
     </div>

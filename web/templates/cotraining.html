@@ -1,25 +1,9 @@
 {% extends "base_visualizacion.html" %}
 {% block title %}Co-Training{% endblock %}
-{% block estadisticas %}
-    <div class="text-center">
-        <div id="general"></div>
-        <br>
-        <div id="checkboxes_general"></div>
-    </div>
-{% endblock %}
-{% block scripts %}
-    <script type="text/javascript" src="/static/grafico_cotraining.js"></script>
+{% block mas_scripts %}
     <script>
-        let elementos = [];
-
-        {% for param in params %}
-            elementos.push({nombre: "{{ param.nombre }}", valor: "{{ param.valor }}"});
-        {% endfor %}
-
-        let cx = "{{ cx }}", cy = "{{ cy }}";
-
         inicializar("/{{ session['ALGORITMO'] }}d", elementos).then(function (datos) {
-            inicializarGrafico(datos, preparardataset,databinding);
+            inicializarGrafico(datos, preparardataset_cotraining,databinding_cotraining);
 
             let stats = Object.keys(JSON.parse(datos.stats));
             generarcheckboxes("checkboxes_general", "general", stats);

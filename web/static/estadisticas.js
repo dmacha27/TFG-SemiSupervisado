@@ -263,7 +263,7 @@ function anadirestadistica(id_div_objetivo, datos_stats, stat, color) {
                 .attr("stroke-width", 0)
                 .transition()
                 .duration(600)
-                .attr("stroke-width", 1.5)
+                .attr("stroke-width", 1)
                 .style("display", "block");
         }
     }
