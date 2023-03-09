@@ -5,8 +5,7 @@ import datetime
 import re
 from flask import Flask, flash, render_template, request, redirect, session, url_for
 from flask_babel import Babel
-from sklearn.linear_model import LogisticRegression
-from sklearn.naive_bayes import GaussianNB, MultinomialNB
+from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 
