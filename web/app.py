@@ -3,7 +3,7 @@ import json
 
 import datetime
 import re
-from flask import Flask, flash, render_template, request, redirect, session, url_for
+from flask import Flask, flash, render_template, request, redirect, session, url_for, send_file
 from flask_babel import Babel
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
@@ -59,6 +59,12 @@ def inicio():
 def seleccionar_algoritmo(algoritmo=None):
     session['ALGORITMO'] = algoritmo
     return redirect(url_for('subida'))
+
+
+@app.route('/descargar_prueba')
+def descargar_prueba():
+    path = 'datasets/seleccionar/breast.w.arff'
+    return send_file(path, as_attachment=True)
 
 
 @app.route('/subida', methods=['GET', 'POST'])
