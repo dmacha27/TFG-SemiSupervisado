@@ -126,7 +126,7 @@ function actualizaProgreso(paso){
 }
 
 let intervalo = null;
-function reproducir(){
+function reproducir(next){
     if (!intervalo){
         document.getElementById("reproducir").innerHTML = traducir('Pause');
         intervalo = setInterval(function () {
@@ -135,7 +135,7 @@ function reproducir(){
                 clearInterval(intervalo);
                 intervalo = null;
             }
-            next();
+            document.dispatchEvent(new Event('next_reproducir'));
         }, 750)
     } else {
         document.getElementById("reproducir").innerHTML = traducir('Play');
@@ -209,6 +209,7 @@ function grafico_selftraining(dataset) {
         })
         .on("mouseleave", mouseleave);
 
+    document.addEventListener('next_reproducir', next);
 
     function prev() {
         if (cont > 0) {
@@ -365,6 +366,8 @@ function databinding_cotraining(dataset) {
         })
         .on("mouseleave", mouseleave);
 
+
+    document.addEventListener('next_reproducir', next_co);
 }
 
 function puntos_en_x_y(x,y) {
@@ -466,6 +469,7 @@ function databinding_democraticcolearning(dataset) {
             mouseleave_democraticcolearning(e, d3.select(this).datum());
         })
 
+    document.addEventListener('next_reproducir', next_co);
 }
 
 
