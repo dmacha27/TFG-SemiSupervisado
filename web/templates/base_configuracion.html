@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="col-md">
-                <form action="{{ url_for(session['ALGORITMO']) }}" method="POST">
+                <form action="{{ url_for('visualizar_algoritmo', algoritmo=session['ALGORITMO']) }}" method="POST">
                     <div class="row">
                         <div class="col-md">
                             {% block parametros %}{% endblock %}

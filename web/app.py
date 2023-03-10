@@ -97,12 +97,27 @@ def configurar_algoritmo(algoritmo=None):
                            clasificadores=list(clasificadores.keys()), parametros=clasificadores)
 
 
-@app.route('/selftraining', methods=['GET', 'POST'])
-def selftraining():
+@app.route('/visualizacion/<algoritmo>', methods=['GET', 'POST'])
+def visualizar_algoritmo(algoritmo):
     if 'target' not in request.form:
         flash("Debe seleccionar los parámetros del algoritmo")
-        return redirect(url_for('configurar_algoritmo', algoritmo='selftraining'))
+        return redirect(url_for('configurar_algoritmo', algoritmo=session['ALGORITMO']))
 
+    params = []
+    if session['ALGORITMO'] == "selftraining":
+        params = parametros_selftraining()
+    elif session['ALGORITMO'] == "cotraining":
+        params = parametros_cotraining()
+    elif session['ALGORITMO'] == "democraticcolearning":
+        params = parametros_democraticcolearning()
+
+    return render_template(session['ALGORITMO'] + '.html',
+                           params=params,
+                           cx=request.form.get('cx', 'C1'),
+                           cy=request.form.get('cy', 'C2'))
+
+
+def parametros_selftraining():
     clasificador = request.form['clasificador']
 
     params = [
@@ -121,18 +136,10 @@ def selftraining():
     for key in clasificadores[clasificador].keys():
         params.append({"nombre": "clasificador_" + key, "valor": request.form.get("clasificador_" + key, -1)})
 
-    return render_template('selftraining.html',
-                           params=params,
-                           cx=request.form.get('cx', 'C1'),
-                           cy=request.form.get('cy', 'C2'))
+    return params
 
 
-@app.route('/cotraining', methods=['GET', 'POST'])
-def cotraining():
-    if 'target' not in request.form:
-        flash("Debe seleccionar los parámetros del algoritmo")
-        return redirect(url_for('configurar_algoritmo', algoritmo='cotraining'))
-
+def parametros_cotraining():
     clasificador1 = request.form['clasificador1']
     clasificador2 = request.form['clasificador2']
 
@@ -157,18 +164,10 @@ def cotraining():
     for key in clasificadores[clasificador2].keys():
         params.append({"nombre": "clasificador2_" + key, "valor": request.form.get("clasificador2_" + key, -1)})
 
-    return render_template('cotraining.html',
-                           params=params,
-                           cx=request.form.get('cx', 'C1'),
-                           cy=request.form.get('cy', 'C2'))
+    return params
 
 
-@app.route('/democraticcolearning', methods=['GET', 'POST'])
-def democraticcolearning():
-    if 'target' not in request.form:
-        flash("Debe seleccionar los parámetros del algoritmo")
-        return redirect(url_for('configurar_algoritmo', algoritmo='democraticcolearning'))
-
+def parametros_democraticcolearning():
     clasificador1 = request.form['clasificador1']
     clasificador2 = request.form['clasificador2']
     clasificador3 = request.form['clasificador3']
@@ -194,10 +193,7 @@ def democraticcolearning():
     for key in clasificadores[clasificador3].keys():
         params.append({"nombre": "clasificador3_" + key, "valor": request.form.get("clasificador3_" + key, -1)})
 
-    return render_template('democraticcolearning.html',
-                           params=params,
-                           cx=request.form.get('cx', 'C1'),
-                           cy=request.form.get('cy', 'C2'))
+    return params
 
 
 @app.route('/selftrainingd', methods=['GET', 'POST'])
