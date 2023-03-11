@@ -22,17 +22,16 @@ function inicializarGrafico(datos, preparar, binding) {
         .domain(Object.keys(mapa))
         .range(d3.schemeCategory10);
 
-    graficosvg = d3.select("#semisupervisedchart")
+    let svg = d3.select("#semisupervisedchart")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-        .style("display", "block")
         .style("margin", "auto");
 
     //Etiqueta eje X
-    graficosvg.append("text")
+    svg.append("text")
         .attr("class", "cx")
         .attr("text-anchor", "middle")
         .attr("x", width / 2)
@@ -40,7 +39,7 @@ function inicializarGrafico(datos, preparar, binding) {
         .text(cx);
 
     //Etiqueta eje Y
-    graficosvg.append("text")
+    svg.append("text")
         .attr("class", "cy")
         .attr("text-anchor", "middle")
         .attr("y", -margin.left)
@@ -50,7 +49,7 @@ function inicializarGrafico(datos, preparar, binding) {
         .text(cy);
 
     //Leyenda
-    graficosvg.append('g')
+    svg.append('g')
         .attr("id","leyenda")
         .selectAll("target")
         .data(Object.keys(mapa))
@@ -64,7 +63,7 @@ function inicializarGrafico(datos, preparar, binding) {
         .attr("transform", "translate(" + (width -110) + "," + -120 + ")");
 
     // Nombre del dataset
-    graficosvg.append("text")
+    svg.append("text")
         .attr("x", width/2)
         .attr("y", -margin.top/2)
         .attr("text-anchor", "middle")
@@ -75,16 +74,26 @@ function inicializarGrafico(datos, preparar, binding) {
     gx = d3.scaleLinear()
         .domain([d3.min(dataset, d => d[0]), d3.max(dataset, d => d[0])])
         .range([0, width]);
-
     gy = d3.scaleLinear()
         .domain([d3.min(dataset, d => d[1]), d3.max(dataset, d => d[1])])
         .range([height, 0]);
 
-    graficosvg.append("g")
+    let xAxis = svg.append("g")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(gx));
-    graficosvg.append("g")
+    let yAxis = svg.append("g")
         .call(d3.axisLeft(gy));
+
+    var clip = svg.append("defs").append("SVG:clipPath")
+        .attr("id", "clip")
+        .append("SVG:rect")
+        .attr("width", width )
+        .attr("height", height )
+        .attr("x", 0)
+        .attr("y", 0);
+
+    graficosvg = svg.append('g')
+        .attr("clip-path", "url(#clip)")
 
     //Basado en https://d3-graph-gallery.com/graph/interactivity_tooltip.html#template
     d3.select("#semisupervisedchart")
@@ -99,16 +108,31 @@ function inicializarGrafico(datos, preparar, binding) {
         .style("position", "absolute")
 
     binding(dataset);
+    d3.select("#semisupervisedchart svg").call(d3.zoom()
+        .scaleExtent([1, 8])
+        .extent([[0, 0], [width, height]])
+        .on("zoom", updateChart));
+
+
+    function updateChart(e) {
+
+        // recover the new scale
+        let newX = e.transform.rescaleX(gx);
+        let newY = e.transform.rescaleY(gy);
+
+        // update axes with these new boundaries
+        xAxis.call(d3.axisBottom(newX))
+        yAxis.call(d3.axisLeft(newY))
+
+        // update circle position
+        graficosvg
+            .selectAll("path")
+            .attr("transform", function (d) {
+                return "translate(" + newX(d[0]) + "," + newY(d[1]) + ")";
+            });
+    }
 
 }
-
-const mouseover = function (d) {
-    d3.select(".tooltip")
-        .style("opacity", 1)
-        .style("display", "block")
-
-};
-
 const mouseleave = function (d) {
     d3.select(".tooltip")
         .style("stroke", "none")
@@ -165,6 +189,10 @@ function grafico_selftraining(dataset) {
 
     const mousemove_selftraining = function(e, dot) {
         d3.select(".tooltip")
+            .style("opacity", 1)
+            .style("display", "block");
+
+        d3.select(".tooltip")
             .html(function() {
                 if (dot[3] <= cont && dot[2] !== -1) {
                     if (dot[3] === 0){
@@ -178,6 +206,7 @@ function grafico_selftraining(dataset) {
             })
             .style("left", (e.clientX + 10) + "px")
             .style("top", (e.clientY - 75) + "px");
+
     };
 
     puntos = graficosvg.selectAll("dot")
@@ -203,7 +232,6 @@ function grafico_selftraining(dataset) {
         })
         .style("stroke", "transparent")
         .style("stroke-width", "3px")
-        .on("mouseover", mouseover)
         .on("mousemove", function (e) {
             mousemove_selftraining(e, d3.select(this).datum());
         })
@@ -262,41 +290,41 @@ function obtenerSimboloUnicode(clf){
     }}
 
 function prev_co() {
-        if (cont > 0) {
-            cont--;
-            puntos.filter(function (d) {
-                return d[3] > cont;
-            })
-                .attr("d", simbolos.type(d3.symbolCircle).size(35))
-                .style("fill", "grey");
-            actualizaProgreso("prev");
-        }
+    if (cont > 0) {
+        cont--;
+        puntos.filter(function (d) {
+            return d[3] > cont;
+        })
+            .attr("d", simbolos.type(d3.symbolCircle).size(35))
+            .style("fill", "grey");
+        actualizaProgreso("prev");
     }
+}
 
-    function next_co() {
-        if (cont < maxit) {
-            cont++;
-            puntos.filter(function (d) {
-                return d[3] === cont && d[2] !== -1;
+function next_co() {
+    if (cont < maxit) {
+        cont++;
+        puntos.filter(function (d) {
+            return d[3] === cont && d[2] !== -1;
+        })
+            .style("fill", function (d) {
+                return color(d[2]);
             })
-                .style("fill", function (d) {
-                    return color(d[2]);
-                })
-                .transition()
-                .duration(0)
-                .attr("d", simbolos.type(function (d) {
-                    return obtenerSimbolo(d[4])
-                }).size(35))
-                .transition()
-                .duration(300)
-                .attr("d", simbolos.size(125))
-                .transition()
-                .duration(300)
-                .attr("d", simbolos.size(35));
+            .transition()
+            .duration(0)
+            .attr("d", simbolos.type(function (d) {
+                return obtenerSimbolo(d[4])
+            }).size(35))
+            .transition()
+            .duration(300)
+            .attr("d", simbolos.size(125))
+            .transition()
+            .duration(300)
+            .attr("d", simbolos.size(35));
 
-            actualizaProgreso("next");
-        }
+        actualizaProgreso("next");
     }
+}
 
 
 function preparardataset_cotraining(datos) {
@@ -327,6 +355,10 @@ function databinding_cotraining(dataset) {
     rep.on("click", reproducir);
 
     const mousemove_cotraining = function (e, dot) {
+        d3.select(".tooltip")
+            .style("opacity", 1)
+            .style("display", "block");
+
         d3.select(".tooltip")
             .html(function () {
                 if (dot[3] <= cont && dot[2] !== -1) {
@@ -360,7 +392,6 @@ function databinding_cotraining(dataset) {
         })
         .style("stroke", "transparent")
         .style("stroke-width", "3px")
-        .on("mouseover", mouseover)
         .on("mousemove", function (e) {
             mousemove_cotraining(e, d3.select(this).datum());
         })
@@ -410,6 +441,10 @@ function databinding_democraticcolearning(dataset) {
     rep.on("click", reproducir);
 
     const mousemove_democraticcolearning = function(e, dot) {
+        d3.select(".tooltip")
+            .style("opacity", 1)
+            .style("display", "block");
+
         d3.select(".tooltip")
             .html(function() {
                 let puntos_posicion = []
@@ -461,7 +496,6 @@ function databinding_democraticcolearning(dataset) {
                 return "grey";
             }
         })
-        .on("mouseover", mouseover)
         .on("mousemove", function (e) {
             mousemove_democraticcolearning(e, d3.select(this).datum());
         })
