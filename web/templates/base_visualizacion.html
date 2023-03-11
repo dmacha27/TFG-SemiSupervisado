@@ -18,12 +18,14 @@
                     <div id="div_cargando">
                         <div id="cargando" class="cargando"></div>
                     </div>
-                    <p>{{ gettext('Dataset') }}: "{{ session['FICHERO']|nombredataset }}"</p>
+                    <p id="nombre_dataset" style="visibility: hidden;">
+                        {{ gettext('Dataset') }}: {{ session['FICHERO']|nombredataset }}
+                    </p>
                     <div id="semisupervisedchart"></div>
 
                     <div class="text_center" id="controles" style="visibility: hidden;">
                         <button id="reiniciar_zoom" class="btn btn-light">{{ gettext('Zoom reset') }}</button>
-                        <br>
+                        <br><br>
                         <label>{{ gettext('Iteration') }}: </label><label id="iteracion">0</label>
                         <br>
                         <progress id="progreso" value=0></progress>

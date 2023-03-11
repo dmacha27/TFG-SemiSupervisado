@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-03-11 11:59+0100\n"
+"POT-Creation-Date: 2023-03-11 12:25+0100\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -34,55 +34,55 @@ msgstr "Ejecutar"
 msgid "Go back"
 msgstr "Volver"
 
-#: templates/base_visualizacion.html:21
+#: templates/base_visualizacion.html:22
 msgid "Dataset"
 msgstr "Conjunto de datos"
 
-#: templates/base_visualizacion.html:25
+#: templates/base_visualizacion.html:27
 msgid "Zoom reset"
 msgstr "Reiniciar Zoom"
 
-#: templates/base_visualizacion.html:27 templates/base_visualizacion.html:62
+#: templates/base_visualizacion.html:29 templates/base_visualizacion.html:64
 msgid "Iteration"
 msgstr "Iteración"
 
-#: templates/base_visualizacion.html:31
+#: templates/base_visualizacion.html:33
 msgid "Previous"
 msgstr "Anterior"
 
-#: templates/base_visualizacion.html:32 templates/base_visualizacion.html:60
+#: templates/base_visualizacion.html:34 templates/base_visualizacion.html:62
 msgid "Play"
 msgstr "Reproducir"
 
-#: templates/base_visualizacion.html:33
+#: templates/base_visualizacion.html:35
 msgid "Next"
 msgstr "Siguiente"
 
-#: templates/base_visualizacion.html:54
+#: templates/base_visualizacion.html:56
 msgid "Initial data"
 msgstr "Dato inicial"
 
-#: templates/base_visualizacion.html:55
+#: templates/base_visualizacion.html:57
 msgid "Label"
 msgstr "Etiqueta"
 
-#: templates/base_visualizacion.html:56
+#: templates/base_visualizacion.html:58
 msgid "Classifier"
 msgstr "Clasificador"
 
-#: templates/base_visualizacion.html:57
+#: templates/base_visualizacion.html:59
 msgid "Classifier: Not classified"
 msgstr "Clasificador: No clasificado"
 
-#: templates/base_visualizacion.html:58
+#: templates/base_visualizacion.html:60
 msgid "Label: Not classified"
 msgstr "Etiqueta: No clasificado"
 
-#: templates/base_visualizacion.html:59
+#: templates/base_visualizacion.html:61
 msgid "Pause"
 msgstr "Pausar"
 
-#: templates/base_visualizacion.html:61
+#: templates/base_visualizacion.html:63
 msgid "Rate"
 msgstr "Valor"
 

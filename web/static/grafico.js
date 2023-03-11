@@ -207,8 +207,8 @@ function grafico_selftraining(dataset) {
                     return cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] + "<br>Etiqueta: Sin clasificar";
                 }
             })
-            .style("left", (e.clientX + 10) + "px")
-            .style("top", (e.clientY - 75) + "px");
+            .style("left", (e.offsetX + 10) + "px")
+            .style("top", (e.offsetY + 60) + "px");
 
     };
 
@@ -374,8 +374,8 @@ function databinding_cotraining(dataset) {
                     return cx + ": " + dot[0] + "<br>" + cy + ": " + dot[1] + "<br>" + traducir('Classifier: Not classified') + "<br>" + traducir('Label: Not classified');
                 }
             })
-            .style("left", (e.clientX + 10) + "px")
-            .style("top", (e.clientY - 75) + "px");
+            .style("left", (e.offsetX + 10) + "px")
+            .style("top", (e.offsetY + 60) + "px");
     };
 
     puntos = graficosvg.selectAll("dot")
@@ -474,8 +474,8 @@ function databinding_democraticcolearning(dataset) {
                 }
                 return cadena_tooltip
             })
-            .style("left", (e.clientX + 10) + "px")
-            .style("top", (e.clientY - 75) + "px");
+            .style("left", (e.offsetX + 10) + "px")
+            .style("top", (e.offsetY + 60) + "px");
     };
 
     const mouseleave_democraticcolearning = function(e, dot) {
