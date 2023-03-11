@@ -2,7 +2,7 @@
 {%  from "macros.html" import selector %}
 {% block parametros %}
     <div class="mb-3">
-        {{ selector("clasificador", clasificadores) }}
+        {{ selector("clasificador1", clasificadores) }}
     </div>
     <div class="parametros" id="parametros"></div>
     <br>
@@ -21,16 +21,16 @@
 {% endblock %}
 {% block form_scripts %}
     <script>
-        const clasificador = document.querySelector('#clasificador');
+        const clasificador = document.querySelector('#clasificador1');
         const div_parametros= document.querySelector('#parametros');
 
         const todos_parametros = {{ parametros|tojson }};
 
         clasificador.addEventListener('change', (event) => {
-            generarFormParametros(event.target.value, div_parametros, "clasificador");
+            generarFormParametros(event.target.value, div_parametros, "clasificador1");
         });
 
-        generarFormParametros(clasificador.value, div_parametros, "clasificador");
+        generarFormParametros(clasificador.value, div_parametros, "clasificador1");
     </script>
 {% endblock %}
 {% block explicaciones %}

@@ -93,16 +93,23 @@ def configurar_algoritmo(algoritmo=None):
 
     dl = DatasetLoader(session['FICHERO'])
 
-    return render_template(algoritmo + 'config.html', caracteristicas=dl.get_allfeatures(),
-                           clasificadores=list(clasificadores.keys()), parametros=clasificadores)
+    return render_template(algoritmo + 'config.html',
+                           caracteristicas=dl.get_allfeatures(),
+                           clasificadores=list(clasificadores.keys()),
+                           parametros=clasificadores)
 
 
 @app.route('/visualizacion/<algoritmo>', methods=['GET', 'POST'])
 def visualizar_algoritmo(algoritmo):
+    """Centraliza la carga de la página de visualización.
+    Es el paso siguiente después de la configuración.
+    """
     if 'target' not in request.form:
         flash("Debe seleccionar los parámetros del algoritmo")
         return redirect(url_for('configurar_algoritmo', algoritmo=session['ALGORITMO']))
 
+    # En este punto se deben recoger todos los parámetros
+    # que el usuario introdujo en el formulario de configuración
     params = []
     if session['ALGORITMO'] == "selftraining":
         params = parametros_selftraining()
@@ -111,17 +118,22 @@ def visualizar_algoritmo(algoritmo):
     elif session['ALGORITMO'] == "democraticcolearning":
         params = parametros_democraticcolearning()
 
-    return render_template(session['ALGORITMO'] + '.html',
+    """En params se encontrarán todos los datos necesarios para ejecutar el algoritmo.
+    Realmente no se le pasa la información ejecutada, se realiza una petición POST
+    desde Javascript con estos parámetros al renderizar la plantilla del algoritmo."""
+
+    return render_template(session['ALGORITMO'] + '.html',  # p.ej selftraining.html (donde están las visualizaciones)
                            params=params,
                            cx=request.form.get('cx', 'C1'),
                            cy=request.form.get('cy', 'C2'))
 
 
 def parametros_selftraining():
-    clasificador = request.form['clasificador']
+    clasificador = request.form['clasificador1']
 
+    # Estos son los parámetros concretos de Self-Training
     params = [
-        {"nombre": "clasificador", "valor": request.form['clasificador']},
+        {"nombre": "clasificador1", "valor": request.form['clasificador1']},
         {"nombre": "n", "valor": request.form.get('n', -1)},
         {"nombre": "th", "valor": request.form.get('th', -1)},
         {"nombre": "n_iter", "valor": request.form.get('n_iter')},
@@ -133,8 +145,9 @@ def parametros_selftraining():
         {"nombre": "p_test", "valor": request.form.get('p_test', -1)},
     ]
 
-    for key in clasificadores[clasificador].keys():
-        params.append({"nombre": "clasificador_" + key, "valor": request.form.get("clasificador_" + key, -1)})
+    # Los parámetros anteriores no incluyen los propios parámetros de los clasificadores
+    # (SVM, GaussianNB...), esta función lo incluye
+    incorporar_clasificadores_params([clasificador], params)
 
     return params
 
@@ -143,6 +156,7 @@ def parametros_cotraining():
     clasificador1 = request.form['clasificador1']
     clasificador2 = request.form['clasificador2']
 
+    # Estos son los parámetros concretos de Co-Training
     params = [
         {"nombre": "clasificador1", "valor": request.form['clasificador1']},
         {"nombre": "clasificador2", "valor": request.form['clasificador2']},
@@ -158,11 +172,9 @@ def parametros_cotraining():
         {"nombre": "p_test", "valor": request.form.get('p_test', -1)},
     ]
 
-    for key in clasificadores[clasificador1].keys():
-        params.append({"nombre": "clasificador1_" + key, "valor": request.form.get("clasificador1_" + key, -1)})
-
-    for key in clasificadores[clasificador2].keys():
-        params.append({"nombre": "clasificador2_" + key, "valor": request.form.get("clasificador2_" + key, -1)})
+    # Los parámetros anteriores no incluyen los propios parámetros de los clasificadores
+    # (SVM, GaussianNB...), esta función lo incluye
+    incorporar_clasificadores_params([clasificador1, clasificador2], params)
 
     return params
 
@@ -172,6 +184,7 @@ def parametros_democraticcolearning():
     clasificador2 = request.form['clasificador2']
     clasificador3 = request.form['clasificador3']
 
+    # Estos son los parámetros concretos de Democratic Co-Learning
     params = [
         {"nombre": "clasificador1", "valor": request.form['clasificador1']},
         {"nombre": "clasificador2", "valor": request.form['clasificador2']},
@@ -184,58 +197,37 @@ def parametros_democraticcolearning():
         {"nombre": "p_test", "valor": request.form.get('p_test', -1)},
     ]
 
-    for key in clasificadores[clasificador1].keys():
-        params.append({"nombre": "clasificador1_" + key, "valor": request.form.get("clasificador1_" + key, -1)})
-
-    for key in clasificadores[clasificador2].keys():
-        params.append({"nombre": "clasificador2_" + key, "valor": request.form.get("clasificador2_" + key, -1)})
-
-    for key in clasificadores[clasificador3].keys():
-        params.append({"nombre": "clasificador3_" + key, "valor": request.form.get("clasificador3_" + key, -1)})
+    # Los parámetros anteriores no incluyen los propios parámetros de los clasificadores
+    # (SVM, GaussianNB...), esta función lo incluye
+    incorporar_clasificadores_params([clasificador1, clasificador2, clasificador3], params)
 
     return params
 
 
+def incorporar_clasificadores_params(nombre_clasificadores, params):
+    """Incluye los parámetros de los propios clasificadores
+    a la lista de parámetros generales.
+    """
+    for i, clasificador in enumerate(nombre_clasificadores):
+        for key in clasificadores[clasificador].keys():
+            params.append({"nombre": f"clasificador{i + 1}_" + key,
+                           "valor": request.form.get(f"clasificador{i + 1}_" + key, -1)})
+
+
 @app.route('/selftrainingd', methods=['GET', 'POST'])
 def datosselftraining():
-    clasificador = request.form['clasificador']
+    clasificador = request.form['clasificador1']
 
     n = int(request.form['n'])
     th = float(request.form['th'])
-    n_iter = int(request.form['n_iter'])
-    cx = request.form['cx']
-    cy = request.form['cy']
-    pca = request.form['pca']
-    p_unlabelled = float(request.form['p_unlabelled'])
-    p_test = float(request.form['p_test'])
 
-    st = SelfTraining(clf=obtener_clasificador(clasificador, obtener_parametros(clasificador, "clasificador")),
-                      n=n if n != -1 else None,
-                      th=th if th != -1 else None,
-                      n_iter=n_iter)
+    st = SelfTraining(
+        clf=obtener_clasificador(clasificador, obtener_parametros_clasificador(clasificador, "clasificador1")),
+        n=n if n != -1 else None,
+        th=th if th != -1 else None,
+        n_iter=int(request.form['n_iter']))
 
-    dl = DatasetLoader(session['FICHERO'])
-    dl.set_target(request.form['target'])
-    x, y, mapa, is_unlabelled = dl.get_x_y()
-
-    (
-        x,
-        y,
-        x_test,
-        y_test
-    ) = data_split(x, y, is_unlabelled, p_unlabelled=p_unlabelled, p_test=p_test)
-
-    log, stats, iteration = st.fit(x, y, x_test, y_test, dl.get_only_features())
-
-    if pca == 'on':
-        _2d = log_pca_reduction(log, dl.get_only_features()).to_json()
-    else:
-        _2d = log_cxcy_reduction(log, cx, cy, dl.get_only_features()).to_json()
-
-    info = {'iterations': iteration,
-            'log': _2d,
-            'stats': stats.to_json(),
-            'mapa': json.dumps(mapa)}
+    info = obtener_info(st)
 
     return json.dumps(info)
 
@@ -244,46 +236,16 @@ def datosselftraining():
 def datoscotraining():
     clasificador1 = request.form['clasificador1']
     clasificador2 = request.form['clasificador2']
+    ct = CoTraining(
+        clf1=obtener_clasificador(clasificador1, obtener_parametros_clasificador(clasificador1, "clasificador1")),
+        clf2=obtener_clasificador(clasificador2, obtener_parametros_clasificador(clasificador2, "clasificador2")),
+        p=int(request.form['p']),
+        n=int(request.form['n']),
+        u=int(request.form['u']),
+        n_iter=int(request.form['n_iter']))
 
-    p = int(request.form['p'])
-    n = int(request.form['n'])
-    u = int(request.form['u'])
-    n_iter = int(request.form['n_iter'])
-    cx = request.form['cx']
-    cy = request.form['cy']
-    pca = request.form['pca']
-    p_unlabelled = float(request.form['p_unlabelled'])
-    p_test = float(request.form['p_test'])
+    info = obtener_info(ct)
 
-    ct = CoTraining(clf1=obtener_clasificador(clasificador1, obtener_parametros(clasificador1, "clasificador1")),
-                    clf2=obtener_clasificador(clasificador2, obtener_parametros(clasificador2, "clasificador2")),
-                    p=p,
-                    n=n,
-                    u=u,
-                    n_iter=n_iter)
-
-    dl = DatasetLoader(session['FICHERO'])
-    dl.set_target(request.form['target'])
-    x, y, mapa, is_unlabelled = dl.get_x_y()
-
-    (
-        x,
-        y,
-        x_test,
-        y_test
-    ) = data_split(x, y, is_unlabelled, p_unlabelled=p_unlabelled, p_test=p_test)
-
-    log, stats, iteration = ct.fit(x, y, x_test, y_test, dl.get_only_features())
-
-    if pca == 'on':
-        _2d = log_pca_reduction(log, dl.get_only_features()).to_json()
-    else:
-        _2d = log_cxcy_reduction(log, cx, cy, dl.get_only_features()).to_json()
-
-    info = {'iterations': iteration,
-            'log': _2d,
-            'stats': stats.to_json(),
-            'mapa': json.dumps(mapa)}
     return json.dumps(info)
 
 
@@ -293,43 +255,57 @@ def datosdemocraticcolearning():
     clasificador2 = request.form['clasificador2']
     clasificador3 = request.form['clasificador3']
 
-    cx = request.form['cx']
-    cy = request.form['cy']
-    pca = request.form['pca']
-    p_unlabelled = float(request.form['p_unlabelled'])
-    p_test = float(request.form['p_test'])
-
-    clf1 = obtener_clasificador(clasificador1, obtener_parametros(clasificador1, "clasificador1"))
-    clf2 = obtener_clasificador(clasificador2, obtener_parametros(clasificador2, "clasificador2"))
-    clf3 = obtener_clasificador(clasificador3, obtener_parametros(clasificador3, "clasificador3"))
+    clf1 = obtener_clasificador(clasificador1, obtener_parametros_clasificador(clasificador1, "clasificador1"))
+    clf2 = obtener_clasificador(clasificador2, obtener_parametros_clasificador(clasificador2, "clasificador2"))
+    clf3 = obtener_clasificador(clasificador3, obtener_parametros_clasificador(clasificador3, "clasificador3"))
 
     dcl = DemocraticCoLearning([clf1, clf2, clf3])
 
-    dl = DatasetLoader(session['FICHERO'])
-    dl.set_target(request.form['target'])
-    x, y, mapa, is_unlabelled = dl.get_x_y()
+    info = obtener_info(dcl)
+    return json.dumps(info)
 
-    (
-        x,
-        y,
-        x_test,
-        y_test
-    ) = data_split(x, y, is_unlabelled, p_unlabelled=p_unlabelled, p_test=p_test)
 
-    log, stats, specific_stats, iteration = dcl.fit(x, y, x_test, y_test, dl.get_only_features())
+def obtener_info(algoritmo):
+    """Evita el código duplicado de la obtención de toda la información
+    de la ejecución de los algoritmos.
 
-    if pca == 'on':
-        _2d = log_pca_reduction(log, dl.get_only_features()).to_json()
+    Realiza la carga de datos, las particiones de datos, el entrenamiento del algoritmo,
+    la conversión a un log (logger) en 2D y la conversión a JSON para las plantillas.
+    """
+    datasetloader = DatasetLoader(session['FICHERO'])
+    datasetloader.set_target(request.form['target'])
+    x, y, mapa, is_unlabelled = datasetloader.get_x_y()
+
+    (x, y, x_test, y_test) = data_split(x,
+                                        y,
+                                        is_unlabelled,
+                                        p_unlabelled=float(request.form['p_unlabelled']),
+                                        p_test=float(request.form['p_test']))
+
+    specific_stats = None
+    if not isinstance(algoritmo, DemocraticCoLearning):
+        log, stats, iteration = algoritmo.fit(x, y, x_test, y_test, datasetloader.get_only_features())
     else:
-        _2d = log_cxcy_reduction(log, cx, cy, dl.get_only_features()).to_json()
+        log, stats, specific_stats, iteration = algoritmo.fit(x, y, x_test, y_test, datasetloader.get_only_features())
+
+    if request.form['pca'] == 'on':
+        _2d = log_pca_reduction(log,
+                                datasetloader.get_only_features()).to_json()
+    else:
+        _2d = log_cxcy_reduction(log,
+                                 request.form['cx'],
+                                 request.form['cy'],
+                                 datasetloader.get_only_features()).to_json()
 
     info = {'iterations': iteration,
             'log': _2d,
             'stats': stats.to_json(),
-            'specific_stats': {key: specific_stats[key].to_json() for key in specific_stats},
             'mapa': json.dumps(mapa)}
 
-    return json.dumps(info)
+    if isinstance(algoritmo, DemocraticCoLearning):
+        info = info | {'specific_stats': {key: specific_stats[key].to_json() for key in specific_stats}}
+
+    return info
 
 
 @app.template_filter()
@@ -340,7 +316,14 @@ def nombredataset(text):
     return re.split(r"-|\\", text)[1]
 
 
-def obtener_parametros(clasificador, nombre):
+def obtener_parametros_clasificador(clasificador, nombre):
+    """A la hora de instanciar un clasificador (sklearn), este tiene una serie de parámetros
+    (NO CONFUNDIR CON LOS PARÁMETROS DE LOS ALGORITMOS SEMI-SUPERVISADOS).
+    Aclaración: estos vienen codificados en parametros.json.
+
+    Interpreta el formulario de la configuración para obtener estos valores y que puedan ser
+    desempaquetados con facilidad (**).
+    """
     parametros_clasificador = {}
     for key in clasificadores[clasificador].keys():
         parametro = clasificadores[clasificador][key]
@@ -357,6 +340,9 @@ def obtener_parametros(clasificador, nombre):
 
 
 def obtener_clasificador(nombre, params):
+    """Instancia un clasificador (sklearn) a partir de su nombre y los parámetros
+    introducidos (provenientes de "obtener_parametros_clasificador").
+    """
     if nombre == "SVC":
         params = params | {"probability": True}
         return SVC(**params)
