@@ -14,12 +14,16 @@
     <div class="d-flex justify-content-around mb-3 position-relative">
         <div class="row">
             <div class="col-md">
-                <div class="text-center">
+                <div class="text-center position-relative">
                     <div id="div_cargando">
                         <div id="cargando" class="cargando"></div>
                     </div>
+                    <p>{{ gettext('Dataset') }}: "{{ session['FICHERO']|nombredataset }}"</p>
                     <div id="semisupervisedchart"></div>
+
                     <div class="text_center" id="controles" style="visibility: hidden;">
+                        <button id="reiniciar_zoom" class="btn btn-light">{{ gettext('Zoom reset') }}</button>
+                        <br>
                         <label>{{ gettext('Iteration') }}: </label><label id="iteracion">0</label>
                         <br>
                         <progress id="progreso" value=0></progress>
@@ -44,11 +48,9 @@
     </div>
 
     <script>
-        let fichero = "{{ session['FICHERO']|nombredataset }}";
 
         function traducir(texto) {
             let traducciones = {
-                'Dataset': "{{ gettext('Dataset') }}",
                 'Initial data': "{{ gettext('Initial data') }}",
                 'Label': "{{ gettext('Label') }}",
                 'Classifier': "{{ gettext('Classifier') }}",

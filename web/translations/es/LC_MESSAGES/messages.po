@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-03-09 22:53+0100\n"
+"POT-Creation-Date: 2023-03-11 11:59+0100\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -34,51 +34,55 @@ msgstr "Ejecutar"
 msgid "Go back"
 msgstr "Volver"
 
-#: templates/base_visualizacion.html:23 templates/base_visualizacion.html:60
-msgid "Iteration"
-msgstr "Iteración"
-
-#: templates/base_visualizacion.html:27
-msgid "Previous"
-msgstr "Anterior"
-
-#: templates/base_visualizacion.html:28 templates/base_visualizacion.html:58
-msgid "Play"
-msgstr "Reproducir"
-
-#: templates/base_visualizacion.html:29
-msgid "Next"
-msgstr "Siguiente"
-
-#: templates/base_visualizacion.html:51
+#: templates/base_visualizacion.html:21
 msgid "Dataset"
 msgstr "Conjunto de datos"
 
-#: templates/base_visualizacion.html:52
+#: templates/base_visualizacion.html:25
+msgid "Zoom reset"
+msgstr "Reiniciar Zoom"
+
+#: templates/base_visualizacion.html:27 templates/base_visualizacion.html:62
+msgid "Iteration"
+msgstr "Iteración"
+
+#: templates/base_visualizacion.html:31
+msgid "Previous"
+msgstr "Anterior"
+
+#: templates/base_visualizacion.html:32 templates/base_visualizacion.html:60
+msgid "Play"
+msgstr "Reproducir"
+
+#: templates/base_visualizacion.html:33
+msgid "Next"
+msgstr "Siguiente"
+
+#: templates/base_visualizacion.html:54
 msgid "Initial data"
 msgstr "Dato inicial"
 
-#: templates/base_visualizacion.html:53
+#: templates/base_visualizacion.html:55
 msgid "Label"
 msgstr "Etiqueta"
 
-#: templates/base_visualizacion.html:54
+#: templates/base_visualizacion.html:56
 msgid "Classifier"
 msgstr "Clasificador"
 
-#: templates/base_visualizacion.html:55
+#: templates/base_visualizacion.html:57
 msgid "Classifier: Not classified"
 msgstr "Clasificador: No clasificado"
 
-#: templates/base_visualizacion.html:56
+#: templates/base_visualizacion.html:58
 msgid "Label: Not classified"
 msgstr "Etiqueta: No clasificado"
 
-#: templates/base_visualizacion.html:57
+#: templates/base_visualizacion.html:59
 msgid "Pause"
 msgstr "Pausar"
 
-#: templates/base_visualizacion.html:59
+#: templates/base_visualizacion.html:61
 msgid "Rate"
 msgstr "Valor"
 

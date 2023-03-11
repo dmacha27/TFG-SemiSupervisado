@@ -9,7 +9,7 @@ function inicializarGrafico(datos, preparar, binding) {
     previt = d3.select("#previt");
     rep = d3.select("#reproducir");
 
-    let margin = {top: 80, right: 90, bottom: 60, left: 45},
+    let margin = {top: 10, right: 120, bottom: 60, left: 45},
         width = 850 - margin.left - margin.right,
         height = 700 - margin.top - margin.bottom;
 
@@ -60,16 +60,7 @@ function inicializarGrafico(datos, preparar, binding) {
         .style("fill", function(d){ return color(parseInt(d));})
         .text(function(d){ return mapa[d];})
         .style("alignment-baseline", "middle")
-        .attr("transform", "translate(" + (width -110) + "," + -120 + ")");
-
-    // Nombre del dataset
-    svg.append("text")
-        .attr("x", width/2)
-        .attr("y", -margin.top/2)
-        .attr("text-anchor", "middle")
-        .style("font-size", "16px")
-        .text(traducir('Dataset') + ": " + fichero);
-
+        .attr("transform", "translate(" + (width -110) + "," + -90 + ")");
 
     gx = d3.scaleLinear()
         .domain([d3.min(dataset, d => d[0]), d3.max(dataset, d => d[0])])
@@ -108,10 +99,13 @@ function inicializarGrafico(datos, preparar, binding) {
         .style("position", "absolute")
 
     binding(dataset);
-    d3.select("#semisupervisedchart svg").call(d3.zoom()
+
+    const zoom = d3.zoom()
         .scaleExtent([1, 8])
         .extent([[0, 0], [width, height]])
-        .on("zoom", updateChart));
+        .on("zoom", updateChart);
+
+    d3.select("#semisupervisedchart svg").call(zoom);
 
 
     function updateChart(e) {
@@ -131,6 +125,15 @@ function inicializarGrafico(datos, preparar, binding) {
                 return "translate(" + newX(d[0]) + "," + newY(d[1]) + ")";
             });
     }
+
+    // Botón de reiniciar zoom
+    document.querySelector("#reiniciar_zoom").addEventListener("click", function (){
+        d3.select("#semisupervisedchart svg")
+            .transition()
+            .duration(750)
+            .call(zoom.transform, d3.zoomIdentity);
+    })
+
 
 }
 const mouseleave = function (d) {
