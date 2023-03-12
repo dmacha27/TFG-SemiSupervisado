@@ -31,11 +31,12 @@ def data_split(x: DataFrame, y: DataFrame, is_unlabelled, p_unlabelled=0.8, p_te
     y = np.array(y).ravel()
 
     if not is_unlabelled:
-        x_train, x_u, y_train, _ = train_test_split(x, y, test_size=p_unlabelled, random_state=0)
+        x_train, x_u, y_train, _ = train_test_split(x, y, test_size=p_unlabelled, random_state=0, stratify=y)
     else:
         x_train, y_train, x_u = obtain_train_unlabelled(x, y)
 
-    x_train, x_test, y_train, y_test = train_test_split(x_train, y_train, test_size=p_test, random_state=0)
+    x_train, x_test, y_train, y_test = train_test_split(x_train, y_train, test_size=p_test, random_state=0,
+                                                        stratify=y_train)
 
     x_train = np.append(x_train, x_u, axis=0)
     y_train = np.append(y_train, [-1] * len(x_u))

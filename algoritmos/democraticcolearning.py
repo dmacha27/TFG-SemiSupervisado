@@ -292,16 +292,16 @@ if __name__ == '__main__':
     dl.set_target("Class")
     x, y, mapa, is_unlabelled = dl.get_x_y()
 
-    st = DemocraticCoLearning(clfs=[DecisionTreeClassifier(), GaussianNB(), GaussianNB()])
+    st = DemocraticCoLearning(clfs=[DecisionTreeClassifier(), GaussianNB(), KNeighborsClassifier()])
 
     (
         x,
         y,
         x_test,
         y_test
-    ) = data_split(x, y, is_unlabelled, p_unlabelled=0.85, p_test=0.8)
+    ) = data_split(x, y, is_unlabelled, p_unlabelled=0.8, p_test=0.2)
 
-    log, _ = st.fit(x, y, x_test, y_test, dl.get_only_features())
+    st.fit(x, y, x_test, y_test, dl.get_only_features())
 
     pred = st.predict(x_test)
     print(accuracy_score(y_test, pred))
