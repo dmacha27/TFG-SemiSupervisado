@@ -153,9 +153,9 @@ class DemocraticCoLearning:
                         1 - ((2 * (errors[index] + ei_prime)) / (len_li + len_li_prime))) ** 2
 
                 if qi_prime > qi:
-
                     for x_id, x, y in zip(ls_prime_ids[index], ls_prime[index], ls_prime_y[index]):
                         if x_id in ls_new_ids[index]:
+                            # Comprobar si es igual y si lo es, no contar como cambio
                             ls_y[index][ls_new_ids[index][x_id]] = y
                             log.loc[len(x_train) + x_id, 'iters'][index] = iteration + 1
                             log.loc[len(x_train) + x_id, 'targets'][index] = y
@@ -248,8 +248,8 @@ class DemocraticCoLearning:
         Obtiene la puntuación de exactitud del clasificador
         respecto a unos datos de prueba
 
-        :param x_test: Conjunto de datos de test.
-        :param y_test: Objetivo de los datos.
+        :param x_test: Instancias.
+        :param y_test: Etiquetas de las instancias.
         :return: Exactitud
         """
 
@@ -260,8 +260,8 @@ class DemocraticCoLearning:
         Obtiene la puntuación de precisión del clasificador
         respecto a unos datos de prueba
 
-        :param x_test: Conjunto de datos de test.
-        :param y_test: Objetivo de los datos.
+        :param x_test: Instancias.
+        :param y_test: Etiquetas de las instancias.
         :return: Precisión
         """
         return precision_score(y_test, self.predict(x_test), average="weighted")
@@ -270,8 +270,8 @@ class DemocraticCoLearning:
         """
         Obtiene el F1-Score
 
-        :param x_test: Conjunto de datos de test.
-        :param y_test: Objetivo de los datos.
+        :param x_test: Instancias.
+        :param y_test: Etiquetas de las instancias.
         :return: F1-Score
         """
         return f1_score(y_test, self.predict(x_test), average='weighted')
@@ -280,8 +280,8 @@ class DemocraticCoLearning:
         """
         Obtiene el recall
 
-        :param x_test: Conjunto de datos de test.
-        :param y_test: Objetivo de los datos.
+        :param x_test: Instancias.
+        :param y_test: Etiquetas de las instancias.
         :return: Recall
         """
         return recall_score(y_test, self.predict(x_test), average='weighted')

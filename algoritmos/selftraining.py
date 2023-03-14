@@ -126,8 +126,8 @@ class SelfTraining:
         """
         Obtiene la matriz de confusión a partir de unos datos de test
 
-        :param x_test: Conjunto de datos de test.
-        :param y_test: Objetivo de los datos.
+        :param x_test: Instancias.
+        :param y_test: Etiquetas de las instancias.
         :return: Matriz de confusión en forma de array
         """
         cm = confusion_matrix(y_test, self.clf.predict(x_test))
@@ -138,8 +138,8 @@ class SelfTraining:
         Obtiene la puntuación de exactitud del clasificador
         respecto a unos datos de prueba
 
-        :param x_test: Conjunto de datos de test.
-        :param y_test: Objetivo de los datos.
+        :param x_test: Instancias.
+        :param y_test: Etiquetas de las instancias.
         :return: Exactitud
         """
         return accuracy_score(y_test, self.clf.predict(x_test))
@@ -149,8 +149,8 @@ class SelfTraining:
         Obtiene la puntuación de precisión del clasificador
         respecto a unos datos de prueba
 
-        :param x_test: Conjunto de datos de test.
-        :param y_test: Objetivo de los datos.
+        :param x_test: Instancias.
+        :param y_test: Etiquetas de las instancias.
         :return: Precisión
         """
         return precision_score(y_test, self.clf.predict(x_test), average="weighted")
@@ -159,8 +159,8 @@ class SelfTraining:
         """
         Obtiene el F1-Score
 
-        :param x_test: Conjunto de datos de test.
-        :param y_test: Objetivo de los datos.
+        :param x_test: Instancias.
+        :param y_test: Etiquetas de las instancias.
         :return: F1-Score
         """
         return f1_score(y_test, self.clf.predict(x_test), average='weighted')
@@ -169,8 +169,8 @@ class SelfTraining:
         """
         Obtiene el recall
 
-        :param x_test: Conjunto de datos de test.
-        :param y_test: Objetivo de los datos.
+        :param x_test: Instancias.
+        :param y_test: Etiquetas de las instancias.
         :return: Recall
         """
         return recall_score(y_test, self.clf.predict(x_test), average='weighted')
