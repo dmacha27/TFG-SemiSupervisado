@@ -218,6 +218,7 @@ contrario, no es posible aprovechar los beneficios que ofrece self-training~
 \ref{pseudo:self-training}.
 
 \begin{algorithm}
+    \DontPrintSemicolon
     \KwIn{Conjunto de datos etiquetados \textbf{\textit{L}}, 
     no etiquetados \textbf{\textit{U}} y clasificador \textbf{\textit{H}}}
     \KwOut{Clasificador}
@@ -259,6 +260,7 @@ entrenamiento para la siguiente iteración.
 
 
 \begin{algorithm}
+    \DontPrintSemicolon
     \KwIn{Conjunto de datos etiquetados \textbf{\textit{L}}, 
     no etiquetados \textbf{\textit{U}}, clasificadores \textbf{\textit{H\textsubscript{1}}}
     y \textbf{\textit{H\textsubscript{2}}}, \textit{p} (positivos), 
@@ -280,4 +282,102 @@ entrenamiento para la siguiente iteración.
      \caption{Co-Training}\label{pseudo:co-training}
 \end{algorithm}
 
+\clearpage
+\paragraph{Democratic Co-Learning}
 
+Yan Zhou y Sally Goldman presentan en \cite{zhou2004democratic} un algoritmo de
+aprendizaje semi-supervisado en la línea de Co-Training (varios clasificadores)
+pero que en el fondo poco tienen en común. La diferencia sustancial es que no
+trabajan con dos (o más) conjunto de atributos (para que cada clasificador
+utilice uno de ellos), en este caso solo se tiene un único conjunto de atributos
+(<<single-view>>). Este algoritmo, y comentado por sus autores, tiene como
+objetivo mejorar el <<accuracy>> de los algoritmos supervisados cuando se tiene
+un pequeño conjunto de datos etiquetados y gran cantidad de no etiquetados.
+
+Partiendo de los datos etiquetados, varios clasificadores realizan votación
+ponderada sobre los no etiquetados. Es decir, la nueva etiqueta para la
+instancia será la que vote la mayoría. Además, para aquellos clasificadores que
+no votan como la mayoría se les impone esa etiqueta en su conjunto de
+entrenamiento (se añade la instancia con esa etiqueta). Todo el proceso se
+repite hasta que no se añadan más instancias a ningún conjunto de entrenamiento,
+esto se alcanza cuando añadiendo nuevas etiquetas no se mejora la precisión.
+
+\begin{algorithm}
+    \DontPrintSemicolon
+    \KwIn{Conjunto de datos etiquetados \textbf{\textit{L}}, 
+    no etiquetados \textbf{\textit{U}} y algoritmos de aprendizaje \textbf{\textit{A\textsubscript{1}}},..., \textbf{\textit{A\textsubscript{n}}}
+    }
+    \For{i = 1,...,n}{
+        $L_i = L$\;
+        $e_i = L$\;
+     }
+     \Repeat{L\textsubscript{1},..., L\textsubscript{n} no cambien}{
+        \For{i = 1,...,n}{
+            Computar \textbf{\textit{H\textsubscript{i}}} entrenando \textbf{\textit{A\textsubscript{i}}} con \textbf{\textit{L\textsubscript{i}}}\;
+        }
+
+        \For{cada instancia no etiquetada $x \in U$}{
+            \For{cada posible etiqueta j = 1,...,n}{
+                $c_j = |\{H_i|H_i(x) = j\}|$
+            }
+            $k = arg~max_j\{c_j\}$
+        }
+        /* Instancias propuestas para etiquetar*/\;
+        \For{i = 1,...,n}{
+            Utilizar \textbf{\textit{L}} el intervalo de confianza al 95\%, [\textit{l\textsubscript{i}}, \textit{h\textsubscript{i}}] para \textbf{\textit{H\textsubscript{i}}}\;
+            $w_i = (l_i + h_i)/2$
+        }
+
+        \For{i = 1,...,n}{
+            $L'_i = 0 $\;
+        }
+
+        \If{$\sum_{H_j (x)=c_k} w\textsubscript{j} > max_{c'_k \neq c_k} \sum_{H_j (x)=c'_k w_j}$}{
+            $L'_i = L'_i  ~\cup~ \{(x,c_k)\}, ~\forall i$ tal que $H_i(x) \neq c_k$
+        }
+
+        /* Estimar si añadir $L'_i$ a $L_i$ mejora la exactitud*/\;
+
+        \For{i = 1,...,n}{
+            Utilizar \textbf{\textit{L}} el intervalo de confianza al 95\%, [\textit{l\textsubscript{i}}, \textit{h\textsubscript{i}}] para \textbf{\textit{H\textsubscript{i}}}\;
+            $q_i = |L_i|(1-2(\frac{e_i}{|L_i|})^2)$   /*Tasa de error*/\;
+            $e'_i=(1-\frac{\sum_{i=1}^{d}l_i}{d})|L'_i|$  /*Nueva tasa de error*/\;
+            $q'_i = |L_i ~\cup~ L'_i|(1-\frac{2(e_i~+~e'_i)}{|L_i ~\cup~ L'_i|})^2$\;
+
+            \If{$q'_i > q_i$}{
+                $L_i = L_i ~\cup~ L'_i$\;
+                $e_i = e_i~+~e'_i$\;
+            }
+        }
+        
+     }
+     \caption{Democratic Co-Learning}\label{pseudo:democraticco-learning}
+\end{algorithm}
+
+\begin{algorithm}
+    \DontPrintSemicolon
+    \KwIn{$\pmb{H}_1,\pmb{H}_2,...,\pmb{H}_n$ y espacio de instancias}
+    \KwOut{Hipótesis combinadas (predicción)}
+    \For{i = 1,...,n}{
+            Utilizar \textbf{\textit{L}} el intervalo de confianza al 95\%, [\textit{l\textsubscript{i}}, \textit{h\textsubscript{i}}] para \textbf{\textit{H\textsubscript{i}}}\;
+            $w_i = (l_i + h_i)/2$\;
+    }
+    \For{cada instancia $x$ en el espacio de instancias}{
+        \For{i = 1,...,n}{
+            \If{$H_i(x)$ predice $c_j$ y $w_i > 0.5$}{
+                Añadir $H_i$ al grupo $G_j$ /* j es etiqueta */\;
+            }
+        }
+        
+        \For{j = 1,...,r}{
+            $\bar{C}_{G_j} = \frac{|G_j|+0.5}{|G_j|+1} * \frac{\sum_{H_i \in G_j} w_i}{|G_j|}$
+        }
+    }
+    H predice con el grupo $G_k$ con $k = arg~max_j(\bar{C}_{G_j})$\;
+    \textbf{return} H
+    \caption{Combinar}\label{pseudo:combinar}
+\end{algorithm}
+
+Aclaración sobre la predicción final (en combinación): una vez calculadas las confianzas de cada
+instancia a predecir (x) y por cada posible etiqueta, la idea de la combinación
+es obtener la etiqueta (k, posición en el grupo) con mayor confianza.
