@@ -155,10 +155,13 @@ class DemocraticCoLearning:
                 if qi_prime > qi:
                     for x_id, x, y in zip(ls_prime_ids[index], ls_prime[index], ls_prime_y[index]):
                         if x_id in ls_new_ids[index]:
-                            # Comprobar si es igual y si lo es, no contar como cambio
-                            ls_y[index][ls_new_ids[index][x_id]] = y
-                            log.loc[len(x_train) + x_id, 'iters'][index] = iteration + 1
-                            log.loc[len(x_train) + x_id, 'targets'][index] = y
+                            actual_label = ls_y[index][ls_new_ids[index][x_id]]
+                            # Si la etiqueta ha cambiado, es entonces cuando se cuenta el "cambio"
+                            if actual_label != y:
+                                change = True
+                                ls_y[index][ls_new_ids[index][x_id]] = y
+                                log.loc[len(x_train) + x_id, 'iters'][index] = iteration + 1
+                                log.loc[len(x_train) + x_id, 'targets'][index] = y
                         else:  # Nueva etiqueta
                             change = True
                             ls_new_ids[index][x_id] = len(ls[index])
@@ -285,23 +288,3 @@ class DemocraticCoLearning:
         :return: Recall
         """
         return recall_score(y_test, self.predict(x_test), average='weighted')
-
-
-if __name__ == '__main__':
-    dl = DatasetLoader('utilidades/datasets/breast.w.arff')
-    dl.set_target("Class")
-    x, y, mapa, is_unlabelled = dl.get_x_y()
-
-    st = DemocraticCoLearning(clfs=[DecisionTreeClassifier(), GaussianNB(), KNeighborsClassifier()])
-
-    (
-        x,
-        y,
-        x_test,
-        y_test
-    ) = data_split(x, y, is_unlabelled, p_unlabelled=0.8, p_test=0.2)
-
-    st.fit(x, y, x_test, y_test, dl.get_only_features())
-
-    pred = st.predict(x_test)
-    print(accuracy_score(y_test, pred))
