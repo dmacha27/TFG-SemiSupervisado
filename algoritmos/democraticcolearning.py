@@ -126,10 +126,10 @@ class DemocraticCoLearning:
 
             for index, x in enumerate(x_u):
                 left = [wi for n_i, wi in enumerate(ws) if n_i in votes[index]]
-                left = sum(left) if left else 0  # REVISAR
+                left = sum(left) if left else 0
 
                 right = [wi for n_i, wi in enumerate(ws) if n_i not in votes[index]]
-                right = max(right) if right else 0  # REVISAR
+                right = max(right) if right else 0
 
                 if left > right:
                     for i in range(len(self.clfs)):
@@ -184,42 +184,48 @@ class DemocraticCoLearning:
 
         return log, stats, specific_stats, iteration - 1
 
+    def _combine(self, x):
+        """
+        Combina las hipótesis (que hacen los clasificadores) para predecir
+        la etiqueta de una instancia.
+
+        :param x: Instancia.
+        :return: Etiqueta predicha.
+        """
+
+        group: List[List[int]] = [[] for _ in range(self.labels)]
+        for index, n in enumerate(self.clfs):
+            if self.ws[index] > 0.5:
+                label = n.predict([x])[0]
+                group[label].append(index)
+
+        confidences = []
+        for j in range(self.labels):
+            op1 = (len(group[j]) + 0.5) / (len(group[j]) + 1)
+
+            if group[j]:
+                num = [self.ws[index] for index in group[j]]
+                num = sum(num) if num else 0
+                op2 = num / len(group[j])
+            else:
+                op2 = 1
+
+            confidences.append(op1 * op2)
+
+        return np.argmax(confidences)
+
     def predict(self, instances):
         """
         Predice las etiquetas de una serie de instancias
 
-        :param instances: Datos a predecir.
-        :return: Predicciones
+        :param instances: Instancias a predecir.
+        :return: Predicciones de las instancias
         """
 
         if not self.ws:
             raise ValueError("Es necesario entrenamiento")
 
-        confidences_per_x = []
-
-        for x in instances:
-            group: List[List[int]] = [[] for _ in range(self.labels)]
-            for index, n in enumerate(self.clfs):
-                if self.ws[index] > 0.5:
-                    label = n.predict([x])[0]
-                    group[label].append(index)
-
-            confidences = []
-            for j in range(self.labels):
-                op1 = (len(group[j]) + 0.5) / (len(group[j]) + 1)
-
-                if group[j]:
-                    num = [self.ws[index] for index in group[j]]
-                    num = sum(num) if num else 0
-                    op2 = num / len(group[j])
-                else:
-                    op2 = 1  # REVISAR
-
-                confidences.append(op1 * op2)
-
-            confidences_per_x.append(confidences)
-
-        return np.array([np.argmax(c) for c in confidences_per_x])
+        return np.array([self._combine(x) for x in instances])
 
     def _confidence_interval(self, n, x, y):
         """
