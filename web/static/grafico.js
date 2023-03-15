@@ -199,12 +199,16 @@ function grafico_selftraining(dataset) {
             .html(function() {
                 if (dot[3] <= cont && dot[2] !== -1) {
                     if (dot[3] === 0){
-                        return "DATO INICIAL<br>" + cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] + "<br>Etiqueta: " + mapa[dot[2]];
+                        return traducir('Initial data') + "<br>" + cx +": " + dot[0] +"<br>" + cy + ": " +
+                            dot[1] + "<br>" + traducir('Label') + ": " +
+                            "<span style='color:"+ color(parseInt(dot[2])) +"'>" + mapa[dot[2]] + "</span>";
                     }else {
-                        return cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] + "<br>Etiqueta: " + mapa[dot[2]];
+                        return cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] + "<br>" + traducir('Label') + ": " +
+                            "<span style='color:"+ color(parseInt(dot[2])) +"'>" + mapa[dot[2]] + "</span>";
                     }
                 } else {
-                    return cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] + "<br>Etiqueta: Sin clasificar";
+                    return cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] + "<br>" +
+                        traducir('Classifier: Not classified') + "<br>" + traducir('Label: Not classified');
                 }
             })
             .style("left", (e.offsetX + 10) + "px")
@@ -366,12 +370,18 @@ function databinding_cotraining(dataset) {
             .html(function () {
                 if (dot[3] <= cont && dot[2] !== -1) {
                     if (dot[3] === 0) {
-                        return traducir('Initial data') + "<br>" + cx + ": " + dot[0] + "<br>" + cy + ": " + dot[1] + "<br>" + traducir('Label') + ": " + mapa[dot[2]];
+                        return traducir('Initial data') + "<br>" + cx + ": " + dot[0] + "<br>" + cy + ": " +
+                            dot[1] + "<br>" + traducir('Label') + ": " +
+                            "<span style='color:"+ color(parseInt(dot[2])) +"'>" + mapa[dot[2]] + "</span>";
                     } else {
-                        return cx + ": " + dot[0] + "<br>" + cy + ": " + dot[1] + "<br>" + traducir('Classifier') + ": " + obtenerSimboloUnicode(dot[4]) + dot[4] + "<br>" + traducir('Label') + ": " + mapa[dot[2]];
+                        return cx + ": " + dot[0] + "<br>" + cy + ": " + dot[1] + "<br>" +
+                            traducir('Classifier') + ": " + obtenerSimboloUnicode(dot[4]) + dot[4] +
+                            "<br>" + traducir('Label') + ": " +
+                            "<span style='color:"+ color(parseInt(dot[2])) +"'>" + mapa[dot[2]] + "</span>";
                     }
                 } else {
-                    return cx + ": " + dot[0] + "<br>" + cy + ": " + dot[1] + "<br>" + traducir('Classifier: Not classified') + "<br>" + traducir('Label: Not classified');
+                    return cx + ": " + dot[0] + "<br>" + cy + ": " + dot[1] + "<br>" +
+                        traducir('Classifier: Not classified') + "<br>" + traducir('Label: Not classified');
                 }
             })
             .style("left", (e.offsetX + 10) + "px")
@@ -461,13 +471,20 @@ function databinding_democraticcolearning(dataset) {
 
                     if (p_data[3] <= cont && p_data[2] !== -1) {
                         if (p_data[3] === 0){
-                            cadena_tooltip += traducir('Initial data') + "<br>" + cx +": " + p_data[0] +"<br>" + cy + ": " + p_data[1] + "<br>" + traducir('Label') + ": " + mapa[p_data[2]];
+                            cadena_tooltip += traducir('Initial data') + "<br>" + cx +": " + p_data[0] +
+                                "<br>" + cy + ": " + p_data[1] + "<br>" + traducir('Label') + ": " +
+                                "<span style='color:"+ color(parseInt(p_data[2])) +"'>" + mapa[p_data[2]] + "</span>";
                         }else {
-                            cadena_tooltip += cx +": " + p_data[0] +"<br>" + cy + ": " + p_data[1] +"<br>" + traducir('Classifier') + ": " + obtenerSimboloUnicode(p_data[4]) + p_data[4] + "<br>" + traducir('Label') + ": " + mapa[p_data[2]];
+                            cadena_tooltip += cx +": " + p_data[0] +"<br>" + cy + ": " + p_data[1] +
+                                "<br>" + traducir('Classifier') + ": " + obtenerSimboloUnicode(p_data[4]) +
+                                p_data[4] + "<br>" + traducir('Label') + ": " +
+                                "<span style='color:"+ color(parseInt(p_data[2])) +"'>" + mapa[p_data[2]] + "</span>";
                         }
                         cadena_tooltip += "<br>-------<br>";
                     } else if (p_data[2] === -1){
-                        cadena_tooltip += cx + ": " + p_data[0] + "<br>" + cy + ": " + p_data[1] + "<br>" + traducir('Classifier: Not classified') + "<br>" + traducir('Label: Not classified');
+                        cadena_tooltip += cx + ": " + p_data[0] + "<br>" + cy + ": " + p_data[1] +
+                            "<br>" + traducir('Classifier: Not classified') + "<br>" +
+                            traducir('Label: Not classified');
                         cadena_tooltip += "<br>-------<br>";
                     }
 
