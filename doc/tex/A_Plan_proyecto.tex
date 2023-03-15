@@ -71,7 +71,7 @@ periodo temporal real del desarrollo del proyecto (segundo cuatrimestre)
 
 Durante el sprint se retomaron las tareas y el desarrollo general del proyecto.
 Se mejoró el algoritmo de \texttt{SelfTraining} que estaba como prototipo y se avanzó en
-la tarea de primera aproximación en Web mediante Flask. Sobre esto último, se creó
+la tarea de primera aproximación en la aplicación. mediante Flask. Sobre esto último, se creó
 una visualización del proceso de entrenamiento muy básica por cada iteración.
 
 Se creó un prototipo del algoritmo \texttt{CoTraining} sin cumplir con todas sus
@@ -194,7 +194,7 @@ Puntos a desarrollar:
 \begin{enumerate}
     \item Implementación Democratic Co-Learning.
     \item Profiling (tiempos de ejecución).
-    \item Estadísticas en Web.
+    \item Estadísticas en la aplicación.
     \item Test de las implementaciones.
     \item Avanzar con la memoria y anexos.
 \end{enumerate}
@@ -238,11 +238,11 @@ Sprints también en ella para poder extraer los gráficos del trabajo realizado.
 Puntos a desarrollar:
 \begin{enumerate}
     \item Intervalo de confianza en Democratic Co-Learning.
-    \item Control reetiquetado en Democratic Co-Learning
+    \item Control reetiquetado en Democratic Co-Learning.
     \item Correcciones sobre memoria y anexos.
     \item Gráfico de estadísticas unificado.
     \item Internacionalización Web.
-    \item Visualización principal de Democratic Co-Learning en Web
+    \item Visualización principal de Democratic Co-Learning en la aplicación.
 \end{enumerate}
 
 El primer punto fue muy sencillo, se proporcionó la implementación de los
@@ -265,20 +265,20 @@ Las correcciones se incorporaron según las indicaciones de Álvar Arnaiz.
 El gráfico de estadísticas fue unificado, permitiendo seleccionar al usuario
 mediante unos <<checkboxes>>. Aproximadamente unas 4 horas para generar el
 formulario correspondiente que controle la aparición de cada línea y controlar
-los eventos de las iteraciones (p. ej. añadir siguiente punto solo si está
+los eventos de las iteraciones (por ejemplo, añadir siguiente punto solo si está
 activado su check).
 
 En cuanto a la Internacionalización, al principio resultó sencillo, ya que
 gracias a Babel (Flask-Babel) detecta automáticamente las cadenas de texto
 dentro de <<gettext>>, sin embargo, al indicar las traducciones en JavaScript,
 el intérprete tomaba <<gettext>> como una función que al no estar definida,
-lanzaba error. Al final se genero una función en la plantilla principal de tal
-forma que esa actúe como <<gettext>> llamada desde los distintos scripts.
+lanzaba error. Al final se generó una función en la plantilla principal de tal
+forma que actúe como <<gettext>>, llamada desde los distintos scripts.
 
 La visualización de Democratic Co-Learning no dio tiempo a implementarse en este Sprint.
 
 Además, a partir de este Sprint se incorporan todas las tareas en Zenhub para los
-gráficos Burndown:
+gráficos Burndown (ver Imagen~\ref{fig:sprints/sprint8}).
 
 \imagen{sprints/sprint8}{Burndown chart del sprint 8.}
 
@@ -288,7 +288,7 @@ Corresponde con el periodo temporal del 1 de febrero al 8 de marzo de 2023.
 
 Puntos a desarrollar:
 \begin{enumerate}
-    \item Visualización principal de Democratic Co-Learning en Web
+    \item Visualización principal de Democratic Co-Learning en la aplicación.
     \item Formulario de los parámetros de los clasificadores.
     \item Estadísticas generales en Democratic Co-Learning.
     \item Estadísticas específicas en Democratic Co-Learning
@@ -297,53 +297,53 @@ Puntos a desarrollar:
 
 La visualización principal fue relativamente sencilla pues en realidad es muy
 similar a Co-Training. Hubo algún ajuste adicional para generar la información
-de la tooltip al pasar por encima de un punto. Como en cada posición podía haber
+de la \textit{tooltip} al pasar por encima de un punto. Como en cada posición podía haber
 varios clasificadores había que mostrar esa información.
 
 Para el formulario de los parámetros se consideró el uso de Flask-WTF que al
 final se descartó. Se tenía como punto de partida utilizar un JSON del que leer
-los parámetros así que lo primero fue pensar una forma sencilla de codificarlos,
-con la información necesaria que necesiten los inputs (<<type>>,<<step>>...). La
-ventaja de JSON es que aparte de que la lectura es muy sencilla, son
-diccionarios muy fáciles de utilizar (tanto desde Python como desde las propias
-plantillas/JavaScript). Para generar el formulario se pensó en hacerlo de la
-forma más automática posible para así solo tener que cambiar el JSON, esto se
-hizo con un método de JavaScript que para cada clasificador genera el formulario
-correspondiente con los parámetros del JSON. El tiempo total fue unas 6 horas
-pues también se perdió tiempo debido a que no era posible seleccionar elementos
-del DOM (pues no estaba cargado) y los elementos debían seleccionarse mediante
-CSS (algo que no se sabía por desconocimiento de JavaScript).
+los parámetros, así que lo primero fue pensar una forma sencilla de
+codificarlos, con la información necesaria de las entradas
+(<<type>>,<<step>>...). La ventaja de JSON es que aparte de que la lectura es
+muy sencilla, son diccionarios, muy fáciles de utilizar (tanto desde Python como
+desde las propias plantillas/JavaScript). Para generar el formulario se pensó en
+hacerlo de la forma más automática posible para así solo tener que cambiar el
+JSON, esto se hizo con un método de JavaScript que para cada clasificador genera
+el formulario correspondiente con los parámetros del JSON. El tiempo total fue
+unas 6 horas pues también se perdió tiempo debido a que no era posible
+seleccionar elementos del DOM (pues no estaba cargado) y los elementos debían
+seleccionarse mediante CSS (algo que no se sabía por desconocimiento de
+JavaScript).
 
 Se añadieron las estadísticas generales de Democratic Co-Learning de forma muy
 sencilla pues era exactamente igual que Co-Training (y Self-Training) esto se
-realizó añadiendo el DataFrame en el propio algoritmo con las estadísticas
-queridas.
+realizó añadiendo el \textit{DataFrame} en el propio algoritmo con las
+estadísticas queridas (como el resto de los algoritmos).
 
 Había mucho código muy parecido o exactamente igual en las plantillas de los
-algoritmos así que aprovechando esta tarea también se automatizó por completo
-las estadísticas. Se pensó de tal forma que solo con las columnas de los
-DataFrames que retornan los algoritmos, la Web ya se encargue de generar el
-resto. A la vez que esto (e iniciando la tarea de las estadísticas individuales)
-es que otro punto importante que se tuvo en cuenta eran las futuras estadísticas
-individuales para Democratic Co-Learning, todas las funciones fueron
-transformadas para trabajar con elementos del DOM específicos de tal forma que
-al indicarle por ejemplo un <<DIV>>, se generen las estadísticas sobre ese
+algoritmos, así que aprovechando esta tarea también se automatizaron por
+completo las estadísticas. Se pensó de tal forma que solo con las columnas de
+los \textit{DataFrames} que retornan los algoritmos, la Web ya se encargue de
+generar el resto. A la vez que esto (e iniciando la tarea de las estadísticas
+individuales), otro punto importante que se tuvo en cuenta eran las futuras
+estadísticas individuales para Democratic Co-Learning, todas las funciones
+fueron transformadas para trabajar con elementos del DOM específicos, de esta
+forma al indicarle por ejemplo un <<DIV>>, se generen las estadísticas sobre ese
 elemento. En total unas 8 horas. 
 
 Para estas estadísticas individuales, aparte de las funciones generalizadas se
 creó una nueva que sobre un elemento (un <<DIV>>) se generase un selector con el
 nombre de los clasificadores que intervienen en el algoritmo junto con los
-contenedores dentro de él que para las estadísticas de cada clasificador.
+contenedores dentro de él para las estadísticas de cada clasificador.
 Finalmente, se utilizan las funciones de la tarea anterior para añadir a esos
-contenedores nuevos, los gráficos individuales. Unas 4 horas.
+contenedores nuevos los gráficos individuales. Unas 4 horas.
 
 Sobre el último punto, se comentó que una etiqueta que es reetiquetada al mismo
 valor no debe <<contar>> como mejora (o cambio en el algoritmo). Si no se
-realiza así el tiempo de ejecución aumenta demasiado (y no tendría sentido pues
-no mejora la precisión si es la misma etiqueta).
+realiza así, el tiempo de ejecución aumenta demasiado.
 
 
-Gráfico Burndown:
+El gráfico Burndown se visualiza en la imagen~\ref{fig:sprints/sprint9}.
 \imagen{sprints/sprint9}{Burndown chart del sprint 9.}
 \section{Estudio de viabilidad}
 

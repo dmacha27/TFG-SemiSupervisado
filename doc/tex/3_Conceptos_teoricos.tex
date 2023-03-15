@@ -1,5 +1,8 @@
 \capitulo{3}{Conceptos teóricos}
 
+En esta sección se presentarán los principales conceptos teóricos del proyecto.
+Estos incluyen el aprendizaje automático y más específicamente el aprendizaje
+semi-supervisado.
 
 \section{Aprendizaje automático}
 
@@ -190,10 +193,9 @@ Los conocidos métodos "<wrapper"> se basan en el \textit{pseudo etiquetado}
 ("<pseudo-labelling">), es el proceso en el que los clasificadores entrenados
 con datos etiquetados generan etiquetas para los no etiquetados. Una vez
 completado este proceso, el clasificador se vuelve a entrenar pero añadiendo
-estos nuevos datos.
-
-La gran ventaja que suponen estos métodos es que pueden utilizarse con casi
-todos los clasificadores (supervisados) existentes \cite{vanEngelen2020}.
+estos nuevos datos. La gran ventaja que suponen estos métodos es que pueden
+utilizarse con casi todos los clasificadores (supervisados) existentes
+\cite{vanEngelen2020}.
 
 \paragraph{Self-Training}
 Se trata del método de aprendizaje semi-supervisado más sencillo y "<directo">.
@@ -202,15 +204,15 @@ etiquetados iniciales y aprovecha el proceso de pseudo etiquetado comentado para
 continuar su entrenamiento.
 
 El método comienza por entrenar ese clasificador con los datos etiquetados que
-se tienen. A partir de este aprendizaje, se etiqueta el resto de datos. De todas
-las nuevas predicciones se seleccionan aquellas que parecen haber acertado con
-mayor probabilidad. Una vez seleccionados, el clasificador es reentrenado con la
-unión los ya etiquetados y estos nuevos. El proceso continúa hasta un criterio
-de parada (generalmente hasta etiquetar todos los datos o un número máximo de
-iteraciones).
+se tienen. A partir de este aprendizaje inicial, se etiqueta el resto de datos.
+De todas las nuevas predicciones se seleccionan aquellas en las que el
+clasificador más confianza tiene (de haber acertado). Una vez seleccionados, el
+clasificador es reentrenado con la unión de los ya etiquetados y estos nuevos.
+El proceso continúa hasta un criterio de parada (generalmente hasta etiquetar
+todos los datos o un número máximo de iteraciones).
 
 En este proceso, el paso más importante es la incorporación de nuevos datos al
-de conjunto de etiquetados, porque, \textbf{probablemente}, la predicción sea la
+conjunto de etiquetados porque, \textbf{probablemente}, la predicción sea la
 correcta. Es importante entonces que el cálculo de la probabilidad se realice
 correctamente para asegurar que los nuevos datos son de interés. En caso
 contrario, no es posible aprovechar los beneficios que ofrece self-training~
@@ -221,7 +223,7 @@ contrario, no es posible aprovechar los beneficios que ofrece self-training~
     \DontPrintSemicolon
     \KwIn{Conjunto de datos etiquetados \textbf{\textit{L}}, 
     no etiquetados \textbf{\textit{U}} y clasificador \textbf{\textit{H}}}
-    \KwOut{Clasificador}
+    \KwOut{Clasificador entrenado}
      \While{$|U| \neq 0$}{
         Entrenar \textbf{\textit{H}} con \textbf{\textit{L}}\;
         Predecir etiquetas de \textbf{\textit{U}}\;
@@ -250,70 +252,69 @@ confianza/probabilidad).
 
 En \cite{blum1998combining}, Blum y Mitchel propusieron el funcionamiento básico
 de Co-Training con dos vistas sobre los datos (<<multi-view>>). Estas vistas
-corresponden no con subconjuntos de las instancias sino de subconjuntos de las
+corresponden no con subconjuntos de las instancias, sino de subconjuntos de las
 características de las mismas. Es decir, cada clasificador va a entrenarse
 teniendo en cuenta características distintas. Idealmente estas vistas son
 independientes y pueden predecir por sí solas la etiqueta (aunque no siempre se
-cumplirá). Cuando los clasificadores predicen etiquetas sobre los datos se
+cumplirá). Cuando los clasificadores predicen etiquetas sobre los datos, se
 seleccionan de ambos los de mayor confianza y construyen el nuevo conjunto de
 entrenamiento para la siguiente iteración.
 
 
 \begin{algorithm}
     \DontPrintSemicolon
-    \KwIn{Conjunto de datos etiquetados \textbf{\textit{L}}, 
-    no etiquetados \textbf{\textit{U}}, clasificadores \textbf{\textit{H\textsubscript{1}}}
-    y \textbf{\textit{H\textsubscript{2}}}, \textit{p} (positivos), 
-    \textit{n} (negativos), \textit{u} (datos iniciales), \textit{k} (iteraciones)}
+    \KwIn{Conjunto de datos etiquetados $\pmb{L}$, 
+    no etiquetados $\pmb{U}$, clasificadores $\pmb{H}_1$
+    y $\pmb{H}_2$, $p$ (positivos), 
+    $n$ (negativos), $u$ (número de datos iniciales), $k$ (iteraciones)}
     \KwOut{Clasificadores entrenados}
-    Crear subconjunto \textbf{\textit{U'}} seleccionando \textit{u} instancias aleatorias de \textbf{\textit{U}}\;
+    Crear un subconjunto $\pmb{U'}$ seleccionando $u$ instancias aleatorias de $\pmb{U}$\;
     \For{k iteraciones}{
-        Entrenar \textbf{\textit{H\textsubscript{1}}} con \textbf{\textit{L}}
-        solo considerando un subconjunto (\textit{x\textsubscript{1}}) de las características de cada instancia (\textit{x})\;
-        Entrenar \textbf{\textit{H\textsubscript{2}}} con \textbf{\textit{L}}
-        solo considerando el otro subconjunto (\textit{x\textsubscript{2}}) de las características de cada instancia (\textit{x})\;
+        Entrenar $\pmb{H}_1$ con $\pmb{L}$
+        solo considerando un subconjunto ($\pmb{x}_1$) de las características de cada instancia ($x$)\;
+        Entrenar $\pmb{H}_2$ con $\pmb{L}$
+        solo considerando el otro subconjunto ($\pmb{x}_2$) de las características de cada instancia ($x$)\;
 
-        Hacer que \textbf{\textit{H\textsubscript{1}}} prediga \textit{p} instancias positivas y \textit{n} negativas de \textbf{\textit{U'}} que tengan la mejor confianza\;
-        Hacer que \textbf{\textit{H\textsubscript{2}}} prediga \textit{p} instancias positivas y \textit{n} negativas de \textbf{\textit{U'}} que tengan la mejor confianza\;
-        Añadir estas instancias seleccionadas a \textbf{\textit{L}}\;
-        Reponer \textbf{\textit{U'}} añadiendo 2p + 2n instancias de \textbf{\textit{U}}\;
+        Hacer que $\pmb{H}_1$ prediga $p$ instancias positivas y $n$ negativas de $\pmb{U'}$ que tengan la mayor confianza\;
+        Hacer que $\pmb{H}_2$ prediga $p$ instancias positivas y $n$ negativas de $\pmb{U'}$ que tengan la mayor confianza\;
+        Añadir estas instancias seleccionadas a $\pmb{L}$\;
+        Reponer $\pmb{U'}$ añadiendo $2p + 2n$ instancias de $\pmb{U}$\;
      }
-     \textbf{return} \textbf{\textit{H\textsubscript{1}}},\textbf{\textit{H\textsubscript{2}}}
+     \Return{$\pmb{H}_1,\pmb{H}_2$}
      \caption{Co-Training}\label{pseudo:co-training}
 \end{algorithm}
 
 \clearpage
 \paragraph{Democratic Co-Learning}
 
-Yan Zhou y Sally Goldman presentan en \cite{zhou2004democratic} un algoritmo de
-aprendizaje semi-supervisado en la línea de Co-Training (varios clasificadores)
-pero que en el fondo poco tienen en común. La diferencia sustancial es que no
-trabajan con dos (o más) conjunto de atributos (para que cada clasificador
-utilice uno de ellos), en este caso solo se tiene un único conjunto de atributos
-(<<single-view>>). Este algoritmo, y comentado por sus autores, tiene como
-objetivo mejorar el <<accuracy>> de los algoritmos supervisados cuando se tiene
-un pequeño conjunto de datos etiquetados y gran cantidad de no etiquetados.
+Yan Zhou y Sally Goldman presentaron en \cite{zhou2004democratic} un algoritmo
+de aprendizaje semi-supervisado en la línea de Co-Training (varios
+clasificadores). La diferencia sustancial es que no trabajan con dos (o más)
+conjunto de atributos (para que cada clasificador utilice uno de ellos), en este
+caso solo se tiene un único conjunto de atributos (<<single-view>>).
 
 Partiendo de los datos etiquetados, varios clasificadores realizan votación
-ponderada sobre los no etiquetados. Es decir, la nueva etiqueta para la
-instancia será la que vote la mayoría. Además, para aquellos clasificadores que
-no votan como la mayoría se les impone esa etiqueta en su conjunto de
-entrenamiento (se añade la instancia con esa etiqueta). Todo el proceso se
-repite hasta que no se añadan más instancias a ningún conjunto de entrenamiento,
-esto se alcanza cuando añadiendo nuevas etiquetas no se mejora la precisión.
+ponderada sobre los no etiquetados. Lo que quiere decir que, para una instancia,
+su nueva etiqueta será la que vote la mayoría. Además, para aquellos
+clasificadores que no votan como la mayoría, la instancia se añade a su conjunto
+de entrenamiento junto a la etiqueta mayoritaria, de esta forma se <<obliga>> en
+la siguiente iteración a aprenderla. Todo el proceso se repite hasta que no se
+añadan más instancias a ningún conjunto de entrenamiento, esto se alcanza cuando
+no se mejora la precisión pese a la adición de nuevas instancias
+pseudoetiquetadas.
 
 \begin{algorithm}
     \DontPrintSemicolon
-    \KwIn{Conjunto de datos etiquetados \textbf{\textit{L}}, 
-    no etiquetados \textbf{\textit{U}} y algoritmos de aprendizaje \textbf{\textit{A\textsubscript{1}}},..., \textbf{\textit{A\textsubscript{n}}}
+    \KwIn{Conjunto de datos etiquetados $\pmb{L}$, 
+    no etiquetados $\pmb{U}$ y algoritmos de aprendizaje $\pmb{A}_1$,..., $\pmb{A}_n$
     }
     \For{i = 1,...,n}{
         $L_i = L$\;
-        $e_i = L$\;
+        $e_i = 0$\;
      }
-     \Repeat{L\textsubscript{1},..., L\textsubscript{n} no cambien}{
+     \Repeat{$L_1$,..., $L_n$ no cambien}{
         \For{i = 1,...,n}{
-            Computar \textbf{\textit{H\textsubscript{i}}} entrenando \textbf{\textit{A\textsubscript{i}}} con \textbf{\textit{L\textsubscript{i}}}\;
+            Calcular $\pmb{H}_i$ entrenando $\pmb{A}_i$ con $\pmb{L}_i$\;
         }
 
         \For{cada instancia no etiquetada $x \in U$}{
@@ -324,12 +325,12 @@ esto se alcanza cuando añadiendo nuevas etiquetas no se mejora la precisión.
         }
         /* Instancias propuestas para etiquetar*/\;
         \For{i = 1,...,n}{
-            Utilizar \textbf{\textit{L}} el intervalo de confianza al 95\%, [\textit{l\textsubscript{i}}, \textit{h\textsubscript{i}}] para \textbf{\textit{H\textsubscript{i}}}\;
+            Utilizar $\pmb{L}$ para calcular el intervalo de confianza al 95\%, [$l_i$,~$h_i$] de $\pmb{H}_i$\;
             $w_i = (l_i + h_i)/2$
         }
 
         \For{i = 1,...,n}{
-            $L'_i = 0 $\;
+            $L'_i = \emptyset$\;
         }
 
         \If{$\sum_{H_j (x)=c_k} w\textsubscript{j} > max_{c'_k \neq c_k} \sum_{H_j (x)=c'_k w_j}$}{
@@ -339,7 +340,7 @@ esto se alcanza cuando añadiendo nuevas etiquetas no se mejora la precisión.
         /* Estimar si añadir $L'_i$ a $L_i$ mejora la exactitud*/\;
 
         \For{i = 1,...,n}{
-            Utilizar \textbf{\textit{L}} el intervalo de confianza al 95\%, [\textit{l\textsubscript{i}}, \textit{h\textsubscript{i}}] para \textbf{\textit{H\textsubscript{i}}}\;
+            Utilizar $\pmb{L}$ para calcular el intervalo de confianza al 95\%, [$l_i$,~$h_i$] de $\pmb{H}_i$\;
             $q_i = |L_i|(1-2(\frac{e_i}{|L_i|})^2)$   /*Tasa de error*/\;
             $e'_i=(1-\frac{\sum_{i=1}^{d}l_i}{d})|L'_i|$  /*Nueva tasa de error*/\;
             $q'_i = |L_i ~\cup~ L'_i|(1-\frac{2(e_i~+~e'_i)}{|L_i ~\cup~ L'_i|})^2$\;
@@ -351,33 +352,33 @@ esto se alcanza cuando añadiendo nuevas etiquetas no se mejora la precisión.
         }
         
      }
-     \caption{Democratic Co-Learning}\label{pseudo:democraticco-learning}
+     \Return{Combinar($\pmb{H}_1,\pmb{H}_2,...,\pmb{H}_n$)}
+     \caption{Democratic Co-Learning - entrenamiento}\label{pseudo:democraticco-learning}
 \end{algorithm}
 
 \begin{algorithm}
     \DontPrintSemicolon
-    \KwIn{$\pmb{H}_1,\pmb{H}_2,...,\pmb{H}_n$ y espacio de instancias}
+    \KwIn{$\pmb{H}_1,\pmb{H}_2,...,\pmb{H}_n$ y $x$ (instancia)}
     \KwOut{Hipótesis combinadas (predicción)}
     \For{i = 1,...,n}{
-            Utilizar \textbf{\textit{L}} el intervalo de confianza al 95\%, [\textit{l\textsubscript{i}}, \textit{h\textsubscript{i}}] para \textbf{\textit{H\textsubscript{i}}}\;
+        Utilizar $\pmb{L}$ para calcular el intervalo de confianza al 95\%, [$l_i$,~$h_i$] de $\pmb{H}_i$\;
             $w_i = (l_i + h_i)/2$\;
     }
-    \For{cada instancia $x$ en el espacio de instancias}{
-        \For{i = 1,...,n}{
-            \If{$H_i(x)$ predice $c_j$ y $w_i > 0.5$}{
-                Añadir $H_i$ al grupo $G_j$ /* j es etiqueta */\;
-            }
+    \For{i = 1,...,n}{
+        \If{$H_i(x)$ predice $c_j$ y $w_i >$ 0.5}{
+            Añadir $H_i$ al grupo $G_j$ /* j es etiqueta */\;
         }
-        
-        \For{j = 1,...,r}{
-            $\bar{C}_{G_j} = \frac{|G_j|+0.5}{|G_j|+1} * \frac{\sum_{H_i \in G_j} w_i}{|G_j|}$
-        }
+    }
+    
+    \For{j = 1,...,r}{
+        $\bar{C}_{G_j} = \frac{|G_j|+0.5}{|G_j|+1} * \frac{\sum_{H_i \in G_j} w_i}{|G_j|}$
     }
     H predice con el grupo $G_k$ con $k = arg~max_j(\bar{C}_{G_j})$\;
     \textbf{return} H
-    \caption{Combinar}\label{pseudo:combinar}
+    \caption{Democratic Co-Learning - predicción (combinación)}\label{pseudo:combinar}
 \end{algorithm}
 
-Aclaración sobre la predicción final (en combinación): una vez calculadas las confianzas de cada
-instancia a predecir (x) y por cada posible etiqueta, la idea de la combinación
-es obtener la etiqueta (k, posición en el grupo) con mayor confianza.
+Aclaración sobre la predicción final (en combinación): una vez calculadas las
+confianzas de la instancia a predecir (x) y por cada posible etiqueta, la idea
+de la combinación es obtener la etiqueta (k, posición en el grupo) con mayor
+confianza.
