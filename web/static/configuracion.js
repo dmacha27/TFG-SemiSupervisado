@@ -40,7 +40,9 @@ function generarFormParametros(algoritmo, div, div_clasificador) {
         }else{
             const input = document.createElement('input');
             input.type = parametro.type;
-            input.step = parametro.step
+            input.step = parametro.step;
+            input.min = parametro.min;
+            input.max = parametro.max;
             input.name = div_clasificador + "_" +p;
             input.classList.add('form-control');
             input.value = parametro.default;

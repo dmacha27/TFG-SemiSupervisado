@@ -4,12 +4,16 @@
       "label": "C",
       "type": "number",
       "step": 0.1,
+      "min": 0.1,
+      "max": "Infinity",
       "default": 1.0
     },
     "max_iter": {
       "label": "Number of iterations",
       "type": "number",
       "step": 1,
+      "min": -1,
+      "max": "Infinity",
       "default": -1
     },
     "kernel": {
@@ -30,6 +34,8 @@
       "label": "Neighbors number",
       "type": "number",
       "step": 1,
+      "min": 1,
+      "max": "Infinity",
       "default": 5
     },
     "weights": {
@@ -48,6 +54,8 @@
       "label": "p",
       "type": "number",
       "step": 1,
+      "min": 1,
+      "max": 2,
       "default": 2
     }
   },
