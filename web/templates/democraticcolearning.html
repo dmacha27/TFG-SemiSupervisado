@@ -10,7 +10,6 @@
             inicializarGrafico(datos, preparardataset_democraticcolearning,databinding_democraticcolearning);
 
             let stats = Object.keys(JSON.parse(datos.stats));
-            generarcheckboxes("checkboxes_general", "general", stats);
             generargraficoestadistico("general", JSON.parse(datos.stats), stats);
 
             generarespecificas("especificas", datos.specific_stats);

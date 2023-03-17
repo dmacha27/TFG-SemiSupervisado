@@ -214,7 +214,7 @@ function anadirestadistica(id_div_objetivo, datos_stats, stat, color) {
         .attr("r", 5)
         .attr("fill", color(stat))
         .style("visibility", function (d) {
-            if (d[0] <= cont && comprobarvisibilidad(id_div_objetivo, stat)) {
+            if (d[0] <= cont) {
                 return "visible";
             } else {
                 return "hidden";
@@ -232,7 +232,7 @@ function anadirestadistica(id_div_objetivo, datos_stats, stat, color) {
             .attr("stroke", color(stat))
             .attr("stroke-width", 1.5)
             .style("display", function (d) {
-                if (d < cont && comprobarvisibilidad(id_div_objetivo, stat)) {
+                if (d < cont) {
                     return "block";
                 } else {
                     return "none";
@@ -247,25 +247,24 @@ function anadirestadistica(id_div_objetivo, datos_stats, stat, color) {
 
 
     function next() {
-        if (comprobarvisibilidad(id_div_objetivo, stat)) {
-            pts.filter(function (d) {
-                return d[0] === cont;
-            })
-                .style("opacity", 0)
-                .transition()
-                .duration(600)
-                .style("opacity", 1)
-                .style("visibility", "visible")
+        pts.filter(function (d) {
+            return d[0] === cont;
+        })
+            .style("opacity", 0)
+            .transition()
+            .duration(600)
+            .style("opacity", 1)
+            .style("visibility", "visible")
 
-            lineas.filter(function (d) {
-                return d === cont;
-            })
-                .attr("stroke-width", 0)
-                .transition()
-                .duration(600)
-                .attr("stroke-width", 1)
-                .style("display", "block");
-        }
+        lineas.filter(function (d) {
+            return d === cont;
+        })
+            .attr("stroke-width", 0)
+            .transition()
+            .duration(600)
+            .attr("stroke-width", 1)
+            .style("display", "block");
+
     }
 
     function prev() {
