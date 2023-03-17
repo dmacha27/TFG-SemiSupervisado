@@ -1,107 +1,130 @@
 function generarespecificas(id_div_especificas, specific_stats) {
     let clasificadores = Object.keys(specific_stats);
+    let datos_json = JSON.parse(specific_stats[clasificadores[0]]);
+    let stats = Object.keys(datos_json);
 
     let div_especificas = document.querySelector("#" + id_div_especificas);
 
-    // Crear selector para los algoritmos
+    // Crear selector para las estadísticas
     let select = document.createElement("select");
-    select.setAttribute("id", "selector_clasificador");
+    select.setAttribute("id", "selector_stat");
     select.setAttribute("class", "form-select");
     select.style.width = "25%";
     select.style.margin = "auto";
 
 
-    for (let i = 0; i < clasificadores.length; i++) {
+    for (let i = 0; i < stats.length; i++) {
         let option = document.createElement("option");
-        option.value = clasificadores[i];
-        option.text = clasificadores[i];
+        option.value = stats[i];
+        option.text = stats[i];
         select.appendChild(option);
     }
 
+    let id_div_estadisticas = "grafico_stat";
     select.addEventListener('change', (event) => {
-        seleccionarclasificador(event.target.value, clasificadores);
+        seleccionarstat(id_div_estadisticas, event.target.value, stats);
     });
 
     div_especificas.appendChild(select);
 
-    //Crear los contenedores donde irá cada gráfico específico
-    for (let i = 0; i < clasificadores.length; i++) {
-        let nombre_clasificador = clasificadores[i]
-            .replace("(","")
-            .replace(")","");
+    let div_grafico = document.createElement("div");
+    div_grafico.setAttribute("id", id_div_estadisticas);
 
-        let div = document.createElement("div");
-        div.setAttribute("id", nombre_clasificador);
-        div.style.display = "none";
+    let div_checkboxes = document.createElement("div");
+    div_checkboxes.setAttribute("id", "checkboxes_especifico_grafico_stat");
 
-        let div_especifico = document.createElement("div");
-        div_especifico.setAttribute("id", "especifico_" + nombre_clasificador);
+    div_especificas.appendChild(div_grafico);
+    div_especificas.appendChild(div_checkboxes);
 
-        let div_checkboxes = document.createElement("div");
-        div_checkboxes.setAttribute("id", "checkboxes_especifico_" + nombre_clasificador);
-        div.appendChild(div_especifico);
-        div.appendChild(div_checkboxes);
+    generarcheckboxes_clasificadores("checkboxes_especifico_grafico_stat", id_div_estadisticas, clasificadores);
+    generargraficoestadistico(id_div_estadisticas, null, clasificadores);
 
-        div_especificas.appendChild(div);
-
-    }
+    let color = d3.scaleOrdinal()
+        .domain(clasificadores)
+        .range(d3.schemeCategory10);
 
     for (let i = 0; i < clasificadores.length; i++) {
-        let nombre_clasificador = clasificadores[i]
-            .replace("(","")
-            .replace(")","");
-
-        let id_div_especifico = "especifico_" + nombre_clasificador;
-        let id_div_checkboxes = "checkboxes_especifico_" + nombre_clasificador;
-
         let datos_json = JSON.parse(specific_stats[clasificadores[i]]);
-        let stats = Object.keys(datos_json);
 
-        generarcheckboxes(id_div_checkboxes, id_div_especifico, stats)
-        generargraficoestadistico(id_div_especifico, datos_json, stats)
+        for (let j = 0; j < stats.length; j++) {
+            anadirestadistica(id_div_estadisticas, datos_json, stats[j], color, clasificadores[i]);
+        }
     }
 
-    seleccionarclasificador(clasificadores[0], clasificadores);
+    seleccionarstat(id_div_estadisticas, stats[0], stats);
 
 }
 
-function seleccionarclasificador(clasificador_seleccionado, lista_clasificadores) {
+function seleccionarstat(id_div_estadisticas, stat_seleccionada, lista_stats) {
+    let statsvg = d3.select("#" + id_div_estadisticas).select("svg").select("g");
 
-    for (let i = 0; i < lista_clasificadores.length; i++) {
-        let nombre_clasificador = lista_clasificadores[i]
-            .replace("(","")
-            .replace(")","");
-        let div = document.querySelector("#" + nombre_clasificador);
-        if (clasificador_seleccionado === lista_clasificadores[i]){
-            div.style.display = "block";
+    for (let i = 0; i < lista_stats.length; i++) {
+        let pts = statsvg.selectAll('circle[stat='+ lista_stats[i] +']');
+        let lineas = statsvg.selectAll('line[stat='+ lista_stats[i] +']');
+        if (stat_seleccionada === lista_stats[i]){
+            pts.filter(function(d) {
+                return d[0] <= cont && comprobarvisibilidad(d3.select(this).attr("clf"),stat_seleccionada);
+            })
+                .style("visibility", "visible")
+
+            lineas.filter(function (d) {
+                return d <= cont && comprobarvisibilidad(d3.select(this).attr("clf"),stat_seleccionada);;
+            })
+                .style("visibility", "visible")
         }else{
-            div.style.display = "none";
+            pts.style("visibility", "hidden");
+            lineas.style("visibility", "hidden");
         }
     }
 
 }
 
-function generarcheckboxes(id_div_objetivo, id_div_estadisticas, stats) {
+function habilitar_clasificador(id_div_objetivo, checked, clasificador) {
+    let nombre_clasificador = clasificador
+        .replace("(","")
+        .replace(")","");
+    let statsvg = d3.select("#" + id_div_objetivo).select("svg").select("g");
+    let pts = statsvg.selectAll('circle[clf='+ nombre_clasificador +']');
+    let lineas = statsvg.selectAll('line[clf='+ nombre_clasificador +']');
+
+    if(checked){
+        pts.filter(function(d) {
+            return d[0] <= cont && comprobarvisibilidad(nombre_clasificador, d3.select(this).attr("stat"));
+        })
+            .style("visibility", "visible")
+
+        lineas.filter(function (d) {
+            return d <= cont && comprobarvisibilidad(nombre_clasificador, d3.select(this).attr("stat"));
+        })
+            .style("visibility", "visible")
+    }else{
+        pts.style("visibility", "hidden");
+        lineas.style("visibility", "hidden");
+    }
+}
+
+function generarcheckboxes_clasificadores(id_div_objetivo, id_div_estadisticas, clasificadores) {
     let div_objetivo = document.querySelector("#" + id_div_objetivo);
 
-    for (let index in stats){
-        let stat = stats[index];
+    for (let index in clasificadores){
+        let clasificador = clasificadores[index];
 
         let input = document.createElement("input");
-        input.setAttribute("id", "chk_" + id_div_estadisticas + "_" + stat);
+        input.setAttribute("id", "chk_" + clasificador.replace("(","")
+            .replace(")",""));
         input.setAttribute("type", "checkbox");
         input.setAttribute("class", "form-check-input");
-        if (index === "0"){
-            input.checked = true;
-        }
+        input.checked = true;
+
 
         input.addEventListener("click", function() {
-            habilitar(id_div_estadisticas, this.checked, stat);
+            habilitar_clasificador(id_div_estadisticas, this.checked, clasificador);
         });
 
         let label = document.createElement("label");
-        label.setAttribute("for", "chk_" + id_div_estadisticas + "_" + stat);
-        label.textContent = stat;
+        label.setAttribute("for", "chk_" + clasificador.replace("(","")
+            .replace(")",""));
+        label.textContent = clasificador;
 
         div_objetivo.appendChild(input);
         div_objetivo.appendChild(label);
@@ -111,7 +134,7 @@ function generarcheckboxes(id_div_objetivo, id_div_estadisticas, stats) {
 }
 
 
-function generargraficoestadistico(id_div_objetivo, datos_stats, stats) {
+function generargraficoestadistico(id_div_objetivo, datos_stats, dominio) {
 
     let margin = {top: 10, right: 120, bottom: 40, left: 50},
         width = 950 - margin.left - margin.right,
@@ -158,13 +181,13 @@ function generargraficoestadistico(id_div_objetivo, datos_stats, stats) {
         .text(traducir('Rate'));
 
     let color = d3.scaleOrdinal()
-        .domain(stats)
+        .domain(dominio)
         .range(d3.schemeCategory10);
 
     statsvg.append('g')
         .attr("id","leyenda")
         .selectAll("target")
-        .data(stats)
+        .data(dominio)
         .enter()
         .append("text")
         .attr("x", 120)
@@ -177,20 +200,22 @@ function generargraficoestadistico(id_div_objetivo, datos_stats, stats) {
 
     // Con el gráfico creado se dibuja cada estadística
     // vinculando los eventos
-    for (let index in stats){
-        anadirestadistica(id_div_objetivo, datos_stats, stats[index], color);
+    if (datos_stats !== null) {
+        for (let index in dominio) {
+            anadirestadistica(id_div_objetivo, datos_stats, dominio[index], color);
+        }
     }
 
 }
 
-function anadirestadistica(id_div_objetivo, datos_stats, stat, color) {
+function anadirestadistica(id_div, datos_stats, stat, color, clf="no") {
     let margin = {top: 10, right: 120, bottom: 40, left: 50},
         width = 950 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 
     let lista = crearListaStat(datos_stats, stat);
 
-    let statsvg = d3.select("#" + id_div_objetivo).select("svg").select("g");
+    let statsvg = d3.select("#" + id_div).select("svg").select("g");
 
     let statx = d3.scaleLinear()
         .domain([0, maxit])
@@ -200,11 +225,14 @@ function anadirestadistica(id_div_objetivo, datos_stats, stat, color) {
         .domain([0, 1])
         .range([height, 0]);
 
+    let nombre_clf = clf.replace("(","").replace(")","");
+
     let pts = statsvg.selectAll("dot")
         .data(lista)
         .enter()
         .append("circle")
-        .attr("id", id_div_objetivo + "_" + stat)
+        .attr("clf", nombre_clf)
+        .attr("stat", stat)
         .attr("cx", function (d) {
             return statx(d[0]);
         })
@@ -212,7 +240,14 @@ function anadirestadistica(id_div_objetivo, datos_stats, stat, color) {
             return staty(d[1]);
         })
         .attr("r", 5)
-        .attr("fill", color(stat))
+        .attr("fill", function () {
+            if (clf === "no"){
+                return color(stat);
+            }else{
+                return color(clf);
+            }
+
+        })
         .style("visibility", function (d) {
             if (d[0] <= cont) {
                 return "visible";
@@ -224,23 +259,30 @@ function anadirestadistica(id_div_objetivo, datos_stats, stat, color) {
     for (let i = 0; i < lista.length - 1; i++) {
         statsvg.append("line")
             .data([i + 1])
-            .attr("id", id_div_objetivo + "_" + stat)
+            .attr("clf", nombre_clf)
+            .attr("stat", stat)
             .attr("x1", statx(i))
             .attr("y1", staty(lista[i][1]))
             .attr("x2", statx(i + 1))
             .attr("y2", staty(lista[i + 1][1]))
-            .attr("stroke", color(stat))
+            .attr("stroke", function () {
+                if (clf === "no"){
+                    return color(stat);
+                }else{
+                    return color(clf);
+                }
+            })
             .attr("stroke-width", 1.5)
-            .style("display", function (d) {
+            .style("visibility", function (d) {
                 if (d < cont) {
-                    return "block";
+                    return "visible";
                 } else {
-                    return "none";
+                    return "hidden";
                 }
             })
     }
 
-    let lineas = statsvg.selectAll('line[id=' + id_div_objetivo + '_' + stat + ']');
+    let lineas = statsvg.selectAll('line[clf=' + nombre_clf + '][stat=' + stat + ']');
 
     document.addEventListener('next', next);
     document.addEventListener('prev', prev);
@@ -248,22 +290,22 @@ function anadirestadistica(id_div_objetivo, datos_stats, stat, color) {
 
     function next() {
         pts.filter(function (d) {
-            return d[0] === cont;
+            return d[0] === cont && comprobarvisibilidad(nombre_clf, stat);
         })
             .style("opacity", 0)
             .transition()
             .duration(600)
             .style("opacity", 1)
-            .style("visibility", "visible")
+            .style("visibility", "visible");
 
         lineas.filter(function (d) {
-            return d === cont;
+            return d === cont && comprobarvisibilidad(nombre_clf, stat);
         })
             .attr("stroke-width", 0)
             .transition()
             .duration(600)
             .attr("stroke-width", 1)
-            .style("display", "block");
+            .style("visibility", "visible");
 
     }
 
@@ -271,12 +313,12 @@ function anadirestadistica(id_div_objetivo, datos_stats, stat, color) {
         pts.filter(function (d) {
             return d[0] > cont;
         })
-            .style("visibility", "hidden")
+            .style("visibility", "hidden");
 
         lineas.filter(function (d) {
             return d > cont;
         })
-            .style("display", "none");
+            .style("visibility", "hidden");
     }
 }
 
@@ -292,28 +334,17 @@ function crearListaStat(stats,stat){
     return lista;
 }
 
-function habilitar(id_div_objetivo, checked, stat) {
-    let statsvg = d3.select("#" + id_div_objetivo).select("svg").select("g");
-    let pts = statsvg.selectAll('circle[id='+ id_div_objetivo + '_' + stat +']');
-    let lineas = statsvg.selectAll('line[id='+ id_div_objetivo + '_' + stat +']');
+function comprobarvisibilidad(clasificador, stat) {
+    let check = document.getElementById("chk_" + clasificador);
+    let select = document.getElementById("selector_stat");
 
-    if(checked){
-        pts.filter(function(d) {
-            return d[0] <= cont;
-        })
-            .style("visibility", "visible")
-
-        lineas.filter(function (d) {
-            return d <= cont;
-        })
-            .style("display", "block");
+    if (check === null){ //Estadísticas generales
+        console.log("ddd");
+        return true;
     }else{
-        pts.style("visibility", "hidden")
-        lineas.style("display", "none");
+        if (check.checked && select.value === stat){
+            return true;
+        }
     }
-}
-
-function comprobarvisibilidad(id_div_objetivo, stat) {
-    let check = document.getElementById("chk_" + id_div_objetivo + "_" + stat);
-    return check.checked;
+    return false;
 }
