@@ -220,7 +220,7 @@ function grafico_selftraining(dataset) {
                         traducir('Classifier: Not classified') + "<br>" + traducir('Label: Not classified');
                 }
             })
-            .style("left", (e.offsetX + 10) + "px")
+            .style("left", (e.offsetX + 60) + "px")
             .style("top", (e.offsetY + 60) + "px");
 
     };
@@ -393,7 +393,7 @@ function databinding_cotraining(dataset) {
                         traducir('Classifier: Not classified') + "<br>" + traducir('Label: Not classified');
                 }
             })
-            .style("left", (e.offsetX + 10) + "px")
+            .style("left", (e.offsetX + 60) + "px")
             .style("top", (e.offsetY + 60) + "px");
     };
 
@@ -467,6 +467,15 @@ function databinding_democraticcolearning(dataset) {
             .style("opacity", 1)
             .style("display", "block");
 
+        function algunoclasificado(puntos_posicion) {
+            for (let i = 0; i < puntos_posicion.length; i++) {
+                if (puntos_posicion[i].__data__[3] <= cont){
+                    return true;
+                }
+            }
+            return false;
+        }
+
         d3.select(".tooltip")
             .html(function() {
                 let puntos_posicion = []
@@ -477,7 +486,6 @@ function databinding_democraticcolearning(dataset) {
                 for (let i = 0; i < puntos_posicion.length; i++) {
 
                     let p_data = puntos_posicion[i].__data__
-
                     if (p_data[3] <= cont && p_data[2] !== -1) {
                         if (p_data[3] === 0){
                             cadena_tooltip += traducir('Initial data') + "<br>" + cx +": " + p_data[0] +
@@ -490,17 +498,18 @@ function databinding_democraticcolearning(dataset) {
                                 "<span style='color:"+ color(parseInt(p_data[2])) +"'>" + mapa[p_data[2]] + "</span>";
                         }
                         cadena_tooltip += "<br>-------<br>";
-                    } else if (p_data[2] === -1){
-                        cadena_tooltip += cx + ": " + p_data[0] + "<br>" + cy + ": " + p_data[1] +
-                            "<br>" + traducir('Classifier: Not classified') + "<br>" +
-                            traducir('Label: Not classified');
-                        cadena_tooltip += "<br>-------<br>";
+                    } else{
+                        if (i === 0 && !algunoclasificado(puntos_posicion)) {
+                            cadena_tooltip += cx + ": " + p_data[0] + "<br>" + cy + ": " + p_data[1] +
+                                "<br>" + traducir('Classifier: Not classified') + "<br>" +
+                                traducir('Label: Not classified');
+                            cadena_tooltip += "<br>-------<br>";
+                        }
                     }
-
                 }
                 return cadena_tooltip
             })
-            .style("left", (e.offsetX + 10) + "px")
+            .style("left", (e.offsetX + 60) + "px")
             .style("top", (e.offsetY + 60) + "px");
     };
 

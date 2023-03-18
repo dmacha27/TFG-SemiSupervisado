@@ -11,13 +11,14 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 25 18">
             <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"></path>
         </svg>{{ gettext('Go back') }}</button>
-    <div class="d-flex flex-wrap justify-content-around mb-3 position-relative">
+    <br>
+    <div id="div_cargando">
+        <div id="cargando" class="cargando"></div>
+    </div>
+    <div id="visualizacion" style="visibility: hidden;" class="d-flex flex-wrap justify-content-around mb-3 position-relative">
         <div class="col-md">
             <div class="text-center position-relative">
-                <div id="div_cargando">
-                    <div id="cargando" class="cargando"></div>
-                </div>
-                <p id="nombre_dataset" style="visibility: hidden;">
+                <p id="nombre_dataset">
                     {{ gettext('Dataset') }}: {{ session['FICHERO']|nombredataset }}
                 </p>
                 <div id="zona_gráfico" class="d-flex justify-content-center align-items-center">
@@ -25,7 +26,7 @@
                     <div id="leyenda_visualizacion" style="margin-left: 15px"></div>
                 </div>
 
-                <div class="text_center" id="controles" style="visibility: hidden;">
+                <div class="text_center" id="controles">
                     <button id="reiniciar_zoom" class="btn btn-light">{{ gettext('Zoom reset') }}</button>
                     <br><br>
                     <label>{{ gettext('Iteration') }}: </label><label id="iteracion">0</label>
