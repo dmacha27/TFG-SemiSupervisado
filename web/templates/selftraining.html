@@ -6,7 +6,7 @@
             inicializarGrafico(datos, preparardataset_selftraining,grafico_selftraining);
 
             let stats = Object.keys(JSON.parse(datos.stats));
-            generargraficoestadistico("general", JSON.parse(datos.stats), stats);
+            generargraficoestadistico("estadisticas_generales", JSON.parse(datos.stats), stats);
         });
     </script>
 {% endblock %}

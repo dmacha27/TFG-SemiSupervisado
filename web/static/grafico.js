@@ -9,9 +9,9 @@ function inicializarGrafico(datos, preparar, binding) {
     previt = d3.select("#previt");
     rep = d3.select("#reproducir");
 
-    let margin = {top: 10, right: 120, bottom: 60, left: 45},
-        width = 850 - margin.left - margin.right,
-        height = 700 - margin.top - margin.bottom;
+    let margin = {top: 10, right: 0, bottom: 60, left: 45},
+        width = 750 - margin.left - margin.right,
+        height = 600 - margin.top - margin.bottom;
 
     maxit = datos.iterations;
     let dataset = preparar(JSON.parse(datos.log));
@@ -22,7 +22,7 @@ function inicializarGrafico(datos, preparar, binding) {
         .domain(Object.keys(mapa))
         .range(d3.schemeCategory10);
 
-    let svg = d3.select("#semisupervisedchart")
+    let svg = d3.select("#visualizacion_principal")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -49,18 +49,27 @@ function inicializarGrafico(datos, preparar, binding) {
         .text(cy);
 
     //Leyenda
-    svg.append('g')
-        .attr("id","leyenda")
-        .selectAll("target")
+    let leyenda = d3.select("#leyenda_visualizacion")
+        .append("svg");
+
+    let g_leyenda = leyenda.append("g");
+
+    g_leyenda
+        .selectAll("text")
         .data(Object.keys(mapa))
         .enter()
         .append("text")
-        .attr("x", 120)
-        .attr("y", function(d,i){ return 100 + i*25;})
-        .style("fill", function(d){ return color(parseInt(d));})
         .text(function(d){ return mapa[d];})
-        .style("alignment-baseline", "middle")
-        .attr("transform", "translate(" + (width -110) + "," + -90 + ")");
+        .attr("y", function(d, i) { return (i+1) * 20; })
+        .style("fill", function(d){ return color(parseInt(d));})
+
+    //Obtiene el mínimo tamaño que contiene a la leyenda.
+    let bbox = g_leyenda.node().getBBox();
+
+    //Al aplicar sus dimensiones se consigue que el SVG
+    //quede más pequeño
+    leyenda.attr("width", bbox.width +10)
+        .attr("height", bbox.height + 10);
 
     gx = d3.scaleLinear()
         .domain([d3.min(dataset, d => d[0]), d3.max(dataset, d => d[0])])
@@ -87,7 +96,7 @@ function inicializarGrafico(datos, preparar, binding) {
         .attr("clip-path", "url(#clip)")
 
     //Basado en https://d3-graph-gallery.com/graph/interactivity_tooltip.html#template
-    d3.select("#semisupervisedchart")
+    d3.select("#visualizacion_principal")
         .append("div")
         .style("opacity", 0)
         .attr("class", "tooltip")
@@ -105,7 +114,7 @@ function inicializarGrafico(datos, preparar, binding) {
         .extent([[0, 0], [width, height]])
         .on("zoom", updateChart);
 
-    d3.select("#semisupervisedchart svg").call(zoom);
+    d3.select("#visualizacion_principal svg").call(zoom);
 
 
     function updateChart(e) {
@@ -128,7 +137,7 @@ function inicializarGrafico(datos, preparar, binding) {
 
     // Botón de reiniciar zoom
     document.querySelector("#reiniciar_zoom").addEventListener("click", function (){
-        d3.select("#semisupervisedchart svg")
+        d3.select("#visualizacion_principal svg")
             .transition()
             .duration(750)
             .call(zoom.transform, d3.zoomIdentity);

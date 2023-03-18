@@ -1,8 +1,13 @@
 {% extends "base_visualizacion.html" %}
 {% block title %}Democratic Co-Learning{% endblock %}
+{% block titulo_especificas %}
+    <h4>{{ gettext('Specific statistics') }}</h4>
+    <br>
+{% endblock %}
 {% block mas_estadisticas %}
     <br>
-    <div id="especificas"></div>
+    <div id="estadisticas_especificas"></div>
+    <div id="leyenda_estadisticas_especificas"></div>
 {% endblock %}
 {% block mas_scripts %}
     <script>
@@ -10,9 +15,9 @@
             inicializarGrafico(datos, preparardataset_democraticcolearning,databinding_democraticcolearning);
 
             let stats = Object.keys(JSON.parse(datos.stats));
-            generargraficoestadistico("general", JSON.parse(datos.stats), stats);
+            generargraficoestadistico("estadisticas_generales", JSON.parse(datos.stats), stats);
 
-            generarespecificas("especificas", datos.specific_stats);
+            generarespecificas("estadisticas_especificas", datos.specific_stats);
         });
     </script>
 {% endblock %}

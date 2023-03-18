@@ -136,9 +136,9 @@ function generarcheckboxes_clasificadores(id_div_objetivo, id_div_estadisticas, 
 
 function generargraficoestadistico(id_div_objetivo, datos_stats, dominio) {
 
-    let margin = {top: 10, right: 120, bottom: 40, left: 50},
-        width = 950 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
+    let margin = {top: 10, right: 10, bottom: 40, left: 50},
+        width = 700 - margin.left - margin.right,
+        height = 350 - margin.top - margin.bottom;
 
     let statsvg = d3.select("#" + id_div_objetivo)
         .append("svg")
@@ -184,18 +184,34 @@ function generargraficoestadistico(id_div_objetivo, datos_stats, dominio) {
         .domain(dominio)
         .range(d3.schemeCategory10);
 
-    statsvg.append('g')
-        .attr("id","leyenda")
-        .selectAll("target")
+    let leyenda = null;
+
+    if (datos_stats !== null) {
+        leyenda = d3.select("#leyenda_estadisticas_generales")
+            .append("svg");
+    }else{
+        leyenda = d3.select("#leyenda_estadisticas_especificas")
+            .append("svg");
+    }
+
+    let g_leyenda = leyenda.append("g");
+
+    g_leyenda
+        .selectAll("text")
         .data(dominio)
         .enter()
         .append("text")
-        .attr("x", 120)
-        .attr("y", function(d,i){ return 100 + i*25;})
-        .style("fill", function(d){ return color(d);})
         .text(function(d){ return d;})
-        .style("alignment-baseline", "top")
-        .attr("transform", "translate(" + (width -110) + "," + -90 + ")");
+        .attr("y", function(d, i) { return (i+1) * 20; })
+        .style("fill", function(d){ return color(d);})
+
+    //Obtiene el mínimo tamaño que contiene a la leyenda.
+    let bbox = g_leyenda.node().getBBox();
+
+    //Al aplicar sus dimensiones se consigue que el SVG
+    //quede más pequeño
+    leyenda.attr("width", bbox.width +10)
+        .attr("height", bbox.height + 10);
 
 
     // Con el gráfico creado se dibuja cada estadística
@@ -209,9 +225,9 @@ function generargraficoestadistico(id_div_objetivo, datos_stats, dominio) {
 }
 
 function anadirestadistica(id_div, datos_stats, stat, color, clf="no") {
-    let margin = {top: 10, right: 120, bottom: 40, left: 50},
-        width = 950 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
+    let margin = {top: 10, right: 10, bottom: 40, left: 50},
+        width = 700 - margin.left - margin.right,
+        height = 350 - margin.top - margin.bottom;
 
     let lista = crearListaStat(datos_stats, stat);
 
@@ -339,7 +355,6 @@ function comprobarvisibilidad(clasificador, stat) {
     let select = document.getElementById("selector_stat");
 
     if (check === null){ //Estadísticas generales
-        console.log("ddd");
         return true;
     }else{
         if (check.checked && select.value === stat){
