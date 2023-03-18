@@ -11,50 +11,50 @@ instalación del mismo y las pruebas que se han realizado para validarlo.
 \section{Estructura de directorios}
 
 \begin{figure}[H]
-\dirtree{%
-    .1 /.
-    .2 \textbf{algoritmos}: \begin{minipage}[t]{10cm}
-        algoritmos Semi-Supervisados implementados{.}\\
-    \end{minipage}.
-    .3 \textbf{test}: \begin{minipage}[t]{10cm}
-        directorios y ficheros mediante los que se valida el
-        desarrollo software correcto del proyecto{.}\\
-    \end{minipage}.
-    .4 \textbf{check\_implementations}: \begin{minipage}[t]{6cm}
-        pruebas para la validación de los algoritmos{.}\\
-    \end{minipage}.
-    .4 \textbf{profile\_results}: \begin{minipage}[t]{10cm}
-        resultados de los procesos de <<profiling>>{.}\\
-    \end{minipage}.
-    .4 \textbf{test\_files}: \begin{minipage}[t]{10cm}
-        ficheros de prueba (ARFF y CSV) para las pruebas{.}\\
-    \end{minipage}.
-    .3 \textbf{utilidades}: \begin{minipage}[t]{10cm}
-        utilidades (programas) que realizan ciertos pasos de la
-        aplicación y de los algoritmos para centralizar estos procedimientos (comunes){.}\\
-    \end{minipage}.
-    .2 \textbf{docs}: \begin{minipage}[t]{10cm}
-        documentación teórica y técnica del proyecto (hecha en \LaTeX){.}\\
-    \end{minipage}.
-    .3 \textbf{img}: \begin{minipage}[t]{10cm}
-        imágenes utilizadas para la generación de la documentación{.}\\
-    \end{minipage}.
-    .3 \textbf{tex}: \begin{minipage}[t]{10cm}
-        archivos de texto plano con código \LaTeX{.}\\
-    \end{minipage}.
-    .2 \textbf{web}: \begin{minipage}[t]{10cm}
-        estructura o código de la aplicación Web{.}\\
-    \end{minipage}.
-    .3 \textbf{datasets}: \begin{minipage}[t]{10cm}
-        contiene (durante el funcionamiento de la aplicación) todos los conjuntos de
-        datos que los usuarios introducen{.}\\
-    \end{minipage}.
-    .4 \textbf{seleccionar}: \begin{minipage}[t]{10cm}
-        conjuntos de datos para seleccionar de prueba, principalmente
-        durante el desarrollo de la aplicación{.} También almacena el fichero de
-        prueba que los usuarios pueden descargar{.}\\
-    \end{minipage}.
-}
+    \dirtree{%
+        .1 /.
+        .2 \textbf{algoritmos}: \begin{minipage}[t]{10cm}
+            algoritmos Semi-Supervisados implementados{.}\\
+        \end{minipage}.
+        .3 \textbf{test}: \begin{minipage}[t]{10cm}
+            directorios y ficheros mediante los que se valida el
+            desarrollo software correcto del proyecto{.}\\
+        \end{minipage}.
+        .4 \textbf{check\_implementations}: \begin{minipage}[t]{6cm}
+            pruebas para la validación de los algoritmos{.}\\
+        \end{minipage}.
+        .4 \textbf{profile\_results}: \begin{minipage}[t]{10cm}
+            resultados de los procesos de <<profiling>>{.}\\
+        \end{minipage}.
+        .4 \textbf{test\_files}: \begin{minipage}[t]{10cm}
+            ficheros de prueba (ARFF y CSV) para las pruebas{.}\\
+        \end{minipage}.
+        .3 \textbf{utilidades}: \begin{minipage}[t]{10cm}
+            utilidades (programas) que realizan ciertos pasos de la
+            aplicación y de los algoritmos para centralizar estos procedimientos (comunes){.}\\
+        \end{minipage}.
+        .2 \textbf{docs}: \begin{minipage}[t]{10cm}
+            documentación teórica y técnica del proyecto (hecha en \LaTeX){.}\\
+        \end{minipage}.
+        .3 \textbf{img}: \begin{minipage}[t]{10cm}
+            imágenes utilizadas para la generación de la documentación{.}\\
+        \end{minipage}.
+        .3 \textbf{tex}: \begin{minipage}[t]{10cm}
+            archivos de texto plano con código \LaTeX{.}\\
+        \end{minipage}.
+        .2 \textbf{web}: \begin{minipage}[t]{10cm}
+            estructura o código de la aplicación Web{.}\\
+        \end{minipage}.
+        .3 \textbf{datasets}: \begin{minipage}[t]{10cm}
+            contiene (durante el funcionamiento de la aplicación) todos los conjuntos de
+            datos que los usuarios introducen{.}\\
+        \end{minipage}.
+        .4 \textbf{seleccionar}: \begin{minipage}[t]{10cm}
+            conjuntos de datos para seleccionar de prueba, principalmente
+            durante el desarrollo de la aplicación{.} También almacena el fichero de
+            prueba que los usuarios pueden descargar{.}\\
+        \end{minipage}.
+    }
 \end{figure}
 
 \begin{figure}[H]
@@ -74,9 +74,17 @@ instalación del mismo y las pruebas que se han realizado para validarlo.
             traducciones de los textos de la aplicación (por idiomas){.}\\
         \end{minipage}.
     }
-    \end{figure}
+\end{figure}
 
 \section{Manual del programador}
+El objetivo de este manual es dar al lector/desarrollador que comience a
+trabajar con el proyecto el conocimiento necesario para continuarlo. Se ha de
+tener en cuenta que lo descrito a continuación es lo que se ha utilizado para el
+entorno desarrollo inicial y será explicado para este.
+
+En primer lugar se listan las herramientas requeridas:
+
+
 
 \section{Compilación, instalación y ejecución del proyecto}
 
