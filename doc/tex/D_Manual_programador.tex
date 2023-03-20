@@ -85,8 +85,7 @@ trabajar con el proyecto el conocimiento necesario para continuarlo. Se ha de
 tener en cuenta que lo descrito a continuación es lo que se ha utilizado para el
 entorno desarrollo inicial y será explicado para este.
 
-En primer lugar se listan las herramientas consideradas para el
-desarrollo:
+En primer lugar se listan las herramientas consideradas para el desarrollo:
 \begin{itemize}
     \item Python 3.10: Todo el proyecto, desde su inicio, ha sido desarrollado en la versión 3.10.
     \item Git: Necesario para continuar con el control de versiones del proyecto.
@@ -196,7 +195,7 @@ def get_accuracy_score(self, x_test, y_test):
 aquellos métodos que se reutilizan en el proyecto (y que intervenga algún paso
 del algoritmo, por ejemplo, la carga de datos). 
 
-\paragraph{Tests}, el desarrollo del software debe ser validado para asegurar su
+\paragraph{Tests} El desarrollo del software debe ser validado para asegurar su
 correcto funcionamiento antes las distintas casuísticas. Cuando se desarrolla
 código en esta sección, sus casos de prueba codificados deben incluirse en el
 directorio correspondiente. Se utiliza <<pytest>> como \textit{framework} de
@@ -204,6 +203,92 @@ pruebas.
 
 
 \paragraph{Aplicación Web} (contenida en el directorio web):  
+
+La aplicación está desarrollada con el <<micro-framework>> Flask, que permite la
+creación de aplicaciones Web en Python. Toda la lógica de la aplicación
+(exceptuando el contenido dinámico) está codificado en <<app.py>>. 
+
+\textbf{app}: En este fichero se definen todas las posibles rutas a las que los
+usuarios pueden acceder. Si se desea añadir alguna nueva, las anotaciones de Flask
+permiten especificarlas.
+
+La visualización de un algoritmo se centra en dos pasos: la configuración del
+mismo (en las rutas <</configuracion/<algoritmo>\>>>) donde se debe renderizar
+una página con el formulario de configuración, y la visualización
+(<</visualizacion/<algoritmo>\>>>) donde se renderiza la página donde se
+encuentran todos los gráficos de los algoritmos. Además, existe un paso
+intermedio en el que se obtienen los datos de la ejecución de los algoritmos,
+este paso no es una ruta accesible, es un método auxiliar que accede el propio
+usuario (su navegador) para obtener la información. Por lo general, la
+convención utilizada es que todos los métodos y rutas lleven el nombre del
+algoritmo. Existe documentación en línea.
+
+\textbf{Plantillas}: Flask utiliza el motor de plantillas Jinja2, que añaden
+instrucciones en HTML. Obviando que cada algoritmo tiene sus particularidades,
+están organizadas mediante la extensión de plantillas. De forma general, añadir
+un algoritmo podría solo intervenir la creación de una plantilla de
+configuración y otra de visualización. En ambos casos se tiene una plantilla
+base de la que se debe extender.
+
+\textbf{Ficheros estáticos}: El contenido dinámico debe ser creado mediante
+Javascript, el desarrollo se ha realizado en <<Vanilla>>. En menor medida, los
+estilos deben ser retocados en estos ficheros aunque en principio la aplicación
+está estilada con Bootstrap 5.
+
+Otra parte muy importante es la adición de clasificadores base que están
+almacenados en el fichero JSON <<parametros>>. Hasta el momento del desarrollo
+solo existen dos tipos de entradas, los selectores y los numéricos (para los
+clasificadores).
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Estructura para añadir clasificadores y sus parámetros]
+\begin{minted}{json}
+{
+    "ClasificadorBase": {
+        "parametro_numerico": {
+        "label": "Nombre a mostrar",
+        "type": "number",
+        "step": 1,
+        "min": 1,
+        "max": "Infinity",
+        "default": 5
+        },
+        "parametro_selector": {
+        "label": "Nombre a mostrar",
+        "type": "select",
+        "options": ["lista", "de", "elementos"],
+        "default": "elementos"
+        }
+    }
+}
+\end{minted}
+\end{tcolorbox}
+
+Con <<step>> se debe tener en cuenta la posibilidad de permitir números enteros
+(al introducir 1) o números decimales (al incluir un flotante por ejemplo, 0.01)
+
+\textbf{Conjunto de datos}: Los conjuntos de datos de los usuarios (vinculados a
+sus sesiones) se almacenan localmente en la aplicación con el <<Timestamp>>
+concatenado el nombre del fichero introducido.
+
+\textbf{Internacionalización}: Una de las herramientas utilizadas es Babel,
+para incluir nuevo texto en la aplicación se debe utilizar la función
+<<gettext()>> (en Jinja2). Y a continuación utilizar la librería.
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Proceso de internacionalización (desde /web)]
+\begin{minted}{shell}
+Extraer los texto encapsulados por gettext
+$ pybabel extract -F babel.cfg -o messages.pot . 
+
+Actualizar los texto extraidos en el fichero de compilación
+$ pybabel update -i messages.pot -d translations
+
+Compilar de las traducciones
+$ pybabel compile -d translations 
+\end{minted}
+\end{tcolorbox}
+ 
+A partir de aquí la propia aplicación utilizará las traducciones dependiendo del
+usuario.
 
 
 \section{Compilación, instalación y ejecución del proyecto}
