@@ -85,8 +85,125 @@ trabajar con el proyecto el conocimiento necesario para continuarlo. Se ha de
 tener en cuenta que lo descrito a continuación es lo que se ha utilizado para el
 entorno desarrollo inicial y será explicado para este.
 
-En primer lugar se listan las herramientas requeridas para el desarrollo:
+En primer lugar se listan las herramientas consideradas para el
+desarrollo:
+\begin{itemize}
+    \item Python 3.10: Todo el proyecto, desde su inicio, ha sido desarrollado en la versión 3.10.
+    \item Git: Necesario para continuar con el control de versiones del proyecto.
+    \item Pycharm: Editor de código utilizado, podría utilizarse otro si así se considerase.
+\end{itemize}
 
+Python puede descargarse desde su página principal\footnote{Descargas de
+Python: \url{https://www.python.org/downloads/}}. En las herramientas no se ha
+mencionado <<pip>> (el administrador de paquetes) pues desde la versión 3.4 de
+Python este está instalado con él, sin embargo, sería conveniente asegurarse de
+ello comprobado la versión pues en el futuro será necesario. 
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Comprobar pip]
+\begin{minted}{shell}
+pip --version
+python -m ensurepip --upgrade
+\end{minted}
+\end{tcolorbox}
+
+Y de forma general, comprobar que los binarios pueden ser utilizados por lo
+menos en el entorno del programador (en su usuario o equipo completo).
+
+En el caso de Git, desde Linux simplemente se puede realizar con el gestor de
+paquetes:
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Instalar Git en Linux]
+\begin{minted}{shell}
+sudo apt install git-all
+\end{minted}
+\end{tcolorbox}
+
+Si el entorno es Windows existe un instalador directo que puede descargarse
+desde la página de Git SCM (Source code management)\footnote{Git para Windows:
+\url{https://git-scm.com/download/win}}.
+
+Pycharm se puede descargar tanto para Windows como Linux en la página oficial de
+JetBrains\footnote{Pycharm: \url{https://www.jetbrains.com/pycharm/download/}}.
+
+\subsection{Comprensión de la estructura}
+
+Se recomienda leer la sección anterior donde se pueden consultar todos los
+directorios del proyecto con una breve descripción. La preparación del entorno
+virtual con el que trabajar se explicará en la próxima sección.
+
+El proyecto se desarrolla en dos ramas comunicadas (de forma unidireccional):
+los algoritmos implementados y la aplicación Web. La aplicación es la que
+utiliza los algoritmos para obtener la información presentada en la Web.
+
+\paragraph{Algoritmos semi-supervisados} (contenidos en el directorio algoritmos):
+Los algoritmos desarrollados y nuevos han de situarse en este directorio como
+raíz. La idea es que cada fichero <<.py>>, homónimo al algoritmo, contenga la
+definición de un objeto que encapsule el desarrollo del mismo, para que no haya
+confusión.
+
+Estructura de los objetos (mínima):
+
+\textbf{Constructor}: Donde se configuran los parámetros que necesita el algoritmo. Es
+recomendable realizar una validación de los mismos por si fueran utilizados de manera individual.
+
+\textbf{Método de entrenamiento (Fit)}: Dado que estos algoritmos están pensados no solo
+para entrenar sino para almacenar el proceso de entrenamiento y estadísticas,
+siempre ha de recibir el conjunto de entrenamiento (x, y), el conjunto de test
+(x\_test, y\_test) y el nombre de las características de cada instancia.
+
+En principio, el método de desarrollo seguido es el de primero implementar el
+algoritmo para después añadir, con la librería Pandas, un registro completo de
+los momentos de etiquetado y de las estadísticas de cada iteración.
+
+Este método deberá retornar el registro de etiquetado, el estadístico y el
+número de iteraciones realizadas.
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Cabecera fit]
+\begin{minted}{python}
+def fit(x, y, x_test, y_test, features)
+\end{minted}
+\end{tcolorbox}
+
+Es importante tener en cuenta que esta estructura puede variar en la medida de
+cómo sea el algoritmo. Por ejemplo, en el caso de Democratic Co-Learning se
+hacía imprescindible añadir estadísticas específicas para cada clasificador que
+encapsula y por tanto, retornaba más elementos.
+
+\textbf{Método de predicción}: En el caso de algoritmos que trabajan con un único
+clasificador podría ser opcional, pero en el caso de varios, es necesario
+considerar cómo se predicen las etiquetas en combinación.
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Cabecera predict]
+\begin{minted}{python}
+def predict(self, instances)
+\end{minted}
+\end{tcolorbox}
+    
+
+\textbf{Métodos estadísticos}: Dependiendo de lo que se desee mostrar en la
+aplicación, se incluirán ciertas estadísticas.
+
+La convención utilizada hasta ahora es crear un método que comience por <<get\_>>
+seguido del nombre de la estadística, por ejemplo get\_accuracy\_score.
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Cabecera ejemplo estadística]
+\begin{minted}{python}
+def get_accuracy_score(self, x_test, y_test):
+\end{minted}
+\end{tcolorbox}
+
+\paragraph{Utilidades} En el directorio de las utilidades se han de alojar
+aquellos métodos que se reutilizan en el proyecto (y que intervenga algún paso
+del algoritmo, por ejemplo, la carga de datos). 
+
+\paragraph{Tests}, el desarrollo del software debe ser validado para asegurar su
+correcto funcionamiento antes las distintas casuísticas. Cuando se desarrolla
+código en esta sección, sus casos de prueba codificados deben incluirse en el
+directorio correspondiente. Se utiliza <<pytest>> como \textit{framework} de
+pruebas.
+
+
+\paragraph{Aplicación Web} (contenida en el directorio web):  
 
 
 \section{Compilación, instalación y ejecución del proyecto}
