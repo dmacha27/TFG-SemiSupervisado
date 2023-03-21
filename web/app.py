@@ -12,7 +12,6 @@ from sklearn.tree import DecisionTreeClassifier
 from algoritmos.utilidades.datasetloader import DatasetLoader
 from algoritmos.utilidades.datasplitter import data_split
 from algoritmos.utilidades.dimreduction import log_pca_reduction, log_cxcy_reduction
-from sklearn.datasets import load_breast_cancer, load_wine
 from sklearn.svm import SVC
 from werkzeug.utils import secure_filename
 from werkzeug.middleware.proxy_fix import ProxyFix

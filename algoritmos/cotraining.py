@@ -1,23 +1,15 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
 # Autor: David Martínez Acha
-# Fecha: 04/02/2023 21:30
+# Fecha: 21/03/2023 18:00
 # Descripción: Algoritmo CoTraining
-# Version: 1.1
-
+# Version: 1.2
 
 import pandas as pd
 import numpy as np
 from sklearn.base import BaseEstimator
-
-from sklearn.datasets import load_breast_cancer, load_wine
-from sklearn.metrics import confusion_matrix, accuracy_score, f1_score, precision_score, recall_score
-from sklearn.svm import SVC
-
-from algoritmos.utilidades.common import obtain_train_unlabelled
-from algoritmos.utilidades.datasetloader import DatasetLoader
-from algoritmos.utilidades.datasplitter import data_split
+from sklearn.metrics import accuracy_score
+from algoritmos.utilidades.common import obtain_train_unlabelled, calculate_log_statistics
 
 
 class CoTraining:
@@ -97,11 +89,7 @@ class CoTraining:
 
             self.clf1.fit(x1, y_train)
             self.clf2.fit(x2, y_train)
-            stats.loc[len(stats)] = [self.get_accuracy_score(x_test, y_test),
-                                     self.get_precision_score(x_test, y_test),
-                                     1 - self.get_accuracy_score(x_test, y_test),
-                                     self.get_f1_score(x_test, y_test),
-                                     self.get_recall_score(x_test, y_test)]
+            stats.loc[len(stats)] = calculate_log_statistics(y_test, self.predict(x_test))
 
             x1_u, x2_u = np.array_split(s_u_s, 2, axis=1)
 
@@ -167,14 +155,30 @@ class CoTraining:
         rest['target'] = -1
         rest['clf'] = -1
         log = pd.concat([log, rest], ignore_index=True)
-
-        stats.loc[len(stats)] = [self.get_accuracy_score(x_test, y_test),
-                                 self.get_precision_score(x_test, y_test),
-                                 1 - self.get_accuracy_score(x_test, y_test),
-                                 self.get_f1_score(x_test, y_test),
-                                 self.get_recall_score(x_test, y_test)]
+        stats.loc[len(stats)] = calculate_log_statistics(y_test, self.predict(x_test))
 
         return log, stats, iteration
+
+    def predict(self, x):
+        """
+        Predice la etiqueta de las instancias x
+
+        :param x: instancias
+        :return: etiqueta de cada instancia en x
+        """
+
+        x1, x2 = np.array_split(x, 2, axis=1)
+
+        # Probabilidades de predecir correctamente para cada
+        # vista
+        p1 = self.clf1.predict_proba(x1)
+        p2 = self.clf2.predict_proba(x2)
+
+        probs = (p1 + p2) / 2
+
+        index_pred = np.argmax(probs, axis=1)
+
+        return np.array([self.clf1.classes_[i] for i in index_pred])
 
     def get_accuracy_score(self, x_test, y_test):
         """
@@ -185,55 +189,5 @@ class CoTraining:
         :param y_test: Etiquetas de las instancias.
         :return: Exactitud
         """
-        x1, x2 = np.array_split(x_test, 2, axis=1)
 
-        a1 = accuracy_score(y_test, self.clf1.predict(x1))
-        a2 = accuracy_score(y_test, self.clf2.predict(x2))
-
-        return (a1 + a2) / 2
-
-    def get_precision_score(self, x_test, y_test):
-        """
-        Obtiene la puntuación de precisión del clasificador
-        respecto a unos datos de prueba
-
-        :param x_test: Instancias.
-        :param y_test: Etiquetas de las instancias.
-        :return: Precisión
-        """
-        x1, x2 = np.array_split(x_test, 2, axis=1)
-
-        p1 = precision_score(y_test, self.clf1.predict(x1), average='weighted')
-        p2 = precision_score(y_test, self.clf2.predict(x2), average='weighted')
-
-        return (p1 + p2) / 2
-
-    def get_f1_score(self, x_test, y_test):
-        """
-        Obtiene el F1-Score
-
-        :param x_test: Instancias.
-        :param y_test: Etiquetas de las instancias.
-        :return: F1-Score
-        """
-        x1, x2 = np.array_split(x_test, 2, axis=1)
-
-        f1_score1 = f1_score(y_test, self.clf1.predict(x1), average='weighted')
-        f1_score2 = f1_score(y_test, self.clf2.predict(x2), average='weighted')
-
-        return (f1_score1 + f1_score2) / 2
-
-    def get_recall_score(self, x_test, y_test):
-        """
-        Obtiene el recall
-
-        :param x_test: Instancias.
-        :param y_test: Etiquetas de las instancias.
-        :return: Recall
-        """
-        x1, x2 = np.array_split(x_test, 2, axis=1)
-
-        r1 = recall_score(y_test, self.clf1.predict(x1), average='weighted')
-        r2 = recall_score(y_test, self.clf2.predict(x2), average='weighted')
-
-        return (r1 + r2) / 2
+        return accuracy_score(y_test, self.predict(x_test))

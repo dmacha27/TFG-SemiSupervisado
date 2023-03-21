@@ -1,24 +1,15 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
 # Autor: David Martínez Acha
-# Fecha: 04/02/2023 21:30
+# Fecha: 21/03/2023 18:00
 # Descripción: Algoritmo SelfTraining
-# Version: 1.1
+# Version: 1.2
 
 import pandas as pd
 import numpy as np
 from sklearn.base import BaseEstimator
-
-from sklearn.datasets import load_breast_cancer, load_wine
-from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, f1_score, recall_score
-from sklearn.naive_bayes import GaussianNB
-from sklearn.svm import SVC
-
-from algoritmos.utilidades.datasetloader import DatasetLoader
-from algoritmos.utilidades.common import obtain_train_unlabelled
-from algoritmos.utilidades.datasplitter import data_split
-from sklearn.semi_supervised import SelfTrainingClassifier
+from sklearn.metrics import accuracy_score
+from algoritmos.utilidades.common import obtain_train_unlabelled, calculate_log_statistics
 
 
 class SelfTraining:
@@ -73,11 +64,7 @@ class SelfTraining:
                 iteration < self.n_iter or not self.n_iter):  # Criterio generalmente seguido
 
             self.clf.fit(x_train, y_train)
-            stats.loc[len(stats)] = [self.get_accuracy_score(x_test, y_test),
-                                     self.get_precision_score(x_test, y_test),
-                                     1 - self.get_accuracy_score(x_test, y_test),
-                                     self.get_f1_score(x_test, y_test),
-                                     self.get_recall_score(x_test, y_test)]
+            stats.loc[len(stats)] = calculate_log_statistics(y_test, self.predict(x_test))
 
             # Predicción
             points = self.clf.predict_proba(x_u).max(axis=1)
@@ -113,25 +100,19 @@ class SelfTraining:
         rest['iter'] = iteration
         rest['target'] = -1
         log = pd.concat([log, rest], ignore_index=True)
-
-        stats.loc[len(stats)] = [self.get_accuracy_score(x_test, y_test),
-                                 self.get_precision_score(x_test, y_test),
-                                 1 - self.get_accuracy_score(x_test, y_test),
-                                 self.get_f1_score(x_test, y_test),
-                                 self.get_recall_score(x_test, y_test)]
+        stats.loc[len(stats)] = calculate_log_statistics(y_test, self.predict(x_test))
 
         return log, stats, iteration
 
-    def get_confusion_matrix(self, x_test, y_test):
+    def predict(self, x):
         """
-        Obtiene la matriz de confusión a partir de unos datos de test
+        Predice la etiqueta de las instancias x
 
-        :param x_test: Instancias.
-        :param y_test: Etiquetas de las instancias.
-        :return: Matriz de confusión en forma de array
+        :param x: instancias
+        :return: etiqueta de cada instancia en x
         """
-        cm = confusion_matrix(y_test, self.clf.predict(x_test))
-        return cm
+
+        return self.clf.predict(x)
 
     def get_accuracy_score(self, x_test, y_test):
         """
@@ -142,68 +123,4 @@ class SelfTraining:
         :param y_test: Etiquetas de las instancias.
         :return: Exactitud
         """
-        return accuracy_score(y_test, self.clf.predict(x_test))
-
-    def get_precision_score(self, x_test, y_test):
-        """
-        Obtiene la puntuación de precisión del clasificador
-        respecto a unos datos de prueba
-
-        :param x_test: Instancias.
-        :param y_test: Etiquetas de las instancias.
-        :return: Precisión
-        """
-        return precision_score(y_test, self.clf.predict(x_test), average="weighted")
-
-    def get_f1_score(self, x_test, y_test):
-        """
-        Obtiene el F1-Score
-
-        :param x_test: Instancias.
-        :param y_test: Etiquetas de las instancias.
-        :return: F1-Score
-        """
-        return f1_score(y_test, self.clf.predict(x_test), average='weighted')
-
-    def get_recall_score(self, x_test, y_test):
-        """
-        Obtiene el recall
-
-        :param x_test: Instancias.
-        :param y_test: Etiquetas de las instancias.
-        :return: Recall
-        """
-        return recall_score(y_test, self.clf.predict(x_test), average='weighted')
-
-
-if __name__ == '__main__':
-    dl = DatasetLoader('utilidades/datasets/breast.w.arff')
-    dl.set_target("Class")
-    x, y, mapa, is_unlabelled = dl.get_x_y()
-
-    # print(x.to_string(), y.to_string())
-
-    st = SelfTraining(clf=SVC(kernel='rbf',
-                              probability=True,
-                              C=1.0,
-                              gamma='scale',
-                              random_state=0
-                              ), n=10, n_iter=150)
-
-    (
-        x,
-        y,
-        x_test,
-        y_test
-    ) = data_split(x, y, is_unlabelled, p_unlabelled=0.8, p_test=0.2)
-
-    log, stats = st.fit(x, y, x_test, y_test, dl.get_only_features())
-    print("Precisión Implementación: ", st.get_accuracy_score(x_test, y_test))
-
-    stsk = SelfTrainingClassifier(base_estimator=SVC(probability=True,
-                                                     C=1.0,
-                                                     random_state=0
-                                                     ), max_iter=150)
-
-    stsk.fit(x, y)
-    print("Precisión Sklearn: ", stsk.score(x_test, y_test))
+        return accuracy_score(y_test, self.predict(x_test))

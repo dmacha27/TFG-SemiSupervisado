@@ -16,7 +16,8 @@ from algoritmos import CoTraining, DemocraticCoLearning, SelfTraining
 from algoritmos.utilidades.datasplitter import data_split
 
 
-def cross_validation(own_clf, clf1_params, other_clf, clf2_params, x, y, folds, own_features, comparison_name, ssl_features=None):
+def cross_validation(own_clf, clf1_params, other_clf, clf2_params, x, y, folds, own_features, comparison_name,
+                     ssl_features=None):
     """
     Realiza el proceso de validación cruzada manualmente para comparar modelo de implementación propia contra uno
     de sslearn
@@ -41,7 +42,6 @@ def cross_validation(own_clf, clf1_params, other_clf, clf2_params, x, y, folds, 
         y_test
     ) = data_split(x, y, is_unlabelled=False, p_unlabelled=0.8, p_test=0.2)
 
-    #exit()
     first_i_u = np.where(y == -1)[0][0]
     x_labelled = x[:first_i_u]
     x_unlabelled = x[first_i_u:]
@@ -52,7 +52,7 @@ def cross_validation(own_clf, clf1_params, other_clf, clf2_params, x, y, folds, 
     x = np.concatenate((x_labelled, x_test), axis=0)
     y = np.concatenate((y, y_test))
 
-    kf = KFold(n_splits=10)
+    kf = KFold(n_splits=folds)
 
     stats_clf1 = pd.DataFrame(columns=['accuracy'])
     stats_clf2 = pd.DataFrame(columns=['accuracy'])
@@ -90,7 +90,7 @@ def cross_validation(own_clf, clf1_params, other_clf, clf2_params, x, y, folds, 
     return mean(accuracy_clf1), std(accuracy_clf1), mean(accuracy_clf2), std(accuracy_clf2)
 
 
-def selftraining_comparison(data):
+def selftraining_comparison(data, comparison_name):
     """
     Este método compara la implementación de SelfTraining realizada en este proyecto contra
     la de sslearn (de José Luis Garrido-Labrador).
@@ -105,10 +105,10 @@ def selftraining_comparison(data):
                             data.target,
                             10,
                             data.feature_names,
-                            "SelfTraining")
+                            comparison_name)
 
 
-def cotraining_comparison(data):
+def cotraining_comparison(data, comparison_name):
     """
     Este método compara la implementación de CoTraining realizada en este proyecto contra
     la de sslearn (de José Luis Garrido-Labrador).
@@ -118,21 +118,21 @@ def cotraining_comparison(data):
     n_features = len(data.feature_names)
 
     return cross_validation(CoTraining,
-                            {'clf1': DecisionTreeClassifier(), 'clf2': DecisionTreeClassifier(),
+                            {'clf1': DecisionTreeClassifier(), 'clf2': GaussianNB(),
                              'p': 1, 'n': 3, 'u': 75, 'n_iter': 30},
                             sslearn.wrapper.CoTraining,
-                            {'second_base_estimator': DecisionTreeClassifier()},
+                            {'second_base_estimator': GaussianNB()},
                             data.data,
                             data.target,
                             10,
                             data.feature_names,
-                            "CoTraining",
+                            comparison_name,
                             [list(range(n_features // 2 + 1)),
                              list(range(n_features // 2 + 1,
                                         n_features))])
 
 
-def democraticolearning_comparison(data):
+def democraticolearning_comparison(data, comparison_name):
     """
     Este método compara la implementación de Democratic Co-Learning realizada en este proyecto contra
     la de sslearn (de José Luis Garrido-Labrador).
@@ -155,7 +155,7 @@ def democraticolearning_comparison(data):
                             data.target,
                             10,
                             data.feature_names,
-                            "DemocraticCoLearning")
+                            comparison_name)
 
 
 def draw_comparison(comparison_name):
@@ -174,22 +174,22 @@ def draw_comparison(comparison_name):
 if __name__ == '__main__':
     data = load_breast_cancer()
 
-    draw_comparison("DemocraticCoLearning")
-    exit()
+    # draw_comparison("DemocraticCoLearning")
+
     print("---Self-Training---")
-    own, std_own, ssl, std_ssl = selftraining_comparison(data)
+    own, std_own, ssl, std_ssl = selftraining_comparison(data, "SelfTraining-Breast")
 
     print(f"Implementación propia: {own} ({std_own})")
     print(f"Implementación sslearn: {ssl} ({std_ssl})")
 
     print("---Co-Training---")
-    own, std_own, ssl, std_ssl = cotraining_comparison(data)
+    own, std_own, ssl, std_ssl = cotraining_comparison(data, "CoTraining-Breast")
 
     print(f"Implementación propia: {own} ({std_own})")
     print(f"Implementación sslearn: {ssl} ({std_ssl})")
 
     print("---Democratic Co-Learning---")
-    own, std_own, ssl, std_ssl = democraticolearning_comparison(data)
+    own, std_own, ssl, std_ssl = democraticolearning_comparison(data, "DemocraticCoLearning-Breast")
 
     print(f"Implementación propia: {own} ({std_own})")
     print(f"Implementación sslearn: {ssl} ({std_ssl})")

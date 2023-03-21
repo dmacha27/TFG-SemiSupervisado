@@ -6,6 +6,7 @@
 # Version: 0.1
 import numpy as np
 from numpy import ndarray
+from sklearn.metrics import accuracy_score, precision_score, f1_score, recall_score
 
 
 def obtain_train_unlabelled(x: ndarray, y: ndarray):
@@ -28,3 +29,20 @@ def obtain_train_unlabelled(x: ndarray, y: ndarray):
     y_train = y[mask]
 
     return x_train, y_train, x_u
+
+
+def calculate_log_statistics(y_test, predicted):
+    """
+    Realiza los cálculos de las estadísticas que se desean registrar
+    en el log del entrenamiento de los algoritmos
+
+    :param y_test: etiquetas reales.
+    :param predicted:  etiquetas predichas.
+    :return: lista con las estadísticas calculadas en cada posición
+    """
+
+    return [accuracy_score(y_test, predicted),
+            precision_score(y_test, predicted, average="weighted"),
+            1 - accuracy_score(y_test, predicted),
+            f1_score(y_test, predicted, average='weighted'),
+            recall_score(y_test, predicted, average='weighted')]

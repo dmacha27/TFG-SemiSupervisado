@@ -1,10 +1,10 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
 # Autor: David Martínez Acha
-# Fecha: 19/02/2023 19:20
+# Fecha: 21/03/2023 18:00
 # Descripción: Algoritmo Democratic Co-Learning
-# Version: 1.0
+# Version: 1.1
+
 import math
 from typing import List
 
@@ -12,17 +12,8 @@ import numpy as np
 import pandas as pd
 import scipy
 
-from sklearn.datasets import load_breast_cancer, load_wine
-from sklearn.metrics import accuracy_score, precision_score, f1_score, recall_score
-from sklearn.naive_bayes import GaussianNB
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import SVC
-from sklearn.tree import DecisionTreeClassifier
-
-from algoritmos.utilidades.datasetloader import DatasetLoader
-from algoritmos.utilidades.common import obtain_train_unlabelled
-from algoritmos.utilidades.datasplitter import data_split
-
+from sklearn.metrics import accuracy_score
+from algoritmos.utilidades.common import obtain_train_unlabelled, calculate_log_statistics
 
 class DemocraticCoLearning:
 
@@ -92,11 +83,7 @@ class DemocraticCoLearning:
 
             for i, n in enumerate(self.clfs):
                 clf_stat = specific_stats[f"CLF{i + 1}({n.__class__.__name__})"]
-                clf_stat.loc[len(clf_stat)] = [accuracy_score(y_test, n.predict(x_test)),
-                                               precision_score(y_test, n.predict(x_test), average='weighted'),
-                                               1 - accuracy_score(y_test, n.predict(x_test)),
-                                               f1_score(y_test, n.predict(x_test), average='weighted'),
-                                               recall_score(y_test, n.predict(x_test), average='weighted')]
+                clf_stat.loc[len(clf_stat)] = calculate_log_statistics(y_test, n.predict(x_test))
 
             xs_cks = []
             votes = []
@@ -174,11 +161,7 @@ class DemocraticCoLearning:
 
             self.ws = ws
 
-            stats.loc[len(stats)] = [self.get_accuracy_score(x_test, y_test),
-                                     self.get_precision_score(x_test, y_test),
-                                     1 - self.get_accuracy_score(x_test, y_test),
-                                     self.get_f1_score(x_test, y_test),
-                                     self.get_recall_score(x_test, y_test)]
+            stats.loc[len(stats)] = calculate_log_statistics(y_test, self.predict(x_test))
 
             iteration += 1
 
@@ -263,34 +246,3 @@ class DemocraticCoLearning:
         """
 
         return accuracy_score(y_test, self.predict(x_test))
-
-    def get_precision_score(self, x_test, y_test):
-        """
-        Obtiene la puntuación de precisión del clasificador
-        respecto a unos datos de prueba
-
-        :param x_test: Instancias.
-        :param y_test: Etiquetas de las instancias.
-        :return: Precisión
-        """
-        return precision_score(y_test, self.predict(x_test), average="weighted")
-
-    def get_f1_score(self, x_test, y_test):
-        """
-        Obtiene el F1-Score
-
-        :param x_test: Instancias.
-        :param y_test: Etiquetas de las instancias.
-        :return: F1-Score
-        """
-        return f1_score(y_test, self.predict(x_test), average='weighted')
-
-    def get_recall_score(self, x_test, y_test):
-        """
-        Obtiene el recall
-
-        :param x_test: Instancias.
-        :param y_test: Etiquetas de las instancias.
-        :return: Recall
-        """
-        return recall_score(y_test, self.predict(x_test), average='weighted')
