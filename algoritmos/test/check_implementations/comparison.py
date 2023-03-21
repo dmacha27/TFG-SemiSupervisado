@@ -1,4 +1,6 @@
 import copy
+import os
+import random
 from copy import deepcopy
 
 import numpy as np
@@ -12,6 +14,7 @@ from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.datasets import load_breast_cancer, load_diabetes, load_iris, load_digits, load_wine
 
+from sklearn.metrics import accuracy_score, f1_score
 from algoritmos import CoTraining, DemocraticCoLearning, SelfTraining
 from algoritmos.utilidades.datasplitter import data_split
 
@@ -54,8 +57,8 @@ def cross_validation(own_clf, clf1_params, other_clf, clf2_params, x, y, folds, 
 
     kf = KFold(n_splits=folds)
 
-    stats_clf1 = pd.DataFrame(columns=['accuracy'])
-    stats_clf2 = pd.DataFrame(columns=['accuracy'])
+    stats_clf1 = pd.DataFrame(columns=['Accuracy', 'F1-Score'])
+    stats_clf2 = pd.DataFrame(columns=['Accuracy', 'F1-Score'])
     accuracy_clf1 = []
     accuracy_clf2 = []
     for train_index, test_index in kf.split(x):
@@ -79,14 +82,14 @@ def cross_validation(own_clf, clf1_params, other_clf, clf2_params, x, y, folds, 
 
         acc = clf1.get_accuracy_score(x_test, y_test)
         accuracy_clf1.append(acc)
-        stats_clf1.loc[len(stats_clf1)] = acc
+        stats_clf1.loc[len(stats_clf1)] = [acc, f1_score(y_test, clf1.predict(x_test), average="weighted")]
 
         acc = clf2.score(x_test, y_test)
         accuracy_clf2.append(acc)
-        stats_clf2.loc[len(stats_clf2)] = acc
+        stats_clf2.loc[len(stats_clf2)] = [acc, f1_score(y_test, clf2.predict(x_test), average="weighted")]
 
-    stats_clf1.to_csv(path_or_buf=f'./results/{comparison_name}-own', index=False)
-    stats_clf2.to_csv(path_or_buf=f'./results/{comparison_name}-sslearn', index=False)
+    stats_clf1.to_csv(path_or_buf=f'./results/{comparison_name}-own.csv', index=False)
+    stats_clf2.to_csv(path_or_buf=f'./results/{comparison_name}-sslearn.csv', index=False)
     return mean(accuracy_clf1), std(accuracy_clf1), mean(accuracy_clf2), std(accuracy_clf2)
 
 
@@ -143,8 +146,7 @@ def democraticolearning_comparison(data, comparison_name):
     clfs = [SVC(kernel='rbf',
                 probability=True,
                 C=1.0,
-                gamma='scale',
-                random_state=0
+                gamma='scale'
                 ), GaussianNB(), DecisionTreeClassifier()]
 
     return cross_validation(DemocraticCoLearning,
@@ -158,38 +160,87 @@ def democraticolearning_comparison(data, comparison_name):
                             comparison_name)
 
 
-def draw_comparison(comparison_name):
-    stats_clf1 = pd.read_csv(f'./results/{comparison_name}-own')
-    stats_clf2 = pd.read_csv(f'./results/{comparison_name}-sslearn')
+def draw_performance(dataset_name):
+    """
+    Con los archivos generados de las estadísticas de las implementaciones
+    se dibuja un gráfico de cajas para el conjunto de datos indicado.
+    En el eje Y la medida de la estadística y en X cada algoritmo
 
-    plt.plot(stats_clf1.index, stats_clf1['accuracy'], label="Implementación")
-    plt.plot(stats_clf2.index, stats_clf2['accuracy'], label="sslearn")
-    plt.xlabel('Fold')
-    plt.ylabel('Accuracy')
-    plt.legend()
+    :param dataset_name: nombre del conjunto de datos
+    """
 
-    plt.show()
+    pandas_dict = {}
+    stats = None
+    for file in os.listdir('./results/'):
+        if f'{dataset_name}' in file:
+            implementation = file.split("-")[2].split(".")[0]
+            algorithm = file.split("-")[0]
+            if algorithm not in pandas_dict:
+                pandas_dict[algorithm] = {}
+            if implementation not in pandas_dict[algorithm]:
+                pandas_dict[algorithm][implementation] = pd.read_csv(f'./results/{file}')
+
+            stats = list(pandas_dict[algorithm][implementation].columns)
+
+    algorithms = list(pandas_dict.keys())
+
+    fig, axs = plt.subplots(len(stats), len(pandas_dict.keys()), sharey='row', sharex='col', figsize=(10, 8))
+    fig.subplots_adjust(wspace=0, hspace=0.02)
+
+    # https://stackoverflow.com/questions/20289091/python-matplotlib-filled-boxplots
+    colors = ['pink', 'lightblue', 'tan']
+
+    stat_count = 0
+    for n_row, ax_row in enumerate(axs):
+        algorithms_count = 0
+        for n_col, ax in enumerate(ax_row):
+            box = ax.boxplot(
+                [pandas_dict[algorithms[algorithms_count]][item][stats[stat_count]] for item in ['own', 'sslearn']],
+                showmeans=True,
+                meanline=True,
+                showfliers=False,
+                patch_artist=True,
+                medianprops=dict(color='blue'),
+                meanprops=dict(color='black'))
+            for patch in box['boxes']:
+                patch.set_facecolor(colors[stat_count])
+
+            ax.set_xticks([1, 2])
+            if n_row == 0:
+                ax.set(xticklabels=['Propia', 'sslearn'])
+            else:
+                ax.set(xticklabels=['Propia', 'sslearn'], xlabel=algorithms[algorithms_count])
+
+            if n_col == 0:
+                ax.set_ylabel(stats[stat_count])
+            algorithms_count += 1
+        stat_count += 1
+
+    plt.suptitle(dataset_name, fontsize=35)
+    fig.savefig(f'./results/plot_images/{dataset_name}')
 
 
 if __name__ == '__main__':
-    data = load_breast_cancer()
+    data = load_wine()
 
-    # draw_comparison("DemocraticCoLearning")
+    dataset_name = "Wine"
 
     print("---Self-Training---")
-    own, std_own, ssl, std_ssl = selftraining_comparison(data, "SelfTraining-Breast")
+    own, std_own, ssl, std_ssl = selftraining_comparison(data, f"SelfTraining-{dataset_name}")
 
     print(f"Implementación propia: {own} ({std_own})")
     print(f"Implementación sslearn: {ssl} ({std_ssl})")
 
     print("---Co-Training---")
-    own, std_own, ssl, std_ssl = cotraining_comparison(data, "CoTraining-Breast")
+    own, std_own, ssl, std_ssl = cotraining_comparison(data, f"CoTraining-{dataset_name}")
 
     print(f"Implementación propia: {own} ({std_own})")
     print(f"Implementación sslearn: {ssl} ({std_ssl})")
 
     print("---Democratic Co-Learning---")
-    own, std_own, ssl, std_ssl = democraticolearning_comparison(data, "DemocraticCoLearning-Breast")
+    own, std_own, ssl, std_ssl = democraticolearning_comparison(data, f"DemocraticCoLearning-{dataset_name}")
 
     print(f"Implementación propia: {own} ({std_own})")
     print(f"Implementación sslearn: {ssl} ({std_ssl})")
+
+    draw_performance(dataset_name)

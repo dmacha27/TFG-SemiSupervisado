@@ -1,4 +1,3 @@
-# !/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
 # Autor: David Martínez Acha
@@ -124,7 +123,7 @@ class DatasetLoader:
         x = data.drop(columns=[self.target])
 
         if self._detect_categorical_features(x):
-            raise ValueError("Se han detectado características categóricas o indefinidas ('O' de Object),"
+            raise ValueError("Se han detectado características categóricas o indefinidas,"
                              " es necesario que se aseguren características numéricas")
 
         if self.type == FileType.CSV:
