@@ -1,6 +1,5 @@
 import copy
 import os
-import random
 from copy import deepcopy
 
 import numpy as np

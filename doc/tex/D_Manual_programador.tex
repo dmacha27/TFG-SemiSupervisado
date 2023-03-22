@@ -270,9 +270,115 @@ Con <<step>> se debe tener en cuenta la posibilidad de permitir números enteros
 sus sesiones) se almacenan localmente en la aplicación con el <<Timestamp>>
 concatenado el nombre del fichero introducido.
 
-\textbf{Internacionalización}: Una de las herramientas utilizadas es Babel,
-para incluir nuevo texto en la aplicación se debe utilizar la función
-<<gettext()>> (en Jinja2). Y a continuación utilizar la librería.
+\textbf{Internacionalización}: La aplicación está pensada para ser
+internacionalizada en inglés y español. Una de las herramientas utilizadas es
+Babel, para incluir nuevo texto en la aplicación se debe utilizar la función
+<<gettext()>> (en Jinja2). El proceso de compilación está explicado en la
+siguiente sección.
+
+\clearpage
+\section{Compilación, instalación y ejecución del proyecto}
+
+Para poner en funcionamiento la aplicación primero se debe preparar su entorno
+de ejecución. Se recuerda la necesidad de tener instalado Python (con el administrador de
+paquetes <<pip>>).
+
+\paragraph{Código fuente de la aplicación} Para obtener el código fuente de la
+aplicación, este debe ser descargado del repositorio Github utilizado\footnote{
+Repositorio: \url{https://github.com/dma1004/TFG-SemiSupervisado}}.
+
+
+\imagencontamano{RepoGithub}{Descarga del repositorio manualmente.}{0.65}
+
+Tanto en Windows como en Linux esto se puede realizar descargando el fichero
+comprimido de todo el repositorio desde el navegador.
+
+Pero si se quiere realizar mediante consola de comandos, y suponiendo que se ha
+instalado Git:
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,fontupper=\footnotesize,title=Clonación de repositorio desde consola]
+\begin{minted}{shell}
+$ git clone https://github.com/dma1004/TFG-SemiSupervisado.git
+\end{minted}
+\end{tcolorbox}
+La localización del proyecto queda a discreción del programador.
+
+\paragraph{Entorno virtual Python}: El entorno virtual no es estrictamente
+necesario, sin embargo es \textbf{altamente} recomendable, pues en los próximos
+pasos se instalarán múltiples librerías que sin entorno virtual quedarían
+instaladas globalmente.
+
+El proceso descrito a continuación puede ser sustituido en caso de que solo se
+esté trabajando con Pycharm. Este editor permite crear entornos virtuales e
+incluso realizarlo automáticamente al detectar los distintos requisitos del
+proyecto. Pero de forma general, suponiendo que se desea preparar un entorno de
+<<pruebas>> o <<producción>> y que la aplicación esté en funcionamiento, se
+realizan los siguientes pasos:
+
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=orange!75!black,title=Creación del entorno virtual (dentro de la carpeta deseado)]
+\begin{minted}{shell}
+$ python -m venv ./venv
+\end{minted}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,fontupper=\footnotesize,fontlower=\footnotesize,title=Activación del entorno virtual]
+\begin{minted}{matlab}
+$ venv\activate.bat //Windows
+\end{minted}
+\tcblower
+\begin{minted}{matlab}
+$ source ruta/al/entorno/virtual/bin/activate //Linux
+\end{minted}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Para desactivar el entorno (una vez en él)]
+\begin{minted}{shell}
+$ deactivate
+\end{minted}
+\end{tcolorbox}
+
+\paragraph{Instalación de paquetes} En este paso se van a instalar todas las
+librerías necesarias, el proyecto trae un fichero <<requirements.txt>> en el que
+vienen especificados estos paquetes y sus versiones. Además, los algoritmos
+implementados también están configurados como un paquete que puede ser
+instalado.
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=orange!75!black,title=Instalar librerías externas]
+\begin{minted}{shell}
+$ python -m pip install -r requierements.txt
+\end{minted}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=orange!75!black,title=Instalar paquete de algoritmos]
+\begin{minted}{shell}
+$ python -m pip install .
+\end{minted}
+\end{tcolorbox}
+
+A partir de aquí ya se tiene configurado todo el entorno y los requisitos necesarios para poder ejecutar la aplicación.
+
+\paragraph{Ejecución} Referida a la ejecución de la aplicación Web (Flask), se
+debe estar situado en el directorio web del proyecto.
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,fontupper=\footnotesize,fontlower=\footnotesize,title=Ejecución Windows]
+\begin{minted}{shell}
+$ set FLASK_APP=app.py //Windows
+$ flask run
+\end{minted}
+\tcblower
+\begin{minted}{shell}
+$ flask run //Linux
+\end{minted}
+\end{tcolorbox}
+
+Existe una última cuestión que no es estrictamente necesaria para funcionar, pero
+que añade la internacionalización a la aplicación automáticamente.
+
+\paragraph{Internacionalización} En el caso de que se haya incluido más texto
+traducido este debe ser compilado con Babel para que la aplicación pueda
+detectarlo.
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Proceso de internacionalización (desde /web)]
 \begin{minted}{shell}
@@ -290,7 +396,5 @@ $ pybabel compile -d translations
 A partir de aquí la propia aplicación utilizará las traducciones dependiendo del
 usuario.
 
-
-\section{Compilación, instalación y ejecución del proyecto}
-
+\clearpage
 \section{Pruebas del sistema}
