@@ -178,7 +178,7 @@ function generargraficoestadistico(id_div_objetivo, datos_stats, dominio) {
         .attr("x", -height / 2)
         .attr("dy", "1em")
         .attr("transform", "rotate(-90)")
-        .text(traducir('Rate'));
+        .text(traducir('Measure'));
 
     let color = d3.scaleOrdinal()
         .domain(dominio)

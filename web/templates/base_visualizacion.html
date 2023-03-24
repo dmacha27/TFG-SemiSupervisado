@@ -11,16 +11,15 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 25 18">
             <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"></path>
         </svg>{{ gettext('Go back') }}</button>
+    {{ gettext('Dataset') }}: {{ session['FICHERO']|nombredataset }}
     <br>
     <div id="div_cargando">
-        <div id="cargando" class="cargando"></div>
+        <div id="cargando" class="cargando m-auto"></div>
     </div>
     <div id="visualizacion" style="visibility: hidden;" class="d-flex flex-wrap justify-content-around mb-3 position-relative">
         <div class="col-md">
             <div class="text-center position-relative">
-                <p id="nombre_dataset">
-                    {{ gettext('Dataset') }}: {{ session['FICHERO']|nombredataset }}
-                </p>
+                <h4 id="nombre_dataset">{{ gettext('Principal visualization') }}</h4>
                 <div id="zona_gráfico" class="d-flex justify-content-center align-items-center">
                     <div id="visualizacion_principal"></div>
                     <div id="leyenda_visualizacion" style="margin-left: 15px"></div>
@@ -41,6 +40,20 @@
             </div>
         </div>
         <div class="col-md text-center">
+            <div class="accordion w-75 mb-2 mx-auto" id="pseudocodigo">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="encabezado">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse" aria-expanded="false" aria-controls="collapse">
+                            {{ gettext('Pseudocode') }}
+                        </button>
+                    </h2>
+                    <div id="collapse" class="accordion-collapse collapse" aria-labelledby="encabezado" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            PSEUDOCÓDIGO
+                        </div>
+                    </div>
+                </div>
+            </div>
             <h4>{{ gettext('General statistics') }}</h4>
             <div id="zona_estadisticas_generales" class=" d-flex justify-content-center align-items-center text-center">
                 <div id="estadisticas_generales"></div>
@@ -66,7 +79,7 @@
                 'Label: Not classified': "{{ gettext('Label: Not classified') }}",
                 'Pause': "{{ gettext('Pause') }}",
                 'Play': "{{ gettext('Play') }}",
-                'Rate': "{{ gettext('Rate') }}",
+                'Measure': "{{ gettext('Measure') }}",
                 'Iteration': "{{ gettext('Iteration') }}"
             }
             return traducciones[texto]

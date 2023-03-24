@@ -43,10 +43,10 @@ footer {
 
 .cargando {
     border: 16px solid #a09c9c;
-    border-top: 16px solid #800080;
+    border-top: 16px solid #AA223C;
     border-radius: 50%;
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     animation: spin 4s linear infinite;
 }
 
