@@ -7,6 +7,13 @@ comenzando por los directorios y su contenido, con un manual introductorio para
 un programador iniciado en el proyecto, explicación y ejemplificación de la
 instalación del mismo y las pruebas que se han realizado para validarlo.
 
+\tcbset{colback=red!5!white,fonttitle=\bfseries}
+\begin{tcolorbox}[enhanced,title=Repositorio Github,
+frame style={left color=blue!75!black,
+right color=cyan!75!black}]
+\url{https://github.com/dma1004/TFG-SemiSupervisado}
+\end{tcolorbox}
+
 \section{Estructura de directorios}
 Estos son los directorios en los que se organiza el proyecto:
 
@@ -183,7 +190,7 @@ def predict(self, instances)
 aplicación, se incluirán ciertas estadísticas.
 
 La convención utilizada hasta ahora es crear un método que comience por <<get\_>>
-seguido del nombre de la estadística, por ejemplo get\_accuracy\_score.
+seguido del nombre de la estadística, por ejemplo \texttt{get\_accuracy\_score}.
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Cabecera ejemplo estadística]
 \begin{minted}{python}
@@ -206,22 +213,22 @@ pruebas.
 
 La aplicación está desarrollada con el <<micro-framework>> Flask, que permite la
 creación de aplicaciones Web en Python. Toda la lógica de la aplicación
-(exceptuando el contenido dinámico) está codificado en <<app.py>>. 
+(exceptuando el contenido dinámico) está codificado en \texttt{app.py}. 
 
 \textbf{app}: En este fichero se definen todas las posibles rutas a las que los
 usuarios pueden acceder. Si se desea añadir alguna nueva, las anotaciones de Flask
 permiten especificarlas.
 
 La visualización de un algoritmo se centra en dos pasos: la configuración del
-mismo (en las rutas <</configuracion/<algoritmo>\>>>) donde se debe renderizar
-una página con el formulario de configuración, y la visualización
-(<</visualizacion/<algoritmo>\>>>) donde se renderiza la página donde se
+mismo (en las rutas \texttt{/configuracion/<algoritmo>}) donde se debe
+renderizar una página con el formulario de configuración, y la visualización
+(\texttt{/visualizacion/<algoritmo>}) donde se renderiza la página donde se
 encuentran todos los gráficos de los algoritmos. Además, existe un paso
 intermedio en el que se obtienen los datos de la ejecución de los algoritmos,
 este paso no es una ruta accesible, es un método auxiliar que accede el propio
 usuario (su navegador) para obtener la información. Por lo general, la
 convención utilizada es que todos los métodos y rutas lleven el nombre del
-algoritmo. Existe documentación en línea.
+algoritmo.
 
 \textbf{Plantillas}: Flask utiliza el motor de plantillas Jinja2, que añaden
 instrucciones en HTML. Obviando que cada algoritmo tiene sus particularidades,
@@ -231,7 +238,7 @@ configuración y otra de visualización. En ambos casos se tiene una plantilla
 base de la que se debe extender.
 
 \textbf{Ficheros estáticos}: El contenido dinámico debe ser creado mediante
-Javascript, el desarrollo se ha realizado en <<Vanilla>>. En menor medida, los
+Javascript, de forma <<vanilla>> (sin utilizar frameworks). En menor medida, los
 estilos deben ser retocados en estos ficheros aunque en principio la aplicación
 está estilada con Bootstrap 5.
 
@@ -264,17 +271,17 @@ clasificadores).
 \end{tcolorbox}
 
 Con <<step>> se debe tener en cuenta la posibilidad de permitir números enteros
-(al introducir 1) o números decimales (al incluir un flotante por ejemplo, 0.01)
+(al introducir 1) o números decimales (al incluir un flotante, por ejemplo, 0.01)
 
 \textbf{Conjunto de datos}: Los conjuntos de datos de los usuarios (vinculados a
 sus sesiones) se almacenan localmente en la aplicación con el <<Timestamp>>
 concatenado el nombre del fichero introducido.
 
 \textbf{Internacionalización}: La aplicación está pensada para ser
-internacionalizada en inglés y español. Una de las herramientas utilizadas es
-Babel, para incluir nuevo texto en la aplicación se debe utilizar la función
-<<gettext()>> (en Jinja2). El proceso de compilación está explicado en la
-siguiente sección.
+internacionalizada en cualquier idioma, aunque solo se ha incluido inglés y
+español. Una de las herramientas utilizadas es Babel, para incluir nuevo texto
+en la aplicación se debe utilizar la función \texttt{gettext()} (en Jinja2). El
+proceso de compilación está explicado en la siguiente sección.
 
 \clearpage
 \section{Compilación, instalación y ejecución del proyecto}
@@ -286,9 +293,6 @@ paquetes <<pip>>).
 \paragraph{Código fuente de la aplicación} Para obtener el código fuente de la
 aplicación, este debe ser descargado del repositorio Github utilizado\footnote{
 Repositorio: \url{https://github.com/dma1004/TFG-SemiSupervisado}}.
-
-
-\imagencontamano{RepoGithub}{Descarga del repositorio manualmente.}{0.65}
 
 Tanto en Windows como en Linux esto se puede realizar descargando el fichero
 comprimido de todo el repositorio desde el navegador.
@@ -303,10 +307,10 @@ $ git clone https://github.com/dma1004/TFG-SemiSupervisado.git
 \end{tcolorbox}
 La localización del proyecto queda a discreción del programador.
 
-\paragraph{Entorno virtual Python}: El entorno virtual no es estrictamente
-necesario, sin embargo es \textbf{altamente} recomendable, pues en los próximos
-pasos se instalarán múltiples librerías que sin entorno virtual quedarían
-instaladas globalmente.
+\paragraph{Entorno virtual Python} El entorno virtual no es estrictamente
+necesario aunque es \textbf{altamente} recomendable, pues en los próximos pasos
+se instalarán múltiples librerías que sin entorno virtual quedarían instaladas
+globalmente.
 
 El proceso descrito a continuación puede ser sustituido en caso de que solo se
 esté trabajando con Pycharm. Este editor permite crear entornos virtuales e
@@ -314,7 +318,6 @@ incluso realizarlo automáticamente al detectar los distintos requisitos del
 proyecto. Pero de forma general, suponiendo que se desea preparar un entorno de
 <<pruebas>> o <<producción>> y que la aplicación esté en funcionamiento, se
 realizan los siguientes pasos:
-
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=orange!75!black,title=Creación del entorno virtual (dentro de la carpeta deseado)]
 \begin{minted}{shell}
@@ -377,24 +380,24 @@ Existe una última cuestión que no es estrictamente necesaria para funcionar, p
 que añade la internacionalización a la aplicación automáticamente.
 
 \paragraph{Internacionalización} En el caso de que se haya incluido más texto
-traducido este debe ser compilado con Babel para que la aplicación pueda
+traducido, este debe ser compilado con Babel para que la aplicación pueda
 detectarlo.
 
-\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Proceso de internacionalización (desde /web)]
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,fontupper=\footnotesize,title=Proceso de internacionalización (desde /web)]
 \begin{minted}{shell}
 Extraer los texto encapsulados por gettext
 $ pybabel extract -F babel.cfg -o messages.pot . 
 
-Actualizar los texto extraidos en el fichero de compilación
+Actualizar los textos extraidos en el fichero de compilación
 $ pybabel update -i messages.pot -d translations
 
-Compilar de las traducciones
+Compilación de las traducciones
 $ pybabel compile -d translations 
 \end{minted}
 \end{tcolorbox}
  
 A partir de aquí la propia aplicación utilizará las traducciones dependiendo del
-usuario.
+usuario que acceda.
 
 \clearpage
 \section{Pruebas del sistema}

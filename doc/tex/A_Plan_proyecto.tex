@@ -260,7 +260,8 @@ posición concreta sin realizar esos cálculos y se optó por un diccionario de
 <<ids>> para cada clasificador en el que el valor es la posición en las
 etiquetas del conjunto del clasificador.
 
-Las correcciones se incorporaron según las indicaciones de Álvar Arnaiz.
+Las correcciones de la documentación se incorporaron según las indicaciones de
+Álvar Arnaiz.
 
 El gráfico de estadísticas fue unificado, permitiendo seleccionar al usuario
 mediante unos <<checkboxes>>. Aproximadamente unas 4 horas para generar el
@@ -277,8 +278,8 @@ forma que actúe como <<gettext>>, llamada desde los distintos scripts.
 
 La visualización de Democratic Co-Learning no dio tiempo a implementarse en este Sprint.
 
-Además, a partir de este Sprint se incorporan todas las tareas en Zenhub para los
-gráficos Burndown (ver Imagen~\ref{fig:sprints/sprint8}).
+Además, a partir de este Sprint se incorporan todas las tareas en Zenhub para la
+generación de los gráficos Burndown (ver Imagen~\ref{fig:sprints/sprint8}).
 
 \imagen{sprints/sprint8}{Burndown chart del sprint 8.}
 
@@ -310,7 +311,7 @@ desde las propias plantillas/JavaScript). Para generar el formulario se pensó e
 hacerlo de la forma más automática posible para así solo tener que cambiar el
 JSON, esto se hizo con un método de JavaScript que para cada clasificador genera
 el formulario correspondiente con los parámetros del JSON. El tiempo total fue
-unas 6 horas pues también se perdió tiempo debido a que no era posible
+unas 6 horas, pues también se perdió tiempo debido a que no era posible
 seleccionar elementos del DOM (pues no estaba cargado) y los elementos debían
 seleccionarse mediante CSS (algo que no se sabía por desconocimiento de
 JavaScript).
@@ -318,7 +319,7 @@ JavaScript).
 Se añadieron las estadísticas generales de Democratic Co-Learning de forma muy
 sencilla pues era exactamente igual que Co-Training (y Self-Training) esto se
 realizó añadiendo el \textit{DataFrame} en el propio algoritmo con las
-estadísticas queridas (como el resto de los algoritmos).
+estadísticas deseadas (como el resto de los algoritmos).
 
 Había mucho código muy parecido o exactamente igual en las plantillas de los
 algoritmos, así que aprovechando esta tarea también se automatizaron por
