@@ -1,5 +1,8 @@
 {% extends "base_visualizacion.html" %}
 {% block title %}Self-Training{% endblock %}
+{% block pseudocodigo %}
+    <img src="/static/pseudocodigos/SelfTraining.png" width="100%" />
+{% endblock %}
 {% block mas_scripts %}
     <script>
         inicializar("/{{ session['ALGORITMO'] }}d", elementos).then(function (datos) {

@@ -47,5 +47,21 @@
     </script>
 {% endblock %}
 {% block explicaciones %}
-    Explicaciones
+    <p>Democratic Co-Learning es un algoritmo de aprendizaje semi-supervisado en la línea de Co-Training
+        (varios clasificadores). La diferencia sustancial es que no trabajan con dos (o
+        más) conjunto de atributos (para que cada clasificador utilice uno de ellos),
+        en este caso solo se tiene un único conjunto de atributos («single-view»).
+
+        Partiendo de los datos etiquetados, varios clasificadores realizan votación
+        ponderada sobre los no etiquetados. Lo que quiere decir que, para una
+        instancia, su nueva etiqueta será la que vote la mayoría. Además, para
+        aquellos clasificadores que no votan como la mayoría, la instancia se añade a
+        su conjunto de entrenamiento junto a la etiqueta mayoritaria, de esta forma
+        se «obliga» en la siguiente iteración a aprenderla. Todo el proceso se repite
+        hasta que no se añadan más instancias a ningún conjunto de entrenamiento,
+        esto se alcanza cuando no se mejora la precisión pese a la adición de nuevas
+        instancias pseudoetiquetadas.</p>
+
+    <img src="/static/pseudocodigos/DemocraticCoLearningFit.png" width="75%" />
+    <img src="/static/pseudocodigos/DemocraticCoLearningCombine.png" width="75%" />
 {% endblock %}

@@ -34,5 +34,16 @@
     </script>
 {% endblock %}
 {% block explicaciones %}
-    Explicaciones
+    <p>Se trata del método de aprendizaje semi-supervisado más
+        sencillo y «directo». Este método envuelve un único clasificador base, que
+        entrena con los datos etiquetados iniciales y aprovecha el proceso de pseudo
+        etiquetado para continuar su entrenamiento.
+        El método comienza por entrenar ese clasificador con los datos etiquetados
+        que se tienen. A partir de este aprendizaje inicial, se etiqueta el resto de
+        datos. De todas las nuevas predicciones se seleccionan aquellas en las que el
+        clasificador más confianza tiene (de haber acertado). Una vez seleccionados,
+        el clasificador es reentrenado con la unión de los ya etiquetados y estos
+        nuevos. El proceso continúa hasta un criterio de parada (generalmente hasta
+        etiquetar todos los datos o un número máximo de iteraciones).</p>
+    <img src="/static/pseudocodigos/SelfTraining.png" width="75%" />
 {% endblock %}
