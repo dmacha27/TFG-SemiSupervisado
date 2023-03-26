@@ -47,21 +47,16 @@
     </script>
 {% endblock %}
 {% block explicaciones %}
-    <p>Democratic Co-Learning es un algoritmo de aprendizaje semi-supervisado en la línea de Co-Training
-        (varios clasificadores). La diferencia sustancial es que no trabajan con dos (o
-        más) conjunto de atributos (para que cada clasificador utilice uno de ellos),
-        en este caso solo se tiene un único conjunto de atributos («single-view»).
+    <p>{{ gettext('Democratic Co-Learning is a semi-supervised learning algorithm along the lines of Co-Training
+        (various classifiers). The substantial difference is that they do not work with two (or
+        more) set of attributes, in this case there is only one set of attributes ("single-view").
+        Starting with the labelled data, several classifiers do a weighted voting over those not labelled.
+        That means that, for an instance, its new label will be the one voted by the majority.
+        Furthermote, for those classifiers that do not vote as the majority, the instance (with the majority label)
+        is added to their training set. This forces those misclassified classifiers to learn it in the next iteration.
+        The entire process is repeated until no more instances are added to any training set, this is achieved when
+        the accuracy does not improve despite the addition of new pseudo-labelled instances.') }}</p>
 
-        Partiendo de los datos etiquetados, varios clasificadores realizan votación
-        ponderada sobre los no etiquetados. Lo que quiere decir que, para una
-        instancia, su nueva etiqueta será la que vote la mayoría. Además, para
-        aquellos clasificadores que no votan como la mayoría, la instancia se añade a
-        su conjunto de entrenamiento junto a la etiqueta mayoritaria, de esta forma
-        se «obliga» en la siguiente iteración a aprenderla. Todo el proceso se repite
-        hasta que no se añadan más instancias a ningún conjunto de entrenamiento,
-        esto se alcanza cuando no se mejora la precisión pese a la adición de nuevas
-        instancias pseudoetiquetadas.</p>
-
-    <img src="/static/pseudocodigos/DemocraticCoLearningFit.png" width="75%" />
-    <img src="/static/pseudocodigos/DemocraticCoLearningCombine.png" width="75%" />
+    <img src="{{ gettext('/static/pseudocodigos/en/DemocraticCoLearningFit.png') }}" width="75%" />
+    <img src="{{ gettext('/static/pseudocodigos/en/DemocraticCoLearningCombine.png') }}" width="75%" />
 {% endblock %}

@@ -34,16 +34,14 @@
     </script>
 {% endblock %}
 {% block explicaciones %}
-    <p>Se trata del método de aprendizaje semi-supervisado más
-        sencillo y «directo». Este método envuelve un único clasificador base, que
-        entrena con los datos etiquetados iniciales y aprovecha el proceso de pseudo
-        etiquetado para continuar su entrenamiento.
-        El método comienza por entrenar ese clasificador con los datos etiquetados
-        que se tienen. A partir de este aprendizaje inicial, se etiqueta el resto de
-        datos. De todas las nuevas predicciones se seleccionan aquellas en las que el
-        clasificador más confianza tiene (de haber acertado). Una vez seleccionados,
-        el clasificador es reentrenado con la unión de los ya etiquetados y estos
-        nuevos. El proceso continúa hasta un criterio de parada (generalmente hasta
-        etiquetar todos los datos o un número máximo de iteraciones).</p>
-    <img src="/static/pseudocodigos/SelfTraining.png" width="75%" />
+    <p>{{ gettext('It is the simplest semi-supervised learning method. This method wraps a single base classifier,
+        which is train with initial labelled data and take advantage of the pseudo-labelling process to continue
+        its training.
+        This method starts by training that base classifier with the labelled data. From this initial learning, the unlabelled
+        data is labelled (pseudo-labelling). The most confident new labelled instances (in which the classifier
+        has the most confident) are selected. Once selected, the classifier is retrained with union of those already
+        labelled instances and these new labelled.
+        The process continues until a stopping criterion (usually until label all data or a maximum number of iterations).') }}</p>
+
+    <img src="{{ gettext('/static/pseudocodigos/en/SelfTraining.png') }}" width="75%" />
 {% endblock %}

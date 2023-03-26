@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-03-24 20:21+0100\n"
+"POT-Creation-Date: 2023-03-26 15:09+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -46,7 +46,7 @@ msgstr "Visualización principal"
 msgid "Zoom reset"
 msgstr "Reiniciar Zoom"
 
-#: templates/base_visualizacion.html:31 templates/base_visualizacion.html:83
+#: templates/base_visualizacion.html:31 templates/base_visualizacion.html:82
 msgid "Iteration"
 msgstr "Iteración"
 
@@ -54,7 +54,7 @@ msgstr "Iteración"
 msgid "Previous"
 msgstr "Anterior"
 
-#: templates/base_visualizacion.html:36 templates/base_visualizacion.html:81
+#: templates/base_visualizacion.html:36 templates/base_visualizacion.html:80
 msgid "Play"
 msgstr "Reproducir"
 
@@ -70,33 +70,37 @@ msgstr "Pseudocódigo"
 msgid "General statistics"
 msgstr "Estadísticas generales"
 
-#: templates/base_visualizacion.html:75
+#: templates/base_visualizacion.html:74
 msgid "Initial data"
 msgstr "Dato inicial"
 
-#: templates/base_visualizacion.html:76
+#: templates/base_visualizacion.html:75
 msgid "Label"
 msgstr "Etiqueta"
 
-#: templates/base_visualizacion.html:77
+#: templates/base_visualizacion.html:76
 msgid "Classifier"
 msgstr "Clasificador"
 
-#: templates/base_visualizacion.html:78
+#: templates/base_visualizacion.html:77
 msgid "Classifier: Not classified"
 msgstr "Clasificador: No clasificado"
 
-#: templates/base_visualizacion.html:79
+#: templates/base_visualizacion.html:78
 msgid "Label: Not classified"
 msgstr "Etiqueta: No clasificado"
 
-#: templates/base_visualizacion.html:80
+#: templates/base_visualizacion.html:79
 msgid "Pause"
 msgstr "Pausar"
 
-#: templates/base_visualizacion.html:82
+#: templates/base_visualizacion.html:81
 msgid "Measure"
 msgstr "Valor"
+
+#: templates/cotraining.html:4 templates/cotrainingconfig.html:65
+msgid "/static/pseudocodigos/en/CoTraining.png"
+msgstr "/static/pseudocodigos/es/CoTraining.png"
 
 #: templates/cotrainingconfig.html:15
 msgid "Positives"
@@ -118,9 +122,91 @@ msgstr "si es mayor que el total, se limitará a él"
 msgid "Number of iterations"
 msgstr "Número de iteraciones"
 
+#: templates/cotrainingconfig.html:54
+msgid ""
+"Strongly based on Self-Training but in this case, several classifiers "
+"(usually two)\n"
+"    handle the process and \"interact\" with each other. As Self-"
+"Training, once classifiers are trained,\n"
+"    they predict the labels of the those unlabelled instances, and all "
+"classifiers add the best predictions\n"
+"    (higher confidence/probability).\n"
+"    Co-Training works with two views of the data (\"multi-view\"). These "
+"views correspond not to subsets\n"
+"    of instances, but to subsets of instance´s atributtes "
+"(characteristics). Each classifier\n"
+"    will train considering different characteristics. Ideally, these "
+"views are independent and can\n"
+"    predict the label on their own (although this doesn´t always happen)."
+" When classifiers predict\n"
+"    labels on the data, they select the most confident data of both and "
+"build the new training set for\n"
+"    the next iteration."
+msgstr ""
+"Basado fuertemente en Self-Training, en este caso varios clasificadores "
+"(normalmente dos) se encargan del proceso e \"interactúan\" entre sí. Del"
+" mismo modo, una vez entrenados, predicen las etiquetas de los no "
+"clasificados y todos los clasificadores añaden las mejores predicciones "
+"(mayor confianza/probabilidad). \n"
+"Co-Training trabaja con dos vistas sobre los datos («multi-view»). Estas "
+"vistas corresponden no con subconjuntos de las instancias, sino de "
+"subconjuntos de las características de las mismas. Es decir, cada "
+"clasificador va a entrenarse teniendo en cuenta características "
+"distintas. Idealmente, estas vistas son independientes y pueden predecir "
+"por sí solas la etiqueta (aunque no siempre se cumplirá). Cuando los "
+"clasificadores predicen etiquetas sobre los datos, se seleccionan de "
+"ambos los de mayor confianza y construyen el nuevo conjunto de "
+"entrenamiento para la siguiente iteración."
+
 #: templates/democraticcolearning.html:4
+#: templates/democraticcolearningconfig.html:60
+msgid "/static/pseudocodigos/en/DemocraticCoLearningFit.png"
+msgstr "/static/pseudocodigos/es/DemocraticCoLearningEntrenar.png"
+
+#: templates/democraticcolearning.html:5
+#: templates/democraticcolearningconfig.html:61
+msgid "/static/pseudocodigos/en/DemocraticCoLearningCombine.png"
+msgstr "/static/pseudocodigos/es/DemocraticCoLearningCombinar.png"
+
+#: templates/democraticcolearning.html:8
 msgid "Specific statistics"
 msgstr "Estadísticas específicas"
+
+#: templates/democraticcolearningconfig.html:50
+msgid ""
+"Democratic Co-Learning is a semi-supervised learning algorithm along the "
+"lines of Co-Training\n"
+"        (various classifiers). The substantial difference is that they do"
+" not work with two (or\n"
+"        more) set of attributes, in this case there is only one set of "
+"attributes (\"single-view\").\n"
+"        Starting with the labelled data, several classifiers do a "
+"weighted voting over those not labelled.\n"
+"        That means that, for an instance, its new label will be the one "
+"voted by the majority.\n"
+"        Furthermote, for those classifiers that do not vote as the "
+"majority, the instance (with the majority label)\n"
+"        is added to their training set. This forces those misclassified "
+"classifiers to learn it in the next iteration.\n"
+"        The entire process is repeated until no more instances are added "
+"to any training set, this is achieved when\n"
+"        the accuracy does not improve despite the addition of new pseudo-"
+"labelled instances."
+msgstr ""
+"Democratic Co-Learning es un algoritmo de aprendizaje semi-supervisado en"
+" la línea de Co-Training (varios clasificadores). La diferencia "
+"sustancial es que no trabajan con dos (o más) conjuntos de atributos "
+"(para que cada clasificador utilice uno de ellos), en este caso solo se "
+"tiene un único conjunto de atributos (\"single-view\"). Partiendo de los "
+"datos etiquetados, varios clasificadores realizan votación ponderada "
+"sobre los no etiquetados. Lo que quiere decir que, para una instancia, su"
+" nueva etiqueta será la que vote la mayoría. Además, para aquellos "
+"clasificadores que no votan como la mayoría, la instancia se añade a su "
+"conjunto de entrenamiento junto a la etiqueta mayoritaria, de esta forma "
+"se \"obliga\" en la siguiente iteración a aprenderla. Todo el proceso se "
+"repite hasta que no se añadan más instancias a ningún conjunto de "
+"entrenamiento, esto se alcanza cuando no se mejora la precisión pese a la"
+" adición de nuevas instancias pseudoetiquetadas. "
 
 #: templates/inicio.html:2
 msgid "Home"
@@ -166,6 +252,10 @@ msgstr "Porcentaje de test (después de aplicar el no etiquetados)"
 msgid "Select classifier"
 msgstr "Selecciona clasificador"
 
+#: templates/selftraining.html:4 templates/selftrainingconfig.html:46
+msgid "/static/pseudocodigos/en/SelfTraining.png"
+msgstr "/static/pseudocodigos/es/SelfTraining.png"
+
 #: templates/selftrainingconfig.html:10
 msgid "N (Number of instances to select in each iteration)"
 msgstr "N (Número de datos a seleccionar en cada iteración)"
@@ -173,6 +263,36 @@ msgstr "N (Número de datos a seleccionar en cada iteración)"
 #: templates/selftrainingconfig.html:14
 msgid "Threshold"
 msgstr "Límite"
+
+#: templates/selftrainingconfig.html:37
+msgid ""
+"It is the simplest semi-supervised learning method. This method wraps a "
+"single base classifier,\n"
+"        which is train with initial labelled data and take advantage of "
+"the pseudo-labelling process to continue\n"
+"        its training.\n"
+"        This method starts by training that base classifier with the "
+"labelled data. From this initial learning, the unlabelled\n"
+"        data is labelled (pseudo-labelling). The most confident new "
+"labelled instances (in which the classifier\n"
+"        has the most confident) are selected. Once selected, the "
+"classifier is retrained with union of those already\n"
+"        labelled instances and these new labelled.\n"
+"        The process continues until a stopping criterion (usually until "
+"label all data or a maximum number of iterations)."
+msgstr ""
+"Se trata del método de aprendizaje semi-supervisado más sencillo y "
+"«directo». Este método envuelve un único clasificador base, que entrena "
+"con los datos etiquetados iniciales y aprovecha el proceso de pseudo "
+"etiquetado para continuar su entrenamiento. \n"
+"El método comienza por entrenar ese clasificador con los datos "
+"etiquetados que se tienen. A partir de este aprendizaje inicial, se "
+"etiqueta el resto de datos. De todas las nuevas predicciones se "
+"seleccionan aquellas en las que el clasificador más confianza tiene (de "
+"haber acertado). Una vez seleccionados, el clasificador es reentrenado "
+"con la unión de los ya etiquetados y estos nuevos. El proceso continúa "
+"hasta un criterio de parada (generalmente hasta etiquetar todos los datos"
+" o un número máximo de iteraciones)."
 
 #: templates/subida.html:2
 msgid "Dataset selection"

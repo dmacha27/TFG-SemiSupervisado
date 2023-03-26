@@ -1,8 +1,8 @@
 {% extends "base_visualizacion.html" %}
 {% block title %}Democratic Co-Learning{% endblock %}
 {% block pseudocodigo %}
-    <img src="/static/pseudocodigos/DemocraticCoLearningFit.png" width="100%" />
-    <img src="/static/pseudocodigos/DemocraticCoLearningCombine.png" width="100%" />
+    <img src="{{ gettext('/static/pseudocodigos/en/DemocraticCoLearningFit.png') }}" width="75%" />
+    <img src="{{ gettext('/static/pseudocodigos/en/DemocraticCoLearningCombine.png') }}" width="75%" />
 {% endblock %}
 {% block titulo_especificas %}
     <h4>{{ gettext('Specific statistics') }}</h4>

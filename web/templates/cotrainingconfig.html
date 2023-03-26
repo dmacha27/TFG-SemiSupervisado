@@ -51,20 +51,16 @@
     </script>
 {% endblock %}
 {% block explicaciones %}
-    <p>Basado fuertemente en Self-Training, en este caso varios
-        clasificadores (normalmente dos) se encargan del proceso e «interactúan»
-        entre sí. Del mismo modo, una vez entrenados predicen las etiquetas de los
-        no clasificados y todos los clasificadores añaden las mejores predicciones
-        (mayor confianza/probabilidad).
-
-        Co-Training trabaja con dos vistas sobre los datos («multi-view»).
-        Estas vistas corresponden no con subconjuntos de las instancias, sino de subconjuntos de las
-        características de las mismas. Es decir, cada clasificador va a entrenarse
-        teniendo en cuenta características distintas. Idealmente, estas vistas son
-        independientes y pueden predecir por sí solas la etiqueta (aunque no siempre
-        se cumplirá). Cuando los clasificadores predicen etiquetas sobre los datos, se
-        seleccionan de ambos los de mayor confianza y construyen el nuevo conjunto
-        de entrenamiento para la siguiente iteración.
+    <p>{{ gettext('Strongly based on Self-Training but in this case, several classifiers (usually two)
+    handle the process and "interact" with each other. As Self-Training, once classifiers are trained,
+    they predict the labels of the those unlabelled instances, and all classifiers add the best predictions
+    (higher confidence/probability).
+    Co-Training works with two views of the data ("multi-view"). These views correspond not to subsets
+    of instances, but to subsets of instance´s atributtes (characteristics). Each classifier
+    will train considering different characteristics. Ideally, these views are independent and can
+    predict the label on their own (although this doesn´t always happen). When classifiers predict
+    labels on the data, they select the most confident data of both and build the new training set for
+    the next iteration.')}}
     </p>
-    <img src="/static/pseudocodigos/CoTraining.png" width="75%" />
+    <img src="{{ gettext('/static/pseudocodigos/en/CoTraining.png') }}" width="75%" />
 {% endblock %}
