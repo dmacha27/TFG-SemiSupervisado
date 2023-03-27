@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-#
 # Autor: David Martínez Acha
 # Fecha: 11/02/2023 14:15
 # Descripción: Divide los datos para los algoritmos
@@ -17,24 +15,24 @@ def data_split(x: DataFrame, y: DataFrame, is_unlabelled, p_unlabelled=0.8, p_te
     crea un conjunto de entrenamiento (con datos etiquetados y no etiquetados) y el conjunto de test.
     Si el conjunto ya tiene no etiquetados, simplemente dividirá en conjunto de test
 
-    :param x: Muestras (con el nombre de las características).
-    :param y: Objetivos de las muestras.
-    :param is_unlabelled: Indica si el conjunto de datos ya contiene no etiquetados.
-    :param p_unlabelled: Porcentaje no etiquetados.
-    :param p_test: Porcentaje de test.
-    :return: El conjunto de entrenamiento (features -> x_train y targets -> y_train), los datos no etiquetados
-            y el conjunto de test (features -> x_test y targets -> y_test)
+    :param x: instancias de entrenamiento.
+    :param y: etiquetas de las instancias.
+    :param is_unlabelled: indica si el conjunto de datos ya contiene no etiquetados.
+    :param p_unlabelled: porcentaje no etiquetados.
+    :param p_test: porcentaje de test.
+    :return: El conjunto de entrenamiento (x_train, y_train) que incluye datos no etiquetados
+            y el conjunto de test (x_test, y_test)
     """
 
     x = np.array(x)
     y = np.array(y).ravel()
 
     if not is_unlabelled:
-        x_train, x_u, y_train, _ = train_test_split(x, y, test_size=p_unlabelled, random_state=0, stratify=y)
+        x_train, x_u, y_train, _ = train_test_split(x, y, test_size=p_unlabelled, stratify=y)
     else:
         x_train, y_train, x_u = obtain_train_unlabelled(x, y)
 
-    x_train, x_test, y_train, y_test = train_test_split(x_train, y_train, test_size=p_test, random_state=0,
+    x_train, x_test, y_train, y_test = train_test_split(x_train, y_train, test_size=p_test,
                                                         stratify=y_train)
 
     x_train = np.append(x_train, x_u, axis=0)

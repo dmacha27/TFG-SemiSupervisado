@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-#
 # Autor: David Martínez Acha
 # Fecha: 21/03/2023 18:00
 # Descripción: Algoritmo SelfTraining
@@ -19,10 +17,10 @@ class SelfTraining:
         Algoritmo SelfTraining, preparado para la obtención de todo
         el proceso de entrenamiento (con sus estadísticas)
 
-        :param clf: Clasificador a usar.
-        :param n: Número de mejores predicciones a añadir en cada iteración.
-        :param th: Límite (threshold) de probabilidad de correcta clasificación a considerar.
-        :param n_iter: Número de iteraciones (si n_iter == 0 finalizará al terminar de clasificar todas las muestras).
+        :param clf: clasificador a usar.
+        :param n: número de mejores predicciones a añadir en cada iteración.
+        :param th: límite (threshold) de probabilidad de correcta clasificación a considerar.
+        :param n_iter: número de iteraciones (si n_iter == 0 finalizará al terminar de clasificar todas las muestras).
         """
         self.clf = clf
         self.n = n
@@ -42,12 +40,12 @@ class SelfTraining:
         """
         Proceso de entrenamiento y obtención de la evolución
 
-        :param x: Muestras (con el nombre de las características).
-        :param y: Objetivos de las muestras.
-        :param x_test: Conjunto de test.
-        :param y_test: Etiquetas de test.
-        :param features: Nombre de las características de los datos (para el log).
-        :return: El log con la información de entrenamiento, estadísticas y el número de iteraciones
+        :param x: instancias de entrenamiento.
+        :param y: etiquetas de las instancias.
+        :param x_test: conjunto de test.
+        :param y_test: etiquetas de test.
+        :param features: nombre de las características de los datos (para el log).
+        :return: log con la información de entrenamiento, estadísticas y el número de iteraciones
                 realizadas.
         """
 
@@ -119,8 +117,8 @@ class SelfTraining:
         Obtiene la puntuación de exactitud del clasificador
         respecto a unos datos de prueba
 
-        :param x_test: Instancias.
-        :param y_test: Etiquetas de las instancias.
-        :return: Exactitud
+        :param x_test: instancias.
+        :param y_test: etiquetas de las instancias.
+        :return: accuracy
         """
         return accuracy_score(y_test, self.predict(x_test))

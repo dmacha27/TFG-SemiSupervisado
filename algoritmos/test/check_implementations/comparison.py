@@ -22,19 +22,19 @@ def cross_validation(own_clf, clf1_params, other_clf, clf2_params, x, y, folds, 
                      ssl_features=None):
     """
     Realiza el proceso de validación cruzada manualmente para comparar modelo de implementación propia contra uno
-    de sslearn
+    de sslearn, guarda los resultados en ficheros CSV
 
-    :param own_clf: Primer modelo de entrenamiento (implementación propia).
-    :param clf1_params: Parámetros para el primer modelo.
-    :param other_clf: Segundo modelo de entrenamiento (sslearn).
-    :param clf2_params: Parámetros para el segundo modelo.
-    :param x: Instancias.
-    :param y: Etiquetas de las instancias.
-    :param folds: Número de folds.
-    :param own_features: Etiquetas de las características (implementación propia).
-    :param comparison_name: Nombre de la comparación.
-    :param ssl_features: Índices de las características (sslearn)
-    :return: Exactitud de ambos modelos (mismo orden que de entrada) junto con ambas desviaciones estándar
+    :param own_clf: primer modelo de entrenamiento (implementación propia).
+    :param clf1_params: parámetros para el primer modelo.
+    :param other_clf: segundo modelo de entrenamiento (sslearn).
+    :param clf2_params: parámetros para el segundo modelo.
+    :param x: instancias.
+    :param y: etiquetas de las instancias.
+    :param folds: número de folds.
+    :param own_features: etiquetas de las características (implementación propia).
+    :param comparison_name: nombre de la comparación.
+    :param ssl_features: índices de las características (sslearn)
+    :return: exactitud de ambos modelos (mismo orden que de entrada) junto con ambas desviaciones estándar
     """
 
     (
@@ -97,7 +97,7 @@ def selftraining_comparison(data, comparison_name):
     Este método compara la implementación de SelfTraining realizada en este proyecto contra
     la de sslearn (de José Luis Garrido-Labrador).
 
-    :return: Accuracy de ambos modelos después del entrenamiento
+    :return: accuracy de ambos modelos después del entrenamiento
     """
     return cross_validation(SelfTraining,
                             {'clf': GaussianNB(), 'th': 0.75, 'n_iter': 10},
@@ -115,7 +115,7 @@ def cotraining_comparison(data, comparison_name):
     Este método compara la implementación de CoTraining realizada en este proyecto contra
     la de sslearn (de José Luis Garrido-Labrador).
 
-    :return: Accuracy de ambos modelos después del entrenamiento
+    :return: accuracy de ambos modelos después del entrenamiento
     """
     n_features = len(data.feature_names)
 
@@ -139,7 +139,7 @@ def democraticolearning_comparison(data, comparison_name):
     Este método compara la implementación de Democratic Co-Learning realizada en este proyecto contra
     la de sslearn (de José Luis Garrido-Labrador).
 
-    :return: Accuracy de ambos modelos después del entrenamiento
+    :return: accuracy de ambos modelos después del entrenamiento
     """
 
     clfs = [SVC(kernel='rbf',

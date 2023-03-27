@@ -19,13 +19,13 @@ class CoTraining:
         Algoritmo CoTraining, preparado para la obtención de todo
         el proceso de entrenamiento (con sus estadísticas).
 
-        :param clf1: Clasificador a usar.
-        :param clf2: Clasificador a usar.
-        :param p: Número de predicciones positivas a añadir. Se entiende como positiva de aquellas predicciones
+        :param clf1: primer clasificador a usar.
+        :param clf2: segundo clasificador a usar.
+        :param p: número de predicciones positivas a añadir. Se entiende como positiva de aquellas predicciones
                     que corresponde con la clase minoritaria.
-        :param n: Número de predicciones negativas a añadir. No positivas
-        :param u: Número de muestras seleccionadas en el inicio.
-        :param n_iter: Número de iteraciones
+        :param n: número de predicciones negativas a añadir. No positivas
+        :param u: número de muestras seleccionadas en el inicio.
+        :param n_iter: número de iteraciones
         """
 
         self.clf1 = clf1
@@ -58,12 +58,12 @@ class CoTraining:
         """
         Proceso de entrenamiento y obtención de la evolución
 
-        :param x: Muestras (con el nombre de las características).
-        :param y: Objetivos de las muestras.
-        :param x_test: Conjunto de test.
-        :param y_test: Etiquetas de test.
-        :param features: Nombre de las características de los datos (para el log).
-        :return: El log con la información de entrenamiento, estadísticas y el número de iteraciones
+        :param x: instancias.
+        :param y: etiquetas de las instancias.
+        :param x_test: conjunto de test.
+        :param y_test: etiquetas de test.
+        :param features: nombre de las características de los datos (para el log).
+        :return: log con la información de entrenamiento, estadísticas y el número de iteraciones
                 realizadas.
         """
 
@@ -185,9 +185,9 @@ class CoTraining:
         Obtiene la puntuación de exactitud del clasificador
         respecto a unos datos de prueba
 
-        :param x_test: Instancias.
-        :param y_test: Etiquetas de las instancias.
-        :return: Exactitud
+        :param x_test: instancias.
+        :param y_test: etiquetas de las instancias.
+        :return: accuracy
         """
 
         return accuracy_score(y_test, self.predict(x_test))

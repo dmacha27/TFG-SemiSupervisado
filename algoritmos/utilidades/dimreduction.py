@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-#
 # Autor: David Martínez Acha
 # Fecha: 27/01/2023 12:37
 # Descripción: Reduce la dimensionalidad de los datos para ser representados
@@ -13,12 +11,12 @@ from sklearn.preprocessing import StandardScaler
 def log_pca_reduction(log, features, n_com=2):
     """
     Reduce las características (features) de los datos para ser representado
-    en un gráfico. En principio para 2 componentes, arbitrariamente etiquetadas como C1, C2..
+    en un gráfico. En principio para 2 componentes, etiquetadas como C1, C2..
 
-    :param log: Información de entrenamiento.
+    :param log: información de entrenamiento.
+    :param features: lista de características que se van a reducir.
     :param n_com: Número de componentes a reducir.
-    :param features: Lista de características que se van a reducir.
-    :return: El log transformado al número de componentes
+    :return: log transformado al número de componentes
     """
 
     not_features = log.columns.difference(features)
@@ -41,13 +39,13 @@ def log_pca_reduction(log, features, n_com=2):
 
 def log_cxcy_reduction(log, cx, cy, features):
     """
-    Reduce las características (features) de los datos para ser representado
-    en un gráfico. Con las dos componentes cx y cy
+    Reduce el log a las dos características (features) especificadas. Con las dos componentes cx y cy
 
-    :param log: Información de entrenamiento.
-    :param cx: Componente X.
-    :param cy: Componente Y.
-    :param features: Características de los datos (sin target o información adicional).
-    :return: El log transformado.
+    :param log: información de entrenamiento.
+    :param cx: componente X.
+    :param cy: componente Y.
+    :param features: características de los datos (sin target o información adicional).
+    :return: log transformado.
     """
+
     return log[[cx, cy] + list(log.columns.difference(features))]

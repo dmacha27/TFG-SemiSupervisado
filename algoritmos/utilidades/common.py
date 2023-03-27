@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-#
 # Autor: David Martínez Acha
 # Fecha: 11/02/2023 14:30
 # Descripción: Métodos comunes para eliminar código duplicado
@@ -15,8 +13,8 @@ def obtain_train_unlabelled(x: ndarray, y: ndarray):
     el conjunto de entrenamiento inicial (todos etiquetados) y
     los no etiquetados
 
-    :param x: Datos.
-    :param y: Etiquetar de los datos.
+    :param x: instancias.
+    :param y: etiquetas de las instancias.
     :return: conjunto de datos etiquetados (x_train) con sus etiquetas (y_train) y conjunto
             de datos no etiquetados
     """

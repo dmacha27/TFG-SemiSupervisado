@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-#
 # Autor: David Martínez Acha
 # Fecha: 21/03/2023 18:00
 # Descripción: Algoritmo Democratic Co-Learning
@@ -35,11 +33,12 @@ class DemocraticCoLearning:
         Algoritmo de Yan Zhou y Sally Goldman.
 
 
-        :param x: Muestras (con el nombre de las características).
-        :param y: Objetivos de las muestras.
-        :param x_test: Conjunto de test.
-        :param y_test: Etiquetas de test.
-        :return: iteración.
+        :param x: instancias de entrenamiento.
+        :param y: etiquetas de las instancias.
+        :param x_test: conjunto de test.
+        :param y_test: etiquetas de test.
+        :return: log con la información de entrenamiento, estadísticas generales, estadísticas
+                    específicas y el número de iteraciones realizadas.
         """
 
         x_train, y_train, x_u = obtain_train_unlabelled(x, y)

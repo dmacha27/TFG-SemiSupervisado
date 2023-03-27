@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-#
 # Autor: David Martínez Acha
 # Fecha: 04/02/2023 14:30
 # Descripción: Permite cargar datasets
@@ -23,7 +21,7 @@ class DatasetLoader:
         """
         Cargador para archivos (ARFF o CSV).
 
-        :param file: Ruta del fichero
+        :param file: ruta del fichero
         """
 
         self.target = None
@@ -41,9 +39,9 @@ class DatasetLoader:
 
     def get_allfeatures(self):
         """
-        Obtiene las características de los datos. NO distingue el target (también se incluye)
+        Obtiene las columnas (atributos) de los datos, incluye el target
 
-        :return: Listado de las características de los datos.
+        :return: listado de las características de los datos.
         """
 
         return self._get_data().columns.values
@@ -52,7 +50,7 @@ class DatasetLoader:
         """
         Especifica el target de los datos
 
-        :param target: El target o clase para la posterior clasificación
+        :param target: el target o clase para la posterior clasificación
         """
         self.target = target
 
@@ -60,7 +58,7 @@ class DatasetLoader:
         """
         Obtiene las características de los datos. NO incluye target
 
-        :return: Listado de las características de los datos (sin target).
+        :return: listado de las características de los datos (sin target).
         """
         if self.target is None:
             raise ValueError("La clase o target no ha sido establecida, selecciona primero la característica que "
@@ -73,7 +71,7 @@ class DatasetLoader:
         Obtiene los datos sin procesar (directamente del fichero) según
         el tipo de fichero que sea
 
-        :return: Datos en forma de dataframe
+        :return: datos en forma de dataframe
         """
         if self.type == FileType.CSV:
             return self._csv_data()
@@ -81,13 +79,18 @@ class DatasetLoader:
             return self._arff_data()
 
     def _csv_data(self):
+        """
+        Convierte los datos del fichero .CSV en un dataframe
+
+        :return: datos en forma de dataframe
+        """
         return pd.read_csv(self.file)
 
     def _arff_data(self):
         """
-        Convierte los datos del fichero en un dataframe
+        Convierte los datos del fichero .ARFF en un dataframe
 
-        :return: Datos en forma de dataframe
+        :return: datos en forma de dataframe
         """
         data = arff.loadarff(self.file)
         df = pd.DataFrame(data[0])
@@ -96,13 +99,22 @@ class DatasetLoader:
 
     def _detect_categorical_features(self, x: DataFrame):
         """
+        Detecta si existen características categóricas.
 
-        :param x: Características
+        :param x: instancias
         :return: True si todas son numéricas, False en caso contrario
         """
         return not all(types.is_numeric_dtype(t) for t in list(x.dtypes))
 
     def _detect_unlabelled_targets(self, y: DataFrame):
+        """
+        Detecta si existen datos no etiquetados. Se sigue la convención del "-1"
+        para datos no etiquetados.
+        Casos considerados: -1, -1.0, "-1", "-1.0"
+
+        :param y: etiquetas
+        :return: True si hay datos no etiquetados, False en caso contrario
+        """
         values = y[self.target].astype(str).values
         return "-1" in values or "-1.0" in values
 
@@ -110,7 +122,7 @@ class DatasetLoader:
         """
         Obtiene por separado los datos (las características) y los target o clases
 
-        :return: Las características (x), las clases o targets (y), el mapeo de las clases codificadas a las
+        :return: las instancias (x), las clases o targets (y), el mapeo de las clases codificadas a las
         originales y si el conjunto de datos ya era semi-supervisado
         """
 
@@ -137,8 +149,6 @@ class DatasetLoader:
 
         is_unlabelled = self._detect_unlabelled_targets(y)
 
-        le = OwnLabelEncoder()
-
-        y, mapping = le.transform(y)
+        y, mapping = OwnLabelEncoder().transform(y)
 
         return x, y, mapping, is_unlabelled
