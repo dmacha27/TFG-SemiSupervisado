@@ -1,10 +1,11 @@
 # Autor: David Martínez Acha
-# Fecha: 26/03/2023 23:00
+# Fecha: 28/03/2023 20:45
 # Descripción: Algoritmo Tri-Training
-# Version: 0.1
+# Version: 1.0
 
 import numpy as np
 from math import floor, ceil
+import time
 import pandas as pd
 from sklearn.datasets import load_breast_cancer
 from sklearn.metrics import accuracy_score
@@ -12,6 +13,8 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
+
+import sslearn.wrapper
 
 from algoritmos.utilidades.common import obtain_train_unlabelled, calculate_log_statistics
 from algoritmos.utilidades.datasetloader import DatasetLoader
@@ -57,26 +60,27 @@ class TriTraining:
 
         change = True
 
+        # Li (instancias)
+        l_i_x = [[] for _ in range(len(self.clfs))]
+        # Li (etiquetas)
+        l_i_y = [[] for _ in range(len(self.clfs))]
+        e_i = [0] * len(self.clfs)
+        updates = [False] * len(self.clfs)
         while change:
             change = False
-            # Li (instancias)
-            l_i_x = [[] for _ in range(len(self.clfs))]
-            # Li (etiquetas)
-            l_i_y = [[] for _ in range(len(self.clfs))]
-            e_i = [0] * len(self.clfs)
-            updates = [False] * len(self.clfs)
-
             for i in range(len(self.clfs)):
+                l_i_x[i] = []
+                l_i_y[i] = []
+                e_i[i] = 0
                 updates[i] = False
                 e_i[i] = self._measure_error(self.others[i], x_train, y_train)
 
                 if e_i[i] < e_prime[i]:
-                    for x in x_u:
-                        h_j = self.clfs[self.others[i][0]].predict([x])
-                        h_k = self.clfs[self.others[i][1]].predict([x])
-                        if h_j == h_k:
-                            l_i_x[i].append(x)
-                            l_i_y[i].append(h_j[0])
+                    h_j = self.clfs[self.others[i][0]].predict(x_u)
+                    h_k = self.clfs[self.others[i][1]].predict(x_u)
+                    vect = h_j == h_k
+                    l_i_x[i] = x_u[vect]
+                    l_i_y[i] = h_j[vect]
 
                     if l_prime[i] == 0:
                         l_prime[i] = floor(e_i[i] / (e_prime[i] - e_i[i]) + 1)
@@ -153,17 +157,27 @@ class TriTraining:
 
 
 if __name__ == '__main__':
-    tt = TriTraining([GaussianNB(), DecisionTreeClassifier(), KNeighborsClassifier()])
 
     data = load_breast_cancer()
 
-    (
-        x,
-        y,
-        x_test,
-        y_test
-    ) = data_split(data.data, data.target, False, p_unlabelled=0.8, p_test=0.02)
+    tiempos = []
 
-    it = tt.fit(x, y)
+    for _ in range(10):
+        (
+            x,
+            y,
+            x_test,
+            y_test
+        ) = data_split(data.data, data.target, False, p_unlabelled=0.8, p_test=0.4)
 
-    print(accuracy_score(y_test, tt.predict(x_test)))
+        tt = TriTraining([GaussianNB(), DecisionTreeClassifier(), KNeighborsClassifier()])
+        start = time.time()
+        it = tt.fit(x, y)
+        end = time.time()
+        print("propia", accuracy_score(y_test, tt.predict(x_test)))
+        tiempos.append(end - start)
+
+        ttssl = sslearn.wrapper.TriTraining([GaussianNB(), DecisionTreeClassifier(), KNeighborsClassifier()])
+        ttssl.fit(x, y)
+        print("sslearn", accuracy_score(y_test, ttssl.predict(x_test)))
+    print(np.mean(tiempos))
