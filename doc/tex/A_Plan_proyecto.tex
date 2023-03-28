@@ -346,6 +346,171 @@ realiza así, el tiempo de ejecución aumenta demasiado.
 
 El gráfico Burndown se visualiza en la imagen~\ref{fig:sprints/sprint9}.
 \imagen{sprints/sprint9}{Burndown chart del sprint 9.}
+
+\subsection{Sprint 10}
+Corresponde con el periodo temporal del8 de febrero al 15 de marzo de 2023.
+
+Puntos a desarrollar:
+\begin{enumerate}
+    \item Comparación sslearn
+    \item Refactorización de plantillas.
+    \item Refactorizacion Javascript.
+    \item Refactorización Flask (app).
+    \item Añadir zoom a los gráficos.
+    \item Conceptos teóricos.
+\end{enumerate}
+
+En este Sprint no se contaba con demasiado tiempo así que aunque sí se realizó
+alguna tarea para añadir funciones, la idea era dedicarlo a mejorar el código y
+mantenimiento.
+
+En la reunión del final del Sprint anterior se comentó el cómo se estaba
+validando los algoritmos y hasta ese momento solo se habían probado las
+utilidades. Se sugirió compararlo contra \textit{sslearn}, una biblioteca de José Luis
+Garrido-Labrador. Como primera aproximación se realizó una validación cruzada
+completamente manual en la que se ejecutaba al mismo tiempo las dos
+implementaciones de los distintos algoritmos (de momento sin extraer
+conclusiones). Se tardó unas 3 horas.
+
+El segundo y tercer punto se iniciaron por separado, pero llegó un momento en el
+que las funciones que se había creado en JavaScript, si se modificaban un poco,
+podrían simplificarse a su vez las plantillas. Todos los métodos los gráficos
+estaban separados por cada uno de los algoritmos, esto lo hacía muy engorroso
+porque incluso algún método tenía el mismo nombre. Se modificaron las funciones
+de tal forma que fuesen específicas para cada algoritmo para así juntarlas en un
+único Script. Por parte de las plantillas, como había partes repetidas se
+crearon macros y se identificó una parte común a todos los algoritmos en su
+configuración, esto se añadió a la base de las configuraciones. Todo esto llevó
+unas 4 horas.
+
+En \texttt{Flask} se tenían varios problemas. El primero era que las
+visualizaciones de cada algoritmo tenían un \textit{endpoint} particular, pero
+esto no era necesario si se hacía un método para cada la obtención de los
+parámetros de cada algoritmo. Cuando se crearon estos métodos se generó código
+muy parecido porque todos ellos tenían dos partes: una en la que se obtenían los
+parámetros que no eran de los clasificadores base y otra en la que se
+incorporaban esos parámetros de los clasificadores. La primera parte es
+particular para cada algoritmo, pero la segunda es común a todos. Se creó otro
+método para ese paso. Por último, por cada algoritmo se tiene un
+\textit{endpoint} para la ejecución y obtención de la información de
+entrenamiento, pero había una parte que todos hacían prácticamente igual. Se
+creó un método que engloba: carga de datos, separación de los datos para
+entrenamiento, entrenamiento y obtención de los algoritmos y la aplicación de
+PCA (o no).
+
+La visualización principal de los algoritmos tenía el problema de que cuando los
+puntos estaban demasiado cerca, no se llegan a apreciar individualmente. Esto se
+solucionaría aplicando \textit{zoom} al gráfico. Pese a que en cuanto a código
+no fuese un desarrollo largo, fue una tarea compleja. Se probaron unas tres
+implementaciones parecidas a ejemplos encontrados en la documentación, pero en
+todas ellas se perdía la ayuda contextual del \textit{tooltip}. Al final se optó
+por volver a empezar de cero con el conocimiento adquirido y junto con un último
+ejemplo \footnote{Ejemplo D3:
+\url{https://observablehq.com/@d3/zoom-with-tooltip}} y ciertas modificaciones
+se consiguió. Posteriormente se añadió el reinicio del \textit{zoom} para volver
+a la posición original. El proceso duró unas 5 horas pues cada intento parecía
+ser definitivo, pero al final siempre había ciertos límites.
+
+Al final del Sprint se añadieron los conceptos teóricos de Democratic
+Co-Learning (conceptos y pseudocódigos).
+
+Aparte de estas tareas se realizaron pequeñas modificaciones: se completó el
+estilo adaptable (<<responsive>>), se arreglaron pequeños bugs de
+visualizaciones y ayuda contextual, actualización de traducciones y se añadió un
+fichero de prueba que el usuario puede descargar si solo quiere probar la
+aplicación.
+
+El gráfico Burndown se visualiza en la imagen~\ref{fig:sprints/sprint10}.
+\imagen{sprints/sprint10}{Burndown chart del sprint 10.}
+
+\subsection{Sprint 11}
+Corresponde con el periodo temporal del 8 de febrero al 15 de marzo de 2023.
+
+Puntos a desarrollar:
+\begin{enumerate}
+    \item Arreglos en Democratic Co-Learning.
+    \item Controlar los límites en los parámetros de los clasificadores.
+    \item Modificar las estadísticas generales.
+    \item Invertir controles en las estadísticas específicas.
+    \item Anexos: Manual del programador.
+    \item Modificar validación cruzada.
+    \item Comparación exhaustiva contra sslearn.
+    \item Añadir validación de los algoritmos a la memoria.
+\end{enumerate}
+
+En Democratic Co-Learning se estaba obviando el caso en el que si una instancia
+ya estaba etiquetada y esta es reetiquetada, pero además cambiando de etiqueta,
+no se consideraba como cambio en el algoritmo. Se ha añadido esta casuística.
+Además, Álvar sugirió en el pseudocódigo de la memoria hacer el método de
+combinación de hipótesis (predicción) para una sola instancia. Esto se ha
+realizado así en la propia implementación (y así el método \texttt{predict} se
+encarga de iterar sobre un conjunto de instancias).
+
+Al JSON que codifica los parámetros de los clasificadores base se añadieron los
+controles de mínimo y máximo. Esto es porque hay algunos de sus parámetros que
+requieren rangos específicos. Ahora la web (JavaScript) genera el formulario de
+configuración teniendo en cuenta estos límites.
+
+En la reunión del Sprint anterior se sugirió modificar la visualización de
+estadísticas. Para el gráfico general (de estadísticas) no tenía sentido poder
+ocultar o no cada una de las estadísticas así que ahora siempre se muestran
+todas ellas. Particularmente para Democratic Co-Learning, las estadísticas
+individuales estaban manejadas mediante un selector (para seleccionar el
+clasificador base) y unos \texttt{checkboxes} para seleccionar las estadísticas
+a mostrar. Pero tiene mucho más sentido que el selector sea para las
+estadísticas. De esta forma el usuario selecciona una estadística y en el
+gráfico puede comparar esa estadística para todos los clasificadores. Además,
+los \texttt{checkboxes} se mantienen, pero ahora sirven para elegir qué
+clasificadores comparar. Esto llevó unas 6 horas. La organización de las
+funciones estaba altamente centrada en la versión anterior, fue un proceso
+complicado y lioso.
+
+Pese a que en un principio no se comentó, una vez que se terminó el punto
+anterior, se vio necesaria una reestructuración de la página de las
+visualizaciones. Se mejoraron las leyendas de tal forma que ya no estaban dentro
+de los SVGs, ahora están en su propio cuadro. Esto ha conseguido no preocuparse
+por el tamaño de las palabras, centrarla y poder organizar mejor las columnas en
+las que se divide esa plantilla.
+
+Sobre el manual del programador, se añadió la estructura de directorios con el
+paquete \texttt{dirtree} de \LaTeX, se completó el manual del programador, centrado en
+qué es lo que debe saber un desarrollador para continuar con el proyecto y
+finalmente se describió el proceso de la compilación, instalación y ejecución
+del proyecto. En total fueron unas 6 horas.
+
+El proceso de validación cruzada no estaba bien enfocado, se estaba realizando
+de forma manual (y todos los posibles fallos que puede suponer) aunque la
+librería scikit-learn incorpora ya utilidades para este proceso. Concretamente
+se tiene un método que genera los distintos \texttt{Folds} dado un conjunto de
+datos. El proceso manual se sustituyó por este nuevo. Se aprovechó para guardar
+los resultados como CSV.
+
+Con el proceso de validación cruzada la idea era obtener métricas para
+compararlas en alguna gráfica/tabla y comprobar que las implementaciones son
+correctas (comparadas con \texttt{sslearn}). Para ello se creó una función que
+recogía la información de los CSVs y dibujaba una malla con distintos gráficos.
+En las columnas se distribuyen los algoritmos, separadas en dos para la
+implementación propia y la de \texttt{sslearn}. En las filas se tiene cada
+estadística. Cada uno de los gráficos de esta malla es un gráfico de cajas (para
+mostrar mínimos, máximos, medias, medianas...).
+
+Sobre el último punto, aunque la idea era realizarlo en este Sprint, no se
+estimó bien la cantidad de trabajo no pudo ser realizado. Además, en las
+ejecuciones del punto anterior (la comparativa) se vio que el algoritmo
+Co-Training estaba funcionando por debajo que el de \texttt{sslearn}. Y esto
+impedí además justificar en la memoria la validación de los algoritmos.
+
+Durante estas tareas fueron surgiendo pequeños arreglos: Se colorearon las
+etiquetas de la ayuda contextual (\texttt{tooltip}) para que quedara claro qué
+etiqueta lleva cada punto (no solo el nombre) y se actualizaron las
+traducciones.
+
+
+El gráfico Burndown se visualiza en la imagen~\ref{fig:sprints/sprint11}.
+\imagen{sprints/sprint11}{Burndown chart del sprint 11.}
+
+
+
 \section{Estudio de viabilidad}
 
 \subsection{Viabilidad económica}
