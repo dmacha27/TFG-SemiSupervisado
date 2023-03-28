@@ -67,8 +67,6 @@ class TriTraining:
             updates = [False] * len(self.clfs)
 
             for i in range(len(self.clfs)):
-                l_i_x[i] = []
-                l_i_y[i] = []
                 updates[i] = False
                 e_i[i] = self._measure_error(self.others[i], x_train, y_train)
 
@@ -88,10 +86,10 @@ class TriTraining:
                             updates[i] = True
                             change = True
                         elif l_prime[i] > (e_i[i] / (e_prime[i] - e_i[i])):
-                            l_i = np.random.choice(len(l_i_x[i]),
-                                                   ceil((e_prime[i] * l_prime[i] / e_i[i]) - 1))
-                            l_i_x = l_i_x[l_i]
-                            l_i_y = l_i_y[l_i]
+                            to_keep = np.random.choice(len(l_i_x[i]),
+                                                       ceil(e_prime[i] * l_prime[i] / e_i[i] - 1))
+                            l_i_x[i] = [l_i_x[i][keep] for keep in to_keep]
+                            l_i_y[i] = [l_i_y[i][keep] for keep in to_keep]
                             updates[i] = True
                             change = True
 
@@ -130,7 +128,7 @@ class TriTraining:
 
         or_operation = np.asarray(h_j_correct | h_k_correct)
 
-        return np.sum(or_operation, where=False) / np.sum(np.asarray(h_j == h_k), where=True)
+        return np.count_nonzero(np.invert(or_operation)) / np.count_nonzero(h_j == h_k)
 
     def predict(self, instances):
         """
@@ -166,6 +164,6 @@ if __name__ == '__main__':
         y_test
     ) = data_split(data.data, data.target, False, p_unlabelled=0.8, p_test=0.02)
 
-    tt.fit(x, y)
+    it = tt.fit(x, y)
 
     print(accuracy_score(y_test, tt.predict(x_test)))
