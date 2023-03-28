@@ -9,12 +9,13 @@ import sslearn.wrapper
 from numpy import mean, std
 from sklearn.model_selection import KFold
 from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.datasets import load_breast_cancer, load_diabetes, load_iris, load_digits, load_wine
 
 from sklearn.metrics import accuracy_score, f1_score
-from algoritmos import CoTraining, DemocraticCoLearning, SelfTraining
+from algoritmos import CoTraining, DemocraticCoLearning, SelfTraining, TriTraining
 from algoritmos.utilidades.datasplitter import data_split
 
 
@@ -159,6 +160,27 @@ def democraticolearning_comparison(data, comparison_name):
                             comparison_name)
 
 
+def tritraining_comparison(data, comparison_name):
+    """
+    Este método compara la implementación de Tri-Training realizada en este proyecto contra
+    la de sslearn (de José Luis Garrido-Labrador).
+
+    :return: accuracy de ambos modelos después del entrenamiento
+    """
+
+    clfs = [DecisionTreeClassifier(), KNeighborsClassifier(), GaussianNB()]
+
+    return cross_validation(TriTraining,
+                            {'clfs': deepcopy(clfs)},
+                            sslearn.wrapper.TriTraining,
+                            {'base_estimator': deepcopy(clfs)},
+                            data.data,
+                            data.target,
+                            10,
+                            data.feature_names,
+                            comparison_name)
+
+
 def draw_performance(dataset_name):
     """
     Con los archivos generados de las estadísticas de las implementaciones
@@ -220,9 +242,9 @@ def draw_performance(dataset_name):
 
 
 if __name__ == '__main__':
-    data = load_wine()
+    data = load_breast_cancer()
 
-    dataset_name = "Wine"
+    dataset_name = "Breast"
 
     print("---Self-Training---")
     own, std_own, ssl, std_ssl = selftraining_comparison(data, f"SelfTraining-{dataset_name}")
@@ -238,6 +260,12 @@ if __name__ == '__main__':
 
     print("---Democratic Co-Learning---")
     own, std_own, ssl, std_ssl = democraticolearning_comparison(data, f"DemocraticCoLearning-{dataset_name}")
+
+    print(f"Implementación propia: {own} ({std_own})")
+    print(f"Implementación sslearn: {ssl} ({std_ssl})")
+
+    print("---Tri-Training---")
+    own, std_own, ssl, std_ssl = tritraining_comparison(data, f"TriTraining-{dataset_name}")
 
     print(f"Implementación propia: {own} ({std_own})")
     print(f"Implementación sslearn: {ssl} ({std_ssl})")
