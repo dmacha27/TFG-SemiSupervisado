@@ -44,7 +44,8 @@ app.config['SESSION_TYPE'] = 'filesystem'
 def variables_globales():
     return {'titulos': {'selftraining': 'Self-Training',
                         'cotraining': 'Co-Training',
-                        'democraticcolearning': 'Democratic Co-Learning'}}
+                        'democraticcolearning': 'Democratic Co-Learning',
+                        'tritraining': 'Tri-Training'}}
 
 
 @app.route('/', methods=['GET'])
@@ -115,9 +116,9 @@ def visualizar_algoritmo(algoritmo):
     elif session['ALGORITMO'] == "cotraining":
         params = parametros_cotraining()
     elif session['ALGORITMO'] == "democraticcolearning":
-        params = parametros_democraticcolearning()
+        params = parametros_democraticcolearning_tritraining()
     elif session['ALGORITMO'] == "tritraining":
-        params = parametros_tritraining()
+        params = parametros_democraticcolearning_tritraining()
 
     """En params se encontrarán todos los datos necesarios para ejecutar el algoritmo.
     Realmente no se le pasa la información ejecutada, se realiza una petición POST
@@ -180,7 +181,7 @@ def parametros_cotraining():
     return params
 
 
-def parametros_democraticcolearning():
+def parametros_democraticcolearning_tritraining():
     clasificador1 = request.form['clasificador1']
     clasificador2 = request.form['clasificador2']
     clasificador3 = request.form['clasificador3']
