@@ -9,6 +9,13 @@ footer {
     padding: 20px;
 }
 
+.flash {
+    background-color: gold;
+    color: black;
+    margin:0;
+    text-align: center;"
+}
+
 .card {
     border-radius: 0;
     width: 200px;

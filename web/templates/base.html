@@ -39,12 +39,13 @@
 {% with mensajes = get_flashed_messages() %}
     {% if mensajes %}
         {% for mensaje in mensajes|reverse %}
-            <p style="background-color: gold; color: black; margin:0; text-align: center;"> {{ loop.index }} - {{ mensaje }}</p>
+            <p class="flash"> {{ loop.index }} - {{ mensaje }}</p>
         {% endfor %}
     {% endif %}
 {% endwith %}
 <footer class="text-center">
-    Universidad de Burgos
+    Universidad de Burgos<br>
+    © 2023 David Martínez Acha
 </footer>
 
 </body>

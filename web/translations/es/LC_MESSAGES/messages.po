@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-03-26 15:09+0200\n"
+"POT-Creation-Date: 2023-03-29 17:41+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -17,6 +17,18 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.11.0\n"
+
+#: app.py:72
+msgid "You must select an algorithm"
+msgstr "Debe seleccionar un algoritmo"
+
+#: app.py:90
+msgid "You must upload a file"
+msgstr "Debe subir un archivo"
+
+#: app.py:107
+msgid "You must select the parameters of the algorithm"
+msgstr "Debe seleccionar los parámetros del algoritmo"
 
 #: templates/base_configuracion.html:3
 msgid "Run configuration"
@@ -317,4 +329,3 @@ msgstr "Configurar algoritmo"
 #: templates/subida.html:25
 msgid "Test file"
 msgstr "Fichero de prueba"
-

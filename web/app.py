@@ -4,7 +4,7 @@ import json
 import datetime
 import re
 from flask import Flask, flash, render_template, request, redirect, session, url_for, send_file
-from flask_babel import Babel
+from flask_babel import Babel, gettext
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
@@ -69,7 +69,7 @@ def descargar_prueba():
 @app.route('/subida', methods=['GET', 'POST'])
 def subida():
     if 'ALGORITMO' not in session:
-        flash("Debe seleccionar un algoritmo")
+        flash(gettext("You must select an algorithm"))
         return redirect(url_for('inicio'))
 
     if request.method == 'POST':
@@ -87,7 +87,7 @@ def subida():
 @app.route('/configuracion/<algoritmo>', methods=['GET'])
 def configurar_algoritmo(algoritmo=None):
     if 'FICHERO' not in session:
-        flash("Debe subir un fichero")
+        flash(gettext("You must upload a file"))
         return redirect(url_for('subida'))
 
     dl = DatasetLoader(session['FICHERO'])
@@ -104,8 +104,8 @@ def visualizar_algoritmo(algoritmo):
     Es el paso siguiente después de la configuración.
     """
     if 'target' not in request.form:
-        flash("Debe seleccionar los parámetros del algoritmo")
-        return redirect(url_for('configurar_algoritmo', algoritmo=session['ALGORITMO']))
+        flash(gettext("You must select the parameters of the algorithm"))
+        return redirect(url_for('configurar_algoritmo', algoritmo="None"))
 
     # En este punto se deben recoger todos los parámetros
     # que el usuario introdujo en el formulario de configuración
@@ -116,6 +116,8 @@ def visualizar_algoritmo(algoritmo):
         params = parametros_cotraining()
     elif session['ALGORITMO'] == "democraticcolearning":
         params = parametros_democraticcolearning()
+    elif session['ALGORITMO'] == "tritraining":
+        params = parametros_tritraining()
 
     """En params se encontrarán todos los datos necesarios para ejecutar el algoritmo.
     Realmente no se le pasa la información ejecutada, se realiza una petición POST
@@ -312,7 +314,7 @@ def nombredataset(text):
     """Obtiene solo el nombre del conjunto de datos
     eliminando la ruta completa"""
 
-    return re.split(r"-|\\", text)[1]
+    return re.split(r"\\", re.split(r"-", text)[0])[1]
 
 
 def obtener_parametros_clasificador(clasificador, nombre):
