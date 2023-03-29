@@ -50,15 +50,30 @@ class TriTraining:
 
         x_train, y_train, x_u = obtain_train_unlabelled(x, y)
 
+        # LOG
+        log = pd.DataFrame(x_train, columns=features)
+        log['iters'] = [[0]] * len(log)
+        log['targets'] = [[lab] for lab in y_train]
+        log['clfs'] = [['inicio']] * len(log)
+
+        rest = pd.DataFrame(x_u, columns=features)
+        rest['iters'] = [[[] for __ in range(len(self.clfs))] for _ in range(len(rest))]
+        rest['targets'] = [[[] for __ in range(len(self.clfs))] for _ in range(len(rest))]
+        rest['clfs'] = [[f"CLF{i + 1}({n.__class__.__name__})" for i, n in enumerate(self.clfs)]] * len(rest)
+
+        log = pd.concat([log, rest], ignore_index=True)
+
+        stat_columns = ['Accuracy', 'Precision', 'Error', 'F1_score', 'Recall']
+        stats = pd.DataFrame(columns=stat_columns)
+
+        specific_stats = {f"CLF{i + 1}({n.__class__.__name__})": pd.DataFrame(columns=stat_columns) for i, n in
+                          enumerate(self.clfs)}
+
         e_prime = [0.5] * len(self.clfs)
         l_prime = [0] * len(self.clfs)
-        for n in self.clfs:
+        for i, n in enumerate(self.clfs):
             s_i = np.random.choice(len(x_train), len(x_train))
             n.fit(x_train[s_i], y_train[s_i])
-
-        iteration = 0
-
-        change = True
 
         # Li (instancias)
         l_i_x = [[] for _ in range(len(self.clfs))]
@@ -66,8 +81,18 @@ class TriTraining:
         l_i_y = [[] for _ in range(len(self.clfs))]
         e_i = [0] * len(self.clfs)
         updates = [False] * len(self.clfs)
+
+        iteration = 0
+        change = True
         while change:
             change = False
+
+            for i, n in enumerate(self.clfs):
+                clf_stat = specific_stats[f"CLF{i + 1}({n.__class__.__name__})"]
+                clf_stat.loc[len(clf_stat)] = calculate_log_statistics(y_test, n.predict(x_test))
+
+            stats.loc[len(stats)] = calculate_log_statistics(y_test, self.predict(x_test))
+
             for i in range(len(self.clfs)):
                 l_i_x[i] = []
                 l_i_y[i] = []
@@ -82,6 +107,13 @@ class TriTraining:
                     l_i_x[i] = x_u[vect]
                     l_i_y[i] = h_j[vect]
 
+                    # LOG
+                    vect_indexes = np.nonzero(vect)[0]
+
+                    for index, y_aux in zip(vect_indexes, l_i_y[i]):
+                        log.loc[len(x_train) + index, 'iters'][i].append(iteration + 1)
+                        log.loc[len(x_train) + index, 'targets'][i].append(y_aux)
+
                     if l_prime[i] == 0:
                         l_prime[i] = floor(e_i[i] / (e_prime[i] - e_i[i]) + 1)
 
@@ -94,6 +126,10 @@ class TriTraining:
                                                        ceil(e_prime[i] * l_prime[i] / e_i[i] - 1))
                             l_i_x[i] = [l_i_x[i][keep] for keep in to_keep]
                             l_i_y[i] = [l_i_y[i][keep] for keep in to_keep]
+                            vect_indexes_to_remove = np.delete(vect_indexes, to_keep)
+                            for index in vect_indexes_to_remove:
+                                log.loc[len(x_train) + index, 'iters'][i].pop()
+                                log.loc[len(x_train) + index, 'targets'][i].pop()
                             updates[i] = True
                             change = True
 
@@ -109,7 +145,7 @@ class TriTraining:
 
             iteration += 1
 
-        return iteration - 1
+        return log, stats, specific_stats, iteration - 1
 
     def _measure_error(self, others_clfs, x_train, y_train):
         """
@@ -172,7 +208,8 @@ if __name__ == '__main__':
 
         tt = TriTraining([GaussianNB(), DecisionTreeClassifier(), KNeighborsClassifier()])
         start = time.time()
-        it = tt.fit(x, y)
+        it = tt.fit(x, y, x_test, y_test, data['feature_names'])
+        exit()
         end = time.time()
         print("propia", accuracy_score(y_test, tt.predict(x_test)))
         tiempos.append(end - start)
