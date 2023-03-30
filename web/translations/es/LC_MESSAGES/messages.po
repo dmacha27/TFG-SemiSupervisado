@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-03-29 17:41+0200\n"
+"POT-Creation-Date: 2023-03-30 21:58+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,15 +18,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.11.0\n"
 
-#: app.py:72
+#: app.py:73
 msgid "You must select an algorithm"
 msgstr "Debe seleccionar un algoritmo"
 
-#: app.py:90
+#: app.py:91
 msgid "You must upload a file"
 msgstr "Debe subir un archivo"
 
-#: app.py:107
+#: app.py:96
+msgid "File must be ARFF or CSV"
+msgstr "El fichero debe ser ARFF o CSV"
+
+#: app.py:113
 msgid "You must select the parameters of the algorithm"
 msgstr "Debe seleccionar los parámetros del algoritmo"
 
@@ -327,5 +331,6 @@ msgid "Configure algorithm"
 msgstr "Configurar algoritmo"
 
 #: templates/subida.html:25
-msgid "Test file"
-msgstr "Fichero de prueba"
+msgid "Download test file"
+msgstr "Descargar fichero de prueba"
+

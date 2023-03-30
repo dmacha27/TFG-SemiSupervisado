@@ -12,7 +12,7 @@
                 <div id="soltar">
                     <p>{{ gettext('Drag and drop your file') }}</p>
                     <p>{{ gettext('or') }}</p>
-                    <input type=file id="archivo" name=archivo>
+                    <input type=file id="archivo" accept=".arff,.csv" name=archivo>
                 </div>
             </div>
             <div class="mb-3">
@@ -22,7 +22,7 @@
                 </form>
             </div>
         </div>
-        <a class="btn btn-success" href="{{url_for('descargar_prueba')}}">{{ gettext('Test file') }}</a>
+        <a class="btn btn-success" href="{{url_for('descargar_prueba')}}">{{ gettext('Download test file') }}</a>
     </div>
     <script type="text/javascript" src="/static/subida.js"></script>
 {% endblock %}

@@ -63,7 +63,7 @@ def seleccionar_algoritmo(algoritmo=None):
 
 @app.route('/descargar_prueba')
 def descargar_prueba():
-    path = 'datasets/seleccionar/breast.w.arff'
+    path = 'datasets/seleccionar/Prueba.arff'
     return send_file(path, as_attachment=True)
 
 
@@ -90,6 +90,11 @@ def configurar_algoritmo(algoritmo=None):
     if 'FICHERO' not in session:
         flash(gettext("You must upload a file"))
         return redirect(url_for('subida'))
+
+    if '.ARFF' not in session['FICHERO'].upper():
+        if '.CSV' not in session['FICHERO'].upper():
+            flash(gettext("File must be ARFF or CSV"))
+            return redirect(url_for('subida'))
 
     dl = DatasetLoader(session['FICHERO'])
 
