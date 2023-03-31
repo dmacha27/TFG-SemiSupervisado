@@ -21,7 +21,7 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 from algoritmos import SelfTraining, DemocraticCoLearning, TriTraining
 from algoritmos import CoTraining
 
-with open("static/parametros.json") as f:
+with open("static/json/parametros.json") as f:
     clasificadores = json.load(f)
 
 
@@ -312,8 +312,6 @@ def obtener_info(algoritmo):
         log, stats, iteration = algoritmo.fit(x, y, x_test, y_test, datasetloader.get_only_features())
     else:
         log, stats, specific_stats, iteration = algoritmo.fit(x, y, x_test, y_test, datasetloader.get_only_features())
-
-    print(log.to_string(), file=sys.stderr)
 
     if request.form['pca'] == 'on':
         _2d = log_pca_reduction(log,

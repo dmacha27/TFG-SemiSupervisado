@@ -1,7 +1,7 @@
 {%  macro formulario_comun(caracteristicas) %}
     <div class="mb-3">
         <label for="sel_target">{{ gettext('Select the target/class attribute of the dataset') }}:</label>
-        <select class="form-select" name="target" required>
+        <select class="form-select" id="sel_target" name="target" required>
             {% for c in caracteristicas %}
                 <option value="{{c}}">{{c}}</option>
             {% endfor %}
