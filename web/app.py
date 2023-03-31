@@ -100,7 +100,7 @@ def configurar_algoritmo(algoritmo=None):
 
     dl = DatasetLoader(session['FICHERO'])
 
-    return render_template(algoritmo + 'config.html',
+    return render_template('configuracion/' + algoritmo + 'config.html',
                            caracteristicas=dl.get_allfeatures(),
                            clasificadores=list(clasificadores.keys()),
                            parametros=clasificadores)
@@ -131,7 +131,7 @@ def visualizar_algoritmo(algoritmo):
     Realmente no se le pasa la información ejecutada, se realiza una petición POST
     desde Javascript con estos parámetros al renderizar la plantilla del algoritmo."""
 
-    return render_template(session['ALGORITMO'] + '.html',  # p.ej selftraining.html (donde están las visualizaciones)
+    return render_template('visualizacion/' + session['ALGORITMO'] + '.html',
                            params=params,
                            cx=request.form.get('cx', 'C1'),
                            cy=request.form.get('cy', 'C2'))

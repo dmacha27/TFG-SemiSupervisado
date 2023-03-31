@@ -8,6 +8,7 @@ async function inicializar(rutadatos, elementos) {
                 let datos = JSON.parse(xhr.responseText);
                 document.getElementById("div_cargando").remove();
                 document.getElementById("visualizacion").style.visibility = 'visible';
+                document.getElementById("titulo_visualizacion").style.visibility = 'visible';
 
                 resolve(datos);
             }
