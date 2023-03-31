@@ -3,6 +3,8 @@ import json
 
 import datetime
 import re
+import sys
+
 from flask import Flask, flash, render_template, request, redirect, session, url_for, send_file
 from flask_babel import Babel, gettext
 from sklearn.naive_bayes import GaussianNB
@@ -16,7 +18,7 @@ from sklearn.svm import SVC
 from werkzeug.utils import secure_filename
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-from algoritmos import SelfTraining, DemocraticCoLearning
+from algoritmos import SelfTraining, DemocraticCoLearning, TriTraining
 from algoritmos import CoTraining
 
 with open("static/parametros.json") as f:
@@ -272,6 +274,22 @@ def datosdemocraticcolearning():
     return json.dumps(info)
 
 
+@app.route('/tritrainingd', methods=['GET', 'POST'])
+def datostritraining():
+    clasificador1 = request.form['clasificador1']
+    clasificador2 = request.form['clasificador2']
+    clasificador3 = request.form['clasificador3']
+
+    clf1 = obtener_clasificador(clasificador1, obtener_parametros_clasificador(clasificador1, "clasificador1"))
+    clf2 = obtener_clasificador(clasificador2, obtener_parametros_clasificador(clasificador2, "clasificador2"))
+    clf3 = obtener_clasificador(clasificador3, obtener_parametros_clasificador(clasificador3, "clasificador3"))
+
+    tt = TriTraining([clf1, clf2, clf3])
+
+    info = obtener_info(tt)
+    return json.dumps(info)
+
+
 def obtener_info(algoritmo):
     """Evita el código duplicado de la obtención de toda la información
     de la ejecución de los algoritmos.
@@ -290,10 +308,12 @@ def obtener_info(algoritmo):
                                         p_test=float(request.form['p_test']))
 
     specific_stats = None
-    if not isinstance(algoritmo, DemocraticCoLearning):
+    if not isinstance(algoritmo, (DemocraticCoLearning, TriTraining)):
         log, stats, iteration = algoritmo.fit(x, y, x_test, y_test, datasetloader.get_only_features())
     else:
         log, stats, specific_stats, iteration = algoritmo.fit(x, y, x_test, y_test, datasetloader.get_only_features())
+
+    print(log.to_string(), file=sys.stderr)
 
     if request.form['pca'] == 'on':
         _2d = log_pca_reduction(log,
@@ -309,7 +329,7 @@ def obtener_info(algoritmo):
             'stats': stats.to_json(),
             'mapa': json.dumps(mapa)}
 
-    if isinstance(algoritmo, DemocraticCoLearning):
+    if isinstance(algoritmo, (DemocraticCoLearning, TriTraining)):
         info = info | {'specific_stats': {key: specific_stats[key].to_json() for key in specific_stats}}
 
     return info
