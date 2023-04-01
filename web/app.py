@@ -338,7 +338,7 @@ def nombredataset(text):
     """Obtiene solo el nombre del conjunto de datos
     eliminando la ruta completa"""
 
-    return re.split(r"\\", re.split(r"-", text)[0])[1]
+    return os.path.split(re.split(r"-", text)[0])[1]
 
 
 def obtener_parametros_clasificador(clasificador, nombre):
@@ -368,6 +368,7 @@ def obtener_clasificador(nombre, params):
     """Instancia un clasificador (sklearn) a partir de su nombre y los parámetros
     introducidos (provenientes de "obtener_parametros_clasificador").
     """
+
     if nombre == "SVC":
         params = params | {"probability": True}
         return SVC(**params)
