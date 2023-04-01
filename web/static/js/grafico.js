@@ -166,9 +166,8 @@ function inicializarGrafico(datos, preparar, binding) {
  * Función anónima como variable para asignarla como gestor de evento "mouseleave".
  * Cuando el mouse abandona la zona en cuestión se esconde el tooltip.
  *
- * @param e - evento
  */
-const mouseleave = function (e) {
+const mouseleave = function () {
     d3.select(".tooltip")
         .style("stroke", "none")
         .style("display", "none")
@@ -183,7 +182,7 @@ const mouseleave = function (e) {
  */
 function actualizaProgreso(paso){
     document.getElementById("progreso").value=cont;
-    document.getElementById("iteracion").innerHTML = cont;
+    document.getElementById("iteracion").innerHTML = cont.toString();
     if (paso === "next"){
         document.dispatchEvent(new Event('next'));
     }else{
@@ -261,9 +260,7 @@ function grafico_selftraining(dataset) {
             .html(function() {
                 if (dot[3] <= cont && dot[2] !== -1) {
                     if (dot[3] === 0){
-                        return traducir('Initial data') + "<br>" + cx +": " + dot[0] +"<br>" + cy + ": " +
-                            dot[1] + "<br>" + traducir('Label') + ": " +
-                            "<span style='color:"+ color(parseInt(dot[2])) +"'>" + mapa[dot[2]] + "</span>";
+                        return tooltip_dato_inicial(dot);
                     }else {
                         return cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] + "<br>" + traducir('Label') + ": " +
                             "<span style='color:"+ color(parseInt(dot[2])) +"'>" + mapa[dot[2]] + "</span>";
@@ -495,9 +492,7 @@ function grafico_cotraining(dataset) {
             .html(function () {
                 if (dot[3] <= cont && dot[2] !== -1) {
                     if (dot[3] === 0) {
-                        return traducir('Initial data') + "<br>" + cx + ": " + dot[0] + "<br>" + cy + ": " +
-                            dot[1] + "<br>" + traducir('Label') + ": " +
-                            "<span style='color:"+ color(parseInt(dot[2])) +"'>" + mapa[dot[2]] + "</span>";
+                        return tooltip_dato_inicial(dot);
                     } else {
                         return cx + ": " + dot[0] + "<br>" + cy + ": " + dot[1] + "<br>" +
                             traducir('Classifier') + ": " + obtenerSimboloUnicode(dot[4]) + dot[4] +
@@ -513,14 +508,7 @@ function grafico_cotraining(dataset) {
             .style("top", (e.offsetY + 60) + "px");
     };
 
-    puntos = graficosvg.selectAll("dot")
-        .data(dataset)
-        .enter()
-        .append("path")
-        .attr("d", simbolos.type(d3.symbolCircle).size(35))
-        .attr("transform", function (d) {
-            return "translate(" + gx(d[0]) + "," + gy(d[1]) + ")";
-        })
+    puntos = declarar_puntos_svg(dataset)
         .style("fill", function (d) {
             if (d[3] <= cont) {
                 return color(d[2]);
@@ -577,7 +565,7 @@ function preparardataset_democraticcolearning(datos) {
         })){
             dataset.push([xs[key],ys[key],-1,maxit+1,-1])
         }else{
-            for (var i = 0; i < clfs[key].length; i++) {
+            for (let i = 0; i < clfs[key].length; i++) {
                 if (iter[key][i] !== -1) {
                     clasificadores.add(clfs[key][i])
                     dataset.push([xs[key],ys[key],etiq[key][i],iter[key][i],clfs[key][i]])
@@ -606,7 +594,7 @@ function grafico_democraticcolearning(dataset) {
             .style("opacity", 1)
             .style("display", "block");
 
-        function algunoclasificado(puntos_posicion) {
+        function alguno_clasificado(puntos_posicion) {
             for (let i = 0; i < puntos_posicion.length; i++) {
                 if (puntos_posicion[i].__data__[3] <= cont){
                     return true;
@@ -617,7 +605,7 @@ function grafico_democraticcolearning(dataset) {
 
         d3.select(".tooltip")
             .html(function() {
-                let puntos_posicion = []
+                let puntos_posicion;
                 puntos_posicion = puntos_en_x_y(dot[0], dot[1])._groups[0];
 
                 let cadena_tooltip = "";
@@ -627,23 +615,14 @@ function grafico_democraticcolearning(dataset) {
                     let p_data = puntos_posicion[i].__data__
                     if (p_data[3] <= cont && p_data[2] !== -1) {
                         if (p_data[3] === 0){
-                            cadena_tooltip += traducir('Initial data') + "<br>" + cx +": " + p_data[0] +
-                                "<br>" + cy + ": " + p_data[1] + "<br>" + traducir('Label') + ": " +
-                                "<span style='color:"+ color(parseInt(p_data[2])) +"'>" + mapa[p_data[2]] + "</span>";
+                            cadena_tooltip += tooltip_dato_inicial(p_data);
                         }else {
-                            cadena_tooltip += cx +": " + p_data[0] +"<br>" + cy + ": " + p_data[1] +
-                                "<br>" + traducir('Classifier') + ": " + obtenerSimboloUnicode(p_data[4]) +
-                                p_data[4] + "<br>" + traducir('Label') + ": " +
+                            cadena_tooltip += tooltip_dato_no_inicial(p_data) +
                                 "<span style='color:"+ color(parseInt(p_data[2])) +"'>" + mapa[p_data[2]] + "</span>";
                         }
                         cadena_tooltip += "<br>-------<br>";
                     } else{
-                        if (i === 0 && !algunoclasificado(puntos_posicion)) {
-                            cadena_tooltip += cx + ": " + p_data[0] + "<br>" + cy + ": " + p_data[1] +
-                                "<br>" + traducir('Classifier: Not classified') + "<br>" +
-                                traducir('Label: Not classified');
-                            cadena_tooltip += "<br>-------<br>";
-                        }
+                        cadena_tooltip += tooltip_ninguna_clasificado(alguno_clasificado,puntos_posicion,i,p_data);
                     }
                 }
                 return cadena_tooltip
@@ -652,14 +631,7 @@ function grafico_democraticcolearning(dataset) {
             .style("top", (e.offsetY + 60) + "px");
     };
 
-    puntos = graficosvg.selectAll("dot")
-        .data(dataset)
-        .enter()
-        .append("path")
-        .attr("d", simbolos.type(d3.symbolCircle).size(35))
-        .attr("transform", function (d) {
-            return "translate(" + gx(d[0]) + "," + gy(d[1]) + ")";
-        })
+    puntos = declarar_puntos_svg(dataset)
         .style("fill", function (d) {
             if (d[4] === "inicio") {
                 return color(d[2]);
@@ -670,9 +642,7 @@ function grafico_democraticcolearning(dataset) {
         .on("mousemove", function (e) {
             mousemove_democraticcolearning(e, d3.select(this).datum());
         })
-        .on("mouseleave", function (e) {
-            mouseleave(e);
-        })
+        .on("mouseleave", mouseleave)
 
     document.addEventListener('next_reproducir', next_co);
 }
@@ -694,7 +664,7 @@ function databinding_tritaining(dataset) {
             .style("opacity", 1)
             .style("display", "block");
 
-        function algunoclasificado(puntos_posicion) {
+        function alguno_clasificado(puntos_posicion) {
             for (let i = 0; i < puntos_posicion.length; i++) {
                 if (puntos_posicion[i].__data__[3].indexOf(cont) >= 0){
                     return true;
@@ -705,7 +675,7 @@ function databinding_tritaining(dataset) {
 
         d3.select(".tooltip")
             .html(function() {
-                let puntos_posicion = []
+                let puntos_posicion;
                 puntos_posicion = puntos_en_x_y(dot[0], dot[1])._groups[0];
 
                 let cadena_tooltip = "";
@@ -721,25 +691,15 @@ function databinding_tritaining(dataset) {
                     }
                     if (id_cont >= 0) { // Si es -1 esto indica que ese punto no se clasifica en esta iteración
                         if (p_data[3] === 0){
-                            cadena_tooltip += traducir('Initial data') + "<br>" + cx +": " + p_data[0] +
-                                "<br>" + cy + ": " + p_data[1] + "<br>" + traducir('Label') + ": " +
-                                "<span style='color:"+ color(parseInt(p_data[2])) +"'>" + mapa[p_data[2]] + "</span>";
+                            cadena_tooltip += tooltip_dato_inicial(p_data);
                         }else {
-                            cadena_tooltip += cx +": " + p_data[0] +"<br>" + cy + ": " + p_data[1] +
-                                "<br>" + traducir('Classifier') + ": " + obtenerSimboloUnicode(p_data[4]) +
-                                p_data[4] + "<br>" + traducir('Label') + ": " +
-                                "<span style='color:"+ color(parseInt(p_data[2][id_cont])) +
-                                "'>"
-                                + mapa[p_data[2][id_cont]] + "</span>";
+                            cadena_tooltip += tooltip_dato_no_inicial(p_data) +
+                                "<span style='color:"+ color(parseInt(p_data[2][id_cont])) + "'>" +
+                                mapa[p_data[2][id_cont]] + "</span>";
                         }
                         cadena_tooltip += "<br>-------<br>";
                     } else{
-                        if (i === 0 && !algunoclasificado(puntos_posicion)) {
-                            cadena_tooltip += cx + ": " + p_data[0] + "<br>" + cy + ": " + p_data[1] +
-                                "<br>" + traducir('Classifier: Not classified') + "<br>" +
-                                traducir('Label: Not classified');
-                            cadena_tooltip += "<br>-------<br>";
-                        }
+                        cadena_tooltip += tooltip_ninguna_clasificado(alguno_clasificado,puntos_posicion,i,p_data);
                     }
                 }
                 return cadena_tooltip
@@ -748,14 +708,7 @@ function databinding_tritaining(dataset) {
             .style("top", (e.offsetY + 60) + "px");
     };
 
-    puntos = graficosvg.selectAll("dot")
-        .data(dataset)
-        .enter()
-        .append("path")
-        .attr("d", simbolos.type(d3.symbolCircle).size(35))
-        .attr("transform", function (d) {
-            return "translate(" + gx(d[0]) + "," + gy(d[1]) + ")";
-        })
+    puntos = declarar_puntos_svg(dataset)
         .style("fill", function (d) {
             if (d[4] === "inicio") {
                 return color(d[2]);
@@ -766,30 +719,13 @@ function databinding_tritaining(dataset) {
         .on("mousemove", function (e) {
             mousemove_tritraining(e, d3.select(this).datum());
         })
-        .on("mouseleave", function (e) {
-            mouseleave(e);
-        })
+        .on("mouseleave", mouseleave)
 
     document.addEventListener('next_reproducir', next_co);
 
     function prev() {
         if (cont > 0) {
-            puntos.style("visibility", "visible");
-
-            puntos.filter(function (d) {
-                if (typeof d[3] === "number"){
-                    return false;
-                }else {
-                    return d[3].indexOf(cont) >= 0;
-                }
-            })
-                .transition()
-                .duration(0)
-                .style("fill", "grey")
-                .attr("d", simbolos.type(d3.symbolCircle).size(35))
-                .attr("d", simbolos.size(35))
-                .transition()
-                .duration(500);
+            puntos_a_gris();
 
             cont--;
 
@@ -817,16 +753,7 @@ function databinding_tritaining(dataset) {
                 .duration(300)
                 .attr("d", simbolos.size(35));
 
-            recien_clasificados.each(function (d_reciente){
-                puntos.filter(function (d) {
-                    if (typeof d[3] === "number"){
-                        return false;
-                    }else {
-                        return d[0] === d_reciente[0] && d[1] === d_reciente[1] && d[3].indexOf(cont) === -1;
-                    }
-                }).style("visibility", "hidden")
-            })
-
+            ocultar_no_recien_clasificados(recien_clasificados);
 
             actualizaProgreso("prev");
         }
@@ -834,24 +761,7 @@ function databinding_tritaining(dataset) {
 
     function next() {
         if (cont < maxit) {
-            puntos.style("visibility", "visible");
-
-            // Hacer que los puntos anteriores pasen a gris rápido
-            // el usuario percibirá el cambio.
-            puntos.filter(function (d) {
-                if (typeof d[3] === "number"){
-                    return false;
-                }else {
-                    return d[3].indexOf(cont) >= 0;
-                }
-            })
-                .transition()
-                .duration(0)
-                .style("fill", "grey")
-                .attr("d", simbolos.type(d3.symbolCircle).size(35))
-                .attr("d", simbolos.size(35))
-                .transition()
-                .duration(500);
+            puntos_a_gris();
 
             cont++;
             // Colorear los puntos de esa iteración
@@ -894,19 +804,83 @@ function databinding_tritaining(dataset) {
 
             // Los puntos que estén en la misma posición que los recién clasificados
             // deben no mostrarse (algunos se superponen)
-            recien_clasificados.each(function (d_reciente){
-                puntos.filter(function (d) {
-                    if (typeof d[3] === "number"){
-                        return false;
-                    }else {
-                        return d[0] === d_reciente[0] && d[1] === d_reciente[1] && d[3].indexOf(cont) === -1;
-                    }
-                }).style("visibility", "hidden")
-            })
+            ocultar_no_recien_clasificados(recien_clasificados);
 
             actualizaProgreso("next");
         }
     }
 }
 
+
+/*
+###############################    
+#       MÉTODOS COMUNES       #
+###############################
+ */
+
+function declarar_puntos_svg(dataset) {
+    return graficosvg.selectAll("dot")
+        .data(dataset)
+        .enter()
+        .append("path")
+        .attr("d", simbolos.type(d3.symbolCircle).size(35))
+        .attr("transform", function (d) {
+            return "translate(" + gx(d[0]) + "," + gy(d[1]) + ")";
+        })
+}
+
+function puntos_a_gris() {
+    puntos.style("visibility", "visible");
+
+    // Hacer que los puntos anteriores pasen a gris rápido
+    // hará que el usuario percibirá el cambio.
+    puntos.filter(function (d) {
+        if (typeof d[3] === "number"){
+            return false;
+        }else {
+            return d[3].indexOf(cont) >= 0;
+        }
+    })
+        .transition()
+        .duration(0)
+        .style("fill", "grey")
+        .attr("d", simbolos.type(d3.symbolCircle).size(35))
+        .attr("d", simbolos.size(35))
+        .transition()
+        .duration(500);
+}
+function tooltip_dato_inicial(dot) {
+    return traducir('Initial data') + "<br>" + cx +": " + dot[0] +"<br>" + cy + ": " +
+        dot[1] + "<br>" + traducir('Label') + ": " +
+        "<span style='color:"+ color(parseInt(dot[2])) +"'>" + mapa[dot[2]] + "</span>";
+}
+
+function tooltip_dato_no_inicial(p_data) {
+    return cx +": " + p_data[0] +"<br>" + cy + ": " + p_data[1] +
+        "<br>" + traducir('Classifier') + ": " + obtenerSimboloUnicode(p_data[4]) +
+        p_data[4] + "<br>" + traducir('Label') + ": ";
+}
+
+function tooltip_ninguna_clasificado(alguno_clasificado, puntos_posicion, i, p_data) {
+    let cadena_aux = "";
+    if (i === 0 && !alguno_clasificado(puntos_posicion)) {
+        cadena_aux += cx + ": " + p_data[0] + "<br>" + cy + ": " + p_data[1] +
+            "<br>" + traducir('Classifier: Not classified') + "<br>" +
+            traducir('Label: Not classified');
+        cadena_aux += "<br>-------<br>";
+    }
+    return cadena_aux;
+}
+
+function ocultar_no_recien_clasificados(recien_clasificados) {
+    recien_clasificados.each(function (d_reciente){
+        puntos.filter(function (d) {
+            if (typeof d[3] === "number"){
+                return false; // REVISAR BUG PORQUE CUANDO SE CLASIFICA UN PUNTO INICIAL APARECE TAMBIEN EN TOOLTIP
+            }else {
+                return d[0] === d_reciente[0] && d[1] === d_reciente[1] && d[3].indexOf(cont) === -1;
+            }
+        }).style("visibility", "hidden")
+    });
+}
 
