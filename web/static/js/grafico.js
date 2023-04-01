@@ -4,6 +4,15 @@ let nexit, previt, rep;
 
 let graficosvg, gx, gy, maxit, color, mapa, puntos;
 
+
+/**
+ *
+ * Genera el SVG del gráfico principal.
+ *
+ * @param datos - todos los datos generados por el algoritmo
+ * @param preparar - función que prepara el conjunto de datos particular del algoritmo
+ * @param binding - función que grafica los puntos con base en la anterior
+ */
 function inicializarGrafico(datos, preparar, binding) {
     nexit = d3.select("#nextit");
     previt = d3.select("#previt");
@@ -84,7 +93,7 @@ function inicializarGrafico(datos, preparar, binding) {
     let yAxis = svg.append("g")
         .call(d3.axisLeft(gy));
 
-    var clip = svg.append("defs").append("SVG:clipPath")
+    svg.append("defs").append("SVG:clipPath")
         .attr("id", "clip")
         .append("SVG:rect")
         .attr("width", width )
@@ -116,7 +125,13 @@ function inicializarGrafico(datos, preparar, binding) {
 
     d3.select("#visualizacion_principal svg").call(zoom);
 
-
+    /**
+     *
+     * Se encarga de redimensionar los ejes y mover los puntos a las posiciones correctas
+     * ante los eventos de zoom.
+     *
+     * @param e - evento
+     */
     function updateChart(e) {
 
         // recover the new scale
@@ -145,12 +160,27 @@ function inicializarGrafico(datos, preparar, binding) {
 
 
 }
+
+/**
+ *
+ * Función anónima como variable para asignarla como gestor de evento "mouseleave".
+ * Cuando el mouse abandona la zona en cuestión se esconde el tooltip.
+ *
+ * @param e - evento
+ */
 const mouseleave = function (e) {
     d3.select(".tooltip")
         .style("stroke", "none")
         .style("display", "none")
 };
 
+/**
+ * Actualiza el progreso en la barra de progreso e iteración.
+ * Además, lanza un evento en global para que el resto de elementos
+ * que dependan del progreso puedan actualizarse.
+ *
+ * @param paso - indica el paso realizado (next o previous)
+ */
 function actualizaProgreso(paso){
     document.getElementById("progreso").value=cont;
     document.getElementById("iteracion").innerHTML = cont;
@@ -162,7 +192,16 @@ function actualizaProgreso(paso){
 }
 
 let intervalo = null;
-function reproducir(next){
+
+/**
+ *
+ * Se encarga de la reproducción automática de la visualización al
+ * pulsar dicho botón.
+ *
+ * Tiempo: 0.75 segundos por iteración.
+ *
+ */
+function reproducir(){
     if (!intervalo){
         document.getElementById("reproducir").innerHTML = traducir('Pause');
         intervalo = setInterval(function () {
@@ -180,6 +219,14 @@ function reproducir(next){
     }
 }
 
+/**
+ *
+ * Prepara el conjunto de datos conforme al formato
+ * de Self-Training
+ *
+ * @param datos - datos de la visualización principal
+ * @returns {*[]} - array de arrays
+ */
 function preparardataset_selftraining(datos) {
     let dataset = [];
     let xs = datos[cx];
@@ -194,6 +241,12 @@ function preparardataset_selftraining(datos) {
     return dataset;
 }
 
+/**
+ *
+ * Genera los puntos dentro del gráfico SVG, exclusivo
+ * para Self-Training
+ *
+ */
 function grafico_selftraining(dataset) {
     nexit.on("click", next);
     previt.on("click", prev);
@@ -255,6 +308,12 @@ function grafico_selftraining(dataset) {
 
     document.addEventListener('next_reproducir', next);
 
+    /**
+     *
+     * Gestiona el evento de iteración previa,
+     * desclasificando (gris) los puntos específicos.
+     *
+     */
     function prev() {
         if (cont > 0) {
             cont--;
@@ -266,6 +325,12 @@ function grafico_selftraining(dataset) {
         }
     }
 
+    /**
+     *
+     * Gestiona el evento de iteración siguiente,
+     * clasificando (color concreto) los puntos específicos.
+     *
+     */
     function next() {
         if (cont < maxit) {
             cont++;
@@ -277,6 +342,7 @@ function grafico_selftraining(dataset) {
                 })
                 .transition()
                 .duration(0)
+                //Como solo hay un clasificador base, se le asigna la forma de cruz
                 .attr("d", simbolos.type(d3.symbolCross).size(35))
                 .transition()
                 .duration(300)
@@ -291,20 +357,50 @@ function grafico_selftraining(dataset) {
 
 let clf_forma;
 
+/**
+ *
+ * Para los algoritmos con varios clasificadores base.
+ * A partir de la posición del nombre de un clasificador
+ * dentro de un array (que contiene todos los clasificadores en esa ejecución)
+ * determina una figura (escogida arbitrariamente y de forma fija).
+ *
+ * @param clf - nombre del clasificador
+ * @returns {{draw(*, *): void}} - figura de D3
+ */
 function obtenerSimbolo(clf){
-    if(clf === -1 || clf_forma.indexOf(clf) === 0){ return d3.symbolCircle
-    } else if (clf_forma.indexOf(clf) === 1){ return d3.symbolCross
-    } else if (clf_forma.indexOf(clf) === 2){ return d3.symbolTriangle
-    } else if (clf_forma.indexOf(clf) === 3){ return d3.symbolSquare
+    let indice = clf_forma.indexOf(clf);
+    if(clf === -1 || indice === 0){ return d3.symbolCircle
+    } else if (indice === 1){ return d3.symbolCross
+    } else if (indice === 2){ return d3.symbolTriangle
+    } else if (indice === 3){ return d3.symbolSquare
     }}
 
+
+/**
+ *
+ * Para los algoritmos con varios clasificadores base.
+ * A partir de la posición del nombre de un clasificador
+ * dentro de un array (que contiene todos los clasificadores en esa ejecución)
+ * determina un símbolo para HTML (escogido arbitrariamente y de forma fija).
+ *
+ * @param clf - nombre del clasificador
+ * @returns {string} - símbolo HTML
+ */
 function obtenerSimboloUnicode(clf){
-    if(clf === -1 || clf_forma.indexOf(clf) === 0){ return "&#9679"
-    } else if (clf_forma.indexOf(clf) === 1){ return "&#128934"
-    } else if (clf_forma.indexOf(clf) === 2){ return "&#9650"
-    } else if (clf_forma.indexOf(clf) === 3){ return "&#9632"
+    let indice = clf_forma.indexOf(clf);
+    if(clf === -1 || indice === 0){ return "&#9679"
+    } else if (indice === 1){ return "&#128934"
+    } else if (indice === 2){ return "&#9650"
+    } else if (indice === 3){ return "&#9632"
     }}
 
+/**
+ *
+ * Gestiona el evento de iteración previa exlusivamente
+ * para CO-Training y Democratic CO-Learning,
+ * desclasificando (gris) los puntos específicos.
+ *
+ */
 function prev_co() {
     if (cont > 0) {
         cont--;
@@ -317,6 +413,13 @@ function prev_co() {
     }
 }
 
+/**
+ *
+ * Gestiona el evento de iteración siguiente exlusivamente
+ * para CO-Training y Democratic CO-Learning,
+ * clasificando (color concreto y forma concreta) los puntos específicos.
+ *
+ */
 function next_co() {
     if (cont < maxit) {
         cont++;
@@ -342,7 +445,14 @@ function next_co() {
     }
 }
 
-
+/**
+ *
+ * Prepara el conjunto de datos conforme al formato
+ * de Co-Training
+ *
+ * @param datos - datos de la visualización principal
+ * @returns {*[]} - array de arrays
+ */
 function preparardataset_cotraining(datos) {
     let dataset = [];
     let xs = datos[cx];
@@ -357,7 +467,7 @@ function preparardataset_cotraining(datos) {
 
     let clasificadores = new Set();
 
-    for (var i = 0; i < dataset.length; i++){
+    for (let i = 0; i < dataset.length; i++){
         clasificadores.add(dataset[i][4]);
     }
     clf_forma = Array.from(clasificadores);
@@ -365,7 +475,13 @@ function preparardataset_cotraining(datos) {
     return dataset;
 }
 
-function databinding_cotraining(dataset) {
+/**
+ *
+ * Genera los puntos dentro del gráfico SVG, exclusivo
+ * para Co-Training
+ *
+ */
+function grafico_cotraining(dataset) {
     nexit.on("click", next_co);
     previt.on("click", prev_co);
     rep.on("click", reproducir);
@@ -423,12 +539,29 @@ function databinding_cotraining(dataset) {
     document.addEventListener('next_reproducir', next_co);
 }
 
+/**
+ *
+ * A partir de una posición concreta (x,y), obtiene
+ * los puntos que ocupan esa posición (pueden ser varios)
+ *
+ * @param x - posición x
+ * @param y - posición y
+ * @returns {*} - puntos
+ */
 function puntos_en_x_y(x,y) {
     return puntos.filter(function(d) {
         return d[0] === x && d[1] === y;
     })
 }
 
+/**
+ *
+ * Prepara el conjunto de datos conforme al formato
+ * de Co-Training
+ *
+ * @param datos - datos de la visualización principal
+ * @returns {*[]} - array de arrays
+ */
 function preparardataset_democraticcolearning(datos) {
     let dataset = [];
     let xs = datos[cx];
@@ -456,7 +589,14 @@ function preparardataset_democraticcolearning(datos) {
     return dataset;
 }
 
-function databinding_democraticcolearning(dataset) {
+
+/**
+ *
+ * Genera los puntos dentro del gráfico SVG, exclusivo
+ * para Democratic Co-Learning
+ *
+ */
+function grafico_democraticcolearning(dataset) {
     nexit.on("click", next_co);
     previt.on("click", prev_co);
     rep.on("click", reproducir);
@@ -538,6 +678,12 @@ function databinding_democraticcolearning(dataset) {
 }
 
 
+/**
+ *
+ * Genera los puntos dentro del gráfico SVG, exclusivo
+ * para Tri-Training
+ *
+ */
 function databinding_tritaining(dataset) {
     nexit.on("click", next);
     previt.on("click", prev);

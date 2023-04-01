@@ -21,7 +21,7 @@
             let stats = Object.keys(JSON.parse(datos.stats));
             generargraficoestadistico("estadisticas_generales", JSON.parse(datos.stats), stats);
 
-            generarespecificas("estadisticas_especificas", datos.specific_stats);
+            generarespecificas(datos.specific_stats);
         });
     </script>
 {% endblock %}

@@ -1,7 +1,28 @@
+/**
+ *
+ * Deshabilita/habilita un elemento por su ID.
+ * Es utilizado en Self-Training pues este algoritmo permite
+ * inicializarse mediante un número de iteraciones máximas o
+ * un límite (o threshold). Si el usuario introduce un valor en las
+ * iteraciones, el límite se deshabilita (y viceversa), y si el usuario elimina el valor,
+ * el límite se habilita (y viceversa).
+ *
+ * @param value - valor del placeholder
+ * @param id - id del elemento a deshabilitar/habilitar
+ */
 function limitarUnicoMetodoST(value,id){
     document.getElementById(id).disabled = !!value;
 }
 
+/**
+ *
+ * Deshabilita los controles para seleccionar las componentes
+ * X e Y dependiendo del checkbox del PCA.
+ *
+ * @param checked - estado del checkbox del PCA (true o false)
+ * @param x - id del selector de la componente x
+ * @param y - id del selector de la componente y
+ */
 function componentesPCA(checked,x,y){
     if (checked) {
         document.getElementById(x).disabled = true;
@@ -12,13 +33,23 @@ function componentesPCA(checked,x,y){
     }
 }
 
-function generarFormParametros(algoritmo, div, div_clasificador) {
-    const parametros = Object.keys(todos_parametros[algoritmo]);
+/**
+ * Genera el formulario de los parámetros de un clasificador
+ * base (scikit-learn)
+ *
+ * @param clasificador - nombre del clasificador base
+ * @param div - el <div> destino donde almacenar el formulario
+ * @param div_clasificador - id del selector del clasificador base
+ */
+function generarFormParametros(clasificador, div, div_clasificador) {
+    // todos_parametros contiene los parámetros que admite el clasificador
+    // así como su estructura (select, number, min, max...)
+    const parametros = Object.keys(todos_parametros[clasificador]);
     div.innerHTML = '';
 
     for (const p of parametros) {
 
-        parametro = todos_parametros[algoritmo][p];
+        let parametro = todos_parametros[clasificador][p];
         const label = document.createElement('label');
         label.textContent = parametro.label;
 
@@ -53,6 +84,10 @@ function generarFormParametros(algoritmo, div, div_clasificador) {
     }
 }
 
+
+/*
+MÉTODOS A ELIMINAR EN FINAL
+ */
 function validarNumeroEntero(id,min,max) {
     var value = document.getElementById(id).value;
     var entero = parseInt(value)

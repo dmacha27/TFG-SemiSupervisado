@@ -1,17 +1,33 @@
-function generarespecificas(id_div_especificas, specific_stats) {
+/**
+ *
+ * Se encarga de generar el gráfico de las estadísticas específicas.
+ * La zona del gráfico se divide en tres:
+ *  - Selector de la estadística
+ *  - Gráfico SVG
+ *  - Checboxes para seleccionar los clasificadores
+ *
+ * @param specific_stats - datos con las estadísticas específicas
+ */
+function generarespecificas(specific_stats) {
+    const id_div_especificas = "estadisticas_especificas";
+    let div_especificas = document.querySelector("#" + id_div_especificas);
+
     let clasificadores = Object.keys(specific_stats);
     let datos_json = JSON.parse(specific_stats[clasificadores[0]]);
     let stats = Object.keys(datos_json);
 
-    let div_especificas = document.querySelector("#" + id_div_especificas);
+    // Tres partes del gráfico
+    let id_selector_stat = "selector_stat";
+    let id_div_estadisticas = "grafico_stat";
+    let id_div_checboxes = "checkboxes_especifico_grafico_stat";
 
-    // Crear selector para las estadísticas
+
+    // PARTE 1: Crear selector para las estadísticas
     let select = document.createElement("select");
-    select.setAttribute("id", "selector_stat");
+    select.setAttribute("id", id_selector_stat);
     select.setAttribute("class", "form-select");
     select.style.width = "25%";
     select.style.margin = "auto";
-
 
     for (let i = 0; i < stats.length; i++) {
         let option = document.createElement("option");
@@ -20,23 +36,19 @@ function generarespecificas(id_div_especificas, specific_stats) {
         select.appendChild(option);
     }
 
-    let id_div_estadisticas = "grafico_stat";
+    // El selector hará que en el SVG se modifique la estadística mostrada
     select.addEventListener('change', (event) => {
         seleccionarstat(id_div_estadisticas, event.target.value, stats);
     });
 
     div_especificas.appendChild(select);
 
+
+    // PARTE 2: Gráfico SVG
     let div_grafico = document.createElement("div");
     div_grafico.setAttribute("id", id_div_estadisticas);
-
-    let div_checkboxes = document.createElement("div");
-    div_checkboxes.setAttribute("id", "checkboxes_especifico_grafico_stat");
-
     div_especificas.appendChild(div_grafico);
-    div_especificas.appendChild(div_checkboxes);
-
-    generarcheckboxes_clasificadores("checkboxes_especifico_grafico_stat", id_div_estadisticas, clasificadores);
+    // Con null se indica que no genere las líneas de estadísticas, se delega a esta función
     generargraficoestadistico(id_div_estadisticas, null, clasificadores);
 
     let color = d3.scaleOrdinal()
@@ -51,10 +63,29 @@ function generarespecificas(id_div_especificas, specific_stats) {
         }
     }
 
+
+    // PARTE 3: Checkboxes de los clasificadores
+    let div_checkboxes = document.createElement("div");
+    div_checkboxes.setAttribute("id", id_div_checboxes);
+    div_especificas.appendChild(div_checkboxes);
+    generarcheckboxes_clasificadores(id_div_checboxes, id_div_estadisticas, clasificadores);
+
+
+    // Para que al cargar la página muestre la primera estadística
     seleccionarstat(id_div_estadisticas, stats[0], stats);
 
 }
 
+/**
+ *
+ * Controla la visibilidad de las líneas de estadísticas.
+ * Al seleccionar una mediante el selector, hará visible la estadística
+ * seleccionada, y el resto serán ocultadas.
+ *
+ * @param id_div_estadisticas - id del gráfico SVG
+ * @param stat_seleccionada - nombre de la estadística seleccionada (del selector)
+ * @param lista_stats - lista de todos los nombres de las estadísticas (utilizada para comparar)
+ */
 function seleccionarstat(id_div_estadisticas, stat_seleccionada, lista_stats) {
     let statsvg = d3.select("#" + id_div_estadisticas).select("svg").select("g");
 
@@ -62,13 +93,16 @@ function seleccionarstat(id_div_estadisticas, stat_seleccionada, lista_stats) {
         let pts = statsvg.selectAll('circle[stat='+ lista_stats[i] +']');
         let lineas = statsvg.selectAll('line[stat='+ lista_stats[i] +']');
         if (stat_seleccionada === lista_stats[i]){
+            // Aparte de ser la estadística seleccionada se tiene que cumplir que:
+            // La estadística de los puntos y líneas deben ser solo las de la estadística seleccionada (en el select)
+            // El clasificador de los puntos y líneas debe ser alguno de los seleccionados en los checkboxes
             pts.filter(function(d) {
                 return d[0] <= cont && comprobarvisibilidad(d3.select(this).attr("clf"),stat_seleccionada);
             })
                 .style("visibility", "visible")
 
             lineas.filter(function (d) {
-                return d <= cont && comprobarvisibilidad(d3.select(this).attr("clf"),stat_seleccionada);;
+                return d <= cont && comprobarvisibilidad(d3.select(this).attr("clf"),stat_seleccionada);
             })
                 .style("visibility", "visible")
         }else{
@@ -79,30 +113,14 @@ function seleccionarstat(id_div_estadisticas, stat_seleccionada, lista_stats) {
 
 }
 
-function habilitar_clasificador(id_div_objetivo, checked, clasificador) {
-    let nombre_clasificador = clasificador
-        .replace("(","")
-        .replace(")","");
-    let statsvg = d3.select("#" + id_div_objetivo).select("svg").select("g");
-    let pts = statsvg.selectAll('circle[clf='+ nombre_clasificador +']');
-    let lineas = statsvg.selectAll('line[clf='+ nombre_clasificador +']');
-
-    if(checked){
-        pts.filter(function(d) {
-            return d[0] <= cont && comprobarvisibilidad(nombre_clasificador, d3.select(this).attr("stat"));
-        })
-            .style("visibility", "visible")
-
-        lineas.filter(function (d) {
-            return d <= cont && comprobarvisibilidad(nombre_clasificador, d3.select(this).attr("stat"));
-        })
-            .style("visibility", "visible")
-    }else{
-        pts.style("visibility", "hidden");
-        lineas.style("visibility", "hidden");
-    }
-}
-
+/**
+ *
+ * Genera los checboxes de cada clasificador
+ *
+ * @param id_div_objetivo - id del <div> donde se incluirán los checkboxes
+ * @param id_div_estadisticas - id del <div> del gráfico SVG
+ * @param clasificadores - lista de los nombres de los clasificadores
+ */
 function generarcheckboxes_clasificadores(id_div_objetivo, id_div_estadisticas, clasificadores) {
     let div_objetivo = document.querySelector("#" + id_div_objetivo);
 
@@ -133,10 +151,54 @@ function generarcheckboxes_clasificadores(id_div_objetivo, id_div_estadisticas, 
 
 }
 
+/**
+ *
+ * Deshabilita/habilita los puntos y líneas dependiendo del
+ * clasificador seleccionado en los checboxes.
+ *
+ * Es una función que gestiona el evento "click" en un checkbox.
+ *
+ * @param id_div_objetivo - id del <div> del gráfico SVG
+ * @param checked - valor booleano que indica que si el checboxes está activo o no
+ * @param clasificador - nombre del clasificador
+ */
+function habilitar_clasificador(id_div_objetivo, checked, clasificador) {
+    let nombre_clasificador = clasificador
+        .replace("(","")
+        .replace(")","");
+    let statsvg = d3.select("#" + id_div_objetivo).select("svg").select("g");
+    let pts = statsvg.selectAll('circle[clf='+ nombre_clasificador +']');
+    let lineas = statsvg.selectAll('line[clf='+ nombre_clasificador +']');
 
+    if(checked){
+        pts.filter(function(d) {
+            return d[0] <= cont && comprobarvisibilidad(nombre_clasificador, d3.select(this).attr("stat"));
+        })
+            .style("visibility", "visible")
+
+        lineas.filter(function (d) {
+            return d <= cont && comprobarvisibilidad(nombre_clasificador, d3.select(this).attr("stat"));
+        })
+            .style("visibility", "visible")
+    }else{
+        pts.style("visibility", "hidden");
+        lineas.style("visibility", "hidden");
+    }
+}
+
+/**
+ *
+ * Función general para crear el gráfico SVG, sin puntos
+ * ni líneas, solo la declaración del mismo.
+ * También genera la leyenda.
+ *
+ * @param id_div_objetivo - id del <div> donde se alojará el SVG
+ * @param datos_stats - datos de todas las estadísticas
+ * @param dominio - el dominio de la leyenda (lo nombres a mostrar)
+ */
 function generargraficoestadistico(id_div_objetivo, datos_stats, dominio) {
 
-    let margin = {top: 10, right: 10, bottom: 40, left: 50},
+    let margin = {top: 10, right: 10, bottom: 45, left: 50},
         width = 700 - margin.left - margin.right,
         height = 350 - margin.top - margin.bottom;
 
@@ -184,7 +246,7 @@ function generargraficoestadistico(id_div_objetivo, datos_stats, dominio) {
         .domain(dominio)
         .range(d3.schemeCategory10);
 
-    let leyenda = null;
+    let leyenda;
 
     if (datos_stats !== null) {
         leyenda = d3.select("#leyenda_estadisticas_generales")
@@ -224,8 +286,19 @@ function generargraficoestadistico(id_div_objetivo, datos_stats, dominio) {
 
 }
 
+/**
+ *
+ * Añade los puntos y las líneas de las estadísticas.
+ * Se utiliza tanto para las estadísticas generales como para las específicas.
+ *
+ * @param id_div - id del <div> del SVG de las estadísticas
+ * @param datos_stats - datos de las estadísticas
+ * @param stat - nombre de la estadística a añadir
+ * @param color - rango de colores
+ * @param clf - indica si las líneas y puntos corresponde a un clasificador concreto o no
+ */
 function anadirestadistica(id_div, datos_stats, stat, color, clf="no") {
-    let margin = {top: 10, right: 10, bottom: 40, left: 50},
+    let margin = {top: 10, right: 10, bottom: 45, left: 50},
         width = 700 - margin.left - margin.right,
         height = 350 - margin.top - margin.bottom;
 
@@ -282,7 +355,7 @@ function anadirestadistica(id_div, datos_stats, stat, color, clf="no") {
             .attr("x2", statx(i + 1))
             .attr("y2", staty(lista[i + 1][1]))
             .attr("stroke", function () {
-                if (clf === "no"){
+                if (clf === "no"){ // Estadísticas generales
                     return color(stat);
                 }else{
                     return color(clf);
@@ -303,7 +376,9 @@ function anadirestadistica(id_div, datos_stats, stat, color, clf="no") {
     document.addEventListener('next', next);
     document.addEventListener('prev', prev);
 
-
+    /**
+     * Muestra los puntos y líneas de la siguiente iteración
+     */
     function next() {
         pts.filter(function (d) {
             return d[0] === cont && comprobarvisibilidad(nombre_clf, stat);
@@ -325,6 +400,9 @@ function anadirestadistica(id_div, datos_stats, stat, color, clf="no") {
 
     }
 
+    /**
+     * Oculta los puntos y líneas de iteraciones posteriores
+     */
     function prev() {
         pts.filter(function (d) {
             return d[0] > cont;
@@ -338,7 +416,15 @@ function anadirestadistica(id_div, datos_stats, stat, color, clf="no") {
     }
 }
 
-
+/**
+ *
+ * Crea un array de arrays con el valor de la estadística
+ * por cada iteración
+ *
+ * @param stats - datos de las estadísticas
+ * @param stat - nombre de la estadística
+ * @returns {*[]} - array de arrays
+ */
 function crearListaStat(stats,stat){
     let lista = [];
     let aux = stats[stat];
@@ -350,6 +436,16 @@ function crearListaStat(stats,stat){
     return lista;
 }
 
+/**
+ *
+ * Para las estadísticas específicas, comprueba que:
+ * Si la estadística del selector es la que se comprueba
+ * El checkbox del clasificador base está activado
+ *
+ * @param clasificador - nombre del clasificador
+ * @param stat - nombre de la estadística
+ * @returns {boolean} - true si se cumplen las dos condiciones, false en caso contrario
+ */
 function comprobarvisibilidad(clasificador, stat) {
     let check = document.getElementById("chk_" + clasificador);
     let select = document.getElementById("selector_stat");

@@ -16,12 +16,12 @@
 {% block mas_scripts %}
     <script>
         inicializar("/{{ session['ALGORITMO'] }}d", elementos).then(function (datos) {
-            inicializarGrafico(datos, preparardataset_democraticcolearning,databinding_democraticcolearning);
+            inicializarGrafico(datos, preparardataset_democraticcolearning,grafico_democraticcolearning);
 
             let stats = Object.keys(JSON.parse(datos.stats));
             generargraficoestadistico("estadisticas_generales", JSON.parse(datos.stats), stats);
 
-            generarespecificas("estadisticas_especificas", datos.specific_stats);
+            generarespecificas(datos.specific_stats);
         });
     </script>
 {% endblock %}

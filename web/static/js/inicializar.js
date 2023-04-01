@@ -1,7 +1,18 @@
 let cont = 0;
 
+/**
+ *
+ * Se encarga de inicializar la visualización de forma asíncrona
+ * (para que la Web prosiga sin necesidad de esperar a finalizar esta funcion).
+ * La idea es realizar una petición POST sobre una ruta preparada en la que se ejecuta
+ * el algoritmo. Obtiene los datos y los convierte a JSON.
+ *
+ * @param rutadatos - ruta (endpoint) para la petición
+ * @param elementos - los elementos/parámetros de los algoritmos
+ * @returns {Promise<unknown>}
+ */
 async function inicializar(rutadatos, elementos) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
             if (this.readyState === XMLHttpRequest.DONE) {
@@ -23,6 +34,9 @@ async function inicializar(rutadatos, elementos) {
     });
 }
 
+/*
+ELIMINAR
+ */
 function panelInfo(){
     let card_info = document.getElementById("card_info")
     let card_info_text = document.getElementById("card_info_text")

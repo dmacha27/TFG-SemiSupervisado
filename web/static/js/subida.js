@@ -16,20 +16,30 @@ boton.param = 'boton'
 area.addEventListener('drop',subir,false)
 boton.addEventListener('change',subir)
 
+
+/**
+ *
+ * Gestiona la subida del fichero realizando una petición post
+ * sobre una ruta de la aplicación.
+ * Gracias al evento del proceso permite determinar el porcentaje de subida.
+ *
+ * @param e - evento
+ * @returns {boolean} - false si existe algún problema
+ */
 function subir(e){
     e.preventDefault();
     let archivo;
 
     if (e.currentTarget.param === 'soltar') {
-        archivo = e.dataTransfer.files;
+        archivo = e.dataTransfer.files; // arrastar y soltar
     }else{
-        archivo = e.target.files;
+        archivo = e.target.files; // botón de subida
     }
     if (archivo.length >= 2) {
         return false;
     }
 
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.open('post', '/subida', true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
@@ -43,7 +53,7 @@ function subir(e){
         }
     };
 
-    let parametros = new FormData();
-    parametros.append('archivo',archivo[0])
-    xhr.send(parametros);
+    let params= new FormData();
+    params.append('archivo',archivo[0])
+    xhr.send(params);
 }

@@ -6,7 +6,7 @@
 {% block mas_scripts %}
     <script>
         inicializar("/{{ session['ALGORITMO'] }}d", elementos).then(function (datos) {
-            inicializarGrafico(datos, preparardataset_cotraining,databinding_cotraining);
+            inicializarGrafico(datos, preparardataset_cotraining,grafico_cotraining);
 
             let stats = Object.keys(JSON.parse(datos.stats));
             generargraficoestadistico("estadisticas_generales", JSON.parse(datos.stats), stats);
