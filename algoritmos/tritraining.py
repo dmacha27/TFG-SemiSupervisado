@@ -17,7 +17,6 @@ from sklearn.tree import DecisionTreeClassifier
 import sslearn.wrapper
 
 from algoritmos.utilidades.common import obtain_train_unlabelled, calculate_log_statistics
-from algoritmos.utilidades.datasetloader import DatasetLoader
 from algoritmos.utilidades.datasplitter import data_split
 
 
@@ -34,7 +33,7 @@ class TriTraining:
                        1: [0, 2],
                        2: [0, 1]}
 
-    def fit(self, x, y, x_test=None, y_test=None, features=None):
+    def fit(self, x, y, x_test, y_test, features):
         """
         Proceso de entrenamiento y obtención de la evolución.
 
@@ -120,7 +119,6 @@ class TriTraining:
                     if l_prime[i] < len(l_i_x[i]):
                         if e_i[i] * len(l_i_x[i]) < e_prime[i] * l_prime[i]:
                             updates[i] = True
-                            change = True
                         elif l_prime[i] > (e_i[i] / (e_prime[i] - e_i[i])):
                             to_keep = np.random.choice(len(l_i_x[i]),
                                                        ceil(e_prime[i] * l_prime[i] / e_i[i] - 1))
@@ -131,10 +129,10 @@ class TriTraining:
                                 log.loc[len(x_train) + index, 'iters'][i].pop()
                                 log.loc[len(x_train) + index, 'targets'][i].pop()
                             updates[i] = True
-                            change = True
 
             for i, n in enumerate(self.clfs):
                 if updates[i]:
+                    change = True
                     e_prime[i] = e_i[i]
                     l_prime[i] = len(l_i_x[i])
 
@@ -192,7 +190,7 @@ class TriTraining:
         return accuracy_score(y_test, self.predict(x_test))
 
 
-if __name__ == '__main__':
+"""if __name__ == '__main__':
 
     data = load_breast_cancer()
 
@@ -217,4 +215,4 @@ if __name__ == '__main__':
         ttssl = sslearn.wrapper.TriTraining([GaussianNB(), DecisionTreeClassifier(), KNeighborsClassifier()])
         ttssl.fit(x, y)
         print("sslearn", accuracy_score(y_test, ttssl.predict(x_test)))
-    print(np.mean(tiempos))
+    print(np.mean(tiempos))"""

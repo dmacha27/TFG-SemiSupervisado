@@ -545,12 +545,13 @@ function puntos_en_x_y(x,y) {
 /**
  *
  * Prepara el conjunto de datos conforme al formato
- * de Co-Training
+ * de Democratic Co-Learning y Tri-Training (el proceso es
+ * exactamente el mismo).
  *
  * @param datos - datos de la visualización principal
  * @returns {*[]} - array de arrays
  */
-function preparardataset_democraticcolearning(datos) {
+function preparardataset_democraticcolearning_tritraining(datos) {
     let dataset = [];
     let xs = datos[cx];
     let ys = datos[cy];
@@ -622,7 +623,7 @@ function grafico_democraticcolearning(dataset) {
                         }
                         cadena_tooltip += "<br>-------<br>";
                     } else{
-                        cadena_tooltip += tooltip_ninguna_clasificado(alguno_clasificado,puntos_posicion,i,p_data);
+                        cadena_tooltip += tooltip_ninguno_clasificado(alguno_clasificado,puntos_posicion,i,p_data);
                     }
                 }
                 return cadena_tooltip
@@ -690,16 +691,16 @@ function databinding_tritaining(dataset) {
                         id_cont = p_data[3].indexOf(cont);
                     }
                     if (id_cont >= 0) { // Si es -1 esto indica que ese punto no se clasifica en esta iteración
-                        if (p_data[3] === 0){
+                        if (p_data[3] === 0) {
                             cadena_tooltip += tooltip_dato_inicial(p_data);
-                        }else {
+                        } else {
                             cadena_tooltip += tooltip_dato_no_inicial(p_data) +
                                 "<span style='color:"+ color(parseInt(p_data[2][id_cont])) + "'>" +
                                 mapa[p_data[2][id_cont]] + "</span>";
                         }
                         cadena_tooltip += "<br>-------<br>";
                     } else{
-                        cadena_tooltip += tooltip_ninguna_clasificado(alguno_clasificado,puntos_posicion,i,p_data);
+                        cadena_tooltip += tooltip_ninguno_clasificado(alguno_clasificado,puntos_posicion,i,p_data);
                     }
                 }
                 return cadena_tooltip
@@ -861,7 +862,7 @@ function tooltip_dato_no_inicial(p_data) {
         p_data[4] + "<br>" + traducir('Label') + ": ";
 }
 
-function tooltip_ninguna_clasificado(alguno_clasificado, puntos_posicion, i, p_data) {
+function tooltip_ninguno_clasificado(alguno_clasificado, puntos_posicion, i, p_data) {
     let cadena_aux = "";
     if (i === 0 && !alguno_clasificado(puntos_posicion)) {
         cadena_aux += cx + ": " + p_data[0] + "<br>" + cy + ": " + p_data[1] +

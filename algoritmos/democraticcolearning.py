@@ -13,6 +13,7 @@ import scipy
 from sklearn.metrics import accuracy_score
 from algoritmos.utilidades.common import obtain_train_unlabelled, calculate_log_statistics
 
+
 class DemocraticCoLearning:
 
     def __init__(self, clfs):
