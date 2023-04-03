@@ -6,13 +6,11 @@ from flask import Flask, flash, render_template, request, redirect, session, url
 from flask_babel import gettext
 from werkzeug.utils import secure_filename
 
-
-main_bp = Blueprint('main_bp',__name__)
+main_bp = Blueprint('main_bp', __name__)
 
 
 @main_bp.route('/', methods=['GET'])
 def inicio():
-    print(os.path.abspath(os.path.dirname(__file__)),file=sys.stderr)
     session.pop('ALGORITMO', None)
     session.pop('FICHERO', None)
     return render_template('inicio.html')
