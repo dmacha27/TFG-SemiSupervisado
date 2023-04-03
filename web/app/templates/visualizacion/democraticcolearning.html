@@ -1,8 +1,8 @@
 {% extends "visualizacion/base_visualizacion.html" %}
-{% block title %}Tri-Training{% endblock %}
+{% block title %}Democratic Co-Learning{% endblock %}
 {% block pseudocodigo %}
-    <img src="{{ gettext('/static/pseudocodigos/en/DemocraticCoLearningFit.png') }}" width="75%" />
-    <img src="{{ gettext('/static/pseudocodigos/en/DemocraticCoLearningCombine.png') }}" width="75%" />
+    <img src="{{ gettext('/pseudocodigos/en/DemocraticCoLearningFit.png') }}" width="75%" />
+    <img src="{{ gettext('/pseudocodigos/en/DemocraticCoLearningCombine.png') }}" width="75%" />
 {% endblock %}
 {% block titulo_especificas %}
     <h4>{{ gettext('Specific statistics') }}</h4>
@@ -16,7 +16,7 @@
 {% block mas_scripts %}
     <script>
         inicializar("/{{ session['ALGORITMO'] }}d", elementos).then(function (datos) {
-            inicializarGrafico(datos, preparardataset_democraticcolearning_tritraining,databinding_tritaining);
+            inicializarGrafico(datos, preparardataset_democraticcolearning_tritraining,grafico_democraticcolearning);
 
             let stats = Object.keys(JSON.parse(datos.stats));
             generargraficoestadistico("estadisticas_generales", JSON.parse(datos.stats), stats);

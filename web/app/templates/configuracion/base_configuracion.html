@@ -2,7 +2,7 @@
 {%  from "macros.html" import formulario_comun %}
 {% block title %}{{ gettext('Run configuration') }}{% endblock %}
 {% block content %}
-    <script type="text/javascript" src="/static/js/configuracion.js"></script>
+    <script type="text/javascript" src="/js/configuracion.js"></script>
     <br>
     <div class="d-flex justify-content-center align-items-center">
         <p class="h2 text-center">{{ gettext('Algorithm configuration') }}: {{ titulos[session['ALGORITMO']] }}</p>
@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="col-md">
-                <form action="{{ url_for('visualizar_algoritmo', algoritmo=session['ALGORITMO']) }}" method="POST">
+                <form action="{{ url_for('visualization_bp.visualizar_algoritmo', algoritmo=session['ALGORITMO']) }}" method="POST">
                     <div class="row">
                         <div class="col-md">
                             {% block parametros %}{% endblock %}

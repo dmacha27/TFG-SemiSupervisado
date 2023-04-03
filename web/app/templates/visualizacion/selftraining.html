@@ -1,12 +1,12 @@
 {% extends "visualizacion/base_visualizacion.html" %}
-{% block title %}Co-Training{% endblock %}
+{% block title %}Self-Training{% endblock %}
 {% block pseudocodigo %}
-    <img src="{{ gettext('/static/pseudocodigos/en/CoTraining.png') }}" width="75%" />
+    <img src="{{ gettext('/pseudocodigos/en/SelfTraining.png') }}" width="75%" />
 {% endblock %}
 {% block mas_scripts %}
     <script>
         inicializar("/{{ session['ALGORITMO'] }}d", elementos).then(function (datos) {
-            inicializarGrafico(datos, preparardataset_cotraining,grafico_cotraining);
+            inicializarGrafico(datos, preparardataset_selftraining,grafico_selftraining);
 
             let stats = Object.keys(JSON.parse(datos.stats));
             generargraficoestadistico("estadisticas_generales", JSON.parse(datos.stats), stats);

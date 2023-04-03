@@ -17,13 +17,13 @@
             </div>
             <div class="mb-3">
                 <progress id="progreso" max=100 value=0></progress>
-                <form action="{{ url_for('configurar_algoritmo', algoritmo=session['ALGORITMO']) }}">
+                <form action="{{ url_for('configuration_bp.configurar_algoritmo', algoritmo=session['ALGORITMO']) }}">
                     <input id="config_btn" class="btn btn-primary" type="submit" value="{{ gettext('Configure algorithm') }}" />
                 </form>
             </div>
         </div>
-        <a class="btn btn-success" href="{{url_for('descargar_prueba')}}">{{ gettext('Download test file') }}</a>
+        <a class="btn btn-success" href="{{url_for('main_bp.descargar_prueba')}}">{{ gettext('Download test file') }}</a>
     </div>
-    <script type="text/javascript" src="/static/js/subida.js"></script>
+    <script type="text/javascript" src="/js/subida.js"></script>
 {% endblock %}
 

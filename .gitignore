@@ -65,8 +65,8 @@ db.sqlite3-journal
 instance/
 .webassets-cache
 flask_session
-web/datasets/*
-!web/datasets/seleccionar
+web/app/datasets/*
+!web/app/datasets/seleccionar
 
 # Scrapy stuff:
 .scrapy

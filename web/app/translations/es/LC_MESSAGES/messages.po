@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-03-31 21:30+0200\n"
+"POT-Creation-Date: 2023-04-03 16:11+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,19 +18,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.11.0\n"
 
-#: app.py:75
-msgid "You must select an algorithm"
-msgstr "Debe seleccionar un algoritmo"
-
-#: app.py:93
+#: configuration_routes.py:16
 msgid "You must upload a file"
 msgstr "Debe subir un archivo"
 
-#: app.py:98
+#: configuration_routes.py:21
 msgid "File must be ARFF or CSV"
 msgstr "El fichero debe ser ARFF o CSV"
 
-#: app.py:115
+#: main_routes.py:36
+msgid "You must select an algorithm"
+msgstr "Debe seleccionar un algoritmo"
+
+#: visualization_routes.py:25
 msgid "You must select the parameters of the algorithm"
 msgstr "Debe seleccionar los parámetros del algoritmo"
 
@@ -173,8 +173,8 @@ msgstr ""
 
 #: templates/configuracion/cotrainingconfig.html:65
 #: templates/visualizacion/cotraining.html:4
-msgid "/static/pseudocodigos/en/CoTraining.png"
-msgstr "/static/pseudocodigos/es/CoTraining.png"
+msgid "/pseudocodigos/en/CoTraining.png"
+msgstr "/pseudocodigos/es/CoTraining.png"
 
 #: templates/configuracion/democraticcolearningconfig.html:3
 #: templates/configuracion/tritrainingconfig.html:3
@@ -217,15 +217,15 @@ msgstr ""
 #: templates/configuracion/tritrainingconfig.html:13
 #: templates/visualizacion/democraticcolearning.html:4
 #: templates/visualizacion/tritraining.html:4
-msgid "/static/pseudocodigos/en/DemocraticCoLearningFit.png"
-msgstr "/static/pseudocodigos/es/DemocraticCoLearningEntrenar.png"
+msgid "/pseudocodigos/en/DemocraticCoLearningFit.png"
+msgstr "/pseudocodigos/es/DemocraticCoLearningEntrenar.png"
 
 #: templates/configuracion/democraticcolearningconfig.html:14
 #: templates/configuracion/tritrainingconfig.html:14
 #: templates/visualizacion/democraticcolearning.html:5
 #: templates/visualizacion/tritraining.html:5
-msgid "/static/pseudocodigos/en/DemocraticCoLearningCombine.png"
-msgstr "/static/pseudocodigos/es/DemocraticCoLearningCombinar.png"
+msgid "/pseudocodigos/en/DemocraticCoLearningCombine.png"
+msgstr "/pseudocodigos/es/DemocraticCoLearningCombinar.png"
 
 #: templates/configuracion/selftrainingconfig.html:10
 msgid "N (Number of instances to select in each iteration)"
@@ -267,8 +267,8 @@ msgstr ""
 
 #: templates/configuracion/selftrainingconfig.html:46
 #: templates/visualizacion/selftraining.html:4
-msgid "/static/pseudocodigos/en/SelfTraining.png"
-msgstr "/static/pseudocodigos/es/SelfTraining.png"
+msgid "/pseudocodigos/en/SelfTraining.png"
+msgstr "/pseudocodigos/es/SelfTraining.png"
 
 #: templates/visualizacion/base_visualizacion.html:13
 msgid "Go back"
