@@ -5,6 +5,8 @@ from copy import deepcopy
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
+
 import sslearn.wrapper
 from numpy import mean, std
 from sklearn.model_selection import KFold
@@ -15,6 +17,8 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.datasets import load_breast_cancer, load_diabetes, load_iris, load_digits, load_wine
 
 from sklearn.metrics import accuracy_score, f1_score
+from imblearn.metrics import geometric_mean_score
+
 from algoritmos import CoTraining, DemocraticCoLearning, SelfTraining, TriTraining
 from algoritmos.utilidades.datasplitter import data_split
 
@@ -57,8 +61,8 @@ def cross_validation(own_clf, clf1_params, other_clf, clf2_params, x, y, folds, 
 
     kf = KFold(n_splits=folds)
 
-    stats_clf1 = pd.DataFrame(columns=['Accuracy', 'F1-Score'])
-    stats_clf2 = pd.DataFrame(columns=['Accuracy', 'F1-Score'])
+    stats_clf1 = pd.DataFrame(columns=['Gmean', 'F1-Score', 'Accuracy'])
+    stats_clf2 = pd.DataFrame(columns=['Gmean', 'F1-Score', 'Accuracy'])
     accuracy_clf1 = []
     accuracy_clf2 = []
     for train_index, test_index in kf.split(x):
@@ -80,13 +84,17 @@ def cross_validation(own_clf, clf1_params, other_clf, clf2_params, x, y, folds, 
         else:
             clf2.fit(x_train, y_train)
 
-        acc = clf1.get_accuracy_score(x_test, y_test)
+        acc = accuracy_score(y_test, clf1.predict(x_test))
         accuracy_clf1.append(acc)
-        stats_clf1.loc[len(stats_clf1)] = [acc, f1_score(y_test, clf1.predict(x_test), average="weighted")]
+        stats_clf1.loc[len(stats_clf1)] = [geometric_mean_score(y_test, clf1.predict(x_test), average="weighted"),
+                                           f1_score(y_test, clf1.predict(x_test), average="weighted"),
+                                           acc]
 
         acc = clf2.score(x_test, y_test)
         accuracy_clf2.append(acc)
-        stats_clf2.loc[len(stats_clf2)] = [acc, f1_score(y_test, clf2.predict(x_test), average="weighted")]
+        stats_clf2.loc[len(stats_clf2)] = [geometric_mean_score(y_test, clf2.predict(x_test), average="weighted"),
+                                           f1_score(y_test, clf2.predict(x_test), average="weighted"),
+                                           acc]
 
     stats_clf1.to_csv(path_or_buf=f'./results/{comparison_name}-own.csv', index=False)
     stats_clf2.to_csv(path_or_buf=f'./results/{comparison_name}-sslearn.csv', index=False)
@@ -122,7 +130,7 @@ def cotraining_comparison(data, comparison_name):
 
     return cross_validation(CoTraining,
                             {'clf1': DecisionTreeClassifier(), 'clf2': GaussianNB(),
-                             'p': 1, 'n': 3, 'u': 75, 'n_iter': 30},
+                             'p': 35, 'n': 40, 'u': 75, 'n_iter': 30},
                             sslearn.wrapper.CoTraining,
                             {'second_base_estimator': GaussianNB()},
                             data.data,
@@ -203,7 +211,7 @@ def draw_performance(dataset_name):
 
             stats = list(pandas_dict[algorithm][implementation].columns)
 
-    algorithms = list(pandas_dict.keys())
+    algorithms = ['SelfTraining', 'CoTraining', 'DemocraticCoLearning', 'TriTraining']
 
     fig, axs = plt.subplots(len(stats), len(pandas_dict.keys()), sharey='row', sharex='col', figsize=(10, 8))
     fig.subplots_adjust(wspace=0, hspace=0.02)
@@ -215,18 +223,18 @@ def draw_performance(dataset_name):
     for n_row, ax_row in enumerate(axs):
         algorithms_count = 0
         for n_col, ax in enumerate(ax_row):
-            box = ax.boxplot(
-                [pandas_dict[algorithms[algorithms_count]][item][stats[stat_count]] for item in ['own', 'sslearn']],
-                showmeans=True,
-                meanline=True,
-                showfliers=False,
-                patch_artist=True,
-                medianprops=dict(color='blue'),
-                meanprops=dict(color='black'))
-            for patch in box['boxes']:
-                patch.set_facecolor(colors[stat_count])
+            data = [pandas_dict[algorithms[algorithms_count]][item][stats[stat_count]] for item in ['own', 'sslearn']]
+            mean_own = np.mean(data[0])
+            mean_sslearn = np.mean(data[1])
+            sns.violinplot(
+                data=data,
+                ax=ax,
+                scale='width',
+                color=colors[stat_count]
+            )
+            sns.lineplot(data=[mean_own, mean_sslearn], marker='.', linestyle='', ax=ax, color='#00FF00')
 
-            ax.set_xticks([1, 2])
+            ax.set_xticks([0, 1])
             if n_row == 0:
                 ax.set(xticklabels=['Propia', 'sslearn'])
             else:
@@ -242,9 +250,9 @@ def draw_performance(dataset_name):
 
 
 if __name__ == '__main__':
-    data = load_breast_cancer()
+    data = load_iris()
 
-    dataset_name = "Breast"
+    dataset_name = "Iris"
 
     print("---Self-Training---")
     own, std_own, ssl, std_ssl = selftraining_comparison(data, f"SelfTraining-{dataset_name}")
