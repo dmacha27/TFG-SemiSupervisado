@@ -27,17 +27,23 @@ Estos son los directorios en los que se organiza el proyecto:
             directorios y ficheros mediante los que se valida el
             desarrollo software correcto del proyecto{.}\\
         \end{minipage}.
-        .4 \textbf{check\_implementations}: \begin{minipage}[t]{8cm}
+        .4 \textbf{check\_implementations}: \begin{minipage}[t]{6cm}
             pruebas para la validación de los algoritmos{.}\\
         \end{minipage}.
         .5 \textbf{results}: \begin{minipage}[t]{8cm}
             ficheros CSV con resultados de validación cruzada{.}\\
         \end{minipage}.
-        .4 \textbf{profile\_results}: \begin{minipage}[t]{8cm}
-            resultados de los procesos de <<profiling>>{.}\\
+        .4 \textbf{check\_utils}: \begin{minipage}[t]{8cm}
+            pruebas para la validación de las utilidades{.}\\
         \end{minipage}.
-        .4 \textbf{test\_files}: \begin{minipage}[t]{8cm}
+        .5 \textbf{test\_files}: \begin{minipage}[t]{8cm}
             ficheros de prueba (ARFF y CSV) para las pruebas{.}\\
+        \end{minipage}.
+        .4 \textbf{profiling}: \begin{minipage}[t]{8cm}
+            pruebas para medir el tiempo de ejecución{.}\\
+        \end{minipage}.
+        .5 \textbf{profile\_results}: \begin{minipage}[t]{8cm}
+            resultados de los procesos de <<profiling>>{.}\\
         \end{minipage}.
         .3 \textbf{utilidades}: \begin{minipage}[t]{8cm}
             utilidades (programas) que realizan ciertos pasos de la
@@ -55,6 +61,18 @@ Estos son los directorios en los que se organiza el proyecto:
         .2 \textbf{web}: \begin{minipage}[t]{8cm}
             estructura o código de la aplicación Web{.}\\
         \end{minipage}.
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \dirtree{%
+        .1 \textbf{web}: \begin{minipage}[t]{10cm}
+            estructura o código de la aplicación Web{.}\\
+        \end{minipage}. 
+        .2 \textbf{app}: \begin{minipage}[t]{10cm} contiene la
+        definición de las rutas, modelos de la base de datos y la
+        \texttt{Application Factory} que instancia la aplicación{.}\\
+        \end{minipage}.
         .3 \textbf{datasets}: \begin{minipage}[t]{8cm}
             contiene (durante el funcionamiento de la aplicación) todos los conjuntos de
             datos que los usuarios introducen{.}\\
@@ -64,31 +82,44 @@ Estos son los directorios en los que se organiza el proyecto:
             durante el desarrollo de la aplicación{.} También almacena el fichero de
             prueba que los usuarios pueden descargar{.}\\
         \end{minipage}.
-    }
-\end{figure}
-
-\begin{figure}[H]
-    \dirtree{%
-        .1 \textbf{web}: \begin{minipage}[t]{10cm}
-            estructura o código de la aplicación Web{.}\\
-        \end{minipage}.
-        .2 \textbf{static}: \begin{minipage}[t]{10cm}
+        .3 \textbf{static}: \begin{minipage}[t]{10cm}
             ficheros estáticos que utiliza la aplicación Web: CSS,
-            Javascript o JSON{.}\\
+            Javascript, JSON o imágenes{.}\\
         \end{minipage}.
-        .2 \textbf{templates}: \begin{minipage}[t]{10cm}
+        .4 \textbf{css}: \begin{minipage}[t]{10cm}
+            ficheros CSS{.}\\
+        \end{minipage}.
+        .4 \textbf{js}: \begin{minipage}[t]{10cm}
+            ficheros JavaScript{.}\\
+        \end{minipage}.
+        .4 \textbf{json}: \begin{minipage}[t]{10cm}
+            ficheros JSON{.}\\
+        \end{minipage}.
+        .4 \textbf{pseudocodigos}: \begin{minipage}[t]{10cm}
+            imágenes de los pseudocódigos{.}\\
+        \end{minipage}.
+        .5 \textbf{en}: \begin{minipage}[t]{10cm}
+            imágenes de los pseudocódigos en inglés{.}\\
+        \end{minipage}.
+        .5 \textbf{es}: \begin{minipage}[t]{10cm}
+            imágenes de los pseudocódigos en español{.}\\
+        \end{minipage}.
+        .3 \textbf{templates}: \begin{minipage}[t]{10cm}
             plantillas HTML (Jinja2) que renderiza la aplicación Web
             (Flask){.}\\
         \end{minipage}.
-        .2 \textbf{translations}: \begin{minipage}[t]{10cm}
+        .3 \textbf{translations}: \begin{minipage}[t]{10cm}
             traducciones de los textos de la aplicación (por idiomas){.}\\
-        \end{minipage}.
+        \end{minipage}. 
+        .2 \textbf{instance}: \begin{minipage}[t]{10cm} contiene
+        la base de datos de la aplicación (SQLite){.}\\
+            \end{minipage}.
     }
 \end{figure}
 
 \section{Manual del programador}
 El objetivo de este manual es dar al lector/desarrollador que comience a
-trabajar con el proyecto el conocimiento necesario para continuarlo. Se ha de
+trabajar con el proyecto, el conocimiento necesario para continuarlo. Se ha de
 tener en cuenta que lo descrito a continuación es lo que se ha utilizado para el
 entorno desarrollo inicial y será explicado para este.
 
@@ -124,7 +155,7 @@ sudo apt install git-all
 \end{minted}
 \end{tcolorbox}
 
-Si el entorno es Windows existe un instalador directo que puede descargarse
+Si el entorno es Windows, existe un instalador directo que puede descargarse
 desde la página de Git SCM (Source code management)\footnote{Git para Windows:
 \url{https://git-scm.com/download/win}}.
 
@@ -153,7 +184,7 @@ Estructura de los objetos (mínima):
 recomendable realizar una validación de los mismos por si fueran utilizados de manera individual.
 
 \textbf{Método de entrenamiento (Fit)}: Dado que estos algoritmos están pensados no solo
-para entrenar sino para almacenar el proceso de entrenamiento y estadísticas,
+para entrenar, sino para almacenar el proceso de entrenamiento y estadísticas,
 siempre ha de recibir el conjunto de entrenamiento (x, y), el conjunto de test
 (x\_test, y\_test) y el nombre de las características de cada instancia.
 
@@ -203,49 +234,88 @@ aquellos métodos que se reutilizan en el proyecto (y que intervenga algún paso
 del algoritmo, por ejemplo, la carga de datos). 
 
 \paragraph{Tests} El desarrollo del software debe ser validado para asegurar su
-correcto funcionamiento antes las distintas casuísticas. Cuando se desarrolla
+correcto funcionamiento ante las distintas casuísticas. Cuando se desarrolla
 código en esta sección, sus casos de prueba codificados deben incluirse en el
 directorio correspondiente. Se utiliza <<pytest>> como \textit{framework} de
 pruebas.
 
-
 \paragraph{Aplicación Web} (contenida en el directorio web):  
 
 La aplicación está desarrollada con el <<micro-framework>> Flask, que permite la
-creación de aplicaciones Web en Python. Toda la lógica de la aplicación
-(exceptuando el contenido dinámico) está codificado en \texttt{app.py}. 
+creación de aplicaciones Web en Python. A lo largo del desarrollo la estructura
+de la aplicación ha variado bastante. Finalmente, se ha modularizado
+completamente con el uso de \texttt{Blueprints} y una \texttt{Application
+Factory} que se encarga de instancia la aplicación, base de datos y pone en
+funcionamiento las distintas rutas accesibles.
 
-\textbf{app}: En este fichero se definen todas las posibles rutas a las que los
-usuarios pueden acceder. Si se desea añadir alguna nueva, las anotaciones de Flask
-permiten especificarlas.
+\textbf{run.py}: Centraliza la ejecución de la aplicación (mediante la
+\texttt{Application Factory}) 
+
+\textbf{instance}: Donde se almacena la instancia de la base de datos.
+
+\textbf{app}: Este directorio contiene toda la
+definición de la aplicación, el resto de los apartados comentados siguientes se
+encuentran dentro de este.
+
+El fichero \texttt{\_\_init\_\_.py} contiene la creación de la aplicación con un
+método \texttt{create\_app} (\texttt{Application Factory}). Aquí se específica
+toda la configuración, los elementos comunes (como los filtros de Jinja), se
+instancia la base de datos y se registran las rutas (organizadas con
+\texttt{Blueprints} como paquetes o extensiones de la aplicación básica).
+
+\textbf{Blueprints}: Las rutas que tiene la aplicación están organizadas en
+función de su categoría mediante los Blueprints. Y es en los ficheros que
+terminan por <<\_routes.py>> donde se definen. Si se añade una categoría nueva se
+debe crear un Blueprint la identifique dentro de su fichero y después debe ser
+registrado en la aplicación (en \texttt{\_\_init\_\_.py}).
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Crear Blueprint]
+\begin{minted}{python}
+# El nombre es a elección propia
+nuevo_bp = Blueprint('nuevo_bp', __name__)
+\end{minted}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Registrar Blueprint]
+\begin{minted}{python}
+# Seleccionando el prefijo deseado
+app.register_blueprint(nuevo_bp, url_prefix='/') 
+\end{minted}
+\end{tcolorbox}
 
 La visualización de un algoritmo se centra en dos pasos: la configuración del
 mismo (en las rutas \texttt{/configuracion/<algoritmo>}) donde se debe
-renderizar una página con el formulario de configuración, y la visualización
+renderizar una página con el formulario de configuración (gestionado por
+\texttt{configuration\_routes.py}), y la visualización
 (\texttt{/visualizacion/<algoritmo>}) donde se renderiza la página donde se
-encuentran todos los gráficos de los algoritmos. Además, existe un paso
-intermedio en el que se obtienen los datos de la ejecución de los algoritmos,
-este paso no es una ruta accesible, es un método auxiliar que accede el propio
-usuario (su navegador) para obtener la información. Por lo general, la
-convención utilizada es que todos los métodos y rutas lleven el nombre del
-algoritmo.
+encuentran todos los gráficos de los algoritmos (gestionado por
+\texttt{visualization\_routes.py}). Además, existe un paso intermedio en el que
+se obtienen los datos de la ejecución de los algoritmos, este paso no es una
+ruta que pueda visualizarse (gestionado por \texttt{data\_routes.py}),
+es un método auxiliar que accede el propio usuario (su navegador) para obtener
+la información. Por lo general, la convención utilizada es que todos los métodos
+y rutas lleven el nombre del algoritmo.
 
-\textbf{Plantillas}: Flask utiliza el motor de plantillas Jinja2, que añaden
+\textbf{Plantillas (templates)}: Flask utiliza el motor de plantillas Jinja2, que añaden
 instrucciones en HTML. Obviando que cada algoritmo tiene sus particularidades,
 están organizadas mediante la extensión de plantillas. De forma general, añadir
 un algoritmo podría solo intervenir la creación de una plantilla de
 configuración y otra de visualización. En ambos casos se tiene una plantilla
 base de la que se debe extender.
 
-\textbf{Ficheros estáticos}: El contenido dinámico debe ser creado mediante
+\textbf{Ficheros estáticos (static)}: El contenido dinámico debe ser creado mediante
 Javascript, de forma <<vanilla>> (sin utilizar frameworks). En menor medida, los
 estilos deben ser retocados en estos ficheros aunque en principio la aplicación
 está estilada con Bootstrap 5.
 
-Otra parte muy importante es la adición de clasificadores base que están
-almacenados en el fichero JSON <<parametros>>. Hasta el momento del desarrollo
-solo existen dos tipos de entradas, los selectores y los numéricos (para los
-clasificadores).
+En estos ficheros estáticos se tienen unas imágenes con los pseudocódigos de los
+algoritmos. Estas imágenes deben verse tanto en la configuración como la
+visualización.
+
+Otra parte muy importante es si se quieren añadir nuevos clasificadores base con
+sus parámetros, estos están almacenados en el fichero JSON <<parametros.json>>.
+Hasta el momento del desarrollo solo existen dos tipos de entradas, los
+selectores y los numéricos.
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Estructura para añadir clasificadores y sus parámetros]
 \begin{minted}{json}
@@ -273,17 +343,17 @@ clasificadores).
 Con <<step>> se debe tener en cuenta la posibilidad de permitir números enteros
 (al introducir 1) o números decimales (al incluir un flotante, por ejemplo, 0.01)
 
-\textbf{Conjunto de datos}: Los conjuntos de datos de los usuarios (vinculados a
+\textbf{Conjunto de datos (datasets)}: Los conjuntos de datos de los usuarios (vinculados a
 sus sesiones) se almacenan localmente en la aplicación con el <<Timestamp>>
 concatenado el nombre del fichero introducido.
 
 \textbf{Internacionalización}: La aplicación está pensada para ser
 internacionalizada en cualquier idioma, aunque solo se ha incluido inglés y
 español. Una de las herramientas utilizadas es Babel, para incluir nuevo texto
-en la aplicación se debe utilizar la función \texttt{gettext()} (en Jinja2). El
-proceso de compilación está explicado en la siguiente sección.
+en la aplicación se debe utilizar la función \texttt{gettext()} (tanto en Jinja2
+como Python si fuera necesario). El proceso de compilación está explicado en la
+siguiente sección.
 
-\clearpage
 \section{Compilación, instalación y ejecución del proyecto}
 
 Para poner en funcionamiento la aplicación primero se debe preparar su entorno
@@ -363,9 +433,9 @@ $ python -m pip install .
 A partir de aquí ya se tiene configurado todo el entorno y los requisitos necesarios para poder ejecutar la aplicación.
 
 \paragraph{Ejecución} Referida a la ejecución de la aplicación Web (Flask), se
-debe estar situado en el directorio web del proyecto.
+debe estar situado en el directorio \textbf{/web} del proyecto.
 
-\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,fontupper=\footnotesize,fontlower=\footnotesize,title=Ejecución Windows]
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,fontupper=\footnotesize,fontlower=\footnotesize,title=Ejecución]
 \begin{minted}{shell}
 $ set FLASK_APP=app.py //Windows
 $ flask run

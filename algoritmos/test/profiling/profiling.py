@@ -1,11 +1,13 @@
 import cProfile
 import pstats
 
+from sklearn.datasets import load_breast_cancer
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 
 from algoritmos import SelfTraining, CoTraining
-from algoritmos.utilidades import DatasetLoader, data_split
+from algoritmos.utilidades.datasetloader import DatasetLoader
+from algoritmos.utilidades.datasplitter import data_split
 
 TRAINING_FILE = '../utilidades/datasets/waveform5000.arff'
 
@@ -16,22 +18,20 @@ def profile_selftraining():
     para poder observar su complejidad.
 
     """
-    dl = DatasetLoader(TRAINING_FILE)
-    dl.set_target("class")
-    x, y, mapa, is_unlabelled = dl.get_x_y()
-
     st = SelfTraining(clf=GaussianNB(), n=10, n_iter=150)
+
+    data = load_breast_cancer()
 
     (
         x,
         y,
         x_test,
         y_test
-    ) = data_split(x, y, is_unlabelled, p_unlabelled=0.8, p_test=0.2)
+    ) = data_split(data.data, data.target, False, p_unlabelled=0.8, p_test=0.4)
 
     profile = cProfile.Profile()
     profile.enable()
-    log, stats = st.fit(x, y, x_test, y_test, dl.get_only_features())
+    st.fit(x, y, x_test, y_test, data.feature_names)
     profile.disable()
     profile.dump_stats('profile_results/selftraining.pstats')
 
@@ -42,24 +42,22 @@ def profile_cotraining():
     para poder observar su complejidad.
 
     """
-    dl = DatasetLoader(TRAINING_FILE)
-    dl.set_target("class")
-    x, y, mapa, is_unlabelled = dl.get_x_y()
-
     st = CoTraining(clf1=GaussianNB(),
                     clf2=GaussianNB(),
                     p=1, n=3, u=5, n_iter=10)
+
+    data = load_breast_cancer()
 
     (
         x,
         y,
         x_test,
         y_test
-    ) = data_split(x, y, is_unlabelled, p_unlabelled=0.8, p_test=0.2)
+    ) = data_split(data.data, data.target, False, p_unlabelled=0.8, p_test=0.4)
 
     profile = cProfile.Profile()
     profile.enable()
-    log, stats = st.fit(x, y, x_test, y_test, dl.get_only_features())
+    st.fit(x, y, x_test, y_test, data.feature_names)
     profile.disable()
     profile.dump_stats('profile_results/cotraining.pstats')
 
