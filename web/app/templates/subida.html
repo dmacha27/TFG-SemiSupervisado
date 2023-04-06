@@ -1,28 +1,39 @@
 {% extends "base.html" %}
 {% block title %}{{ gettext('Dataset selection') }}{% endblock %}
 {% block content %}
-    <br>
+
     <div class="d-flex justify-content-center align-items-center">
-        <p class="h2 text-center">{{ gettext('Dataset upload') }}</p>
-    </div>
-    <br>
-    <div class="container text-center pb-5">
-        <div class="d-flex align-items-center flex-column">
-            <div class="mb-3">
-                <div id="soltar">
-                    <p>{{ gettext('Drag and drop your file') }}</p>
-                    <p>{{ gettext('or') }}</p>
-                    <input type=file id="archivo" accept=".arff,.csv" name=archivo>
-                </div>
+        <div class="rounded-4 mt-5 mb-5 m-auto p-4 shadow-lg d-inline-block ">
+            <div class="d-flex justify-content-center align-items-center">
+                <p class="h2 text-center">{{ gettext('Dataset upload') }}</p>
             </div>
-            <div class="mb-3">
-                <progress id="progreso" max=100 value=0></progress>
-                <form action="{{ url_for('configuration_bp.configurar_algoritmo', algoritmo=session['ALGORITMO']) }}">
-                    <input id="config_btn" class="btn btn-primary" type="submit" value="{{ gettext('Configure algorithm') }}" />
-                </form>
+            <br>
+            <div class="container text-center pb-5">
+                <div class="d-flex align-items-center flex-column">
+                    <div class="mb-3">
+                        <div id="soltar">
+                            <p>{{ gettext('Drag and drop your file') }}</p>
+                            <p>{{ gettext('or') }}</p>
+                            <input type=file id="archivo" accept=".arff,.csv" name=archivo>
+                            <label for="archivo">{{ gettext('Choose file') }}</label>
+                            <span id="nombre_fichero"> </span>
+                        </div>
+                    </div>
+                    <div class="mb-2 w-75">
+                        <div class="rounded-4 m-2 p-4 text-start">
+                            <span id="porcentaje_progreso">0%</span> {{ gettext('completed') }}<br>
+                            <div class="progress">
+                                <div id="progreso" class="progress-bar bg-warning" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <form action="{{ url_for('configuration_bp.configurar_algoritmo', algoritmo=session['ALGORITMO']) }}">
+                            <input id="config_btn" class="btn btn-primary" type="submit" value="{{ gettext('Configure algorithm') }}" />
+                        </form>
+                    </div>
+                </div>
+                <a class="btn btn-success" href="{{url_for('main_bp.descargar_prueba')}}">{{ gettext('Download test file') }}</a>
             </div>
         </div>
-        <a class="btn btn-success" href="{{url_for('main_bp.descargar_prueba')}}">{{ gettext('Download test file') }}</a>
     </div>
     <script type="text/javascript" src="/js/subida.js"></script>
 {% endblock %}

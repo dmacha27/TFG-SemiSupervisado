@@ -6,17 +6,20 @@
     <br>
     <div class="d-flex justify-content-center align-items-center">
         <p class="h2 text-center">{{ gettext('Algorithm configuration') }}: {{ titulos[session['ALGORITMO']] }}</p>
+
     </div>
-    <br>
+    <hr class="separacion"/>
     <div class="container-fluid pb-5">
         <div class="row flex-column flex-md-row">
             <div class="col-md">
+                <div class="border-4 m-2 p-2 shadow-lg">
+                    {% block explicaciones %}{% endblock %}
+                </div>
                 <div class="text-center">
-                    {% block explicaciones %}
-                    {% endblock %}
+                    {% block pseudocodigo %}{% endblock %}
                 </div>
             </div>
-            <div class="col-md">
+            <div class="col-md border-4 shadow-sm p-3 m-2">
                 <form action="{{ url_for('visualization_bp.visualizar_algoritmo', algoritmo=session['ALGORITMO']) }}" method="POST">
                     <div class="row">
                         <div class="col-md">

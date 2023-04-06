@@ -1,7 +1,39 @@
-
-.navbar{
-    background-color: #AA223C;
+body {
+  font-family: Courier, monospace !important;
 }
+
+.A {
+    background-color: #4D7080;
+}
+
+.B {
+    background-color: #FFF;
+}
+
+.B2 {
+    background-color: #E5F7FF;
+}
+
+.C {
+    background-color: #9AE0FF;
+}
+
+.D {
+    background-color: #737C80;
+}
+
+.E {
+    background-color: #23343B;
+}
+
+.separacion {
+    border: none;
+    height: 4px;
+    width: 25%;
+    margin: 10px auto;
+    background-color: #f8d866;
+}
+
 
 footer {
     background-color: #555;
@@ -13,13 +45,17 @@ footer {
     background-color: gold;
     color: black;
     margin:0;
-    text-align: center;"
+    text-align: center;
 }
 
 .card {
     border-radius: 0;
     width: 200px;
     height: 200px;
+}
+
+.dos-colores {
+    background: linear-gradient(to bottom, #4D7080 50%, #FFF 50%);
 }
 
 .padre {
@@ -42,11 +78,38 @@ footer {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 2px dashed;
+    border: 2px dashed #4D7080;
     line-height: 50px;
-    margin: 0 auto;
-    padding: 10vh;
+    margin: 0 10vh;
+    padding: 8vh 10vh;
+
 }
+
+#archivo{
+    width: 0;
+	height: 0;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+#archivo + label {
+    color: white;
+    background-color: #4D7080;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.1s
+}
+
+#archivo:focus + label,
+#archivo + label:hover {
+    transform: scale(1.05);
+}
+
+
 
 .cargando {
     border: 16px solid #a09c9c;

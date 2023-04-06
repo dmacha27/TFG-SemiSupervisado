@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-04-03 16:11+0200\n"
+"POT-Creation-Date: 2023-04-06 21:48+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -26,11 +26,11 @@ msgstr "Debe subir un archivo"
 msgid "File must be ARFF or CSV"
 msgstr "El fichero debe ser ARFF o CSV"
 
-#: main_routes.py:36
+#: main_routes.py:34
 msgid "You must select an algorithm"
 msgstr "Debe seleccionar un algoritmo"
 
-#: visualization_routes.py:25
+#: visualization_routes.py:15
 msgid "You must select the parameters of the algorithm"
 msgstr "Debe seleccionar los parámetros del algoritmo"
 
@@ -42,9 +42,30 @@ msgstr "Inicio"
 msgid "Final Degree Project on semi-supervised algorithms and their visualization"
 msgstr "Trabajo Fin de Grado sobre algoritmos semi-supervisados y su visualización"
 
-#: templates/inicio.html:9
-msgid "Algorithms"
-msgstr "Algoritmos"
+#: templates/inicio.html:16
+msgid "One classifier"
+msgstr "Un clasificador"
+
+#: templates/inicio.html:19 templates/inicio.html:32 templates/inicio.html:45
+#: templates/inicio.html:58
+msgid "Select"
+msgstr "Seleccionar"
+
+#: templates/inicio.html:28
+msgid "Two classifiers"
+msgstr "Selecciona clasificador"
+
+#: templates/inicio.html:29
+msgid "Multi-view"
+msgstr "Multi-view"
+
+#: templates/inicio.html:41 templates/inicio.html:54
+msgid "Three classifiers"
+msgstr "Selecciona clasificador"
+
+#: templates/inicio.html:42 templates/inicio.html:55
+msgid "Single-view"
+msgstr "Single-view"
 
 #: templates/macros.html:3
 msgid "Select the target/class attribute of the dataset"
@@ -82,23 +103,31 @@ msgstr "Selecciona clasificador"
 msgid "Dataset selection"
 msgstr "Selección del conjunto de datos"
 
-#: templates/subida.html:6
+#: templates/subida.html:8
 msgid "Dataset upload"
 msgstr "Subida del conjunto de datos"
 
-#: templates/subida.html:13
+#: templates/subida.html:15
 msgid "Drag and drop your file"
 msgstr "Arrastra y suelta tu archivo"
 
-#: templates/subida.html:14
+#: templates/subida.html:16
 msgid "or"
 msgstr "o"
 
-#: templates/subida.html:21
+#: templates/subida.html:18
+msgid "Choose file"
+msgstr "Selecciona fichero"
+
+#: templates/subida.html:24
+msgid "completed"
+msgstr "completado"
+
+#: templates/subida.html:30
 msgid "Configure algorithm"
 msgstr "Configurar algoritmo"
 
-#: templates/subida.html:25
+#: templates/subida.html:34
 msgid "Download test file"
 msgstr "Descargar fichero de prueba"
 
@@ -110,7 +139,7 @@ msgstr "Configuración de la ejecución"
 msgid "Algorithm configuration"
 msgstr "Configuración del algoritmo"
 
-#: templates/configuracion/base_configuracion.html:30
+#: templates/configuracion/base_configuracion.html:32
 msgid "Run"
 msgstr "Ejecutar"
 
@@ -171,7 +200,7 @@ msgstr ""
 "ambos los de mayor confianza y construyen el nuevo conjunto de "
 "entrenamiento para la siguiente iteración."
 
-#: templates/configuracion/cotrainingconfig.html:65
+#: templates/configuracion/cotrainingconfig.html:67
 #: templates/visualizacion/cotraining.html:4
 msgid "/pseudocodigos/en/CoTraining.png"
 msgstr "/pseudocodigos/es/CoTraining.png"
@@ -213,15 +242,15 @@ msgstr ""
 "entrenamiento, esto se alcanza cuando no se mejora la precisión pese a la"
 " adición de nuevas instancias pseudoetiquetadas. "
 
-#: templates/configuracion/democraticcolearningconfig.html:13
-#: templates/configuracion/tritrainingconfig.html:13
+#: templates/configuracion/democraticcolearningconfig.html:14
+#: templates/configuracion/tritrainingconfig.html:14
 #: templates/visualizacion/democraticcolearning.html:4
 #: templates/visualizacion/tritraining.html:4
 msgid "/pseudocodigos/en/DemocraticCoLearningFit.png"
 msgstr "/pseudocodigos/es/DemocraticCoLearningEntrenar.png"
 
-#: templates/configuracion/democraticcolearningconfig.html:14
-#: templates/configuracion/tritrainingconfig.html:14
+#: templates/configuracion/democraticcolearningconfig.html:15
+#: templates/configuracion/tritrainingconfig.html:15
 #: templates/visualizacion/democraticcolearning.html:5
 #: templates/visualizacion/tritraining.html:5
 msgid "/pseudocodigos/en/DemocraticCoLearningCombine.png"
@@ -265,7 +294,7 @@ msgstr ""
 "hasta un criterio de parada (generalmente hasta etiquetar todos los datos"
 " o un número máximo de iteraciones)."
 
-#: templates/configuracion/selftrainingconfig.html:46
+#: templates/configuracion/selftrainingconfig.html:47
 #: templates/visualizacion/selftraining.html:4
 msgid "/pseudocodigos/en/SelfTraining.png"
 msgstr "/pseudocodigos/es/SelfTraining.png"

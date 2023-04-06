@@ -7,11 +7,14 @@ document.getElementById("config_btn").disabled = true;
 });
 
 let area = document.getElementById('soltar');
-area.param = 'soltar'
+area.param = 'soltar';
+
 let progreso = document.getElementById('progreso');
+let porcentaje_progreso = document.getElementById('porcentaje_progreso');
+let nombre_fichero = document.getElementById('nombre_fichero');
 
 let boton = document.getElementById('archivo');
-boton.param = 'boton'
+boton.param = 'boton';
 
 area.addEventListener('drop',subir,false)
 boton.addEventListener('change',subir)
@@ -39,6 +42,8 @@ function subir(e){
         return false;
     }
 
+    nombre_fichero.textContent = archivo[0].name;
+
     let xhr = new XMLHttpRequest();
     xhr.open('post', '/subida', true);
     xhr.onreadystatechange = function () {
@@ -49,7 +54,10 @@ function subir(e){
 
     xhr.upload.onprogress = function (evento) {
         if (evento.lengthComputable) {
-            progreso.value = Math.floor(evento.loaded / evento.total * 100);
+            let porcentaje = Math.floor(evento.loaded / evento.total * 100);
+            progreso.style.width = porcentaje.toString() +"%";
+            progreso.setAttribute("aria-valuenow", porcentaje.toString());
+            porcentaje_progreso.textContent = porcentaje.toString() +"%";
         }
     };
 
