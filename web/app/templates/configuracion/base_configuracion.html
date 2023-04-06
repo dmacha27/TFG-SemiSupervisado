@@ -2,6 +2,10 @@
 {%  from "macros.html" import formulario_comun %}
 {% block title %}{{ gettext('Run configuration') }}{% endblock %}
 {% block content %}
+    <button id="btn_volver" type="button" onclick="history.back()" class="btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 25 18">
+            <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"></path>
+        </svg>{{ gettext('Go back') }}</button>
     <script type="text/javascript" src="/js/configuracion.js"></script>
     <br>
     <div class="d-flex justify-content-center align-items-center">
@@ -12,7 +16,7 @@
     <div class="container-fluid pb-5">
         <div class="row flex-column flex-md-row">
             <div class="col-md">
-                <div class="border-4 m-2 p-2 shadow-lg">
+                <div class="border-4 m-2 p-2 shadow">
                     {% block explicaciones %}{% endblock %}
                 </div>
                 <div class="text-center">

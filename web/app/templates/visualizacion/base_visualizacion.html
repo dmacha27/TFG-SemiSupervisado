@@ -7,17 +7,18 @@
     <script type="text/javascript" src="/js/grafico.js"></script>
 {% endblock %}
 {% block content %}
-    <button id="btn_volver" type="button" onclick="history.back()" class="btn btn-outline-info">
+    <button id="btn_volver" type="button" onclick="history.back()" class="btn">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 25 18">
             <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"></path>
-        </svg>{{ gettext('Go back') }}</button>
+        </svg>{{ gettext('Go back') }}</button>|
     {{ gettext('Dataset') }}: {{ session['FICHERO']|nombredataset }}
     <br>
     <div id="div_cargando">
         <div id="cargando" class="cargando m-auto"></div>
     </div>
     <div id="titulo_visualizacion" class="text-center pb-3" style="visibility: hidden">
-    <h1>{{ titulos[session['ALGORITMO']] }}</h1>
+        <h1>{{ titulos[session['ALGORITMO']] }}</h1>
+        <hr class="separacion"/>
     </div>
     <div id="visualizacion" style="visibility: hidden;" class="d-flex flex-wrap justify-content-around mb-3 position-relative">
         <div class="col-md">

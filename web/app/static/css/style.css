@@ -1,5 +1,5 @@
 body {
-  font-family: Courier, monospace !important;
+    font-family: Courier, monospace !important;
 }
 
 .A {
@@ -28,10 +28,11 @@ body {
 
 .separacion {
     border: none;
-    height: 4px;
+    height: 5px;
     width: 25%;
     margin: 10px auto;
     background-color: #f8d866;
+    opacity: 0.5;
 }
 
 
@@ -49,22 +50,27 @@ footer {
 }
 
 .card {
-    border-radius: 0;
-    width: 200px;
-    height: 200px;
+    transition: transform 0.1s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.01);
 }
 
 .dos-colores {
     background: linear-gradient(to bottom, #4D7080 50%, #FFF 50%);
 }
 
-.padre {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    height: 100%;
+@media (max-width: 1220px) {
+    .dos-colores {
+        background: linear-gradient(to bottom, #4D7080 75%, #FFF 25%);
+    }
+}
+
+@media (max-width: 610px) {
+    .dos-colores {
+        background: linear-gradient(to bottom, #4D7080 90%, #FFF 10%);
+    }
 }
 
 .parametros {
@@ -85,13 +91,41 @@ footer {
 
 }
 
+@media (max-width: 610px) {
+    #soltar {
+        margin: 0 5vh;
+        padding: 5vh 8vh;
+    }
+}
+
+@media (max-width: 550px) {
+    #soltar {
+        margin: 0 3vh;
+        padding: 5vh 8vh;
+    }
+}
+
+@media (max-width: 520px) {
+    #soltar {
+        margin: 0 1vh;
+        padding: 3vh 5vh;
+    }
+}
+
+@media (max-width: 420px) {
+    #soltar {
+        margin: 0 0;
+        padding: 2vh 2vh;
+    }
+}
+
 #archivo{
     width: 0;
-	height: 0;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
 }
 
 #archivo + label {
@@ -109,11 +143,9 @@ footer {
     transform: scale(1.05);
 }
 
-
-
 .cargando {
     border: 16px solid #a09c9c;
-    border-top: 16px solid #AA223C;
+    border-top: 16px solid #737C80;
     border-radius: 50%;
     width: 150px;
     height: 150px;

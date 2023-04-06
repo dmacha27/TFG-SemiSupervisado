@@ -220,7 +220,8 @@ function generargraficoestadistico(id_div_objetivo, datos_stats, dominio) {
 
     statsvg.append("g")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(statx));
+        .call(d3.axisBottom(statx).ticks(maxit));
+
     statsvg.append("g")
         .call(d3.axisLeft(staty));
 

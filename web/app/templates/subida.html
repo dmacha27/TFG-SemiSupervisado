@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 {% block title %}{{ gettext('Dataset selection') }}{% endblock %}
 {% block content %}
-
+    <button id="btn_volver" type="button" onclick="history.back()" class="btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 25 18">
+            <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"></path>
+        </svg>{{ gettext('Go back') }}</button>
     <div class="d-flex justify-content-center align-items-center">
         <div class="rounded-4 mt-5 mb-5 m-auto p-4 shadow-lg d-inline-block ">
             <div class="d-flex justify-content-center align-items-center">
                 <p class="h2 text-center">{{ gettext('Dataset upload') }}</p>
             </div>
+            <hr class="separacion"/>
             <br>
             <div class="container text-center pb-5">
                 <div class="d-flex align-items-center flex-column">
