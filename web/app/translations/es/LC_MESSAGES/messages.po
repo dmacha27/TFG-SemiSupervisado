@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-04-07 01:49+0200\n"
+"POT-Creation-Date: 2023-04-07 02:34+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,6 +18,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.11.0\n"
 
+#: __init__.py:74
+msgid "Internal Server Error"
+msgstr "Error interno del servidor"
+
+#: __init__.py:78
+msgid "Not found"
+msgstr "No encontrado"
+
+#: __init__.py:82
+msgid "Forbidden"
+msgstr "Petición denegada por el servidor"
+
+#: __init__.py:86
+msgid "Unauthorized"
+msgstr "No autorizado"
+
+#: __init__.py:90
+msgid "Bad request"
+msgstr "Mala petición"
+
 #: configuration_routes.py:16
 msgid "You must upload a file"
 msgstr "Debe subir un archivo"
@@ -26,13 +46,17 @@ msgstr "Debe subir un archivo"
 msgid "File must be ARFF or CSV"
 msgstr "El fichero debe ser ARFF o CSV"
 
-#: main_routes.py:34
+#: main_routes.py:40
 msgid "You must select an algorithm"
 msgstr "Debe seleccionar un algoritmo"
 
 #: visualization_routes.py:15
 msgid "You must select the parameters of the algorithm"
 msgstr "Debe seleccionar los parámetros del algoritmo"
+
+#: templates/error.html:36
+msgid "Go home"
+msgstr "Ir al inicio"
 
 #: templates/inicio.html:2
 msgid "Home"

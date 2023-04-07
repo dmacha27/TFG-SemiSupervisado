@@ -2,8 +2,8 @@ import os
 import re
 import sys
 
-from flask import Flask, request
-from flask_babel import Babel
+from flask import Flask, request, render_template
+from flask_babel import Babel, gettext
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from werkzeug.middleware.proxy_fix import ProxyFix
@@ -68,5 +68,25 @@ def create_app():
     @login_manager.user_loader
     def load_user(email):
         return User.query.filter_by(email=email).first()
+
+    @app.errorhandler(500)
+    def page_not_found(error):
+        return render_template('error.html', error=500, mensaje=gettext('Internal Server Error')), 500
+
+    @app.errorhandler(404)
+    def page_not_found(error):
+        return render_template('error.html', error=404, mensaje=gettext('Not found')), 404
+
+    @app.errorhandler(403)
+    def page_not_found(error):
+        return render_template('error.html', error=403, mensaje=gettext('Forbidden')), 403
+
+    @app.errorhandler(401)
+    def page_not_found(error):
+        return render_template('error.html', error=401, mensaje=gettext('Unauthorized')), 401
+
+    @app.errorhandler(400)
+    def page_not_found(error):
+        return render_template('error.html', error=400, mensaje=gettext('Bad request')), 400
 
     return app

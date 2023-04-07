@@ -1,8 +1,7 @@
 import os
-import sys
 import datetime
 
-from flask import Flask, flash, render_template, request, redirect, session, url_for, send_file, Blueprint, current_app
+from flask import flash, render_template, request, redirect, session, url_for, send_file, Blueprint, current_app
 from flask_babel import gettext
 from werkzeug.utils import secure_filename
 
