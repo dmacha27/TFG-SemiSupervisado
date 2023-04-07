@@ -11,7 +11,6 @@ main_bp = Blueprint('main_bp', __name__)
 @main_bp.route('/', methods=['GET'])
 def inicio():
     session.pop('ALGORITMO', None)
-    session.pop('FICHERO', None)
     return render_template('inicio.html')
 
 
@@ -33,6 +32,10 @@ def subida():
         flash(gettext("You must select an algorithm"))
         return redirect(url_for('main_bp.inicio'))
 
+    ya_hay_fichero = False
+    if 'FICHERO' in session:
+        ya_hay_fichero = True
+
     if request.method == 'POST':
         file = request.files['archivo']
         if file.filename == '':
@@ -42,4 +45,4 @@ def subida():
             session['FICHERO'] = os.path.join(current_app.config['CARPETA_DATASETS'], filename)
             file.save(os.path.join(current_app.config['CARPETA_DATASETS'], filename))
 
-    return render_template('subida.html')
+    return render_template('subida.html', ya_hay_fichero=ya_hay_fichero)

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-04-07 18:25+0200\n"
+"POT-Creation-Date: 2023-04-08 01:13+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -91,76 +91,84 @@ msgstr "Tres clasificadores"
 msgid "Single-view"
 msgstr "Single-view"
 
-#: templates/macros.html:3
+#: templates/macros.html:4
 msgid "Select the target/class attribute of the dataset"
 msgstr "Selecciona el atributo de la clase/etiqueta del conjunto de datos"
 
-#: templates/macros.html:11
+#: templates/macros.html:13
 msgid "Select X component"
 msgstr "Selecciona la componente X"
 
-#: templates/macros.html:19
+#: templates/macros.html:21
 msgid "Select Y component"
 msgstr "Selecciona la componente Y"
 
-#: templates/macros.html:28
+#: templates/macros.html:30
 msgid "Use PCA to automatically reduce to 2 components"
 msgstr "Utilizar PCA para reducir automáticamente a 2 componentes"
 
-#: templates/macros.html:31
+#: templates/macros.html:33
 msgid "Unlabelled percentage"
 msgstr "Porcentaje de no etiquetados"
 
 #: templates/macros.html:33
-msgid "if already semi-supervised, it will be ignored"
-msgstr "si ya fuera semi-supervisado, será ignorado"
+msgid "If already semi-supervised, it will be ignored"
+msgstr "Si ya fuera semi-supervisado, será ignorado"
 
-#: templates/macros.html:36
+#: templates/macros.html:37
 msgid "Test percentage (after unlabelled percentage)"
 msgstr "Porcentaje de test (después de aplicar el no etiquetados)"
 
-#: templates/macros.html:42
+#: templates/macros.html:43
 msgid "Select classifier"
 msgstr "Selecciona clasificador"
 
-#: templates/subida.html:2
+#: templates/subida.html:3
 msgid "Dataset selection"
 msgstr "Selección del conjunto de datos"
 
-#: templates/configuracion/base_configuracion.html:8 templates/subida.html:7
+#: templates/configuracion/base_configuracion.html:8 templates/subida.html:8
 #: templates/visualizacion/base_visualizacion.html:13
 msgid "Go back"
 msgstr "Volver"
 
-#: templates/subida.html:9
+#: templates/subida.html:10
 msgid "Dataset upload"
 msgstr "Subida del conjunto de datos"
 
-#: templates/subida.html:15
+#: templates/subida.html:16
 msgid "File selection"
 msgstr "Selección de fichero"
 
-#: templates/subida.html:23
+#: templates/subida.html:24
+msgid "Allowed extensions: .CSV & .ARFF"
+msgstr "Extensiones permitidas: .CSV & .ARFF"
+
+#: templates/subida.html:25
 msgid "Drag and drop your file"
 msgstr "Arrastra y suelta tu archivo"
 
-#: templates/subida.html:24
+#: templates/subida.html:26
 msgid "or"
 msgstr "o"
 
-#: templates/subida.html:26
+#: templates/subida.html:28
 msgid "Choose file"
 msgstr "Selecciona fichero"
 
-#: templates/subida.html:32
+#: templates/subida.html:34
 msgid "completed"
 msgstr "completado"
 
-#: templates/subida.html:40
+#: templates/subida.html:43
+msgid "Previous file detected: "
+msgstr "Fichero previo detectado: "
+
+#: templates/subida.html:44 templates/subida.html:46
 msgid "Configure algorithm"
 msgstr "Configurar algoritmo"
 
-#: templates/subida.html:43
+#: templates/subida.html:50
 msgid "Download test file"
 msgstr "Descargar fichero de prueba"
 
@@ -201,12 +209,12 @@ msgstr "Negativos"
 msgid "Initial data number"
 msgstr "Número de datos iniciales"
 
-#: templates/configuracion/cotrainingconfig.html:24
-msgid "if it is greater that the total, it will be limited to it"
-msgstr "si es mayor que el total, se limitará a él"
+#: templates/configuracion/cotrainingconfig.html:23
+msgid "If it is greater that the total, it will be limited to it"
+msgstr "Si es mayor que el total, se limitará a él"
 
 #: templates/configuracion/cotrainingconfig.html:27
-#: templates/configuracion/selftrainingconfig.html:18
+#: templates/configuracion/selftrainingconfig.html:21
 msgid "Number of iterations"
 msgstr "Número de iteraciones"
 
@@ -306,11 +314,15 @@ msgstr "/pseudocodigos/es/DemocraticCoLearningCombinar.png"
 msgid "N (Number of instances to select in each iteration)"
 msgstr "N (Número de datos a seleccionar en cada iteración)"
 
-#: templates/configuracion/selftrainingconfig.html:14
+#: templates/configuracion/selftrainingconfig.html:15
 msgid "Threshold"
 msgstr "Límite"
 
-#: templates/configuracion/selftrainingconfig.html:37
+#: templates/configuracion/selftrainingconfig.html:16
+msgid "Empty N parameter to activate it"
+msgstr "Vacía el parámetro N para activarlo"
+
+#: templates/configuracion/selftrainingconfig.html:40
 msgid ""
 "It is the simplest semi-supervised learning method. This method wraps a "
 "single base classifier,\n"
@@ -340,7 +352,7 @@ msgstr ""
 "hasta un criterio de parada (generalmente hasta etiquetar todos los datos"
 " o un número máximo de iteraciones)."
 
-#: templates/configuracion/selftrainingconfig.html:47
+#: templates/configuracion/selftrainingconfig.html:50
 #: templates/visualizacion/selftraining.html:4
 msgid "/pseudocodigos/en/SelfTraining.png"
 msgstr "/pseudocodigos/es/SelfTraining.png"

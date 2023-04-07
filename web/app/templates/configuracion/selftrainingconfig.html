@@ -1,5 +1,5 @@
 {% extends "configuracion/base_configuracion.html" %}
-{%  from "macros.html" import selector %}
+{%  from "macros.html" import selector, tooltip %}
 {% block parametros %}
     <div class="mb-3">
         {{ selector("clasificador1", clasificadores) }}
@@ -11,7 +11,10 @@
         <input type="number" class="form-control" id="n" min="0" max="Infinity" required oninput="limitarUnicoMetodoST(this.value,'th')" name="n" value="10">
     </div>
     <div class="mb-3">
-        <label for="th">{{ gettext('Threshold') }}:</label>
+        <label for="th">
+            {{ gettext('Threshold') }}:
+            {{ tooltip(gettext('Empty N parameter to activate it')) }}
+        </label>
         <input type="number" class="form-control" id="th" min="0" max="0.99" step="any" oninput="limitarUnicoMetodoST(this.value,'n')" name="th" disabled>
     </div>
     <div class="mb-3">

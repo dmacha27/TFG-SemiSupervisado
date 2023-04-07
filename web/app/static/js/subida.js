@@ -1,5 +1,3 @@
-document.getElementById("config_btn").disabled = true;
-
 ['dragleave', 'drop', 'dragenter', 'dragover'].forEach(function (evento) {
     document.addEventListener(evento, function (e) {
         e.preventDefault();
@@ -48,7 +46,12 @@ function subir(e){
     xhr.open('post', '/subida', true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            document.getElementById("config_btn").disabled = false;
+            let button = document.querySelector("#fichero-previo");
+            if (button == null){
+                document.getElementById("config_btn").disabled = false;
+            } else {
+                button.style.display = "none";
+            }
         }
     };
 

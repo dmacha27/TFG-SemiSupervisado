@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{%  from "macros.html" import tooltip %}
 {% block title %}{{ gettext('Dataset selection') }}{% endblock %}
 {% block content %}
     <button id="btn_volver" type="button" onclick="history.back()" class="btn sticky-top">
@@ -20,6 +21,7 @@
                 <div class="d-flex align-items-center flex-column">
                     <div class="mb-3">
                         <div id="soltar">
+                            {{ tooltip(gettext('Allowed extensions: .CSV & .ARFF')) }}
                             <p>{{ gettext('Drag and drop your file') }}</p>
                             <p>{{ gettext('or') }}</p>
                             <input type=file id="archivo" accept=".arff,.csv" name=archivo>
@@ -37,7 +39,12 @@
                     </div>
                 </div>
                 <form action="{{ url_for('configuration_bp.configurar_algoritmo', algoritmo=session['ALGORITMO']) }}">
-                    <input id="config_btn" class="btn btn-primary" type="submit" value="{{ gettext('Configure algorithm') }}" />
+                    {% if ya_hay_fichero %}
+                        <p id="fichero-previo">{{ gettext('Previous file detected: ') }}{{ session['FICHERO']|nombredataset }}</p>
+                        <input class="btn btn-primary" type="submit" value="{{ gettext('Configure algorithm') }}" />
+                    {% else %}
+                        <input id="config_btn" class="btn btn-primary" type="submit" value="{{ gettext('Configure algorithm') }}" disabled/>
+                    {% endif %}
                 </form>
                 <br>
                 <a class="btn btn-success" href="{{url_for('main_bp.descargar_prueba')}}">{{ gettext('Download test file') }}</a>

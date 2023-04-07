@@ -1,5 +1,5 @@
 {% extends "configuracion/base_configuracion.html" %}
-{%  from "macros.html" import selector %}
+{%  from "macros.html" import selector, tooltip %}
 {% block parametros %}
     <div class="mb-3">
         {{ selector("clasificador1", clasificadores) }}
@@ -20,8 +20,8 @@
         <input type="number" class="form-control" id="n" min=0 max=Infinity required name="n" value=3>
     </div>
     <div class="mb-3">
-        <label for="u">{{ gettext('Initial data number') }}:</label>
-        <input type="number" class="form-control" id="u" min=1 required name="u" value=75> <label>({{ gettext('if it is greater that the total, it will be limited to it') }})</label>
+        <label for="u">{{ gettext('Initial data number') }}: {{ tooltip(gettext('If it is greater that the total, it will be limited to it')) }}</label>
+        <input type="number" class="form-control" id="u" min=1 required name="u" value=75>
     </div>
     <div class="mb-3">
         <label for="n_iter">{{ gettext('Number of iterations') }}:</label>
