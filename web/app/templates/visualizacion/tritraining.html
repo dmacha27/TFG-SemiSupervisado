@@ -15,7 +15,7 @@
 {% endblock %}
 {% block mas_scripts %}
     <script>
-        inicializar("/{{ session['ALGORITMO'] }}d", elementos).then(function (datos) {
+        inicializar("/datos/{{ session['ALGORITMO'] }}", elementos).then(function (datos) {
             inicializarGrafico(datos, preparardataset_democraticcolearning_tritraining,databinding_tritaining);
 
             let stats = Object.keys(JSON.parse(datos.stats));

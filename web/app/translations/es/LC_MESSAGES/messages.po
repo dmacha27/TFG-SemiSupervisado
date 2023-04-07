@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-04-06 21:48+0200\n"
+"POT-Creation-Date: 2023-04-07 01:49+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -53,7 +53,7 @@ msgstr "Seleccionar"
 
 #: templates/inicio.html:28
 msgid "Two classifiers"
-msgstr "Selecciona clasificador"
+msgstr "Dos clasificadores"
 
 #: templates/inicio.html:29
 msgid "Multi-view"
@@ -61,7 +61,7 @@ msgstr "Multi-view"
 
 #: templates/inicio.html:41 templates/inicio.html:54
 msgid "Three classifiers"
-msgstr "Selecciona clasificador"
+msgstr "Tres clasificadores"
 
 #: templates/inicio.html:42 templates/inicio.html:55
 msgid "Single-view"
@@ -103,31 +103,36 @@ msgstr "Selecciona clasificador"
 msgid "Dataset selection"
 msgstr "Selección del conjunto de datos"
 
-#: templates/subida.html:8
+#: templates/configuracion/base_configuracion.html:8 templates/subida.html:7
+#: templates/visualizacion/base_visualizacion.html:13
+msgid "Go back"
+msgstr "Volver"
+
+#: templates/subida.html:11
 msgid "Dataset upload"
 msgstr "Subida del conjunto de datos"
 
-#: templates/subida.html:15
+#: templates/subida.html:19
 msgid "Drag and drop your file"
 msgstr "Arrastra y suelta tu archivo"
 
-#: templates/subida.html:16
+#: templates/subida.html:20
 msgid "or"
 msgstr "o"
 
-#: templates/subida.html:18
+#: templates/subida.html:22
 msgid "Choose file"
 msgstr "Selecciona fichero"
 
-#: templates/subida.html:24
+#: templates/subida.html:28
 msgid "completed"
 msgstr "completado"
 
-#: templates/subida.html:30
+#: templates/subida.html:34
 msgid "Configure algorithm"
 msgstr "Configurar algoritmo"
 
-#: templates/subida.html:34
+#: templates/subida.html:38
 msgid "Download test file"
 msgstr "Descargar fichero de prueba"
 
@@ -135,11 +140,11 @@ msgstr "Descargar fichero de prueba"
 msgid "Run configuration"
 msgstr "Configuración de la ejecución"
 
-#: templates/configuracion/base_configuracion.html:8
+#: templates/configuracion/base_configuracion.html:12
 msgid "Algorithm configuration"
 msgstr "Configuración del algoritmo"
 
-#: templates/configuracion/base_configuracion.html:32
+#: templates/configuracion/base_configuracion.html:37
 msgid "Run"
 msgstr "Ejecutar"
 
@@ -299,73 +304,69 @@ msgstr ""
 msgid "/pseudocodigos/en/SelfTraining.png"
 msgstr "/pseudocodigos/es/SelfTraining.png"
 
-#: templates/visualizacion/base_visualizacion.html:13
-msgid "Go back"
-msgstr "Volver"
-
 #: templates/visualizacion/base_visualizacion.html:14
 msgid "Dataset"
 msgstr "Conjunto de datos"
 
-#: templates/visualizacion/base_visualizacion.html:25
+#: templates/visualizacion/base_visualizacion.html:26
 msgid "Principal visualization"
 msgstr "Visualización principal"
 
-#: templates/visualizacion/base_visualizacion.html:32
+#: templates/visualizacion/base_visualizacion.html:33
 msgid "Zoom reset"
 msgstr "Reiniciar Zoom"
 
-#: templates/visualizacion/base_visualizacion.html:34
-#: templates/visualizacion/base_visualizacion.html:85
+#: templates/visualizacion/base_visualizacion.html:35
+#: templates/visualizacion/base_visualizacion.html:86
 msgid "Iteration"
 msgstr "Iteración"
 
-#: templates/visualizacion/base_visualizacion.html:38
+#: templates/visualizacion/base_visualizacion.html:39
 msgid "Previous"
 msgstr "Anterior"
 
-#: templates/visualizacion/base_visualizacion.html:39
-#: templates/visualizacion/base_visualizacion.html:83
+#: templates/visualizacion/base_visualizacion.html:40
+#: templates/visualizacion/base_visualizacion.html:84
 msgid "Play"
 msgstr "Reproducir"
 
-#: templates/visualizacion/base_visualizacion.html:40
+#: templates/visualizacion/base_visualizacion.html:41
 msgid "Next"
 msgstr "Siguiente"
 
-#: templates/visualizacion/base_visualizacion.html:50
+#: templates/visualizacion/base_visualizacion.html:51
 msgid "Pseudocode"
 msgstr "Pseudocódigo"
 
-#: templates/visualizacion/base_visualizacion.html:60
+#: templates/visualizacion/base_visualizacion.html:61
 msgid "General statistics"
 msgstr "Estadísticas generales"
 
-#: templates/visualizacion/base_visualizacion.html:77
+#: templates/visualizacion/base_visualizacion.html:78
 msgid "Initial data"
 msgstr "Dato inicial"
 
-#: templates/visualizacion/base_visualizacion.html:78
+#: templates/visualizacion/base_visualizacion.html:79
 msgid "Label"
 msgstr "Etiqueta"
 
-#: templates/visualizacion/base_visualizacion.html:79
+#: templates/visualizacion/base_visualizacion.html:80
 msgid "Classifier"
 msgstr "Clasificador"
 
-#: templates/visualizacion/base_visualizacion.html:80
+#: templates/visualizacion/base_visualizacion.html:81
 msgid "Classifier: Not classified"
 msgstr "Clasificador: No clasificado"
 
-#: templates/visualizacion/base_visualizacion.html:81
+#: templates/visualizacion/base_visualizacion.html:82
 msgid "Label: Not classified"
 msgstr "Etiqueta: No clasificado"
 
-#: templates/visualizacion/base_visualizacion.html:82
+#: templates/visualizacion/base_visualizacion.html:83
 msgid "Pause"
 msgstr "Pausar"
 
-#: templates/visualizacion/base_visualizacion.html:84
+#: templates/visualizacion/base_visualizacion.html:85
 msgid "Measure"
 msgstr "Valor"
 

@@ -54,7 +54,7 @@ def create_app():
     app.register_blueprint(main_bp, url_prefix='/')
     app.register_blueprint(configuration_bp, url_prefix='/configuracion')
     app.register_blueprint(visualization_bp, url_prefix='/visualizacion')
-    app.register_blueprint(data_bp, url_prefix='/')
+    app.register_blueprint(data_bp, url_prefix='/datos')
 
     from .models import User
 

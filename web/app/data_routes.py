@@ -15,7 +15,7 @@ from algoritmos.utilidades.dimreduction import log_pca_reduction, log_cxcy_reduc
 data_bp = Blueprint('data_bp', __name__)
 
 
-@data_bp.route('/selftrainingd', methods=['POST'])
+@data_bp.route('/selftraining', methods=['POST'])
 def datosselftraining():
     clasificador = request.form['clasificador1']
 
@@ -33,7 +33,7 @@ def datosselftraining():
     return json.dumps(info)
 
 
-@data_bp.route('/cotrainingd', methods=['POST'])
+@data_bp.route('/cotraining', methods=['POST'])
 def datoscotraining():
     clasificador1 = request.form['clasificador1']
     clasificador2 = request.form['clasificador2']
@@ -50,7 +50,7 @@ def datoscotraining():
     return json.dumps(info)
 
 
-@data_bp.route('/democraticcolearningd', methods=['POST'])
+@data_bp.route('/democraticcolearning', methods=['POST'])
 def datosdemocraticcolearning():
     clasificador1 = request.form['clasificador1']
     clasificador2 = request.form['clasificador2']
@@ -66,7 +66,7 @@ def datosdemocraticcolearning():
     return json.dumps(info)
 
 
-@data_bp.route('/tritrainingd', methods=['POST'])
+@data_bp.route('/tritraining', methods=['POST'])
 def datostritraining():
     clasificador1 = request.form['clasificador1']
     clasificador2 = request.form['clasificador2']
