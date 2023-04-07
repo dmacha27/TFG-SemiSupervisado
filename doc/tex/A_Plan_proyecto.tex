@@ -348,7 +348,7 @@ El gráfico Burndown se visualiza en la imagen~\ref{fig:sprints/sprint9}.
 \imagen{sprints/sprint9}{Burndown chart del sprint 9.}
 
 \subsection{Sprint 10}
-Corresponde con el periodo temporal del8 de febrero al 15 de marzo de 2023.
+Corresponde con el periodo temporal del 8 de febrero al 15 de marzo de 2023.
 
 Puntos a desarrollar:
 \begin{enumerate}
@@ -424,7 +424,7 @@ El gráfico Burndown se visualiza en la imagen~\ref{fig:sprints/sprint10}.
 \imagen{sprints/sprint10}{Burndown chart del sprint 10.}
 
 \subsection{Sprint 11}
-Corresponde con el periodo temporal del 8 de febrero al 15 de marzo de 2023.
+Corresponde con el periodo temporal del 15 al 22 de marzo de 2023.
 
 Puntos a desarrollar:
 \begin{enumerate}
@@ -508,6 +508,140 @@ traducciones.
 
 El gráfico Burndown se visualiza en la imagen~\ref{fig:sprints/sprint11}.
 \imagen{sprints/sprint11}{Burndown chart del sprint 11.}
+
+
+\subsection{Sprint 12}
+Corresponde con el periodo temporal del 22 al 29 de marzo de 2023.
+
+Puntos a desarrollar:
+\begin{enumerate}
+    \item Completar manual del programador.
+    \item Introducción memoria.
+    \item Añadir bibliotecas Web.
+    \item Añadir explicaciones de los algoritmos en la Web.
+    \item Añadir los pseudocódigos en la Web.
+    \item Algoritmo Tri-Training.
+\end{enumerate}
+
+En el Sprint anterior se empezó el manual del programador, pero quedó pendiente
+la compilación, instalación y ejecución del proyecto. Lo primero que se hizo en
+este Sprint es finalizar este manual describiendo todos los pasos que un
+programador debe seguir para poner en funcionamiento la aplicación.
+
+Para continuar con la memoria, se añadió la sección de la \texttt{Introducción}
+como presentación de todo este trabajo.
+
+Las dos principales bibliotecas o recursos utilizados en la Web son
+\texttt{Bootstrap} y \texttt{D3.js}, el primer caso es un <<framework>> de CSS
+que ya viene con una gran cantidad de clases a utilizar. D3 es la biblioteca de
+JavaScript que se ha utilizado para la generación de todos los gráficos. Se
+añadió una descripción (y justificación) de uso en las \texttt{Técnicas y
+herramientas}.
+
+Teniendo en cuanta la componente docente de este proyecto, se creyó conveniente
+la adición de unas pequeñas explicaciones de los algoritmos. Se añadieron en la
+fase de configuración de los algoritmos dado que al mismo tiempo el usuario debe
+configurar los parámetros y puede que le permita tener una mayor intuición a la
+hora de configurarlo.
+
+En esta misma línea se añadieron los pseudocódigos en forma de imágenes, justo
+debajo de las explicaciones. También se creyó conveniente que el usuario pudiera
+verlo en la fase de visualización. Se creó un desplegable con la imagen del
+pseudocódigo.
+
+Finalmente, y como desarrollo más grande de este Sprint, se creó el algoritmo
+Tri-Training. La primera versión (el primer \texttt{commit}) no fue validada de
+ninguna forma (se confirmó según se terminó). Esta versión no incluía ninguna
+forma de obtener el proceso de entrenamiento, simplemente era el esqueleto
+funcional del algoritmo. Obviamente, era claro que iba a haber algún que otro
+error. Al principio solo se detectó un error en el que el cálculo del error de
+clasificación siempre resultaba en 0. Era una cuestión de pura implementación en
+Python así que no fue difícil arreglarlo.
+
+Antes de arreglar este error, la rama en la que se ejecutaba el <<subsample>> no
+se estaba realizando en ningún caso. En el momento que se arregló el anterior
+error se accedió a esta parte y apareció un nuevo error. Se confundió array de
+NumPy con lista nativa de Python y se estaban seleccionando ciertas posiciones
+de una lista de Python accediendo a ella con unos índices ( List{[}indices{]} ).
+La solución fue sencilla de igual manera, se recorría la lista en base la los
+índices y se creaba esta sublista mediante compresión de listas.
+
+Al final de este desarrollo, se comparó con una sola ejecución con sslearn. El
+nuevo algoritmo tardaba mucho más tiempo que el resto (y que sslearn). Esto era
+porque al añadir las predicciones (cuando las otras dos hipótesis coincidían) se
+hacía de una en una. Esto se sustituyó para predecir todas las instancias no
+etiquetadas y con vectorización. El rendimiento se incrementó mucho.
+
+Durante estas tareas fueron surgiendo otras más pequeñas: Nuevas traducciones,
+correcciones de memoria y anexos y una pequeña comparación contra sslearn.
+
+La herramienta Zenhub dejó de proporcionar servicios gratuitos. Esta compañía
+actualizó sus planes gratuitos, ya no existe una versión de esas
+características. Durante este Sprint <<caducó>> la licencia que se tenía y ya no
+se podía acceder a ninguna de sus funcionalidades, tampoco a los gráficos
+<<Burndown>>.
+
+\subsection{Sprint 13}
+Corresponde con el periodo temporal del 29 marzo al 5 de abril de 2023.
+
+Puntos a desarrollar:
+\begin{enumerate}
+    \item Configuración Tri-Training
+    \item Visualizar Tri-Training.
+    \item Eliminar todo el código duplicado restante de JavaScript.
+    \item Documentar JavaScript.
+    \item Reestructurar Flask para aplicaciones grandes.
+    \item Añadir media geométrica en la validación/comparación contra sslearn.
+\end{enumerate}
+
+Para este Sprint el objetivo principal era dejar lista la visualización de
+Tri-Training en la Web. 
+
+El primer paso fue incluir las estructuras de datos necesarias en el esqueleto
+del algoritmo para ir almacenando la información de entrenamiento. La idea era
+igual a Democratic Co-Learning. La realidad es que la forma en la que se
+almacenan los datos es muy distinta a todas las demás. Los datos pueden ser
+clasificador varias veces por cada clasificador en diferentes iteraciones. Por
+lo tanto, para cada clasificador base se almacena una lista para las etiquetas y
+para las iteraciones en las que se clasifican. Las estadísticas sí que se
+almacenan exactamente de la misma forma que Democratic Co-Learning.
+
+El siguiente paso fue crear la pantalla de configuración de Tri-Training, para
+ello simplemente se copiaron las plantillas ya existentes y la misma estructura
+que ya se tenía en Flask para las rutas.
+
+Y finalmente, la pantalla de visualización de Tri-Training. Este fue uno de los
+pasos más complejos. Como se tenía una nueva estructura de los datos, se tenían
+que crear los métodos que permitiesen interpretarlos, de forma general, los que
+se ha realizado es comprobar, en cada iteración, qué clasificador han añadido
+datos etiquetados nuevos junto con su etiqueta. Para que el usuario pudiera ver
+los cambios que ocurren en cada iteración, cuando pulsa en la siguiente
+iteración se descoloran los puntos (a gris) y después se colorean los nuevos,
+todo esto mediante animaciones y con un cierto tiempo para que pueda darse
+cuenta.
+
+En cuanto a JavaScript, se documentó por completo todos los métodos que fueron
+creados para este proyecto. Además, se eliminó el código duplicado en cada
+fichero utilizando métodos comunes. También fue un proceso largo, sobre todo para
+comprobar que las modificaciones eran correctas y generales, en principio, todo
+parece correcto.
+
+Se reestructuró completamente Flask, esto es porque tal y como se encontraba la
+aplicación, era muy básica y general. Los proyecto más grandes con Flask tienen
+una estructura más o menos concreta. Esta es la idea que se ha intentado
+aplicar, utilizando <<Application Facotory>> y <<Blueprints>>. Pero sobre todo,
+para hacerla más mantenible y extensible. De hecho, aunque no está siendo usada,
+se tiene una pequeña base de datos para posibles adiciones futuras. Esta
+reestructuración causó muchos problemas en cuanto a las rutas de ficheros. Se
+tuvieron que especificar manualmente y usar la librería del sistema operativo de
+Python para independizar ciertos tratamientos de ficheros del sistema operativo
+concreto donde corra la aplicación (se ha probado en Windows y Linux).
+
+Finalmente, se añadió la media geométrica como métrica de validación a la hora
+de comparar contra sslearn. Además, en Sprints anteriores se comentó la idea de
+utilizar \texttt{Violinplots}, que resultan más pertinentes para los casos de
+comparación.
+
 
 
 
