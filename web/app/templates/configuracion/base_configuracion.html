@@ -2,42 +2,53 @@
 {%  from "macros.html" import formulario_comun %}
 {% block title %}{{ gettext('Run configuration') }}{% endblock %}
 {% block content %}
-    <button id="btn_volver" type="button" onclick="history.back()" class="btn">
+    <button id="btn_volver" type="button" onclick="history.back()" class="btn sticky-top">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 25 18">
             <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"></path>
-        </svg>{{ gettext('Go back') }}</button>
+        </svg>{{ gettext('Go back') }}</button>| {{ gettext('Dataset') }}: {{ session['FICHERO']|nombredataset }}
     <script type="text/javascript" src="/js/configuracion.js"></script>
     <br>
-    <div class="d-flex justify-content-center align-items-center">
-        <p class="h2 text-center">{{ gettext('Algorithm configuration') }}: {{ titulos[session['ALGORITMO']] }}</p>
-
+    <div class="text-center pb-3">
+        <h1>{{ gettext('Algorithm configuration') }}: {{ titulos[session['ALGORITMO']] }}</h1>
+        <hr class="separacion"/>
     </div>
-    <hr class="separacion"/>
-    <div class="container-fluid pb-5">
-        <div class="row flex-column flex-md-row">
-            <div class="col-md">
-                <div class="border-4 m-2 p-2 shadow">
-                    {% block explicaciones %}{% endblock %}
-                </div>
-                <div class="text-center">
-                    {% block pseudocodigo %}{% endblock %}
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div id="theory-card" class="col-md">
+                <div class="rounded-4 p-3 m-2 shadow-lg">
+                    <div class="text-center">
+                        <h4>{{ gettext('Theory') }}</h4>
+                        <hr class="separacion"/>
+                    </div>
+                    <div class="m-2 p-2">
+                        {% block explicaciones %}{% endblock %}
+                    </div>
+                    <div class="text-center">
+                        {% block pseudocodigo %}{% endblock %}
+                    </div>
                 </div>
             </div>
-            <div class="col-md border-4 shadow-sm p-3 m-2">
-                <form action="{{ url_for('visualization_bp.visualizar_algoritmo', algoritmo=session['ALGORITMO']) }}" method="POST">
-                    <div class="row">
-                        <div class="col-md">
-                            {% block parametros %}{% endblock %}
-                        </div>
-                        <div class="col-md">
-                            {{ formulario_comun(caracteristicas) }}
-                        </div>
+            <div id="parameters-card" class="col-md">
+                <div class="rounded-4 p-3 m-2 shadow-lg">
+                    <div class="text-center">
+                        <h4>{{ gettext('Parameters') }}</h4>
+                        <hr class="separacion"/>
                     </div>
-                    <div class="row">
-                        <button type="submit" class="btn btn-primary" style="margin: auto; width: 50%">{{ gettext('Run') }}</button>
-                    </div>
-                </form>
-                {% block form_scripts %}{% endblock %}
+                    <form action="{{ url_for('visualization_bp.visualizar_algoritmo', algoritmo=session['ALGORITMO']) }}" method="POST">
+                        <div class="row">
+                            <div class="col-md">
+                                {% block parametros %}{% endblock %}
+                            </div>
+                            <div class="col-md">
+                                {{ formulario_comun(caracteristicas) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button type="submit" class="btn btn-primary" style="margin: auto; width: 50%">{{ gettext('Run') }}</button>
+                        </div>
+                    </form>
+                    {% block form_scripts %}{% endblock %}
+                </div>
             </div>
         </div>
     </div>

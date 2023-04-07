@@ -7,11 +7,10 @@
     <script type="text/javascript" src="/js/grafico.js"></script>
 {% endblock %}
 {% block content %}
-    <button id="btn_volver" type="button" onclick="history.back()" class="btn">
+    <button id="btn_volver" type="button" onclick="history.back()" class="btn sticky-top">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 25 18">
             <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"></path>
-        </svg>{{ gettext('Go back') }}</button>|
-    {{ gettext('Dataset') }}: {{ session['FICHERO']|nombredataset }}
+        </svg>{{ gettext('Go back') }}</button>| {{ gettext('Dataset') }}: {{ session['FICHERO']|nombredataset }}
     <br>
     <div id="div_cargando">
         <div id="cargando" class="cargando m-auto"></div>
@@ -21,53 +20,59 @@
         <hr class="separacion"/>
     </div>
     <div id="visualizacion" style="visibility: hidden;" class="d-flex flex-wrap justify-content-around mb-3 position-relative">
-        <div class="col-md">
-            <div class="text-center position-relative">
-                <h4 id="nombre_dataset">{{ gettext('Principal visualization') }}</h4>
-                <div id="zona_gráfico" class="d-flex justify-content-center align-items-center">
-                    <div id="visualizacion_principal"></div>
-                    <div id="leyenda_visualizacion" style="margin-left: 15px"></div>
-                </div>
-
-                <div class="text_center" id="controles">
-                    <button id="reiniciar_zoom" class="btn btn-light">{{ gettext('Zoom reset') }}</button>
-                    <br><br>
-                    <label>{{ gettext('Iteration') }}: </label><label id="iteracion">0</label>
+        <div id="visualization-card" class="col-md">
+            <div class="m-2 pt-4 pb-2 shadow-lg rounded-4">
+                <div class="text-center position-relative">
+                    <h4 id="nombre_dataset">{{ gettext('Principal visualization') }}</h4>
+                    <hr class="separacion"/>
+                    <div id="zona_gráfico" class="d-flex mt-4 justify-content-center align-items-center">
+                        <div id="visualizacion_principal"></div>
+                        <div id="leyenda_visualizacion" style="margin-left: 15px"></div>
+                    </div>
+                    <div class="text_center" id="controles">
+                        <button id="reiniciar_zoom" class="btn btn-light">{{ gettext('Zoom reset') }}</button>
+                        <br><br>
+                        <label>{{ gettext('Iteration') }}: </label><label id="iteracion">0</label>
+                        <br>
+                        <progress id="progreso" value=0></progress>
+                        <br>
+                        <button id="previt" class="btn btn-primary">{{ gettext('Previous') }}</button>
+                        <button id="reproducir" class="btn btn-primary">{{ gettext('Play') }}</button>
+                        <button id="nextit" class="btn btn-primary">{{ gettext('Next') }}</button>
+                    </div>
                     <br>
-                    <progress id="progreso" value=0></progress>
-                    <br>
-                    <button id="previt" class="btn btn-primary">{{ gettext('Previous') }}</button>
-                    <button id="reproducir" class="btn btn-primary">{{ gettext('Play') }}</button>
-                    <button id="nextit" class="btn btn-primary">{{ gettext('Next') }}</button>
                 </div>
-                <br>
             </div>
         </div>
-        <div class="col-md text-center">
-            <div class="accordion w-75 mb-2 mx-auto" id="pseudocodigo">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="encabezado">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse" aria-expanded="false" aria-controls="collapse">
-                            {{ gettext('Pseudocode') }}
-                        </button>
-                    </h2>
-                    <div id="collapse" class="accordion-collapse collapse" aria-labelledby="encabezado" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            {% block pseudocodigo %}{% endblock %}
+        <div id="stats-card" class="col-md">
+            <div class="m-2 pt-4 pb-2 shadow-lg rounded-4 text-center">
+                <div class="accordion w-75 mx-auto" id="pseudocodigo">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="encabezado">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse" aria-expanded="false" aria-controls="collapse">
+                                {{ gettext('Pseudocode') }}
+                            </button>
+                        </h2>
+                        <div id="collapse" class="accordion-collapse collapse" aria-labelledby="encabezado" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                {% block pseudocodigo %}{% endblock %}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <h4>{{ gettext('General statistics') }}</h4>
-            <div id="zona_estadisticas_generales" class=" d-flex justify-content-center align-items-center text-center">
-                <div id="estadisticas_generales"></div>
-                <div id="leyenda_estadisticas_generales"></div>
-            </div>
-            <br>
-            {% block titulo_especificas %}{% endblock %}
-            <div id="zona_estadisticas_especificas" class=" d-flex justify-content-center align-items-center text-center">
-                <!-- Si fuesen necesarias más estadísticas se incluirán aquí -->
-                {% block mas_estadisticas %}{% endblock %}
+                <br>
+                <h4>{{ gettext('General statistics') }}</h4>
+                <hr class="separacion"/>
+                <div id="zona_estadisticas_generales" class=" d-flex mt-4 justify-content-center align-items-center text-center">
+                    <div id="estadisticas_generales"></div>
+                    <div id="leyenda_estadisticas_generales"></div>
+                </div>
+                <br>
+                {% block titulo_especificas %}{% endblock %}
+                <div id="zona_estadisticas_especificas" class=" d-flex justify-content-center align-items-center text-center">
+                    <!-- Si fuesen necesarias más estadísticas se incluirán aquí -->
+                    {% block mas_estadisticas %}{% endblock %}
+                </div>
             </div>
         </div>
     </div>

@@ -29,7 +29,7 @@ body {
 .separacion {
     border: none;
     height: 5px;
-    width: 25%;
+    width: 20%;
     margin: 10px auto;
     background-color: #f8d866;
     opacity: 0.5;
@@ -143,6 +143,17 @@ footer {
     transform: scale(1.05);
 }
 
+@media (max-width: 750px) {
+    #theory-card {
+        width: 95vw;
+        margin: 1rem auto !important;
+    }
+    #parameters-card {
+        width: 95vw;
+        margin: 1rem auto !important;
+    }
+}
+
 .cargando {
     border: 16px solid #a09c9c;
     border-top: 16px solid #737C80;
@@ -155,6 +166,15 @@ footer {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 1600px) {
+    #visualization-card {
+        width: 50vw !important;
+    }
+    #stats-card {
+        width: 50vw;
+    }
 }
 
 #btn_info {

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-04-07 02:34+0200\n"
+"POT-Creation-Date: 2023-04-07 18:25+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -46,7 +46,7 @@ msgstr "Debe subir un archivo"
 msgid "File must be ARFF or CSV"
 msgstr "El fichero debe ser ARFF o CSV"
 
-#: main_routes.py:40
+#: main_routes.py:33
 msgid "You must select an algorithm"
 msgstr "Debe seleccionar un algoritmo"
 
@@ -132,31 +132,35 @@ msgstr "Selección del conjunto de datos"
 msgid "Go back"
 msgstr "Volver"
 
-#: templates/subida.html:11
+#: templates/subida.html:9
 msgid "Dataset upload"
 msgstr "Subida del conjunto de datos"
 
-#: templates/subida.html:19
+#: templates/subida.html:15
+msgid "File selection"
+msgstr "Selección de fichero"
+
+#: templates/subida.html:23
 msgid "Drag and drop your file"
 msgstr "Arrastra y suelta tu archivo"
 
-#: templates/subida.html:20
+#: templates/subida.html:24
 msgid "or"
 msgstr "o"
 
-#: templates/subida.html:22
+#: templates/subida.html:26
 msgid "Choose file"
 msgstr "Selecciona fichero"
 
-#: templates/subida.html:28
+#: templates/subida.html:32
 msgid "completed"
 msgstr "completado"
 
-#: templates/subida.html:34
+#: templates/subida.html:40
 msgid "Configure algorithm"
 msgstr "Configurar algoritmo"
 
-#: templates/subida.html:38
+#: templates/subida.html:43
 msgid "Download test file"
 msgstr "Descargar fichero de prueba"
 
@@ -164,11 +168,24 @@ msgstr "Descargar fichero de prueba"
 msgid "Run configuration"
 msgstr "Configuración de la ejecución"
 
+#: templates/configuracion/base_configuracion.html:8
+#: templates/visualizacion/base_visualizacion.html:13
+msgid "Dataset"
+msgstr "Conjunto de datos"
+
 #: templates/configuracion/base_configuracion.html:12
 msgid "Algorithm configuration"
 msgstr "Configuración del algoritmo"
 
-#: templates/configuracion/base_configuracion.html:37
+#: templates/configuracion/base_configuracion.html:20
+msgid "Theory"
+msgstr "Teoría"
+
+#: templates/configuracion/base_configuracion.html:34
+msgid "Parameters"
+msgstr "Parámetros"
+
+#: templates/configuracion/base_configuracion.html:47
 msgid "Run"
 msgstr "Ejecutar"
 
@@ -328,10 +345,6 @@ msgstr ""
 msgid "/pseudocodigos/en/SelfTraining.png"
 msgstr "/pseudocodigos/es/SelfTraining.png"
 
-#: templates/visualizacion/base_visualizacion.html:14
-msgid "Dataset"
-msgstr "Conjunto de datos"
-
 #: templates/visualizacion/base_visualizacion.html:26
 msgid "Principal visualization"
 msgstr "Visualización principal"
@@ -341,7 +354,7 @@ msgid "Zoom reset"
 msgstr "Reiniciar Zoom"
 
 #: templates/visualizacion/base_visualizacion.html:35
-#: templates/visualizacion/base_visualizacion.html:86
+#: templates/visualizacion/base_visualizacion.html:91
 msgid "Iteration"
 msgstr "Iteración"
 
@@ -350,7 +363,7 @@ msgid "Previous"
 msgstr "Anterior"
 
 #: templates/visualizacion/base_visualizacion.html:40
-#: templates/visualizacion/base_visualizacion.html:84
+#: templates/visualizacion/base_visualizacion.html:89
 msgid "Play"
 msgstr "Reproducir"
 
@@ -358,39 +371,39 @@ msgstr "Reproducir"
 msgid "Next"
 msgstr "Siguiente"
 
-#: templates/visualizacion/base_visualizacion.html:51
+#: templates/visualizacion/base_visualizacion.html:53
 msgid "Pseudocode"
 msgstr "Pseudocódigo"
 
-#: templates/visualizacion/base_visualizacion.html:61
+#: templates/visualizacion/base_visualizacion.html:64
 msgid "General statistics"
 msgstr "Estadísticas generales"
 
-#: templates/visualizacion/base_visualizacion.html:78
+#: templates/visualizacion/base_visualizacion.html:83
 msgid "Initial data"
 msgstr "Dato inicial"
 
-#: templates/visualizacion/base_visualizacion.html:79
+#: templates/visualizacion/base_visualizacion.html:84
 msgid "Label"
 msgstr "Etiqueta"
 
-#: templates/visualizacion/base_visualizacion.html:80
+#: templates/visualizacion/base_visualizacion.html:85
 msgid "Classifier"
 msgstr "Clasificador"
 
-#: templates/visualizacion/base_visualizacion.html:81
+#: templates/visualizacion/base_visualizacion.html:86
 msgid "Classifier: Not classified"
 msgstr "Clasificador: No clasificado"
 
-#: templates/visualizacion/base_visualizacion.html:82
+#: templates/visualizacion/base_visualizacion.html:87
 msgid "Label: Not classified"
 msgstr "Etiqueta: No clasificado"
 
-#: templates/visualizacion/base_visualizacion.html:83
+#: templates/visualizacion/base_visualizacion.html:88
 msgid "Pause"
 msgstr "Pausar"
 
-#: templates/visualizacion/base_visualizacion.html:85
+#: templates/visualizacion/base_visualizacion.html:90
 msgid "Measure"
 msgstr "Valor"
 
