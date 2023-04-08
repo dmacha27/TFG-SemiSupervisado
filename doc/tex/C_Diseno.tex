@@ -2,15 +2,292 @@
 
 \section{Introducción}
 
+En esta sección se van a describir las decisiones tomadas para llevar a cabo
+todos los objetivos y requisitos iniciales establecidos. Se presentará el
+formato que se utiliza para tratar los datos, cuál es el procedimiento interno
+que realiza la Web para ofrecer al usuario las visualizaciones y cómo se traduce
+todo ello en la arquitectura subyacente.
+
 \section{Diseño de datos}
+
+\subsection{Información de entrenamiento de los algoritmos}
+
+Todas las visualizaciones de los algoritmos se nutren del proceso de
+entrenamiento. Es decir, se tuvo que diseñar una forma de aglutinar la
+información que ocurre durante este proceso.
+
+Para adelantar un poco el funcionamiento de la Web, todos estos datos son
+transformados a JSON, el formato de texto con la sintaxis de JavaScript que
+resulta muy sencillo para el intercambio de datos. Que a la hora de trabajar con
+ello en dicho lenguaje resulta muy sencillo (como diccionarios en otros
+lenguajes de programación).
+
+Pero antes de esa transformación, todos los datos son generados en Python. La
+estructura de datos por excelencia para almacenar muchos datos (gracias a su
+multitud de opciones) son los <<DataFrames>>. Toda la información que generan
+los algoritmos son de este tipo.
+
+Cada algoritmo retorna varios de estos <<DataFrame>>, al menos uno del proceso
+de etiquetado y otro con las estadísticas generales. En el caso de Democratic
+Co-Learning y Tri-Training, estos además retornan los de las estadísticas
+específicas de cada clasificador base.
+
+\subsubsection{Etiquetas}
+Este <<DataFrame>> contiene todas las operaciones en las que los clasificadores
+han añadido nuevas etiquetas a instancias no etiquetadas. Por lo general
+indicarán los momentos en los que fueron etiquetadas (iteración) y el valor de
+las mismas.
+
+\paragraph{Self-Training}
+Este formato sirve como base para todos los siguientes. Es una idea muy sencilla
+(pues Self-Training también lo es). 
+
+La estructura de datos contendrá múltiples filas, cada un representa cada
+instancia de todo el conjunto de datos de entrenamiento. Lo que se entiende por
+conjunto de entrenamiento es, todos los datos etiquetados de los que aprenderá
+el clasificador base junto con los no etiquetados.
+
+Ahora bien, la información útil que permitirá saber los momentos de
+clasificación y/o etiquetas estarán en las columnas:
+
+\begin{itemize}
+    \item Columnas con los nombres de los atributos de las instancias. Por
+    ejemplo, para el famoso conjunto de datos \texttt{Iris} se tendrán 4
+    columnas (una por cada atributo, \textbf{no se incluye la clase}): <<sepal
+    length>>, <<sepal width>>, <<petal length>> y <<petal width>>.
+    \item Columna <<iter>>: Por cada fila, representa el número de la iteración
+    en la que esa instancia fue clasificada. Si por el criterio de parada no
+    llega a ser clasificada corresponderá con el número de iteraciones final +
+    1. Es decir, si en la iteración 9 el entrenamiento finalizó, corresponderá
+    con 10. Obviamente, si la instancia es un dato inicial tendrá como iteración
+    0.
+    \item Columna <<target>>: Representa la etiqueta de la instancia. Es
+    importante destacar que esta siempre será de tipo entero. Esto es porque en
+    pasos previos se eliminan los valores nominales (no están permitidos). Si
+    tampoco llega a ser clasificado, corresponderá con <<-1>>.
+\end{itemize}
+
+Ejemplo (entrenamiento finalizado en la iteración 9):
+\begin{table}[H]
+\begin{tabular}{lllllll}
+    & petal.length & petal.width & sepal.length & sepal.width & iter & target \\ \hline
+0   & 5.6          & 2.5         & 3.9          & 1.1         & 0    & 1      \\
+1   & 6.1          & 2.8         & 4.0          & 1.3         & 0    & 2      \\
+78  & 6.7          & 3.1         & 5.6          & 2.4         & 6    & 2      \\
+79  & 6.8          & 3.2         & 5.7          & 2.5         & 7    & 1      \\
+142 & 6.8          & 2.8         & 4.8          & 1.4         & 10   & -1    
+\end{tabular}
+\caption{Ejemplo de DataFrame de Self-Training}
+\end{table}
+
+En la tabla anterior se pueden un extracto de lo que podría ser una ejecución.
+Las columnas de los atributos, la iteración (con iteración 10 para denotar que
+no fue etiquetado) y la etiqueta o target (con -1 para los que no fueron
+etiquetados).
+
+\paragraph{Co-Training}
+Es muy similar a Self-Trainig salvo que este algoritmo concreto envuelve dos
+clasificadores base. La consecuencia de esto a nivel del formato es que se
+necesita almacenar cuál de los dos clasificadores clasifica cada instancia. Pero
+más allá de esto, es el mismo formato.
+
+Recopilando, las columnas para el <<DataFrame>> de Co-Training son:
+
+\begin{itemize}
+    \item Columnas con los nombres de los atributos de las instancias.
+    \item Columna <<iter>>.
+    \item Columna <<target>>.
+    \item Columna <<clf>>: Esta nueva columna indica el clasificador que le dio
+    el valor  a la etiqueta. Por convención (necesaria para otros procesos en
+    Web) es que si el dato es inicial, <<clf>> valdrá <<inicio>>, si es un dato
+    clasificado durante el proceso valdrá <<CLF(\textit{nombre\_clasificador})>>
+    donde \textit{nombre\_clasificador} será el extraído de \texttt{scikit-learn}
+    y si no llega a ser clasificado valdrá -1.
+\end{itemize}
+
+Ejemplo (entrenamiento finalizado en la iteración 9):
+\begin{table}[H]
+    \resizebox{\textwidth}{!}{%
+\begin{tabular}{llllllll}
+    & petal.length & petal.width & sepal.length & sepal.width & iter & target & clf \\ \hline
+0   & 5.6          & 2.5         & 3.9          & 1.1         & 0    & 1  & inicio    \\
+1   & 6.1          & 2.8         & 4.0          & 1.3         & 0    & 2  & inicio     \\
+78  & 6.7          & 3.1         & 5.6          & 2.4         & 6    & 2  & CLF(SVC)    \\
+79  & 6.8          & 3.2         & 5.7          & 2.5         & 7    & 1  & CLF(GaussianNB)     \\
+142 & 6.8          & 2.8         & 4.8          & 1.4         & 10   & -1 & -1    
+\end{tabular}
+    }
+    \caption{Ejemplo de DataFrame de Co-Training}
+\end{table}
+
+
+\paragraph{Democratic Co-Learning}
+Tomando como base Co-Training este algoritmo no añade ninguna columna más (ni
+elimina), solo modifica las existentes. Concretamente, tres última columnas
+(<<iter>>,<<target>> y <<clf>>) que estaban en singular ahora pasan a plural:
+<<iters>>,<<targets>> y <<clfs>>. 
+
+La razón es simplemente para mantener una lógica y semántica interna, este
+algoritmo <<comparte>> las instancias entre tres clasificadores base. Cada uno
+de ellos puede clasificar cada instancia, incluso con distintas etiquetas y en
+la misma iteración que los otros clasificadores. Por lo tanto, para cada una de
+estas columnas y para cada instancia se tendrá ahora una lista.
+
+Recopilando, las columnas para el <<DataFrame>> de Democratic Co-Learning son:
+
+\begin{itemize}
+    \item Columnas con los nombres de los atributos de las instancias.
+    \item Columna <<iters>>: Lista con la iteración en la que cada clasificador
+    etiqueta la instancia. En el caso de un dato inicial, esta lista sol o
+    tendrá una posición y contendrá 0 ([0]), para el resto siempre tendrá
+    tres posiciones (por los tres clasificadores base). Para este último caso
+    cada posición es independiente, es decir, si un clasificador base no ha
+    etiquetado, contendrá -1 (\textbf{diferencia con los anteriores}
+    \footnote{La razón de que se indique -1 en vez del número de iteraciones +
+    1, es porque toda esta estructura se genera antes del entrenamiento. En los
+    algoritmos anteriores, si quedaba alguna sin etiquetar, se añadía al final y
+    se sabía el número de iteraciones final.}), pero para esa misma instancia otro
+    clasificador base sí que puede haber etiquetado y contendrá dicha iteración
+    (por ejemplo: [-1,4,-1])
+    \item Columna <<targets>>: Exactamente igual a <<iters>> salvo que no indica
+    la iteración, sino la etiqueta que asigna el clasificador base. De nuevo, si
+    no la etiqueta, su posición contendrá -1.
+    \item Columna <<clfs>>: Hasta ahora se ha hablado de posiciones en las dos
+    columnas anteriores. Para saber a qué clasificador se refiere esta columna
+    contiene otra lista con los tres nombres de los clasificadores. Si es un
+    dato inicial, contendrá [inicio], en otro caso contendrá algo como
+    [CLF1(KNeighborsClassifier), CLF2(DecisionTreeClassifier),
+    CLF3(GaussianNB)]
+\end{itemize}
+
+Ejemplo (entrenamiento finalizado en la iteración 9) \footnote{Se han acortado los nombres de los clasificadores [CLF1, CLF2, CLF3]
+debería ser [CLF1(KNeighborsClassifier), CLF2(DecisionTreeClassifier),
+CLF3(GaussianNB)]}:
+\begin{table}[H]
+    \resizebox{\textwidth}{!}{%
+\begin{tabular}{llllllll}
+    & petal.length & petal.width & sepal.length & sepal.width & iter & target & clf \\ \hline
+0   & 5.6          & 2.5         & 3.9          & 1.1         & [0]    & [1]  & [inicio]    \\
+1   & 6.1          & 2.8         & 4.0          & 1.3         & [0]   & [2]  & [inicio]     \\
+78  & 6.7          & 3.1         & 5.6          & 2.4         & [1, 4, -1]  & [2, 2, -1]  & [CLF1, CLF2, CLF3]    \\
+79  & 6.8          & 3.2         & 5.7          & 2.5         & [-1, 2, -1]    & [-1, 1, -1]  & [CLF1, CLF2, CLF3]     \\
+142 & 6.8          & 2.8         & 4.8          & 1.4         & [-1, -1, -1]   & [-1, -1, -1] & [CLF1, CLF2, CLF3]    
+\end{tabular}
+    }
+    \caption{Ejemplo de DataFrame de Democratic Co-Learning}
+\end{table}
+
+
+\paragraph{Tri-Training}
+Tomando la idea de Democratic Co-Learning, en este algoritmo también se tienen
+tres clasificadores que pueden clasificar individualmente cada instancia. Sin
+embargo, cada iteración, el conjunto de datos \textbf{nuevos} etiquetados se
+vacía. Es decir, en una iteración se acaban etiquetando algunos, pero al
+principio de la siguiente se vacía ese conjunto y se vuelven a etiquetar de
+nuevo.
+
+Entonces, el mecanismo de las listas de Democratic Co-Learning no funcionaría.
+Se debe añadir un nivel más de registro. Simplemente con añadir una lista en
+cada posición de las listas de <<iters>> y <<targets>> ya se puede registrar
+todos los momentos en los que una instancia se etiqueta (de nuevo, cada
+instancia podría ser etiquetada dos o más veces por un mismo clasificador base,
+al contrario del anterior).
+
+
+Recopilando, las columnas para el <<DataFrame>> de Democratic Co-Learning son:
+
+\begin{itemize}
+    \item Columnas con los nombres de los atributos de las instancias.
+    \item Columna <<iters>>: Lista de listas con la iteración en la que cada
+    clasificador etiqueta la instancia. En el caso de un dato inicial, esta
+    lista sol o tendrá una posición y contendrá 0 ([0]), para el resto siempre
+    tendrá una lista en las tres posiciones (por los tres clasificadores base).
+    Para esto último caso las posiciones siguen siendo independientes solo que
+    ahora si no se etiqueta la lista estará vacía (por ejemplo: [[2], [], []],
+    los dos últimos clasificadores no etiquetaron esa instancia en ningún
+    momento). Para clarificar lo comentado anteriormente, los clasificadores
+    podría etiquetar una misma intancia dos o más veces (por ejemplo: [[2], [2],
+    [1, 2]], el último clasificador etiquetó la instancia en dos ocasiones).
+    \item Columna <<targets>>: Exactamente igual a <<iters>> salvo que no indica
+    la iteración, sino la etiqueta que asigna el clasificador base. Y de nuevo,
+    si un clasificador no etiqueta en ningún momento esa instancia su lista
+    interna estará vacía (por ejemplo: [[2], [], [2]]).
+    \item Columna <<clfs>>: No se modifica respecto a Co-Training, contiene la
+    lista de los nombres de los tres clasificadores.
+\end{itemize}
+
+Ejemplo (entrenamiento finalizado en la iteración 9)\footnote{Se han acortado los nombres de los clasificadores [CLF1, CLF2, CLF3]
+debería ser [CLF1(KNeighborsClassifier), CLF2(DecisionTreeClassifier),
+CLF3(GaussianNB)]}:
+\begin{table}[H]
+    \resizebox{\textwidth}{!}{%
+\begin{tabular}{llllllll}
+    & petal.length & petal.width & sepal.length & sepal.width & iter & target & clf \\ \hline
+0   & 5.6          & 2.5         & 3.9          & 1.1         & [0]    & [1]  & [inicio]    \\
+1   & 6.1          & 2.8         & 4.0          & 1.3         & [0]   & [2]  & [inicio]     \\
+78  & 6.7          & 3.1         & 5.6          & 2.4         & [[1], [1,2], [~]]  & [[2], [2, 2], [~]]  & [CLF1, CLF2, CLF3]    \\
+79  & 6.8          & 3.2         & 5.7          & 2.5         & [[~], [2], [~]]    & [[~], [1], [~]]  & [CLF1, CLF2, CLF3]     \\
+142 & 6.8          & 2.8         & 4.8          & 1.4         & [[~], [~], [~]]   & [[~], [~], [~]]  & [CLF1, CLF2, CLF3]    
+\end{tabular}
+    }
+    \caption{Ejemplo de DataFrame de Tri-Training}
+\end{table}
+
+\paragraph{Interpretación sencilla de estos formatos} La razón de crear estos
+formatos es sencilla. Cuando se realiza su visualización, el primer paso es
+extraer los datos. Lo que se hace es crear un punto en el gráfico por cada
+instancia, con la particularidad de que cuando se entra en los algoritmos
+Democratic Co-Learning o Tri-Training, se añade más de un punto por cada
+instancia, representando la individualidad de cada clasificador base (cada uno
+de ellos puede haber clasificado esa instancia por separado e incluso más de una
+vez).
+
+Cuando se genera el gráfico con sus puntos, cada punto lleva guardada la
+información de las iteraciones, etiquetas y clasificadores. Así se controla
+cuando ocultar/colorear/mostrar un punto. Por ejemplo, cuando se navega a la
+siguiente iteración se filtran todos los puntos que tenga esa iteración en la
+columna <<iter>> (o <<iters>>). Obviamente, cada algoritmo tiene sus
+particularidades, pero esta es la idea general.
+
+\subsubsection{Estadísticas generales}
+Las estadísticas generales son comunes a todos los algoritmos, no hay ninguna
+modificación entre ellos.
+
+Se tiene un <<DataFrame>> con tantas filas como iteraciones se han ejecutado. En
+cuanto a las columnas, simplemente son los nombres de las estadísticas que se
+desean mostrar. Los nombres son los que se mostrarán en la Web.
+
+Ejemplo:
+\begin{table}[H]
+\begin{tabular}{llllll}
+  & Accuracy  & Precision & Error    & F1\_score & Recall    \\ \hline
+0 & 0.833333  & 0.888889  & 0.166667 & 0.822222  & 0.833333  \\
+1 & 1.000000 & 1.000000 & 0.000000 & 1.000000 & 1.000000 \\
+2 & 1.000000 & 1.000000 & 0.000000 & 1.000000 & 1.000000 \\
+3 & 1.000000 & 1.000000 & 0.000000 & 1.000000 & 1.000000 \\
+4 & 1.000000 & 1.000000 & 0.000000 & 1.000000 & 1.000000
+\end{tabular}
+\end{table}
+
+\subsubsection{Estadísticas específicas}
+Este tipo de estadísticas se refiere a la necesidad de mostrar también las
+estadísticas particulares de los clasificadores base. Esto aplica para
+Democratic Co-Learning y Tri-Training.
+
+El núcleo de esta estructura de datos siguen siendo los <<DataFrames>>, sin
+embargo, se han envuelto en un diccionario. El diccionario tiene como claves,
+cada uno de los nombres de los clasificadores base de la ejecución (por ejemplo:
+CLF3(GaussianNB)). Los valores serán esos <<DataFrames>> que son exactamente
+iguales que para las estadísticas generales. Guardarán por cada iteración
+(fila), las estadísticas (columnas) para el clasificador base concreto.
 
 \section{Diseño procedimental}
 
 \section{Diseño arquitectónico}
 
-\section{Diseño de la Web}
+\section{Diseño Web}
 
-\subsection{Mockup o Maqueta}
+\subsection{Primer mockup o maqueta}
 Se presenta el primer Mockup o maqueta que se comentó de la página Web. Todas
 las páginas tendrán una base común en la que aparecerá información general como
 la Universidad de Burgos (barra superior).
