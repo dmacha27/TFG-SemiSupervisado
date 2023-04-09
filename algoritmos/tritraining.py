@@ -44,7 +44,9 @@ class TriTraining:
         :param y: Etiquetas de las instancias.
         :param x_test: Conjunto de test.
         :param y_test: Etiquetas de test.
-        :return: iteración.
+        :param features: nombre de las características de los datos (para el log).
+        :return: log con la información de entrenamiento, estadísticas generales, estadísticas
+                    específicas y el número de iteraciones realizadas.
         """
 
         x_train, y_train, x_u = obtain_train_unlabelled(x, y)

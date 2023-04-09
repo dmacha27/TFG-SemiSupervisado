@@ -38,6 +38,7 @@ class DemocraticCoLearning:
         :param y: etiquetas de las instancias.
         :param x_test: conjunto de test.
         :param y_test: etiquetas de test.
+        :param features: nombre de las características de los datos (para el log).
         :return: log con la información de entrenamiento, estadísticas generales, estadísticas
                     específicas y el número de iteraciones realizadas.
         """
