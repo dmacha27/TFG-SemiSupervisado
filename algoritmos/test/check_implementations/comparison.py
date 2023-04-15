@@ -223,18 +223,18 @@ def draw_performance(dataset_name):
     for n_row, ax_row in enumerate(axs):
         algorithms_count = 0
         for n_col, ax in enumerate(ax_row):
-            data = [pandas_dict[algorithms[algorithms_count]][item][stats[stat_count]] for item in ['own', 'sslearn']]
-            mean_own = np.mean(data[0])
-            mean_sslearn = np.mean(data[1])
-            sns.violinplot(
-                data=data,
-                ax=ax,
-                scale='width',
-                color=colors[stat_count]
-            )
-            sns.lineplot(data=[mean_own, mean_sslearn], marker='.', linestyle='', ax=ax, color='#00FF00')
+            box = ax.boxplot(
+                [pandas_dict[algorithms[algorithms_count]][item][stats[stat_count]] for item in ['own', 'sslearn']],
+                showmeans=True,
+                meanline=True,
+                showfliers=False,
+                patch_artist=True,
+                medianprops=dict(color='blue'),
+                meanprops=dict(color='black'))
+            for patch in box['boxes']:
+                patch.set_facecolor(colors[stat_count])
 
-            ax.set_xticks([0, 1])
+            ax.set_xticks([1, 2])
             if n_row == 0:
                 ax.set(xticklabels=['Propia', 'sslearn'])
             else:
@@ -250,9 +250,9 @@ def draw_performance(dataset_name):
 
 
 if __name__ == '__main__':
-    data = load_iris()
+    data = load_breast_cancer()
 
-    dataset_name = "Iris"
+    dataset_name = "Breast"
 
     print("---Self-Training---")
     own, std_own, ssl, std_ssl = selftraining_comparison(data, f"SelfTraining-{dataset_name}")

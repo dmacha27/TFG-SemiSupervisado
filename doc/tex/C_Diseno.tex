@@ -206,7 +206,7 @@ Recopilando, las columnas para el <<DataFrame>> de Democratic Co-Learning son:
     ahora si no se etiqueta la lista estará vacía (por ejemplo: [[2], [], []],
     los dos últimos clasificadores no etiquetaron esa instancia en ningún
     momento). Para clarificar lo comentado anteriormente, los clasificadores
-    podría etiquetar una misma intancia dos o más veces (por ejemplo: [[2], [2],
+    podría etiquetar una misma instancia dos o más veces (por ejemplo: [[2], [2],
     [1, 2]], el último clasificador etiquetó la instancia en dos ocasiones).
     \item Columna <<targets>>: Exactamente igual a <<iters>> salvo que no indica
     la iteración, sino la etiqueta que asigna el clasificador base. Y de nuevo,
@@ -233,14 +233,13 @@ CLF3(GaussianNB)]}:
     \caption{Ejemplo de DataFrame de Tri-Training}
 \end{table}
 
-\paragraph{Interpretación sencilla de estos formatos} La razón de crear estos
-formatos es sencilla. Cuando se realiza su visualización, el primer paso es
-extraer los datos. Lo que se hace es crear un punto en el gráfico por cada
-instancia, con la particularidad de que cuando se entra en los algoritmos
-Democratic Co-Learning o Tri-Training, se añade más de un punto por cada
-instancia, representando la individualidad de cada clasificador base (cada uno
-de ellos puede haber clasificado esa instancia por separado e incluso más de una
-vez).
+\paragraph{Interpretación sencilla de estos formatos} Cuando se realiza su
+visualización, el primer paso es extraer los datos. Lo que se hace es crear un
+punto en el gráfico por cada instancia, con la particularidad de que cuando se
+entra en los algoritmos Democratic Co-Learning o Tri-Training, se añade más de
+un punto por cada instancia, representando la individualidad de cada
+clasificador base (cada uno de ellos puede haber clasificado esa instancia por
+separado e incluso más de una vez).
 
 Cuando se genera el gráfico con sus puntos, cada punto lleva guardada la
 información de las iteraciones, etiquetas y clasificadores. Así se controla
@@ -283,7 +282,7 @@ iguales que para las estadísticas generales. Guardarán por cada iteración
 
 \section{Diseño procedimental}
 
-\imagencontamano{ProcedimientoWeb}{Diseño procedimental}{1.1}
+\imagencontamano{ProcedimientoWeb}{Diagrama de secuencia de la interacción Web}{1.1}
 
 \section{Diseño arquitectónico}
 
@@ -316,5 +315,5 @@ principal (izquierda) de la clasificación y un compendio de métricas como la
 precisión o el error en su caso (derecha). Esto último principalmente
 planteado para ocultar/ver lo que el usuario desee en cada momento.
 
-\subsection{Segundo mockup o maqueta}
+\subsection{Diseño final}
 
