@@ -56,7 +56,7 @@ function inicializarGrafico(datos, preparar, binding) {
         .attr("dy", "1em")
         .attr("transform", "rotate(-90)")
         .text(cy);
-
+    /*
     //Leyenda
     let leyenda = d3.select("#leyenda_visualizacion")
         .append("svg");
@@ -79,6 +79,19 @@ function inicializarGrafico(datos, preparar, binding) {
     //quede más pequeño
     leyenda.attr("width", bbox.width +10)
         .attr("height", bbox.height + 10);
+    */
+
+    let leyenda = document.getElementById("leyenda_visualizacion");
+
+    leyenda.innerHTML = "";
+
+    for (const clase of Object.keys(mapa)) {
+        //return color(parseInt(clase));
+        let span = document.createElement("span");
+        span.style.color = color(parseInt(clase));
+        span.innerHTML = mapa[clase];
+        leyenda.appendChild(span);
+    }
 
     gx = d3.scaleLinear()
         .domain([d3.min(dataset, d => d[0]), d3.max(dataset, d => d[0])])
