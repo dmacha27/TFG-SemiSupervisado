@@ -50,8 +50,8 @@ def parametros_selftraining():
         {"nombre": "cx", "valor": request.form.get('cx', 'C1')},
         {"nombre": "cy", "valor": request.form.get('cy', 'C2')},
         {"nombre": "pca", "valor": request.form.get('pca', 'off')},
-        {"nombre": "p_unlabelled", "valor": request.form.get('p_unlabelled', -1)},
-        {"nombre": "p_test", "valor": request.form.get('p_test', -1)},
+        {"nombre": "p_unlabelled", "valor": request.form.get('p_unlabelled')},
+        {"nombre": "p_test", "valor": request.form.get('p_test')},
     ]
 
     # Los parámetros anteriores no incluyen los propios parámetros de los clasificadores
@@ -77,8 +77,8 @@ def parametros_cotraining():
         {"nombre": "cx", "valor": request.form.get('cx', 'C1')},
         {"nombre": "cy", "valor": request.form.get('cy', 'C2')},
         {"nombre": "pca", "valor": request.form.get('pca', 'off')},
-        {"nombre": "p_unlabelled", "valor": request.form.get('p_unlabelled', -1)},
-        {"nombre": "p_test", "valor": request.form.get('p_test', -1)},
+        {"nombre": "p_unlabelled", "valor": request.form.get('p_unlabelled')},
+        {"nombre": "p_test", "valor": request.form.get('p_test')},
     ]
 
     # Los parámetros anteriores no incluyen los propios parámetros de los clasificadores
@@ -102,8 +102,8 @@ def parametros_democraticcolearning_tritraining():
         {"nombre": "cx", "valor": request.form.get('cx', 'C1')},
         {"nombre": "cy", "valor": request.form.get('cy', 'C2')},
         {"nombre": "pca", "valor": request.form.get('pca', 'off')},
-        {"nombre": "p_unlabelled", "valor": request.form.get('p_unlabelled', -1)},
-        {"nombre": "p_test", "valor": request.form.get('p_test', -1)},
+        {"nombre": "p_unlabelled", "valor": request.form.get('p_unlabelled')},
+        {"nombre": "p_test", "valor": request.form.get('p_test')},
     ]
 
     # Los parámetros anteriores no incluyen los propios parámetros de los clasificadores

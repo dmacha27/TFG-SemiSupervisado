@@ -96,8 +96,8 @@ def obtener_info(algoritmo):
     (x, y, x_test, y_test) = data_split(x,
                                         y,
                                         is_unlabelled,
-                                        p_unlabelled=float(request.form['p_unlabelled']),
-                                        p_test=float(request.form['p_test']))
+                                        p_unlabelled=int(request.form['p_unlabelled'])/100,
+                                        p_test=int(request.form['p_test'])/100)
 
     specific_stats = None
     if not isinstance(algoritmo, (DemocraticCoLearning, TriTraining)):

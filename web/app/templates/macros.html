@@ -10,7 +10,7 @@
         </select>
     </div>
     <div class="mb-3">
-        <label for="cx">{{ gettext('Select X component') }}:</label>
+        <label for="cx">{{ gettext('Select X component') }}: {{ tooltip(gettext('Uncheck PCA to select specific components')) }}</label>
         <select class="form-select" id="cx" name="cx" required disabled>
             {% for c in caracteristicas %}
                 <option value="{{c}}">{{c}}</option>
@@ -27,15 +27,21 @@
     </div>
     <div class="mb-3">
         <input type="checkbox" class="form-check-input" id="pca" oninput="componentesPCA(this.checked,'cx','cy')" name="pca" checked>
-        <label for="pca">{{ gettext('Use PCA to automatically reduce to 2 components') }}</label>
+        <label class="d-inline" for="pca">{{ gettext('Use PCA to reduce to 2D') }}</label>
     </div>
     <div class="mb-3">
         <label for="p_unlabelled">{{ gettext('Unlabelled percentage') }}: {{ tooltip(gettext('If already semi-supervised, it will be ignored')) }}</label>
-        <input type="number" class="form-control" id="p_unlabelled" min="0" max="0.99" step="any" name="p_unlabelled" value="0.8">
+        <div class="d-flex">
+            <input type="range" class="form-range w-75" id="p_unlabelled" name="p_unlabelled" min="1" max="99" value=80 oninput="actualizarBadgePorcentaje(this.value,'p_unlabelled_badge')">
+            <span id="p_unlabelled_badge" class="badge bg-primary px-3 mx-2">80%</span>
+        </div>
     </div>
     <div class="mb-3">
         <label for="p_test">{{ gettext('Test percentage (after unlabelled percentage)') }}:</label>
-        <input type="number" class="form-control" id="p_test" min="0" max="0.99" step="any" name="p_test" value=0.2>
+        <div class="d-flex">
+            <input type="range" class="form-range w-75" id="p_test" name="p_test" min="1" max="99" value=20 oninput="actualizarBadgePorcentaje(this.value,'p_test_badge')">
+            <span id="p_test_badge" class="badge bg-primary px-3 mx-2">20%</span>
+        </div>
     </div>
 {% endmacro %}
 

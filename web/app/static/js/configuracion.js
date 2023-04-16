@@ -46,44 +46,63 @@ function generarFormParametros(clasificador, div, div_clasificador) {
     // así como su estructura (select, number, min, max...)
     const parametros = Object.keys(todos_parametros[clasificador]);
     div.innerHTML = '';
+    
+    if (!parametros.length){
+        div.style.visibility = "hidden";
+    }else {
+        div.style.visibility = "visible";
+        for (const p of parametros) {
 
-    for (const p of parametros) {
+            let parametro = todos_parametros[clasificador][p];
+            const label = document.createElement('label');
+            label.textContent = parametro.label;
 
-        let parametro = todos_parametros[clasificador][p];
-        const label = document.createElement('label');
-        label.textContent = parametro.label;
+            if (parametro.type === 'select') {
+                const select = document.createElement('select');
+                select.classList.add('form-select');
+                select.name = div_clasificador + "_" + p;
 
-        if (parametro.type === 'select') {
-            const select = document.createElement('select');
-            select.classList.add('form-select');
-            select.name = div_clasificador + "_" +p;
+                for (const opcion of parametro.options) {
+                    const option = document.createElement('option');
+                    option.value = opcion;
+                    option.text = opcion;
+                    select.appendChild(option);
+                }
+                select.value = parametro.default;
+                div.appendChild(label);
+                div.appendChild(select);
 
-            for (const opcion of parametro.options) {
-                const option = document.createElement('option');
-                option.value = opcion;
-                option.text = opcion;
-                select.appendChild(option);
+            } else {
+                const input = document.createElement('input');
+                input.type = parametro.type;
+                input.step = parametro.step;
+                input.min = parametro.min;
+                input.max = parametro.max;
+                input.name = div_clasificador + "_" + p;
+                input.classList.add('form-control');
+                input.value = parametro.default;
+                div.appendChild(label);
+                div.appendChild(input);
             }
-            select.value = parametro.default;
-            div.appendChild(label);
-            div.appendChild(select);
 
-        }else{
-            const input = document.createElement('input');
-            input.type = parametro.type;
-            input.step = parametro.step;
-            input.min = parametro.min;
-            input.max = parametro.max;
-            input.name = div_clasificador + "_" +p;
-            input.classList.add('form-control');
-            input.value = parametro.default;
-            div.appendChild(label);
-            div.appendChild(input);
         }
-
     }
 }
 
+/**
+ *
+ * Actualiza el porcentaje de datos en el badge con
+ * respecto el rango.
+ *
+ * @param valor valor actual del rango
+ * @param id_badge id del badge
+ */
+function actualizarBadgePorcentaje(valor, id_badge) {
+    let badge = document.getElementById(id_badge);
+
+    badge.innerHTML = valor.toString()+"%";
+
+}
 
 /*
 MÉTODOS A ELIMINAR EN FINAL

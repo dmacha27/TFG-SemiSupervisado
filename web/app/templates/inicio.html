@@ -2,7 +2,7 @@
 {% block title %}{{ gettext('Home') }}{% endblock %}
 {% block content %}
     <div class="mt-4 p-5 A text-white">
-        <h1>VASS</h1>
+        <h1 style="font-weight: bold">VASS</h1>
         <p>{{ gettext('Final Degree Project on semi-supervised algorithms and their visualization') }}</p>
     </div>
     <div class="dos-colores container-fluid bg-3 text-center">
@@ -10,52 +10,53 @@
             <div class="card shadow m-2" style="width: 18rem;">
                 <img class="card-img-top mt-2" src="https://picsum.photos/640/360" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title">Self-Training</h5>
+                    <h5 class="card-title" style="font-weight: bold">Self-Training</h5>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">{{ gettext('One classifier') }}</li>
+                    <li class="list-group-item">{{ gettext('Single-view') }}</li>
                 </ul>
-                <div class="card-body">
-                    <a href="/seleccionar/selftraining" class="btn btn-primary">{{ gettext('Select') }}</a>
+                <div class="card-body align-bottom">
+                    <a href="/seleccionar/selftraining" class="btn btn-primary stretched-link">{{ gettext('Select') }}</a>
                 </div>
             </div>
             <div class="card shadow m-2" style="width: 18rem;">
                 <img class="card-img-top mt-2" src="https://picsum.photos/640/360" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title">Co-Training</h5>
+                    <h5 class="card-title" style="font-weight: bold">Co-Training</h5>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">{{ gettext('Two classifiers') }}</li>
                     <li class="list-group-item">{{ gettext('Multi-view') }}</li>
                 </ul>
                 <div class="card-body">
-                    <a href="/seleccionar/cotraining" class="btn btn-primary">{{ gettext('Select') }}</a>
+                    <a href="/seleccionar/cotraining" class="btn btn-primary stretched-link">{{ gettext('Select') }}</a>
                 </div>
             </div>
             <div class="card shadow m-2" style="width: 18rem;">
                 <img class="card-img-top mt-2" src="https://picsum.photos/640/360" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title">Democratic Co-Learning</h5>
+                    <h6 class="card-title" style="font-weight: bold">Democratic Co-Learning</h6>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">{{ gettext('Three classifiers') }}</li>
                     <li class="list-group-item">{{ gettext('Single-view') }}</li>
                 </ul>
                 <div class="card-body">
-                    <a href="/seleccionar/democraticcolearning" class="btn btn-primary">{{ gettext('Select') }}</a>
+                    <a href="/seleccionar/democraticcolearning" class="btn btn-primary stretched-link">{{ gettext('Select') }}</a>
                 </div>
             </div>
             <div class="card shadow m-2" style="width: 18rem;">
                 <img class="card-img-top mt-2" src="https://picsum.photos/640/360" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title">Tri-Training</h5>
+                    <h5 class="card-title" style="font-weight: bold">Tri-Training</h5>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">{{ gettext('Three classifiers') }}</li>
                     <li class="list-group-item">{{ gettext('Single-view') }}</li>
                 </ul>
                 <div class="card-body">
-                    <a href="/seleccionar/tritraining" class="btn btn-primary">{{ gettext('Select') }}</a>
+                    <a href="/seleccionar/tritraining" class="btn btn-primary stretched-link">{{ gettext('Select') }}</a>
                 </div>
             </div>
         </div>
