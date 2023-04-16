@@ -46,7 +46,7 @@ function generarFormParametros(clasificador, div, div_clasificador) {
     // así como su estructura (select, number, min, max...)
     const parametros = Object.keys(todos_parametros[clasificador]);
     div.innerHTML = '';
-    
+
     if (!parametros.length){
         div.style.visibility = "hidden";
     }else {

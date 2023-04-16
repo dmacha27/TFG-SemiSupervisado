@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-04-08 01:13+0200\n"
+"POT-Creation-Date: 2023-04-16 21:31+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -46,7 +46,7 @@ msgstr "Debe subir un archivo"
 msgid "File must be ARFF or CSV"
 msgstr "El fichero debe ser ARFF o CSV"
 
-#: main_routes.py:33
+#: main_routes.py:32
 msgid "You must select an algorithm"
 msgstr "Debe seleccionar un algoritmo"
 
@@ -70,26 +70,26 @@ msgstr "Trabajo Fin de Grado sobre algoritmos semi-supervisados y su visualizaci
 msgid "One classifier"
 msgstr "Un clasificador"
 
-#: templates/inicio.html:19 templates/inicio.html:32 templates/inicio.html:45
-#: templates/inicio.html:58
+#: templates/inicio.html:17 templates/inicio.html:43 templates/inicio.html:56
+msgid "Single-view"
+msgstr "Single-view"
+
+#: templates/inicio.html:20 templates/inicio.html:33 templates/inicio.html:46
+#: templates/inicio.html:59
 msgid "Select"
 msgstr "Seleccionar"
 
-#: templates/inicio.html:28
+#: templates/inicio.html:29
 msgid "Two classifiers"
 msgstr "Dos clasificadores"
 
-#: templates/inicio.html:29
+#: templates/inicio.html:30
 msgid "Multi-view"
 msgstr "Multi-view"
 
-#: templates/inicio.html:41 templates/inicio.html:54
+#: templates/inicio.html:42 templates/inicio.html:55
 msgid "Three classifiers"
 msgstr "Tres clasificadores"
-
-#: templates/inicio.html:42 templates/inicio.html:55
-msgid "Single-view"
-msgstr "Single-view"
 
 #: templates/macros.html:4
 msgid "Select the target/class attribute of the dataset"
@@ -99,13 +99,17 @@ msgstr "Selecciona el atributo de la clase/etiqueta del conjunto de datos"
 msgid "Select X component"
 msgstr "Selecciona la componente X"
 
+#: templates/macros.html:13
+msgid "Uncheck PCA to select specific components"
+msgstr "Desmarca PCA para seleccionar componentes específicas"
+
 #: templates/macros.html:21
 msgid "Select Y component"
 msgstr "Selecciona la componente Y"
 
 #: templates/macros.html:30
-msgid "Use PCA to automatically reduce to 2 components"
-msgstr "Utilizar PCA para reducir automáticamente a 2 componentes"
+msgid "Use PCA to reduce to 2D"
+msgstr "Utilizar PCA para reducir a 2D"
 
 #: templates/macros.html:33
 msgid "Unlabelled percentage"
@@ -115,11 +119,11 @@ msgstr "Porcentaje de no etiquetados"
 msgid "If already semi-supervised, it will be ignored"
 msgstr "Si ya fuera semi-supervisado, será ignorado"
 
-#: templates/macros.html:37
+#: templates/macros.html:40
 msgid "Test percentage (after unlabelled percentage)"
 msgstr "Porcentaje de test (después de aplicar el no etiquetados)"
 
-#: templates/macros.html:43
+#: templates/macros.html:49
 msgid "Select classifier"
 msgstr "Selecciona clasificador"
 
@@ -358,7 +362,7 @@ msgid "/pseudocodigos/en/SelfTraining.png"
 msgstr "/pseudocodigos/es/SelfTraining.png"
 
 #: templates/visualizacion/base_visualizacion.html:26
-msgid "Principal visualization"
+msgid "Main visualization"
 msgstr "Visualización principal"
 
 #: templates/visualizacion/base_visualizacion.html:33
@@ -423,4 +427,3 @@ msgstr "Valor"
 #: templates/visualizacion/tritraining.html:8
 msgid "Specific statistics"
 msgstr "Estadísticas específicas"
-

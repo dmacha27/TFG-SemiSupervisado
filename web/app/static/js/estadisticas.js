@@ -198,9 +198,9 @@ function habilitar_clasificador(id_div_objetivo, checked, clasificador) {
  */
 function generargraficoestadistico(id_div_objetivo, datos_stats, dominio) {
 
-    let margin = {top: 10, right: 10, bottom: 45, left: 50},
-        width = 700 - margin.left - margin.right,
-        height = 350 - margin.top - margin.bottom;
+    let margin = {top: 10, right: 10, bottom: 50, left: 50},
+        width = 650 - margin.left - margin.right,
+        height = 325 - margin.top - margin.bottom;
 
     let statsvg = d3.select("#" + id_div_objetivo)
         .append("svg")
@@ -299,9 +299,9 @@ function generargraficoestadistico(id_div_objetivo, datos_stats, dominio) {
  * @param clf - indica si las líneas y puntos corresponde a un clasificador concreto o no
  */
 function anadirestadistica(id_div, datos_stats, stat, color, clf="no") {
-    let margin = {top: 10, right: 10, bottom: 45, left: 50},
-        width = 700 - margin.left - margin.right,
-        height = 350 - margin.top - margin.bottom;
+    let margin = {top: 10, right: 10, bottom: 50, left: 50},
+        width = 650 - margin.left - margin.right,
+        height = 325 - margin.top - margin.bottom;
 
     let lista = crearListaStat(datos_stats, stat);
 
