@@ -66,8 +66,10 @@
                 <h4>{{ gettext('General statistics') }}</h4>
                 <hr class="separacion"/>
                 <div id="zona_estadisticas_generales" class=" d-flex mt-4 justify-content-center align-items-center text-center">
-                    <div id="estadisticas_generales"></div>
-                    <div id="leyenda_estadisticas_generales"></div>
+                    <div class="d-flex">
+                        <div id="estadisticas_generales"></div>
+                        <div id="leyenda_estadisticas_generales" class="d-flex flex-column align-items-start m-auto" style="width: 12rem;"></div>
+                    </div>
                 </div>
                 <br>
                 {% block titulo_especificas %}{% endblock %}

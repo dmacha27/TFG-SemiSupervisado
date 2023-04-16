@@ -250,13 +250,24 @@ function generargraficoestadistico(id_div_objetivo, datos_stats, dominio) {
     let leyenda;
 
     if (datos_stats !== null) {
-        leyenda = d3.select("#leyenda_estadisticas_generales")
-            .append("svg");
+        leyenda = document.getElementById("leyenda_estadisticas_generales");
+        leyenda.innerHTML = "";
     }else{
-        leyenda = d3.select("#leyenda_estadisticas_especificas")
-            .append("svg");
+        leyenda = document.getElementById("leyenda_estadisticas_especificas");
+        leyenda.innerHTML = "";
     }
 
+    for (const d of dominio) {
+        //return color(parseInt(clase));
+        let span = document.createElement("span");
+        span.classList.add("text-left");
+        span.classList.add("text-break");
+        span.style.color = color(d);
+        span.innerHTML = d;
+        leyenda.appendChild(span);
+    }
+
+    /*
     let g_leyenda = leyenda.append("g");
 
     g_leyenda
@@ -276,6 +287,7 @@ function generargraficoestadistico(id_div_objetivo, datos_stats, dominio) {
     leyenda.attr("width", bbox.width +10)
         .attr("height", bbox.height + 10);
 
+    */
 
     // Con el gráfico creado se dibuja cada estadística
     // vinculando los eventos
