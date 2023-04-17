@@ -8,14 +8,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <title>{{ error }}</title>
     <style>
-        .error {
-            line-height: 200px;
-            margin-top: -100px;
-            position: absolute;
-            text-align: center;
-            top: 50%;
-            width: 100%;
-        }
         body {
             background-color: #4D7080;
         }
@@ -25,15 +17,12 @@
     </style>
 </head>
 <body>
-<div class="d-flex justify-content-center align-items-center w-100 h-100">
-
-</div>
-<div class="error text-white">
+<div class="d-flex flex-column justify-content-center align-items-center text-white" style="height: 100vh">
     <h1>{{ error }}</h1>
-    <hr class="separacion" style="width: 30vh"/>
+    <hr class="separacion" style="width: 5rem"/>
     <h1>{{ mensaje }}</h1>
-    <hr class="separacion" style="width: 45vh"/>
-    <a href="/" style="text-decoration: none; color: white;">{{ gettext('Go home') }}</a>
+    <hr class="separacion" style="width: 8rem"/>
+    <a href="/" class="text-white text-decoration-none mt-5">{{ gettext('Go home') }}</a>
 </div>
 </body>
 </html>

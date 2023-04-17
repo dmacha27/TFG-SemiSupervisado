@@ -33,14 +33,14 @@
         <label for="p_unlabelled">{{ gettext('Unlabelled percentage') }}: {{ tooltip(gettext('If already semi-supervised, it will be ignored')) }}</label>
         <div class="d-flex">
             <input type="range" class="form-range w-75" id="p_unlabelled" name="p_unlabelled" min="1" max="99" value=80 oninput="actualizarBadgePorcentaje(this.value,'p_unlabelled_badge')">
-            <span id="p_unlabelled_badge" class="badge bg-primary px-3 mx-2">80%</span>
+            <span id="p_unlabelled_badge" class="badge bg-primary px-3 mx-auto">80%</span>
         </div>
     </div>
     <div class="mb-3">
         <label for="p_test">{{ gettext('Test percentage (after unlabelled percentage)') }}:</label>
         <div class="d-flex">
             <input type="range" class="form-range w-75" id="p_test" name="p_test" min="1" max="99" value=20 oninput="actualizarBadgePorcentaje(this.value,'p_test_badge')">
-            <span id="p_test_badge" class="badge bg-primary px-3 mx-2">20%</span>
+            <span id="p_test_badge" class="badge bg-primary px-3 mx-auto">20%</span>
         </div>
     </div>
 {% endmacro %}
