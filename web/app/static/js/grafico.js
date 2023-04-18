@@ -451,8 +451,8 @@ function preparardataset_cotraining(datos) {
 
     let clasificadores = new Set();
 
-    for (let i = 0; i < dataset.length; i++){
-        clasificadores.add(dataset[i][4]);
+    for (let dato of dataset){
+        clasificadores.add(dato[4]);
     }
     clf_forma = Array.from(clasificadores);
 
@@ -582,8 +582,8 @@ function grafico_democraticcolearning(dataset) {
             .style("display", "block");
 
         function alguno_clasificado(puntos_posicion) {
-            for (let i = 0; i < puntos_posicion.length; i++) {
-                if (puntos_posicion[i].__data__[3] <= cont){
+            for (let punto_posicion of puntos_posicion) {
+                if (punto_posicion.__data__[3] <= cont){
                     return true;
                 }
             }
@@ -652,8 +652,8 @@ function databinding_tritaining(dataset) {
             .style("display", "block");
 
         function alguno_clasificado(puntos_posicion) {
-            for (let i = 0; i < puntos_posicion.length; i++) {
-                if (puntos_posicion[i].__data__[3].indexOf(cont) >= 0){
+            for (let punto_posicion of puntos_posicion) {
+                if (punto_posicion.__data__[3].indexOf(cont) >= 0){
                     return true;
                 }
             }

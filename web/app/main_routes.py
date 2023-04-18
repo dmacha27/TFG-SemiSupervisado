@@ -37,12 +37,12 @@ def subida():
         ya_hay_fichero = True
 
     if request.method == 'POST':
-        file = request.files['archivo']
-        if file.filename == '':
+        file_received = request.files['archivo']
+        if file_received.filename == '':
             return redirect(request.url)
-        if file:
-            filename = secure_filename(file.filename) + "-" + str(int(datetime.datetime.now().timestamp()))
+        if file_received:
+            filename = secure_filename(file_received.filename) + "-" + str(int(datetime.datetime.now().timestamp()))
             session['FICHERO'] = os.path.join(current_app.config['CARPETA_DATASETS'], filename)
-            file.save(os.path.join(current_app.config['CARPETA_DATASETS'], filename))
+            file_received.save(os.path.join(current_app.config['CARPETA_DATASETS'], filename))
 
     return render_template('subida.html', ya_hay_fichero=ya_hay_fichero)

@@ -30,7 +30,7 @@ def create_app():
     def get_locale():
         return request.accept_languages.best_match(['es', 'en'])
 
-    babel = Babel(app, locale_selector=get_locale)
+    Babel(app, locale_selector=get_locale)
 
     @app.context_processor
     def variables_globales():
@@ -65,28 +65,30 @@ def create_app():
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
 
+    template_error = 'error.html'
+
     @login_manager.user_loader
     def load_user(email):
         return User.query.filter_by(email=email).first()
 
     @app.errorhandler(500)
     def page_not_found(error):
-        return render_template('error.html', error=500, mensaje=gettext('Internal Server Error')), 500
+        return render_template(template_error, error=500, mensaje=gettext('Internal Server Error')), 500
 
     @app.errorhandler(404)
     def page_not_found(error):
-        return render_template('error.html', error=404, mensaje=gettext('Not found')), 404
+        return render_template(template_error, error=404, mensaje=gettext('Not found')), 404
 
     @app.errorhandler(403)
     def page_not_found(error):
-        return render_template('error.html', error=403, mensaje=gettext('Forbidden')), 403
+        return render_template(template_error, error=403, mensaje=gettext('Forbidden')), 403
 
     @app.errorhandler(401)
     def page_not_found(error):
-        return render_template('error.html', error=401, mensaje=gettext('Unauthorized')), 401
+        return render_template(template_error, error=401, mensaje=gettext('Unauthorized')), 401
 
     @app.errorhandler(400)
     def page_not_found(error):
-        return render_template('error.html', error=400, mensaje=gettext('Bad request')), 400
+        return render_template(template_error, error=400, mensaje=gettext('Bad request')), 400
 
     return app

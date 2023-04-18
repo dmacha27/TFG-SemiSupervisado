@@ -77,7 +77,7 @@ class CoTraining:
         iteration = 0
         stats = pd.DataFrame(columns=['Accuracy', 'Precision', 'Error', 'F1_score', 'Recall'])
 
-        ids = np.random.choice(len(x_u), size=self.u if self.u <= len(x_u) else len(x_u), replace=False)
+        ids = np.random.choice(len(x_u), size=min(self.u, len(x_u)), replace=False)
         s_u_s = x_u[ids]  # Selected unlabelled samples
         x_u = np.delete(x_u, ids, axis=0)
         positive = np.argmin(np.bincount(y_train)[::-1])
@@ -128,8 +128,9 @@ class CoTraining:
             s_u_s = np.delete(s_u_s, indexes, axis=0)
 
             # Preparación de datos para la siguiente iteración (reponer)
-            ids_replenish = np.random.choice(len(x_u), size=self.replenish if len(x_u) >= self.replenish else len(x_u),
+            ids_replenish = np.random.choice(len(x_u), size=min(self.replenish, len(x_u)),
                                              replace=False)
+
             s_u_s = np.append(s_u_s, x_u[ids_replenish], axis=0)
             x_u = np.delete(x_u, ids_replenish, axis=0)
 

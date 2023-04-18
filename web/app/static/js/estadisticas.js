@@ -29,10 +29,10 @@ function generarespecificas(specific_stats) {
     select.style.width = "25%";
     select.style.margin = "auto";
 
-    for (let i = 0; i < stats.length; i++) {
+    for (let stat of stats) {
         let option = document.createElement("option");
-        option.value = stats[i];
-        option.text = stats[i];
+        option.value = stat;
+        option.text = stat;
         select.appendChild(option);
     }
 
@@ -42,7 +42,6 @@ function generarespecificas(specific_stats) {
     });
 
     div_especificas.appendChild(select);
-
 
     // PARTE 2: Gráfico SVG
     let div_grafico = document.createElement("div");
@@ -55,11 +54,11 @@ function generarespecificas(specific_stats) {
         .domain(clasificadores)
         .range(d3.schemeCategory10);
 
-    for (let i = 0; i < clasificadores.length; i++) {
-        let datos_json = JSON.parse(specific_stats[clasificadores[i]]);
+    for (let clf of clasificadores) {
+        let datos_json = JSON.parse(specific_stats[clf]);
 
-        for (let j = 0; j < stats.length; j++) {
-            anadirestadistica(id_div_estadisticas, datos_json, stats[j], color, clasificadores[i]);
+        for (let stat of stats) {
+            anadirestadistica(id_div_estadisticas, datos_json, stat, color, clf);
         }
     }
 
@@ -89,10 +88,10 @@ function generarespecificas(specific_stats) {
 function seleccionarstat(id_div_estadisticas, stat_seleccionada, lista_stats) {
     let statsvg = d3.select("#" + id_div_estadisticas).select("svg").select("g");
 
-    for (let i = 0; i < lista_stats.length; i++) {
-        let pts = statsvg.selectAll('circle[stat='+ lista_stats[i] +']');
-        let lineas = statsvg.selectAll('line[stat='+ lista_stats[i] +']');
-        if (stat_seleccionada === lista_stats[i]){
+    for (let stat of lista_stats) {
+        let pts = statsvg.selectAll('circle[stat='+ stat +']');
+        let lineas = statsvg.selectAll('line[stat='+ stat +']');
+        if (stat_seleccionada === stat){
             // Aparte de ser la estadística seleccionada se tiene que cumplir que:
             // La estadística de los puntos y líneas deben ser solo las de la estadística seleccionada (en el select)
             // El clasificador de los puntos y líneas debe ser alguno de los seleccionados en los checkboxes
@@ -258,7 +257,6 @@ function generargraficoestadistico(id_div_objetivo, datos_stats, dominio) {
     }
 
     for (const d of dominio) {
-        //return color(parseInt(clase));
         let span = document.createElement("span");
         span.classList.add("text-left");
         span.classList.add("text-break");
@@ -266,28 +264,6 @@ function generargraficoestadistico(id_div_objetivo, datos_stats, dominio) {
         span.innerHTML = d;
         leyenda.appendChild(span);
     }
-
-    /*
-    let g_leyenda = leyenda.append("g");
-
-    g_leyenda
-        .selectAll("text")
-        .data(dominio)
-        .enter()
-        .append("text")
-        .text(function(d){ return d;})
-        .attr("y", function(d, i) { return (i+1) * 20; })
-        .style("fill", function(d){ return color(d);})
-
-    //Obtiene el mínimo tamaño que contiene a la leyenda.
-    let bbox = g_leyenda.node().getBBox();
-
-    //Al aplicar sus dimensiones se consigue que el SVG
-    //quede más pequeño
-    leyenda.attr("width", bbox.width +10)
-        .attr("height", bbox.height + 10);
-
-    */
 
     // Con el gráfico creado se dibuja cada estadística
     // vinculando los eventos

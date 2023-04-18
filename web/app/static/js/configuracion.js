@@ -108,8 +108,8 @@ function actualizarBadgePorcentaje(valor, id_badge) {
 MÉTODOS A ELIMINAR EN FINAL
  */
 function validarNumeroEntero(id,min,max) {
-    var value = document.getElementById(id).value;
-    var entero = parseInt(value)
+    let value = document.getElementById(id).value;
+    let entero = parseInt(value)
     if (entero < min || entero > max){
         alert("El número debe estar entre " + min + " y " + max);
         document.getElementById(id).value = "";
@@ -117,8 +117,8 @@ function validarNumeroEntero(id,min,max) {
 }
 
 function validarNumeroFlotante(id,min,max) {
-    var value = document.getElementById(id).value;
-    var entero = parseFloat(value)
+    let value = document.getElementById(id).value;
+    let entero = parseFloat(value)
     if (entero < min || entero > max){
         alert("El número debe estar entre " + min + " y " + max);
         document.getElementById(id).value = "";
