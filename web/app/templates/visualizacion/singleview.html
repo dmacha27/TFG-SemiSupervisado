@@ -1,0 +1,12 @@
+{% extends "visualizacion/base_visualizacion.html" %}
+{% block titulo_especificas %}
+    <h4>{{ gettext('Specific statistics') }}</h4>
+    <hr class="separacion" style="width: 10rem;"/>
+    <br>
+{% endblock %}
+{% block mas_estadisticas %}
+    <div class="d-flex">
+        <div id="estadisticas_especificas"></div>
+        <div id="leyenda_estadisticas_especificas" class="d-flex flex-column align-items-start m-auto" style="width: 12rem;"></div>
+    </div>
+{% endblock %}

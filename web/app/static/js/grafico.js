@@ -56,37 +56,12 @@ function inicializarGrafico(datos, preparar, binding) {
         .attr("dy", "1em")
         .attr("transform", "rotate(-90)")
         .text(cy);
-    /*
-    //Leyenda
-    let leyenda = d3.select("#leyenda_visualizacion")
-        .append("svg");
-
-    let g_leyenda = leyenda.append("g");
-
-    g_leyenda
-        .selectAll("text")
-        .data(Object.keys(mapa))
-        .enter()
-        .append("text")
-        .text(function(d){ return mapa[d];})
-        .attr("y", function(d, i) { return (i+1) * 20; })
-        .style("fill", function(d){ return color(parseInt(d));})
-
-    //Obtiene el mínimo tamaño que contiene a la leyenda.
-    let bbox = g_leyenda.node().getBBox();
-
-    //Al aplicar sus dimensiones se consigue que el SVG
-    //quede más pequeño
-    leyenda.attr("width", bbox.width +10)
-        .attr("height", bbox.height + 10);
-    */
 
     let leyenda = document.getElementById("leyenda_visualizacion");
 
     leyenda.innerHTML = "";
 
     for (const clase of Object.keys(mapa)) {
-        //return color(parseInt(clase));
         let span = document.createElement("span");
         span.style.color = color(parseInt(clase));
         span.innerHTML = mapa[clase];
