@@ -254,8 +254,7 @@ function grafico_selftraining(dataset) {
                             "<span style='color:"+ color(parseInt(dot[2])) +"'>" + mapa[dot[2]] + "</span>";
                     }
                 } else {
-                    return cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] + "<br>" +
-                        traducir('Classifier: Not classified') + "<br>" + traducir('Label: Not classified');
+                    return un_clasificador_return_no_clasificado(dot);
                 }
             })
             .style("left", (e.offsetX + 60) + "px")
@@ -488,8 +487,7 @@ function grafico_cotraining(dataset) {
                             "<span style='color:"+ color(parseInt(dot[2])) +"'>" + mapa[dot[2]] + "</span>";
                     }
                 } else {
-                    return cx + ": " + dot[0] + "<br>" + cy + ": " + dot[1] + "<br>" +
-                        traducir('Classifier: Not classified') + "<br>" + traducir('Label: Not classified');
+                    return un_clasificador_return_no_clasificado(dot);
                 }
             })
             .style("left", (e.offsetX + 60) + "px")
@@ -838,10 +836,16 @@ function puntos_a_gris() {
         .transition()
         .duration(500);
 }
+
 function tooltip_dato_inicial(dot) {
     return traducir('Initial data') + "<br>" + cx +": " + dot[0] +"<br>" + cy + ": " +
         dot[1] + "<br>" + traducir('Label') + ": " +
         "<span style='color:"+ color(parseInt(dot[2])) +"'>" + mapa[dot[2]] + "</span>";
+}
+
+function un_clasificador_return_no_clasificado(dot) {
+    return cx + ": " + dot[0] + "<br>" + cy + ": " + dot[1] + "<br>" + traducir('Classifier: Not classified') +
+        "<br>" + traducir('Label: Not classified');
 }
 
 function tooltip_dato_no_inicial(p_data) {
