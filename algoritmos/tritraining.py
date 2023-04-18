@@ -97,7 +97,6 @@ class TriTraining:
             for i in range(len(self.clfs)):
                 l_i_x[i] = []
                 l_i_y[i] = []
-                e_i[i] = 0
                 updates[i] = False
                 e_i[i] = self._measure_error(self.others[i], x_train, y_train)
 

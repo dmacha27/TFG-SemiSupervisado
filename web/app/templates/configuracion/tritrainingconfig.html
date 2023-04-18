@@ -1,16 +1,7 @@
 {% extends "configuracion/singleviewconfig.html" %}
 {% block explicaciones %}
-    <p>{{ gettext('Democratic Co-Learning is a semi-supervised learning algorithm along the lines of Co-Training
-        (various classifiers). The substantial difference is that they do not work with two (or
-        more) set of attributes, in this case there is only one set of attributes ("single-view").
-        Starting with the labelled data, several classifiers do a weighted voting over those not labelled.
-        That means that, for an instance, its new label will be the one voted by the majority.
-        Furthermote, for those classifiers that do not vote as the majority, the instance (with the majority label)
-        is added to their training set. This forces those misclassified classifiers to learn it in the next iteration.
-        The entire process is repeated until no more instances are added to any training set, this is achieved when
-        the accuracy does not improve despite the addition of new pseudo-labelled instances.') }}</p>
+    <p>{{ gettext('TRITRAINING') }}</p>
 {% endblock %}
 {% block pseudocodigo %}
-    <img src="{{ gettext('/pseudocodigos/en/DemocraticCoLearningFit.png') }}" width="75%" />
-    <img src="{{ gettext('/pseudocodigos/en/DemocraticCoLearningCombine.png') }}" width="75%" />
+    <img src="" width="75%" alt="{{ gettext('Tri-Training Pseudocode') }}"/>
 {% endblock %}

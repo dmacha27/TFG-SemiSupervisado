@@ -11,7 +11,9 @@ from algoritmos.utilidades.common import obtain_train_unlabelled, calculate_log_
 
 
 class SelfTraining:
-
+    """
+    Algoritmo Self-Training.
+    """
     def __init__(self, clf, n=None, th=None, n_iter=20):
         """
         Algoritmo SelfTraining, preparado para la obtención de todo
@@ -20,7 +22,8 @@ class SelfTraining:
         :param clf: clasificador a usar.
         :param n: número de mejores predicciones a añadir en cada iteración.
         :param th: límite (threshold) de probabilidad de correcta clasificación a considerar.
-        :param n_iter: número de iteraciones (si n_iter == 0 finalizará al terminar de clasificar todas las muestras).
+        :param n_iter: número de iteraciones (si n_iter == 0 finalizará al terminar
+                        de clasificar todas las muestras).
         """
         self.clf = clf
         self.n = n
@@ -32,7 +35,8 @@ class SelfTraining:
         if self.n is not None and self.th is not None:
             raise ValueError("Se debe seleccionar un único criterio de adición")
         if self.clf is None or not issubclass(type(self.clf), BaseEstimator):
-            raise ValueError("El clasificador base no puede ser nulo y tiene que ser un estimador de Scikit-Learn")
+            raise ValueError("El clasificador base no puede ser nulo y "
+                             "tiene que ser un estimador de Scikit-Learn")
         if self.n_iter < 0:
             raise ValueError("El número de iteraciones no puede ser negativo")
 
