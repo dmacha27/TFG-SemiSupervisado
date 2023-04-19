@@ -1,11 +1,11 @@
 import os
 import re
-import sys
 
 from flask import Flask, request, render_template
 from flask_babel import Babel, gettext
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_wtf import CSRFProtect
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 db = SQLAlchemy()
@@ -20,17 +20,18 @@ def create_app():
     app.wsgi_app = ProxyFix(
         app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
     )
+    app.config['SESSION_TYPE'] = 'filesystem'
     app.secret_key = "ae4c977b14e2ecf38d485869018ec8f924b312132ee3d11d1ce755cdff9bc0af"
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     app.config.update(SESSION_COOKIE_SAMESITE='Strict')
     app.config['CARPETA_DATASETS'] = os.path.join(os.path.basename(os.path.dirname(__file__)), 'datasets')
-    app.config['SESSION_TYPE'] = 'filesystem'
     db.init_app(app)
 
     def get_locale():
         return request.accept_languages.best_match(['es', 'en'])
 
     Babel(app, locale_selector=get_locale)
+    CSRFProtect(app)
 
     @app.context_processor
     def variables_globales():
@@ -50,8 +51,10 @@ def create_app():
     from .configuration_routes import configuration_bp
     from .visualization_routes import visualization_bp
     from .data_routes import data_bp
+    from .user_routes import users_bp
 
     app.register_blueprint(main_bp, url_prefix='/')
+    app.register_blueprint(users_bp, url_prefix='/')
     app.register_blueprint(configuration_bp, url_prefix='/configuracion')
     app.register_blueprint(visualization_bp, url_prefix='/visualizacion')
     app.register_blueprint(data_bp, url_prefix='/datos')
@@ -65,11 +68,11 @@ def create_app():
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
 
-    template_error = 'error.html'
-
     @login_manager.user_loader
-    def load_user(email):
-        return User.query.filter_by(email=email).first()
+    def load_user(user_id):
+        return User.query.get(int(user_id))
+
+    template_error = 'error.html'
 
     @app.errorhandler(500)
     def page_not_found(error):

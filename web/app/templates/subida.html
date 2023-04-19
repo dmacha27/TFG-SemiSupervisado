@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {%  from "macros.html" import tooltip %}
+{% block head %}
+    {{ super() }}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+{% endblock %}
 {% block title %}{{ gettext('Dataset selection') }}{% endblock %}
 {% block content %}
     <button id="btn_volver" type="button" onclick="history.back()" class="btn sticky-top">

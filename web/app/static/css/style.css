@@ -27,6 +27,16 @@ body {
     background-color: #23343B;
 }
 
+.dropdown:hover>.dropdown-menu {
+    display: block;
+    right: 0;
+    left: auto;
+}
+
+.dropdown>.dropdown-toggle:active {
+    pointer-events: none;
+}
+
 .separacion {
     border: none;
     height: 5px;

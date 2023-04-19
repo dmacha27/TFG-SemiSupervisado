@@ -47,7 +47,7 @@ function generarespecificas(specific_stats) {
     let div_grafico = document.createElement("div");
     div_grafico.setAttribute("id", id_div_estadisticas);
     div_especificas.appendChild(div_grafico);
-    // Con null se indica que no genere las líneas de estadísticas, se delega a esta función
+    // Con null se indica que no genere las líneas de estadísticas, se delega a esta misma (actual) función
     generargraficoestadistico(id_div_estadisticas, null, clasificadores);
 
     let color = d3.scaleOrdinal()
@@ -70,7 +70,7 @@ function generarespecificas(specific_stats) {
     generarcheckboxes_clasificadores(id_div_checboxes, id_div_estadisticas, clasificadores);
 
 
-    // Para que al cargar la página muestre la primera estadística
+    // Para que al cargar la página, muestre la primera estadística
     seleccionarstat(id_div_estadisticas, stats[0], stats);
 
 }

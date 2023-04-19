@@ -64,6 +64,7 @@ function subir(e){
         }
     };
 
+    xhr.setRequestHeader('X-CSRFToken', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
     let params= new FormData();
     params.append('archivo',archivo[0])
     xhr.send(params);

@@ -12,3 +12,5 @@ pytest~=7.2.1
 sslearn~=1.0.2
 Werkzeug~=2.2.2
 matplotlib~=3.7.1
+WTForms~=3.0.1
+seaborn~=0.12.2

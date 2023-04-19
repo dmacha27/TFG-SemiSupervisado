@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-04-16 21:31+0200\n"
+"POT-Creation-Date: 2023-04-19 22:26+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,23 +18,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.11.0\n"
 
-#: __init__.py:74
+#: __init__.py:77
 msgid "Internal Server Error"
 msgstr "Error interno del servidor"
 
-#: __init__.py:78
+#: __init__.py:81
 msgid "Not found"
 msgstr "No encontrado"
 
-#: __init__.py:82
+#: __init__.py:85
 msgid "Forbidden"
 msgstr "Petición denegada por el servidor"
 
-#: __init__.py:86
+#: __init__.py:89
 msgid "Unauthorized"
 msgstr "No autorizado"
 
-#: __init__.py:90
+#: __init__.py:93
 msgid "Bad request"
 msgstr "Mala petición"
 
@@ -46,15 +46,63 @@ msgstr "Debe subir un archivo"
 msgid "File must be ARFF or CSV"
 msgstr "El fichero debe ser ARFF o CSV"
 
+#: forms.py:8 forms.py:12 forms.py:18
+msgid "Name"
+msgstr "Nombre"
+
+#: forms.py:14 forms.py:36 forms.py:37
+msgid "Email"
+msgstr "Correo electrónico"
+
+#: forms.py:20 forms.py:24 forms.py:30 forms.py:39 forms.py:40
+msgid "Password"
+msgstr "Contraseña"
+
+#: forms.py:26
+msgid "Confirm password"
+msgstr "Confirmar contraseña"
+
+#: forms.py:32 templates/base.html:58 templates/usuarios/registro.html:10
+msgid "Sign Up"
+msgstr "Registrarse"
+
+#: forms.py:42
+msgid "Log In"
+msgstr "Iniciar sesión"
+
 #: main_routes.py:32
 msgid "You must select an algorithm"
 msgstr "Debe seleccionar un algoritmo"
+
+#: user_routes.py:23
+msgid "Loging successful!"
+msgstr "¡Inicio de sesión correcto!"
+
+#: user_routes.py:27
+msgid "Incorrect password!"
+msgstr "¡Contraseña incorrecta!"
+
+#: user_routes.py:29
+msgid "Email not found!"
+msgstr "¡Correo electrónico incorrecto!"
+
+#: user_routes.py:55
+msgid "Account created!"
+msgstr "¡Cuenta creada!"
 
 #: visualization_routes.py:15
 msgid "You must select the parameters of the algorithm"
 msgstr "Debe seleccionar los parámetros del algoritmo"
 
-#: templates/error.html:36
+#: templates/base.html:43
+msgid "Log Out"
+msgstr "Cerrar sesión"
+
+#: templates/base.html:61 templates/usuarios/login.html:10
+msgid "Login"
+msgstr "Iniciar sesión"
+
+#: templates/error.html:29
 msgid "Go home"
 msgstr "Ir al inicio"
 
@@ -127,11 +175,13 @@ msgstr "Porcentaje de test (después de aplicar el no etiquetados)"
 msgid "Select classifier"
 msgstr "Selecciona clasificador"
 
-#: templates/subida.html:3
+#: templates/subida.html:3 templates/usuarios/login.html:2
+#: templates/usuarios/registro.html:2
 msgid "Dataset selection"
 msgstr "Selección del conjunto de datos"
 
 #: templates/configuracion/base_configuracion.html:8 templates/subida.html:8
+#: templates/usuarios/login.html:7 templates/usuarios/registro.html:7
 #: templates/visualizacion/base_visualizacion.html:13
 msgid "Go back"
 msgstr "Volver"
@@ -263,8 +313,12 @@ msgstr ""
 msgid "/pseudocodigos/en/CoTraining.png"
 msgstr "/pseudocodigos/es/CoTraining.png"
 
+#: templates/configuracion/cotrainingconfig.html:67
+#: templates/visualizacion/cotraining.html:4
+msgid "Co-Training Pseudocode"
+msgstr ""
+
 #: templates/configuracion/democraticcolearningconfig.html:3
-#: templates/configuracion/tritrainingconfig.html:3
 msgid ""
 "Democratic Co-Learning is a semi-supervised learning algorithm along the "
 "lines of Co-Training\n"
@@ -301,18 +355,24 @@ msgstr ""
 " adición de nuevas instancias pseudoetiquetadas. "
 
 #: templates/configuracion/democraticcolearningconfig.html:14
-#: templates/configuracion/tritrainingconfig.html:14
 #: templates/visualizacion/democraticcolearning.html:4
-#: templates/visualizacion/tritraining.html:4
 msgid "/pseudocodigos/en/DemocraticCoLearningFit.png"
 msgstr "/pseudocodigos/es/DemocraticCoLearningEntrenar.png"
 
+#: templates/configuracion/democraticcolearningconfig.html:14
+#: templates/visualizacion/democraticcolearning.html:4
+msgid "Democratic Co-Learning Fit Pseudocode"
+msgstr "Pseudocódigo del Entrenamiento de Democratic Co-Learning"
+
 #: templates/configuracion/democraticcolearningconfig.html:15
-#: templates/configuracion/tritrainingconfig.html:15
 #: templates/visualizacion/democraticcolearning.html:5
-#: templates/visualizacion/tritraining.html:5
 msgid "/pseudocodigos/en/DemocraticCoLearningCombine.png"
 msgstr "/pseudocodigos/es/DemocraticCoLearningCombinar.png"
+
+#: templates/configuracion/democraticcolearningconfig.html:15
+#: templates/visualizacion/democraticcolearning.html:5
+msgid "Democratic Co-Learning Combine Pseudocode"
+msgstr "Pseudocódigo de la Combinación de Democratic Co-Learning"
 
 #: templates/configuracion/selftrainingconfig.html:10
 msgid "N (Number of instances to select in each iteration)"
@@ -361,69 +421,83 @@ msgstr ""
 msgid "/pseudocodigos/en/SelfTraining.png"
 msgstr "/pseudocodigos/es/SelfTraining.png"
 
+#: templates/configuracion/selftrainingconfig.html:50
+#: templates/visualizacion/selftraining.html:4
+msgid "Self-Training Pseudocode"
+msgstr "Pseudocódigo de Self-Training"
+
+#: templates/configuracion/tritrainingconfig.html:3
+msgid "TRITRAINING"
+msgstr ""
+
+#: templates/configuracion/tritrainingconfig.html:6
+#: templates/visualizacion/tritraining.html:4
+msgid "Tri-Training Pseudocode"
+msgstr "Pseudocódigo de Tri-Training"
+
 #: templates/visualizacion/base_visualizacion.html:26
 msgid "Main visualization"
 msgstr "Visualización principal"
 
-#: templates/visualizacion/base_visualizacion.html:33
+#: templates/visualizacion/base_visualizacion.html:35
 msgid "Zoom reset"
 msgstr "Reiniciar Zoom"
 
-#: templates/visualizacion/base_visualizacion.html:35
-#: templates/visualizacion/base_visualizacion.html:91
+#: templates/visualizacion/base_visualizacion.html:37
+#: templates/visualizacion/base_visualizacion.html:95
 msgid "Iteration"
 msgstr "Iteración"
 
-#: templates/visualizacion/base_visualizacion.html:39
+#: templates/visualizacion/base_visualizacion.html:41
 msgid "Previous"
 msgstr "Anterior"
 
-#: templates/visualizacion/base_visualizacion.html:40
-#: templates/visualizacion/base_visualizacion.html:89
+#: templates/visualizacion/base_visualizacion.html:42
+#: templates/visualizacion/base_visualizacion.html:93
 msgid "Play"
 msgstr "Reproducir"
 
-#: templates/visualizacion/base_visualizacion.html:41
+#: templates/visualizacion/base_visualizacion.html:43
 msgid "Next"
 msgstr "Siguiente"
 
-#: templates/visualizacion/base_visualizacion.html:53
+#: templates/visualizacion/base_visualizacion.html:55
 msgid "Pseudocode"
 msgstr "Pseudocódigo"
 
-#: templates/visualizacion/base_visualizacion.html:64
+#: templates/visualizacion/base_visualizacion.html:66
 msgid "General statistics"
 msgstr "Estadísticas generales"
 
-#: templates/visualizacion/base_visualizacion.html:83
+#: templates/visualizacion/base_visualizacion.html:87
 msgid "Initial data"
 msgstr "Dato inicial"
 
-#: templates/visualizacion/base_visualizacion.html:84
+#: templates/visualizacion/base_visualizacion.html:88
 msgid "Label"
 msgstr "Etiqueta"
 
-#: templates/visualizacion/base_visualizacion.html:85
+#: templates/visualizacion/base_visualizacion.html:89
 msgid "Classifier"
 msgstr "Clasificador"
 
-#: templates/visualizacion/base_visualizacion.html:86
+#: templates/visualizacion/base_visualizacion.html:90
 msgid "Classifier: Not classified"
 msgstr "Clasificador: No clasificado"
 
-#: templates/visualizacion/base_visualizacion.html:87
+#: templates/visualizacion/base_visualizacion.html:91
 msgid "Label: Not classified"
 msgstr "Etiqueta: No clasificado"
 
-#: templates/visualizacion/base_visualizacion.html:88
+#: templates/visualizacion/base_visualizacion.html:92
 msgid "Pause"
 msgstr "Pausar"
 
-#: templates/visualizacion/base_visualizacion.html:90
+#: templates/visualizacion/base_visualizacion.html:94
 msgid "Measure"
 msgstr "Valor"
 
-#: templates/visualizacion/democraticcolearning.html:8
-#: templates/visualizacion/tritraining.html:8
+#: templates/visualizacion/singleview.html:3
 msgid "Specific statistics"
 msgstr "Estadísticas específicas"
+
