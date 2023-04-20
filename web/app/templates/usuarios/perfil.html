@@ -1,82 +1,61 @@
-{% extends "base.html" %}
-{% block content %}
-    <button id="btn_volver" type="button" onclick="history.back()" class="btn sticky-top">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 25 18">
-            <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"></path>
-        </svg>{{ gettext('Go back') }}</button>
-    <div class="container-fluid mt-1">
-        <div class="row">
-            <div class="col-md">
-                <div class="rounded-4 p-3 m-2 shadow-lg">
-                    <div class="text-center">
-                        <h4>{{ gettext('Profile') }}</h4>
-                        <hr class="separacion" style="width: 8rem;"/>
-                    </div>
-                    {{ current_user.id }}
-                    {{ current_user.name }}
-                    {{ current_user.email }}
-                    {{ current_user.ultimo_login.strftime("%Y-%m-%d %H:%M:%S") }}
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="rounded-4 p-3 m-2 shadow-lg">
-                    <div class="text-center">
-                        <h4>{{ gettext('Edit profile') }}</h4>
-                        <hr class="separacion" style="width: 8rem;"/>
-                    </div>
-                    <form method="POST">
-                        {{ form.csrf_token }}
-                        <div class="form-group mt-3 mx-5">
-                            {{ form.name.label }}
-                            {{ form.name(class_="form-control", value_=current_user.name) }}
-                            {% if form.name.errors %}
-                                <div class="alert alert-danger text-break">
-                                    {% for error in form.name.errors %}
-                                        {{ error }}<br>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-                        <div class="form-group mt-3 mx-5">
-                            {{ form.email.label }}
-                            {{ form.email(class_="form-control", value_=current_user.email) }}
-                            {% if form.email.errors %}
-                                <div class="alert alert-danger text-break">
-                                    {% for error in form.email.errors %}
-                                        {{ error }}<br>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-                        <div class="form-group mt-3 mx-5">
-                            {{ form.actual_password.label }}
-                            {{ form.actual_password(class_="form-control") }}
-                            {% if form.actual_password.errors %}
-                                <div class="alert alert-danger text-break">
-                                    {% for error in form.actual_password.errors %}
-                                        {{ error }}<br>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-                        <div class="form-group mt-3 mx-5">
-                            {{ form.new_password.label }}
-                            {{ form.new_password(class_="form-control") }}
-                            {% if form.new_password.errors %}
-                                <div class="alert alert-danger text-break">
-                                    {% for error in form.new_password.errors %}
-                                        {{ error }}<br>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-                        <div class="d-flex justify-content-center mt-3">
-                            <button type="submit" class="btn btn-primary">{{ gettext('Submit') }}</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+{% extends "usuarios/base_user.html" %}
+{% block title %}{{ gettext('My Profile') }}{% endblock %}
+{% block title_content %}{{ gettext('My Profile') }}{% endblock %}
+{% block funcion %}
+    <div class="text-center">
+        <h4>{{ gettext('Edit profile') }}</h4>
+        <hr class="separacion" style="width: 8rem;"/>
     </div>
+    <form method="POST">
+        {{ form.csrf_token }}
+        <div class="form-group mt-3 mx-5">
+            {{ form.name.label }}
+            {{ form.name(class_="form-control", value_=current_user.name) }}
+            {% if form.name.errors %}
+                <div class="alert alert-danger text-break">
+                    {% for error in form.name.errors %}
+                        {{ error }}<br>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group mt-3 mx-5">
+            {{ form.email.label }}
+            {{ form.email(class_="form-control", value_=current_user.email) }}
+            {% if form.email.errors %}
+                <div class="alert alert-danger text-break">
+                    {% for error in form.email.errors %}
+                        {{ error }}<br>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group mt-3 mx-5">
+            {{ form.actual_password.label }}
+            {{ form.actual_password(class_="form-control") }}
+            {% if form.actual_password.errors %}
+                <div class="alert alert-danger text-break">
+                    {% for error in form.actual_password.errors %}
+                        {{ error }}<br>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group mt-3 mx-5">
+            {{ form.new_password.label }}
+            {{ form.new_password(class_="form-control") }}
+            {% if form.new_password.errors %}
+                <div class="alert alert-danger text-break">
+                    {% for error in form.new_password.errors %}
+                        {{ error }}<br>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            <button type="submit" class="btn btn-primary">{{ gettext('Submit') }}</button>
+        </div>
+    </form>
 {% endblock %}
+
 

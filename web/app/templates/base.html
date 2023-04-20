@@ -47,9 +47,9 @@
                             {{ current_user.name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#">My Space</a></li>
+                            <li><a class="dropdown-item" href="/miespacio">{{ gettext('My Space') }}</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/perfil/{{ current_user.id }}">Profile</a></li>
+                            <li><a class="dropdown-item" href="/perfil/{{ current_user.id }}">{{ gettext('Profile') }}</a></li>
                         </ul>
                     </li>
 

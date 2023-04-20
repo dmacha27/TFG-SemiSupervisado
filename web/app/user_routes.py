@@ -70,6 +70,7 @@ def registrar():
 
 
 @users_bp.route('/perfil/<id_usuario>', methods=['GET', 'POST'])
+@login_required
 def editar(id_usuario):
     form = UserForm(request.form)
 
@@ -106,3 +107,9 @@ def editar(id_usuario):
         return redirect(url_for('main_bp.inicio'))
 
     return render_template("usuarios/perfil.html", form=form)
+
+
+@users_bp.route('/miespacio', methods=['GET'])
+@login_required
+def miespacio():
+    return render_template("usuarios/miespacio.html")

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-04-20 21:45+0200\n"
+"POT-Creation-Date: 2023-04-20 23:39+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -79,16 +79,14 @@ msgid "Loging successful!"
 msgstr "¡Inicio de sesión correcto!"
 
 #: user_routes.py:37
-#, fuzzy
 msgid "Incorrect password"
-msgstr "¡Contraseña incorrecta!"
+msgstr "Contraseña incorrecta"
 
 #: user_routes.py:39
-#, fuzzy
 msgid "Email not found"
-msgstr "¡Correo electrónico incorrecto!"
+msgstr "Correo electrónico no encontrado"
 
-#: user_routes.py:55 user_routes.py:94
+#: user_routes.py:55 user_routes.py:95
 msgid "Email already exists"
 msgstr "El correo electrónico ya existe"
 
@@ -96,18 +94,17 @@ msgstr "El correo electrónico ya existe"
 msgid "Account created!"
 msgstr "¡Cuenta creada!"
 
-#: user_routes.py:78
+#: user_routes.py:79
 msgid "User doesn't exist"
 msgstr "El usuario no existe"
 
-#: user_routes.py:89
+#: user_routes.py:90
 msgid "Incorrect actual password"
 msgstr "Contraseña actual incorrecta"
 
-#: user_routes.py:105
-#, fuzzy
+#: user_routes.py:106
 msgid "Account updated!"
-msgstr "¡Cuenta creada!"
+msgstr "¡Cuenta actualizada!"
 
 #: visualization_routes.py:15
 msgid "You must select the parameters of the algorithm"
@@ -117,7 +114,16 @@ msgstr "Debe seleccionar los parámetros del algoritmo"
 msgid "Log Out"
 msgstr "Cerrar sesión"
 
-#: templates/base.html:58 templates/usuarios/base_user.html:9
+#: templates/base.html:50 templates/usuarios/miespacio.html:11
+#: templates/usuarios/miespacio.html:12
+msgid "My Space"
+msgstr "Mi Espacio"
+
+#: templates/base.html:52 templates/usuarios/base_user.html:16
+msgid "Profile"
+msgstr "Perfil"
+
+#: templates/base.html:58 templates/usuarios/base_form.html:9
 #: templates/usuarios/registro.html:2
 msgid "Sign Up"
 msgstr "Registrarse"
@@ -204,7 +210,7 @@ msgid "Dataset selection"
 msgstr "Selección del conjunto de datos"
 
 #: templates/configuracion/base_configuracion.html:8 templates/subida.html:12
-#: templates/usuarios/base_user.html:6 templates/usuarios/perfil.html:6
+#: templates/usuarios/base_form.html:6 templates/usuarios/base_user.html:6
 #: templates/visualizacion/base_visualizacion.html:14
 msgid "Go back"
 msgstr "Volver"
@@ -458,7 +464,7 @@ msgstr ""
 msgid "Tri-Training Pseudocode"
 msgstr "Pseudocódigo de Tri-Training"
 
-#: templates/usuarios/base_user.html:17 templates/usuarios/perfil.html:74
+#: templates/usuarios/base_form.html:17 templates/usuarios/perfil.html:56
 msgid "Submit"
 msgstr "Enviar"
 
@@ -466,11 +472,23 @@ msgstr "Enviar"
 msgid "Log In"
 msgstr "Iniciar sesión"
 
-#: templates/usuarios/perfil.html:12
-msgid "Profile"
-msgstr "Perfil"
+#: templates/usuarios/miespacio.html:17
+msgid "File dataset"
+msgstr "Conjunto de datos"
 
-#: templates/usuarios/perfil.html:24
+#: templates/usuarios/miespacio.html:18
+msgid "Date"
+msgstr "Fecha"
+
+#: templates/usuarios/miespacio.html:19
+msgid "Actions"
+msgstr "Acciones"
+
+#: templates/usuarios/perfil.html:2 templates/usuarios/perfil.html:3
+msgid "My Profile"
+msgstr "Mi Perfil"
+
+#: templates/usuarios/perfil.html:6
 msgid "Edit profile"
 msgstr "Editar perfil"
 
