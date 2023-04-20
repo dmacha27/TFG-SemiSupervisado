@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-04-19 22:26+0200\n"
+"POT-Creation-Date: 2023-04-20 21:45+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,43 +18,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.11.0\n"
 
-#: __init__.py:77
+#: __init__.py:81
 msgid "Internal Server Error"
 msgstr "Error interno del servidor"
 
-#: __init__.py:81
+#: __init__.py:85
 msgid "Not found"
 msgstr "No encontrado"
 
-#: __init__.py:85
+#: __init__.py:89
 msgid "Forbidden"
 msgstr "Petición denegada por el servidor"
 
-#: __init__.py:89
+#: __init__.py:93
 msgid "Unauthorized"
 msgstr "No autorizado"
 
-#: __init__.py:93
+#: __init__.py:97
 msgid "Bad request"
 msgstr "Mala petición"
 
-#: configuration_routes.py:16
+#: configuration_routes.py:17
 msgid "You must upload a file"
 msgstr "Debe subir un archivo"
 
-#: configuration_routes.py:21
+#: configuration_routes.py:22
 msgid "File must be ARFF or CSV"
 msgstr "El fichero debe ser ARFF o CSV"
 
-#: forms.py:8 forms.py:12 forms.py:18
+#: forms.py:8 forms.py:12 forms.py:42 forms.py:46
 msgid "Name"
 msgstr "Nombre"
 
-#: forms.py:14 forms.py:36 forms.py:37
+#: forms.py:14 forms.py:18 forms.py:34 forms.py:35 forms.py:48 forms.py:51
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: forms.py:20 forms.py:24 forms.py:30 forms.py:39 forms.py:40
+#: forms.py:20 forms.py:24 forms.py:30 forms.py:37 forms.py:38
 msgid "Password"
 msgstr "Contraseña"
 
@@ -62,32 +62,51 @@ msgstr "Contraseña"
 msgid "Confirm password"
 msgstr "Confirmar contraseña"
 
-#: forms.py:32 templates/base.html:58 templates/usuarios/registro.html:10
-msgid "Sign Up"
-msgstr "Registrarse"
+#: forms.py:53 forms.py:57
+msgid "Actual password"
+msgstr "Contraseña actual"
 
-#: forms.py:42
-msgid "Log In"
-msgstr "Iniciar sesión"
+#: forms.py:59 forms.py:62
+msgid "New password"
+msgstr "Nueva contraseña"
 
 #: main_routes.py:32
 msgid "You must select an algorithm"
 msgstr "Debe seleccionar un algoritmo"
 
-#: user_routes.py:23
+#: user_routes.py:32
 msgid "Loging successful!"
 msgstr "¡Inicio de sesión correcto!"
 
-#: user_routes.py:27
-msgid "Incorrect password!"
+#: user_routes.py:37
+#, fuzzy
+msgid "Incorrect password"
 msgstr "¡Contraseña incorrecta!"
 
-#: user_routes.py:29
-msgid "Email not found!"
+#: user_routes.py:39
+#, fuzzy
+msgid "Email not found"
 msgstr "¡Correo electrónico incorrecto!"
 
-#: user_routes.py:55
+#: user_routes.py:55 user_routes.py:94
+msgid "Email already exists"
+msgstr "El correo electrónico ya existe"
+
+#: user_routes.py:66
 msgid "Account created!"
+msgstr "¡Cuenta creada!"
+
+#: user_routes.py:78
+msgid "User doesn't exist"
+msgstr "El usuario no existe"
+
+#: user_routes.py:89
+msgid "Incorrect actual password"
+msgstr "Contraseña actual incorrecta"
+
+#: user_routes.py:105
+#, fuzzy
+msgid "Account updated!"
 msgstr "¡Cuenta creada!"
 
 #: visualization_routes.py:15
@@ -98,7 +117,12 @@ msgstr "Debe seleccionar los parámetros del algoritmo"
 msgid "Log Out"
 msgstr "Cerrar sesión"
 
-#: templates/base.html:61 templates/usuarios/login.html:10
+#: templates/base.html:58 templates/usuarios/base_user.html:9
+#: templates/usuarios/registro.html:2
+msgid "Sign Up"
+msgstr "Registrarse"
+
+#: templates/base.html:61
 msgid "Login"
 msgstr "Iniciar sesión"
 
@@ -175,54 +199,53 @@ msgstr "Porcentaje de test (después de aplicar el no etiquetados)"
 msgid "Select classifier"
 msgstr "Selecciona clasificador"
 
-#: templates/subida.html:3 templates/usuarios/login.html:2
-#: templates/usuarios/registro.html:2
+#: templates/subida.html:7
 msgid "Dataset selection"
 msgstr "Selección del conjunto de datos"
 
-#: templates/configuracion/base_configuracion.html:8 templates/subida.html:8
-#: templates/usuarios/login.html:7 templates/usuarios/registro.html:7
-#: templates/visualizacion/base_visualizacion.html:13
+#: templates/configuracion/base_configuracion.html:8 templates/subida.html:12
+#: templates/usuarios/base_user.html:6 templates/usuarios/perfil.html:6
+#: templates/visualizacion/base_visualizacion.html:14
 msgid "Go back"
 msgstr "Volver"
 
-#: templates/subida.html:10
+#: templates/subida.html:14
 msgid "Dataset upload"
 msgstr "Subida del conjunto de datos"
 
-#: templates/subida.html:16
+#: templates/subida.html:20
 msgid "File selection"
 msgstr "Selección de fichero"
 
-#: templates/subida.html:24
+#: templates/subida.html:28
 msgid "Allowed extensions: .CSV & .ARFF"
 msgstr "Extensiones permitidas: .CSV & .ARFF"
 
-#: templates/subida.html:25
+#: templates/subida.html:29
 msgid "Drag and drop your file"
 msgstr "Arrastra y suelta tu archivo"
 
-#: templates/subida.html:26
+#: templates/subida.html:30
 msgid "or"
 msgstr "o"
 
-#: templates/subida.html:28
+#: templates/subida.html:32
 msgid "Choose file"
 msgstr "Selecciona fichero"
 
-#: templates/subida.html:34
+#: templates/subida.html:38
 msgid "completed"
 msgstr "completado"
 
-#: templates/subida.html:43
+#: templates/subida.html:47
 msgid "Previous file detected: "
 msgstr "Fichero previo detectado: "
 
-#: templates/subida.html:44 templates/subida.html:46
+#: templates/subida.html:48 templates/subida.html:50
 msgid "Configure algorithm"
 msgstr "Configurar algoritmo"
 
-#: templates/subida.html:50
+#: templates/subida.html:54
 msgid "Download test file"
 msgstr "Descargar fichero de prueba"
 
@@ -231,7 +254,7 @@ msgid "Run configuration"
 msgstr "Configuración de la ejecución"
 
 #: templates/configuracion/base_configuracion.html:8
-#: templates/visualizacion/base_visualizacion.html:13
+#: templates/visualizacion/base_visualizacion.html:14
 msgid "Dataset"
 msgstr "Conjunto de datos"
 
@@ -316,7 +339,7 @@ msgstr "/pseudocodigos/es/CoTraining.png"
 #: templates/configuracion/cotrainingconfig.html:67
 #: templates/visualizacion/cotraining.html:4
 msgid "Co-Training Pseudocode"
-msgstr ""
+msgstr "Pseudocódigo de Co-Training"
 
 #: templates/configuracion/democraticcolearningconfig.html:3
 msgid ""
@@ -435,65 +458,81 @@ msgstr ""
 msgid "Tri-Training Pseudocode"
 msgstr "Pseudocódigo de Tri-Training"
 
-#: templates/visualizacion/base_visualizacion.html:26
+#: templates/usuarios/base_user.html:17 templates/usuarios/perfil.html:74
+msgid "Submit"
+msgstr "Enviar"
+
+#: templates/usuarios/login.html:2
+msgid "Log In"
+msgstr "Iniciar sesión"
+
+#: templates/usuarios/perfil.html:12
+msgid "Profile"
+msgstr "Perfil"
+
+#: templates/usuarios/perfil.html:24
+msgid "Edit profile"
+msgstr "Editar perfil"
+
+#: templates/visualizacion/base_visualizacion.html:27
 msgid "Main visualization"
 msgstr "Visualización principal"
 
-#: templates/visualizacion/base_visualizacion.html:35
+#: templates/visualizacion/base_visualizacion.html:36
 msgid "Zoom reset"
 msgstr "Reiniciar Zoom"
 
-#: templates/visualizacion/base_visualizacion.html:37
-#: templates/visualizacion/base_visualizacion.html:95
+#: templates/visualizacion/base_visualizacion.html:38
+#: templates/visualizacion/base_visualizacion.html:96
 msgid "Iteration"
 msgstr "Iteración"
 
-#: templates/visualizacion/base_visualizacion.html:41
+#: templates/visualizacion/base_visualizacion.html:42
 msgid "Previous"
 msgstr "Anterior"
 
-#: templates/visualizacion/base_visualizacion.html:42
-#: templates/visualizacion/base_visualizacion.html:93
+#: templates/visualizacion/base_visualizacion.html:43
+#: templates/visualizacion/base_visualizacion.html:94
 msgid "Play"
 msgstr "Reproducir"
 
-#: templates/visualizacion/base_visualizacion.html:43
+#: templates/visualizacion/base_visualizacion.html:44
 msgid "Next"
 msgstr "Siguiente"
 
-#: templates/visualizacion/base_visualizacion.html:55
+#: templates/visualizacion/base_visualizacion.html:56
 msgid "Pseudocode"
 msgstr "Pseudocódigo"
 
-#: templates/visualizacion/base_visualizacion.html:66
+#: templates/visualizacion/base_visualizacion.html:67
 msgid "General statistics"
 msgstr "Estadísticas generales"
 
-#: templates/visualizacion/base_visualizacion.html:87
+#: templates/visualizacion/base_visualizacion.html:88
 msgid "Initial data"
 msgstr "Dato inicial"
 
-#: templates/visualizacion/base_visualizacion.html:88
+#: templates/visualizacion/base_visualizacion.html:89
 msgid "Label"
 msgstr "Etiqueta"
 
-#: templates/visualizacion/base_visualizacion.html:89
+#: templates/visualizacion/base_visualizacion.html:90
 msgid "Classifier"
 msgstr "Clasificador"
 
-#: templates/visualizacion/base_visualizacion.html:90
+#: templates/visualizacion/base_visualizacion.html:91
 msgid "Classifier: Not classified"
 msgstr "Clasificador: No clasificado"
 
-#: templates/visualizacion/base_visualizacion.html:91
+#: templates/visualizacion/base_visualizacion.html:92
 msgid "Label: Not classified"
 msgstr "Etiqueta: No clasificado"
 
-#: templates/visualizacion/base_visualizacion.html:92
+#: templates/visualizacion/base_visualizacion.html:93
 msgid "Pause"
 msgstr "Pausar"
 
-#: templates/visualizacion/base_visualizacion.html:94
+#: templates/visualizacion/base_visualizacion.html:95
 msgid "Measure"
 msgstr "Valor"
 

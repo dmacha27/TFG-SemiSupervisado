@@ -7,3 +7,4 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(40), unique=True)
     name = db.Column(db.String(10))
     password = db.Column(db.String(20))
+    ultimo_login = db.Column(db.DateTime)

@@ -49,13 +49,13 @@
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="#">My Space</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="/perfil/{{ current_user.id }}">Profile</a></li>
                         </ul>
                     </li>
 
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/signup">{{ gettext('Sign Up') }}</a>
+                        <a class="nav-link" href="/registrar">{{ gettext('Sign Up') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/login">{{ gettext('Login') }}</a>

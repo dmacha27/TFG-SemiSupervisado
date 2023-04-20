@@ -3,11 +3,19 @@ from flask_login import login_user, login_required, logout_user
 from flask_babel import gettext
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from datetime import datetime
 from .models import User
 from . import db
-from .forms import RegistrationForm, LoginForm
+from .forms import RegistrationForm, LoginForm, UserForm
 
 users_bp = Blueprint('users_bp', __name__)
+
+
+@users_bp.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('main_bp.inicio'))
 
 
 @users_bp.route('/login', methods=['GET', 'POST'])
@@ -18,11 +26,12 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        user = User.query.filter_by(email=email).first()
-        if user:
-            if check_password_hash(user.password, password):
+        usuario = User.query.filter_by(email=email).first()
+        if usuario:
+            if check_password_hash(usuario.password, password):
                 flash(gettext('Loging successful!'), category='success')
-                login_user(user)
+                usuario.ultimo_login = datetime.now()
+                login_user(usuario)
                 return redirect(url_for('main_bp.inicio'))
             else:
                 form.password.errors.append(gettext('Incorrect password'))
@@ -32,15 +41,8 @@ def login():
     return render_template('usuarios/login.html', form=form)
 
 
-@users_bp.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('main_bp.inicio'))
-
-
-@users_bp.route('/signup', methods=['GET', 'POST'])
-def sign_up():
+@users_bp.route('/registrar', methods=['GET', 'POST'])
+def registrar():
     form = RegistrationForm(request.form)
 
     if request.method == 'POST' and form.validate():
@@ -57,10 +59,50 @@ def sign_up():
         usuario.email = email
         usuario.name = name
         usuario.password = generate_password_hash(password, method='sha256')
+        usuario.ultimo_login = datetime.now()
         db.session.add(usuario)
         db.session.commit()
-        login_user(usuario, remember=True)
+        login_user(usuario)
         flash(gettext('Account created!'), category='success')
         return redirect(url_for('main_bp.inicio'))
 
     return render_template("usuarios/registro.html", form=form)
+
+
+@users_bp.route('/perfil/<id_usuario>', methods=['GET', 'POST'])
+def editar(id_usuario):
+    form = UserForm(request.form)
+
+    usuario = User.query.get(int(id_usuario))
+    if not usuario:
+        flash(gettext("User doesn't exist"))
+        return redirect(url_for('main_bp.inicio'))
+
+    errores = False
+    if request.method == 'POST' and form.validate():
+        new_name = request.form.get('name')
+        new_email = request.form.get('email')
+        actual_password = request.form.get('actual_password')
+        new_password = request.form.get('new_password')
+
+        if not check_password_hash(usuario.password, actual_password):
+            form.actual_password.errors.append(gettext('Incorrect actual password'))
+            errores = True
+
+        check_email = User.query.filter_by(email=new_email).first()
+        if check_email and new_email != usuario.email:
+            form.email.errors.append(gettext('Email already exists'))
+            errores = True
+
+        if errores:
+            return render_template("usuarios/perfil.html", form=form)
+
+        usuario.email = new_email
+        usuario.name = new_name
+        usuario.password = generate_password_hash(new_password, method='sha256')
+        db.session.commit()
+        login_user(usuario)
+        flash(gettext('Account updated!'), category='success')
+        return redirect(url_for('main_bp.inicio'))
+
+    return render_template("usuarios/perfil.html", form=form)

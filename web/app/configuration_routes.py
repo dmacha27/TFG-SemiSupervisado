@@ -4,6 +4,7 @@ import sys
 
 from flask import Flask, flash, render_template, redirect, session, url_for, Blueprint
 from flask_babel import gettext
+from flask_wtf import csrf
 
 from algoritmos.utilidades.datasetloader import DatasetLoader
 

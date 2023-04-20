@@ -26,6 +26,7 @@ async function inicializar(rutadatos, elementos) {
         }
 
         xhr.open("POST", rutadatos);
+        xhr.setRequestHeader('X-CSRFToken', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
         let parametros = new FormData();
         elementos.forEach(el => {
             parametros.append(el.nombre, el.valor)
