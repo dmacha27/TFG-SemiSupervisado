@@ -642,8 +642,83 @@ de comparar contra sslearn. Además, en Sprints anteriores se comentó la idea d
 utilizar \texttt{Violinplots}, que resultan más pertinentes para los casos de
 comparación.
 
+\subsection{Sprint 14}
+Corresponde con el periodo temporal del 5 al 12 de abril de 2023.
+
+Puntos a desarrollar:
+\begin{enumerate}
+    \item Actualizar manual del programador
+    \item Rediseño Web completo
+    \item Ayuda contextual y errores en Web.
+    \item Anexos: Diseño
+\end{enumerate}
+
+Debido a las modificaciones realizadas en los recientes Sprints, el manual del
+programador quedó desactualizado. El cambio más notable fue la nueva
+reestructuración de Flask. Se actualizó el árbol de directorios reflejando esta
+nueva estructura. También se actualizaron todas las explicaciones posteriores
+del manual.
+
+El diseño de la Web estaba hecho prácticamente desde el principio de la Web y
+resultaba muy poco llamativo. El primer paso para este rediseño fue elegir una
+paleta de colores, se creyeron convenientes fondos oscuros con alguno más claro
+para dar contraste.
+
+Para continuar, se pensó en la disposición y estilo general del contenido. Hasta
+el momento la página resultaba muy plana, sin cambios entre las distintas partes
+de la página. Consultando páginas Web de ejemplo parecía interesante y bonito
+crear efectos de sombra y se estableció como estilo general de la página. A
+partir de aquí las distintas secciones de una misma página se encuadran en un
+elemento con sombra, para llamar la atención del usuario. Además, para comprobar
+que no eran ideas descabelladas, se consultó a compañeros y personas externas
+para buscar opinión. Gracias a esto se realizaron retoques (cambio de algún
+color, títulos, disposiciones...) que no convencía a la mayoría.
 
 
+Para proporcionar ayuda básica en las distintas páginas, se creó una macro que
+genera una \texttt{tooltip} con un mensaje. Tanto en la subida como en la
+configuración se utilizaron estos mensajes para aclarar aspectos confusos. Como
+adición, resultaba muy molesto tener que volver a subir un fichero
+constantemente al seleccionar otro algoritmo durante la misma sesión. Se añadió
+una comprobación en la pestaña de subida en la que si ya se había subido un
+fichero, permitiera ir directamente a la configuración.
+
+Durante todo el desarrollo hasta este momento, ocurrían ciertos errores HTTP
+(404, por ejemplo) pero no eran controlados. Se creó una plantilla base y se le
+indicó a Flask los errores que debía manejar y renderizar en esa plantilla. Se
+han añadido los más comunes (y además muchos de ellos no han llegado a ocurrir
+nunca).
+
+En reuniones anteriores se comentó que debía explicarse las estructuras de los
+ficheros JSON que maneja e interpreta la Web (JavaScript). Se añadieron todas
+las explicaciones relativas a la generación de estos ficheros desde la propia
+ejecución de cada algoritmo. Se creó también un diagrama de secuencia con la
+interacción general con la Web para la visualización de un algoritmo.
+
+\subsection{Sprint 14}
+Corresponde con el periodo temporal del 12 al 19 de abril de 2023.
+
+Durante este Sprint tuvo lugar el periodo de exámenes parciales de las
+asignaturas cuatrimestrales, y junto con las prácticas en empresa, no se pudo
+mantener la prioridad al desarrollo del proyecto. Por lo tanto, no existen
+puntos concretos a desarrollar, pero la idea era realizar, en la medida de lo
+posible, retoques en el mismo.
+
+Los \texttt{violinplots} que se añadieron para la comparativa de algoritmos
+resultaban algo confusos. Aunque este tipo de gráficos se utiliza mucho para
+comparar datos, para este ámbito concreto no resultó ser la mejor opción. La
+parte superior de estos gráficos, que no son el máximo de los datos, sobrepasa
+en algunos casos el valor máximo de las estadísticas (1). Esto hace parecer que
+los cálculos son incorrectos. Se volvió a incluir los gráficos de caja
+anteriores.
+
+Como no resultaba una tarea grande, se incluyó la integración continua a partir
+de este momento. La herramienta SonarCloud proporciona muchas métricas de
+calidad del código (bugs, línea duplicadas, seguridad...). Gracias a estos
+análisis se realizaron todas las posibles modificaciones para reducir las
+alertas que hasta el momento podían abordarse. Por ejemplo, la protección contra
+CSRF (\texttt{Cross-Site Request Forgery}) no se había contemplado, pero la
+herramienta sí lo considera como un elemento prioritario.
 
 \section{Estudio de viabilidad}
 
