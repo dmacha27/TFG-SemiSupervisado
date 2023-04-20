@@ -1,10 +1,12 @@
-from flask import flash, render_template, redirect, url_for, Blueprint, request
+import json
+
+from flask import flash, render_template, redirect, url_for, Blueprint, request, session
 from flask_login import login_user, login_required, logout_user
 from flask_babel import gettext
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from datetime import datetime
-from .models import User
+from .models import User, Dataset
 from . import db
 from .forms import RegistrationForm, LoginForm, UserForm
 
@@ -30,8 +32,10 @@ def login():
         if usuario:
             if check_password_hash(usuario.password, password):
                 flash(gettext('Loging successful!'), category='success')
-                usuario.ultimo_login = datetime.now()
+                usuario.last_login = datetime.now()
                 login_user(usuario)
+                session.pop('ALGORITMO', None)
+                session.pop('FICHERO', None)
                 return redirect(url_for('main_bp.inicio'))
             else:
                 form.password.errors.append(gettext('Incorrect password'))
@@ -59,22 +63,24 @@ def registrar():
         usuario.email = email
         usuario.name = name
         usuario.password = generate_password_hash(password, method='sha256')
-        usuario.ultimo_login = datetime.now()
+        usuario.last_login = datetime.now()
         db.session.add(usuario)
         db.session.commit()
         login_user(usuario)
+        session.pop('ALGORITMO', None)
+        session.pop('FICHERO', None)
         flash(gettext('Account created!'), category='success')
         return redirect(url_for('main_bp.inicio'))
 
     return render_template("usuarios/registro.html", form=form)
 
 
-@users_bp.route('/perfil/<id_usuario>', methods=['GET', 'POST'])
+@users_bp.route('/perfil/<user_id>', methods=['GET', 'POST'])
 @login_required
-def editar(id_usuario):
+def editar(user_id):
     form = UserForm(request.form)
 
-    usuario = User.query.get(int(id_usuario))
+    usuario = User.query.get(int(user_id))
     if not usuario:
         flash(gettext("User doesn't exist"))
         return redirect(url_for('main_bp.inicio'))
@@ -113,3 +119,10 @@ def editar(id_usuario):
 @login_required
 def miespacio():
     return render_template("usuarios/miespacio.html")
+
+
+@users_bp.route('/datasets/<user_id>', methods=['GET'])
+@login_required
+def obtener_datasets(user_id):
+    # Añadir comprobación para solo poder acceder a tu información
+    return [json.dumps(d.to_list()) for d in Dataset.query.filter_by(user_id=user_id).all()]

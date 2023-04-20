@@ -1,9 +1,13 @@
 import os
-import datetime
+from datetime import datetime
 
 from flask import flash, render_template, request, redirect, session, url_for, send_file, Blueprint, current_app
 from flask_babel import gettext
+from flask_login import current_user
 from werkzeug.utils import secure_filename
+
+from . import db
+from .models import Dataset
 
 main_bp = Blueprint('main_bp', __name__)
 
@@ -41,8 +45,19 @@ def subida():
         if file_received.filename == '':
             return redirect(request.url)
         if file_received:
-            filename = secure_filename(file_received.filename) + "-" + str(int(datetime.datetime.now().timestamp()))
+            filename = secure_filename(file_received.filename) + "-" + str(int(datetime.now().timestamp()))
             session['FICHERO'] = os.path.join(current_app.config['CARPETA_DATASETS'], filename)
-            file_received.save(os.path.join(current_app.config['CARPETA_DATASETS'], filename))
+            complete_path = os.path.join(current_app.config['CARPETA_DATASETS'], filename)
+            file_received.save(complete_path)
+
+            # Si está logeado, se puede guardar el fichero en base de datos
+            if current_user.is_authenticated:
+                dataset = Dataset()
+                dataset.filename = filename
+                dataset.complete_path = complete_path
+                dataset.date = datetime.now()
+                dataset.user_id = current_user.id
+                db.session.add(dataset)
+                db.session.commit()
 
     return render_template('subida.html', ya_hay_fichero=ya_hay_fichero)

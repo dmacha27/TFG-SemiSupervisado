@@ -11,6 +11,7 @@
 {% block title %}{{ gettext('My Space') }}{% endblock %}
 {% block title_content %}{{ gettext('My Space') }}{% endblock %}
 {% block funcion %}
+    <input type="hidden" id="user_id" value="{{ current_user.id }}">
     <table id="datasettable" class="table table-striped">
         <thead>
         <tr>

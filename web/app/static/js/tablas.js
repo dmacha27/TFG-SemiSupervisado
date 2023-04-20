@@ -2,9 +2,26 @@
 // Transformado a vanilla
 document.addEventListener('DOMContentLoaded', function() {
   let datasettable = document.querySelector('#datasettable');
-  let table = new DataTable(datasettable, {
-    responsive: true
-  });
+
+  let id = document.querySelector('#user_id').value
+  let datasets;
+  fetch('/datasets/'+id)
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)){
+          datasets = [];
+          for (let dataset of data) {
+            datasets.push(JSON.parse(dataset));
+          }
+        } else {
+          datasets = JSON.parse(data);
+        }
+      })
+      .then(() => {
+        let table = new DataTable(datasettable, {
+          data: datasets
+        });
+      });
 
   datasettable.addEventListener('click', function(event) {
     if (event.target.classList.contains('remove')) {
