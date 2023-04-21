@@ -19,10 +19,9 @@ class Dataset(db.Model):
     __tablename__ = "Datasets"
 
     id = db.Column(db.Integer, primary_key=True)
-    filename = db.Column(db.String(50))
-    complete_path = db.Column(db.String(150))
+    filename = db.Column(db.String(50), unique=True)
     date = db.Column(db.DateTime, default=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('Users.id'))
 
     def to_list(self):
-        return [self.filename, self.complete_path, self.date.strftime("%Y-%m-%d %H:%M:%S")]
+        return [self.filename, self.date.strftime("%Y-%m-%d %H:%M:%S")]

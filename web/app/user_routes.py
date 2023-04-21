@@ -1,7 +1,7 @@
 import json
 
-from flask import flash, render_template, redirect, url_for, Blueprint, request, session
-from flask_login import login_user, login_required, logout_user
+from flask import flash, render_template, redirect, url_for, Blueprint, request, session, abort, jsonify
+from flask_login import login_user, login_required, logout_user, current_user
 from flask_babel import gettext
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -121,8 +121,21 @@ def miespacio():
     return render_template("usuarios/miespacio.html")
 
 
-@users_bp.route('/datasets/<user_id>', methods=['GET'])
+@users_bp.route('/datasets/obtener/<user_id>', methods=['GET'])
 @login_required
 def obtener_datasets(user_id):
     # Añadir comprobación para solo poder acceder a tu información
+    if int(user_id) != current_user.id:
+        abort(401)
     return [json.dumps(d.to_list()) for d in Dataset.query.filter_by(user_id=user_id).all()]
+
+
+@users_bp.route('/datasets/eliminar', methods=['POST'])
+@login_required
+def eliminar_dataset():
+    file = request.json
+    Dataset.query.filter(Dataset.filename == file).delete()
+    db.session.commit()
+    session.pop('ALGORITMO', None)
+    session.pop('FICHERO', None)
+    return jsonify({'ok': 'ok'}), 200

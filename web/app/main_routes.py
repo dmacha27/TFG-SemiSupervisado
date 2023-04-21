@@ -46,15 +46,14 @@ def subida():
             return redirect(request.url)
         if file_received:
             filename = secure_filename(file_received.filename) + "-" + str(int(datetime.now().timestamp()))
-            session['FICHERO'] = os.path.join(current_app.config['CARPETA_DATASETS'], filename)
             complete_path = os.path.join(current_app.config['CARPETA_DATASETS'], filename)
+            session['FICHERO'] = os.path.join(current_app.config['CARPETA_DATASETS'], filename)
             file_received.save(complete_path)
 
             # Si está logeado, se puede guardar el fichero en base de datos
             if current_user.is_authenticated:
                 dataset = Dataset()
                 dataset.filename = filename
-                dataset.complete_path = complete_path
                 dataset.date = datetime.now()
                 dataset.user_id = current_user.id
                 db.session.add(dataset)
