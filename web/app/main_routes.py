@@ -18,10 +18,17 @@ def inicio():
     return render_template('inicio.html')
 
 
-@main_bp.route('/seleccionar/<algoritmo>')
-def seleccionar_algoritmo(algoritmo=None):
+@main_bp.route('/seleccionar/<algoritmo>', methods=['GET'])
+def seleccionar_algoritmo(algoritmo):
     session['ALGORITMO'] = algoritmo
     return redirect(url_for('main_bp.subida'))
+
+
+@main_bp.route('/seleccionar/<algoritmo>/<fichero>', methods=['GET'])
+def seleccionar_algoritmo_ejecutar(algoritmo, fichero):
+    session['ALGORITMO'] = algoritmo
+    session['FICHERO'] = os.path.join(current_app.config['CARPETA_DATASETS'], fichero)
+    return redirect(url_for('configuration_bp.configurar_algoritmo', algoritmo=algoritmo))
 
 
 @main_bp.route('/descargar_prueba')

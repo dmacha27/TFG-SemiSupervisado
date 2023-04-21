@@ -12,7 +12,7 @@ configuration_bp = Blueprint('configuration_bp', __name__)
 
 
 @configuration_bp.route('/<algoritmo>', methods=['GET'])
-def configurar_algoritmo(algoritmo=None):
+def configurar_algoritmo(algoritmo):
     if 'FICHERO' not in session:
         flash(gettext("You must upload a file"))
         return redirect(url_for('main_bp.subida'))

@@ -50,11 +50,11 @@ class UserForm(FlaskForm):
                        id="email",
                        render_kw={"placeholder": lazy_gettext('Email')})
 
-    actual_password = PasswordField(lazy_gettext('Actual password'),
-                                    name="actual_password",
-                                    id="actual_password",
-                                    validators=[DataRequired()],
-                                    render_kw={"placeholder": lazy_gettext('Actual password')})
+    current_password = PasswordField(lazy_gettext('Current password'),
+                                     name="current_password",
+                                     id="current_password",
+                                     validators=[DataRequired()],
+                                     render_kw={"placeholder": lazy_gettext('Current password')})
 
     new_password = PasswordField(lazy_gettext('New password'),
                                  name="new_password",

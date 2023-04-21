@@ -31,11 +31,11 @@
             {% endif %}
         </div>
         <div class="form-group mt-3 mx-5">
-            {{ form.actual_password.label }}
-            {{ form.actual_password(class_="form-control") }}
-            {% if form.actual_password.errors %}
+            {{ form.current_password.label }}
+            {{ form.current_password(class_="form-control") }}
+            {% if form.current_password.errors %}
                 <div class="alert alert-danger text-break">
-                    {% for error in form.actual_password.errors %}
+                    {% for error in form.current_password.errors %}
                         {{ error }}<br>
                     {% endfor %}
                 </div>

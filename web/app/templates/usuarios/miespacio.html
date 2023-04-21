@@ -20,25 +20,42 @@
         <tr>
             <th>{{ gettext('File dataset') }}</th>
             <th>Complete filename</th>
-            <th>{{ gettext('Run date') }}</th>
+            <th>{{ gettext('Upload date') }}</th>
             <th>{{ gettext('Actions') }}</th>
         </tr>
         </thead>
     </table>
 
-    <div class="modal fade" id="miespacio_modal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="modal_eliminar" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5">{{ gettext('Are you sure?') }}</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ...
+                    {{ gettext('You are about to delete: ') }}<span id="nombre_fichero_modal"></span>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                <div class="modal-footer justify-content-around">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ gettext('Cancel') }}</button>
+                    <button id="btn_eliminar" type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ gettext('Delete') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal_ejecutar" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">{{ gettext('Select algorithm') }}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex flex-column align-items-center">
+                    <a id="selftraining_link" class="m-2" href="/seleccionar/selftraining/">Self-Training</a>
+                    <a id="cotraining_link" class="m-2" href="/seleccionar/cotraining/">Co-Training</a>
+                    <a id="democraticcolearning_link" class="m-2" href="/seleccionar/democraticcolearning/">Democratic Co-Learning</a>
+                    <a id="triraining_link" class="m-2" href="/seleccionar/tritraining/">Tri-Training</a>
                 </div>
             </div>
         </div>

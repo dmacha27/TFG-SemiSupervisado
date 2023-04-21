@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-04-20 23:39+0200\n"
+"POT-Creation-Date: 2023-04-22 01:50+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -63,46 +63,46 @@ msgid "Confirm password"
 msgstr "Confirmar contraseña"
 
 #: forms.py:53 forms.py:57
-msgid "Actual password"
+msgid "Current password"
 msgstr "Contraseña actual"
 
 #: forms.py:59 forms.py:62
 msgid "New password"
 msgstr "Nueva contraseña"
 
-#: main_routes.py:32
+#: main_routes.py:43
 msgid "You must select an algorithm"
 msgstr "Debe seleccionar un algoritmo"
 
-#: user_routes.py:32
+#: user_routes.py:34
 msgid "Loging successful!"
 msgstr "¡Inicio de sesión correcto!"
 
-#: user_routes.py:37
+#: user_routes.py:41
 msgid "Incorrect password"
 msgstr "Contraseña incorrecta"
 
-#: user_routes.py:39
+#: user_routes.py:43
 msgid "Email not found"
 msgstr "Correo electrónico no encontrado"
 
-#: user_routes.py:55 user_routes.py:95
+#: user_routes.py:59 user_routes.py:101
 msgid "Email already exists"
 msgstr "El correo electrónico ya existe"
 
-#: user_routes.py:66
+#: user_routes.py:72
 msgid "Account created!"
 msgstr "¡Cuenta creada!"
 
-#: user_routes.py:79
+#: user_routes.py:85
 msgid "User doesn't exist"
 msgstr "El usuario no existe"
 
-#: user_routes.py:90
+#: user_routes.py:96
 msgid "Incorrect actual password"
 msgstr "Contraseña actual incorrecta"
 
-#: user_routes.py:106
+#: user_routes.py:112
 msgid "Account updated!"
 msgstr "¡Cuenta actualizada!"
 
@@ -114,8 +114,8 @@ msgstr "Debe seleccionar los parámetros del algoritmo"
 msgid "Log Out"
 msgstr "Cerrar sesión"
 
-#: templates/base.html:50 templates/usuarios/miespacio.html:11
-#: templates/usuarios/miespacio.html:12
+#: templates/base.html:50 templates/usuarios/miespacio.html:10
+#: templates/usuarios/miespacio.html:11
 msgid "My Space"
 msgstr "Mi Espacio"
 
@@ -472,17 +472,41 @@ msgstr "Enviar"
 msgid "Log In"
 msgstr "Iniciar sesión"
 
-#: templates/usuarios/miespacio.html:17
+#: templates/usuarios/miespacio.html:14
+msgid "Uploaded datasets"
+msgstr "Conjunto de datos subidos"
+
+#: templates/usuarios/miespacio.html:21
 msgid "File dataset"
 msgstr "Conjunto de datos"
 
-#: templates/usuarios/miespacio.html:18
-msgid "Date"
-msgstr "Fecha"
+#: templates/usuarios/miespacio.html:23
+msgid "Upload date"
+msgstr "Fecha de subida"
 
-#: templates/usuarios/miespacio.html:19
+#: templates/usuarios/miespacio.html:24
 msgid "Actions"
 msgstr "Acciones"
+
+#: templates/usuarios/miespacio.html:33
+msgid "Are you sure?"
+msgstr "¿Estás seguro?"
+
+#: templates/usuarios/miespacio.html:37
+msgid "You are about to delete: "
+msgstr "Vas a eliminar: "
+
+#: templates/usuarios/miespacio.html:40
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: templates/usuarios/miespacio.html:41
+msgid "Delete"
+msgstr "Eliminar"
+
+#: templates/usuarios/miespacio.html:51
+msgid "Select algorithm"
+msgstr "Selecciona un algoritmo"
 
 #: templates/usuarios/perfil.html:2 templates/usuarios/perfil.html:3
 msgid "My Profile"
@@ -557,4 +581,3 @@ msgstr "Valor"
 #: templates/visualizacion/singleview.html:3
 msgid "Specific statistics"
 msgstr "Estadísticas específicas"
-

@@ -93,7 +93,7 @@ def editar(user_id):
         new_password = request.form.get('new_password')
 
         if not check_password_hash(usuario.password, actual_password):
-            form.actual_password.errors.append(gettext('Incorrect actual password'))
+            form.current_password.errors.append(gettext('Incorrect actual password'))
             errores = True
 
         check_email = User.query.filter_by(email=new_email).first()
