@@ -67,6 +67,7 @@ instance/
 flask_session
 web/app/datasets/*
 !web/app/datasets/seleccionar
+web/app/runs/*
 
 # Scrapy stuff:
 .scrapy

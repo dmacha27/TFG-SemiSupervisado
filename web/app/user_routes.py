@@ -13,12 +13,13 @@ from .forms import RegistrationForm, LoginForm, UserForm
 
 users_bp = Blueprint('users_bp', __name__)
 
+main_bp_inicio = 'main_bp.inicio'
 
 @users_bp.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('main_bp.inicio'))
+    return redirect(url_for(main_bp_inicio))
 
 
 @users_bp.route('/login', methods=['GET', 'POST'])
@@ -37,7 +38,7 @@ def login():
                 login_user(usuario)
                 session.pop('ALGORITMO', None)
                 session.pop('FICHERO', None)
-                return redirect(url_for('main_bp.inicio'))
+                return redirect(url_for(main_bp_inicio))
             else:
                 form.password.errors.append(gettext('Incorrect password'))
         else:
@@ -71,7 +72,7 @@ def registrar():
         session.pop('ALGORITMO', None)
         session.pop('FICHERO', None)
         flash(gettext('Account created!'), category='success')
-        return redirect(url_for('main_bp.inicio'))
+        return redirect(url_for(main_bp_inicio))
 
     return render_template("usuarios/registro.html", form=form)
 
@@ -84,17 +85,17 @@ def editar(user_id):
     usuario = User.query.get(int(user_id))
     if not usuario:
         flash(gettext("User doesn't exist"))
-        return redirect(url_for('main_bp.inicio'))
+        return redirect(url_for(main_bp_inicio))
 
     errores = False
     if request.method == 'POST' and form.validate():
         new_name = request.form.get('name')
         new_email = request.form.get('email')
-        actual_password = request.form.get('actual_password')
+        current_password = request.form.get('current_password')
         new_password = request.form.get('new_password')
 
-        if not check_password_hash(usuario.password, actual_password):
-            form.current_password.errors.append(gettext('Incorrect actual password'))
+        if not check_password_hash(usuario.password, current_password):
+            form.current_password.errors.append(gettext('Incorrect current password'))
             errores = True
 
         check_email = User.query.filter_by(email=new_email).first()
@@ -111,7 +112,7 @@ def editar(user_id):
         db.session.commit()
         login_user(usuario)
         flash(gettext('Account updated!'), category='success')
-        return redirect(url_for('main_bp.inicio'))
+        return redirect(url_for(main_bp_inicio))
 
     return render_template("usuarios/perfil.html", form=form)
 

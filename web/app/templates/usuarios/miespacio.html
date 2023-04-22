@@ -2,9 +2,15 @@
 {% block head %}
     {{ super() }}
     <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha384-/LjQZzcpTzaYn7qWqRIWYC5l8FWEZ2bIHIz0D73Uzba4pShEcdLdZyZkI4Kv676E"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"
+            integrity="sha384-edQnMujp90eoACbp4sS9zj/0dMW+mjTJFxCNeW0hM7rVy4OutMVBq6ec4axiLP9U"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"
+            integrity="sha384-ON66nBewQ67SNHiJWBO8f7ldsYeQ6wShDTaaikVGjNyNxC7P2rTge/Gf77mL/Ijt"
+            crossorigin="anonymous"></script>
     <script src="/js/tablas.js"></script>
 {% endblock %}
 {% block title %}{{ gettext('My Space') }}{% endblock %}
@@ -17,6 +23,7 @@
             <hr class="separacion" style="width: 8rem;"/>
         </div>
         <table id="datasettable" class="table table-striped my-5">
+            <caption>{{ gettext('Uploaded datasets') }}</caption>
             <thead>
             <tr>
                 <th>{{ gettext('Dataset file') }}</th>
@@ -34,6 +41,7 @@
             <hr class="separacion" style="width: 8rem;"/>
         </div>
         <table id="historytable" class="table table-striped">
+            <caption>{{ gettext('Run history') }}</caption>
             <thead>
             <tr>
                 <th>{{ gettext('Algorithm') }}</th>

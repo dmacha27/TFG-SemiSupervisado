@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .then(() => {
-                table = new DataTable(historytable, {
+                new DataTable(historytable, {
                     "order": [[2, 'desc']],
                     "responsive": true,
                     "pageLength": 5,

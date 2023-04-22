@@ -1,5 +1,6 @@
 {% extends "usuarios/base_form.html" %}
 {% block title %}{{ gettext('Log In') }}{% endblock %}
+{% block titulo_form_user %}{{ gettext('Log In') }}{% endblock %}
 {% block formulario %}
     <div class="form-group mt-3 mx-5">
         {{ form.email.label }}
@@ -22,6 +23,9 @@
                 {% endfor %}
             </div>
         {% endif %}
+    </div>
+    <div class="form-group mt-1 mx-5">
+        <a class="" href="/registrar">{{ gettext('Create account') }}</a>
     </div>
 {% endblock %}
 
