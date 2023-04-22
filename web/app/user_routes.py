@@ -1,6 +1,5 @@
 import json
 import os
-import sys
 
 from flask import flash, render_template, redirect, url_for, Blueprint, request, session, abort, jsonify, current_app
 from flask_login import login_user, login_required, logout_user, current_user
@@ -8,7 +7,7 @@ from flask_babel import gettext
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from datetime import datetime
-from .models import User, Dataset
+from .models import User, Dataset, Run
 from . import db
 from .forms import RegistrationForm, LoginForm, UserForm
 
@@ -126,12 +125,11 @@ def miespacio():
 @users_bp.route('/datasets/obtener/<user_id>', methods=['GET'])
 @login_required
 def obtener_datasets(user_id):
-    # Añadir comprobación para solo poder acceder a tu información
     if int(user_id) != current_user.id:
         return jsonify({
-                   "status": "error",
-                   "error": "unauthorized"
-               }), 401
+            "status": "error",
+            "error": "unauthorized"
+        }), 401
 
     return [json.dumps(d.to_list()) for d in Dataset.query.filter_by(user_id=user_id).all()]
 
@@ -142,9 +140,9 @@ def eliminar_dataset():
     json_request = request.json
     if int(json_request['id']) != current_user.id:  # Solo el propio usuario puede eliminar
         return jsonify({
-                   "status": "error",
-                   "error": "unauthorized"
-               }), 401
+            "status": "error",
+            "error": "unauthorized"
+        }), 401
 
     try:
         Dataset.query.filter(Dataset.filename == json_request['fichero']).delete()
@@ -154,9 +152,21 @@ def eliminar_dataset():
         session.pop('FICHERO', None)
     except Exception as e:
         return jsonify({
-                   "status": "error",
-                   "error": str(e)
-               }), 500
+            "status": "error",
+            "error": str(e)
+        }), 500
 
     return jsonify({
-            "status": "success"}), 200
+        "status": "success"}), 200
+
+
+@users_bp.route('/historial/obtener/<user_id>', methods=['GET'])
+@login_required
+def obtener_historial(user_id):
+    if int(user_id) != current_user.id:
+        return jsonify({
+            "status": "error",
+            "error": "unauthorized"
+        }), 401
+
+    return [json.dumps(h.to_list()) for h in Run.query.filter_by(user_id=user_id).all()]

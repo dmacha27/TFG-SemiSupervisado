@@ -1,7 +1,9 @@
 import json
 import os
+from datetime import datetime
 
-from flask import request, session, Blueprint
+from flask import request, session, Blueprint, current_app
+from flask_login import current_user
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
@@ -11,6 +13,9 @@ from algoritmos import SelfTraining, CoTraining, DemocraticCoLearning, TriTraini
 from algoritmos.utilidades.datasetloader import DatasetLoader
 from algoritmos.utilidades.datasplitter import data_split
 from algoritmos.utilidades.dimreduction import log_pca_reduction, log_cxcy_reduction
+
+from . import db
+from .models import Run
 
 data_bp = Blueprint('data_bp', __name__)
 
@@ -96,8 +101,8 @@ def obtener_info(algoritmo):
     (x, y, x_test, y_test) = data_split(x,
                                         y,
                                         is_unlabelled,
-                                        p_unlabelled=int(request.form['p_unlabelled'])/100,
-                                        p_test=int(request.form['p_test'])/100)
+                                        p_unlabelled=int(request.form['p_unlabelled']) / 100,
+                                        p_test=int(request.form['p_test']) / 100)
 
     specific_stats = None
     if not isinstance(algoritmo, (DemocraticCoLearning, TriTraining)):
@@ -121,6 +126,26 @@ def obtener_info(algoritmo):
 
     if isinstance(algoritmo, (DemocraticCoLearning, TriTraining)):
         info = info | {'specific_stats': {key: specific_stats[key].to_json() for key in specific_stats}}
+
+    if current_user.is_authenticated:
+        date = int(datetime.now().timestamp())
+
+        with open(os.path.join(current_app.config['CARPETA_RUNS'], f'run-{current_user.id}-{date}.json'), 'w') as f:
+            json.dump(info, f)
+
+        run = Run()
+        run.algorithm = session['ALGORITMO']
+        run.filename = os.path.basename(session['FICHERO'])
+        if request.form['pca'] == 'on':
+            run.cx = 'C1'
+            run.cy = 'C2'
+        else:
+            run.cx = request.form['cx']
+            run.cy = request.form['cy']
+        run.jsonfile = f'run-{current_user.id}-{date}.json'
+        run.user_id = current_user.id
+        db.session.add(run)
+        db.session.commit()
 
     return info
 

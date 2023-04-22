@@ -117,8 +117,63 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     { // TABLA DE HISTORIAL DE EJECUCIÓN
+        let titulos = {'selftraining': 'Self-Training',
+            'cotraining': 'Co-Training',
+            'democraticcolearning': 'Democratic Co-Learning',
+            'tritraining': 'Tri-Training'};
+
         let historytable = document.querySelector('#historytable');
 
+        let historial;
+        let table;
 
+        fetch('/historial/obtener/' + id)
+            .then(res => res.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    historial = [];
+                    for (let dataset of data) {
+                        //["id", "algorithm","filename","date","cx", "cy", "jsonfile"]
+                        let aux = JSON.parse(dataset);
+
+                        historial.push([aux[1], nombredataset(aux[2]), aux[3], aux[0], aux[4], aux[5], aux[6]]);
+                    }
+                } else {
+                    let aux = JSON.parse(data);
+                    historial = [[aux[1], nombredataset(aux[2]), aux[3], aux[0], aux[4], aux[5], aux[6]]];
+                }
+            })
+            .then(() => {
+                table = new DataTable(historytable, {
+                    "order": [[2, 'desc']],
+                    "responsive": true,
+                    "pageLength": 5,
+                    "lengthMenu": [[5, 10, 20], [5, 10, 20]],
+                    "data": historial,
+                    "columnDefs": [
+                        {"className": "align-middle", "targets": "_all"},
+                        {
+                            "targets": 0,
+                            "render": function (data, type, row, meta) {
+                                return titulos[row[0]]; // Sustituir nombre del algoritmo por su título
+                            }
+                        },
+                        {
+                            "targets": -1,
+                            "className": "dt-body-center",
+                            "orderable": false,
+                            "render": function (data, type, row, meta) {
+                                return '<a type="button" class="btn btn-warning run" href="/visualizacion/' + row[0] +'/' + row[3] +'">' +
+                                    '<div class="pe-none">' +
+                                    '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-play-fill" viewBox="0 0 16 16">\n<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">\n' +
+                                    '  <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>\n' +
+                                    '  <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>\n' +
+                                    '</svg>' +
+                                    '</div>' +
+                                    '</a>';
+                            }
+                        }]
+                });
+            });
     }
 });

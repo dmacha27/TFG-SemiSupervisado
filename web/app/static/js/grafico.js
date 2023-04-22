@@ -641,7 +641,7 @@ function grafico_democraticcolearning(dataset) {
  * para Tri-Training
  *
  */
-function databinding_tritaining(dataset) {
+function grafico_tritaining(dataset) {
     nexit.on("click", next);
     previt.on("click", prev);
     rep.on("click", reproducir);

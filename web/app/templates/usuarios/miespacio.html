@@ -10,33 +10,40 @@
 {% block title %}{{ gettext('My Space') }}{% endblock %}
 {% block title_content %}{{ gettext('My Space') }}{% endblock %}
 {% block funcion %}
-    <div class="text-center">
-        <h4>{{ gettext('Uploaded datasets') }}</h4>
-        <hr class="separacion" style="width: 8rem;"/>
-    </div>
     <input type="hidden" id="user_id" value="{{ current_user.id }}">
-    <table id="datasettable" class="table table-striped my-5">
-        <thead>
-        <tr>
-            <th>{{ gettext('Dataset file') }}</th>
-            <th>Complete filename</th>
-            <th>{{ gettext('Upload date') }}</th>
-            <th>{{ gettext('Actions') }}</th>
-        </tr>
-        </thead>
-    </table>
+    <div class="my-5">
+        <div class="text-center">
+            <h4>{{ gettext('Uploaded datasets') }}</h4>
+            <hr class="separacion" style="width: 8rem;"/>
+        </div>
+        <table id="datasettable" class="table table-striped my-5">
+            <thead>
+            <tr>
+                <th>{{ gettext('Dataset file') }}</th>
+                <th>Complete filename</th>
+                <th>{{ gettext('Upload date') }}</th>
+                <th>{{ gettext('Actions') }}</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
 
-    <table id="historytable" class="table table-striped my-5">
-        <thead>
-        <tr>
-            <th>{{ gettext('Algorithm') }}</th>
-            <th>{{ gettext('Dataset file') }}</th>
-            <th>{{ gettext('Run date') }}</th>
-            <th>{{ gettext('Actions') }}</th>
-        </tr>
-        </thead>
-    </table>
-
+    <div class="my-5">
+        <div class="text-center">
+            <h4>{{ gettext('Run history') }}</h4>
+            <hr class="separacion" style="width: 8rem;"/>
+        </div>
+        <table id="historytable" class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ gettext('Algorithm') }}</th>
+                <th>{{ gettext('Dataset file') }}</th>
+                <th>{{ gettext('Run date') }}</th>
+                <th>{{ gettext('Actions') }}</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
     <div class="modal fade" id="modal_eliminar" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

@@ -1,5 +1,4 @@
 import os
-import sys
 from datetime import datetime
 
 from flask import flash, render_template, request, redirect, session, url_for, send_file, Blueprint, current_app, abort

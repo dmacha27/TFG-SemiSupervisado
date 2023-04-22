@@ -1,8 +1,7 @@
 import json
 import os
-import sys
 
-from flask import Flask, flash, render_template, redirect, session, url_for, Blueprint
+from flask import flash, render_template, redirect, session, url_for, Blueprint
 from flask_babel import gettext
 from flask_wtf import csrf
 

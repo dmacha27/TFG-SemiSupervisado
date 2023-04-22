@@ -13,6 +13,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(20))
     last_login = db.Column(db.DateTime)
     datasets = db.relationship('Dataset')
+    runs = db.relationship('Run')
 
 
 class Dataset(db.Model):
@@ -34,8 +35,10 @@ class Run(db.Model):
     algorithm = db.Column(db.String(50))
     filename = db.Column(db.String(50))
     date = db.Column(db.DateTime, default=func.now())
-    jsonfile = db.Column(db.String(50))
+    cx = db.Column(db.String(20))
+    cy = db.Column(db.String(20))
+    jsonfile = db.Column(db.String(50), unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey('Users.id'))
 
     def to_list(self):
-        return [self.filename, self.date.strftime("%Y-%m-%d %H:%M:%S")]
+        return [self.id, self.algorithm, self.filename, self.date.strftime("%Y-%m-%d %H:%M:%S"), self.cx, self.cy, self.jsonfile]

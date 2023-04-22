@@ -1,12 +1,16 @@
 import json
 import os
 
-from flask import flash, render_template, request, redirect, session, url_for, Blueprint
+from flask import flash, render_template, request, redirect, session, url_for, Blueprint, current_app, abort, jsonify
 from flask_babel import gettext
+from flask_login import login_required, current_user
+
+from .models import Run
+
 visualization_bp = Blueprint('visualization_bp', __name__)
 
 
-@visualization_bp.route('/<algoritmo>', methods=['GET', 'POST'])
+@visualization_bp.route('/<algoritmo>', methods=['POST'])
 def visualizar_algoritmo(algoritmo):
     """Centraliza la carga de la página de visualización.
     Es el paso siguiente después de la configuración.
@@ -34,7 +38,33 @@ def visualizar_algoritmo(algoritmo):
     return render_template('visualizacion/' + session['ALGORITMO'] + '.html',
                            params=params,
                            cx=request.form.get('cx', 'C1'),
-                           cy=request.form.get('cy', 'C2'))
+                           cy=request.form.get('cy', 'C2'),
+                           ejecutar=True)
+
+
+@visualization_bp.route('/<algoritmo>/<run_id>', methods=['GET'])
+@login_required
+def visualizar_algoritmo_json(algoritmo, run_id):
+    run = Run.query.filter(Run.id == run_id).first()
+
+    if not run:
+        abort(404)
+
+    if run.user_id != current_user.id:
+        abort(401)
+
+    session['ALGORITMO'] = algoritmo
+    session['FICHERO'] = os.path.join(current_app.config['CARPETA_DATASETS'], run.filename)
+
+    with open(os.path.join(current_app.config['CARPETA_RUNS'], run.jsonfile)) as f:
+        json_data = json.load(f)
+
+    return render_template('visualizacion/' + algoritmo + '.html',
+                           params=[],
+                           cx=run.cx,
+                           cy=run.cy,
+                           ejecutar=False,
+                           json_data=json_data)
 
 
 def parametros_selftraining():

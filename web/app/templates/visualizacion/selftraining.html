@@ -4,12 +4,25 @@
     <img src="{{ gettext('/pseudocodigos/en/SelfTraining.png') }}" width="75%" alt="{{ gettext('Self-Training Pseudocode') }}"/>
 {% endblock %}
 {% block mas_scripts %}
-    <script>
-        inicializar("/datos/{{ session['ALGORITMO'] }}", elementos).then(function (datos) {
+    {% if ejecutar %}
+        <script>
+            inicializar("/datos/{{ session['ALGORITMO'] }}", elementos).then(function (datos) {
+                inicializarGrafico(datos, preparardataset_selftraining,grafico_selftraining);
+
+                let stats = Object.keys(JSON.parse(datos.stats));
+                generargraficoestadistico("estadisticas_generales", JSON.parse(datos.stats), stats);
+            });
+        </script>
+    {% else %}
+        <script>
+            let datos = {{ json_data|tojson }};
+            document.getElementById("div_cargando").remove();
+            document.getElementById("visualizacion").style.visibility = 'visible';
+            document.getElementById("titulo_visualizacion").style.visibility = 'visible';
             inicializarGrafico(datos, preparardataset_selftraining,grafico_selftraining);
 
             let stats = Object.keys(JSON.parse(datos.stats));
             generargraficoestadistico("estadisticas_generales", JSON.parse(datos.stats), stats);
-        });
-    </script>
+        </script>
+    {% endif %}
 {% endblock %}
