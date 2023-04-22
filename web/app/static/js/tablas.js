@@ -23,11 +23,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         //["file","date"]
                         let aux = JSON.parse(dataset);
 
-                        datasets.push([nombredataset(aux[0]), aux[0], aux[1]]);
+                        datasets.push([nombredataset(aux[0]), aux[0], aux[1], ""]);
                     }
                 } else {
                     let aux = JSON.parse(data);
-                    datasets = [[nombredataset(aux[0]), aux[0], aux[1]]];
+                    datasets = [[nombredataset(aux[0]), aux[0], aux[1], ""]];
                 }
             })
             .then(() => {
