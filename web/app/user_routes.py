@@ -1,6 +1,8 @@
 import json
+import os
+import sys
 
-from flask import flash, render_template, redirect, url_for, Blueprint, request, session, abort, jsonify
+from flask import flash, render_template, redirect, url_for, Blueprint, request, session, abort, jsonify, current_app
 from flask_login import login_user, login_required, logout_user, current_user
 from flask_babel import gettext
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -126,16 +128,35 @@ def miespacio():
 def obtener_datasets(user_id):
     # Añadir comprobación para solo poder acceder a tu información
     if int(user_id) != current_user.id:
-        abort(401)
+        return jsonify({
+                   "status": "error",
+                   "error": "unauthorized"
+               }), 401
+
     return [json.dumps(d.to_list()) for d in Dataset.query.filter_by(user_id=user_id).all()]
 
 
 @users_bp.route('/datasets/eliminar', methods=['POST'])
 @login_required
 def eliminar_dataset():
-    file = request.json
-    Dataset.query.filter(Dataset.filename == file).delete()
-    db.session.commit()
-    session.pop('ALGORITMO', None)
-    session.pop('FICHERO', None)
-    return jsonify({'ok': 'ok'}), 200
+    json_request = request.json
+    if int(json_request['id']) != current_user.id:  # Solo el propio usuario puede eliminar
+        return jsonify({
+                   "status": "error",
+                   "error": "unauthorized"
+               }), 401
+
+    try:
+        Dataset.query.filter(Dataset.filename == json_request['fichero']).delete()
+        db.session.commit()
+        os.remove(os.path.join(current_app.config['CARPETA_DATASETS'], json_request['fichero']))
+        session.pop('ALGORITMO', None)
+        session.pop('FICHERO', None)
+    except Exception as e:
+        return jsonify({
+                   "status": "error",
+                   "error": str(e)
+               }), 500
+
+    return jsonify({
+            "status": "success"}), 200

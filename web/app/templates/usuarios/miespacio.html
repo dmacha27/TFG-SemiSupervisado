@@ -15,12 +15,23 @@
         <hr class="separacion" style="width: 8rem;"/>
     </div>
     <input type="hidden" id="user_id" value="{{ current_user.id }}">
-    <table id="datasettable" class="table table-striped">
+    <table id="datasettable" class="table table-striped my-5">
         <thead>
         <tr>
-            <th>{{ gettext('File dataset') }}</th>
+            <th>{{ gettext('Dataset file') }}</th>
             <th>Complete filename</th>
             <th>{{ gettext('Upload date') }}</th>
+            <th>{{ gettext('Actions') }}</th>
+        </tr>
+        </thead>
+    </table>
+
+    <table id="historytable" class="table table-striped my-5">
+        <thead>
+        <tr>
+            <th>{{ gettext('Algorithm') }}</th>
+            <th>{{ gettext('Dataset file') }}</th>
+            <th>{{ gettext('Run date') }}</th>
             <th>{{ gettext('Actions') }}</th>
         </tr>
         </thead>

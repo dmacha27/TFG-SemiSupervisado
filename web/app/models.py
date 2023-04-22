@@ -25,3 +25,17 @@ class Dataset(db.Model):
 
     def to_list(self):
         return [self.filename, self.date.strftime("%Y-%m-%d %H:%M:%S")]
+
+
+class Run(db.Model):
+    __tablename__ = "Runs"
+
+    id = db.Column(db.Integer, primary_key=True)
+    algorithm = db.Column(db.String(50))
+    filename = db.Column(db.String(50))
+    date = db.Column(db.DateTime, default=func.now())
+    jsonfile = db.Column(db.String(50))
+    user_id = db.Column(db.Integer, db.ForeignKey('Users.id'))
+
+    def to_list(self):
+        return [self.filename, self.date.strftime("%Y-%m-%d %H:%M:%S")]

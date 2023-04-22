@@ -1,9 +1,10 @@
 import os
+import sys
 from datetime import datetime
 
-from flask import flash, render_template, request, redirect, session, url_for, send_file, Blueprint, current_app
+from flask import flash, render_template, request, redirect, session, url_for, send_file, Blueprint, current_app, abort
 from flask_babel import gettext
-from flask_login import current_user
+from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename
 
 from . import db
@@ -25,7 +26,16 @@ def seleccionar_algoritmo(algoritmo):
 
 
 @main_bp.route('/seleccionar/<algoritmo>/<fichero>', methods=['GET'])
+@login_required
 def seleccionar_algoritmo_ejecutar(algoritmo, fichero):
+    dataset = Dataset.query.filter(Dataset.filename == fichero).first()
+
+    if not dataset:
+        abort(404)
+
+    if dataset.user_id != current_user.id:
+        abort(401)
+
     session['ALGORITMO'] = algoritmo
     session['FICHERO'] = os.path.join(current_app.config['CARPETA_DATASETS'], fichero)
     return redirect(url_for('configuration_bp.configurar_algoritmo', algoritmo=algoritmo))
