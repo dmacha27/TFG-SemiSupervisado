@@ -91,6 +91,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         .catch(error => console.log(error));
                     let row = event.target.closest('tr');
                     table.row(row).remove().draw();
+
+                    let n_uploads = document.getElementById('n_uploads');
+                    n_uploads.innerHTML = (parseInt(n_uploads.innerHTML) - 1).toString();
+
                 }
                 // Ejecutar
             } else if (event.target.classList.contains('run')) {
