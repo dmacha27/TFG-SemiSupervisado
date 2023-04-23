@@ -115,7 +115,7 @@ def editar(user_id):
         flash(gettext('Account updated!'), category='success')
         return redirect(url_for(main_bp_inicio))
 
-    n_uploads, n_runs = obtener_estadisticas_usuario(current_user.id)
+    n_uploads, n_runs = obtener_estadisticas_usuario()
 
     return render_template("usuarios/perfil.html",
                            form=form,
@@ -126,19 +126,19 @@ def editar(user_id):
 @users_bp.route('/miespacio', methods=['GET'])
 @login_required
 def miespacio():
-    n_uploads, n_runs = obtener_estadisticas_usuario(current_user.id)
+    n_uploads, n_runs = obtener_estadisticas_usuario()
 
     return render_template("usuarios/miespacio.html",
                            n_uploads=n_uploads,
                            n_runs=n_runs)
 
 
-def obtener_estadisticas_usuario(user_id):
+def obtener_estadisticas_usuario():
     datasets = Dataset.query.filter_by(user_id=current_user.id).all()
-    n_uploads = datasets.count() if datasets else 0
+    n_uploads = len(datasets) if datasets else 0
 
     runs = Run.query.filter_by(user_id=current_user.id).all()
-    n_runs = runs.count() if runs else 0
+    n_runs = len(runs) if runs else 0
 
     return n_uploads, n_runs
 
