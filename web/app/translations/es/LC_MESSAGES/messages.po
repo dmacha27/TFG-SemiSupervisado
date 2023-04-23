@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-04-22 17:47+0200\n"
+"POT-Creation-Date: 2023-04-23 13:18+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -74,35 +74,35 @@ msgstr "Nueva contraseña"
 msgid "You must select an algorithm"
 msgstr "Debe seleccionar un algoritmo"
 
-#: user_routes.py:35
+#: user_routes.py:37
 msgid "Loging successful!"
 msgstr "¡Inicio de sesión correcto!"
 
-#: user_routes.py:42
+#: user_routes.py:44
 msgid "Incorrect password"
 msgstr "Contraseña incorrecta"
 
-#: user_routes.py:44
+#: user_routes.py:46
 msgid "Email not found"
 msgstr "Correo electrónico no encontrado"
 
-#: user_routes.py:60 user_routes.py:102
+#: user_routes.py:62 user_routes.py:104
 msgid "Email already exists"
 msgstr "El correo electrónico ya existe"
 
-#: user_routes.py:73
+#: user_routes.py:75
 msgid "Account created!"
 msgstr "¡Cuenta creada!"
 
-#: user_routes.py:86
+#: user_routes.py:88
 msgid "User doesn't exist"
 msgstr "El usuario no existe"
 
-#: user_routes.py:97
+#: user_routes.py:99
 msgid "Incorrect current password"
 msgstr "Contraseña actual incorrecta"
 
-#: user_routes.py:113
+#: user_routes.py:115
 msgid "Account updated!"
 msgstr "¡Cuenta actualizada!"
 
@@ -110,8 +110,8 @@ msgstr "¡Cuenta actualizada!"
 msgid "You must select the parameters of the algorithm"
 msgstr "Debe seleccionar los parámetros del algoritmo"
 
-#: templates/base.html:47 templates/usuarios/miespacio.html:10
-#: templates/usuarios/miespacio.html:11
+#: templates/base.html:47 templates/usuarios/miespacio.html:20
+#: templates/usuarios/miespacio.html:21
 msgid "My Space"
 msgstr "Mi Espacio"
 
@@ -468,6 +468,18 @@ msgstr "Pseudocódigo de Tri-Training"
 msgid "Submit"
 msgstr "Enviar"
 
+#: templates/usuarios/base_user.html:26
+msgid "Uploads"
+msgstr "Ficheros"
+
+#: templates/usuarios/base_user.html:32
+msgid "Runs"
+msgstr "Ejecuciones"
+
+#: templates/usuarios/base_user.html:36
+msgid "Last login"
+msgstr "Último inicio de sesión"
+
 #: templates/usuarios/login.html:2 templates/usuarios/login.html:3
 msgid "Log In"
 msgstr "Iniciar sesión"
@@ -476,51 +488,51 @@ msgstr "Iniciar sesión"
 msgid "Create account"
 msgstr "Crear cuenta"
 
-#: templates/usuarios/miespacio.html:16
+#: templates/usuarios/miespacio.html:26 templates/usuarios/miespacio.html:30
 msgid "Uploaded datasets"
 msgstr "Conjunto de datos subidos"
 
-#: templates/usuarios/miespacio.html:22 templates/usuarios/miespacio.html:40
+#: templates/usuarios/miespacio.html:33 templates/usuarios/miespacio.html:52
 msgid "Dataset file"
 msgstr "Fichero del conjunto de datos"
 
-#: templates/usuarios/miespacio.html:24
+#: templates/usuarios/miespacio.html:35
 msgid "Upload date"
 msgstr "Fecha de subida"
 
-#: templates/usuarios/miespacio.html:25 templates/usuarios/miespacio.html:42
+#: templates/usuarios/miespacio.html:36 templates/usuarios/miespacio.html:54
 msgid "Actions"
 msgstr "Acciones"
 
-#: templates/usuarios/miespacio.html:33
+#: templates/usuarios/miespacio.html:44 templates/usuarios/miespacio.html:48
 msgid "Run history"
 msgstr "Historial de ejecuciones"
 
-#: templates/usuarios/miespacio.html:39
+#: templates/usuarios/miespacio.html:51
 msgid "Algorithm"
 msgstr "Algoritmo"
 
-#: templates/usuarios/miespacio.html:41
+#: templates/usuarios/miespacio.html:53
 msgid "Run date"
 msgstr "Fecha de ejecución"
 
-#: templates/usuarios/miespacio.html:51
+#: templates/usuarios/miespacio.html:63
 msgid "Are you sure?"
 msgstr "¿Estás seguro?"
 
-#: templates/usuarios/miespacio.html:55
+#: templates/usuarios/miespacio.html:67
 msgid "You are about to delete: "
 msgstr "Vas a eliminar: "
 
-#: templates/usuarios/miespacio.html:58
+#: templates/usuarios/miespacio.html:70
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: templates/usuarios/miespacio.html:59
+#: templates/usuarios/miespacio.html:71
 msgid "Delete"
 msgstr "Eliminar"
 
-#: templates/usuarios/miespacio.html:69
+#: templates/usuarios/miespacio.html:81
 msgid "Select algorithm"
 msgstr "Selecciona un algoritmo"
 

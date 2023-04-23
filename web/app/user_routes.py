@@ -15,6 +15,7 @@ users_bp = Blueprint('users_bp', __name__)
 
 main_bp_inicio = 'main_bp.inicio'
 
+
 @users_bp.route('/logout')
 @login_required
 def logout():
@@ -114,13 +115,32 @@ def editar(user_id):
         flash(gettext('Account updated!'), category='success')
         return redirect(url_for(main_bp_inicio))
 
-    return render_template("usuarios/perfil.html", form=form)
+    n_uploads, n_runs = obtener_estadisticas_usuario(current_user.id)
+
+    return render_template("usuarios/perfil.html",
+                           form=form,
+                           n_uploads=n_uploads,
+                           n_runs=n_runs)
 
 
 @users_bp.route('/miespacio', methods=['GET'])
 @login_required
 def miespacio():
-    return render_template("usuarios/miespacio.html")
+    n_uploads, n_runs = obtener_estadisticas_usuario(current_user.id)
+
+    return render_template("usuarios/miespacio.html",
+                           n_uploads=n_uploads,
+                           n_runs=n_runs)
+
+
+def obtener_estadisticas_usuario(user_id):
+    datasets = Dataset.query.filter_by(user_id=current_user.id).all()
+    n_uploads = datasets.count() if datasets else 0
+
+    runs = Run.query.filter_by(user_id=current_user.id).all()
+    n_runs = runs.count() if runs else 0
+
+    return n_uploads, n_runs
 
 
 @users_bp.route('/datasets/obtener/<user_id>', methods=['GET'])
