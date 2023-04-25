@@ -1,7 +1,90 @@
 \capitulo{5}{Aspectos relevantes del desarrollo del proyecto}
 
-Este apartado pretende recoger los aspectos más interesantes del desarrollo del proyecto, comentados por los autores del mismo.
-Debe incluir desde la exposición del ciclo de vida utilizado, hasta los detalles de mayor relevancia de las fases de análisis, diseño e implementación.
-Se busca que no sea una mera operación de copiar y pegar diagramas y extractos del código fuente, sino que realmente se justifiquen los caminos de solución que se han tomado, especialmente aquellos que no sean triviales.
-Puede ser el lugar más adecuado para documentar los aspectos más interesantes del diseño y de la implementación, con un mayor hincapié en aspectos tales como el tipo de arquitectura elegido, los índices de las tablas de la base de datos, normalización y desnormalización, distribución en ficheros3, reglas de negocio dentro de las bases de datos (EDVHV GH GDWRV DFWLYDV), aspectos de desarrollo relacionados con el WWW...
-Este apartado, debe convertirse en el resumen de la experiencia práctica del proyecto, y por sí mismo justifica que la memoria se convierta en un documento útil, fuente de referencia para los autores, los tutores y futuros alumnos.
+En este apartado se van a comentar los aspectos más interesantes o que han
+influido en el desarrollo. Por lo general, estos aspectos vendrán acompañados de
+tomas de decisiones que se tuvieron que hacer, se argumentará y explicará el
+desarrollo final de estos aspectos.
+
+\section{Elección del proyecto y la realidad}
+
+La idea de este proyecto no fue propia, ambos tutores tenían en mente realizar
+una aplicación de este estilo aplicado a estos algoritmos. Durante los meses
+anteriores aparecieron diversos proyectos de muy diferente índole que podía
+realizar. La realidad es que la inteligencia artificial es un campo que me atrae
+mucho y que incluso me abre la mente a proyectos personales. Dentro de la baraja
+de proyectos, el que iba en la línea de lo que quería hacer, era este. Al
+principio, era un poco reacio a la idea de realizar una aplicación tanto Web
+como de escritorio. Yo, demasiado enfocado en ello, quería aplicar los
+algoritmos a algo concreto. Sin embargo, pensándolo bien, el hecho de poder
+aprender algoritmos (e incluso la metodología que su desarrollo conlleva de
+investigación y entendimiento) pero además, poder desarrollar habilidades en Web
+(o escritorio en su caso aunque finalmente no ha sido así), fue la clave para
+decantarme por el proyecto. Además, como soy una persona que le gusta mucho
+<<cacharrear>>, los tutores también me comentaron que este proyecto podría
+tenerme entretenido muchas horas para desarrollar ambas partes. Con todo ello,
+parecía muy interesante y sobre todo, muy nutritivo para mi aprendizaje, elegir
+este proyecto.
+
+\section{Versión de Python}
+
+Al comienzo del proyecto, se valoró la versión de Python en la que realizarlo.
+En un principio parecía importante abarcar el mayor número de equipos en los que
+el proyecto podía ser instalado y se pensó en alguna versión desde la 3.7. Sin
+embargo, pese a que en la biblioteca de algoritmos que se iba a programar sí que
+podía tener sentido aumentar los posibles usuarios, la realidad es que el
+objetivo del final proyecto es una aplicación Web completamente nueva. Se supone
+además que, simulando un entorno completamente real y/o empresarial, el equipo
+podría tener a su disposición servidor/es propio (o por lo menos,
+configurables). En este sentido, dado que el usuario solo necesita acceder a la
+Web, no tiene por qué conocer ni tener instalada una versión u otra. Por todo
+esto, se pensó en utilizar versiones más recientes. En el momento de inicio del
+proyecto, la más reciente era la 3.10, esto también es una ventaja en el medio
+plazo debido a que el periodo de actualizaciones y de soporte para esta versión
+termina a finales de 2026 (mientras que algunas anteriores finalizan en 2024 o
+incluso 2023).
+
+\section{Utilidades para los algoritmos}
+
+Antes de realizar la aplicación Web, pero previendo lo que podía encontrarse.
+Surgieron dos grandes problemas, el tratamiento de los datos que utilizan los
+algoritmos (etiquetados, no etiquetados, particiones...) y por otro lado, cómo
+ajustar estos datos y comunicarlos a la Web cuando los requiera.
+
+No resultaba correcto vincular todos estos pasos ni en el código de los
+algoritmos ni en el de la propia aplicación. Tenía mucho más sentido crear unas
+utilidades que actúen de intermediarias en ciertos pasos del procedimiento.
+
+Para el primer problema se crearon tres utilidades principales: Un <<particionador>>
+de datos que se encargara de dividir los datos en conjunto de entrenamiento
+y test. Pero que además, si el conjunto estaba pensado para aprendizaje
+Supervisado, generase aleatoriamente datos no etiquetados.
+
+Un codificador de etiquetas para transformar las etiquetas nominales en
+numéricas (necesarias para los algoritmos). De base, el codificador de etiquetas
+que propone SKlearn podría ser suficiente. Sin embargo, era necesario por un
+lado no tratar los datos no etiquetados (internamente tratados como -1s) y por
+el otro devolver de alguna forma las transformaciones realizadas Es decir, a qué
+clase nominal corresponde cada número codificado.
+
+Y por último, un cargador de conjuntos de datos (datasetloader) que automatizara
+toda la lectura de un fichero ARFF o CSV, conversión a DataFrame y las
+transformaciones de etiquetas (utilizando la utilidad anterior). Y que además
+devuelva los datos de los atributos (x) y por separado las etiquetas (y). Es
+decir, un cargador cuyo resultado pueda ser introducido en los algoritmos. 
+
+Sobre el segundo problema (datos válidos para la aplicación Web) se creó una
+utilidad encargada de transformar el conjunto de datos a dos dimensiones. Esto
+es, transformar los atributos (que pueden ser más de dos) a exactamente dos,
+para poder representarlo en dos dimensiones. Sin embargo, cuando se avanzó un
+poco en el desarrollo, era obvio que no interesaba modificar el conjunto de
+datos, sino el resultado de la ejecución de la aplicación Web. Fue cuando se
+implementó y visualizó Self-Training cuando se pudo ver esta casuística.
+Finalmente, lo que se hace es, transformar la estructura de datos que retorna la
+ejecución de los algoritmos (Anexo D) que incluye todos los datos (y todos sus
+atributos), a dos dimensiones (solo los atributos, no el <<target>> ni el resto
+de columnas). El usuario puede seleccionar dos posibilidades, o realizar PCA o
+seleccionar él dos atributos del conjunto.
+
+En ambos casos apareció la decisión de la normalización. Al principio se
+realizaba en ambos casos directamente, pero finalmente se permitía al usuario
+elegir si normalizar o no.
