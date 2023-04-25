@@ -157,30 +157,34 @@ footer {
 }
 
 @media (max-width: 610px) {
-    #soltar {
-        margin: 0 5vh;
-        padding: 5vh 8vh;
+    #card_subida {
+        max-width: 35rem;
     }
 }
 
-@media (max-width: 550px) {
-    #soltar {
-        margin: 0 3vh;
-        padding: 5vh 8vh;
+@media (max-width: 580px) {
+    #card_subida {
+        max-width: 32rem;
     }
 }
 
-@media (max-width: 520px) {
-    #soltar {
-        margin: 0 1vh;
-        padding: 3vh 5vh;
+@media (max-width: 545px) {
+    #card_subida {
+        max-width: 28rem;
     }
 }
 
-@media (max-width: 420px) {
-    #soltar {
-        margin: 0 0;
-        padding: 2vh 2vh;
+@media (max-width: 515px) {
+    #card_subida {
+        max-width: 28rem;
+    }
+}
+
+
+@media (max-width: 470px) {
+    #card_subida {
+        overflow-x: hidden;
+        max-width: 22rem;
     }
 }
 
