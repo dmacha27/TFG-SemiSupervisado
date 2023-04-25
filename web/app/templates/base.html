@@ -15,66 +15,71 @@
     {% endblock %}
 </head>
 <body>
-<nav class="E navbar navbar-expand-sm navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">VASS</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse text-white" id="mynavbar">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/seleccionar/selftraining">Self-Training</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/seleccionar/cotraining">Co-Training</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/seleccionar/democraticcolearning">Democratic Co-Learning</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/seleccionar/tritraining">Tri-Training</a>
-                </li>
-            </ul>
-            <hr>
-            <ul class="navbar-nav ml-auto">
-                {% if current_user.is_authenticated %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ current_user.name }}
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="/miespacio">{{ gettext('My Space') }}</a></li>
-                            <li><a class="dropdown-item" href="/perfil/{{ current_user.id }}">{{ gettext('Profile') }}</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/logout">{{ gettext('Log Out') }}</a></li>
-                        </ul>
-                    </li>
+<div class="body-container">
+    <div class="content">
+        <nav class="E navbar navbar-expand-sm navbar-dark">
+            <div class="container-fluid title-mulish">
+                <a class="navbar-brand" href="/">VASS</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse text-white" id="mynavbar">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/seleccionar/selftraining">Self-Training</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/seleccionar/cotraining">Co-Training</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/seleccionar/democraticcolearning">Democratic Co-Learning</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/seleccionar/tritraining">Tri-Training</a>
+                        </li>
+                    </ul>
+                    <hr>
+                    <ul class="navbar-nav ml-auto">
+                        {% if current_user.is_authenticated %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ current_user.name }}
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="/miespacio">{{ gettext('My Space') }}</a></li>
+                                    <li><a class="dropdown-item" href="/perfil/{{ current_user.id }}">{{ gettext('Profile') }}</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="/logout">{{ gettext('Log Out') }}</a></li>
+                                </ul>
+                            </li>
 
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/registrar">{{ gettext('Sign Up') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">{{ gettext('Login') }}</a>
-                    </li>
-                {% endif %}
-            </ul>
-        </div>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/registrar">{{ gettext('Sign Up') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login">{{ gettext('Login') }}</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% with mensajes = get_flashed_messages() %}
+            {% if mensajes %}
+                {% for mensaje in mensajes|reverse %}
+                    <p class="flash">{{ mensaje }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
     </div>
-</nav>
-{% with mensajes = get_flashed_messages() %}
-    {% if mensajes %}
-        {% for mensaje in mensajes|reverse %}
-            <p class="flash">{{ mensaje }}</p>
-        {% endfor %}
-    {% endif %}
-{% endwith %}
-{% block content %}{% endblock %}
-<footer class="D text-center">
-    Universidad de Burgos<br>
-    © 2023 David Martínez Acha
-</footer>
-
+    <footer class="D text-center title-mulish text-white">
+        <div class="d-flex flex-column">
+            <p>Universidad de Burgos</p>
+            <p>© 2023 David Martínez Acha</p>
+        </div>
+    </footer>
+</div>
 </body>
 </html>

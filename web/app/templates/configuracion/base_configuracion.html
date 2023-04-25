@@ -9,7 +9,7 @@
     <script type="text/javascript" src="/js/configuracion.js"></script>
     <br>
     <div class="text-center pb-3">
-        <h1>{{ gettext('Algorithm configuration') }}: {{ titulos[session['ALGORITMO']] }}</h1>
+        <h1 class="title-mulish text-bold">{{ gettext('Algorithm configuration') }}: {{ titulos[session['ALGORITMO']] }}</h1>
         <hr class="separacion" style="width: 35rem;"/>
     </div>
     <div class="container-fluid mt-4">
@@ -17,7 +17,7 @@
             <div id="theory-card" class="col-md">
                 <div class="rounded-4 p-3 m-2 shadow-lg">
                     <div class="text-center">
-                        <h4>{{ gettext('Theory') }}</h4>
+                        <h4 class="title-mulish">{{ gettext('Theory') }}</h4>
                         <hr class="separacion" style="width: 8rem;"/>
                     </div>
                     <div class="m-2 p-2">
@@ -31,7 +31,7 @@
             <div id="parameters-card" class="col-md">
                 <div class="rounded-4 p-3 m-2 shadow-lg">
                     <div class="text-center">
-                        <h4>{{ gettext('Parameters') }}</h4>
+                        <h4 class="title-mulish">{{ gettext('Parameters') }}</h4>
                         <hr class="separacion" style="width: 8rem;"/>
                     </div>
                     <form action="{{ url_for('visualization_bp.visualizar_algoritmo', algoritmo=session['ALGORITMO']) }}" method="POST">
@@ -44,7 +44,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <button type="submit" class="btn btn-primary" style="margin: auto; width: 50%">{{ gettext('Run') }}</button>
+                            <button type="submit" class="btn btn-primary m-auto" style="width: 20rem">{{ gettext('Run') }}</button>
                         </div>
                     </form>
                     {% block form_scripts %}{% endblock %}

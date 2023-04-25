@@ -1,6 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&family=Mulish&display=swap');
+
 body {
-    font-family: Courier, monospace !important;
-    background-color: #FFF;
+    font-family: 'Courier Prime', monospace !important;
+}
+
+.title-mulish {
+    font-family: 'Mulish', sans-serif !important;
 }
 
 .A {
@@ -27,6 +32,10 @@ body {
     background-color: #23343B;
 }
 
+.text-bold {
+    font-weight: bold;
+}
+
 .dropdown:hover>.dropdown-menu {
     display: block;
     right: 0;
@@ -45,11 +54,20 @@ body {
     opacity: 0.5;
 }
 
+.body-container {
+    position: relative;
+    min-height: 100vh;
+}
+
+.content {
+    padding-bottom: 5rem;
+}
 
 footer {
-    background-color: #555;
-    color: white;
-    padding: 20px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 5rem;
 }
 
 .flash {
