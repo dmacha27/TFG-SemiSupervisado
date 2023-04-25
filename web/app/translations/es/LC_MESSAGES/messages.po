@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-04-23 13:18+0200\n"
+"POT-Creation-Date: 2023-04-25 23:36+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -110,25 +110,25 @@ msgstr "¡Cuenta actualizada!"
 msgid "You must select the parameters of the algorithm"
 msgstr "Debe seleccionar los parámetros del algoritmo"
 
-#: templates/base.html:47 templates/usuarios/miespacio.html:20
+#: templates/base.html:49 templates/usuarios/miespacio.html:20
 #: templates/usuarios/miespacio.html:21
 msgid "My Space"
 msgstr "Mi Espacio"
 
-#: templates/base.html:48 templates/usuarios/base_user.html:16
+#: templates/base.html:50 templates/usuarios/base_user.html:16
 msgid "Profile"
 msgstr "Perfil"
 
-#: templates/base.html:50
+#: templates/base.html:52
 msgid "Log Out"
 msgstr "Cerrar sesión"
 
-#: templates/base.html:56 templates/usuarios/registro.html:2
+#: templates/base.html:58 templates/usuarios/registro.html:2
 #: templates/usuarios/registro.html:3
 msgid "Sign Up"
 msgstr "Registrarse"
 
-#: templates/base.html:59
+#: templates/base.html:61
 msgid "Login"
 msgstr "Iniciar sesión"
 
@@ -185,23 +185,27 @@ msgstr "Desmarca PCA para seleccionar componentes específicas"
 msgid "Select Y component"
 msgstr "Selecciona la componente Y"
 
-#: templates/macros.html:30
+#: templates/macros.html:31
 msgid "Use PCA to reduce to 2D"
 msgstr "Utilizar PCA para reducir a 2D"
 
-#: templates/macros.html:33
+#: templates/macros.html:37
+msgid "Normalize"
+msgstr "Normalizar"
+
+#: templates/macros.html:41
 msgid "Unlabelled percentage"
 msgstr "Porcentaje de no etiquetados"
 
-#: templates/macros.html:33
+#: templates/macros.html:41
 msgid "If already semi-supervised, it will be ignored"
 msgstr "Si ya fuera semi-supervisado, será ignorado"
 
-#: templates/macros.html:40
+#: templates/macros.html:48
 msgid "Test percentage (after unlabelled percentage)"
 msgstr "Porcentaje de test (después de aplicar el no etiquetados)"
 
-#: templates/macros.html:49
+#: templates/macros.html:57
 msgid "Select classifier"
 msgstr "Selecciona clasificador"
 
@@ -217,7 +221,7 @@ msgstr "Volver"
 
 #: templates/subida.html:14
 msgid "Dataset upload"
-msgstr "Subida del conjunto de datos"
+msgstr "Carga del conjunto de datos"
 
 #: templates/subida.html:20
 msgid "File selection"

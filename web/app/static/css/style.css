@@ -182,8 +182,11 @@ footer {
 
 
 @media (max-width: 470px) {
+    #soltar {
+        margin: 0;
+        padding: 2vh 1vh;
+    }
     #card_subida {
-        overflow-x: hidden;
         max-width: 22rem;
     }
 }

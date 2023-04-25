@@ -10,7 +10,7 @@
         </select>
     </div>
     <div class="mb-3">
-        <label for="cx">{{ gettext('Select X component') }}: {{ tooltip(gettext('Uncheck PCA to select specific components')) }}</label>
+        <label for="cx">{{ gettext('Select X component') }}:{{ tooltip(gettext('Uncheck PCA to select specific components')) }}</label>
         <select class="form-select" id="cx" name="cx" required disabled>
             {% for c in caracteristicas %}
                 <option value="{{c}}">{{c}}</option>
@@ -26,11 +26,19 @@
         </select>
     </div>
     <div class="mb-3">
-        <input type="checkbox" class="form-check-input" id="pca" oninput="componentesPCA(this.checked,'cx','cy')" name="pca" checked>
-        <label class="d-inline" for="pca">{{ gettext('Use PCA to reduce to 2D') }}</label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-input" id="pca" oninput="componentesPCA(this.checked,'cx','cy')" name="pca" checked>
+            <label class="d-inline" for="pca">{{ gettext('Use PCA to reduce to 2D') }}</label>
+        </div>
     </div>
     <div class="mb-3">
-        <label for="p_unlabelled">{{ gettext('Unlabelled percentage') }}: {{ tooltip(gettext('If already semi-supervised, it will be ignored')) }}</label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-input" id="norm" name="norm" checked>
+            <label class="d-inline" for="norm">{{ gettext('Normalize') }}</label>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="p_unlabelled">{{ gettext('Unlabelled percentage') }}:{{ tooltip(gettext('If already semi-supervised, it will be ignored')) }}</label>
         <div class="d-flex">
             <input type="range" class="form-range w-75" id="p_unlabelled" name="p_unlabelled" min="1" max="99" value=80 oninput="actualizarBadgePorcentaje(this.value,'p_unlabelled_badge')">
             <span id="p_unlabelled_badge" class="badge bg-primary px-3 mx-auto">80%</span>
