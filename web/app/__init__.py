@@ -1,7 +1,7 @@
 import os
 import re
 
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, session
 from flask_babel import Babel, gettext
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -29,6 +29,10 @@ def create_app():
     db.init_app(app)
 
     def get_locale():
+        idioma = session.get('IDIOMA', None)
+        if idioma is not None:  # Ha seleccionado un idioma manualmente
+            return idioma
+
         return request.accept_languages.best_match(['es', 'en'])
 
     Babel(app, locale_selector=get_locale)
@@ -41,7 +45,15 @@ def create_app():
         return {'titulos': {'selftraining': 'Self-Training',
                             'cotraining': 'Co-Training',
                             'democraticcolearning': 'Democratic Co-Learning',
-                            'tritraining': 'Tri-Training'}}
+                            'tritraining': 'Tri-Training'},
+                'idiomas': {'en': gettext('English'),
+                            'es': gettext('Spanish')},
+                'idioma_actual': get_locale()}
+
+    @app.before_request
+    def before_request():
+        if 'lang' in request.args:
+            session['IDIOMA'] = request.args.get('lang')
 
     @app.template_filter()
     def nombredataset(text):

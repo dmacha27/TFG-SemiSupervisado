@@ -43,6 +43,20 @@
                     </ul>
                     <hr>
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                            <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-translate text-white"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                {% for idioma in idiomas.items() %}
+                                    {% if idioma_actual == idioma[0] %}
+                                        <li class="lang_active"><a class="dropdown-item active">{{ idioma[1] }}</a></li>
+                                    {% else %}
+                                        <li class="lang_inactive"><a class="dropdown-item" href="{{ request.path }}?lang={{ idioma[0] }}">{{ idioma[1] }}</a></li>
+                                    {%  endif %}
+                                {% endfor %}
+                            </ul>
+                        </li>
                         {% if current_user.is_authenticated %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
