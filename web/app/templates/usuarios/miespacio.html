@@ -15,7 +15,7 @@
     <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"
             integrity="sha384-PY2wFFZbq7kCYodfBP408z2yXR7heditX+7fcNGW1QlNvoNReFROjc2e+gETYS2J"
             crossorigin="anonymous"></script>
-    <script src="/js/tablas.js"></script>
+    <script type="module" src="/js/miespacio.js"></script>
 {% endblock %}
 {% block title %}{{ gettext('My Space') }}{% endblock %}
 {% block title_content %}{{ gettext('My Space') }}{% endblock %}
@@ -33,6 +33,7 @@
                 <th>{{ gettext('Dataset file') }}</th>
                 <th>Complete filename</th>
                 <th>{{ gettext('Upload date') }}</th>
+                <th>{{ gettext('User') }}</th>
                 <th>{{ gettext('Actions') }}</th>
             </tr>
             </thead>
@@ -51,6 +52,7 @@
                 <th>{{ gettext('Algorithm') }}</th>
                 <th>{{ gettext('Dataset file') }}</th>
                 <th>{{ gettext('Run date') }}</th>
+                <th>{{ gettext('User') }}</th>
                 <th>{{ gettext('Actions') }}</th>
             </tr>
             </thead>

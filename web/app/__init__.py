@@ -79,6 +79,17 @@ def create_app():
     with app.app_context():
         db.create_all()
 
+        admin = User.query.filter_by(email='admin@admin.es').first()
+
+        if not admin:
+            admin = User()
+            admin.name = 'Admin'
+            admin.password = 'sha256$zEFcUwahChTyfiye$69259df8a304fcb9704e0cc0226b2b32f342f341f7a9f9e6aa5037c0a25b8fa3'
+            admin.email = 'admin@admin.es'
+            admin.admin = True
+            db.session.add(admin)
+            db.session.commit()
+
     login_manager = LoginManager()
     login_manager.login_view = 'users_bp.login'
     login_manager.init_app(app)

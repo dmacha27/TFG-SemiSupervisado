@@ -1,12 +1,12 @@
 import json
 import os
 
-from flask import flash, render_template, redirect, url_for, Blueprint, request, session, abort, jsonify, current_app
+from flask import flash, render_template, redirect, url_for, Blueprint, request, session, jsonify, current_app
 from flask_login import login_user, login_required, logout_user, current_user
 from flask_babel import gettext
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from .models import User, Dataset, Run
 from . import db
 from .forms import RegistrationForm, LoginForm, UserForm
@@ -159,7 +159,8 @@ def obtener_datasets(user_id):
 @login_required
 def eliminar_dataset():
     json_request = request.json
-    if int(json_request['id']) != current_user.id:  # Solo el propio usuario puede eliminar
+    if int(json_request['id']) != current_user.id and not current_user.is_admin:  # Solo el propio usuario o
+        # administrador puede eliminar
         return jsonify({
             "status": "error",
             "error": "unauthorized"
@@ -191,3 +192,71 @@ def obtener_historial(user_id):
         }), 401
 
     return [json.dumps(h.to_list()) for h in Run.query.filter_by(user_id=user_id).all()]
+
+
+@users_bp.route('/admin', methods=['GET'])
+@login_required
+def admin_panel():
+    if not current_user.is_admin:
+        return jsonify({
+            "status": "error",
+            "error": "unauthorized"
+        }), 401
+
+    return render_template("usuarios/admin.html")
+
+
+@users_bp.route('/datasets/obtener', methods=['GET'])
+@login_required
+def obtener_datasets_todos():
+    if not current_user.is_admin:
+        return jsonify({
+            "status": "error",
+            "error": "unauthorized"
+        }), 401
+
+    return [json.dumps(d.to_list()) for d in Dataset.query.all()]
+
+
+@users_bp.route('/datasets/ultimos', methods=['GET'])
+@login_required
+def obtener_datasets_ultimos():
+    if not current_user.is_admin:
+        return jsonify({
+            "status": "error",
+            "error": "unauthorized"
+        }), 401
+
+    date = datetime.today() - timedelta(days=7)
+
+    datasets = Dataset.query.filter(Dataset.date >= date).all()
+
+    return str(len(datasets)) if datasets else "0"
+
+
+@users_bp.route('/historial/obtener', methods=['GET'])
+@login_required
+def obtener_historial_todos():
+    if not current_user.is_admin:
+        return jsonify({
+            "status": "error",
+            "error": "unauthorized"
+        }), 401
+
+    return [json.dumps(h.to_list()) for h in Run.query.all()]
+
+
+@users_bp.route('/historial/ultimos', methods=['GET'])
+@login_required
+def obtener_historial_ultimos():
+    if not current_user.is_admin:
+        return jsonify({
+            "status": "error",
+            "error": "unauthorized"
+        }), 401
+
+    date = datetime.today() - timedelta(days=7)
+
+    runs = Run.query.filter(Run.date >= date).all()
+
+    return str(len(runs)) if runs else "0"
