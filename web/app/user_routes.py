@@ -1,7 +1,7 @@
 import json
 import os
 
-from flask import flash, render_template, redirect, url_for, Blueprint, request, session, jsonify, current_app
+from flask import flash, render_template, redirect, url_for, Blueprint, request, session, jsonify, current_app, abort
 from flask_login import login_user, login_required, logout_user, current_user
 from flask_babel import gettext
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -36,6 +36,7 @@ def login():
             if check_password_hash(usuario.password, password):
                 flash(gettext('Loging successful!'), category='success')
                 usuario.last_login = datetime.now()
+                db.session.commit()
                 login_user(usuario)
                 session.pop('ALGORITMO', None)
                 session.pop('FICHERO', None)
@@ -78,15 +79,19 @@ def registrar():
     return render_template("usuarios/registro.html", form=form)
 
 
-@users_bp.route('/perfil/<user_id>', methods=['GET', 'POST'])
+@users_bp.route('/perfil/<user_id>', defaults={'redirect_page': 'main_bp.inicio'}, methods=['GET', 'POST'])
+@users_bp.route('/perfil/<user_id>/<redirect_page>', methods=['GET', 'POST'])
 @login_required
-def editar(user_id):
+def editar(user_id, redirect_page):
+    if int(user_id) != current_user.id and not current_user.is_admin:
+        abort(401)
+
     form = UserForm(request.form)
 
     usuario = User.query.get(int(user_id))
     if not usuario:
-        flash(gettext("User doesn't exist"))
-        return redirect(url_for(main_bp_inicio))
+        flash(gettext("User doesn't exist"), category='error')
+        return redirect(url_for(redirect_page))
 
     errores = False
     if request.method == 'POST' and form.validate():
@@ -111,33 +116,43 @@ def editar(user_id):
         usuario.name = new_name
         usuario.password = generate_password_hash(new_password, method='sha256')
         db.session.commit()
-        login_user(usuario)
+        if redirect_page == 'main_bp.inicio':
+            login_user(usuario)
         flash(gettext('Account updated!'), category='success')
-        return redirect(url_for(main_bp_inicio))
+        return redirect(url_for(redirect_page))
 
-    n_uploads, n_runs = obtener_estadisticas_usuario()
+    n_uploads, n_runs = obtener_estadisticas_usuario(int(user_id))
 
     return render_template("usuarios/perfil.html",
+                           usuario=usuario,
                            form=form,
                            n_uploads=n_uploads,
                            n_runs=n_runs)
 
 
-@users_bp.route('/miespacio', methods=['GET'])
+@users_bp.route('/miespacio/<user_id>', methods=['GET'])
 @login_required
-def miespacio():
-    n_uploads, n_runs = obtener_estadisticas_usuario()
+def miespacio(user_id):
+    if int(user_id) != current_user.id and not current_user.is_admin:
+        abort(401)
+
+    usuario = User.query.get(int(user_id))
+    if not usuario:
+        abort(404)
+
+    n_uploads, n_runs = obtener_estadisticas_usuario(user_id)
 
     return render_template("usuarios/miespacio.html",
+                           usuario=usuario,
                            n_uploads=n_uploads,
                            n_runs=n_runs)
 
 
-def obtener_estadisticas_usuario():
-    datasets = Dataset.query.filter_by(user_id=current_user.id).all()
+def obtener_estadisticas_usuario(user_id):
+    datasets = Dataset.query.filter_by(user_id=user_id).all()
     n_uploads = len(datasets) if datasets else 0
 
-    runs = Run.query.filter_by(user_id=current_user.id).all()
+    runs = Run.query.filter_by(user_id=user_id).all()
     n_runs = len(runs) if runs else 0
 
     return n_uploads, n_runs
@@ -146,7 +161,7 @@ def obtener_estadisticas_usuario():
 @users_bp.route('/datasets/obtener/<user_id>', methods=['GET'])
 @login_required
 def obtener_datasets(user_id):
-    if int(user_id) != current_user.id:
+    if int(user_id) != current_user.id and not current_user.is_admin:
         return jsonify({
             "status": "error",
             "error": "unauthorized"
@@ -185,7 +200,7 @@ def eliminar_dataset():
 @users_bp.route('/historial/obtener/<user_id>', methods=['GET'])
 @login_required
 def obtener_historial(user_id):
-    if int(user_id) != current_user.id:
+    if int(user_id) != current_user.id and not current_user.is_admin:
         return jsonify({
             "status": "error",
             "error": "unauthorized"
@@ -198,10 +213,7 @@ def obtener_historial(user_id):
 @login_required
 def admin_panel():
     if not current_user.is_admin:
-        return jsonify({
-            "status": "error",
-            "error": "unauthorized"
-        }), 401
+        abort(401)
 
     return render_template("usuarios/admin.html")
 
@@ -260,3 +272,47 @@ def obtener_historial_ultimos():
     runs = Run.query.filter(Run.date >= date).all()
 
     return str(len(runs)) if runs else "0"
+
+
+@users_bp.route('/usuarios/obtener', methods=['GET'])
+@login_required
+def obtener_usuarios_todos():
+    if not current_user.is_admin:
+        return jsonify({
+            "status": "error",
+            "error": "unauthorized"
+        }), 401
+
+    return [json.dumps(u.to_list()) for u in User.query.all()]
+
+
+@users_bp.route('/usuarios/eliminar', methods=['POST'])
+@login_required
+def eliminar_usuario():
+    json_request = request.json
+    if not current_user.is_admin:  # Solo el administrador puede eliminar
+        return jsonify({
+            "status": "error",
+            "error": "unauthorized"
+        }), 401
+
+    try:
+        User.query.filter(User.id == json_request['user_id']).delete()
+        db.session.commit()
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "error": str(e)
+        }), 500
+
+    return jsonify({
+        "status": "success"}), 200
+
+
+@users_bp.route('/admin/usuario/editar/<user_id>', methods=['GET', 'POST'])
+@login_required
+def admin_editar_usuario(user_id):
+    if not current_user.is_admin:
+        abort(401)
+
+    return editar(user_id, 'users_bp.admin_panel')

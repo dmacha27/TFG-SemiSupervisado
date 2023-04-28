@@ -15,7 +15,7 @@
                         <hr class="separacion" style="width: 8rem;"/>
                     </div>
                     <div class="d-flex flex-column justify-content-between align-items-center">
-                        <h5 class="m-4">{{ current_user.name }}</h5>
+                        <h5 class="m-4">{{ usuario.name }}</h5>
                         <div class="rounded-4 text-bg-light d-flex justify-content-around flex-wrap p-3 w-75">
                             <div class="row text-center flex-column">
                                 <div class="col">
@@ -30,8 +30,8 @@
                                 <span>{{ gettext('Runs') }}</span></div>
                             </div>
                         </div>
-                        <span class="badge text-bg-success m-4">{{ current_user.email }}</span>
-                        <p class="m-1">{{ gettext('Last login') }}: {{ current_user.last_login.strftime("%Y-%m-%d %H:%M:%S") }}</p>
+                        <span class="badge text-bg-success m-4">{{ usuario.email }}</span>
+                        <p class="m-1">{{ gettext('Last login') }}: {{ usuario.last_login.strftime("%Y-%m-%d %H:%M:%S") }}</p>
                     </div>
                 </div>
             </div>

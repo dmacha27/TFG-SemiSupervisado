@@ -10,7 +10,7 @@
         {{ form.csrf_token }}
         <div class="form-group mt-3 mx-5">
             {{ form.name.label }}
-            {{ form.name(class_="form-control", value_=current_user.name) }}
+            {{ form.name(class_="form-control", value_=usuario.name) }}
             {% if form.name.errors %}
                 <div class="alert alert-danger text-break">
                     {% for error in form.name.errors %}
@@ -21,7 +21,7 @@
         </div>
         <div class="form-group mt-3 mx-5">
             {{ form.email.label }}
-            {{ form.email(class_="form-control", value_=current_user.email) }}
+            {{ form.email(class_="form-control", value_=usuario.email) }}
             {% if form.email.errors %}
                 <div class="alert alert-danger text-break">
                     {% for error in form.email.errors %}

@@ -1,4 +1,11 @@
-import {generateDatasetList, generateRunList, generateDatasetTable, generateHistoryTable} from './funciones_tablas.js';
+import {
+    generateDatasetList,
+    generateRunList,
+    generateDatasetTable,
+    generateHistoryTable,
+    generateUserList,
+    generateUserTable
+} from './funciones_tablas.js';
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -10,6 +17,13 @@ document.addEventListener('DOMContentLoaded', function() {
     generateRunList()
         .then(historial => {
             generateHistoryTable(historial, true);
+        })
+
+    generateUserList()
+        .then(users => {
+            let total_users = document.getElementById('total_users');
+            total_users.innerText = users.length.toString();
+            generateUserTable(users);
         })
 
     fetch('/datasets/ultimos')

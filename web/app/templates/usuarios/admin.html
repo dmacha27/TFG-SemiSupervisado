@@ -1,10 +1,11 @@
 {% extends "base.html" %}
-{%  from "macros.html" import table_scripts_links,datasettable, historytable, modaleliminar, modalejecutar %}
+{%  from "macros.html" import table_scripts_links,datasettable, historytable, usertable, modaleliminar, modalejecutar %}
 {% block head %}
     {{ super() }}
     {{ table_scripts_links() }}
     <script type="module" src="/js/adminpanel.js"></script>
 {% endblock %}
+{% block title %}{{ gettext('Admin panel') }}{% endblock %}
 {% block content %}
     <button id="btn_volver" type="button" onclick="history.back()" class="btn sticky-top">
         <i class="bi bi-caret-left-fill"></i>{{ gettext('Go back') }}</button>
@@ -13,39 +14,91 @@
         <hr class="separacion" style="width: 20rem;"/>
     </div>
 
-    <div class="rounded-4 p-4 m-4 shadow-lg">
-        <div class="container-fluid mb-4">
-            <div class="row">
-                <div class="text-center">
-                    <h4>{{ gettext('Uploaded datasets') }}</h4>
-                    <hr class="separacion" style="width: 8rem;"/>
-                </div>
-                <div class="col-md-11 my-4">
-                    {{ datasettable() }}
-                </div>
-                <div class="col-md-1">
-                    <div class="rounded-4 p-2 my-4 shadow d-flex flex-column justify-content-center align-items-center text-center sticky-top">
-                        <span id="recent_datasets" class="fs-1"></span>
-                        <span>{{ gettext('Last 7 days uploads') }}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="text-center">
-                    <h4>{{ gettext('Run history') }}</h4>
-                    <hr class="separacion" style="width: 8rem;"/>
-                </div>
-                <div class="col-md-11 my-4">
-                    {{ historytable() }}
-                </div>
-                <div class="col-md-1">
-                    <div class="rounded-4 p-2 my-4 shadow d-flex flex-column justify-content-center align-items-center text-center sticky-top">
-                        <span id="recent_runs" class="fs-1"></span>
-                        <span>{{ gettext('Last 7 days runs') }}</span>
-                    </div>
-                </div>
-            </div>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#users"
+                    type="button" role="tab" aria-controls="users"
+                    aria-selected="true">{{ gettext('User management') }}</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="datasets-tab" data-bs-toggle="tab" data-bs-target="#datasets"
+                    type="button" role="tab"
+                    aria-controls="datasets" aria-selected="false">{{ gettext('Uploaded datasets') }}</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="runs-tab" data-bs-toggle="tab" data-bs-target="#runs"
+                    type="button" role="tab" aria-controls="runs"
+                    aria-selected="false">{{ gettext('Run history') }}</button>
+        </li>
+    </ul>
 
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users-tab">
+            <div class="rounded-4 p-4 m-4 shadow-lg">
+                <div class="container-fluid mb-4">
+                    <div class="row">
+                        <div class="text-center">
+                            <h4>{{ gettext('User management') }}</h4>
+                            <hr class="separacion" style="width: 8rem;"/>
+                        </div>
+                        <div class="col-md-11 my-4">
+                            {{ usertable() }}
+                        </div>
+                        <div class="col-md-1">
+                            <div class="rounded-4 p-2 my-4 shadow d-flex flex-column justify-content-center align-items-center text-center sticky-top">
+                                <span id="total_users" class="fs-1">0</span>
+                                <span>{{ gettext('Total users') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="datasets" role="tabpanel" aria-labelledby="datasets-tab">
+            <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users-tab">
+                <div class="rounded-4 p-4 m-4 shadow-lg">
+                    <div class="container-fluid mb-4">
+                        <div class="row">
+                            <div class="text-center">
+                                <h4>{{ gettext('Uploaded datasets') }}</h4>
+                                <hr class="separacion" style="width: 8rem;"/>
+                            </div>
+                            <div class="col-md-11 my-4">
+                                {{ datasettable() }}
+                            </div>
+                            <div class="col-md-1">
+                                <div class="rounded-4 p-2 my-4 shadow d-flex flex-column justify-content-center align-items-center text-center sticky-top">
+                                    <span id="recent_datasets" class="fs-1"></span>
+                                    <span>{{ gettext('Last 7 days uploads') }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="runs" role="tabpanel" aria-labelledby="runs-tab">
+            <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users-tab">
+                <div class="rounded-4 p-4 m-4 shadow-lg">
+                    <div class="container-fluid mb-4">
+                        <div class="row">
+                            <div class="text-center">
+                                <h4>{{ gettext('Run history') }}</h4>
+                                <hr class="separacion" style="width: 8rem;"/>
+                            </div>
+                            <div class="col-md-11 my-4">
+                                {{ historytable() }}
+                            </div>
+                            <div class="col-md-1">
+                                <div class="rounded-4 p-2 my-4 shadow d-flex flex-column justify-content-center align-items-center text-center sticky-top">
+                                    <span id="recent_runs" class="fs-1"></span>
+                                    <span>{{ gettext('Last 7 days runs') }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

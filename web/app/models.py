@@ -12,11 +12,14 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(10))
     password = db.Column(db.String(20))
     admin = db.Column(db.Boolean, default=False)
-    last_login = db.Column(db.DateTime)
+    last_login = db.Column(db.DateTime, default=func.now())
 
     @property
     def is_admin(self):
         return self.admin
+
+    def to_list(self):
+        return [self.id, self.name, self.email, self.last_login.strftime("%Y-%m-%d %H:%M:%S")]
 
 
 class Dataset(db.Model):

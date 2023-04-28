@@ -120,6 +120,20 @@
     </table>
 {% endmacro %}
 
+{% macro usertable() %}
+    <table id="usertable" class="table table-striped table-bordered nowrap w-100 my-5">
+        <caption>{{ gettext('Users') }}</caption>
+        <thead>
+        <tr>
+            <th>{{ gettext('Name') }}</th>
+            <th>{{ gettext('Email') }}</th>
+            <th>{{ gettext('Last login') }}</th>
+            <th>{{ gettext('Actions') }}</th>
+        </tr>
+        </thead>
+    </table>
+{% endmacro %}
+
 {% macro modaleliminar() %}
     <div class="modal fade" id="modal_eliminar" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
