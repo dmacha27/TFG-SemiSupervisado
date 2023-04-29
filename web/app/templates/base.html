@@ -64,7 +64,7 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     {% if current_user.is_admin %}
-                                    <li><a class="dropdown-item" href="/admin">{{ gettext('Admin panel') }}</a></li>
+                                    <li><a class="dropdown-item" href="/admin">{{ gettext('Admin dashboard') }}</a></li>
                                     {% endif %}
                                     <li><a class="dropdown-item" href="/miespacio/{{ current_user.id }}">{{ gettext('My Space') }}</a></li>
                                     <li><a class="dropdown-item" href="/perfil/{{ current_user.id }}">{{ gettext('Profile') }}</a></li>

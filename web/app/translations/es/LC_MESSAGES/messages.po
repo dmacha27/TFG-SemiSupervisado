@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-04-28 18:38+0200\n"
+"POT-Creation-Date: 2023-04-29 19:05+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -83,35 +83,35 @@ msgstr "Nueva contraseña"
 msgid "You must select an algorithm"
 msgstr "Debe seleccionar un algoritmo"
 
-#: user_routes.py:37
+#: user_routes.py:38
 msgid "Loging successful!"
 msgstr "¡Inicio de sesión correcto!"
 
-#: user_routes.py:45
+#: user_routes.py:46
 msgid "Incorrect password"
 msgstr "Contraseña incorrecta"
 
-#: user_routes.py:47
+#: user_routes.py:48
 msgid "Email not found"
 msgstr "Correo electrónico no encontrado"
 
-#: user_routes.py:63 user_routes.py:109
+#: user_routes.py:64 user_routes.py:110
 msgid "Email already exists"
 msgstr "El correo electrónico ya existe"
 
-#: user_routes.py:76
+#: user_routes.py:77
 msgid "Account created!"
 msgstr "¡Cuenta creada!"
 
-#: user_routes.py:93
+#: user_routes.py:94
 msgid "User doesn't exist"
 msgstr "El usuario no existe"
 
-#: user_routes.py:104
+#: user_routes.py:105
 msgid "Incorrect current password"
 msgstr "Contraseña actual incorrecta"
 
-#: user_routes.py:121
+#: user_routes.py:123
 msgid "Account updated!"
 msgstr "¡Cuenta actualizada!"
 
@@ -121,7 +121,7 @@ msgstr "Debe seleccionar los parámetros del algoritmo"
 
 #: templates/base.html:67 templates/usuarios/admin.html:8
 #: templates/usuarios/admin.html:13
-msgid "Admin panel"
+msgid "Admin dashboard"
 msgstr "Panel de administración"
 
 #: templates/base.html:69 templates/usuarios/miespacio.html:8
@@ -655,4 +655,3 @@ msgstr "Valor"
 #: templates/visualizacion/singleview.html:3
 msgid "Specific statistics"
 msgstr "Estadísticas específicas"
-

@@ -289,6 +289,8 @@ export function generateUserTable(usuarios) {
                 }).then(res => res.json())
                     .catch(error => console.log(error));
                 table.row(row).remove().draw();
+
+                location.reload();
             }
         }
     });

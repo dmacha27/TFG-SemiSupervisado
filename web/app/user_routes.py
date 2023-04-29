@@ -114,7 +114,8 @@ def editar(user_id, redirect_page):
 
         usuario.email = new_email
         usuario.name = new_name
-        usuario.password = generate_password_hash(new_password, method='sha256')
+        if new_password:
+            usuario.password = generate_password_hash(new_password, method='sha256')
         db.session.commit()
         if redirect_page == 'main_bp.inicio':
             login_user(usuario)
@@ -297,8 +298,28 @@ def eliminar_usuario():
         }), 401
 
     try:
+        # Eliminar todos los ficheros
+        datasets = Dataset.query.filter(Dataset.user_id == json_request['user_id']).all()
+        datasets_filenames = []
+        for dataset in datasets:
+            datasets_filenames.append(dataset.filename)
+            db.session.delete(dataset)
+
+        runs = Run.query.filter(Run.user_id == json_request['user_id']).all()
+        runs_filenames = []
+        for run in runs:
+            runs_filenames.append(run.jsonfile)
+            db.session.delete(run)
+
         User.query.filter(User.id == json_request['user_id']).delete()
         db.session.commit()
+
+        for filename in datasets_filenames:
+            os.remove(os.path.join(current_app.config['CARPETA_DATASETS'], filename))
+
+        for filename in runs_filenames:
+            os.remove(os.path.join(current_app.config['CARPETA_RUNS'], filename))
+
     except Exception as e:
         return jsonify({
             "status": "error",

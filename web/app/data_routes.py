@@ -144,6 +144,7 @@ def obtener_info(algoritmo):
         else:
             run.cx = request.form['cx']
             run.cy = request.form['cy']
+        run.date = datetime.now()
         run.jsonfile = f'run-{current_user.id}-{date}.json'
         run.user_id = current_user.id
         db.session.add(run)
