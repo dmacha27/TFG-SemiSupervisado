@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-04-25 23:36+0200\n"
+"POT-Creation-Date: 2023-04-28 18:38+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,23 +18,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.11.0\n"
 
-#: __init__.py:82
+#: __init__.py:49
+msgid "English"
+msgstr "Inglés"
+
+#: __init__.py:50
+msgid "Spanish"
+msgstr "Español"
+
+#: __init__.py:105
 msgid "Internal Server Error"
 msgstr "Error interno del servidor"
 
-#: __init__.py:86
+#: __init__.py:109
 msgid "Not found"
 msgstr "No encontrado"
 
-#: __init__.py:90
+#: __init__.py:113
 msgid "Forbidden"
 msgstr "Petición denegada por el servidor"
 
-#: __init__.py:94
+#: __init__.py:117
 msgid "Unauthorized"
 msgstr "No autorizado"
 
-#: __init__.py:98
+#: __init__.py:121
 msgid "Bad request"
 msgstr "Mala petición"
 
@@ -46,11 +54,12 @@ msgstr "Debe subir un archivo"
 msgid "File must be ARFF or CSV"
 msgstr "El fichero debe ser ARFF o CSV"
 
-#: forms.py:8 forms.py:12 forms.py:42 forms.py:46
+#: forms.py:8 forms.py:12 forms.py:42 forms.py:46 templates/macros.html:128
 msgid "Name"
 msgstr "Nombre"
 
 #: forms.py:14 forms.py:18 forms.py:34 forms.py:35 forms.py:48 forms.py:51
+#: templates/macros.html:129
 msgid "Email"
 msgstr "Correo electrónico"
 
@@ -78,31 +87,31 @@ msgstr "Debe seleccionar un algoritmo"
 msgid "Loging successful!"
 msgstr "¡Inicio de sesión correcto!"
 
-#: user_routes.py:44
+#: user_routes.py:45
 msgid "Incorrect password"
 msgstr "Contraseña incorrecta"
 
-#: user_routes.py:46
+#: user_routes.py:47
 msgid "Email not found"
 msgstr "Correo electrónico no encontrado"
 
-#: user_routes.py:62 user_routes.py:104
+#: user_routes.py:63 user_routes.py:109
 msgid "Email already exists"
 msgstr "El correo electrónico ya existe"
 
-#: user_routes.py:75
+#: user_routes.py:76
 msgid "Account created!"
 msgstr "¡Cuenta creada!"
 
-#: user_routes.py:88
+#: user_routes.py:93
 msgid "User doesn't exist"
 msgstr "El usuario no existe"
 
-#: user_routes.py:99
+#: user_routes.py:104
 msgid "Incorrect current password"
 msgstr "Contraseña actual incorrecta"
 
-#: user_routes.py:115
+#: user_routes.py:121
 msgid "Account updated!"
 msgstr "¡Cuenta actualizada!"
 
@@ -110,25 +119,30 @@ msgstr "¡Cuenta actualizada!"
 msgid "You must select the parameters of the algorithm"
 msgstr "Debe seleccionar los parámetros del algoritmo"
 
-#: templates/base.html:49 templates/usuarios/miespacio.html:20
-#: templates/usuarios/miespacio.html:21
+#: templates/base.html:67 templates/usuarios/admin.html:8
+#: templates/usuarios/admin.html:13
+msgid "Admin panel"
+msgstr "Panel de administración"
+
+#: templates/base.html:69 templates/usuarios/miespacio.html:8
+#: templates/usuarios/miespacio.html:9
 msgid "My Space"
 msgstr "Mi Espacio"
 
-#: templates/base.html:50 templates/usuarios/base_user.html:16
+#: templates/base.html:70 templates/usuarios/base_user.html:14
 msgid "Profile"
 msgstr "Perfil"
 
-#: templates/base.html:52
+#: templates/base.html:72
 msgid "Log Out"
 msgstr "Cerrar sesión"
 
-#: templates/base.html:58 templates/usuarios/registro.html:2
+#: templates/base.html:78 templates/usuarios/registro.html:2
 #: templates/usuarios/registro.html:3
 msgid "Sign Up"
 msgstr "Registrarse"
 
-#: templates/base.html:61
+#: templates/base.html:81
 msgid "Login"
 msgstr "Iniciar sesión"
 
@@ -209,53 +223,117 @@ msgstr "Porcentaje de test (después de aplicar el no etiquetados)"
 msgid "Select classifier"
 msgstr "Selecciona clasificador"
 
+#: templates/macros.html:96 templates/usuarios/admin.html:26
+#: templates/usuarios/admin.html:63 templates/usuarios/miespacio.html:14
+msgid "Uploaded datasets"
+msgstr "Conjunto de datos subidos"
+
+#: templates/macros.html:99 templates/macros.html:114
+msgid "Dataset file"
+msgstr "Fichero del conjunto de datos"
+
+#: templates/macros.html:101
+msgid "Upload date"
+msgstr "Fecha de subida"
+
+#: templates/macros.html:102 templates/macros.html:116
+msgid "User"
+msgstr "Usuario"
+
+#: templates/macros.html:103 templates/macros.html:117
+#: templates/macros.html:131
+msgid "Actions"
+msgstr "Acciones"
+
+#: templates/macros.html:110 templates/usuarios/admin.html:31
+#: templates/usuarios/admin.html:86 templates/usuarios/miespacio.html:22
+msgid "Run history"
+msgstr "Historial de ejecuciones"
+
+#: templates/macros.html:113
+msgid "Algorithm"
+msgstr "Algoritmo"
+
+#: templates/macros.html:115
+msgid "Run date"
+msgstr "Fecha de ejecución"
+
+#: templates/macros.html:125
+msgid "Users"
+msgstr "Usuarios"
+
+#: templates/macros.html:130 templates/usuarios/base_user.html:34
+msgid "Last login"
+msgstr "Último inicio de sesión"
+
+#: templates/macros.html:142
+msgid "Are you sure?"
+msgstr "¿Estás seguro?"
+
+#: templates/macros.html:146
+msgid "You are about to delete: "
+msgstr "Vas a eliminar: "
+
+#: templates/macros.html:149
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: templates/macros.html:150
+msgid "Delete"
+msgstr "Eliminar"
+
+#: templates/macros.html:163
+msgid "Select algorithm"
+msgstr "Selecciona un algoritmo"
+
 #: templates/subida.html:7
 msgid "Dataset selection"
 msgstr "Selección del conjunto de datos"
 
-#: templates/configuracion/base_configuracion.html:8 templates/subida.html:12
-#: templates/usuarios/base_form.html:6 templates/usuarios/base_user.html:6
-#: templates/visualizacion/base_visualizacion.html:14
+#: templates/configuracion/base_configuracion.html:6 templates/subida.html:10
+#: templates/usuarios/admin.html:11 templates/usuarios/base_form.html:4
+#: templates/usuarios/base_user.html:4
+#: templates/visualizacion/base_visualizacion.html:12
 msgid "Go back"
 msgstr "Volver"
 
-#: templates/subida.html:14
+#: templates/subida.html:12
 msgid "Dataset upload"
 msgstr "Carga del conjunto de datos"
 
-#: templates/subida.html:20
+#: templates/subida.html:18
 msgid "File selection"
 msgstr "Selección de fichero"
 
-#: templates/subida.html:28
+#: templates/subida.html:26
 msgid "Allowed extensions: .CSV & .ARFF"
 msgstr "Extensiones permitidas: .CSV & .ARFF"
 
-#: templates/subida.html:29
+#: templates/subida.html:27
 msgid "Drag and drop your file"
 msgstr "Arrastra y suelta tu archivo"
 
-#: templates/subida.html:30
+#: templates/subida.html:28
 msgid "or"
 msgstr "o"
 
-#: templates/subida.html:32
+#: templates/subida.html:30
 msgid "Choose file"
 msgstr "Selecciona fichero"
 
-#: templates/subida.html:38
+#: templates/subida.html:36
 msgid "completed"
 msgstr "completado"
 
-#: templates/subida.html:47
+#: templates/subida.html:45
 msgid "Previous file detected: "
 msgstr "Fichero previo detectado: "
 
-#: templates/subida.html:48 templates/subida.html:50
+#: templates/subida.html:46 templates/subida.html:48
 msgid "Configure algorithm"
 msgstr "Configurar algoritmo"
 
-#: templates/subida.html:54
+#: templates/subida.html:52
 msgid "Download test file"
 msgstr "Descargar fichero de prueba"
 
@@ -263,24 +341,24 @@ msgstr "Descargar fichero de prueba"
 msgid "Run configuration"
 msgstr "Configuración de la ejecución"
 
-#: templates/configuracion/base_configuracion.html:8
-#: templates/visualizacion/base_visualizacion.html:14
+#: templates/configuracion/base_configuracion.html:6
+#: templates/visualizacion/base_visualizacion.html:12
 msgid "Dataset"
 msgstr "Conjunto de datos"
 
-#: templates/configuracion/base_configuracion.html:12
+#: templates/configuracion/base_configuracion.html:9
 msgid "Algorithm configuration"
 msgstr "Configuración del algoritmo"
 
-#: templates/configuracion/base_configuracion.html:20
+#: templates/configuracion/base_configuracion.html:17
 msgid "Theory"
 msgstr "Teoría"
 
-#: templates/configuracion/base_configuracion.html:34
+#: templates/configuracion/base_configuracion.html:31
 msgid "Parameters"
 msgstr "Parámetros"
 
-#: templates/configuracion/base_configuracion.html:47
+#: templates/configuracion/base_configuracion.html:44
 msgid "Run"
 msgstr "Ejecutar"
 
@@ -468,21 +546,33 @@ msgstr ""
 msgid "Tri-Training Pseudocode"
 msgstr "Pseudocódigo de Tri-Training"
 
-#: templates/usuarios/base_form.html:17 templates/usuarios/perfil.html:56
+#: templates/usuarios/admin.html:21 templates/usuarios/admin.html:41
+msgid "User management"
+msgstr "Administración de usuarios"
+
+#: templates/usuarios/admin.html:50
+msgid "Total users"
+msgstr "Usuarios totales"
+
+#: templates/usuarios/admin.html:72
+msgid "Last 7 days uploads"
+msgstr "Cargas de los últimos 7 días"
+
+#: templates/usuarios/admin.html:95
+msgid "Last 7 days runs"
+msgstr "Ejecuciones de los últimos 7 días"
+
+#: templates/usuarios/base_form.html:15 templates/usuarios/perfil.html:56
 msgid "Submit"
 msgstr "Enviar"
 
-#: templates/usuarios/base_user.html:26
+#: templates/usuarios/base_user.html:24
 msgid "Uploads"
 msgstr "Ficheros"
 
-#: templates/usuarios/base_user.html:32
+#: templates/usuarios/base_user.html:30
 msgid "Runs"
 msgstr "Ejecuciones"
-
-#: templates/usuarios/base_user.html:36
-msgid "Last login"
-msgstr "Último inicio de sesión"
 
 #: templates/usuarios/login.html:2 templates/usuarios/login.html:3
 msgid "Log In"
@@ -492,54 +582,6 @@ msgstr "Iniciar sesión"
 msgid "Create account"
 msgstr "Crear cuenta"
 
-#: templates/usuarios/miespacio.html:26 templates/usuarios/miespacio.html:30
-msgid "Uploaded datasets"
-msgstr "Conjunto de datos subidos"
-
-#: templates/usuarios/miespacio.html:33 templates/usuarios/miespacio.html:52
-msgid "Dataset file"
-msgstr "Fichero del conjunto de datos"
-
-#: templates/usuarios/miespacio.html:35
-msgid "Upload date"
-msgstr "Fecha de subida"
-
-#: templates/usuarios/miespacio.html:36 templates/usuarios/miespacio.html:54
-msgid "Actions"
-msgstr "Acciones"
-
-#: templates/usuarios/miespacio.html:44 templates/usuarios/miespacio.html:48
-msgid "Run history"
-msgstr "Historial de ejecuciones"
-
-#: templates/usuarios/miespacio.html:51
-msgid "Algorithm"
-msgstr "Algoritmo"
-
-#: templates/usuarios/miespacio.html:53
-msgid "Run date"
-msgstr "Fecha de ejecución"
-
-#: templates/usuarios/miespacio.html:63
-msgid "Are you sure?"
-msgstr "¿Estás seguro?"
-
-#: templates/usuarios/miespacio.html:67
-msgid "You are about to delete: "
-msgstr "Vas a eliminar: "
-
-#: templates/usuarios/miespacio.html:70
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: templates/usuarios/miespacio.html:71
-msgid "Delete"
-msgstr "Eliminar"
-
-#: templates/usuarios/miespacio.html:81
-msgid "Select algorithm"
-msgstr "Selecciona un algoritmo"
-
 #: templates/usuarios/perfil.html:2 templates/usuarios/perfil.html:3
 msgid "My Profile"
 msgstr "Mi Perfil"
@@ -548,65 +590,65 @@ msgstr "Mi Perfil"
 msgid "Edit profile"
 msgstr "Editar perfil"
 
-#: templates/visualizacion/base_visualizacion.html:27
+#: templates/visualizacion/base_visualizacion.html:25
 msgid "Main visualization"
 msgstr "Visualización principal"
 
-#: templates/visualizacion/base_visualizacion.html:36
+#: templates/visualizacion/base_visualizacion.html:34
 msgid "Zoom reset"
 msgstr "Reiniciar Zoom"
 
-#: templates/visualizacion/base_visualizacion.html:38
-#: templates/visualizacion/base_visualizacion.html:96
+#: templates/visualizacion/base_visualizacion.html:36
+#: templates/visualizacion/base_visualizacion.html:94
 msgid "Iteration"
 msgstr "Iteración"
 
-#: templates/visualizacion/base_visualizacion.html:42
+#: templates/visualizacion/base_visualizacion.html:40
 msgid "Previous"
 msgstr "Anterior"
 
-#: templates/visualizacion/base_visualizacion.html:43
-#: templates/visualizacion/base_visualizacion.html:94
+#: templates/visualizacion/base_visualizacion.html:41
+#: templates/visualizacion/base_visualizacion.html:92
 msgid "Play"
 msgstr "Reproducir"
 
-#: templates/visualizacion/base_visualizacion.html:44
+#: templates/visualizacion/base_visualizacion.html:42
 msgid "Next"
 msgstr "Siguiente"
 
-#: templates/visualizacion/base_visualizacion.html:56
+#: templates/visualizacion/base_visualizacion.html:54
 msgid "Pseudocode"
 msgstr "Pseudocódigo"
 
-#: templates/visualizacion/base_visualizacion.html:67
+#: templates/visualizacion/base_visualizacion.html:65
 msgid "General statistics"
 msgstr "Estadísticas generales"
 
-#: templates/visualizacion/base_visualizacion.html:88
+#: templates/visualizacion/base_visualizacion.html:86
 msgid "Initial data"
 msgstr "Dato inicial"
 
-#: templates/visualizacion/base_visualizacion.html:89
+#: templates/visualizacion/base_visualizacion.html:87
 msgid "Label"
 msgstr "Etiqueta"
 
-#: templates/visualizacion/base_visualizacion.html:90
+#: templates/visualizacion/base_visualizacion.html:88
 msgid "Classifier"
 msgstr "Clasificador"
 
-#: templates/visualizacion/base_visualizacion.html:91
+#: templates/visualizacion/base_visualizacion.html:89
 msgid "Classifier: Not classified"
 msgstr "Clasificador: No clasificado"
 
-#: templates/visualizacion/base_visualizacion.html:92
+#: templates/visualizacion/base_visualizacion.html:90
 msgid "Label: Not classified"
 msgstr "Etiqueta: No clasificado"
 
-#: templates/visualizacion/base_visualizacion.html:93
+#: templates/visualizacion/base_visualizacion.html:91
 msgid "Pause"
 msgstr "Pausar"
 
-#: templates/visualizacion/base_visualizacion.html:95
+#: templates/visualizacion/base_visualizacion.html:93
 msgid "Measure"
 msgstr "Valor"
 

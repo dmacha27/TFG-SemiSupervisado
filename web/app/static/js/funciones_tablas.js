@@ -95,7 +95,7 @@ export function generateDatasetTable(datasets, all_users) {
                             '</div>' +
                             '</button>'
                     }
-                    acciones += '<button class="btn btn-danger remove" data-file="' + row[1] + '">' +
+                    acciones += '    <button class="btn btn-danger remove" data-file="' + row[1] + '">' +
                         '<div class="pe-none">' +
                         '<i class="bi bi-trash-fill text-white"></i>' +
                         '</div>' +
