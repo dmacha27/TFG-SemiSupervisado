@@ -22,6 +22,7 @@ main_bp_inicio = 'main_bp.inicio'
 @login_required
 def logout():
     logout_user()
+    flash(gettext('Come back soon!'), category='')
     return redirect(url_for(main_bp_inicio))
 
 

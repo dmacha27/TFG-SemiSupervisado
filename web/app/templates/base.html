@@ -43,6 +43,7 @@
                     </ul>
                     <hr>
                     <ul class="navbar-nav ml-auto">
+                    {% if 'visualizacion' not in request.path %}
                         <li class="nav-item dropdown">
                             <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-translate text-white"></i>
@@ -57,6 +58,7 @@
                                 {% endfor %}
                             </ul>
                         </li>
+                    {% endif %}
                         {% if current_user.is_authenticated %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -64,7 +66,7 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     {% if current_user.is_admin %}
-                                    <li><a class="dropdown-item" href="/admin">{{ gettext('Admin dashboard') }}</a></li>
+                                        <li><a class="dropdown-item" href="/admin">{{ gettext('Admin dashboard') }}</a></li>
                                     {% endif %}
                                     <li><a class="dropdown-item" href="/miespacio/{{ current_user.id }}">{{ gettext('My Space') }}</a></li>
                                     <li><a class="dropdown-item" href="/perfil/{{ current_user.id }}">{{ gettext('Profile') }}</a></li>
@@ -85,13 +87,25 @@
                 </div>
             </div>
         </nav>
-        {% with mensajes = get_flashed_messages() %}
-            {% if mensajes %}
-                {% for mensaje in mensajes|reverse %}
-                    <p class="flash">{{ mensaje }}</p>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+            {% with mensajes = get_flashed_messages(with_categories=true) %}
+                {% if mensajes %}
+                    {% set primer_mensaje = mensajes[0] %}
+                    {% if primer_mensaje[0] == 'error' %}
+                        <div id="alerta" class="alert alert-danger alert-dismissible fade show text-break" role="alert">
+                    {% elif primer_mensaje[0] == 'success' %}
+                        <div id="alerta" class="alert alert-success alert-dismissible fade show text-break" role="alert">
+                    {% elif primer_mensaje[0] == 'warning' %}
+                        <div id="alerta" class="alert alert-warning alert-dismissible fade show text-break" role="alert">
+                    {% else %}
+                        <div id="alerta" class="alert alert-info alert-dismissible fade show text-break" role="alert">
+                    {% endif %}
+                        {% for categoria, mensaje in mensajes|reverse %}
+                            <p>{{ mensaje }}</p>
+                        {% endfor %}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+            {% endwith %}
         {% block content %}{% endblock %}
     </div>
     <footer class="D text-center title-mulish text-white">

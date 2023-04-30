@@ -16,7 +16,7 @@ def visualizar_algoritmo(algoritmo):
     Es el paso siguiente después de la configuración.
     """
     if 'target' not in request.form:
-        flash(gettext("You must select the parameters of the algorithm"))
+        flash(gettext("You must select the parameters of the algorithm"), category='error')
         return redirect(url_for('configuration_bp.configurar_algoritmo', algoritmo="None"))
 
     # En este punto se deben recoger todos los parámetros

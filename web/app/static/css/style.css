@@ -46,6 +46,26 @@ body {
     pointer-events: none;
 }
 
+#alerta {
+    position: absolute;
+    top: 60px;
+    right: 4px;
+    z-index: 5;
+    max-width: 40%;
+    opacity: 0;
+    animation: fadein ease 0.2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
+}
+
 .separacion {
     border: none;
     height: 5px;

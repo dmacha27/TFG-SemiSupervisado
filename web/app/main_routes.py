@@ -49,7 +49,7 @@ def descargar_prueba():
 @main_bp.route('/subida', methods=['GET', 'POST'])
 def subida():
     if 'ALGORITMO' not in session:
-        flash(gettext("You must select an algorithm"))
+        flash(gettext("You must select an algorithm"), category='error')
         return redirect(url_for('main_bp.inicio'))
 
     ya_hay_fichero = False

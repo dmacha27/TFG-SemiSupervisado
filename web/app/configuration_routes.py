@@ -13,12 +13,12 @@ configuration_bp = Blueprint('configuration_bp', __name__)
 @configuration_bp.route('/<algoritmo>', methods=['GET'])
 def configurar_algoritmo(algoritmo):
     if 'FICHERO' not in session:
-        flash(gettext("You must upload a file"))
+        flash(gettext("You must upload a file"), category='error')
         return redirect(url_for('main_bp.subida'))
 
     if '.ARFF' not in session['FICHERO'].upper():
         if '.CSV' not in session['FICHERO'].upper():
-            flash(gettext("File must be ARFF or CSV"))
+            flash(gettext("File must be ARFF or CSV"), category='error')
             return redirect(url_for('main_bp.subida'))
 
     dl = DatasetLoader(session['FICHERO'])

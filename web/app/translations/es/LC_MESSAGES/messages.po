@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-04-30 11:40+0200\n"
+"POT-Creation-Date: 2023-04-30 12:31+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -26,23 +26,23 @@ msgstr "Inglés"
 msgid "Spanish"
 msgstr "Español"
 
-#: __init__.py:105
+#: __init__.py:109
 msgid "Internal Server Error"
 msgstr "Error interno del servidor"
 
-#: __init__.py:109
+#: __init__.py:113
 msgid "Not found"
 msgstr "No encontrado"
 
-#: __init__.py:113
+#: __init__.py:117
 msgid "Forbidden"
 msgstr "Petición denegada por el servidor"
 
-#: __init__.py:117
+#: __init__.py:121
 msgid "Unauthorized"
 msgstr "No autorizado"
 
-#: __init__.py:121
+#: __init__.py:125
 msgid "Bad request"
 msgstr "Mala petición"
 
@@ -83,39 +83,43 @@ msgstr "Nueva contraseña"
 msgid "You must select an algorithm"
 msgstr "Debe seleccionar un algoritmo"
 
-#: user_routes.py:39
+#: user_routes.py:25
+msgid "Come back soon!"
+msgstr "¡Vuelve pronto!"
+
+#: user_routes.py:40
 msgid "Loging successful!"
 msgstr "¡Inicio de sesión correcto!"
 
-#: user_routes.py:47
+#: user_routes.py:48
 msgid "Incorrect password"
 msgstr "Contraseña incorrecta"
 
-#: user_routes.py:49
+#: user_routes.py:50
 msgid "Email not found"
 msgstr "Correo electrónico no encontrado"
 
-#: user_routes.py:65 user_routes.py:119
+#: user_routes.py:66 user_routes.py:120
 msgid "Email already exists"
 msgstr "El correo electrónico ya existe"
 
-#: user_routes.py:78
+#: user_routes.py:79
 msgid "Could not create account!"
 msgstr "La cuenta no pudo ser creada"
 
-#: user_routes.py:86
+#: user_routes.py:87
 msgid "Account created!"
 msgstr "¡Cuenta creada!"
 
-#: user_routes.py:103
+#: user_routes.py:104
 msgid "User doesn't exist"
 msgstr "El usuario no existe"
 
-#: user_routes.py:114
+#: user_routes.py:115
 msgid "Incorrect current password"
 msgstr "Contraseña actual incorrecta"
 
-#: user_routes.py:132
+#: user_routes.py:133
 msgid "Account updated!"
 msgstr "¡Cuenta actualizada!"
 
