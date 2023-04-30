@@ -143,7 +143,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    {{ gettext('You are about to delete: ') }}<span id="nombre_fichero_modal"></span>
+                    <strong>{{ gettext('You are about to delete: ') }}</strong><span id="nombre_fichero_modal"></span>
                 </div>
                 <div class="modal-footer justify-content-around">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ gettext('Cancel') }}</button>
@@ -168,6 +168,25 @@
                     <a id="cotraining_link" class="m-2" href="/seleccionar/cotraining/">Co-Training</a>
                     <a id="democraticcolearning_link" class="m-2" href="/seleccionar/democraticcolearning/">Democratic Co-Learning</a>
                     <a id="triraining_link" class="m-2" href="/seleccionar/tritraining/">Tri-Training</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro modalerror() %}
+    <div class="modal fade" id="modal_error" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Error</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>{{ gettext('An error ocurred') }}</p>
+                </div>
+                <div class="modal-footer justify-content-around">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ gettext('Close') }}</button>
                 </div>
             </div>
         </div>

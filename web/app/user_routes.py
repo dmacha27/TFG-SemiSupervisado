@@ -186,6 +186,12 @@ def obtener_datasets(user_id):
 @login_required
 def eliminar_dataset():
     json_request = request.json
+    if 'id' not in json_request or 'fichero' not in json_request:
+        return jsonify({
+            "status": "error",
+            "error": "bad request"
+        }), 400
+
     if int(json_request['id']) != current_user.id and not current_user.is_admin:  # Solo el propio usuario o
         # administrador puede eliminar
         return jsonify({
@@ -219,6 +225,36 @@ def obtener_historial(user_id):
         }), 401
 
     return [json.dumps(h.to_list()) for h in Run.query.filter_by(user_id=user_id).all()]
+
+
+@users_bp.route('/historial/eliminar', methods=['POST'])
+@login_required
+def eliminar_historial():
+    json_request = request.json
+    if 'id' not in json_request or 'fichero' not in json_request:
+        return jsonify({
+            "status": "error",
+            "error": "bad request"
+        }), 400
+
+    if int(json_request['id']) != current_user.id and not current_user.is_admin:
+        return jsonify({
+            "status": "error",
+            "error": "unauthorized"
+        }), 401
+
+    try:
+        Run.query.filter(Run.jsonfile == json_request['fichero']).delete()
+        db.session.commit()
+        os.remove(os.path.join(current_app.config['CARPETA_RUNS'], json_request['fichero']))
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "error": str(e)
+        }), 500
+
+    return jsonify({
+        "status": "success"}), 200
 
 
 @users_bp.route('/admin', methods=['GET'])

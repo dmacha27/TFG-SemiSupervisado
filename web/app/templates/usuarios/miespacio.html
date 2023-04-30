@@ -1,5 +1,5 @@
 {% extends "usuarios/base_user.html" %}
-{%  from "macros.html" import table_scripts_links,datasettable, historytable, modaleliminar, modalejecutar %}
+{%  from "macros.html" import table_scripts_links,datasettable, historytable, modaleliminar, modalejecutar, modalerror %}
 {% block head %}
     {{ super() }}
     {{ table_scripts_links() }}
@@ -27,5 +27,7 @@
     {{ modaleliminar() }}
 
     {{ modalejecutar() }}
+
+    {{ modalerror() }}
 
 {% endblock %}

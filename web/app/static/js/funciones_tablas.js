@@ -2,6 +2,11 @@ function nombredataset(file) {
     return file.split("-")[0];
 }
 
+const titulos = {'selftraining': 'Self-Training',
+        'cotraining': 'Co-Training',
+        'democraticcolearning': 'Democratic Co-Learning',
+        'tritraining': 'Tri-Training'};
+
 export const generateDatasetList = async (id=null) => {
     id = id==null ? '' : '/' + id;
     let response = await fetch('/datasets/obtener' + id);
@@ -151,9 +156,15 @@ export function generateDatasetTable(datasets, all_users) {
                         "fichero": file,
                         "id": id
                     })
-                }).then(res => res.json())
+                }).then(function (response) {
+                    if (!response.ok){
+                        let error_modal = new bootstrap.Modal(document.getElementById('modal_error'));
+                        error_modal.show();
+                    } else {
+                        table.row(row).remove().draw();
+                    }
+                })
                     .catch(error => console.log(error));
-                table.row(row).remove().draw();
 
                 if (!all_users) {
                     let n_uploads = document.getElementById('n_uploads');
@@ -188,12 +199,7 @@ export function generateHistoryTable(historial, all_users) {
 
     let historytable = document.querySelector('#historytable');
 
-    let titulos = {'selftraining': 'Self-Training',
-        'cotraining': 'Co-Training',
-        'democraticcolearning': 'Democratic Co-Learning',
-        'tritraining': 'Tri-Training'};
-
-    new DataTable(historytable, {
+    let table = new DataTable(historytable, {
         "order": [[2, 'desc']],
         "responsive": true,
         "pageLength": 5,
@@ -213,21 +219,74 @@ export function generateHistoryTable(historial, all_users) {
                 "orderable": false,
                 "render": function (data, type, row, meta) {
 
-                    if (all_users) {
-                        return ''
-                    }else{
-                        return '<a type="button" class="btn btn-warning run" href="/visualizacion/' + row[0] +'/' + row[4] +'">' +
+                    let acciones = '';
+                    if (!all_users) {
+                        acciones += '<a type="button" class="btn btn-warning run" href="/visualizacion/' + row[0] +'/' + row[4] +'">' +
                             '<div class="pe-none">' +
                             '<i class="bi bi-arrow-clockwise text-white"></i>' +
                             '</div>' +
-                            '</a>';
+                            '</a>'
                     }
+                    acciones += '    <button class="btn btn-danger remove" data-file="' + row[7] + '">' +
+                        '<div class="pe-none">' +
+                        '<i class="bi bi-trash-fill text-white"></i>' +
+                        '</div>' +
+                        '</button>'
+
+                    return acciones;
                 }
             }, {
                 "targets": -2, // Columna user
                 "visible": all_users, // Si la tabla es para todos los datasets de todos los usuarios, esta columna será visible
                 "searchable": all_users,
             }]
+    });
+
+    let id;
+
+    if (all_users) {
+        id = -1;
+    } else {
+        id = document.querySelector('#user_id').value;
+    }
+
+    historytable.addEventListener('click', function (event) {
+        // Eliminar
+        if (event.target.classList.contains('remove')) {
+            let file = event.target.getAttribute('data-file');
+
+            let row = event.target.closest('tr');
+
+            let span_fichero = document.getElementById('nombre_fichero_modal');
+            span_fichero.innerHTML = row.cells[0].innerText + ' - ' + row.cells[1].innerText + ' (' + row.cells[2].innerText + ')';
+
+            let modal = new bootstrap.Modal(document.getElementById('modal_eliminar'));
+            modal.show();
+
+            let btn_eliminar = document.getElementById('btn_eliminar');
+            btn_eliminar.onclick = function (e) {
+                modal.hide();
+                fetch('/historial/eliminar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "fichero": file,
+                        "id": id
+                    })
+                }).then(function (response) {
+                    if (!response.ok){
+                        let error_modal = new bootstrap.Modal(document.getElementById('modal_error'));
+                        error_modal.show();
+                    } else {
+                        table.row(row).remove().draw();
+                    }
+                })
+                    .catch(error => console.log(error));
+
+            }
+        }
     });
 }
 
@@ -249,11 +308,11 @@ export function generateUserTable(usuarios) {
                 "orderable": false,
                 "render": function (data, type, row, meta) {
                     return '<a type="button" class="btn btn-success edit" href="/admin/usuario/editar/' + row[3] + '">' +
-                            '<div class="pe-none">' +
-                            '<i class="bi bi-pencil-fill text-white"></i>' +
-                            '</div>' +
-                            '<a>'
-			+'  <button class="btn btn-danger remove" data-user="' + row[3] + '">' +
+                        '<div class="pe-none">' +
+                        '<i class="bi bi-pencil-fill text-white"></i>' +
+                        '</div>' +
+                        '<a>'
+                        +'  <button class="btn btn-danger remove" data-user="' + row[3] + '">' +
                         '<div class="pe-none">' +
                         '<i class="bi bi-trash-fill text-white"></i>' +
                         '</div>' +
@@ -286,11 +345,17 @@ export function generateUserTable(usuarios) {
                     body: JSON.stringify({
                         "user_id": user
                     })
-                }).then(res => res.json())
+                }).then(function (response) {
+                    if (!response.ok){
+                        let error_modal = new bootstrap.Modal(document.getElementById('modal_error'));
+                        error_modal.show();
+                    } else {
+                        table.row(row).remove().draw();
+                        location.reload();
+                    }
+                })
                     .catch(error => console.log(error));
-                table.row(row).remove().draw();
 
-                location.reload();
             }
         }
     });

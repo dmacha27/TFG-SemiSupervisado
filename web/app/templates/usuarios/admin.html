@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{%  from "macros.html" import table_scripts_links,datasettable, historytable, usertable, modaleliminar, modalejecutar %}
+{%  from "macros.html" import table_scripts_links,datasettable, historytable, usertable, modaleliminar, modalejecutar, modalerror %}
 {% block head %}
     {{ super() }}
     {{ table_scripts_links() }}
@@ -46,7 +46,7 @@
                         </div>
                         <div class="col-md-1">
                             <div class="rounded-4 p-2 my-4 shadow d-flex flex-column justify-content-center align-items-center text-center sticky-top">
-                                <span id="total_users" class="fs-1">0</span>
+                                <span id="total_users" class="fs-1"></span>
                                 <span>{{ gettext('Total users') }}</span>
                             </div>
                         </div>
@@ -105,6 +105,8 @@
     {{ modaleliminar() }}
 
     {{ modalejecutar() }}
+
+    {{ modalerror() }}
 
 {% endblock %}
 
