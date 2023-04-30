@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-04-29 19:05+0200\n"
+"POT-Creation-Date: 2023-04-30 11:40+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -83,35 +83,39 @@ msgstr "Nueva contraseña"
 msgid "You must select an algorithm"
 msgstr "Debe seleccionar un algoritmo"
 
-#: user_routes.py:38
+#: user_routes.py:39
 msgid "Loging successful!"
 msgstr "¡Inicio de sesión correcto!"
 
-#: user_routes.py:46
+#: user_routes.py:47
 msgid "Incorrect password"
 msgstr "Contraseña incorrecta"
 
-#: user_routes.py:48
+#: user_routes.py:49
 msgid "Email not found"
 msgstr "Correo electrónico no encontrado"
 
-#: user_routes.py:64 user_routes.py:110
+#: user_routes.py:65 user_routes.py:119
 msgid "Email already exists"
 msgstr "El correo electrónico ya existe"
 
-#: user_routes.py:77
+#: user_routes.py:78
+msgid "Could not create account!"
+msgstr "La cuenta no pudo ser creada"
+
+#: user_routes.py:86
 msgid "Account created!"
 msgstr "¡Cuenta creada!"
 
-#: user_routes.py:94
+#: user_routes.py:103
 msgid "User doesn't exist"
 msgstr "El usuario no existe"
 
-#: user_routes.py:105
+#: user_routes.py:114
 msgid "Incorrect current password"
 msgstr "Contraseña actual incorrecta"
 
-#: user_routes.py:123
+#: user_routes.py:132
 msgid "Account updated!"
 msgstr "¡Cuenta actualizada!"
 
@@ -655,3 +659,4 @@ msgstr "Valor"
 #: templates/visualizacion/singleview.html:3
 msgid "Specific statistics"
 msgstr "Estadísticas específicas"
+

@@ -1,9 +1,11 @@
 import json
 import os
+from functools import wraps
 
 from flask import flash, render_template, redirect, url_for, Blueprint, request, session, jsonify, current_app, abort
 from flask_login import login_user, login_required, logout_user, current_user
 from flask_babel import gettext
+from sqlalchemy.exc import SQLAlchemyError
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from datetime import datetime, timedelta
@@ -68,8 +70,16 @@ def registrar():
         usuario.name = name
         usuario.password = generate_password_hash(password, method='sha256')
         usuario.last_login = datetime.now()
-        db.session.add(usuario)
-        db.session.commit()
+
+        try:
+            db.session.add(usuario)
+        except SQLAlchemyError:
+            db.session.rollback()
+            flash(gettext('Could not create account!'), category='error')
+            return render_template("usuarios/registro.html", form=form)
+        else:
+            db.session.commit()
+
         login_user(usuario)
         session.pop('ALGORITMO', None)
         session.pop('FICHERO', None)
@@ -219,27 +229,30 @@ def admin_panel():
     return render_template("usuarios/admin.html")
 
 
+def admin_api_required(f):
+    @wraps(f)
+    def wrapped(*args, **kwargs):
+        if not current_user.is_admin:
+            return jsonify({
+                "status": "error",
+                "error": "unauthorized"
+            }), 401
+        return f(*args, **kwargs)
+
+    return wrapped
+
+
 @users_bp.route('/datasets/obtener', methods=['GET'])
 @login_required
+@admin_api_required
 def obtener_datasets_todos():
-    if not current_user.is_admin:
-        return jsonify({
-            "status": "error",
-            "error": "unauthorized"
-        }), 401
-
     return [json.dumps(d.to_list()) for d in Dataset.query.all()]
 
 
 @users_bp.route('/datasets/ultimos', methods=['GET'])
 @login_required
+@admin_api_required
 def obtener_datasets_ultimos():
-    if not current_user.is_admin:
-        return jsonify({
-            "status": "error",
-            "error": "unauthorized"
-        }), 401
-
     date = datetime.today() - timedelta(days=7)
 
     datasets = Dataset.query.filter(Dataset.date >= date).all()
@@ -249,25 +262,15 @@ def obtener_datasets_ultimos():
 
 @users_bp.route('/historial/obtener', methods=['GET'])
 @login_required
+@admin_api_required
 def obtener_historial_todos():
-    if not current_user.is_admin:
-        return jsonify({
-            "status": "error",
-            "error": "unauthorized"
-        }), 401
-
     return [json.dumps(h.to_list()) for h in Run.query.all()]
 
 
 @users_bp.route('/historial/ultimos', methods=['GET'])
 @login_required
+@admin_api_required
 def obtener_historial_ultimos():
-    if not current_user.is_admin:
-        return jsonify({
-            "status": "error",
-            "error": "unauthorized"
-        }), 401
-
     date = datetime.today() - timedelta(days=7)
 
     runs = Run.query.filter(Run.date >= date).all()
@@ -277,25 +280,16 @@ def obtener_historial_ultimos():
 
 @users_bp.route('/usuarios/obtener', methods=['GET'])
 @login_required
+@admin_api_required
 def obtener_usuarios_todos():
-    if not current_user.is_admin:
-        return jsonify({
-            "status": "error",
-            "error": "unauthorized"
-        }), 401
-
     return [json.dumps(u.to_list()) for u in User.query.all()]
 
 
 @users_bp.route('/usuarios/eliminar', methods=['POST'])
 @login_required
+@admin_api_required
 def eliminar_usuario():
     json_request = request.json
-    if not current_user.is_admin:  # Solo el administrador puede eliminar
-        return jsonify({
-            "status": "error",
-            "error": "unauthorized"
-        }), 401
 
     try:
         # Eliminar todos los ficheros
@@ -320,9 +314,15 @@ def eliminar_usuario():
         for filename in runs_filenames:
             os.remove(os.path.join(current_app.config['CARPETA_RUNS'], filename))
 
+    except SQLAlchemyError as se:
+        db.session.rollback()
+        return jsonify({
+            "status": "database error",
+            "error": str(se)
+        }), 500
     except Exception as e:
         return jsonify({
-            "status": "error",
+            "status": "critical error",
             "error": str(e)
         }), 500
 
