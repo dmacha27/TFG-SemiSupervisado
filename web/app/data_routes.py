@@ -8,6 +8,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
+from sqlalchemy.exc import SQLAlchemyError
 
 from algoritmos import SelfTraining, CoTraining, DemocraticCoLearning, TriTraining
 from algoritmos.utilidades.datasetloader import DatasetLoader
@@ -147,8 +148,14 @@ def obtener_info(algoritmo):
         run.date = datetime.now()
         run.jsonfile = f'run-{current_user.id}-{date}.json'
         run.user_id = current_user.id
-        db.session.add(run)
-        db.session.commit()
+
+        try:
+            db.session.add(run)
+        except SQLAlchemyError:
+            db.session.rollback()
+            os.remove(os.path.join(current_app.config['CARPETA_RUNS'], f'run-{current_user.id}-{date}.json'))
+        else:
+            db.session.commit()
 
     return info
 

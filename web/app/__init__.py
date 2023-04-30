@@ -100,24 +100,28 @@ def create_app():
 
     template_error = 'error.html'
 
+    @app.errorhandler(Exception)
+    def critical_error(e):
+        return render_template(template_error, error='Critical error', mensaje=str(e)), 500
+
     @app.errorhandler(500)
-    def page_not_found(error):
+    def internal_server_error(e):
         return render_template(template_error, error=500, mensaje=gettext('Internal Server Error')), 500
 
     @app.errorhandler(404)
-    def page_not_found(error):
+    def not_found(e):
         return render_template(template_error, error=404, mensaje=gettext('Not found')), 404
 
     @app.errorhandler(403)
-    def page_not_found(error):
+    def forbidden(e):
         return render_template(template_error, error=403, mensaje=gettext('Forbidden')), 403
 
     @app.errorhandler(401)
-    def page_not_found(error):
+    def unauthorized(e):
         return render_template(template_error, error=401, mensaje=gettext('Unauthorized')), 401
 
     @app.errorhandler(400)
-    def page_not_found(error):
+    def bad_request(e):
         return render_template(template_error, error=400, mensaje=gettext('Bad request')), 400
 
     return app
