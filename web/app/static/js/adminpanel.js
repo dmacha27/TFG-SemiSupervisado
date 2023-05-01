@@ -11,19 +11,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     generateDatasetList()
         .then(datasets => {
-            generateDatasetTable(datasets, true);
+            generateDatasetTable(datasets, locale,true);
         })
 
     generateRunList()
         .then(historial => {
-            generateHistoryTable(historial, true);
+            generateHistoryTable(historial, locale, true);
         })
 
     generateUserList()
         .then(users => {
             let total_users = document.getElementById('total_users');
             total_users.innerText = users.length.toString();
-            generateUserTable(users);
+            generateUserTable(users, locale);
         })
 
     fetch('/datasets/ultimos')

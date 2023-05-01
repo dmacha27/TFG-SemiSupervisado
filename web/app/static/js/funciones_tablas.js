@@ -2,10 +2,53 @@ function nombredataset(file) {
     return file.split("-")[0];
 }
 
+const idiomas = {
+    "en": {
+        "decimal":        "",
+        "emptyTable":     "No data available in table",
+        "info":           "Showing _START_ to _END_ of _TOTAL_ entries",
+        "infoEmpty":      "Showing 0 to 0 of 0 entries",
+        "infoFiltered":   "(filtered from _MAX_ total entries)",
+        "infoPostFix":    "",
+        "thousands":      ",",
+        "lengthMenu":     "Show _MENU_ entries",
+        "loadingRecords": "Loading...",
+        "processing":     "",
+        "search":         "Search:",
+        "zeroRecords":    "No matching records found",
+        "paginate": {
+            "first":      "First",
+            "last":       "Last",
+            "next":       "Next",
+            "previous":   "Previous"
+        }
+    },
+    "es": {
+        "decimal": "",
+        "emptyTable": "No hay información",
+        "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+        "infoEmpty": "Mostrando 0 to 0 of 0 entradas",
+        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+        "infoPostFix": "",
+        "thousands": ",",
+        "lengthMenu": "Mostrar _MENU_ entradas",
+        "loadingRecords": "Cargando...",
+        "processing": "Procesando...",
+        "search": "Buscar:",
+        "zeroRecords": "No hay datos en la tabla",
+        "paginate": {
+            "first": "Primero",
+            "last": "Último",
+            "next": "Siguiente",
+            "previous": "Anterior"
+        }
+    }
+}
+
 const titulos = {'selftraining': 'Self-Training',
-        'cotraining': 'Co-Training',
-        'democraticcolearning': 'Democratic Co-Learning',
-        'tritraining': 'Tri-Training'};
+    'cotraining': 'Co-Training',
+    'democraticcolearning': 'Democratic Co-Learning',
+    'tritraining': 'Tri-Training'};
 
 export const generateDatasetList = async (id=null) => {
     id = id==null ? '' : '/' + id;
@@ -74,7 +117,7 @@ export const generateUserList = async () => {
 
 // https://datatables.net/forums/discussion/54495/remove-table-row-from-a-button-inside-the-same-row-when-collapsed
 // Transformado a vanilla
-export function generateDatasetTable(datasets, all_users) {
+export function generateDatasetTable(datasets, locale, all_users) {
 
     let datasettable = document.querySelector('#datasettable');
 
@@ -82,6 +125,7 @@ export function generateDatasetTable(datasets, all_users) {
         "order": [[2, 'desc']],
         "responsive": true,
         "pageLength": 5,
+        "language": idiomas[locale],
         "lengthMenu": [[5, 10, 20], [5, 10, 20]],
         "data": datasets,
         "columnDefs": [
@@ -195,7 +239,7 @@ export function generateDatasetTable(datasets, all_users) {
     });
 }
 
-export function generateHistoryTable(historial, all_users) {
+export function generateHistoryTable(historial, locale, all_users) {
 
     let historytable = document.querySelector('#historytable');
 
@@ -203,6 +247,7 @@ export function generateHistoryTable(historial, all_users) {
         "order": [[2, 'desc']],
         "responsive": true,
         "pageLength": 5,
+        "language": idiomas[locale],
         "lengthMenu": [[5, 10, 20], [5, 10, 20]],
         "data": historial,
         "columnDefs": [
@@ -290,7 +335,7 @@ export function generateHistoryTable(historial, all_users) {
     });
 }
 
-export function generateUserTable(usuarios) {
+export function generateUserTable(usuarios, locale) {
 
     let usertable = document.querySelector('#usertable');
 
@@ -298,6 +343,7 @@ export function generateUserTable(usuarios) {
         "order": [[2, 'desc']],
         "responsive": true,
         "pageLength": 5,
+        "language": idiomas[locale],
         "lengthMenu": [[5, 10, 20], [5, 10, 20]],
         "data": usuarios,
         "columnDefs": [

@@ -6,12 +6,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     generateDatasetList(id)
         .then(datasets => {
-            generateDatasetTable(datasets, false);
+            generateDatasetTable(datasets, locale,false);
         })
 
     generateRunList(id)
         .then(historial => {
-            generateHistoryTable(historial, false);
+            generateHistoryTable(historial, locale,false);
         })
 
 });

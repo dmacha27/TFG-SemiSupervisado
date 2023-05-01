@@ -2,6 +2,9 @@
 {%  from "macros.html" import table_scripts_links,datasettable, historytable, usertable, modaleliminar, modalejecutar, modalerror %}
 {% block head %}
     {{ super() }}
+    <script>
+        const locale = '{{ idioma_actual }}';
+    </script>
     {{ table_scripts_links() }}
     <script type="module" src="/js/adminpanel.js"></script>
 {% endblock %}
