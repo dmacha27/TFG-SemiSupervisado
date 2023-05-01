@@ -189,31 +189,3 @@ class TriTraining:
         """
 
         return accuracy_score(y_test, self.predict(x_test))
-
-
-"""if __name__ == '__main__':
-
-    data = load_breast_cancer()
-
-    tiempos = []
-
-    for _ in range(10):
-        (
-            x,
-            y,
-            x_test,
-            y_test
-        ) = data_split(data.data, data.target, False, p_unlabelled=0.8, p_test=0.4)
-
-        tt = TriTraining([GaussianNB(), DecisionTreeClassifier(), KNeighborsClassifier()])
-        start = time.time()
-        it = tt.fit(x, y, x_test, y_test, data['feature_names'])
-        exit()
-        end = time.time()
-        print("propia", accuracy_score(y_test, tt.predict(x_test)))
-        tiempos.append(end - start)
-
-        ttssl = sslearn.wrapper.TriTraining([GaussianNB(), DecisionTreeClassifier(), KNeighborsClassifier()])
-        ttssl.fit(x, y)
-        print("sslearn", accuracy_score(y_test, ttssl.predict(x_test)))
-    print(np.mean(tiempos))"""

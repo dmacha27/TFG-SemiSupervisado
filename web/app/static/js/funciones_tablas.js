@@ -115,6 +115,28 @@ export const generateUserList = async () => {
     return usuarios;
 }
 
+function fetch_eliminar(ruta, table, row, file, id) {
+    fetch(ruta, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "fichero": file,
+            "id": id
+        })
+    }).then(function (response) {
+        if (!response.ok){
+            let error_modal = new bootstrap.Modal(document.getElementById('modal_error'));
+            error_modal.show();
+        } else {
+            table.row(row).remove().draw();
+        }
+    })
+        .catch(error => console.log(error));
+}
+
+
 // https://datatables.net/forums/discussion/54495/remove-table-row-from-a-button-inside-the-same-row-when-collapsed
 // Transformado a vanilla
 export function generateDatasetTable(datasets, locale, all_users) {
@@ -190,26 +212,8 @@ export function generateDatasetTable(datasets, locale, all_users) {
 
             let btn_eliminar = document.getElementById('btn_eliminar');
             btn_eliminar.onclick = function (e) {
-                modal.hide();
-                fetch('/datasets/eliminar', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        "fichero": file,
-                        "id": id
-                    })
-                }).then(function (response) {
-                    if (!response.ok){
-                        let error_modal = new bootstrap.Modal(document.getElementById('modal_error'));
-                        error_modal.show();
-                    } else {
-                        table.row(row).remove().draw();
-                    }
-                })
-                    .catch(error => console.log(error));
-
+                modal.hide()
+                fetch_eliminar('/datasets/eliminar', table, row, file, id);
                 if (!all_users) {
                     let n_uploads = document.getElementById('n_uploads');
                     n_uploads.innerHTML = (parseInt(n_uploads.innerHTML) - 1).toString();
@@ -311,25 +315,7 @@ export function generateHistoryTable(historial, locale, all_users) {
             let btn_eliminar = document.getElementById('btn_eliminar');
             btn_eliminar.onclick = function (e) {
                 modal.hide();
-                fetch('/historial/eliminar', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        "fichero": file,
-                        "id": id
-                    })
-                }).then(function (response) {
-                    if (!response.ok){
-                        let error_modal = new bootstrap.Modal(document.getElementById('modal_error'));
-                        error_modal.show();
-                    } else {
-                        table.row(row).remove().draw();
-                    }
-                })
-                    .catch(error => console.log(error));
-
+                fetch_eliminar('/historial/eliminar', table, row, file, id);
             }
         }
     });
