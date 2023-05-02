@@ -19,6 +19,22 @@ mejores prácticas en el diseño web \cite{40defiebre}. En toda la aplicación,
 cuando el tamaño de la pantalla se reduce lo suficiente, los contenidos se
 adaptan y se posicionan de tal forma que puedan seguir utilizándose.
 
+\textbf{Internacionalización (i18n)\footnote{Denominado así por las 18 letras
+entre la <<i>> y la <<n> en Internationalization}}: Se trata de una
+técnica/procedimiento por el que se desarrolla el software para poder ser
+adaptado y localizado posteriormente a otras culturas y
+lenguajes~\cite{lokalise}. Concretamente, este proyecto se está centrando en la
+parte lingüística, con Inglés como idioma principal y el Español. La idea de
+esta técnica es conseguir esto, pero haciendo un código completamente neutral,
+es decir, permitir que todo lo que se ha hecho para un idioma, pueda hacerse a
+posteriori con la misma facilidad. En este entorno de Python y Flask existe la
+librería (Babel) que permite capturar el texto (previamente anotado) y
+sustituirlo en cada momento por las palabras adecuadas a la localización del
+usuario (o bien con un cambio manual mediante botones). Por así decirlo, en vez
+de codificar a un solo idioma, las palabras del idioma original se convierten en
+claves, que luego son sustituidas cuando el usuario accede.
+
+
 \section{Herramientas}
 
 \paragraph{PyCharm}
@@ -94,29 +110,50 @@ utilizadas directamente. En el proyecto, las librerías usadas están
 especificadas en los requisitos (\textit{requirements}).
 
 \begin{itemize}
-	\item \textbf{pandas}: Librería para el manejo de estructuras de datos que implementa
-	muchas operaciones útiles (guardado/lectura CSV, reordenaciones,
+	\item \textbf{pandas}: Librería para el manejo de estructuras de datos que
+	implementa muchas operaciones útiles (guardado/lectura CSV, reordenaciones,
 	divisiones...) y de manera eficiente.
 	\item \textbf{Babel}: Colección de utilidades para la internacionalización y
 	localización de aplicaciones en Python.
-	\item \textbf{Flask}: Es un micro Framework escrito en Python para el desarrollo de
-	aplicaciones Web. Impone además su formato de plantillas (Jinja2).
+	\item \textbf{Flask}: Es un micro Framework escrito en Python para el
+	desarrollo de aplicaciones Web. Impone además su formato de plantillas
+	(Jinja2).
 	\item \textbf{flask-babel}: Es una extensión de Flask que permite la
 	internacionalización concreta de aplicacones Flask (con la ayuda de Babel).
-	\item \textbf{scikit-learn}: Librería más extendida de aprendizaje automático
-	(<<machine learning>>) para Python. Junto con Flask es el núcleo del
-	proyecto ya que utiliza muchos de sus paquetes implementados.
-	\item \textbf{numpy}: Es una librería especializada en el cálculo numérico y análisis
-	de datos. Se caracteriza por su eficiente manejo de grandes volúmenes de
-	datos gracias a su parcial implementación en lenguaje C (mucho más
-	eficiente).
+	\item \textbf{Flask-SQLAlchemy}: Librería que actúa de extensión de Flask y
+	añade el soporte para SQLAlchemy. No modifica el comportamiento de este
+	último.
+	\item \textbf{Flask-Login}: Librería complementaria a Flask para el manejo
+	de sesiones de usuarios, automatizando los inicios y cierres de sesión entre
+	otras cosas.
+	\item \textbf{scikit-learn}: Librería más extendida de aprendizaje
+	automático (<<machine learning>>) para Python. Junto con Flask es el núcleo
+	del proyecto, ya que utiliza muchos de sus paquetes implementados.
+	\item \textbf{numpy}: Es una librería especializada en el cálculo numérico y
+	análisis de datos. Se caracteriza por su eficiente manejo de grandes
+	volúmenes de datos gracias a su parcial implementación en lenguaje C (mucho
+	más eficiente).
 	\item \textbf{scipy}: Librería que incluye algoritmos matemáticos.
 	\item \textbf{setuptools}: Librería que permite crear e instalar paquetes de
 	software de Python.
 	\item \textbf{pytest}: Es un Framework de pruebas unitarias para Python.
-	\item \textbf{sslearn}: Librería para aprendizaje automático en conjuntos de datos
-	Semi-Supervisados como extensión de scikit-learn. Creada por José Luis Garrido-Labrador.
+	\item \textbf{sslearn}: Librería para aprendizaje automático en conjuntos de
+	datos Semi-Supervisados como extensión de scikit-learn. Creada por José Luis
+	Garrido-Labrador.
+	\item \textbf{Werkzeug}: Librería para aplicaciones WSGI (Web Server Gateway
+	Inteface). Contiene un colección de utilidades para este tipo de
+	aplicaciones.
 	\item \textbf{matplotlib}: Librería para la creación de gráficos en 2D.
+	\item \textbf{Flask-WTF}: Librería que actúa de extensión de Flask y añade
+	el soporte para WTForms.
+	\item \textbf{WTForms}: Librería para la creación de formularios seguros.
+	Permite añadir múltiples validaciones en los campos de los formularios.
+	Además, son útiles para crear <<plantillas>> base existen muchos formularios
+	comunes.
+	\item \textbf{SQLAlchemy}: Librería que incorpora una serie de herramientas
+	SQL junto con el <<mapeo>> de los objetos relacionales. Ha resultado
+	especialmente importante para desvincular la instancia de la base de datos
+	(SQLite, MySQL...) de las consultas y operaciones.
 \end{itemize}
 
 \paragraph{Bibliotecas Web} Para el desarrollo Web conviene comentar la
@@ -161,3 +198,16 @@ también, no al nivel de D3.
 La desventaja de D3 es que tiene una curva de aprendizaje bastante grande, pero
 gracias a la documentación en internet, esto puede ser solventado en mayor
 medida.
+
+\textbf{DataTables}: Es un plug-in para la librería JQuery. Su objetivo es la
+creación de tablas dinámicas e interactivas de la forma más sencilla posible.
+Este plug-in se ha utilizado en todos los apartados de los usuarios, tanto el
+espacio personal como el panel de administración. La elección de esta librería
+es por recomendación de los tutores. Pese a que las tareas relativas a los
+usuarios fue compleja y se tardaron dos Sprints en terminar todo lo relativo a
+las tablas, DataTables tiene una muy buena documentación. Además, en el momento
+de consultar una duda, en su propio foro otros usuarios ya habían tenido los
+mismos problemas. A la hora de crear las tablas, tiene multitud de opciones,
+tanto para la tabla general, como para celdas, columnas o filas concretas. Como
+más importante, existen opciones para <<renderizar>> código HTML en unas
+columnas (típica columna de Acciones, por ejemplo).
