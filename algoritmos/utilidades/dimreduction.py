@@ -52,16 +52,18 @@ def log_cxcy_reduction(log, cx, cy, features, normalize=True):
     :return: log transformado.
     """
 
+    c_not_equal = cx != cy
+
     not_features = log.columns.difference(features)
     rest = log[not_features]
-    features = log[[cx, cy]]
+    features = log[[cx, cy] if c_not_equal else [cx]]
 
     if normalize:
         features = StandardScaler().fit_transform(features)
 
     df = pd.DataFrame(
         data=features,
-        columns=[cx, cy])
+        columns=[cx, cy] if c_not_equal else [cx])
 
     df[not_features] = rest[not_features].values
     return df
