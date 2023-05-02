@@ -104,6 +104,8 @@ def editar(user_id, redirect_page):
         flash(gettext("User doesn't exist"), category='error')
         return redirect(url_for(redirect_page))
 
+    n_uploads, n_runs = obtener_estadisticas_usuario(int(user_id))
+
     errores = False
     if request.method == 'POST' and form.validate():
         new_name = request.form.get('name')
@@ -121,7 +123,11 @@ def editar(user_id, redirect_page):
             errores = True
 
         if errores:
-            return render_template("usuarios/perfil.html", form=form)
+            return render_template("usuarios/perfil.html",
+                                   usuario=usuario,
+                                   form=form,
+                                   n_uploads=n_uploads,
+                                   n_runs=n_runs)
 
         usuario.email = new_email
         usuario.name = new_name
@@ -132,8 +138,6 @@ def editar(user_id, redirect_page):
             login_user(usuario)
         flash(gettext('Account updated!'), category='success')
         return redirect(url_for(redirect_page))
-
-    n_uploads, n_runs = obtener_estadisticas_usuario(int(user_id))
 
     return render_template("usuarios/perfil.html",
                            usuario=usuario,
