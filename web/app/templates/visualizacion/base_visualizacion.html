@@ -2,9 +2,10 @@
 {% block head %}
     {{ super() }}
     <script type="text/javascript" src="/js/d3.min.js"></script>
-    <script type="text/javascript" src="/js/inicializar.js"></script>
-    <script type="text/javascript" src="/js/estadisticas.js"></script>
-    <script type="text/javascript" src="/js/grafico.js"></script>
+    <script type="text/javascript" src="/js/visualizacion/inicializar.js"></script>
+    <script type="text/javascript" src="/js/visualizacion/estadisticas.js"></script>
+    <script type="text/javascript" src="/js/visualizacion/grafico.js"></script>
+    <script type="text/javascript" src="/js/visualizacion/funciones_comunes.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 {% endblock %}
 {% block content %}

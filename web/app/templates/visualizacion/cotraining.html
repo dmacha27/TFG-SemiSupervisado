@@ -6,23 +6,12 @@
 {% block mas_scripts %}
     {% if ejecutar %}
         <script>
-            inicializar("/datos/{{ session['ALGORITMO'] }}", elementos).then(function (datos) {
-                inicializarGrafico(datos, preparardataset_cotraining,grafico_cotraining);
-
-                let stats = Object.keys(JSON.parse(datos.stats));
-                generargraficoestadistico("estadisticas_generales", JSON.parse(datos.stats), stats);
-            });
+            inicializar_con_peticion("/datos/{{ session['ALGORITMO'] }}", elementos, preparardataset_cotraining, grafico_cotraining);
         </script>
     {% else %}
         <script>
             let datos = {{ json_data|tojson }};
-            document.getElementById("div_cargando").remove();
-            document.getElementById("visualizacion").style.visibility = 'visible';
-            document.getElementById("titulo_visualizacion").style.visibility = 'visible';
-            inicializarGrafico(datos, preparardataset_cotraining,grafico_cotraining);
-
-            let stats = Object.keys(JSON.parse(datos.stats));
-            generargraficoestadistico("estadisticas_generales", JSON.parse(datos.stats), stats);
+            inicializar_sin_peticion(datos, preparardataset_cotraining, grafico_cotraining)
         </script>
     {% endif %}
 {% endblock %}

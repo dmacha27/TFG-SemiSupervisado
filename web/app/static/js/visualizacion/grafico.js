@@ -667,15 +667,6 @@ function grafico_democraticcolearning(dataset) {
 
     const mousemove_democraticcolearning = function(e, dot) {
 
-        function alguno_clasificado(puntos_posicion) {
-            for (let punto_posicion of puntos_posicion) {
-                if (punto_posicion.__data__[3] <= cont){
-                    return true;
-                }
-            }
-            return false;
-        }
-
         d3.select(".tooltip")
             .html(function() {
                 let puntos_posicion = puntos_en_x_y(dot[0], dot[1])._groups[0];
