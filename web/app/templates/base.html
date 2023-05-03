@@ -43,22 +43,22 @@
                     </ul>
                     <hr>
                     <ul class="navbar-nav ml-auto">
-                    {% if 'visualizacion' not in request.path %}
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-translate text-white"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                {% for idioma in idiomas.items() %}
-                                    {% if idioma_actual == idioma[0] %}
-                                        <li class="lang_active"><a class="dropdown-item active">{{ idioma[1] }}</a></li>
-                                    {% else %}
-                                        <li class="lang_inactive"><a class="dropdown-item" href="{{ request.path }}?lang={{ idioma[0] }}">{{ idioma[1] }}</a></li>
-                                    {%  endif %}
-                                {% endfor %}
-                            </ul>
-                        </li>
-                    {% endif %}
+                        {% if 'visualizacion' not in request.path %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-translate text-white"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    {% for idioma in idiomas.items() %}
+                                        {% if idioma_actual == idioma[0] %}
+                                            <li class="lang_active"><a class="dropdown-item active">{{ idioma[1] }}</a></li>
+                                        {% else %}
+                                            <li class="lang_inactive"><a class="dropdown-item" href="{{ request.path }}?lang={{ idioma[0] }}">{{ idioma[1] }}</a></li>
+                                        {%  endif %}
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endif %}
                         {% if current_user.is_authenticated %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -87,33 +87,59 @@
                 </div>
             </div>
         </nav>
-            {% with mensajes = get_flashed_messages(with_categories=true) %}
-                {% if mensajes %}
-                    {% set primer_mensaje = mensajes[0] %}
-                    {% if primer_mensaje[0] == 'error' %}
-                        <div id="alerta" class="alert alert-danger alert-dismissible fade show text-break" role="alert">
-                    {% elif primer_mensaje[0] == 'success' %}
-                        <div id="alerta" class="alert alert-success alert-dismissible fade show text-break" role="alert">
-                    {% elif primer_mensaje[0] == 'warning' %}
-                        <div id="alerta" class="alert alert-warning alert-dismissible fade show text-break" role="alert">
-                    {% else %}
-                        <div id="alerta" class="alert alert-info alert-dismissible fade show text-break" role="alert">
-                    {% endif %}
-                        {% for categoria, mensaje in mensajes|reverse %}
-                            <p>{{ mensaje }}</p>
-                        {% endfor %}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
+
+        {% with mensajes = get_flashed_messages(with_categories=true) %}
+            {% if mensajes %}
+                <div class="toast-container end-0 p-3">
+                {% set primer_mensaje = mensajes[0] %}
+                {% if primer_mensaje[0] == 'error' %}
+                    <div id="liveToast" class="toast border-danger bg-danger bg-opacity-75" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+                            <strong class="me-auto">Error</strong>
+                            <small class="text-muted">just now</small>
+                {% elif primer_mensaje[0] == 'success' %}
+                    <div id="liveToast" class="toast border-success bg-success bg-opacity-75" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+                            <strong class="me-auto">Success</strong>
+                            <small class="text-muted">just now</small>
+                {% elif primer_mensaje[0] == 'warning' %}
+                    <div id="liveToast" class="toast border-warning bg-warning bg-opacity-75" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+                            <strong class="me-auto">Warning</strong>
+                            <small class="text-muted">just now</small>
+                {% else %}
+                    <div id="liveToast" class="toast border-info bg-info bg-opacity-75" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+                            <strong class="me-auto">Info</strong>
+                            <small class="text-muted">just now</small>
                 {% endif %}
-            {% endwith %}
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                            {% for categoria, mensaje in mensajes|reverse %}
+                                {{ mensaje }}
+                                {% if loop.index < mensajes|length %}
+                                    <br>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <script>
+                        const e = new bootstrap.Toast(document.getElementById('liveToast'), {delay: 7500});
+                        e.show()
+                    </script>
+                </div>
+            {% endif %}
+        {% endwith %}
+
         {% block content %}{% endblock %}
-    </div>
-    <footer class="D text-center title-mulish text-white">
-        <div class="d-flex flex-column">
-            <p>Universidad de Burgos</p>
-            <p>© 2023 David Martínez Acha</p>
         </div>
-    </footer>
-</div>
+        <footer class="D text-center title-mulish text-white">
+            <div class="d-flex flex-column">
+                <p>Universidad de Burgos</p>
+                <p>© 2023 David Martínez Acha</p>
+            </div>
+        </footer>
+        </div>
 </body>
 </html>
