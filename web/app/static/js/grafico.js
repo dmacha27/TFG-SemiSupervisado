@@ -249,6 +249,21 @@ function posicionartooltip(e) {
         );
 }
 
+/**
+ *
+ * A partir de una posición concreta (x,y), obtiene
+ * los puntos que ocupan esa posición (pueden ser varios)
+ *
+ * @param x - posición x
+ * @param y - posición y
+ * @returns {*} - puntos
+ */
+function puntos_en_x_y(x,y) {
+    return puntos.filter(function(d) {
+        return d[0] === x && d[1] === y;
+    })
+}
+
 
 /**
  *
@@ -298,9 +313,7 @@ function grafico_selftraining(dataset) {
                                 "<span style='color:"+ color(parseInt(p_data[2])) +"'>" + mapa[p_data[2]] + "</span>";
                         }
                     } else{
-                        cadena_tooltip += cx + ": " + p_data[0] + "<br>" + cy + ": " + p_data[1] +
-                            "<br>" + traducir('Classifier: Not classified') + "<br>" +
-                            traducir('Label: Not classified');
+                        cadena_tooltip += un_clasificador_return_no_clasificado(p_data);
                     }
                     if (i < puntos_posicion.length -1) {
                         cadena_tooltip += "<br>-------<br>";
@@ -463,6 +476,12 @@ function prev_co() {
         })
             .attr("d", simbolos.type(d3.symbolCircle).size(35))
             .style("fill", "grey");
+
+        puntos.filter(function (d) {
+            return d[3] <= cont;
+        }).each(function() {
+            this.parentNode.appendChild(this);
+        });
         actualizaProgreso("prev");
     }
 }
@@ -477,7 +496,7 @@ function prev_co() {
 function next_co() {
     if (cont < maxit) {
         cont++;
-        puntos.filter(function (d) {
+        let recien_clasificados = puntos.filter(function (d) {
             return d[3] === cont && d[2] !== -1;
         })
             .style("fill", function (d) {
@@ -494,6 +513,10 @@ function next_co() {
             .transition()
             .duration(300)
             .attr("d", simbolos.size(35));
+
+        recien_clasificados.each(function (){
+            this.parentNode.appendChild(this);
+        });
 
         actualizaProgreso("next");
     }
@@ -542,26 +565,30 @@ function grafico_cotraining(dataset) {
 
     const mousemove_cotraining = function (e, dot) {
         d3.select(".tooltip")
-            .style("opacity", 1)
-            .style("display", "block");
-
-        d3.select(".tooltip")
-            .html(function () {
-                if (dot[3] <= cont && dot[2] !== -1) {
-                    if (dot[3] === 0) {
-                        return tooltip_dato_inicial(dot);
-                    } else {
-                        return cx + ": " + dot[0] + "<br>" + cy + ": " + dot[1] + "<br>" +
-                            traducir('Classifier') + ": " + obtenerSimboloUnicode(dot[4]) + dot[4] +
-                            "<br>" + traducir('Label') + ": " +
-                            "<span style='color:"+ color(parseInt(dot[2])) +"'>" + mapa[dot[2]] + "</span>";
+            .html(function() {
+                let puntos_posicion = puntos_en_x_y(dot[0], dot[1])._groups[0];
+                let cadena_tooltip = "";
+                for (let i = 0; i < puntos_posicion.length; i++) {
+                    let p_data = puntos_posicion[i].__data__
+                    if (p_data[3] <= cont && p_data[2] !== -1) {
+                        if (p_data[3] === 0){
+                            cadena_tooltip += tooltip_dato_inicial(p_data);
+                        }else {
+                            cadena_tooltip += cx + ": " + p_data[0] + "<br>" + cy + ": " + p_data[1] + "<br>" +
+                                traducir('Classifier') + ": " + obtenerSimboloUnicode(p_data[4]) + p_data[4] +
+                                "<br>" + traducir('Label') + ": " +
+                                "<span style='color:"+ color(parseInt(p_data[2])) +"'>" + mapa[p_data[2]] + "</span>";
+                        }
+                    } else{
+                        cadena_tooltip += un_clasificador_return_no_clasificado(p_data);
                     }
-                } else {
-                    return un_clasificador_return_no_clasificado(dot);
+
+                    if (i < puntos_posicion.length -1) {
+                        cadena_tooltip += "<br>-------<br>";
+                    }
                 }
+                return cadena_tooltip
             })
-            .style("left", (e.offsetX + 60) + "px")
-            .style("top", (e.offsetY + 60) + "px");
     };
 
     puntos = declarar_puntos_svg(dataset)
@@ -575,27 +602,19 @@ function grafico_cotraining(dataset) {
         .style("stroke", "transparent")
         .style("stroke-width", "3px")
         .on("mousemove", function (e) {
+            posicionartooltip(e);
             mousemove_cotraining(e, d3.select(this).datum());
         })
         .on("mouseleave", mouseleave);
 
+    // Los iniciales llevarlos al frente
+    puntos.filter(function (d) {
+        return d[3] === 0;
+    }).each(function (){
+        this.parentNode.appendChild(this);
+    })
 
     document.addEventListener('next_reproducir', next_co);
-}
-
-/**
- *
- * A partir de una posición concreta (x,y), obtiene
- * los puntos que ocupan esa posición (pueden ser varios)
- *
- * @param x - posición x
- * @param y - posición y
- * @returns {*} - puntos
- */
-function puntos_en_x_y(x,y) {
-    return puntos.filter(function(d) {
-        return d[0] === x && d[1] === y;
-    })
 }
 
 /**
