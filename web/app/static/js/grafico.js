@@ -666,9 +666,6 @@ function grafico_democraticcolearning(dataset) {
     rep.on("click", reproducir);
 
     const mousemove_democraticcolearning = function(e, dot) {
-        d3.select(".tooltip")
-            .style("opacity", 1)
-            .style("display", "block");
 
         function alguno_clasificado(puntos_posicion) {
             for (let punto_posicion of puntos_posicion) {
@@ -681,14 +678,10 @@ function grafico_democraticcolearning(dataset) {
 
         d3.select(".tooltip")
             .html(function() {
-                let puntos_posicion;
-                puntos_posicion = puntos_en_x_y(dot[0], dot[1])._groups[0];
-
+                let puntos_posicion = puntos_en_x_y(dot[0], dot[1])._groups[0];
                 let cadena_tooltip = "";
-
                 for (let i = 0; i < puntos_posicion.length; i++) {
-
-                    let p_data = puntos_posicion[i].__data__
+                    let p_data = puntos_posicion[i].__data__;
                     if (p_data[3] <= cont && p_data[2] !== -1) {
                         if (p_data[3] === 0){
                             cadena_tooltip += tooltip_dato_inicial(p_data);
@@ -696,15 +689,16 @@ function grafico_democraticcolearning(dataset) {
                             cadena_tooltip += tooltip_dato_no_inicial(p_data) +
                                 "<span style='color:"+ color(parseInt(p_data[2])) +"'>" + mapa[p_data[2]] + "</span>";
                         }
-                        cadena_tooltip += "<br>-------<br>";
                     } else{
-                        cadena_tooltip += tooltip_ninguno_clasificado(alguno_clasificado,puntos_posicion,i,p_data);
+                        cadena_tooltip += un_clasificador_return_no_clasificado(p_data);
+                    }
+
+                    if (i < puntos_posicion.length -1) {
+                        cadena_tooltip += "<br>-------<br>";
                     }
                 }
-                return cadena_tooltip
+                return cadena_tooltip;
             })
-            .style("left", (e.offsetX + 60) + "px")
-            .style("top", (e.offsetY + 60) + "px");
     };
 
     puntos = declarar_puntos_svg(dataset)
@@ -716,9 +710,17 @@ function grafico_democraticcolearning(dataset) {
             }
         })
         .on("mousemove", function (e) {
+            posicionartooltip(e);
             mousemove_democraticcolearning(e, d3.select(this).datum());
         })
         .on("mouseleave", mouseleave)
+
+    // Los iniciales llevarlos al frente
+    puntos.filter(function (d) {
+        return d[3] === 0;
+    }).each(function (){
+        this.parentNode.appendChild(this);
+    })
 
     document.addEventListener('next_reproducir', next_co);
 }
