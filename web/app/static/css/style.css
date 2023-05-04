@@ -44,6 +44,7 @@ body {
     display: block;
     right: 0;
     left: auto;
+    z-index: 10000;
 }
 
 .dropdown>.dropdown-toggle:active {

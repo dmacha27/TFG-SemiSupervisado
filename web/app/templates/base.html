@@ -96,23 +96,20 @@
                     <div id="liveToast" class="toast border-danger bg-danger bg-opacity-75" role="alert" aria-live="assertive" aria-atomic="true">
                         <div class="toast-header">
                             <strong class="me-auto">Error</strong>
-                            <small class="text-muted">just now</small>
                 {% elif primer_mensaje[0] == 'success' %}
                     <div id="liveToast" class="toast border-success bg-success bg-opacity-75" role="alert" aria-live="assertive" aria-atomic="true">
                         <div class="toast-header">
-                            <strong class="me-auto">Success</strong>
-                            <small class="text-muted">just now</small>
+                            <strong class="me-auto">{{ gettext('Success') }}</strong>
                 {% elif primer_mensaje[0] == 'warning' %}
                     <div id="liveToast" class="toast border-warning bg-warning bg-opacity-75" role="alert" aria-live="assertive" aria-atomic="true">
                         <div class="toast-header">
-                            <strong class="me-auto">Warning</strong>
-                            <small class="text-muted">just now</small>
+                            <strong class="me-auto">{{ gettext('Warning') }}</strong>
                 {% else %}
                     <div id="liveToast" class="toast border-info bg-info bg-opacity-75" role="alert" aria-live="assertive" aria-atomic="true">
                         <div class="toast-header">
                             <strong class="me-auto">Info</strong>
-                            <small class="text-muted">just now</small>
                 {% endif %}
+                            <small class="text-muted">{{ gettext('just now') }}</small>
                             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                         </div>
                         <div class="toast-body">

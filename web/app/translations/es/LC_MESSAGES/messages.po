@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-05-04 19:39+0200\n"
+"POT-Creation-Date: 2023-05-04 20:17+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -210,6 +210,18 @@ msgstr "Registrarse"
 #: templates/base.html:83
 msgid "Login"
 msgstr "Iniciar sesión"
+
+#: templates/base.html:102
+msgid "Success"
+msgstr "Éxito"
+
+#: templates/base.html:106
+msgid "Warning"
+msgstr "Advertencia"
+
+#: templates/base.html:112
+msgid "just now"
+msgstr "justo ahora"
 
 #: templates/error.html:29
 msgid "Go home"
@@ -653,3 +665,4 @@ msgstr "Valor"
 #: templates/visualizacion/singleview.html:3
 msgid "Specific statistics"
 msgstr "Estadísticas específicas"
+
