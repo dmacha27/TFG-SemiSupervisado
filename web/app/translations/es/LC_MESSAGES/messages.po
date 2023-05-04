@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-05-04 16:46+0200\n"
+"POT-Creation-Date: 2023-05-04 19:39+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -618,50 +618,33 @@ msgstr "Reiniciar Zoom"
 msgid "Iteration"
 msgstr "Iteración"
 
-#: templates/visualizacion/base_visualizacion.html:41
-msgid "Previous"
-msgstr "Anterior"
-
-#: templates/visualizacion/base_visualizacion.html:42
-#: templates/visualizacion/base_visualizacion.html:93
-msgid "Play"
-msgstr "Reproducir"
-
-#: templates/visualizacion/base_visualizacion.html:43
-msgid "Next"
-msgstr "Siguiente"
-
-#: templates/visualizacion/base_visualizacion.html:55
+#: templates/visualizacion/base_visualizacion.html:57
 msgid "Pseudocode"
 msgstr "Pseudocódigo"
 
-#: templates/visualizacion/base_visualizacion.html:66
+#: templates/visualizacion/base_visualizacion.html:68
 msgid "General statistics"
 msgstr "Estadísticas generales"
 
-#: templates/visualizacion/base_visualizacion.html:87
+#: templates/visualizacion/base_visualizacion.html:89
 msgid "Initial data"
 msgstr "Dato inicial"
 
-#: templates/visualizacion/base_visualizacion.html:88
+#: templates/visualizacion/base_visualizacion.html:90
 msgid "Label"
 msgstr "Etiqueta"
 
-#: templates/visualizacion/base_visualizacion.html:89
+#: templates/visualizacion/base_visualizacion.html:91
 msgid "Classifier"
 msgstr "Clasificador"
 
-#: templates/visualizacion/base_visualizacion.html:90
+#: templates/visualizacion/base_visualizacion.html:92
 msgid "Classifier: Not classified"
 msgstr "Clasificador: No clasificado"
 
-#: templates/visualizacion/base_visualizacion.html:91
+#: templates/visualizacion/base_visualizacion.html:93
 msgid "Label: Not classified"
 msgstr "Etiqueta: No clasificado"
-
-#: templates/visualizacion/base_visualizacion.html:92
-msgid "Pause"
-msgstr "Pausar"
 
 #: templates/visualizacion/base_visualizacion.html:94
 msgid "Measure"
@@ -670,4 +653,3 @@ msgstr "Valor"
 #: templates/visualizacion/singleview.html:3
 msgid "Specific statistics"
 msgstr "Estadísticas específicas"
-

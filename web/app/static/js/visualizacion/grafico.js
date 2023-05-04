@@ -25,7 +25,7 @@ function inicializarGrafico(datos, preparar, binding) {
     maxit = datos.iterations;
     let dataset = preparar(JSON.parse(datos.log));
     mapa = JSON.parse(datos.mapa);
-    document.getElementById("progreso").max = maxit;
+    document.getElementById("progreso").setAttribute('aria-valuemax', maxit.toString());
 
     color = d3.scaleOrdinal()
         .domain(Object.keys(mapa))
@@ -170,7 +170,9 @@ const mouseleave = function () {
  * @param paso - indica el paso realizado (next o previous)
  */
 function actualizaProgreso(paso){
-    document.getElementById("progreso").value=cont;
+    let porcentaje = cont*10;
+    document.getElementById("progreso").style.width = porcentaje.toString() +"%";
+    document.getElementById("progreso").setAttribute("aria-valuenow", porcentaje.toString());
     document.getElementById("iteracion").innerHTML = cont.toString();
     if (paso === "next"){
         document.dispatchEvent(new Event('next'));
@@ -191,17 +193,17 @@ let intervalo = null;
  */
 function reproducir(){
     if (!intervalo){
-        document.getElementById("reproducir").innerHTML = traducir('Pause');
+        document.getElementById("reproducir").innerHTML = "<i class='bi bi-stop-fill'></i>";
         intervalo = setInterval(function () {
             if (cont >= maxit){
-                document.getElementById("reproducir").innerHTML = traducir('Play');
+                document.getElementById("reproducir").innerHTML = "<i class='bi bi-play-fill'></i>";
                 clearInterval(intervalo);
                 intervalo = null;
             }
             document.dispatchEvent(new Event('next_reproducir'));
         }, 750)
     } else {
-        document.getElementById("reproducir").innerHTML = traducir('Play');
+        document.getElementById("reproducir").innerHTML = "<i class='bi bi-play-fill'></i>";
         clearInterval(intervalo);
         intervalo = null;
     }

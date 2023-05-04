@@ -35,12 +35,14 @@
                         <button id="reiniciar_zoom" class="btn btn-light">{{ gettext('Zoom reset') }}</button>
                         <br><br>
                         <label>{{ gettext('Iteration') }}: </label><label id="iteracion">0</label>
-                        <br>
-                        <progress id="progreso" value=0></progress>
-                        <br>
-                        <button id="previt" class="btn btn-primary">{{ gettext('Previous') }}</button>
-                        <button id="reproducir" class="btn btn-primary">{{ gettext('Play') }}</button>
-                        <button id="nextit" class="btn btn-primary">{{ gettext('Next') }}</button>
+                        <div class="rounded-4 p-2">
+                            <div class="progress m-auto" style="width: 30rem;">
+                                <div id="progreso" class="progress-bar gold" role="progressbar" aria-valuemin="0"></div>
+                            </div>
+                        </div>
+                        <button id="previt" class="btn btn-primary"><i class="bi bi-chevron-double-left"></i></button>
+                        <button id="reproducir" class="btn btn-primary"><i class="bi bi-play-fill"></i></button>
+                        <button id="nextit" class="btn btn-primary"><i class="bi bi-chevron-double-right"></i></button>
                     </div>
                     <br>
                 </div>
@@ -89,8 +91,6 @@
                 'Classifier': "{{ gettext('Classifier') }}",
                 'Classifier: Not classified': "{{ gettext('Classifier: Not classified') }}",
                 'Label: Not classified': "{{ gettext('Label: Not classified') }}",
-                'Pause': "{{ gettext('Pause') }}",
-                'Play': "{{ gettext('Play') }}",
                 'Measure': "{{ gettext('Measure') }}",
                 'Iteration': "{{ gettext('Iteration') }}"
             }

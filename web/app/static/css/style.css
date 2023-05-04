@@ -32,6 +32,10 @@ body {
     background-color: #23343B;
 }
 
+.gold {
+    background-color: #f8d866 !important;
+}
+
 .text-bold {
     font-weight: bold;
 }
@@ -63,7 +67,7 @@ body {
     }
     100% {
         opacity: 1;
-     }
+    }
 }
 
 .separacion {
