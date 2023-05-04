@@ -108,7 +108,7 @@ function inicializarGrafico(datos, preparar, binding) {
     binding(dataset);
 
     const zoom = d3.zoom()
-        .scaleExtent([1, 8])
+        .scaleExtent([0.5, 8])
         .extent([[0, 0], [width, height]])
         .on("zoom", updateChart);
 
@@ -310,7 +310,8 @@ function grafico_selftraining(dataset) {
                             cadena_tooltip += tooltip_dato_inicial(p_data);
                         }else {
                             cadena_tooltip += cx +": " + p_data[0] +"<br>" + cy + ": " + p_data[1] + "<br>" + traducir('Label') + ": " +
-                                "<span style='color:"+ color(parseInt(p_data[2])) +"'>" + mapa[p_data[2]] + "</span>";
+                                "<span style='color:"+ color(parseInt(p_data[2])) +"'>" + mapa[p_data[2]] + "</span>"+
+                                "<span> ("+ traducir('Iteration') + ": " + p_data[3] +")</span>";
                         }
                     } else{
                         cadena_tooltip += un_clasificador_return_no_clasificado(p_data);
@@ -577,7 +578,8 @@ function grafico_cotraining(dataset) {
                             cadena_tooltip += cx + ": " + p_data[0] + "<br>" + cy + ": " + p_data[1] + "<br>" +
                                 traducir('Classifier') + ": " + obtenerSimboloUnicode(p_data[4]) + p_data[4] +
                                 "<br>" + traducir('Label') + ": " +
-                                "<span style='color:"+ color(parseInt(p_data[2])) +"'>" + mapa[p_data[2]] + "</span>";
+                                "<span style='color:"+ color(parseInt(p_data[2])) +"'>" + mapa[p_data[2]] + "</span>"+
+                                "<span> ("+ traducir('Iteration') + ": " + p_data[3] +")</span>";
                         }
                     } else{
                         cadena_tooltip += un_clasificador_return_no_clasificado(p_data);
@@ -666,7 +668,6 @@ function grafico_democraticcolearning(dataset) {
     rep.on("click", reproducir);
 
     const mousemove_democraticcolearning = function(e, dot) {
-
         d3.select(".tooltip")
             .html(function() {
                 let puntos_posicion = puntos_en_x_y(dot[0], dot[1])._groups[0];
@@ -678,7 +679,8 @@ function grafico_democraticcolearning(dataset) {
                             cadena_tooltip += tooltip_dato_inicial(p_data);
                         }else {
                             cadena_tooltip += tooltip_dato_no_inicial(p_data) +
-                                "<span style='color:"+ color(parseInt(p_data[2])) +"'>" + mapa[p_data[2]] + "</span>";
+                                "<span style='color:"+ color(parseInt(p_data[2])) +"'>" + mapa[p_data[2]] +"</span>"+
+                                "<span> ("+ traducir('Iteration') + ": " + p_data[3] +")</span>";
                         }
                     } else{
                         cadena_tooltip += un_clasificador_return_no_clasificado(p_data);
@@ -729,9 +731,6 @@ function grafico_tritaining(dataset) {
     rep.on("click", reproducir);
 
     const mousemove_tritraining = function(e, dot) {
-        d3.select(".tooltip")
-            .style("opacity", 1)
-            .style("display", "block");
 
         function alguno_clasificado(puntos_posicion) {
             for (let punto_posicion of puntos_posicion) {
@@ -764,7 +763,8 @@ function grafico_tritaining(dataset) {
                         } else {
                             cadena_tooltip += tooltip_dato_no_inicial(p_data) +
                                 "<span style='color:"+ color(parseInt(p_data[2][id_cont])) + "'>" +
-                                mapa[p_data[2][id_cont]] + "</span>";
+                                mapa[p_data[2][id_cont]] + "</span>" +
+                                "<span> ("+ traducir('Iteration') + ": " + p_data[3] +")</span>";
                         }
                         cadena_tooltip += "<br>-------<br>";
                     } else{
@@ -773,8 +773,6 @@ function grafico_tritaining(dataset) {
                 }
                 return cadena_tooltip
             })
-            .style("left", (e.offsetX + 60) + "px")
-            .style("top", (e.offsetY + 60) + "px");
     };
 
     puntos = declarar_puntos_svg(dataset)
@@ -786,6 +784,7 @@ function grafico_tritaining(dataset) {
             }
         })
         .on("mousemove", function (e) {
+            posicionartooltip(e);
             mousemove_tritraining(e, d3.select(this).datum());
         })
         .on("mouseleave", mouseleave)
