@@ -1,7 +1,8 @@
 from flask_babel import lazy_gettext
 from flask_wtf import FlaskForm
-from wtforms import (StringField, EmailField, PasswordField)
-from wtforms.validators import (DataRequired, Length, EqualTo)
+from wtforms import (StringField, EmailField, PasswordField, SelectField, IntegerField, DecimalField, BooleanField,
+                     IntegerRangeField)
+from wtforms.validators import (DataRequired, InputRequired, Length, EqualTo, NumberRange)
 
 
 class RegistrationForm(FlaskForm):
@@ -60,3 +61,117 @@ class UserForm(FlaskForm):
                                  name="new_password",
                                  id="new_password",
                                  render_kw={"placeholder": lazy_gettext('New password')})
+
+
+class FormConfiguracionBase(FlaskForm):
+    sel_target = SelectField(lazy_gettext('Select the target/class attribute of the dataset'),
+                             name="target",
+                             id="sel_target",
+                             validators=[InputRequired()])
+
+    cx = SelectField(lazy_gettext('Select X component'),
+                     name="cx",
+                     id="cx",
+                     validators=[InputRequired()])
+
+    cy = SelectField(lazy_gettext('Select Y component'),
+                     name="cy",
+                     id="cy",
+                     validators=[InputRequired()])
+
+    pca = BooleanField(lazy_gettext('Use PCA to reduce to 2D'),
+                       name="pca",
+                       id="pca")
+
+    norm = BooleanField(lazy_gettext('Normalize'),
+                        name="norm",
+                        id="norm")
+
+    p_unlabelled = IntegerRangeField(lazy_gettext('Unlabelled percentage'),
+                                     name="p_unlabelled",
+                                     id="p_unlabelled",
+                                     default=80,
+                                     validators=[InputRequired(), NumberRange(min=1, max=99)])
+
+    p_test = IntegerRangeField(lazy_gettext('Test percentage (after unlabelled percentage)'),
+                               name="p_test",
+                               id="p_test",
+                               default=20,
+                               validators=[InputRequired(), NumberRange(min=1, max=99)])
+
+
+class FormConfiguracionSelfTraining(FormConfiguracionBase):
+    clasificador1 = SelectField(lazy_gettext('Select classifier'),
+                                name="clasificador1",
+                                id="clasificador1",
+                                validators=[InputRequired()])
+
+    n = IntegerField(lazy_gettext('N (Number of instances to select in each iteration)'),
+                     name="n",
+                     id="n",
+                     default=10,
+                     validators=[InputRequired(), NumberRange(min=1)])
+
+    th = DecimalField(lazy_gettext('Threshold'),
+                      name="th",
+                      id="th",
+                      validators=[InputRequired(), NumberRange(min=0, max=0.99)])
+
+    n_iter = IntegerField(lazy_gettext('Number of iterations'),
+                          name="n_iter",
+                          id="n_iter",
+                          default=10,
+                          validators=[InputRequired(), NumberRange(min=0)])
+
+
+class FormConfiguracionCoTraining(FormConfiguracionBase):
+    clasificador1 = SelectField(lazy_gettext('Select classifier'),
+                                name="clasificador1",
+                                id="clasificador1",
+                                validators=[InputRequired()])
+
+    clasificador2 = SelectField(lazy_gettext('Select classifier'),
+                                name="clasificador2",
+                                id="clasificador2",
+                                validators=[InputRequired()])
+
+    p = IntegerField(lazy_gettext('Positives') + " (p)",
+                     name="p",
+                     id="n",
+                     default=1,
+                     validators=[InputRequired(), NumberRange(min=0)])
+
+    n = IntegerField(lazy_gettext('Negatives') + " (n)",
+                     name="n",
+                     id="n",
+                     default=3,
+                     validators=[InputRequired(), NumberRange(min=0)])
+
+    u = IntegerField(lazy_gettext('Number of initial data'),
+                     name="u",
+                     id="u",
+                     default=75,
+                     validators=[InputRequired(), NumberRange(min=1)])
+
+    n_iter = IntegerField(lazy_gettext('Number of iterations'),
+                          name="n_iter",
+                          id="n_iter",
+                          default=30,
+                          validators=[InputRequired(), NumberRange(min=0)])
+
+
+class FormConfiguracionSingleView(FormConfiguracionBase):
+    clasificador1 = SelectField(lazy_gettext('Select classifier'),
+                                name="clasificador1",
+                                id="clasificador1",
+                                validators=[InputRequired()])
+
+    clasificador2 = SelectField(lazy_gettext('Select classifier'),
+                                name="clasificador2",
+                                id="clasificador2",
+                                validators=[InputRequired()])
+
+    clasificador3 = SelectField(lazy_gettext('Select classifier'),
+                                name="clasificador3",
+                                id="clasificador3",
+                                validators=[InputRequired()])

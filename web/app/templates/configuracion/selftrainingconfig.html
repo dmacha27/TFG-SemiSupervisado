@@ -1,25 +1,23 @@
 {% extends "configuracion/base_configuracion.html" %}
-{%  from "macros.html" import selector, tooltip %}
+{%  from "macros.html" import tooltip %}
 {% block parametros %}
     <div class="mb-3">
-        {{ selector("clasificador1", clasificadores) }}
+        {{ form.clasificador1.label(class_="d-inline") }}
+        {{ form.clasificador1(class_="form-select") }}
     </div>
     <div class="parametros" id="parametros"></div>
     <br>
     <div class="mb-3">
-        <label for="n">{{ gettext('N (Number of instances to select in each iteration)') }}:</label>
-        <input type="number" class="form-control" id="n" min="0" max="Infinity" required oninput="limitarUnicoMetodoST(this.value,'th')" name="n" value="10">
+        {{ form.n.label }}
+        {{ form.n(class_="form-control", oninput="limitarUnicoMetodoST(this.value,'th')") }}
     </div>
     <div class="mb-3">
-        <label for="th">
-            {{ gettext('Threshold') }}:
-            {{ tooltip(gettext('Empty N parameter to activate it')) }}
-        </label>
-        <input type="number" class="form-control" id="th" min="0" max="0.99" step="any" oninput="limitarUnicoMetodoST(this.value,'n')" name="th" disabled>
+        {{ form.th.label }} {{ tooltip(gettext('Empty N parameter to activate it')) }}
+        {{ form.th(class_="form-control", oninput="limitarUnicoMetodoST(this.value,'n')", disabled=True)}}
     </div>
     <div class="mb-3">
-        <label for="n_iter">{{ gettext('Number of iterations') }}:</label>
-        <input type="number" class="form-control" id="n_iter" required name="n_iter" value="10">
+        {{ form.n_iter.label }}
+        {{ form.n_iter(class_="form-control") }}
     </div>
 {% endblock %}
 {% block form_scripts %}

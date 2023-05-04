@@ -111,9 +111,9 @@ def obtener_info(algoritmo):
     else:
         log, stats, specific_stats, iteration = algoritmo.fit(x, y, x_test, y_test, datasetloader.get_only_features())
 
-    norm = True if request.form['norm'] == 'on' else False
+    norm = True if request.form['norm'] == 'y' else False
 
-    if request.form['pca'] == 'on':
+    if request.form['pca'] == 'y':
         _2d = log_pca_reduction(log,
                                 datasetloader.get_only_features(), normalize=norm).to_json()
     else:
@@ -139,7 +139,7 @@ def obtener_info(algoritmo):
         run = Run()
         run.algorithm = session['ALGORITMO']
         run.filename = os.path.basename(session['FICHERO'])
-        if request.form['pca'] == 'on':
+        if request.form['pca'] == 'y':
             run.cx = 'C1'
             run.cy = 'C2'
         else:

@@ -1,53 +1,39 @@
-{%  macro formulario_comun(caracteristicas) %}
+{%  macro formulario_comun(caracteristicas, form) %}
     <div class="mb-3">
-        <label for="sel_target">
-            {{ gettext('Select the target/class attribute of the dataset') }}:
-        </label>
-        <select class="form-select" id="sel_target" name="target" required>
-            {% for c in caracteristicas %}
-                <option value="{{c}}">{{c}}</option>
-            {% endfor %}
-        </select>
+        {{ form.sel_target.label }}
+        {{ form.sel_target(class_="form-select") }}
     </div>
     <div class="mb-3">
-        <label for="cx">{{ gettext('Select X component') }}:{{ tooltip(gettext('Uncheck PCA to select specific components')) }}</label>
-        <select class="form-select" id="cx" name="cx" required disabled>
-            {% for c in caracteristicas %}
-                <option value="{{c}}">{{c}}</option>
-            {% endfor %}
-        </select>
+        {{ form.cx.label }}{{ tooltip(gettext('Uncheck PCA to select specific components')) }}
+        {{ form.cx(class_="form-select", disabled=True) }}
     </div>
     <div class="mb-3">
-        <label for="cy">{{ gettext('Select Y component') }}:</label>
-        <select class="form-select" id="cy" name="cy" required disabled>
-            {% for c in caracteristicas %}
-                <option value="{{c}}">{{c}}</option>
-            {% endfor %}
-        </select>
+        {{ form.cy.label }}
+        {{ form.cy(class_="form-select", disabled=True) }}
     </div>
     <div class="mb-3">
         <div class="form-check form-switch">
-            <input type="checkbox" class="form-check-input" id="pca" oninput="componentesPCA(this.checked,'cx','cy')" name="pca" checked>
-            <label class="d-inline" for="pca">{{ gettext('Use PCA to reduce to 2D') }}</label>
+            {{ form.pca(class_="form-check-input", checked=True, oninput="componentesPCA(this.checked,'cx','cy')") }}
+            {{ form.pca.label(class_="d-inline") }}
         </div>
     </div>
     <div class="mb-3">
         <div class="form-check form-switch">
-            <input type="checkbox" class="form-check-input" id="norm" name="norm" checked>
-            <label class="d-inline" for="norm">{{ gettext('Normalize') }}</label>
+            {{ form.norm(class_="form-check-input", checked=True) }}
+            {{ form.norm.label(class_="d-inline") }}
         </div>
     </div>
     <div class="mb-3">
-        <label for="p_unlabelled">{{ gettext('Unlabelled percentage') }}:{{ tooltip(gettext('If already semi-supervised, it will be ignored')) }}</label>
+        {{ form.p_unlabelled.label }}{{ tooltip(gettext('If already semi-supervised, it will be ignored')) }}
         <div class="d-flex">
-            <input type="range" class="form-range w-75" id="p_unlabelled" name="p_unlabelled" min="1" max="99" value=80 oninput="actualizarBadgePorcentaje(this.value,'p_unlabelled_badge')">
+            {{ form.p_unlabelled(class_="form-range w-75", oninput="actualizarBadgePorcentaje(this.value,'p_unlabelled_badge')") }}
             <span id="p_unlabelled_badge" class="badge bg-primary px-3 mx-auto">80%</span>
         </div>
     </div>
     <div class="mb-3">
-        <label for="p_test">{{ gettext('Test percentage (after unlabelled percentage)') }}:</label>
+        {{ form.p_test.label }}
         <div class="d-flex">
-            <input type="range" class="form-range w-75" id="p_test" name="p_test" min="1" max="99" value=20 oninput="actualizarBadgePorcentaje(this.value,'p_test_badge')">
+            {{ form.p_test(class_="form-range w-75", oninput="actualizarBadgePorcentaje(this.value,'p_test_badge')") }}
             <span id="p_test_badge" class="badge bg-primary px-3 mx-auto">20%</span>
         </div>
     </div>

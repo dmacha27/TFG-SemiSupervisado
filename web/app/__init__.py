@@ -38,8 +38,6 @@ def create_app():
     Babel(app, locale_selector=get_locale)
     CSRFProtect(app)
 
-    app.config['WTF_CSRF_CHECK_DEFAULT'] = False
-
     @app.context_processor
     def variables_globales():
         return {'titulos': {'selftraining': 'Self-Training',

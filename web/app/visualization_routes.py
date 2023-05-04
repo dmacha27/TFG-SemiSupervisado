@@ -79,8 +79,8 @@ def parametros_selftraining():
         {"nombre": "target", "valor": request.form.get('target')},
         {"nombre": "cx", "valor": request.form.get('cx', 'C1')},
         {"nombre": "cy", "valor": request.form.get('cy', 'C2')},
-        {"nombre": "pca", "valor": request.form.get('pca', 'off')},
-        {"nombre": "norm", "valor": request.form.get('norm', 'off')},
+        {"nombre": "pca", "valor": request.form.get('pca', 'n')},
+        {"nombre": "norm", "valor": request.form.get('norm', 'n')},
         {"nombre": "p_unlabelled", "valor": request.form.get('p_unlabelled')},
         {"nombre": "p_test", "valor": request.form.get('p_test')},
     ]
@@ -107,8 +107,8 @@ def parametros_cotraining():
         {"nombre": "target", "valor": request.form.get('target')},
         {"nombre": "cx", "valor": request.form.get('cx', 'C1')},
         {"nombre": "cy", "valor": request.form.get('cy', 'C2')},
-        {"nombre": "pca", "valor": request.form.get('pca', 'off')},
-        {"nombre": "norm", "valor": request.form.get('norm', 'off')},
+        {"nombre": "pca", "valor": request.form.get('pca', 'n')},
+        {"nombre": "norm", "valor": request.form.get('norm', 'n')},
         {"nombre": "p_unlabelled", "valor": request.form.get('p_unlabelled')},
         {"nombre": "p_test", "valor": request.form.get('p_test')},
     ]
@@ -133,8 +133,8 @@ def parametros_democraticcolearning_tritraining():
         {"nombre": "target", "valor": request.form.get('target')},
         {"nombre": "cx", "valor": request.form.get('cx', 'C1')},
         {"nombre": "cy", "valor": request.form.get('cy', 'C2')},
-        {"nombre": "pca", "valor": request.form.get('pca', 'off')},
-        {"nombre": "norm", "valor": request.form.get('norm', 'off')},
+        {"nombre": "pca", "valor": request.form.get('pca', 'n')},
+        {"nombre": "norm", "valor": request.form.get('norm', 'n')},
         {"nombre": "p_unlabelled", "valor": request.form.get('p_unlabelled')},
         {"nombre": "p_test", "valor": request.form.get('p_test')},
     ]

@@ -6,6 +6,7 @@ from flask_babel import gettext
 from flask_wtf import csrf
 
 from algoritmos.utilidades.datasetloader import DatasetLoader
+from .forms import FormConfiguracionSelfTraining, FormConfiguracionCoTraining, FormConfiguracionSingleView
 
 configuration_bp = Blueprint('configuration_bp', __name__)
 
@@ -25,7 +26,26 @@ def configurar_algoritmo(algoritmo):
     with open(os.path.join(os.path.dirname(__file__), os.path.normpath("static/json/parametros.json"))) as f:
         clasificadores = json.load(f)
 
+    caracteristicas = list(dl.get_allfeatures())
+    clasificadores_keys = list(clasificadores.keys())
+
+    if session['ALGORITMO'] == "selftraining":
+        form = FormConfiguracionSelfTraining()
+        form.clasificador1.choices = clasificadores_keys
+    elif session['ALGORITMO'] == "cotraining":
+        form = FormConfiguracionCoTraining()
+        form.clasificador1.choices = clasificadores_keys
+        form.clasificador2.choices = clasificadores_keys
+    else:
+        form = FormConfiguracionSingleView()
+        form.clasificador1.choices = clasificadores_keys
+        form.clasificador2.choices = clasificadores_keys
+        form.clasificador3.choices = clasificadores_keys
+
+    form.sel_target.choices = caracteristicas
+    form.cx.choices = caracteristicas
+    form.cy.choices = caracteristicas
+
     return render_template('configuracion/' + algoritmo + 'config.html',
-                           caracteristicas=dl.get_allfeatures(),
-                           clasificadores=list(clasificadores.keys()),
-                           parametros=clasificadores)
+                           parametros=clasificadores,
+                           form=form)

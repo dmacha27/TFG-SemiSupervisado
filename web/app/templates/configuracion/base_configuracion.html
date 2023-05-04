@@ -32,12 +32,13 @@
                         <hr class="separacion" style="width: 8rem;"/>
                     </div>
                     <form action="{{ url_for('visualization_bp.visualizar_algoritmo', algoritmo=session['ALGORITMO']) }}" method="POST">
+                        {{ form.csrf_token }}
                         <div class="row">
                             <div class="col-md">
                                 {% block parametros %}{% endblock %}
                             </div>
                             <div class="col-md">
-                                {{ formulario_comun(caracteristicas) }}
+                                {{ formulario_comun(caracteristicas, form) }}
                             </div>
                         </div>
                         <div class="row">
