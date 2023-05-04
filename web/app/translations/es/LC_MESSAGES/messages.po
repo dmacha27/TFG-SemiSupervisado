@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-04-30 12:31+0200\n"
+"POT-Creation-Date: 2023-05-04 16:46+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,66 +18,123 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.11.0\n"
 
-#: __init__.py:49
+#: __init__.py:47
 msgid "English"
 msgstr "Inglés"
 
-#: __init__.py:50
+#: __init__.py:48
 msgid "Spanish"
 msgstr "Español"
 
-#: __init__.py:109
+#: __init__.py:107
 msgid "Internal Server Error"
 msgstr "Error interno del servidor"
 
-#: __init__.py:113
+#: __init__.py:111
 msgid "Not found"
 msgstr "No encontrado"
 
-#: __init__.py:117
+#: __init__.py:115
 msgid "Forbidden"
 msgstr "Petición denegada por el servidor"
 
-#: __init__.py:121
+#: __init__.py:119
 msgid "Unauthorized"
 msgstr "No autorizado"
 
-#: __init__.py:125
+#: __init__.py:123
 msgid "Bad request"
 msgstr "Mala petición"
 
-#: configuration_routes.py:16
+#: configuration_routes.py:17
 msgid "You must upload a file"
 msgstr "Debe subir un archivo"
 
-#: configuration_routes.py:21
+#: configuration_routes.py:22
 msgid "File must be ARFF or CSV"
 msgstr "El fichero debe ser ARFF o CSV"
 
-#: forms.py:8 forms.py:12 forms.py:42 forms.py:46 templates/macros.html:128
+#: forms.py:9 forms.py:13 forms.py:43 forms.py:47 templates/macros.html:105
 msgid "Name"
 msgstr "Nombre"
 
-#: forms.py:14 forms.py:18 forms.py:34 forms.py:35 forms.py:48 forms.py:51
-#: templates/macros.html:129
+#: forms.py:15 forms.py:19 forms.py:35 forms.py:36 forms.py:49 forms.py:52
+#: templates/macros.html:106
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: forms.py:20 forms.py:24 forms.py:30 forms.py:37 forms.py:38
+#: forms.py:21 forms.py:25 forms.py:31 forms.py:38 forms.py:39
 msgid "Password"
 msgstr "Contraseña"
 
-#: forms.py:26
+#: forms.py:27
 msgid "Confirm password"
 msgstr "Confirmar contraseña"
 
-#: forms.py:53 forms.py:57
+#: forms.py:54 forms.py:58
 msgid "Current password"
 msgstr "Contraseña actual"
 
-#: forms.py:59 forms.py:62
+#: forms.py:60 forms.py:63
 msgid "New password"
 msgstr "Nueva contraseña"
+
+#: forms.py:67
+msgid "Select the target/class attribute of the dataset"
+msgstr "Selecciona el atributo de la clase/etiqueta del conjunto de datos"
+
+#: forms.py:72
+msgid "Select X component"
+msgstr "Selecciona la componente X"
+
+#: forms.py:77
+msgid "Select Y component"
+msgstr "Selecciona la componente Y"
+
+#: forms.py:82
+msgid "Use PCA to reduce to 2D"
+msgstr "Utilizar PCA para reducir a 2D"
+
+#: forms.py:86
+msgid "Normalize"
+msgstr "Normalizar"
+
+#: forms.py:90
+msgid "Unlabelled percentage"
+msgstr "Porcentaje de no etiquetados"
+
+#: forms.py:96
+msgid "Test percentage (after unlabelled percentage)"
+msgstr "Porcentaje de test (después de aplicar el no etiquetados)"
+
+#: forms.py:104 forms.py:128 forms.py:133 forms.py:164 forms.py:169
+#: forms.py:174
+msgid "Select classifier"
+msgstr "Selecciona clasificador"
+
+#: forms.py:109
+msgid "N (Number of instances to select in each iteration)"
+msgstr "N (Número de datos a seleccionar en cada iteración)"
+
+#: forms.py:115
+msgid "Threshold"
+msgstr "Límite"
+
+#: forms.py:120 forms.py:156
+msgid "Number of iterations"
+msgstr "Número de iteraciones"
+
+#: forms.py:138
+msgid "Positives"
+msgstr "Positivos"
+
+#: forms.py:144
+msgid "Negatives"
+msgstr "Negativos"
+
+#: forms.py:150
+msgid "Number of initial data"
+msgstr "Número de datos iniciales"
 
 #: main_routes.py:52
 msgid "You must select an algorithm"
@@ -99,7 +156,7 @@ msgstr "Contraseña incorrecta"
 msgid "Email not found"
 msgstr "Correo electrónico no encontrado"
 
-#: user_routes.py:66 user_routes.py:120
+#: user_routes.py:66 user_routes.py:122
 msgid "Email already exists"
 msgstr "El correo electrónico ya existe"
 
@@ -115,11 +172,11 @@ msgstr "¡Cuenta creada!"
 msgid "User doesn't exist"
 msgstr "El usuario no existe"
 
-#: user_routes.py:115
+#: user_routes.py:117
 msgid "Incorrect current password"
 msgstr "Contraseña actual incorrecta"
 
-#: user_routes.py:133
+#: user_routes.py:139
 msgid "Account updated!"
 msgstr "¡Cuenta actualizada!"
 
@@ -127,30 +184,30 @@ msgstr "¡Cuenta actualizada!"
 msgid "You must select the parameters of the algorithm"
 msgstr "Debe seleccionar los parámetros del algoritmo"
 
-#: templates/base.html:67 templates/usuarios/admin.html:8
-#: templates/usuarios/admin.html:13
+#: templates/base.html:69 templates/usuarios/admin.html:11
+#: templates/usuarios/admin.html:16
 msgid "Admin dashboard"
 msgstr "Panel de administración"
 
-#: templates/base.html:69 templates/usuarios/miespacio.html:8
-#: templates/usuarios/miespacio.html:9
+#: templates/base.html:71 templates/usuarios/miespacio.html:11
+#: templates/usuarios/miespacio.html:12
 msgid "My Space"
 msgstr "Mi Espacio"
 
-#: templates/base.html:70 templates/usuarios/base_user.html:14
+#: templates/base.html:72 templates/usuarios/base_user.html:14
 msgid "Profile"
 msgstr "Perfil"
 
-#: templates/base.html:72
+#: templates/base.html:74
 msgid "Log Out"
 msgstr "Cerrar sesión"
 
-#: templates/base.html:78 templates/usuarios/registro.html:2
+#: templates/base.html:80 templates/usuarios/registro.html:2
 #: templates/usuarios/registro.html:3
 msgid "Sign Up"
 msgstr "Registrarse"
 
-#: templates/base.html:81
+#: templates/base.html:83
 msgid "Login"
 msgstr "Iniciar sesión"
 
@@ -191,117 +248,92 @@ msgstr "Multi-view"
 msgid "Three classifiers"
 msgstr "Tres clasificadores"
 
-#: templates/macros.html:4
-msgid "Select the target/class attribute of the dataset"
-msgstr "Selecciona el atributo de la clase/etiqueta del conjunto de datos"
-
-#: templates/macros.html:13
-msgid "Select X component"
-msgstr "Selecciona la componente X"
-
-#: templates/macros.html:13
+#: templates/macros.html:7
 msgid "Uncheck PCA to select specific components"
 msgstr "Desmarca PCA para seleccionar componentes específicas"
 
-#: templates/macros.html:21
-msgid "Select Y component"
-msgstr "Selecciona la componente Y"
-
-#: templates/macros.html:31
-msgid "Use PCA to reduce to 2D"
-msgstr "Utilizar PCA para reducir a 2D"
-
-#: templates/macros.html:37
-msgid "Normalize"
-msgstr "Normalizar"
-
-#: templates/macros.html:41
-msgid "Unlabelled percentage"
-msgstr "Porcentaje de no etiquetados"
-
-#: templates/macros.html:41
+#: templates/macros.html:27
 msgid "If already semi-supervised, it will be ignored"
 msgstr "Si ya fuera semi-supervisado, será ignorado"
 
-#: templates/macros.html:48
-msgid "Test percentage (after unlabelled percentage)"
-msgstr "Porcentaje de test (después de aplicar el no etiquetados)"
-
-#: templates/macros.html:57
-msgid "Select classifier"
-msgstr "Selecciona clasificador"
-
-#: templates/macros.html:96 templates/usuarios/admin.html:26
-#: templates/usuarios/admin.html:63 templates/usuarios/miespacio.html:14
+#: templates/macros.html:73 templates/usuarios/admin.html:29
+#: templates/usuarios/admin.html:66 templates/usuarios/miespacio.html:17
 msgid "Uploaded datasets"
 msgstr "Conjunto de datos subidos"
 
-#: templates/macros.html:99 templates/macros.html:114
+#: templates/macros.html:76 templates/macros.html:91
 msgid "Dataset file"
 msgstr "Fichero del conjunto de datos"
 
-#: templates/macros.html:101
+#: templates/macros.html:78
 msgid "Upload date"
 msgstr "Fecha de subida"
 
-#: templates/macros.html:102 templates/macros.html:116
+#: templates/macros.html:79 templates/macros.html:93
 msgid "User"
 msgstr "Usuario"
 
-#: templates/macros.html:103 templates/macros.html:117
-#: templates/macros.html:131
+#: templates/macros.html:80 templates/macros.html:94 templates/macros.html:108
 msgid "Actions"
 msgstr "Acciones"
 
-#: templates/macros.html:110 templates/usuarios/admin.html:31
-#: templates/usuarios/admin.html:86 templates/usuarios/miespacio.html:22
+#: templates/macros.html:87 templates/usuarios/admin.html:34
+#: templates/usuarios/admin.html:89 templates/usuarios/miespacio.html:25
 msgid "Run history"
 msgstr "Historial de ejecuciones"
 
-#: templates/macros.html:113
+#: templates/macros.html:90
 msgid "Algorithm"
 msgstr "Algoritmo"
 
-#: templates/macros.html:115
+#: templates/macros.html:92
 msgid "Run date"
 msgstr "Fecha de ejecución"
 
-#: templates/macros.html:125
+#: templates/macros.html:102
 msgid "Users"
 msgstr "Usuarios"
 
-#: templates/macros.html:130 templates/usuarios/base_user.html:34
+#: templates/macros.html:107 templates/usuarios/base_user.html:34
 msgid "Last login"
 msgstr "Último inicio de sesión"
 
-#: templates/macros.html:142
+#: templates/macros.html:119
 msgid "Are you sure?"
 msgstr "¿Estás seguro?"
 
-#: templates/macros.html:146
+#: templates/macros.html:123
 msgid "You are about to delete: "
 msgstr "Vas a eliminar: "
 
-#: templates/macros.html:149
+#: templates/macros.html:126
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: templates/macros.html:150
+#: templates/macros.html:127
 msgid "Delete"
 msgstr "Eliminar"
 
-#: templates/macros.html:163
+#: templates/macros.html:140
 msgid "Select algorithm"
 msgstr "Selecciona un algoritmo"
+
+#: templates/macros.html:163
+msgid "An error ocurred"
+msgstr "Ha ocurrido un error"
+
+#: templates/macros.html:166
+msgid "Close"
+msgstr "Cerrar"
 
 #: templates/subida.html:7
 msgid "Dataset selection"
 msgstr "Selección del conjunto de datos"
 
 #: templates/configuracion/base_configuracion.html:6 templates/subida.html:10
-#: templates/usuarios/admin.html:11 templates/usuarios/base_form.html:4
+#: templates/usuarios/admin.html:14 templates/usuarios/base_form.html:4
 #: templates/usuarios/base_user.html:4
-#: templates/visualizacion/base_visualizacion.html:12
+#: templates/visualizacion/base_visualizacion.html:13
 msgid "Go back"
 msgstr "Volver"
 
@@ -350,7 +382,7 @@ msgid "Run configuration"
 msgstr "Configuración de la ejecución"
 
 #: templates/configuracion/base_configuracion.html:6
-#: templates/visualizacion/base_visualizacion.html:12
+#: templates/visualizacion/base_visualizacion.html:13
 msgid "Dataset"
 msgstr "Conjunto de datos"
 
@@ -366,32 +398,15 @@ msgstr "Teoría"
 msgid "Parameters"
 msgstr "Parámetros"
 
-#: templates/configuracion/base_configuracion.html:44
+#: templates/configuracion/base_configuracion.html:45
 msgid "Run"
 msgstr "Ejecutar"
 
-#: templates/configuracion/cotrainingconfig.html:15
-msgid "Positives"
-msgstr "Positivos"
+#: templates/configuracion/cotrainingconfig.html:25
+msgid "If it is larger than the total, it will be limited to it (the total)"
+msgstr "Si es mayor que el total, se limitará a él (al total)"
 
-#: templates/configuracion/cotrainingconfig.html:19
-msgid "Negatives"
-msgstr "Negativos"
-
-#: templates/configuracion/cotrainingconfig.html:23
-msgid "Initial data number"
-msgstr "Número de datos iniciales"
-
-#: templates/configuracion/cotrainingconfig.html:23
-msgid "If it is greater that the total, it will be limited to it"
-msgstr "Si es mayor que el total, se limitará a él"
-
-#: templates/configuracion/cotrainingconfig.html:27
-#: templates/configuracion/selftrainingconfig.html:21
-msgid "Number of iterations"
-msgstr "Número de iteraciones"
-
-#: templates/configuracion/cotrainingconfig.html:54
+#: templates/configuracion/cotrainingconfig.html:56
 msgid ""
 "Strongly based on Self-Training but in this case, several classifiers "
 "(usually two)\n"
@@ -427,12 +442,12 @@ msgstr ""
 "ambos los de mayor confianza y construyen el nuevo conjunto de "
 "entrenamiento para la siguiente iteración."
 
-#: templates/configuracion/cotrainingconfig.html:67
+#: templates/configuracion/cotrainingconfig.html:69
 #: templates/visualizacion/cotraining.html:4
 msgid "/pseudocodigos/en/CoTraining.png"
 msgstr "/pseudocodigos/es/CoTraining.png"
 
-#: templates/configuracion/cotrainingconfig.html:67
+#: templates/configuracion/cotrainingconfig.html:69
 #: templates/visualizacion/cotraining.html:4
 msgid "Co-Training Pseudocode"
 msgstr "Pseudocódigo de Co-Training"
@@ -493,19 +508,11 @@ msgstr "/pseudocodigos/es/DemocraticCoLearningCombinar.png"
 msgid "Democratic Co-Learning Combine Pseudocode"
 msgstr "Pseudocódigo de la Combinación de Democratic Co-Learning"
 
-#: templates/configuracion/selftrainingconfig.html:10
-msgid "N (Number of instances to select in each iteration)"
-msgstr "N (Número de datos a seleccionar en cada iteración)"
-
 #: templates/configuracion/selftrainingconfig.html:15
-msgid "Threshold"
-msgstr "Límite"
-
-#: templates/configuracion/selftrainingconfig.html:16
 msgid "Empty N parameter to activate it"
 msgstr "Vacía el parámetro N para activarlo"
 
-#: templates/configuracion/selftrainingconfig.html:40
+#: templates/configuracion/selftrainingconfig.html:38
 msgid ""
 "It is the simplest semi-supervised learning method. This method wraps a "
 "single base classifier,\n"
@@ -535,12 +542,12 @@ msgstr ""
 "hasta un criterio de parada (generalmente hasta etiquetar todos los datos"
 " o un número máximo de iteraciones)."
 
-#: templates/configuracion/selftrainingconfig.html:50
+#: templates/configuracion/selftrainingconfig.html:48
 #: templates/visualizacion/selftraining.html:4
 msgid "/pseudocodigos/en/SelfTraining.png"
 msgstr "/pseudocodigos/es/SelfTraining.png"
 
-#: templates/configuracion/selftrainingconfig.html:50
+#: templates/configuracion/selftrainingconfig.html:48
 #: templates/visualizacion/selftraining.html:4
 msgid "Self-Training Pseudocode"
 msgstr "Pseudocódigo de Self-Training"
@@ -554,19 +561,19 @@ msgstr ""
 msgid "Tri-Training Pseudocode"
 msgstr "Pseudocódigo de Tri-Training"
 
-#: templates/usuarios/admin.html:21 templates/usuarios/admin.html:41
+#: templates/usuarios/admin.html:24 templates/usuarios/admin.html:44
 msgid "User management"
 msgstr "Administración de usuarios"
 
-#: templates/usuarios/admin.html:50
+#: templates/usuarios/admin.html:53
 msgid "Total users"
 msgstr "Usuarios totales"
 
-#: templates/usuarios/admin.html:72
+#: templates/usuarios/admin.html:75
 msgid "Last 7 days uploads"
 msgstr "Cargas de los últimos 7 días"
 
-#: templates/usuarios/admin.html:95
+#: templates/usuarios/admin.html:98
 msgid "Last 7 days runs"
 msgstr "Ejecuciones de los últimos 7 días"
 
@@ -598,65 +605,65 @@ msgstr "Mi Perfil"
 msgid "Edit profile"
 msgstr "Editar perfil"
 
-#: templates/visualizacion/base_visualizacion.html:25
+#: templates/visualizacion/base_visualizacion.html:26
 msgid "Main visualization"
 msgstr "Visualización principal"
 
-#: templates/visualizacion/base_visualizacion.html:34
+#: templates/visualizacion/base_visualizacion.html:35
 msgid "Zoom reset"
 msgstr "Reiniciar Zoom"
 
-#: templates/visualizacion/base_visualizacion.html:36
-#: templates/visualizacion/base_visualizacion.html:94
+#: templates/visualizacion/base_visualizacion.html:37
+#: templates/visualizacion/base_visualizacion.html:95
 msgid "Iteration"
 msgstr "Iteración"
 
-#: templates/visualizacion/base_visualizacion.html:40
+#: templates/visualizacion/base_visualizacion.html:41
 msgid "Previous"
 msgstr "Anterior"
 
-#: templates/visualizacion/base_visualizacion.html:41
-#: templates/visualizacion/base_visualizacion.html:92
+#: templates/visualizacion/base_visualizacion.html:42
+#: templates/visualizacion/base_visualizacion.html:93
 msgid "Play"
 msgstr "Reproducir"
 
-#: templates/visualizacion/base_visualizacion.html:42
+#: templates/visualizacion/base_visualizacion.html:43
 msgid "Next"
 msgstr "Siguiente"
 
-#: templates/visualizacion/base_visualizacion.html:54
+#: templates/visualizacion/base_visualizacion.html:55
 msgid "Pseudocode"
 msgstr "Pseudocódigo"
 
-#: templates/visualizacion/base_visualizacion.html:65
+#: templates/visualizacion/base_visualizacion.html:66
 msgid "General statistics"
 msgstr "Estadísticas generales"
 
-#: templates/visualizacion/base_visualizacion.html:86
+#: templates/visualizacion/base_visualizacion.html:87
 msgid "Initial data"
 msgstr "Dato inicial"
 
-#: templates/visualizacion/base_visualizacion.html:87
+#: templates/visualizacion/base_visualizacion.html:88
 msgid "Label"
 msgstr "Etiqueta"
 
-#: templates/visualizacion/base_visualizacion.html:88
+#: templates/visualizacion/base_visualizacion.html:89
 msgid "Classifier"
 msgstr "Clasificador"
 
-#: templates/visualizacion/base_visualizacion.html:89
+#: templates/visualizacion/base_visualizacion.html:90
 msgid "Classifier: Not classified"
 msgstr "Clasificador: No clasificado"
 
-#: templates/visualizacion/base_visualizacion.html:90
+#: templates/visualizacion/base_visualizacion.html:91
 msgid "Label: Not classified"
 msgstr "Etiqueta: No clasificado"
 
-#: templates/visualizacion/base_visualizacion.html:91
+#: templates/visualizacion/base_visualizacion.html:92
 msgid "Pause"
 msgstr "Pausar"
 
-#: templates/visualizacion/base_visualizacion.html:93
+#: templates/visualizacion/base_visualizacion.html:94
 msgid "Measure"
 msgstr "Valor"
 

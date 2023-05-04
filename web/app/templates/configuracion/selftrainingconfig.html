@@ -12,7 +12,7 @@
         {{ form.n(class_="form-control", oninput="limitarUnicoMetodoST(this.value,'th')") }}
     </div>
     <div class="mb-3">
-        {{ form.th.label }} {{ tooltip(gettext('Empty N parameter to activate it')) }}
+        {{ form.th.label }}{{ tooltip(gettext('Empty N parameter to activate it')) }}
         {{ form.th(class_="form-control", oninput="limitarUnicoMetodoST(this.value,'n')", disabled=True)}}
     </div>
     <div class="mb-3">

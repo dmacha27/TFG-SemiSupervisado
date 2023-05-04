@@ -39,15 +39,6 @@
     </div>
 {% endmacro %}
 
-{% macro selector(id, clasificadores) %}
-    <label for="{{ id }}">{{ gettext('Select classifier') }}:</label>
-    <select class="form-select" id="{{ id }}" name="{{ id }}" required>
-        {% for c in clasificadores %}
-            <option value="{{c}}">{{c}}</option>
-        {% endfor %}
-    </select>
-{% endmacro %}
-
 {% macro tooltip(mensaje) %}
     <div class="tooltip-info">
         <svg fill="#4D7080" xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" viewBox="-41.7 -41.7 500.38 500.38">
