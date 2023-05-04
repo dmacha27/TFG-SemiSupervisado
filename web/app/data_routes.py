@@ -56,8 +56,7 @@ def datoscotraining():
     return json.dumps(info)
 
 
-@data_bp.route('/democraticcolearning', methods=['POST'])
-def datosdemocraticcolearning():
+def datossingleview(is_democratic):
     clasificador1 = request.form['clasificador1']
     clasificador2 = request.form['clasificador2']
     clasificador3 = request.form['clasificador3']
@@ -66,26 +65,23 @@ def datosdemocraticcolearning():
     clf2 = obtener_clasificador(clasificador2, obtener_parametros_clasificador(clasificador2, "clasificador2"))
     clf3 = obtener_clasificador(clasificador3, obtener_parametros_clasificador(clasificador3, "clasificador3"))
 
-    dcl = DemocraticCoLearning([clf1, clf2, clf3])
+    if is_democratic:
+        svclf = DemocraticCoLearning([clf1, clf2, clf3])
+    else:
+        svclf = TriTraining([clf1, clf2, clf3])
 
-    info = obtener_info(dcl)
+    info = obtener_info(svclf)
     return json.dumps(info)
+
+
+@data_bp.route('/democraticcolearning', methods=['POST'])
+def datosdemocraticcolearning():
+    return datossingleview(True)
 
 
 @data_bp.route('/tritraining', methods=['POST'])
 def datostritraining():
-    clasificador1 = request.form['clasificador1']
-    clasificador2 = request.form['clasificador2']
-    clasificador3 = request.form['clasificador3']
-
-    clf1 = obtener_clasificador(clasificador1, obtener_parametros_clasificador(clasificador1, "clasificador1"))
-    clf2 = obtener_clasificador(clasificador2, obtener_parametros_clasificador(clasificador2, "clasificador2"))
-    clf3 = obtener_clasificador(clasificador3, obtener_parametros_clasificador(clasificador3, "clasificador3"))
-
-    tt = TriTraining([clf1, clf2, clf3])
-
-    info = obtener_info(tt)
-    return json.dumps(info)
+    return datossingleview(False)
 
 
 def obtener_info(algoritmo):

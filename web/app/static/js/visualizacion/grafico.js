@@ -25,7 +25,6 @@ function inicializarGrafico(datos, preparar, binding) {
     maxit = datos.iterations;
     let dataset = preparar(JSON.parse(datos.log));
     mapa = JSON.parse(datos.mapa);
-    document.getElementById("progreso").setAttribute('aria-valuemax', maxit.toString());
 
     color = d3.scaleOrdinal()
         .domain(Object.keys(mapa))
@@ -170,7 +169,7 @@ const mouseleave = function () {
  * @param paso - indica el paso realizado (next o previous)
  */
 function actualizaProgreso(paso){
-    let porcentaje = cont*10;
+    let porcentaje = (cont/maxit)*100;
     document.getElementById("progreso").style.width = porcentaje.toString() +"%";
     document.getElementById("progreso").setAttribute("aria-valuenow", porcentaje.toString());
     document.getElementById("iteracion").innerHTML = cont.toString();
