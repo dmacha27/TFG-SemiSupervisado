@@ -6,6 +6,13 @@
         <h2>{% block title_content %}{% endblock %}</h2>
         <hr class="separacion" style="width: 20rem;"/>
     </div>
+    {% if 'usuario/editar' in request.path and usuario.id != current_user.id and current_user.is_admin %}
+        <div class="w-50 p-3 m-auto text-center">
+            <div class="alert alert-warning" role="alert">
+                {{ gettext('Admin view') }}
+            </div>
+        </div>
+    {% endif %}
     <div class="container-fluid mb-4">
         <div class="row mx-2">
             <div class="col-md-3">
@@ -19,15 +26,15 @@
                         <div class="rounded-4 text-bg-light d-flex justify-content-around flex-wrap p-3 w-75">
                             <div class="row text-center flex-column">
                                 <div class="col">
-                                <span id="n_uploads" class="badge text-bg-primary p-2">{{ n_uploads }}</span></div>
+                                    <span id="n_uploads" class="badge text-bg-primary p-2">{{ n_uploads }}</span></div>
                                 <div class="col">
-                                <span>{{ gettext('Uploads') }}</span></div>
+                                    <span>{{ gettext('Uploads') }}</span></div>
                             </div>
                             <div class="row text-center flex-column">
                                 <div class="col">
-                                <span id="n_runs" class="badge text-bg-primary p-2">{{ n_runs }}</span></div>
+                                    <span id="n_runs" class="badge text-bg-primary p-2">{{ n_runs }}</span></div>
                                 <div class="col">
-                                <span>{{ gettext('Runs') }}</span></div>
+                                    <span>{{ gettext('Runs') }}</span></div>
                             </div>
                         </div>
                         <span class="badge text-bg-success fs-5 m-4">{{ usuario.email }}</span>

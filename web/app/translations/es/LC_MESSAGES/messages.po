@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-05-05 20:06+0200\n"
+"POT-Creation-Date: 2023-05-05 20:53+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -194,7 +194,7 @@ msgstr "Panel de administración"
 msgid "My Space"
 msgstr "Mi Espacio"
 
-#: templates/base.html:72 templates/usuarios/base_user.html:14
+#: templates/base.html:72 templates/usuarios/base_user.html:21
 msgid "Profile"
 msgstr "Perfil"
 
@@ -306,7 +306,7 @@ msgstr "Fecha de ejecución"
 msgid "Users"
 msgstr "Usuarios"
 
-#: templates/macros.html:107 templates/usuarios/base_user.html:34
+#: templates/macros.html:107 templates/usuarios/base_user.html:41
 msgid "Last login"
 msgstr "Último inicio de sesión"
 
@@ -593,11 +593,15 @@ msgstr "Ejecuciones de los últimos 7 días"
 msgid "Submit"
 msgstr "Enviar"
 
-#: templates/usuarios/base_user.html:24
+#: templates/usuarios/base_user.html:12
+msgid "Admin view"
+msgstr "Vista de administrador"
+
+#: templates/usuarios/base_user.html:31
 msgid "Uploads"
 msgstr "Ficheros"
 
-#: templates/usuarios/base_user.html:30
+#: templates/usuarios/base_user.html:37
 msgid "Runs"
 msgstr "Ejecuciones"
 
@@ -673,5 +677,4 @@ msgstr "puntos duplicados"
 #: templates/visualizacion/singleview.html:3
 msgid "Specific statistics"
 msgstr "Estadísticas específicas"
-
 
