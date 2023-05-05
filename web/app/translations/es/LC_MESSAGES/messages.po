@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-05-04 20:17+0200\n"
+"POT-Creation-Date: 2023-05-05 20:06+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -662,7 +662,16 @@ msgstr "Etiqueta: No clasificado"
 msgid "Measure"
 msgstr "Valor"
 
+#: templates/visualizacion/base_visualizacion.html:96
+msgid "Duplicate"
+msgstr "Duplicado"
+
+#: templates/visualizacion/base_visualizacion.html:97
+msgid "duplicated points"
+msgstr "puntos duplicados"
+
 #: templates/visualizacion/singleview.html:3
 msgid "Specific statistics"
 msgstr "Estadísticas específicas"
+
 

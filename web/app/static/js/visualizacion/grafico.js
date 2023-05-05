@@ -4,6 +4,7 @@ let nexit, previt, rep;
 
 let graficosvg, gx, gy, maxit, color, mapa, puntos;
 
+let duplicados = {}
 
 /**
  *
@@ -282,7 +283,8 @@ function preparardataset_selftraining(datos) {
     let iter = datos['iter'];
 
     for (const key in xs){
-        dataset.push([xs[key],ys[key],etiq[key],iter[key]])
+        dataset.push([xs[key], ys[key], etiq[key], iter[key], generar_id_duplicado(xs[key], ys[key])]);
+
     }
 
     return dataset;
@@ -304,18 +306,21 @@ function grafico_selftraining(dataset) {
             .html(function() {
                 let puntos_posicion = puntos_en_x_y(dot[0], dot[1])._groups[0];
                 let cadena_tooltip = "";
+                if (cuantos_duplicados(dot[0], dot[1]) > 1) {
+                    cadena_tooltip += "<strong>" + cuantos_duplicados(dot[0], dot[1]).toString() + " " + traducir("duplicated points") + "</strong><br><br>";
+                }
                 for (let i = 0; i < puntos_posicion.length; i++) {
-                    let p_data = puntos_posicion[i].__data__
+                    let p_data = puntos_posicion[i].__data__;
                     if (p_data[3] <= cont && p_data[2] !== -1) {
                         if (p_data[3] === 0){
                             cadena_tooltip += tooltip_dato_inicial(p_data);
                         }else {
-                            cadena_tooltip += cx +": " + p_data[0] +"<br>" + cy + ": " + p_data[1] + "<br>" + traducir('Label') + ": " +
+                            cadena_tooltip += escribir_duplicados(p_data[0],p_data[1], p_data[p_data.length-1]) + cx +": " + p_data[0] +"<br>" + cy + ": " + p_data[1] + "<br>" + traducir('Label') + ": " +
                                 "<span style='color:"+ color(parseInt(p_data[2])) +"'>" + mapa[p_data[2]] + "</span>"+
                                 "<span> ("+ traducir('Iteration') + ": " + p_data[3] +")</span>";
                         }
                     } else{
-                        cadena_tooltip += un_clasificador_return_no_clasificado(p_data);
+                        cadena_tooltip += escribir_duplicados(p_data[0],p_data[1], p_data[p_data.length-1]) + un_clasificador_return_no_clasificado(p_data);
                     }
                     if (i < puntos_posicion.length -1) {
                         cadena_tooltip += "<br>-------<br>";
@@ -541,7 +546,7 @@ function preparardataset_cotraining(datos) {
     let clfs = datos['clf'];
 
     for (const key in xs){
-        dataset.push([xs[key],ys[key],etiq[key],iter[key],clfs[key]])
+        dataset.push([xs[key],ys[key],etiq[key],iter[key],clfs[key], generar_id_duplicado(xs[key], ys[key])]);
     }
 
     let clasificadores = new Set();
@@ -570,20 +575,24 @@ function grafico_cotraining(dataset) {
             .html(function() {
                 let puntos_posicion = puntos_en_x_y(dot[0], dot[1])._groups[0];
                 let cadena_tooltip = "";
+                if (cuantos_duplicados(dot[0], dot[1]) > 1) {
+                    cadena_tooltip += "<strong>" + cuantos_duplicados(dot[0], dot[1]).toString() + " " + traducir("duplicated points") + "</strong><br><br>";
+                }
                 for (let i = 0; i < puntos_posicion.length; i++) {
                     let p_data = puntos_posicion[i].__data__
                     if (p_data[3] <= cont && p_data[2] !== -1) {
                         if (p_data[3] === 0){
                             cadena_tooltip += tooltip_dato_inicial(p_data);
                         }else {
-                            cadena_tooltip += cx + ": " + p_data[0] + "<br>" + cy + ": " + p_data[1] + "<br>" +
+                            cadena_tooltip += escribir_duplicados(p_data[0], p_data[1], p_data[p_data.length-1]) + cx + ": " + p_data[0] + "<br>" + cy + ": " + p_data[1] + "<br>" +
                                 traducir('Classifier') + ": " + obtenerSimboloUnicode(p_data[4]) + p_data[4] +
                                 "<br>" + traducir('Label') + ": " +
                                 "<span style='color:"+ color(parseInt(p_data[2])) +"'>" + mapa[p_data[2]] + "</span>"+
                                 "<span> ("+ traducir('Iteration') + ": " + p_data[3] +")</span>";
                         }
                     } else{
-                        cadena_tooltip += un_clasificador_return_no_clasificado(p_data);
+                        cadena_tooltip += escribir_duplicados(p_data[0], p_data[1], p_data[p_data.length-1]) +
+                            un_clasificador_return_no_clasificado(p_data);
                     }
 
                     if (i < puntos_posicion.length -1) {
@@ -639,19 +648,27 @@ function preparardataset_democraticcolearning_tritraining(datos) {
 
     let clasificadores = new Set()
     for (const key in xs){
+        let id_duplicado = generar_id_duplicado(xs[key], ys[key]);
         if (iter[key].every(function(elemento) {
             return elemento === -1;
         })){
-            dataset.push([xs[key],ys[key],-1,maxit+1,-1])
+            dataset.push([xs[key], ys[key], -1, maxit+1, -1, id_duplicado])
         }else{
             for (let i = 0; i < clfs[key].length; i++) {
                 if (iter[key][i] !== -1) {
                     clasificadores.add(clfs[key][i])
-                    dataset.push([xs[key],ys[key],etiq[key][i],iter[key][i],clfs[key][i]])
+                    dataset.push([xs[key],ys[key],etiq[key][i],iter[key][i],clfs[key][i], id_duplicado])
                 }
             }
         }
     }
+
+    /*
+    let id_duplicado = generar_id_duplicado(3, 6);
+    dataset.push([3, 6, 0,3, "CLF3(GaussianNB)", id_duplicado]);
+    dataset.push([3, 6, 0,3, "CLF2(DecisionTreeClassifier)", id_duplicado]);
+    */
+
     clf_forma = Array.from(clasificadores)
     return dataset;
 }
@@ -673,18 +690,22 @@ function grafico_democraticcolearning(dataset) {
             .html(function() {
                 let puntos_posicion = puntos_en_x_y(dot[0], dot[1])._groups[0];
                 let cadena_tooltip = "";
+                if (cuantos_duplicados(dot[0], dot[1]) > 1) {
+                    cadena_tooltip += "<strong>" + cuantos_duplicados(dot[0], dot[1]).toString() + " " + traducir("duplicated points") + "</strong><br><br>";
+                }
                 for (let i = 0; i < puntos_posicion.length; i++) {
                     let p_data = puntos_posicion[i].__data__;
                     if (p_data[3] <= cont && p_data[2] !== -1) {
                         if (p_data[3] === 0){
                             cadena_tooltip += tooltip_dato_inicial(p_data);
                         }else {
-                            cadena_tooltip += tooltip_dato_no_inicial(p_data) +
+                            cadena_tooltip += escribir_duplicados(p_data[0], p_data[1], p_data[p_data.length-1]) +
+                                tooltip_dato_no_inicial(p_data) +
                                 "<span style='color:"+ color(parseInt(p_data[2])) +"'>" + mapa[p_data[2]] +"</span>"+
                                 "<span> ("+ traducir('Iteration') + ": " + p_data[3] +")</span>";
                         }
                     } else{
-                        cadena_tooltip += un_clasificador_return_no_clasificado(p_data);
+                        cadena_tooltip += escribir_duplicados(p_data[0], p_data[1], p_data[p_data.length-1]) + un_clasificador_return_no_clasificado(p_data);
                     }
 
                     if (i < puntos_posicion.length -1) {
@@ -711,7 +732,7 @@ function grafico_democraticcolearning(dataset) {
 
     // Los iniciales llevarlos al frente
     puntos.filter(function (d) {
-        return d[3] === 0;
+        return d[4] === "inicio";
     }).each(function (){
         this.parentNode.appendChild(this);
     })
@@ -886,6 +907,72 @@ function grafico_tritaining(dataset) {
 #       MÉTODOS COMUNES       #
 ###############################
  */
+/**
+ *
+ * Obtiene el número de puntos duplicados en un punto del gráfico.
+ *
+ * @param x - posición x
+ * @param y - posición y
+ * @returns {*} - número de duplicados
+ */
+function cuantos_duplicados(x,y) {
+    return duplicados[String([x,y])];
+}
+
+/**
+ *
+ * Devuelve una cadena indicando que es un punto duplicado
+ * solo si realmente hay puntos duplicados en esa posición.
+ * Los paréntesis aparecen si es un dato inicial.
+ *
+ * @param x - posición x
+ * @param y - posición y
+ * @param id_duplicado
+ * @param parentesis - flag que indica si envolver los duplicados entre paréntesis
+ * @returns {string} - cadena indicando el número de duplicado que es
+ */
+function escribir_duplicados(x,y, id_duplicado, parentesis=false) {
+    if(duplicados[String([x,y])] > 1) {
+        let cadena = "";
+        if (parentesis) {
+            cadena += " (";
+        } else {
+            cadena += "<strong>";
+        }
+        cadena += traducir("Duplicate") + " " + id_duplicado.toString();
+        if (parentesis) {
+            cadena += ")";
+        } else {
+            cadena += "</strong><br>";
+        }
+
+        return cadena;
+    } else {
+        return ""
+    }
+}
+
+/**
+ *
+ * Genera un identificador para los puntos de forma creciente.
+ * Los puntos que pertenezcan al mismo dato del conjunto de datos
+ * original, tendrán el mismo identificador.
+ *
+ * Cuando detecta que ya hay un punto aumenta el identificador actual.
+ *
+ * @param x - posición x
+ * @param y - posición y
+ * @returns {number|*} - identificador generado
+ */
+function generar_id_duplicado(x,y) {
+    if (!(String([x, y]) in duplicados)) {
+        duplicados[String([x, y])] = 1;
+        return 1;
+    } else {
+        duplicados[String([x, y])] += 1;
+        return duplicados[String([x, y])];
+    }
+}
 
 function declarar_puntos_svg(dataset) {
     return graficosvg.selectAll("dot")
@@ -920,7 +1007,7 @@ function puntos_a_gris() {
 }
 
 function tooltip_dato_inicial(dot) {
-    return "<strong>" + traducir('Initial data') + "</strong>" + "<br>" + cx +": " + dot[0] +"<br>" + cy + ": " +
+    return "<strong>" + traducir('Initial data') + "</strong>" + escribir_duplicados(dot[0],dot[1], dot[dot.length-1], true) + "<br>" + cx +": " + dot[0] +"<br>" + cy + ": " +
         dot[1] + "<br>" + traducir('Label') + ": " +
         "<span style='color:"+ color(parseInt(dot[2])) +"'>" + mapa[dot[2]] + "</span>";
 }
