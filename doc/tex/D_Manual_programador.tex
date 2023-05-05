@@ -4,7 +4,7 @@
 En esta sección se presenta toda la documentación técnica del desarrollo del
 proyecto. Trata de ser una guía para entender cómo se ha hecho el proyecto
 comenzando por los directorios y su contenido, con un manual introductorio para
-un programador iniciado en el proyecto, explicación y ejemplificación de la
+un programador que es iniciado en el proyecto, una explicación y ejemplificación de la
 instalación del mismo y las pruebas que se han realizado para validarlo.
 
 \tcbset{colback=red!5!white,fonttitle=\bfseries}
@@ -92,6 +92,15 @@ Estos son los directorios en los que se organiza el proyecto:
         .4 \textbf{js}: \begin{minipage}[t]{10cm}
             ficheros JavaScript{.}\\
         \end{minipage}.
+        .5 \textbf{configuracion}: \begin{minipage}[t]{10cm}
+            ficheros JavaScript encargados de la configuración de la ejecución de los algoritmos{.}\\
+        \end{minipage}.
+        .5 \textbf{usuarios}: \begin{minipage}[t]{10cm}
+            ficheros JavaScript encargados de la generación de tablas y control del espacio personal de los usuarios y el panel de administración{.}\\
+        \end{minipage}.
+        .5 \textbf{visualizacion}: \begin{minipage}[t]{10cm}
+            ficheros JavaScript encargados de la inicialización y generación de los gráficos en la visualización (gráfico principal y estadísticas){.}\\
+        \end{minipage}.
         .4 \textbf{json}: \begin{minipage}[t]{10cm}
             ficheros JSON{.}\\
         \end{minipage}.
@@ -104,9 +113,31 @@ Estos son los directorios en los que se organiza el proyecto:
         .5 \textbf{es}: \begin{minipage}[t]{10cm}
             imágenes de los pseudocódigos en español{.}\\
         \end{minipage}.
+    }
+\end{figure}
+
+
+\begin{figure}[H]
+    \dirtree{%
+        .1 \textbf{web}: \begin{minipage}[t]{10cm}
+            estructura o código de la aplicación Web{.}\\
+        \end{minipage}. 
+        .2 \textbf{app}: \begin{minipage}[t]{10cm} contiene la
+        definición de las rutas, modelos de la base de datos y la
+        \texttt{Application Factory} que instancia la aplicación{.}\\
+        \end{minipage}.
         .3 \textbf{templates}: \begin{minipage}[t]{10cm}
             plantillas HTML (Jinja2) que renderiza la aplicación Web
             (Flask){.}\\
+        \end{minipage}.
+        .4 \textbf{configuracion}: \begin{minipage}[t]{10cm}
+            plantillas concretas de la ventana de configuración de la ejecución de los algoritmos{.}\\
+        \end{minipage}.
+        .4 \textbf{usuarios}: \begin{minipage}[t]{10cm}
+            plantillas concretas de las distintas ventanas de los usuarios: login, registro, perfil, espacio personal y panel de administración{.}\\
+        \end{minipage}.
+        .4 \textbf{visualizacion}: \begin{minipage}[t]{10cm}
+            plantillas concretas de las distintas ventanas de visualización de los algoritmos{.}\\
         \end{minipage}.
         .3 \textbf{translations}: \begin{minipage}[t]{10cm}
             traducciones de los textos de la aplicación (por idiomas){.}\\
@@ -118,10 +149,11 @@ Estos son los directorios en los que se organiza el proyecto:
 \end{figure}
 
 \section{Manual del programador}
-El objetivo de este manual es dar al lector/desarrollador que comience a
-trabajar con el proyecto, el conocimiento necesario para continuarlo. Se ha de
-tener en cuenta que lo descrito a continuación es lo que se ha utilizado para el
-entorno desarrollo inicial y será explicado para este.
+El objetivo de este manual es dar el conocimiento necesario para continuarlo al 
+lector/desarrollador que comience a trabajar con este proyecto. Se ha de
+tener en cuenta que lo descrito a continuación es lo que se ha estado utilizando 
+para el entorno desarrollo inicial y será explicado para este (sin limitación, por ejemplo,
+a usar otras herramientas).
 
 En primer lugar se listan las herramientas consideradas para el desarrollo:
 \begin{itemize}
@@ -138,15 +170,15 @@ ello comprobado la versión pues en el futuro será necesario.
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Comprobar pip]
 \begin{minted}{shell}
-pip --version
+pip --version 
 python -m ensurepip --upgrade
 \end{minted}
 \end{tcolorbox}
 
-Y de forma general, comprobar que los binarios pueden ser utilizados por lo
-menos en el entorno del programador (en su usuario o equipo completo).
+Y de forma general, comprobar que los ficheros binarios pueden ser utilizados por lo
+menos, en el entorno del programador (solo en la cuenta del usuario o en el equipo completo).
 
-En el caso de Git, desde Linux simplemente se puede realizar con el gestor de
+En el caso de Git, desde Linux simplemente se puede instalar con su gestor de
 paquetes:
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Instalar Git en Linux]
@@ -186,13 +218,14 @@ recomendable realizar una validación de los mismos por si fueran utilizados de 
 \textbf{Método de entrenamiento (Fit)}: Dado que estos algoritmos están pensados no solo
 para entrenar, sino para almacenar el proceso de entrenamiento y estadísticas,
 siempre ha de recibir el conjunto de entrenamiento (x, y), el conjunto de test
-(x\_test, y\_test) y el nombre de las características de cada instancia.
+(x\_test, y\_test) y el nombre de las características de cada instancia (i. e. el 
+nombre de las columnas de x).
 
 En principio, el método de desarrollo seguido es el de primero implementar el
 algoritmo para después añadir, con la librería Pandas, un registro completo de
 los momentos de etiquetado y de las estadísticas de cada iteración.
 
-Este método deberá retornar el registro de etiquetado, el estadístico y el
+Este método deberá retornar el registro de etiquetado, el registro estadístico y el
 número de iteraciones realizadas.
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Cabecera fit]
@@ -230,8 +263,8 @@ def get_accuracy_score(self, x_test, y_test):
 \end{tcolorbox}
 
 \paragraph{Utilidades} En el directorio de las utilidades se han de alojar
-aquellos métodos que se reutilizan en el proyecto (y que intervenga algún paso
-del algoritmo, por ejemplo, la carga de datos). 
+aquellos métodos que se reutilizan en el proyecto (y que intervenga en algún paso
+del algoritmo, como por ejemplo, la carga de datos). 
 
 \paragraph{Tests} El desarrollo del software debe ser validado para asegurar su
 correcto funcionamiento ante las distintas casuísticas. Cuando se desarrolla
@@ -239,7 +272,7 @@ código en esta sección, sus casos de prueba codificados deben incluirse en el
 directorio correspondiente. Se utiliza <<pytest>> como \textit{framework} de
 pruebas.
 
-\paragraph{Aplicación Web} (contenida en el directorio web):  
+\paragraph{Aplicación Web} (contenida en el directorio \texttt{web}):  
 
 La aplicación está desarrollada con el <<micro-framework>> Flask, que permite la
 creación de aplicaciones Web en Python. A lo largo del desarrollo la estructura
@@ -266,7 +299,7 @@ instancia la base de datos y se registran las rutas (organizadas con
 \textbf{Blueprints}: Las rutas que tiene la aplicación están organizadas en
 función de su categoría mediante los Blueprints. Y es en los ficheros que
 terminan por <<\_routes.py>> donde se definen. Si se añade una categoría nueva se
-debe crear un Blueprint la identifique dentro de su fichero y después debe ser
+debe crear un Blueprint que la identifique dentro de su fichero y después debe ser
 registrado en la aplicación (en \texttt{\_\_init\_\_.py}).
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Crear Blueprint]
@@ -276,14 +309,25 @@ nuevo_bp = Blueprint('nuevo_bp', __name__)
 \end{minted}
 \end{tcolorbox}
 
-\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Registrar Blueprint]
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Registrar Blueprint en la aplicación (en \texttt{\_\_init\_\_.py})] 
 \begin{minted}{python}
 # Seleccionando el prefijo deseado
 app.register_blueprint(nuevo_bp, url_prefix='/') 
 \end{minted}
 \end{tcolorbox}
 
-La visualización de un algoritmo se centra en dos pasos: la configuración del
+\textbf{Modelos de la base de datos}: En <<models.py>> se tienen definidas todas las entidades
+que maneja la aplicación: \texttt{Users}, \texttt{Datasets} y \texttt{Runs}. Si se desea añadir alguna,
+primero se debe crear aquí la definición de la misma. Para que la aplicación sepa las entidades que
+debe manejar, también es necesario importarla en la creación de la aplicación.
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Importar modelo (en <<create\_app()>> de \texttt{\_\_init\_\_.py})]
+    \begin{minted}{python}
+    from .models import Nueva
+    \end{minted}
+\end{tcolorbox}
+
+La \textbf{visualización de un algoritmo} se centra en dos pasos: la configuración del
 mismo (en las rutas \texttt{/configuracion/<algoritmo>}) donde se debe
 renderizar una página con el formulario de configuración (gestionado por
 \texttt{configuration\_routes.py}), y la visualización
@@ -296,25 +340,40 @@ es un método auxiliar que accede el propio usuario (su navegador) para obtener
 la información. Por lo general, la convención utilizada es que todos los métodos
 y rutas lleven el nombre del algoritmo.
 
+Las primeras tareas para añadir un algoritmo nuevo serán incorporarlos al flujo
+de las sesiones y actualizar la plantilla base (por la barra de navegación) y el inicio. 
+Para incorporarlos al flujo, esto se hace incorporándolos a la selección (\texttt{/seleccionar/<algoritmo>}).
+
+\textbf{Formularios}: A la hora de crear un nuevo algoritmo, y como se ha comentado,
+el usuario tiene un paso de configuración del mismo. Esto se realiza mediante un
+formulario. Para crear uno (WTForm), se debe crear su objeto correspondiente en <<forms.py>>
+con los campos necesarios. Hasta el momento, los que hay implementados tienen una parte
+en común que está definida en la clase <<FormConfiguracionBase>> y en prinicpio, si se añade
+uno nuevo, deberá extender dicha clase.
+
 \textbf{Plantillas (templates)}: Flask utiliza el motor de plantillas Jinja2, que añaden
 instrucciones en HTML. Obviando que cada algoritmo tiene sus particularidades,
 están organizadas mediante la extensión de plantillas. De forma general, añadir
-un algoritmo podría solo intervenir la creación de una plantilla de
-configuración y otra de visualización. En ambos casos se tiene una plantilla
-base de la que se debe extender.
+un algoritmo podría solo intervenir la creación de una plantilla de configuración
+(incluyendo la creación del formulario) y otra de visualización. En ambos casos se 
+tiene una plantilla base de la que se debe extender. También se debe la nomenclatura
+utilizada para el resto de algoritmos (están nombrados de forma intuitiva).
 
 \textbf{Ficheros estáticos (static)}: El contenido dinámico debe ser creado mediante
-Javascript, de forma <<vanilla>> (sin utilizar frameworks). En menor medida, los
-estilos deben ser retocados en estos ficheros aunque en principio la aplicación
-está estilada con Bootstrap 5.
+Javascript, de forma <<vanilla>> (sin utilizar frameworks). Es completamente necesario
+manetener la organización actual de las carpetas, las funciones que se añadan deberán incluirse
+en la carpeta de su contexto. Todos los métodos se encuentran documentados.
 
-En estos ficheros estáticos se tienen unas imágenes con los pseudocódigos de los
+En menor medida, los estilos deben ser retocados en estos ficheros (css/style.css) aunque en principio 
+la aplicación está estilada con Bootstrap 5.
+
+En estos ficheros estáticos también se tienen unas imágenes con los pseudocódigos de los
 algoritmos. Estas imágenes deben verse tanto en la configuración como la
 visualización.
 
 Otra parte muy importante es si se quieren añadir nuevos clasificadores base con
-sus parámetros, estos están almacenados en el fichero JSON <<parametros.json>>.
-Hasta el momento del desarrollo solo existen dos tipos de entradas, los
+sus parámetros, la especificación de los mismos está almacenada en el fichero JSON 
+<<parametros.json>>. Hasta el momento del desarrollo solo existen dos tipos de entradas, los
 selectores y los numéricos.
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Estructura para añadir clasificadores y sus parámetros]
@@ -341,7 +400,18 @@ selectores y los numéricos.
 \end{tcolorbox}
 
 Con <<step>> se debe tener en cuenta la posibilidad de permitir números enteros
-(al introducir 1) o números decimales (al incluir un flotante, por ejemplo, 0.01)
+(al introducir 1) o números decimales (al incluir un flotante, por ejemplo, 0.01).
+
+Según se ha codificado, la aparición de este nuevo clasificador será automática ya que
+una vez leido este fichero, JavaScript lo recorre creando tantas opciones en los selectores como
+clasificadores haya.
+
+Además de esto, hay tres zonas en la lógica de los \texttt{endpoints} que debe ser modificados
+si se añade un algoritmo.
+En <<data\_routes.py>>, <<configuration\_routes.py>> y <<visualization\_routes.py>> se tiene código
+específico para cada algoritmo. La <<activación>> de cada código se realiza mediante un \textit{if} 
+de tal forma que cuando coincide con el nombre del algoritmo, se realizan ciertos pasos concretos para él. 
+Se deberá ajustar la lógica para el nuevo algoritmo.
 
 \textbf{Conjunto de datos (datasets)}: Los conjuntos de datos de los usuarios (vinculados a
 sus sesiones) se almacenan localmente en la aplicación con el <<Timestamp>>
@@ -351,13 +421,13 @@ concatenado el nombre del fichero introducido.
 internacionalizada en cualquier idioma, aunque solo se ha incluido inglés y
 español. Una de las herramientas utilizadas es Babel, para incluir nuevo texto
 en la aplicación se debe utilizar la función \texttt{gettext()} (tanto en Jinja2
-como Python si fuera necesario). El proceso de compilación está explicado en la
-siguiente sección.
+como Python si fuera necesario). El proceso de extracción y compilación de las traducciones
+está explicado en la siguiente sección.
 
 \section{Compilación, instalación y ejecución del proyecto}
 
-Para poner en funcionamiento la aplicación primero se debe preparar su entorno
-de ejecución. Se recuerda la necesidad de tener instalado Python (con el administrador de
+Para poner en funcionamiento la aplicación primero se debe preparar el entorno
+de ejecución. Se recuerda la necesidad de tener instalado Python (y el administrador de
 paquetes <<pip>>).
 
 \paragraph{Código fuente de la aplicación} Para obtener el código fuente de la
@@ -376,19 +446,16 @@ $ git clone https://github.com/dma1004/TFG-SemiSupervisado.git
 \end{minted}
 \end{tcolorbox}
 La localización del proyecto queda a discreción del programador.
-
 \paragraph{Entorno virtual Python} El entorno virtual no es estrictamente
 necesario aunque es \textbf{altamente} recomendable, pues en los próximos pasos
 se instalarán múltiples librerías que sin entorno virtual quedarían instaladas
 globalmente.
-
 El proceso descrito a continuación puede ser sustituido en caso de que solo se
 esté trabajando con Pycharm. Este editor permite crear entornos virtuales e
 incluso realizarlo automáticamente al detectar los distintos requisitos del
 proyecto. Pero de forma general, suponiendo que se desea preparar un entorno de
 <<pruebas>> o <<producción>> y que la aplicación esté en funcionamiento, se
 realizan los siguientes pasos:
-
 \begin{tcolorbox}[colback=cyan!5!white,colframe=orange!75!black,title=Creación del entorno virtual (dentro de la carpeta deseado)]
 \begin{minted}{shell}
 $ python -m venv ./venv
@@ -411,13 +478,11 @@ $ source ruta/al/entorno/virtual/bin/activate //Linux
 $ deactivate
 \end{minted}
 \end{tcolorbox}
-
 \paragraph{Instalación de paquetes} En este paso se van a instalar todas las
 librerías necesarias, el proyecto trae un fichero <<requirements.txt>> en el que
 vienen especificados estos paquetes y sus versiones. Además, los algoritmos
 implementados también están configurados como un paquete que puede ser
 instalado.
-
 \begin{tcolorbox}[colback=cyan!5!white,colframe=orange!75!black,title=Instalar librerías externas]
 \begin{minted}{shell}
 $ python -m pip install -r requierements.txt
@@ -429,20 +494,19 @@ $ python -m pip install -r requierements.txt
 $ python -m pip install .
 \end{minted}
 \end{tcolorbox}
-
 A partir de aquí ya se tiene configurado todo el entorno y los requisitos necesarios para poder ejecutar la aplicación.
-
 \paragraph{Ejecución} Referida a la ejecución de la aplicación Web (Flask), se
 debe estar situado en el directorio \textbf{/web} del proyecto.
-
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,fontupper=\footnotesize,fontlower=\footnotesize,title=Ejecución]
 \begin{minted}{shell}
 $ set FLASK_APP=app.py //Windows
 $ flask run
+$ flask run --debug
 \end{minted}
 \tcblower
 \begin{minted}{shell}
 $ flask run //Linux
+$ flask run --debug
 \end{minted}
 \end{tcolorbox}
 
@@ -453,10 +517,13 @@ que añade la internacionalización a la aplicación automáticamente.
 traducido, este debe ser compilado con Babel para que la aplicación pueda
 detectarlo.
 
-\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,fontupper=\footnotesize,title=Proceso de internacionalización (desde /web)]
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,fontupper=\footnotesize,title=Proceso de internacionalización (desde /web/app)]
 \begin{minted}{shell}
-Extraer los texto encapsulados por gettext
-$ pybabel extract -F babel.cfg -o messages.pot . 
+Extraer los textos encapsulados por gettext
+$ pybabel extract -F babel.cfg -o messages.pot .
+
+Extraer los textos encapsulados por lazy_gettext
+$ pybabel extract -F babel.cfg -k lazy_gettext -o messages.pot .
 
 Actualizar los textos extraidos en el fichero de compilación
 $ pybabel update -i messages.pot -d translations
@@ -465,9 +532,7 @@ Compilación de las traducciones
 $ pybabel compile -d translations 
 \end{minted}
 \end{tcolorbox}
- 
-A partir de aquí la propia aplicación utilizará las traducciones dependiendo del
-usuario que acceda.
 
-\clearpage
-\section{Pruebas del sistema}
+Todos los pasos anteriores son \textbf{estrictamente} necesarios, si realiza una 
+extracción sin incluir <<lazy\_gettext>> (por ejemplo) y a continuación se actualizan las
+traducciones, se perderán aquellas que tenían <<lazy\_gettext>>.
