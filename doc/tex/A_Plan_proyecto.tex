@@ -695,7 +695,7 @@ las explicaciones relativas a la generación de estos ficheros desde la propia
 ejecución de cada algoritmo. Se creó también un diagrama de secuencia con la
 interacción general con la Web para la visualización de un algoritmo.
 
-\subsection{Sprint 14}
+\subsection{Sprint 15}
 Corresponde con el periodo temporal del 12 al 19 de abril de 2023.
 
 Durante este Sprint tuvo lugar el periodo de exámenes parciales de las
@@ -719,6 +719,172 @@ análisis se realizaron todas las posibles modificaciones para reducir las
 alertas que hasta el momento podían abordarse. Por ejemplo, la protección contra
 CSRF (\texttt{Cross-Site Request Forgery}) no se había contemplado, pero la
 herramienta sí lo considera como un elemento prioritario.
+
+\subsection{Sprint 16}
+Corresponde con el periodo temporal del 19 al 26 de abril de 2023.
+
+Puntos a desarrollar:
+\begin{enumerate}
+    \item Añadir usuarios (con login y registro)
+    \item Crear un espacio personal para los usuarios
+    \item Continuar con la memoria
+    \item Normalización en la configuración
+\end{enumerate}
+
+Durante este Sprint se iniciaron las tareas para mantener usuarios en la
+aplicación. El primer paso para realizar esto fue la creación del modelo de
+usuario en la base de datos. El usuario es simple, con un identificador, nombre,
+email y contraseña (este no es el objetivo principal de la aplicación).
+
+A continuación, se crearon los pares de \texttt{endpoint} y plantilla para
+inicio de sesión y registro. Como este tipo de formulario requiere de una
+validación exhaustiva y que permita dar al usuario ayuda contextual, se utilizó
+Flask-WTForms para ello porque tanto desde el navegador como desde el
+\texttt{backend} permite esta validación. Esto trata los formularios como
+objetos, que incluso cada uno de ellos mantiene una lista de errores. En ambos
+\texttt{endpoints}, se realizan las típicas comprobaciones: al registrar que no
+exista ya una cuenta con el mismo email, en el inicio de sesión que la
+contraseña coincida con la almacenada, que exista el email... Respecto a las
+contraseñas, solo se almacena el Hash (SHA256) por lo que no se podría obtener
+la cadena real de vuelta (de forma sencilla). Y como se comentaba, cuando se
+detecta un error de este estilo, se muestra un mensaje (en rojo) con lo que ha
+ocurrido.
+
+Con todo ello, se modificó la barra de navegación incluyendo el menú de los
+usuarios: Registrarse/Iniciar sesión y una vez el usuario ha iniciado sesión, un
+menú desplegable que le llevaría a su espacio personal y perfil.
+
+Antes de continuar con el desarrollo, se incluyó un \textit{mockup} con lo que
+se tenía pensado hacer.
+
+Para que el usuario pudiera modificar sus datos, se creó otro pequeño formulario
+muy parecido al de registro. Por su puesto, con su correspondiente ruta
+(\texttt{/perfil}) que valida que los datos introducidos son correctos.
+
+Del mismo modo, era interesante que el usuario pudiera ver algo de su
+actividad, la idea era guardar los conjuntos de datos que ha subido para poder
+volver a utilizarlos y un historial de ejecuciones con el objetivo de replicar
+exactamente esa ejecución. Como se vio que la ruta del perfil y esta nueva eran
+parecidas, se unificó el estilo de tal forma que en la columna de la izquierda
+apareciesen los principales datos del usuario y a la derecha, o bien la
+modificación del perfil (\texttt{/perfil}) o su actividad (\texttt{/miespacio}).
+
+Antes de seguir, para poder almacenar toda esta actividad, se crearon dos nuevas
+entidades <<Dataset>> y <<Run>> que almacenarían la información principal como
+los nombres de los ficheros, fecha de subida/ejecución...
+
+La parte visual de la actividad se realizó con DataTables, un plug-in de jQuery
+que proporciona mucha versatilidad para hacer tablas. Los datos no provenían de
+las plantillas, se crearon nuevas rutas a las que hacer peticiones (como una
+API). Una vez que se había trasteado con este plug-in e incluso vista la forma
+en la que eliminar filas, la idea es realizar una petición y que los datos
+recibidos sean incrustados en estas tablas. La obtención de los datos no fue un
+problema, se utilizaron los <<fetch>> de JavaScript y cuando se obtenía
+respuesta, se creaban las tablas. El verdadero problema fue la incorporación de
+acciones (como la de borrar), en la propia documentación de DataTables y gracias
+a su foro, se consiguieron generar botones en esta columna (con puro HTML). El
+siguiente reto fue crear otras peticiones como respuesta a los clicks de estos
+botones. La suerte fue que DataTables permite obtener los datos de una fila
+directamente, lo que resultó de mucha ayuda para, por ejemplo, extraer el nombre
+de un fichero y posteriormente incorporarlo a las peticiones de borrado. Se
+añadieron también unos \textit{modales} para las comprobaciones del usuario.
+
+El desarrollo anterior se ha simplificado, primero se creaban versiones
+sencillas y luego se iban incorporando retoques hasta el resultado final. Por
+ejemplo, al final del todo, se añadió el estilo responsivo a estas tablas. La
+ventaja fue que DataTables ya tenía extensiones que realizaban esto
+automáticamente.
+
+Continuando con la memoria, se añadieron los objetivos de proyecto y el comienzo
+de aspectos relevantes.
+
+A la vez que se iban incorporando estas adiciones, no se perdía de vista el
+resto de la aplicación, en la fase de configuración de los algoritmos resultaba
+conveniente permitir al usuario normalizar o no el conjunto de datos a mostrar
+(hasta ahora siempre se normalizaba), se incluyó un interruptor para ello.
+
+Además de todo esto, se hicieron algunos cambios pequeños: Footer al final de la
+página, selección de fuentes para la página, arreglar algunos bugs o estilar el
+<<card>> del perfil.
+
+\subsection{Sprint 17}
+Corresponde con el periodo temporal del 26 de abril al 3 de mayo de 2023.
+
+Puntos a desarrollar:
+\begin{enumerate}
+    \item Botón de idioma
+    \item Panel de administración
+    \item Bootstrap icons
+    \item Mensajes flash (alertas)
+    \item Actualizar técnicas y herramientas
+\end{enumerate}
+
+Lo primero que se hizo fue sustituir los SVG de los iconos que se estaban
+utilizando, por clases de \texttt{Bootstrap Icons}. Era muy engorroso tener cadenas tan
+grandes de texto y esta modificación solo conlleva añadir un enlace.
+
+Lo siguiente que se realizó fue añadir un botón para cambiar el idioma. La idea
+es muy sencilla, las traducciones ahora se realizan detectando qué idioma se
+ajusta más al navegador del usuario (en las peticiones existe un <<header>> que
+incluye esta información), como también se quiere que el usuario decida, todas
+las peticiones son procesadas previamente por un \texttt{endpoint} (Flask
+permite esto) que detecta si existe un parámetro <<lang>> (?lang=X) y si lo hay,
+establece el idioma a este (guardándolo en la sesión). De esta forma se consigue
+no modificar lo ya existente.
+
+El panel de administración fue un verdadero reto, como no se quería tener que
+hacer todo de cero (mucho código duplicado), se tuvo que pensar primero la forma
+de aprovechar las tablas que ya se habían creado. El panel de administración
+solo iba a tener una tabla nueva, además de la de los ficheros y ejecuciones que
+ya existían. Estas últimas son las que se debían reutilizar. Para ello, la
+información que debía ver el administrador además de lo que ya se mostraba era
+el usuario al que pertenecen los ficheros y ejecuciones. Se añadió esta columna
+a las tablas y las funciones se parametrizaron con un <<flag>> que permitiese
+especificar si la tabla debe generarse como administrador o como usuario normal.
+En el caso del panel de administración, mostrar esa columna de usuarios. Esto
+conllevó a modificar también los modelos pues hasta ahora solo se almacenaba una
+clave foránea con el identificador del usuario (había que añadir el email) con
+una relación uno a varios.
+
+Finalmente, se creó la tabla de usuarios del mismo modo que el resto, creando
+una ruta donde consultar todos los datos y añadir las acciones correspondientes
+de editar el usuario o eliminarlo. Se reutilizó mucho de lo que ya se había
+codificado. La ventaja es que, aunque se tuvo que añadir bastantes cosas, ya se
+tenía el conocimiento previo fue más laborioso (el desarrollo anterior se
+dividió en varios días) pero menos difícil.
+
+Además de lo comentado anteriormente, se quiso incluir unas estadísticas
+sencillas en cada una de las tablas. Para los usuarios, el total y para los
+ficheros subidos y ejecuciones, el total de los últimos siete días.
+
+Finalmente se tuvo que modificar algún \texttt{endpoint} para aumentar las
+comprobaciones de seguridad y sobre todo, para evitar duplicar código. Por
+ejemplo, la edición de un usuario por parte de un administrador se "delega" al
+propio \texttt{endpoint} del perfil. En esta línea, a medida que pasaba el
+Sprint, mejoraban las comprobaciones y controles de errores y para que el
+usuario tuviera algo de información, se añadió un modal que se activa cuando
+ocurre un error.
+
+Los mensajes flash se modificaron como alertas de Bootstrap de tal forma que el
+color de las mismas dependiera de las categorías (se añadieron estas a todos los
+puntos en los que se lanzaba un mensaje flash).
+
+Se actualizó el apartado de las técnicas y herramientas hasta este punto.
+
+Además, también se realizaron otras modificaciones:
+
+\begin{itemize}
+    \item Añadir eliminación de ejecuciones: Al igual que usuarios y ficheros,
+    era interesante que pudieran eliminarse las ejecuciones.
+    \item Bug de edición perfil: Si la contraseña actual se introducía correcta,
+ocurría un error crítico (no se habían pasado todas las variables a la plantilla
+porque el código no estaba actualizado).
+    \item Bug reducción dimensionalidad: Cuando se desactivaba PCA y se incluía
+la misma columna en CX y CY, ocurría una excepción. Pandas parece no permitir
+concatenar una columna a un DataFrame que tiene columnas idénticas.
+    \item Refactorizaciones generales para evitar código duplicado.
+\end{itemize}
+
 
 \section{Estudio de viabilidad}
 
