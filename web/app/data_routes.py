@@ -211,18 +211,26 @@ def generar_json_parametros():
     formulario = dict(request.form)
 
     claves_clasificadores = [k for k, _ in request.form.items() if 'clasificador' in k and "_" not in k]
+    clasificadores_reales = [v for k, v in request.form.items() if 'clasificador' in k and "_" not in k]
     resto_de_parametros = [k for k, _ in request.form.items() if "clasificador" not in k]
 
     pre_json = dict()
 
-    for k in claves_clasificadores:
-        clasificador_real = formulario[k]
-        pre_json[clasificador_real] = dict()
+    contador = {c: 1 for c in clasificadores_reales}
+
+    for k, clasificador_real in zip(claves_clasificadores, clasificadores_reales):
+        aux = clasificador_real
+        if clasificadores_reales.count(clasificador_real) > 1:
+            aux += str(contador[clasificador_real])
+            pre_json[aux] = dict()
+            contador[clasificador_real] += 1
+        else:
+            pre_json[clasificador_real] = dict()
 
         parametros_clasificador_real = clasificadores[clasificador_real].keys()
 
         for p in parametros_clasificador_real:
-            pre_json[clasificador_real][p] = formulario[k + "_" + p]
+            pre_json[aux][p] = formulario[k + "_" + p]
 
     for r in resto_de_parametros:
         pre_json[r] = formulario[r]
