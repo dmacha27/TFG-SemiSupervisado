@@ -81,14 +81,14 @@ export const generateRunList = async (id=null) => {
     if (Array.isArray(data)) {
         historial = [];
         for (let run of data) {
-            //["id", "algorithm","filename","date","user", "cx", "cy", "jsonfile"]
+            //["id", "algorithm","filename","date","user", "cx", "cy", "jsonfile", "json_parameters"]
             let aux = JSON.parse(run);
-            //Añadir una columna usuario en el <table>                    | //OCULTO
-            historial.push([aux[1], nombredataset(aux[2]), aux[3], aux[4], aux[0], aux[5], aux[6], aux[7]]);
+            //Añadir una columna usuario en el <table>                             | //OCULTO
+            historial.push([aux[1], nombredataset(aux[2]), aux[3], aux[8], aux[4], aux[0], aux[5], aux[6], aux[7]]);
         }
     } else {
         let aux = JSON.parse(data);
-        historial = [[aux[1], nombredataset(aux[2]), aux[3], aux[4], aux[0], aux[5], aux[6], aux[7]]];
+        historial = [[aux[1], nombredataset(aux[2]), aux[3], aux[8], aux[4], aux[0], aux[5], aux[6], aux[7]]];
     }
 
     return historial;
@@ -264,20 +264,32 @@ export function generateHistoryTable(historial, locale, all_users) {
                 }
             },
             {
+                "targets": 3, // Columna acciones
+                "className": "dt-body-center",
+                "orderable": false,
+                "render": function (data, type, row, meta) {
+                    return '<button class="btn btn-success parameters">' +
+                        '<div class="pe-none">' +
+                        '<i class="bi bi-file-earmark-spreadsheet-fill"></i>' +
+                        '</div>' +
+                        '</button>';
+                }
+            },
+            {
                 "targets": -1, // Columna acciones
                 "className": "dt-body-center",
                 "orderable": false,
                 "render": function (data, type, row, meta) {
-
+                    console.log(row)
                     let acciones = '';
                     if (!all_users) {
-                        acciones += '<a type="button" class="btn btn-warning run" href="/visualizacion/' + row[0] +'/' + row[4] +'">' +
+                        acciones += '<a type="button" class="btn btn-warning run" href="/visualizacion/' + row[0] +'/' + row[5] +'">' +
                             '<div class="pe-none">' +
                             '<i class="bi bi-arrow-clockwise text-white"></i>' +
                             '</div>' +
                             '</a>'
                     }
-                    acciones += '    <button class="btn btn-danger remove" data-file="' + row[7] + '">' +
+                    acciones += '    <button class="btn btn-danger remove" data-file="' + row[8] + '">' +
                         '<div class="pe-none">' +
                         '<i class="bi bi-trash-fill text-white"></i>' +
                         '</div>' +
@@ -318,6 +330,15 @@ export function generateHistoryTable(historial, locale, all_users) {
                 modal.hide();
                 fetch_eliminar('/historial/eliminar', table, row, file, id);
             }
+        } else if (event.target.classList.contains('parameters')){
+            let row = event.target.closest('tr');
+            let json = JSON.parse(table.row(row).data()[3])
+
+            let modal = new bootstrap.Modal(document.getElementById('modal_parametros'));
+            modal.show();
+
+            document.getElementById("json_parameters").innerHTML = JSON.stringify(json, null, "  ");
+
         }
     });
 }

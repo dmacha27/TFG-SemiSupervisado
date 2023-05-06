@@ -72,7 +72,7 @@ def create_app():
     app.register_blueprint(visualization_bp, url_prefix='/visualizacion')
     app.register_blueprint(data_bp, url_prefix='/datos')
 
-    from .models import User
+    from .models import User, Dataset, Run
 
     with app.app_context():
         db.create_all()

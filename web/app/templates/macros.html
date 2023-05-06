@@ -90,6 +90,7 @@
             <th>{{ gettext('Algorithm') }}</th>
             <th>{{ gettext('Dataset file') }}</th>
             <th>{{ gettext('Run date') }}</th>
+            <th>{{ gettext('Parameters') }}</th>
             <th>{{ gettext('User') }}</th>
             <th>{{ gettext('Actions') }}</th>
         </tr>
@@ -131,6 +132,24 @@
     </div>
 {% endmacro %}
 
+{% macro modalparametros() %}
+    <div class="modal fade" id="modal_parametros" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">{{ gettext('Parameters') }}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <pre id="json_parameters"></pre>
+                </div>
+                <div class="modal-footer justify-content-around">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ gettext('Close') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
 
 {% macro modalejecutar() %}
     <div class="modal fade" id="modal_ejecutar" tabindex="-1" aria-hidden="true">
@@ -160,7 +179,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>{{ gettext('An error ocurred') }}</p>
+                    <p>{{ gettext('An error occurred') }}</p>
                 </div>
                 <div class="modal-footer justify-content-around">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ gettext('Close') }}</button>

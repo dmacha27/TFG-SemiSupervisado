@@ -91,6 +91,7 @@ def obtener_info(algoritmo):
     Realiza la carga de datos, las particiones de datos, el entrenamiento del algoritmo,
     la conversión a un log (logger) en 2D y la conversión a JSON para las plantillas.
     """
+
     datasetloader = DatasetLoader(session['FICHERO'])
     datasetloader.set_target(request.form['target'])
     x, y, mapa, is_unlabelled = datasetloader.get_x_y()
@@ -134,6 +135,7 @@ def obtener_info(algoritmo):
 
         run = Run()
         run.algorithm = session['ALGORITMO']
+        run.json_parameters = generar_json_parametros()
         run.filename = os.path.basename(session['FICHERO'])
         if request.form['pca'] == 'y':
             run.cx = 'C1'
@@ -196,3 +198,33 @@ def obtener_clasificador(nombre, params):
         return KNeighborsClassifier(**params)
     elif nombre == "DecisionTreeClassifier":
         return DecisionTreeClassifier(**params)
+
+
+def generar_json_parametros():
+    """
+    Genera un JSON como cadena de texto. La idea es recopilar toda la configuración
+    de ejecución que el usuario ha introducido.
+    """
+    with open(os.path.join(os.path.dirname(__file__), os.path.normpath("static/json/parametros.json"))) as f:
+        clasificadores = json.load(f)
+
+    formulario = dict(request.form)
+
+    claves_clasificadores = [k for k, _ in request.form.items() if 'clasificador' in k and "_" not in k]
+    resto_de_parametros = [k for k, _ in request.form.items() if "clasificador" not in k]
+
+    pre_json = dict()
+
+    for k in claves_clasificadores:
+        clasificador_real = formulario[k]
+        pre_json[clasificador_real] = dict()
+
+        parametros_clasificador_real = clasificadores[clasificador_real].keys()
+
+        for p in parametros_clasificador_real:
+            pre_json[clasificador_real][p] = formulario[k + "_" + p]
+
+    for r in resto_de_parametros:
+        pre_json[r] = formulario[r]
+
+    return json.dumps(pre_json)

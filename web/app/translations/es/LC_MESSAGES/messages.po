@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-05-05 20:53+0200\n"
+"POT-Creation-Date: 2023-05-06 17:51+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -54,12 +54,12 @@ msgstr "Debe subir un archivo"
 msgid "File must be ARFF or CSV"
 msgstr "El fichero debe ser ARFF o CSV"
 
-#: forms.py:9 forms.py:13 forms.py:43 forms.py:47 templates/macros.html:105
+#: forms.py:9 forms.py:13 forms.py:43 forms.py:47 templates/macros.html:106
 msgid "Name"
 msgstr "Nombre"
 
 #: forms.py:15 forms.py:19 forms.py:35 forms.py:36 forms.py:49 forms.py:52
-#: templates/macros.html:106
+#: templates/macros.html:107
 msgid "Email"
 msgstr "Correo electrónico"
 
@@ -184,13 +184,13 @@ msgstr "¡Cuenta actualizada!"
 msgid "You must select the parameters of the algorithm"
 msgstr "Debe seleccionar los parámetros del algoritmo"
 
-#: templates/base.html:69 templates/usuarios/admin.html:11
-#: templates/usuarios/admin.html:16
+#: templates/base.html:69 templates/usuarios/admin.html:12
+#: templates/usuarios/admin.html:17
 msgid "Admin dashboard"
 msgstr "Panel de administración"
 
-#: templates/base.html:71 templates/usuarios/miespacio.html:11
-#: templates/usuarios/miespacio.html:12
+#: templates/base.html:71 templates/usuarios/miespacio.html:12
+#: templates/usuarios/miespacio.html:13
 msgid "My Space"
 msgstr "Mi Espacio"
 
@@ -268,8 +268,8 @@ msgstr "Desmarca PCA para seleccionar componentes específicas"
 msgid "If already semi-supervised, it will be ignored"
 msgstr "Si ya fuera semi-supervisado, será ignorado"
 
-#: templates/macros.html:73 templates/usuarios/admin.html:29
-#: templates/usuarios/admin.html:66 templates/usuarios/miespacio.html:17
+#: templates/macros.html:73 templates/usuarios/admin.html:30
+#: templates/usuarios/admin.html:67 templates/usuarios/miespacio.html:18
 msgid "Uploaded datasets"
 msgstr "Conjunto de datos subidos"
 
@@ -281,16 +281,16 @@ msgstr "Fichero del conjunto de datos"
 msgid "Upload date"
 msgstr "Fecha de subida"
 
-#: templates/macros.html:79 templates/macros.html:93
+#: templates/macros.html:79 templates/macros.html:94
 msgid "User"
 msgstr "Usuario"
 
-#: templates/macros.html:80 templates/macros.html:94 templates/macros.html:108
+#: templates/macros.html:80 templates/macros.html:95 templates/macros.html:109
 msgid "Actions"
 msgstr "Acciones"
 
-#: templates/macros.html:87 templates/usuarios/admin.html:34
-#: templates/usuarios/admin.html:89 templates/usuarios/miespacio.html:25
+#: templates/macros.html:87 templates/usuarios/admin.html:35
+#: templates/usuarios/admin.html:90 templates/usuarios/miespacio.html:26
 msgid "Run history"
 msgstr "Historial de ejecuciones"
 
@@ -302,48 +302,53 @@ msgstr "Algoritmo"
 msgid "Run date"
 msgstr "Fecha de ejecución"
 
-#: templates/macros.html:102
+#: templates/configuracion/base_configuracion.html:31 templates/macros.html:93
+#: templates/macros.html:140
+msgid "Parameters"
+msgstr "Parámetros"
+
+#: templates/macros.html:103
 msgid "Users"
 msgstr "Usuarios"
 
-#: templates/macros.html:107 templates/usuarios/base_user.html:41
+#: templates/macros.html:108 templates/usuarios/base_user.html:41
 msgid "Last login"
 msgstr "Último inicio de sesión"
 
-#: templates/macros.html:119
+#: templates/macros.html:120
 msgid "Are you sure?"
 msgstr "¿Estás seguro?"
 
-#: templates/macros.html:123
+#: templates/macros.html:124
 msgid "You are about to delete: "
 msgstr "Vas a eliminar: "
 
-#: templates/macros.html:126
+#: templates/macros.html:127
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: templates/macros.html:127
+#: templates/macros.html:128
 msgid "Delete"
 msgstr "Eliminar"
 
-#: templates/macros.html:140
+#: templates/macros.html:147 templates/macros.html:185
+msgid "Close"
+msgstr "Cerrar"
+
+#: templates/macros.html:159
 msgid "Select algorithm"
 msgstr "Selecciona un algoritmo"
 
-#: templates/macros.html:163
-msgid "An error ocurred"
+#: templates/macros.html:182
+msgid "An error occurred"
 msgstr "Ha ocurrido un error"
-
-#: templates/macros.html:166
-msgid "Close"
-msgstr "Cerrar"
 
 #: templates/subida.html:7
 msgid "Dataset selection"
 msgstr "Selección del conjunto de datos"
 
 #: templates/configuracion/base_configuracion.html:6 templates/subida.html:10
-#: templates/usuarios/admin.html:14 templates/usuarios/base_form.html:4
+#: templates/usuarios/admin.html:15 templates/usuarios/base_form.html:4
 #: templates/usuarios/base_user.html:4
 #: templates/visualizacion/base_visualizacion.html:13
 msgid "Go back"
@@ -405,10 +410,6 @@ msgstr "Configuración del algoritmo"
 #: templates/configuracion/base_configuracion.html:17
 msgid "Theory"
 msgstr "Teoría"
-
-#: templates/configuracion/base_configuracion.html:31
-msgid "Parameters"
-msgstr "Parámetros"
 
 #: templates/configuracion/base_configuracion.html:45
 msgid "Run"
@@ -573,19 +574,19 @@ msgstr ""
 msgid "Tri-Training Pseudocode"
 msgstr "Pseudocódigo de Tri-Training"
 
-#: templates/usuarios/admin.html:24 templates/usuarios/admin.html:44
+#: templates/usuarios/admin.html:25 templates/usuarios/admin.html:45
 msgid "User management"
 msgstr "Administración de usuarios"
 
-#: templates/usuarios/admin.html:53
+#: templates/usuarios/admin.html:54
 msgid "Total users"
 msgstr "Usuarios totales"
 
-#: templates/usuarios/admin.html:75
+#: templates/usuarios/admin.html:76
 msgid "Last 7 days uploads"
 msgstr "Cargas de los últimos 7 días"
 
-#: templates/usuarios/admin.html:98
+#: templates/usuarios/admin.html:99
 msgid "Last 7 days runs"
 msgstr "Ejecuciones de los últimos 7 días"
 

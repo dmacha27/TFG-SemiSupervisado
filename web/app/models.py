@@ -38,6 +38,7 @@ class Run(db.Model):
     __tablename__ = "Runs"
     id = db.Column(db.Integer, primary_key=True)
     algorithm = db.Column(db.String(50))
+    json_parameters = db.Column(db.Text)
     filename = db.Column(db.String(50))
     date = db.Column(db.DateTime, default=func.now())
     cx = db.Column(db.String(20))
@@ -48,4 +49,4 @@ class Run(db.Model):
 
     def to_list(self):
         return [self.id, self.algorithm, self.filename, self.date.strftime("%Y-%m-%d %H:%M:%S"),
-                self.user.email, self.cx, self.cy, self.jsonfile]
+                self.user.email, self.cx, self.cy, self.jsonfile, self.json_parameters]

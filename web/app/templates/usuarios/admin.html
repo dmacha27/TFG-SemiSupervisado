@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{%  from "macros.html" import table_scripts_links,datasettable, historytable, usertable, modaleliminar, modalejecutar, modalerror %}
+{%  from "macros.html" import table_scripts_links,datasettable, historytable, usertable, modaleliminar, modalparametros, modalejecutar, modalerror %}
 {% block head %}
     {{ super() }}
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -107,6 +107,8 @@
     </div>
 
     {{ modaleliminar() }}
+
+    {{ modalparametros() }}
 
     {{ modalejecutar() }}
 
