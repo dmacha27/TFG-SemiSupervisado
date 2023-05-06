@@ -4,7 +4,7 @@
 {% block content %}
     <button id="btn_volver" type="button" onclick="history.back()" class="btn sticky-top">
         <i class="bi bi-caret-left-fill"></i>{{ gettext('Go back') }}</button>| {{ gettext('Dataset') }}: {{ session['FICHERO']|nombredataset }}
-    <script type="text/javascript" src="/js/configuracion.js"></script>
+    <script type="text/javascript" src="/js/configuracion/configuracion.js"></script>
     <div class="text-center pb-3">
         <h1 class="title-mulish text-bold">{{ gettext('Algorithm configuration') }}: {{ titulos[session['ALGORITMO']] }}</h1>
         <hr class="separacion" style="width: 14rem;"/>

@@ -119,7 +119,8 @@ function fetch_eliminar(ruta, table, row, file, id) {
     fetch(ruta, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
         body: JSON.stringify({
             "fichero": file,
