@@ -200,7 +200,11 @@ export function generateDatasetTable(datasets, locale, all_users) {
             let file = event.target.getAttribute('data-file');
 
             //https://datatables.net/forums/discussion/42918/child-row-how-to-select-parent-row
-            let tr = event.target.closest('tr[role="row"]');
+            //https://stackoverflow.com/questions/54477339/responsive-jquery-datatables-cannot-get-the-details-of-a-row
+            let tr = event.target.closest('tr');
+            if (tr.classList.contains('child')){
+                tr = tr.previousSibling;
+            }
             let row = table.row(tr);
             let row_data = row.data();
 
@@ -319,7 +323,10 @@ export function generateHistoryTable(historial, locale, all_users) {
         if (event.target.classList.contains('remove')) {
             let file = event.target.getAttribute('data-file');
 
-            let tr = event.target.closest('tr[role="row"]');
+            let tr = event.target.closest('tr');
+            if (tr.classList.contains('child')){
+                tr = tr.previousSibling;
+            }
             let row = table.row(tr);
             let row_data = row.data();
 
@@ -335,12 +342,15 @@ export function generateHistoryTable(historial, locale, all_users) {
                 fetch_eliminar('/historial/eliminar', table, row, file, id);
             }
         } else if (event.target.classList.contains('parameters')){
-            let tr = event.target.closest('tr[role="row"]');
+            let tr = event.target.closest('tr');
+            if (tr.classList.contains('child')){
+                tr = tr.previousSibling;
+            }
             let row = table.row(tr);
             let row_data = row.data();
 
-            let json = JSON.parse(row_data[3])
-
+            let json = JSON.parse(row_data[3]);
+            console.log(json)
             let modal = new bootstrap.Modal(document.getElementById('modal_parametros'));
             modal.show();
 
@@ -387,7 +397,10 @@ export function generateUserTable(usuarios, locale) {
         if (event.target.classList.contains('remove')) {
             let user = event.target.getAttribute('data-user');
 
-            let tr = event.target.closest('tr[role="row"]');
+            let tr = event.target.closest('tr');
+            if (tr.classList.contains('child')){
+                tr = tr.previousSibling;
+            }
             let row = table.row(tr);
             let row_data = row.data();
 
