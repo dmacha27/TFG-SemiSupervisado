@@ -94,6 +94,7 @@ class TriTraining:
 
             stats.loc[len(stats)] = calculate_log_statistics(y_test, self.predict(x_test))
 
+            vect_indexes = []
             for i in range(len(self.clfs)):
                 l_i_x[i] = []
                 l_i_y[i] = []
@@ -110,10 +111,6 @@ class TriTraining:
                     # LOG
                     vect_indexes = np.nonzero(vect)[0]
 
-                    for index, y_aux in zip(vect_indexes, l_i_y[i]):
-                        log.loc[len(x_train) + index, 'iters'][i].append(iteration + 1)
-                        log.loc[len(x_train) + index, 'targets'][i].append(y_aux)
-
                     if l_prime[i] == 0:
                         l_prime[i] = floor(e_i[i] / (e_prime[i] - e_i[i]) + 1)
 
@@ -125,10 +122,7 @@ class TriTraining:
                                                        ceil(e_prime[i] * l_prime[i] / e_i[i] - 1))
                             l_i_x[i] = [l_i_x[i][keep] for keep in to_keep]
                             l_i_y[i] = [l_i_y[i][keep] for keep in to_keep]
-                            vect_indexes_to_remove = np.delete(vect_indexes, to_keep)
-                            for index in vect_indexes_to_remove:
-                                log.loc[len(x_train) + index, 'iters'][i].pop()
-                                log.loc[len(x_train) + index, 'targets'][i].pop()
+                            vect_indexes = to_keep
                             updates[i] = True
 
             for i, n in enumerate(self.clfs):
@@ -136,6 +130,11 @@ class TriTraining:
                     change = True
                     e_prime[i] = e_i[i]
                     l_prime[i] = len(l_i_x[i])
+
+                    # LOG
+                    for index, y_aux in zip(vect_indexes, l_i_y[i]):
+                        log.loc[len(x_train) + index, 'iters'][i].append(iteration + 1)
+                        log.loc[len(x_train) + index, 'targets'][i].append(y_aux)
 
                     mew_x_train = np.concatenate((x_train, l_i_x[i]), axis=0)
                     mew_y_train = np.concatenate((y_train, l_i_y[i]))
