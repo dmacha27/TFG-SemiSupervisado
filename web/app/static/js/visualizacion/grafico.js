@@ -307,7 +307,9 @@ function grafico_selftraining(dataset) {
                 let puntos_posicion = puntos_en_x_y(dot[0], dot[1])._groups[0];
                 let cadena_tooltip = "";
                 if (cuantos_duplicados(dot[0], dot[1]) > 1) {
-                    cadena_tooltip += "<strong>" + cuantos_duplicados(dot[0], dot[1]).toString() + " " + traducir("duplicated points") + "</strong><br><br>";
+                    cadena_tooltip += "<strong>" +
+                        cuantos_duplicados(dot[0], dot[1]).toString() + " " + traducir("duplicated points") +
+                        "</strong><br><br>";
                 }
                 for (let i = 0; i < puntos_posicion.length; i++) {
                     let p_data = puntos_posicion[i].__data__;
@@ -315,12 +317,16 @@ function grafico_selftraining(dataset) {
                         if (p_data[3] === 0){
                             cadena_tooltip += tooltip_dato_inicial(p_data);
                         }else {
-                            cadena_tooltip += escribir_duplicados(p_data[0],p_data[1], p_data[p_data.length-1]) + cx +": " + p_data[0] +"<br>" + cy + ": " + p_data[1] + "<br>" + traducir('Label') + ": " +
+                            cadena_tooltip += escribir_duplicados(p_data[0],p_data[1], p_data[p_data.length-1]) +
+                                cx +": " + p_data[0] +"<br>" +
+                                cy + ": " + p_data[1] + "<br>" +
+                                traducir('Label') + ": " +
                                 "<span style='color:"+ color(parseInt(p_data[2])) +"'>" + mapa[p_data[2]] + "</span>"+
                                 "<span> ("+ traducir('Iteration') + ": " + p_data[3] +")</span>";
                         }
                     } else{
-                        cadena_tooltip += escribir_duplicados(p_data[0],p_data[1], p_data[p_data.length-1]) + un_clasificador_return_no_clasificado(p_data);
+                        cadena_tooltip += escribir_duplicados(p_data[0],p_data[1], p_data[p_data.length-1]) +
+                            un_clasificador_return_no_clasificado(p_data);
                     }
                     if (i < puntos_posicion.length -1) {
                         cadena_tooltip += "<br>-------<br>";
@@ -632,13 +638,12 @@ function grafico_cotraining(dataset) {
 /**
  *
  * Prepara el conjunto de datos conforme al formato
- * de Democratic Co-Learning y Tri-Training (el proceso es
- * exactamente el mismo).
+ * de Democratic Co-Learning.
  *
  * @param datos - datos de la visualización principal
  * @returns {*[]} - array de arrays
  */
-function preparardataset_democraticcolearning_tritraining(datos) {
+function preparardataset_democraticcolearning(datos) {
     let dataset = [];
     let xs = datos[cx];
     let ys = datos[cy];
@@ -740,6 +745,63 @@ function grafico_democraticcolearning(dataset) {
     document.addEventListener('next_reproducir', next_co);
 }
 
+/**
+ *
+ * Prepara el conjunto de datos conforme al formato
+ * de Tri-Training.
+ *
+ * @param datos - datos de la visualización principal
+ * @returns {*[]} - array de arrays
+ */
+function preparardataset_tritraining(datos) {
+    let dataset = [];
+    let xs = datos[cx];
+    let ys = datos[cy];
+    let etiq = datos['targets'];
+    let iter = datos['iters'];
+    let clfs = datos['clfs'];
+
+    let clasificadores = new Set()
+    for (const key in xs){
+        let id_duplicado = generar_id_duplicado(xs[key], ys[key]);
+        if (iter[key].every(function(lista_iters) {
+            return lista_iters.length === 0;
+        })){
+            dataset.push([xs[key], ys[key], -1, maxit+1, -1, id_duplicado])
+        }else{
+            for (let i = 0; i < clfs[key].length; i++) {
+                if (iter[key][i].length !== 0) {
+                    clasificadores.add(clfs[key][i])
+                    dataset.push([xs[key],ys[key],etiq[key][i],iter[key][i],clfs[key][i], id_duplicado])
+                }
+            }
+        }
+    }
+
+    clf_forma = Array.from(clasificadores)
+    return dataset;
+}
+
+function escribir_iteraciones_clasificado(iteraciones) {
+    let cadena =  "<span> ("+ traducir('Iteration') + ": ";
+    let algo = false;
+    for (let i = 0; i < iteraciones.length; i++) {
+        if (iteraciones[i] === cont) {
+            algo = true;
+            cadena += iteraciones[i].toString();
+            return cadena + ")</span>";
+        }
+        if (iteraciones[i] < cont) {
+            algo = true;
+            cadena += iteraciones[i].toString();
+        }
+        if (i < iteraciones.length - 1){
+            cadena += ",";
+        }
+    }
+    if (!algo) return "";
+    return cadena + ")</span>"
+}
 
 /**
  *
@@ -753,29 +815,23 @@ function grafico_tritaining(dataset) {
     rep.on("click", reproducir);
 
     const mousemove_tritraining = function(e, dot) {
-
-        function alguno_clasificado(puntos_posicion) {
-            for (let punto_posicion of puntos_posicion) {
-                if (punto_posicion.__data__[3].indexOf(cont) >= 0){
-                    return true;
-                }
-            }
-            return false;
-        }
-
         d3.select(".tooltip")
             .html(function() {
                 let puntos_posicion;
                 puntos_posicion = puntos_en_x_y(dot[0], dot[1])._groups[0];
-
                 let cadena_tooltip = "";
-
+                if (cuantos_duplicados(dot[0], dot[1]) > 1) {
+                    cadena_tooltip += "<strong>" + cuantos_duplicados(dot[0], dot[1]).toString() + " " + traducir("duplicated points") + "</strong><br><br>";
+                }
                 for (let i = 0; i < puntos_posicion.length; i++) {
-
                     let p_data = puntos_posicion[i].__data__
                     let id_cont = null;
                     if (typeof p_data[3] === "number"){
-                        id_cont = 0;
+                        if (p_data[2] !== -1) {
+                            id_cont = 0;
+                        } else{
+                            id_cont = -1;
+                        }
                     }else {
                         id_cont = p_data[3].indexOf(cont);
                     }
@@ -783,14 +839,20 @@ function grafico_tritaining(dataset) {
                         if (p_data[3] === 0) {
                             cadena_tooltip += tooltip_dato_inicial(p_data);
                         } else {
-                            cadena_tooltip += tooltip_dato_no_inicial(p_data) +
+                            cadena_tooltip += escribir_duplicados(p_data[0], p_data[1], p_data[p_data.length-1]) +
+                                tooltip_dato_no_inicial(p_data) +
                                 "<span style='color:"+ color(parseInt(p_data[2][id_cont])) + "'>" +
                                 mapa[p_data[2][id_cont]] + "</span>" +
-                                "<span> ("+ traducir('Iteration') + ": " + p_data[3] +")</span>";
+                                escribir_iteraciones_clasificado(p_data[3]);
                         }
-                        cadena_tooltip += "<br>-------<br>";
                     } else{
-                        cadena_tooltip += tooltip_ninguno_clasificado(alguno_clasificado,puntos_posicion,i,p_data);
+                        cadena_tooltip += escribir_duplicados(p_data[0], p_data[1], p_data[p_data.length-1]) +
+                            un_clasificador_return_no_clasificado(p_data) +
+                                escribir_iteraciones_clasificado(p_data[3]);
+                    }
+
+                    if (i < puntos_posicion.length -1) {
+                        cadena_tooltip += "<br>-------<br>";
                     }
                 }
                 return cadena_tooltip
@@ -843,7 +905,11 @@ function grafico_tritaining(dataset) {
                 .duration(300)
                 .attr("d", simbolos.size(35));
 
-            ocultar_no_recien_clasificados(recien_clasificados);
+            // Los que sí están clasificados deben estar en el frente
+            // para que no haya superposiciones de grises
+            recien_clasificados.each(function() {
+                this.parentNode.appendChild(this);
+            });
 
             actualizaProgreso("prev");
         }
@@ -892,9 +958,9 @@ function grafico_tritaining(dataset) {
                 .duration(300)
                 .attr("d", simbolos.size(50));
 
-            // Los puntos que estén en la misma posición que los recién clasificados
-            // deben no mostrarse (algunos se superponen)
-            ocultar_no_recien_clasificados(recien_clasificados);
+            recien_clasificados.each(function (){
+                this.parentNode.appendChild(this);
+            });
 
             actualizaProgreso("next");
         }

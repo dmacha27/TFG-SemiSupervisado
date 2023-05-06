@@ -65,6 +65,7 @@ function generarespecificas(specific_stats) {
 
     // PARTE 3: Checkboxes de los clasificadores
     let div_checkboxes = document.createElement("div");
+    div_checkboxes.classList.add("mt-3");
     div_checkboxes.setAttribute("id", id_div_checboxes);
     div_especificas.appendChild(div_checkboxes);
     generarcheckboxes_clasificadores(id_div_checboxes, id_div_estadisticas, clasificadores);

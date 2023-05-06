@@ -9,14 +9,14 @@
         <script>
             inicializar_con_peticion("/datos/{{ session['ALGORITMO'] }}",
                 elementos,
-                preparardataset_democraticcolearning_tritraining,
+                preparardataset_democraticcolearning,
                 grafico_democraticcolearning, true);
         </script>
     {% else %}
         <script>
             let datos = {{ json_data|tojson }};
             inicializar_sin_peticion(datos,
-                preparardataset_democraticcolearning_tritraining,
+                preparardataset_democraticcolearning,
                 grafico_democraticcolearning, true);
         </script>
     {% endif %}
