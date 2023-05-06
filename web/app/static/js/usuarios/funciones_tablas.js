@@ -131,7 +131,7 @@ function fetch_eliminar(ruta, table, row, file, id) {
             let error_modal = new bootstrap.Modal(document.getElementById('modal_error'));
             error_modal.show();
         } else {
-            table.row(row).remove().draw();
+            row.remove().draw();
         }
     })
         .catch(error => console.log(error));
@@ -199,13 +199,16 @@ export function generateDatasetTable(datasets, locale, all_users) {
         if (event.target.classList.contains('remove')) {
             let file = event.target.getAttribute('data-file');
 
-            let row = event.target.closest('tr');
+            //https://datatables.net/forums/discussion/42918/child-row-how-to-select-parent-row
+            let tr = event.target.closest('tr[role="row"]');
+            let row = table.row(tr);
+            let row_data = row.data();
 
             let span_fichero = document.getElementById('nombre_fichero_modal');
             span_fichero.innerHTML = nombredataset(file);
 
             if (all_users) {
-                span_fichero.innerHTML += ' (' + row.cells[2].innerText + ')'
+                span_fichero.innerHTML += ' (' + row_data[2] + ')'
             }
 
             let modal = new bootstrap.Modal(document.getElementById('modal_eliminar'));
@@ -280,7 +283,6 @@ export function generateHistoryTable(historial, locale, all_users) {
                 "className": "dt-body-center",
                 "orderable": false,
                 "render": function (data, type, row, meta) {
-                    console.log(row)
                     let acciones = '';
                     if (!all_users) {
                         acciones += '<a type="button" class="btn btn-warning run" href="/visualizacion/' + row[0] +'/' + row[5] +'">' +
@@ -317,10 +319,12 @@ export function generateHistoryTable(historial, locale, all_users) {
         if (event.target.classList.contains('remove')) {
             let file = event.target.getAttribute('data-file');
 
-            let row = event.target.closest('tr');
+            let tr = event.target.closest('tr[role="row"]');
+            let row = table.row(tr);
+            let row_data = row.data();
 
             let span_fichero = document.getElementById('nombre_fichero_modal');
-            span_fichero.innerHTML = row.cells[0].innerText + ' - ' + row.cells[1].innerText + ' (' + row.cells[2].innerText + ')';
+            span_fichero.innerHTML = titulos[row_data[0]] + ' - ' + row_data[1] + ' (' + row_data[2] + ')';
 
             let modal = new bootstrap.Modal(document.getElementById('modal_eliminar'));
             modal.show();
@@ -331,8 +335,11 @@ export function generateHistoryTable(historial, locale, all_users) {
                 fetch_eliminar('/historial/eliminar', table, row, file, id);
             }
         } else if (event.target.classList.contains('parameters')){
-            let row = event.target.closest('tr');
-            let json = JSON.parse(table.row(row).data()[3])
+            let tr = event.target.closest('tr[role="row"]');
+            let row = table.row(tr);
+            let row_data = row.data();
+
+            let json = JSON.parse(row_data[3])
 
             let modal = new bootstrap.Modal(document.getElementById('modal_parametros'));
             modal.show();
@@ -380,10 +387,12 @@ export function generateUserTable(usuarios, locale) {
         if (event.target.classList.contains('remove')) {
             let user = event.target.getAttribute('data-user');
 
-            let row = event.target.closest('tr');
+            let tr = event.target.closest('tr[role="row"]');
+            let row = table.row(tr);
+            let row_data = row.data();
 
             let span_usuario = document.getElementById('nombre_fichero_modal');
-            span_usuario.innerText = row.cells[0].innerText + ' (' + row.cells[1].innerText + ')' ;
+            span_usuario.innerText = row_data[0] + ' (' + row_data[1] + ')' ;
 
             let modal = new bootstrap.Modal(document.getElementById('modal_eliminar'));
             modal.show();
@@ -394,7 +403,8 @@ export function generateUserTable(usuarios, locale) {
                 fetch('/usuarios/eliminar', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                     },
                     body: JSON.stringify({
                         "user_id": user
@@ -404,7 +414,7 @@ export function generateUserTable(usuarios, locale) {
                         let error_modal = new bootstrap.Modal(document.getElementById('modal_error'));
                         error_modal.show();
                     } else {
-                        table.row(row).remove().draw();
+                        row.remove().draw();
                         location.reload();
                     }
                 })

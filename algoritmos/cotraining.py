@@ -170,8 +170,7 @@ class CoTraining:
 
         x1, x2 = np.array_split(x, 2, axis=1)
 
-        # Probabilidades de predecir correctamente para cada
-        # vista
+        # Probabilidades de predecir correctamente para cada vista
         p1 = self.clf1.predict_proba(x1)
         p2 = self.clf2.predict_proba(x2)
 
