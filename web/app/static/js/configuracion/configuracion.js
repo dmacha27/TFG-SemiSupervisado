@@ -103,28 +103,3 @@ function actualizarBadgePorcentaje(valor, id_badge) {
     badge.innerHTML = valor.toString()+"%";
 
 }
-
-/*
-MÉTODOS A ELIMINAR EN FINAL
- */
-function validarNumeroEntero(id,min,max) {
-    let value = document.getElementById(id).value;
-    let entero = parseInt(value)
-    if (entero < min || entero > max){
-        alert("El número debe estar entre " + min + " y " + max);
-        document.getElementById(id).value = "";
-    }
-}
-
-function validarNumeroFlotante(id,min,max) {
-    let value = document.getElementById(id).value;
-    let entero = parseFloat(value)
-    if (entero < min || entero > max){
-        alert("El número debe estar entre " + min + " y " + max);
-        document.getElementById(id).value = "";
-    }
-}
-
-function noetiquetados(checked,id){
-    document.getElementById(id).disabled = !!checked;
-}

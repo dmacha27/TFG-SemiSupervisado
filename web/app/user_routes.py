@@ -186,7 +186,7 @@ def obtener_datasets(user_id):
     return [json.dumps(d.to_list()) for d in Dataset.query.filter_by(user_id=user_id).all()]
 
 
-@users_bp.route('/datasets/eliminar', methods=['POST'])
+@users_bp.route('/datasets/eliminar', methods=['DELETE'])
 @login_required
 def eliminar_dataset():
     json_request = request.json
@@ -231,7 +231,7 @@ def obtener_historial(user_id):
     return [json.dumps(h.to_list()) for h in Run.query.filter_by(user_id=user_id).all()]
 
 
-@users_bp.route('/historial/eliminar', methods=['POST'])
+@users_bp.route('/historial/eliminar', methods=['DELETE'])
 @login_required
 def eliminar_historial():
     json_request = request.json
@@ -326,7 +326,7 @@ def obtener_usuarios_todos():
     return [json.dumps(u.to_list()) for u in User.query.all()]
 
 
-@users_bp.route('/usuarios/eliminar', methods=['POST'])
+@users_bp.route('/usuarios/eliminar', methods=['DELETE'])
 @login_required
 @admin_api_required
 def eliminar_usuario():

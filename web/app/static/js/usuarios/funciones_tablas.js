@@ -117,7 +117,7 @@ export const generateUserList = async () => {
 
 function fetch_eliminar(ruta, table, row, file, id) {
     fetch(ruta, {
-        method: 'POST',
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -414,7 +414,7 @@ export function generateUserTable(usuarios, locale) {
             btn_eliminar.onclick = function (e) {
                 modal.hide();
                 fetch('/usuarios/eliminar', {
-                    method: 'POST',
+                    method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
