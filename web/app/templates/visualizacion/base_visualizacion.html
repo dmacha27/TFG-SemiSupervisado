@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{%  from "macros.html" import modalerror %}
 {% block head %}
     {{ super() }}
     <script type="text/javascript" src="/js/d3.min.js"></script>
@@ -12,12 +13,12 @@
     <button id="btn_volver" type="button" onclick="history.back()" class="btn">
         <i class="bi bi-caret-left-fill"></i>{{ gettext('Go back') }}</button>| {{ gettext('Dataset') }}: {{ session['FICHERO']|nombredataset }}
     <br>
-    <div id="div_cargando">
-        <div id="cargando" class="cargando m-auto"></div>
-    </div>
-    <div id="titulo_visualizacion" class="text-center pb-3" style="visibility: hidden">
+    <div id="titulo_visualizacion" class="text-center pb-3">
         <h1 class="title-mulish text-bold">{{ titulos[session['ALGORITMO']] }}</h1>
         <hr class="separacion" style="width: 12rem;"/>
+    </div>
+    <div id="div_cargando">
+        <div id="cargando" class="cargando m-auto"></div>
     </div>
     <div id="visualizacion" style="visibility: hidden;" class="d-flex flex-wrap justify-content-around mb-3 position-relative">
         <div id="visualization-card" class="col-md">
@@ -82,7 +83,7 @@
             </div>
         </div>
     </div>
-
+    {{ modalerror() }}
     <script>
         function traducir(texto) {
             let traducciones = {

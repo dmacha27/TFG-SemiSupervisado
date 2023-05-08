@@ -2,7 +2,7 @@ import json
 import os
 from datetime import datetime
 
-from flask import request, session, Blueprint, current_app
+from flask import request, session, Blueprint, current_app, jsonify
 from flask_login import current_user
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
@@ -34,7 +34,13 @@ def datosselftraining():
         th=th if th != -1 else None,
         n_iter=int(request.form['n_iter']))
 
-    info = obtener_info(st)
+    try:
+        info = obtener_info(st)
+    except ValueError as e:
+        return jsonify({
+            "status": "error",
+            "error": str(e)
+        }), 500
 
     return json.dumps(info)
 
@@ -51,8 +57,13 @@ def datoscotraining():
         u=int(request.form['u']),
         n_iter=int(request.form['n_iter']))
 
-    info = obtener_info(ct)
-
+    try:
+        info = obtener_info(ct)
+    except ValueError as e:
+        return jsonify({
+            "status": "error",
+            "error": str(e)
+        }), 500
     return json.dumps(info)
 
 
@@ -70,7 +81,14 @@ def datossingleview(is_democratic):
     else:
         svclf = TriTraining([clf1, clf2, clf3])
 
-    info = obtener_info(svclf)
+    try:
+        info = obtener_info(svclf)
+    except ValueError as e:
+        return jsonify({
+            "status": "error",
+            "error": str(e)
+        }), 500
+
     return json.dumps(info)
 
 
@@ -94,7 +112,11 @@ def obtener_info(algoritmo):
 
     datasetloader = DatasetLoader(session['FICHERO'])
     datasetloader.set_target(request.form['target'])
-    x, y, mapa, is_unlabelled = datasetloader.get_x_y()
+
+    try:
+        x, y, mapa, is_unlabelled = datasetloader.get_x_y()
+    except ValueError as e:
+        raise e
 
     (x, y, x_test, y_test) = data_split(x,
                                         y,

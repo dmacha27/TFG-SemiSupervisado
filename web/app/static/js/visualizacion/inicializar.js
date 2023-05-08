@@ -16,12 +16,25 @@ async function inicializar(rutadatos, elementos) {
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
             if (this.readyState === XMLHttpRequest.DONE) {
-                let datos = JSON.parse(xhr.responseText);
-                document.getElementById("div_cargando").remove();
-                document.getElementById("visualizacion").style.visibility = 'visible';
-                document.getElementById("titulo_visualizacion").style.visibility = 'visible';
+                if (this.status === 200){
+                    let datos = JSON.parse(xhr.responseText);
+                    document.getElementById("div_cargando").remove();
+                    document.getElementById("visualizacion").style.visibility = 'visible';
+                    document.getElementById("titulo_visualizacion").style.visibility = 'visible';
 
-                resolve(datos);
+                    resolve(datos);
+                } else {
+                    document.getElementById("div_cargando").remove();
+                    let error = JSON.parse(xhr.responseText).error;
+                    let error_modal = new bootstrap.Modal(document.getElementById('modal_error'));
+                    error_modal.show();
+                    document.getElementById('error_text').innerText = error;
+                    document.getElementById('btn_error_close').addEventListener('click', function () {
+                        history.back();
+                    })
+
+                }
+
             }
         }
 
