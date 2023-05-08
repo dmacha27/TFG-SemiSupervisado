@@ -26,6 +26,7 @@ def create_app():
     app.config.update(SESSION_COOKIE_SAMESITE='Strict')
     app.config['CARPETA_DATASETS'] = os.path.join(os.path.basename(os.path.dirname(__file__)), 'datasets')
     app.config['CARPETA_RUNS'] = os.path.join(os.path.basename(os.path.dirname(__file__)), 'runs')
+    app.config['ALGORITMOS_SELECCIONABLES'] = ["selftraining", "cotraining", "democraticcolearning", "tritraining"]
     db.init_app(app)
 
     def get_locale():
@@ -58,7 +59,7 @@ def create_app():
         """Obtiene solo el nombre del conjunto de datos
         eliminando la ruta completa"""
 
-        return os.path.split(re.split(r"-", text)[0])[1]
+        return os.path.split(text.rsplit("-", 1)[0])[1]
 
     from .main_routes import main_bp
     from .configuration_routes import configuration_bp

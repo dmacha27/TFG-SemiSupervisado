@@ -1,5 +1,6 @@
 function nombredataset(file) {
-    return file.split("-")[0];
+    // https://stackoverflow.com/questions/5202085/javascript-equivalent-of-pythons-rsplit
+    return file.split('-').slice(0, -1).join('-');
 }
 
 const idiomas = {
