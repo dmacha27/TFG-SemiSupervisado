@@ -382,3 +382,201 @@ Aclaración sobre la predicción final (en combinación): una vez calculadas las
 confianzas de la instancia a predecir (x) y por cada posible etiqueta, la idea
 de la combinación es obtener la etiqueta (k, posición en el grupo) con mayor
 confianza.
+
+\clearpage
+\clearpage
+
+\subsection{HTTP (Descripción general)}
+
+Al ser una aplicación Web, este proyecto tiene alta relación con este protocolo.
+En el resto del apartado se van a documentar los conceptos que se han utilizado
+en el desarrollo.
+
+\textbf{Hypertext Transfer Protocol (HTTP)} o Protocolo de Transferencia de
+Hipertexto es un protocolo de la capa de aplicación \footnote{Permite a las
+aplicaciones trabajar con los servicios de las capas inferiores y define
+protocolos para el intercambio de datos \cite{eswiki:149372346}} para transmitir
+documentos. Se trata de un modelo cliente-servidor clásico, el cliente realiza
+una petición al servidor, y espera a que este le devuelva una respuesta
+\cite{http:mdn}.
+
+\imagen{HTTP}{Diagrama cliente-servidor.}{0.8}
+
+
+Características de HTTP \cite{http:features}:
+\begin{itemize}
+	\item Protocolo sin conexión: esto significa que la comunicación antes
+	comentada ocurre sin realizar un acuerdo previo entre el cliente y el
+	servidor.
+	\item Independiente al tipo de contenido: quiere decir que HTTP no limita
+	los datos que se pueden enviar, siempre y cuando, tanto el cliente como el
+	servidor sepan manejar esos datos.
+	\item Protocolo sin estado: cliente y servidor solo saben de su existencia
+	durante la comunicación, no retienen la información de peticiones
+	anteriores.
+\end{itemize}
+
+
+\subsubsection{Estructura de las peticiones y respuestas}
+
+La realidad es que, peticiones y respuestas, tienen una estructura muy similar. Para las peticiones:
+\begin{itemize}
+	\item \textbf{Línea de inicio}, formada por:
+  \subitem El método HTTP (se describirán a continuación), indica la operación a realizar.
+  \subitem El objetivo, generalmente una URL. Para algunos métodos, aquí ser incorporan los parámetros de la petición (<<?param=X>>).
+  \subitem Versión del protocolo.
+	\item \textbf{Cabeceras}: Son <<metadatos>> que proporcionan información sobre la
+  metición. Cada una de ellas (puede haber varias) es un par nombre-valor.	Por
+  ejemplo, especificar el tipo de contenido de la petición se haría con
+  <<\texttt{Content-Type: application/json}>>.
+  \item \textbf{Cuerpo}: Contiene información adicional para el servidor, pudiendo enviar
+  cualquier dato. No todas las peticiones llevan cuerpo, una petición GET no lo
+  necesita pero sí un POST.
+\end{itemize}
+
+Para las respuestas:
+\begin{itemize}
+	\item \textbf{Línea de estado}, formada por:
+  \subitem Versión del protocolo.
+  \subitem Código de estado que indican el estado de la petición (se describirán a continuación).
+  \subitem Descripción textual del código de estado (para poder interpretarlo).
+	\item \textbf{Cabeceras}: Del mismo modo que las peticiones, son <<metadatos>> que
+  proporcionan información sobre la petición. Cada una de ellas (puede haber
+  varias) es un par nombre-valor.
+  \item \textbf{Cuerpo}: Para aquellas respuestas pertinentes (algunas no tienen cuerpo),
+  contiene los datos solicitados o generados por el servidor.
+\end{itemize}
+
+\imagen{curl}{Ejemplo de respuesta con su estructura.}{0.85}
+
+Como se ha visto en las operaciones HTTP, todas tienen un indicativo, llamado
+método, que permite distinguir qué tipo de operación se quiere realizar. El
+protocolo HTTP soporta una enorme cantidad de métodos, algunos de ellos son para
+contextos muy específicos. Los más utilizados (constantemente en entornos
+reales) son \cite{enwiki:1151700575}:
+\begin{itemize}
+	\item \textbf{GET}: Solicitud de un recurso. Solo para recuperar datos, sin
+  otras operaciones. Generalmente a la URL se le añaden parámetros que
+  configuran esta solicitud para que el servidor pueda personalizar las
+  respuestas.
+  \item \textbf{POST}: Solicitud que envía datos en el cuerpo de la petición (es
+  el método de los formularios HTML, por ejemplo). Tiene diversas funciones como
+  crear un recurso o actualizarlo. Sin embargo, pese a que no está pensado para
+  ello, en muchas ocasiones, también se utiliza para solicitar información.
+  Entre otras cosas, permite reducir la longitud de las URLs para operaciones
+  GET demasiado extensas (incluso que puedan sobrepasar el límite de caracteres)
+  y también porque permite ocultar información comprometida
+  \cite{http:postnotget}. Las peticiones GET son parametrizadas mediante la
+  propia URL, mientras que en POST, los parámetros pueden incorporarse al cuerpo
+  de la petición, ocultándolos (interesante por ejemplo, si no se quiere
+  compartir identificadores).
+  \item \textbf{PUT}: Método similar a POST, también envía datos al servidor,
+  pero en este caso está orientado específicamente a la actualización de los
+  recursos.
+  \item \textbf{DELETE}: Método para eliminar recursos.
+\end{itemize}
+
+Los códigos de estado antes mencionados son parte de la respuesta del servidor a
+los clientes, indicarán, por lo general, el éxito o fracaso de las operaciones.
+Hay aproximadamente 60 códigos distintos, cada uno brinda la posibilidad de
+personalizar las respuestas dependiendo del contexto. Todos estos códigos pueden
+ir acompañados de la estructura antes comentada. Por ejemplo, para una petición
+exitosa, la respuesta de un POST podría tener un \texttt{cuerpo} con más
+información. Los códigos más utilizados son:
+
+\begin{itemize}
+	\item \textbf{200}: OK, respuesta a peticiones HTTP exitosas.
+  \item \textbf{400}: Bad Request, el servidor no puede procesar la petición
+  debido a una petición mal construida.
+  \item \textbf{401}: Unauthorized, no se tiene las credenciales de
+  autenticación válidas para acceder al recurso solicitado.
+  \item \textbf{403}: Forbidden, el servidor entiende la petición pero la
+  rechaza.
+  \item \textbf{404}: Not Found, el recurso no puedo ser encontrado.
+  \item \textbf{405}: Method Not Allowed, el método no es soportado para acceder
+  al recurso. Por ejemplo, utilizar un GET cuando está pensado para utilizarse
+  un POST.
+  \item \textbf{PUT}: Internal Server Error, respuesta genérica para errores
+  internos, sin mensaje específico de los mismos.
+\end{itemize}
+
+\paragraph{HTTP Cookies}
+
+El concepto de las \textit{Cookies} es muy sencillo, son pequeños bloques de
+datos que el servidor manda al navegador del usuario mientras accede a él en las
+peticiones HTTP. Una vez que el cliente ha almacenado esta información, puede
+usarla para agilizar ciertos pasos en las siguientes peticiones. Cuando vuelva a
+acceder, junto con la petición <<normal>> enviará esta porción de datos, que el
+servidor puede interpretar y reconocer. Por ejemplo, pueden guardarse los
+inicios de sesión, preferencias o en entornos comerciales, el comportamiento del
+usuario.
+
+La idea interesante de las \textit{Cookies} es que permite almacenar
+\textbf{información de estado} para el protocolo HTTP, que es \textbf{sin
+estado} (por sí solo no puede guardar esta información).
+
+
+\section{CSRF (Cross-Site Request Forgery)}
+
+Cross-Site Request Forgery (Falsificación de petición en sitios cruzados) es un
+ataque sobre aplicaciones Web vulnerables en las que se utiliza a un usuario
+autenticado en la misma (o en el que la Web confía) para enviar una petición
+maliciosa. Los ataques CSRF explotan la confianza que una Web tiene con un
+usuario, al no poder diferencia entre una petición generada por el usuario (la
+persona) y la petición generada por el usuario, pero sin su consentimiento
+\cite{csrf} (generalmente de forma cruzada, proveniente de otro contexto).
+
+Se presenta un ejemplo explicativo:
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Situación]
+Web vulnerable: \url{https://ejemplo.es}
+
+Usuario: David (con sesión iniciada)
+
+URL de cambio de contraseña: \url{https://ejemplo.es/cambiarcontrasena} 
+(permite un parámetro <<nueva>> mediante POST para especificar la nueva contraseña)
+
+El servidor a <<securizado>> parcialmente la URL anterior comprobando que el que
+accede a esa URL es el propio usuario con sesión iniciada.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black,title=Atacante]
+    \begin{enumerate}
+        \item Ha hecho ingeniería social para saber el Email de David: david@ejemplo.es.
+        \item Envía un correo electrónico con un enlace que parece de Google.
+        \item En realidad, todos los botones de esa página envían un formulario (POST)
+        hacia \url{https://ejemplo.es/cambiarcontrasena}.
+        \item El formulario tiene un campo oculto:
+        \mint{html}|<input type="hidden" name="nueva" value="hackeado"/>|
+    \end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=David]
+    \begin{enumerate}
+        \item Recibe el correo en su bandeja de entrada.
+        \item No se percata de que no es la página original de Google y entra en ella.
+        \item Busca información en Google y pincha en un botón.
+        \item Se realiza la petición POST a la Web vulnerable en la que ha iniciado sesión.
+        \item El servidor procesa la petición pues cree que es el propio usuario el que ha
+        construido la petición conscientemente.
+        \item La contraseña ha cambiado a <<hackeado>>.
+    \end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black,title=Atacante]
+
+Con el Email <<david@ejemplo.es>> y la contraseña <<hackeado>>, accede a la Web
+<<ejemplo.es>> como si fuera David.
+
+\end{tcolorbox}
+
+\paragraph{Solución} Dada la vulnerabilidad comentada anteriormente, la solución pasa por idear una
+forma de saber que esa petición se ha creado desde la propia aplicación (no por
+terceros). Por lo tanto, la idea más efectiva es la creación de un <<CSRF
+token>> único para los usuarios, que el servidor (aplicación) genera y
+<<guarda>> en la sesión de los mismos. Este <<token>> es incrustado como un
+parámetro oculto en las peticiones (en los formularios) y al realizar el envío
+del formulario, el servidor comprobará que el <<token>> recibido era el correcto
+para el usuario.
+

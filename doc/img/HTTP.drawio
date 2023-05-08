@@ -1,0 +1,22 @@
+<mxfile host="app.diagrams.net" modified="2023-05-08T17:45:45.259Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0" etag="B7MnIS0se3fcJLTFORpX" version="21.2.1" type="device">
+  <diagram name="Página-1" id="XXo_5QG3xpGsSOPMLQTo">
+    <mxGraphModel dx="1434" dy="754" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Fmob9EluLvbDc98AXzsM-2" value="&lt;font style=&quot;font-size: 22px;&quot;&gt;Servidor&lt;/font&gt;" style="image;points=[];aspect=fixed;html=1;align=center;shadow=0;dashed=0;image=img/lib/allied_telesis/computer_and_terminals/Server_Desktop.svg;strokeWidth=6;" vertex="1" parent="1">
+          <mxGeometry x="560" y="208.5" width="93.88" height="119" as="geometry" />
+        </mxCell>
+        <mxCell id="Fmob9EluLvbDc98AXzsM-3" value="&lt;font style=&quot;font-size: 22px;&quot;&gt;Cliente&lt;/font&gt;" style="verticalLabelPosition=bottom;sketch=0;aspect=fixed;html=1;verticalAlign=top;strokeColor=none;align=center;outlineConnect=0;shape=mxgraph.citrix.thin_client;" vertex="1" parent="1">
+          <mxGeometry x="90" y="211.13" width="113.75" height="113.75" as="geometry" />
+        </mxCell>
+        <mxCell id="Fmob9EluLvbDc98AXzsM-5" value="PETICIÓN HTTP" style="shape=singleArrow;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="1">
+          <mxGeometry x="250" y="190" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Fmob9EluLvbDc98AXzsM-9" value="RESPUESTA HTTP" style="shape=singleArrow;direction=west;whiteSpace=wrap;html=1;rotation=0;fillColor=#fad9d5;strokeColor=#ae4132;" vertex="1" parent="1">
+          <mxGeometry x="250" y="290" width="260" height="86.25" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
