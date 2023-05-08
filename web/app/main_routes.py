@@ -20,6 +20,8 @@ def inicio():
 
 @main_bp.route('/seleccionar/<algoritmo>', methods=['GET'])
 def seleccionar_algoritmo(algoritmo):
+    if algoritmo not in current_app.config['ALGORITMOS_SELECCIONABLES']:
+        abort(404)
     session['ALGORITMO'] = algoritmo
     return redirect(url_for('main_bp.subida'))
 
@@ -27,8 +29,10 @@ def seleccionar_algoritmo(algoritmo):
 @main_bp.route('/seleccionar/<algoritmo>/<fichero>', methods=['GET'])
 @login_required
 def seleccionar_algoritmo_ejecutar(algoritmo, fichero):
-    dataset = Dataset.query.filter(Dataset.filename == fichero).first()
+    if algoritmo not in current_app.config['ALGORITMOS_SELECCIONABLES']:
+        abort(404)
 
+    dataset = Dataset.query.filter(Dataset.filename == fichero).first()
     if not dataset:
         abort(404)
 

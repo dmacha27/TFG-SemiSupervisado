@@ -130,6 +130,9 @@ function fetch_eliminar(ruta, table, row, file, id) {
         if (!response.ok){
             let error_modal = new bootstrap.Modal(document.getElementById('modal_error'));
             error_modal.show();
+            response.json().then(mensaje => {
+                document.getElementById('error_text').innerText = mensaje.error;
+            })
         } else {
             row.remove().draw();
         }
@@ -423,9 +426,13 @@ export function generateUserTable(usuarios, locale) {
                         "user_id": user
                     })
                 }).then(function (response) {
+                    console.log()
                     if (!response.ok){
                         let error_modal = new bootstrap.Modal(document.getElementById('modal_error'));
                         error_modal.show();
+                        response.json().then(mensaje => {
+                            document.getElementById('error_text').innerText = mensaje.error;
+                        })
                     } else {
                         row.remove().draw();
                         location.reload();

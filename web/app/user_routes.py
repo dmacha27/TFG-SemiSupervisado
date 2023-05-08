@@ -90,9 +90,21 @@ def registrar():
     return render_template("usuarios/registro.html", form=form)
 
 
+def user_id_int(f):
+    @wraps(f)
+    def wrapped(*args, **kwargs):
+        try:
+            _ = int(request.view_args.get('user_id', None))
+        except ValueError:
+            abort(400)
+        return f(*args, **kwargs)
+    return wrapped
+
+
 @users_bp.route('/perfil/<user_id>', defaults={'redirect_page': 'main_bp.inicio'}, methods=['GET', 'POST'])
 @users_bp.route('/perfil/<user_id>/<redirect_page>', methods=['GET', 'POST'])
 @login_required
+@user_id_int
 def editar(user_id, redirect_page):
     if int(user_id) != current_user.id and not current_user.is_admin:
         abort(401)
@@ -148,6 +160,7 @@ def editar(user_id, redirect_page):
 
 @users_bp.route('/miespacio/<user_id>', methods=['GET'])
 @login_required
+@user_id_int
 def miespacio(user_id):
     if int(user_id) != current_user.id and not current_user.is_admin:
         abort(401)
@@ -373,6 +386,7 @@ def eliminar_usuario():
 
 @users_bp.route('/admin/usuario/editar/<user_id>', methods=['GET', 'POST'])
 @login_required
+@user_id_int
 def admin_editar_usuario(user_id):
     if not current_user.is_admin:
         abort(401)

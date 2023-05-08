@@ -1,9 +1,8 @@
 import json
 import os
 
-from flask import flash, render_template, redirect, session, url_for, Blueprint
+from flask import flash, render_template, redirect, session, url_for, Blueprint, current_app, abort
 from flask_babel import gettext
-from flask_wtf import csrf
 
 from algoritmos.utilidades.datasetloader import DatasetLoader
 from .forms import FormConfiguracionSelfTraining, FormConfiguracionCoTraining, FormConfiguracionSingleView
@@ -21,6 +20,11 @@ def configurar_algoritmo(algoritmo):
         if '.CSV' not in session['FICHERO'].upper():
             flash(gettext("File must be ARFF or CSV"), category='error')
             return redirect(url_for('main_bp.subida'))
+
+    if algoritmo not in current_app.config['ALGORITMOS_SELECCIONABLES']:
+        abort(404)
+
+    session['ALGORITMO'] = algoritmo
 
     dl = DatasetLoader(session['FICHERO'])
     with open(os.path.join(os.path.dirname(__file__), os.path.normpath("static/json/parametros.json"))) as f:
