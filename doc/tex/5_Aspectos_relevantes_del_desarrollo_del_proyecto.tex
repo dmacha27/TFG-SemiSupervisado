@@ -5,7 +5,7 @@ influido en el desarrollo. Por lo general, estos aspectos vendrán acompañados 
 tomas de decisiones que se tuvieron que hacer, se argumentará y explicará el
 desarrollo final de estos aspectos.
 
-\section{Elección del proyecto y la realidad}
+\section{Elección del proyecto}
 
 La idea de este proyecto no fue propia, ambos tutores tenían en mente realizar
 una aplicación de este estilo aplicado a estos algoritmos. Durante los meses
@@ -88,3 +88,98 @@ seleccionar él dos atributos del conjunto.
 En ambos casos apareció la decisión de la normalización. Al principio se
 realizaba en ambos casos directamente, pero finalmente se permitía al usuario
 elegir si normalizar o no.
+
+\section{Desarrollo de los algoritmos}
+
+\subsection{Validación}
+
+
+\section{Desarrollo Web}
+
+Pese a que los algoritmos han sido una buena parte de todo el proyecto, el
+desarrollo de la aplicación Web es el que ha ocupado la mayor parte del tiempo
+(de forma aproximada, se calcula que un 70\%). El por qué esto ha sido así
+reside en dos cuestiones. Por un lado, el tamaño de la aplicación, pese a no ser
+una aplicación extremadamente grande, todo se ha realizado desde cero. No se
+adquirió ninguna plantilla o estructura existente y la única ayuda utilizada fue
+\texttt{Bootstrap} (que sí agiliza el estilado de la Web). Y en segundo lugar,
+por el desconocimiento del desarrollo Web. En las asignaturas de Ingeniería
+Informática no existe una cuya temática sea el desarrollo Web. No ha sido hasta
+este mismo curso cuando se nos ha introducido el mundo Web (Diseño y
+Mantenimiento del Software).
+
+Durante todo el desarrollo, y hasta el final, se tomaron decisiones
+constantemente. El <<framework>> Flask fue el que se manipuló en esa asignatura,
+era interesante seguir en esa línea y desarrollar el proyecto con él. 
+
+De hecho, al comenzar el proyecto, se tomó las estructura básica del proyecto
+final de la asignatura dejando solo lo básico para arrancar una aplicación Web.
+
+\subsection{JavaScript}
+La toma de contacto con JavaScript fue compleja, no se había trabajado con este
+lenguaje y solo se tenían conceptos básicos de HTML y CSS (junto con
+<<backend>>, que al ser Python ya se tenía cierta soltura). Para intentar
+avanzar lo máximo posible, se optó por ver tutoriales y
+cursos\footnote{\url{https://www.w3schools.com/}} al mismo tiempo que ya se
+iniciaban las visualizaciones de los algoritmos (completamente rudimentarias).
+En este sentido, se iba a utilizar la librería D3.js que, comparándola con
+otras, era algo más difícil de manejar con soltura.
+
+Esta fue la línea general de desarrollo en JavaScript, en el momento que se
+presentaba un problema o el uso de una nueva librería, ir a fondo con ello
+directamente sobre la Web, hasta conseguir avances. Todo ello guiado por foros o
+páginas como \textit{Stack Overflow}. Además, se optó por desarrollar la Web en
+JavaScript <<Vanilla>>, sin librerías como jQuery Se pensó que aprender las
+bases de JavaScript era más nutritivo.
+
+Es destacable la cantidad de veces que hubo que refactorizar el código. Durante
+el manejo y aprendizaje, aparecían mejores soluciones a lo que ya se tenía. Por
+ejemplo, el uso de <<imports>> permitía centralizar y reutilizar código (que al
+principio se desconocía).
+
+Aparte de todo esto, exceptuando las visualizaciones (que son bastante
+particulares) y considerando todos los problemas que aparecían, el resto del
+código de JavaScript no era extremadamente complejo y la mayoría de las veces
+existían soluciones parciales que simplemente podían adaptarse. 
+
+El avance, aunque algunas veces lento, era constante.
+
+\subsection{Rediseño completo}
+
+Uno de los puntos más destacables del desarrollo fue durante los Sprints 13 y
+14. La aplicación tuvo un rediseño completo (tanto estructura como apariencia)
+partiendo desde el <<backend>> hasta el <<frontend>>.
+
+Tal y como estaba la aplicación estructurada, todas las rutas estaban en un
+único fichero, que a su vez era el mismo que \textit{instanciaba} la aplicación.
+Esto, para \texttt{demos} o aplicaciones muy pequeñas, es una solución rápida y
+buena. Sin embargo, lo que se vio de otros proyectos es que cuando el tamaño es
+grande, es necesario compartimentar rutas, modelos de bases de datos u otros
+elementos que crecen en número. Tener absolutamente todo en un único fichero es
+engorroso.
+
+Es por eso que se utilizó la idea de \texttt{Application Factory} y
+\texttt{Blueprints}. Por un lado, \texttt{Application Factory} ha permitido
+hacer un único punto de creación de la aplicación donde se configura y se
+desvincula del resto del código.
+
+Los \texttt{Blueprints} son como pequeñas aplicaciones independientes de Flask
+(que luego son unificadas en una, en esa \texttt{Application Factory}
+comentada). En cada \texttt{Blueprint} se han definido las rutas que intervienen
+en cada contexto. Por ejemplo, para la configuración de los algoritmos, se han
+definido sus rutas exclusivas, como si fuera una aplicación por si sola. Esto
+permite aplicaciones \textbf{mantenibles y escalables}.
+
+Tal y como está al final, con la cantidad de rutas y utilidades codificadas,
+hubiera sido imposible mantener un único fichero para toda la aplicación.
+
+\subsection{Babel}
+
+Un aspecto a destacar de la aplicación Web del proyecto es la
+internacionalización. En principio, dado que no era necesario abarcar un abanico
+grande de idiomas, la aplicación está pensada para Inglés y Español, con la
+ventaja de que \texttt{Babel} hace muy fácil el manejo de las traducciones y es
+perfectamente escalable. Desde las primeras fases de desarrollo se incluyó esta
+forma de mantener unas traducciones de forma automática, y junto con el
+mantenimiento de las traducciones actualizadas cada poco tiempo, la tarea no ha
+resultado difícil, aunque sí laboriosa.
