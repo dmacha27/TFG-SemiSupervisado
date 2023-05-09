@@ -13,11 +13,13 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(datasets => {
             generateDatasetTable(datasets, locale,true);
         })
+        .catch(error => {console.log(error)});
 
     generateRunList()
         .then(historial => {
             generateHistoryTable(historial, locale, true);
         })
+        .catch(error => {console.log(error)});
 
     generateUserList()
         .then(users => {
@@ -25,19 +27,22 @@ document.addEventListener('DOMContentLoaded', function() {
             total_users.innerText = users.length.toString();
             generateUserTable(users, locale);
         })
+        .catch(error => {console.log(error)});
 
     fetch('/datasets/ultimos')
-            .then(res => res.json())
-            .then(data => {
-                let recent_uploads = document.getElementById('recent_datasets');
-                recent_uploads.innerText = data;
-            });
+        .then(res => res.json())
+        .then(data => {
+            let recent_uploads = document.getElementById('recent_datasets');
+            recent_uploads.innerText = data;
+        })
+        .catch(error => {console.log(error)});
 
 
     fetch('/historial/ultimos')
-            .then(res => res.json())
-            .then(data => {
-                let recent_runs = document.getElementById('recent_runs');
-                recent_runs.innerText = data;
-            });
+        .then(res => res.json())
+        .then(data => {
+            let recent_runs = document.getElementById('recent_runs');
+            recent_runs.innerText = data;
+        })
+        .catch(error => {console.log(error)});
 });

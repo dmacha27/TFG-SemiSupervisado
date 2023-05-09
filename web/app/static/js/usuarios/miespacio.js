@@ -8,10 +8,12 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(datasets => {
             generateDatasetTable(datasets, locale,false);
         })
+        .catch(error => {console.log(error)});
 
     generateRunList(id)
         .then(historial => {
             generateHistoryTable(historial, locale,false);
         })
+        .catch(error => {console.log(error)});
 
 });

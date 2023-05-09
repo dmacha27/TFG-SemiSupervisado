@@ -134,6 +134,7 @@ function fetch_eliminar(ruta, table, row, file, id) {
             response.json().then(mensaje => {
                 document.getElementById('error_text').innerText = mensaje.error;
             })
+                .catch(error => {console.log(error)});
         } else {
             row.remove().draw();
         }
@@ -434,6 +435,7 @@ export function generateUserTable(usuarios, locale) {
                         response.json().then(mensaje => {
                             document.getElementById('error_text').innerText = mensaje.error;
                         })
+                            .catch(error => {console.log(error)});
                     } else {
                         row.remove().draw();
                         location.reload();

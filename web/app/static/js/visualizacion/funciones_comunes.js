@@ -19,7 +19,8 @@ function inicializar_con_peticion(rutadatos,elementos, preparadataset, grafico, 
         if (flag_especificas) {
             generarespecificas(datos.specific_stats);
         }
-    });
+    })
+        .catch(error => {console.log(error)});
 }
 
 /**

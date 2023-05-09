@@ -18,7 +18,15 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
+<!-- PROJECT LOGO -->
+<br />
 <div align="center">
+  <a href="https://github.com/dma1004/TFG-SemiSupervisado">
+    <img src="./vass.png" alt="Logo" width="451" height="451">
+  </a>
+
+  <h1 align="center">VASS</h1>
+  <h3 align="center">Visualizador de algoritmos Semi-Supervisados</h3>
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dma1004_TFG-SemiSupervisado&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dma1004_TFG-SemiSupervisado)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=dma1004_TFG-SemiSupervisado&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=dma1004_TFG-SemiSupervisado)
@@ -27,19 +35,7 @@
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=dma1004_TFG-SemiSupervisado&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=dma1004_TFG-SemiSupervisado)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=dma1004_TFG-SemiSupervisado&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=dma1004_TFG-SemiSupervisado)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=dma1004_TFG-SemiSupervisado&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=dma1004_TFG-SemiSupervisado)
-</div>
 
-
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/dma1004/TFG-SemiSupervisado">
-    <img src="logo.png" alt="Logo" width="80" height="80">
-  </a>
-
-  <h1 align="center">VASS</h1>
-  <h3 align="center">Visualizador de algoritmos Semi-Supervisados</h3>
-      
   <p align="center">
     <a href="https://github.com/dma1004/TFG-SemiSupervisado/tree/main/doc"><strong>Documentación »</strong></a>
     <br />
