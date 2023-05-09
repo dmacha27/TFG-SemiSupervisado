@@ -691,6 +691,25 @@ function grafico_democraticcolearning(dataset) {
     previt.on("click", prev_co);
     rep.on("click", reproducir);
 
+    function alguno_clasificado(puntos_posicion) {
+        for (let punto_posicion of puntos_posicion) {
+            if (punto_posicion.__data__[3] <= cont){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function alguno_clasificado_con_id(puntos_posicion, id_duplicado) {
+        for (let punto_posicion of puntos_posicion) {
+            if (punto_posicion.__data__[3] <= cont &&
+                punto_posicion.__data__[punto_posicion.__data__.length-1] === id_duplicado){
+                return true;
+            }
+        }
+        return false;
+    }
+
     const mousemove_democraticcolearning = function(e, dot) {
         d3.select(".tooltip")
             .html(function() {
@@ -700,23 +719,50 @@ function grafico_democraticcolearning(dataset) {
                 if (cuantos_duplicados(dot[0], dot[1]) > 1) {
                     cadena_tooltip += "<strong>" + cuantos_duplicados(dot[0], dot[1]).toString() + " " + traducir("overlapping points") + ":</strong><br>";
                 }
-                for (let i = 0; i < puntos_posicion.length; i++) {
-                    let p_data = puntos_posicion[i].__data__;
-                    if (p_data[3] <= cont && p_data[2] !== -1) {
-                        if (p_data[3] === 0){
-                            cadena_tooltip += tooltip_dato_inicial(p_data);
-                        }else {
-                            cadena_tooltip += escribir_duplicados(p_data[0], p_data[1], p_data[p_data.length-1]) +
-                                tooltip_dato_no_inicial(p_data) +
-                                "<span style='color:"+ color(parseInt(p_data[2])) +"'>" + mapa[p_data[2]] +"</span>"+
-                                "<span> ("+ traducir('Iteration') + ": " + p_data[3] +")</span>";
-                        }
-                    } else{
-                        cadena_tooltip += escribir_duplicados(p_data[0], p_data[1], p_data[p_data.length-1]) + un_clasificador_return_no_clasificado(p_data);
-                    }
 
-                    if (i < puntos_posicion.length -1) {
-                        cadena_tooltip += "<br>-------<br>";
+                if (alguno_clasificado(puntos_posicion)) {
+                    let puntos_vistos = new Set();
+                    for (let i = 0; i < puntos_posicion.length; i++) {
+                        let p_data = puntos_posicion[i].__data__;
+                        if (p_data[3] <= cont && p_data[2] !== -1) {
+                            if (puntos_vistos.size > 0) {
+                                cadena_tooltip += "<br>-------<br>";
+                            }
+                            puntos_vistos.add(p_data[p_data.length - 1]);
+                            if (p_data[3] === 0) {
+                                cadena_tooltip += tooltip_dato_inicial(p_data);
+                            } else {
+                                cadena_tooltip += escribir_duplicados(p_data[0], p_data[1], p_data[p_data.length - 1]) +
+                                    tooltip_dato_no_inicial(p_data) +
+                                    "<span style='color:" + color(parseInt(p_data[2])) + "'>" + mapa[p_data[2]] + "</span>" +
+                                    "<span> (" + traducir('Iteration') + ": " + p_data[3] + ")</span>";
+                            }
+                        } else { // Aquellos que no están etiquetados todavía o nunca (maxit+1)
+                            if ((!(puntos_vistos.has(p_data[p_data.length - 1])) && //Que no se haya visto
+                                !alguno_clasificado_con_id(puntos_posicion, p_data[p_data.length - 1])) //Y que no haya uno con misma id que ya esté clasificado
+                                || p_data[3] === maxit+1) {
+                                if (puntos_vistos.size > 0) {
+                                    cadena_tooltip += "<br>-------<br>";
+                                }
+                                puntos_vistos.add(p_data[p_data.length - 1]);
+                                cadena_tooltip += escribir_duplicados(p_data[0], p_data[1], p_data[p_data.length - 1]) +
+                                    un_clasificador_return_no_clasificado();
+                            }
+                        }
+                    }
+                } else { // No hay ningún punto etiquetado
+                    // Solo debe mostrarse un único texto exponiendo esa información
+                    let puntos_vistos = new Set();
+                    for (let i = 0; i < puntos_posicion.length; i++) {
+                        let p_data = puntos_posicion[i].__data__;
+                        if (!(puntos_vistos.has(p_data[p_data.length-1]))) {
+                            if (puntos_vistos.size > 0) {
+                                cadena_tooltip += "<br>-------<br>";
+                            }
+                            puntos_vistos.add(p_data[p_data.length-1]);
+                            cadena_tooltip += escribir_duplicados(p_data[0], p_data[1], p_data[p_data.length - 1]) +
+                                un_clasificador_return_no_clasificado();
+                        }
                     }
                 }
                 return cadena_tooltip;
@@ -815,6 +861,15 @@ function grafico_tritaining(dataset) {
     nexit.on("click", next);
     previt.on("click", prev);
     rep.on("click", reproducir);
+
+    function alguno_clasificado(puntos_posicion) {
+        for (let punto_posicion of puntos_posicion) {
+            if (punto_posicion.__data__[3].indexOf(cont) >= 0){
+                return true;
+            }
+        }
+        return false;
+    }
 
     const mousemove_tritraining = function(e, dot) {
         d3.select(".tooltip")
