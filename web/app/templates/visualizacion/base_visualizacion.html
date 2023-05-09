@@ -94,10 +94,16 @@
                 'Label: Not classified': "{{ gettext('Label: Not classified') }}",
                 'Measure': "{{ gettext('Measure') }}",
                 'Iteration': "{{ gettext('Iteration') }}",
-                'Duplicate': "{{ gettext('Duplicate') }}",
-                'duplicated points': "{{ gettext('duplicated points') }}"
+                'Point': "{{ gettext('Point') }}",
+                'Position': "{{ gettext('Position') }}",
+                'overlapping points': "{{ gettext('overlapping points') }}"
             }
-            return traducciones[texto]
+
+            if (texto in traducciones) {
+                return traducciones[texto]
+            }
+
+            return texto
         }
 
         /* Datos para la petición POST de la ejecución del algortimo.

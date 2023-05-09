@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-05-06 17:51+0200\n"
+"POT-Creation-Date: 2023-05-09 19:25+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,39 +18,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.11.0\n"
 
-#: __init__.py:47
+#: __init__.py:48
 msgid "English"
 msgstr "Inglés"
 
-#: __init__.py:48
+#: __init__.py:49
 msgid "Spanish"
 msgstr "Español"
 
-#: __init__.py:107
+#: __init__.py:108
 msgid "Internal Server Error"
 msgstr "Error interno del servidor"
 
-#: __init__.py:111
+#: __init__.py:112
 msgid "Not found"
 msgstr "No encontrado"
 
-#: __init__.py:115
+#: __init__.py:116
 msgid "Forbidden"
 msgstr "Petición denegada por el servidor"
 
-#: __init__.py:119
+#: __init__.py:120
 msgid "Unauthorized"
 msgstr "No autorizado"
 
-#: __init__.py:123
+#: __init__.py:124
 msgid "Bad request"
 msgstr "Mala petición"
 
-#: configuration_routes.py:17
+#: configuration_routes.py:16
 msgid "You must upload a file"
 msgstr "Debe subir un archivo"
 
-#: configuration_routes.py:22
+#: configuration_routes.py:21
 msgid "File must be ARFF or CSV"
 msgstr "El fichero debe ser ARFF o CSV"
 
@@ -136,7 +136,7 @@ msgstr "Negativos"
 msgid "Number of initial data"
 msgstr "Número de datos iniciales"
 
-#: main_routes.py:52
+#: main_routes.py:56
 msgid "You must select an algorithm"
 msgstr "Debe seleccionar un algoritmo"
 
@@ -156,7 +156,7 @@ msgstr "Contraseña incorrecta"
 msgid "Email not found"
 msgstr "Correo electrónico no encontrado"
 
-#: user_routes.py:66 user_routes.py:122
+#: user_routes.py:66 user_routes.py:134
 msgid "Email already exists"
 msgstr "El correo electrónico ya existe"
 
@@ -168,15 +168,15 @@ msgstr "La cuenta no pudo ser creada"
 msgid "Account created!"
 msgstr "¡Cuenta creada!"
 
-#: user_routes.py:104
+#: user_routes.py:116
 msgid "User doesn't exist"
 msgstr "El usuario no existe"
 
-#: user_routes.py:117
+#: user_routes.py:129
 msgid "Incorrect current password"
 msgstr "Contraseña actual incorrecta"
 
-#: user_routes.py:139
+#: user_routes.py:151
 msgid "Account updated!"
 msgstr "¡Cuenta actualizada!"
 
@@ -294,7 +294,7 @@ msgstr "Acciones"
 msgid "Run history"
 msgstr "Historial de ejecuciones"
 
-#: templates/macros.html:90
+#: templates/macros.html:90 templates/subida.html:10
 msgid "Algorithm"
 msgstr "Algoritmo"
 
@@ -350,7 +350,7 @@ msgstr "Selección del conjunto de datos"
 #: templates/configuracion/base_configuracion.html:6 templates/subida.html:10
 #: templates/usuarios/admin.html:15 templates/usuarios/base_form.html:4
 #: templates/usuarios/base_user.html:4
-#: templates/visualizacion/base_visualizacion.html:13
+#: templates/visualizacion/base_visualizacion.html:14
 msgid "Go back"
 msgstr "Volver"
 
@@ -399,7 +399,7 @@ msgid "Run configuration"
 msgstr "Configuración de la ejecución"
 
 #: templates/configuracion/base_configuracion.html:6
-#: templates/visualizacion/base_visualizacion.html:13
+#: templates/visualizacion/base_visualizacion.html:14
 msgid "Dataset"
 msgstr "Conjunto de datos"
 
@@ -622,58 +622,62 @@ msgstr "Mi Perfil"
 msgid "Edit profile"
 msgstr "Editar perfil"
 
-#: templates/visualizacion/base_visualizacion.html:26
+#: templates/visualizacion/base_visualizacion.html:27
 msgid "Main visualization"
 msgstr "Visualización principal"
 
-#: templates/visualizacion/base_visualizacion.html:35
+#: templates/visualizacion/base_visualizacion.html:36
 msgid "Zoom reset"
 msgstr "Reiniciar Zoom"
 
-#: templates/visualizacion/base_visualizacion.html:37
-#: templates/visualizacion/base_visualizacion.html:95
+#: templates/visualizacion/base_visualizacion.html:38
+#: templates/visualizacion/base_visualizacion.html:96
 msgid "Iteration"
 msgstr "Iteración"
 
-#: templates/visualizacion/base_visualizacion.html:57
+#: templates/visualizacion/base_visualizacion.html:58
 msgid "Pseudocode"
 msgstr "Pseudocódigo"
 
-#: templates/visualizacion/base_visualizacion.html:68
+#: templates/visualizacion/base_visualizacion.html:69
 msgid "General statistics"
 msgstr "Estadísticas generales"
 
-#: templates/visualizacion/base_visualizacion.html:89
+#: templates/visualizacion/base_visualizacion.html:90
 msgid "Initial data"
 msgstr "Dato inicial"
 
-#: templates/visualizacion/base_visualizacion.html:90
+#: templates/visualizacion/base_visualizacion.html:91
 msgid "Label"
 msgstr "Etiqueta"
 
-#: templates/visualizacion/base_visualizacion.html:91
+#: templates/visualizacion/base_visualizacion.html:92
 msgid "Classifier"
 msgstr "Clasificador"
 
-#: templates/visualizacion/base_visualizacion.html:92
+#: templates/visualizacion/base_visualizacion.html:93
 msgid "Classifier: Not classified"
 msgstr "Clasificador: No clasificado"
 
-#: templates/visualizacion/base_visualizacion.html:93
+#: templates/visualizacion/base_visualizacion.html:94
 msgid "Label: Not classified"
 msgstr "Etiqueta: No clasificado"
 
-#: templates/visualizacion/base_visualizacion.html:94
+#: templates/visualizacion/base_visualizacion.html:95
 msgid "Measure"
 msgstr "Valor"
 
-#: templates/visualizacion/base_visualizacion.html:96
-msgid "Duplicate"
-msgstr "Duplicado"
-
 #: templates/visualizacion/base_visualizacion.html:97
-msgid "duplicated points"
-msgstr "puntos duplicados"
+msgid "Point"
+msgstr "Punto"
+
+#: templates/visualizacion/base_visualizacion.html:98
+msgid "Position"
+msgstr "Posición"
+
+#: templates/visualizacion/base_visualizacion.html:99
+msgid "overlapping points"
+msgstr "puntos solapados"
 
 #: templates/visualizacion/singleview.html:3
 msgid "Specific statistics"

@@ -305,11 +305,12 @@ function grafico_selftraining(dataset) {
         d3.select(".tooltip")
             .html(function() {
                 let puntos_posicion = puntos_en_x_y(dot[0], dot[1])._groups[0];
-                let cadena_tooltip = "";
+                let cadena_tooltip = "<strong>" + traducir('Position') + "</strong><br>"
+                    + cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] + "<br><br>";
                 if (cuantos_duplicados(dot[0], dot[1]) > 1) {
                     cadena_tooltip += "<strong>" +
-                        cuantos_duplicados(dot[0], dot[1]).toString() + " " + traducir("duplicated points") +
-                        "</strong><br><br>";
+                        cuantos_duplicados(dot[0], dot[1]).toString() + " " + traducir("overlapping points") +
+                        ":</strong><br>";
                 }
                 for (let i = 0; i < puntos_posicion.length; i++) {
                     let p_data = puntos_posicion[i].__data__;
@@ -318,15 +319,13 @@ function grafico_selftraining(dataset) {
                             cadena_tooltip += tooltip_dato_inicial(p_data);
                         }else {
                             cadena_tooltip += escribir_duplicados(p_data[0],p_data[1], p_data[p_data.length-1]) +
-                                cx +": " + p_data[0] +"<br>" +
-                                cy + ": " + p_data[1] + "<br>" +
                                 traducir('Label') + ": " +
                                 "<span style='color:"+ color(parseInt(p_data[2])) +"'>" + mapa[p_data[2]] + "</span>"+
                                 "<span> ("+ traducir('Iteration') + ": " + p_data[3] +")</span>";
                         }
                     } else{
                         cadena_tooltip += escribir_duplicados(p_data[0],p_data[1], p_data[p_data.length-1]) +
-                            un_clasificador_return_no_clasificado(p_data);
+                            un_clasificador_return_no_clasificado();
                     }
                     if (i < puntos_posicion.length -1) {
                         cadena_tooltip += "<br>-------<br>";
@@ -580,9 +579,11 @@ function grafico_cotraining(dataset) {
         d3.select(".tooltip")
             .html(function() {
                 let puntos_posicion = puntos_en_x_y(dot[0], dot[1])._groups[0];
-                let cadena_tooltip = "";
+                let cadena_tooltip = "<strong>" + traducir('Position') + "</strong><br>"
+                    + cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] + "<br><br>";
                 if (cuantos_duplicados(dot[0], dot[1]) > 1) {
-                    cadena_tooltip += "<strong>" + cuantos_duplicados(dot[0], dot[1]).toString() + " " + traducir("duplicated points") + "</strong><br><br>";
+                    cadena_tooltip += "<strong>" + cuantos_duplicados(dot[0], dot[1]).toString() +
+                        " " + traducir("overlapping points") + ":</strong><br>";
                 }
                 for (let i = 0; i < puntos_posicion.length; i++) {
                     let p_data = puntos_posicion[i].__data__
@@ -590,7 +591,7 @@ function grafico_cotraining(dataset) {
                         if (p_data[3] === 0){
                             cadena_tooltip += tooltip_dato_inicial(p_data);
                         }else {
-                            cadena_tooltip += escribir_duplicados(p_data[0], p_data[1], p_data[p_data.length-1]) + cx + ": " + p_data[0] + "<br>" + cy + ": " + p_data[1] + "<br>" +
+                            cadena_tooltip += escribir_duplicados(p_data[0], p_data[1], p_data[p_data.length-1]) +
                                 traducir('Classifier') + ": " + obtenerSimboloUnicode(p_data[4]) + p_data[4] +
                                 "<br>" + traducir('Label') + ": " +
                                 "<span style='color:"+ color(parseInt(p_data[2])) +"'>" + mapa[p_data[2]] + "</span>"+
@@ -598,7 +599,7 @@ function grafico_cotraining(dataset) {
                         }
                     } else{
                         cadena_tooltip += escribir_duplicados(p_data[0], p_data[1], p_data[p_data.length-1]) +
-                            un_clasificador_return_no_clasificado(p_data);
+                            un_clasificador_return_no_clasificado();
                     }
 
                     if (i < puntos_posicion.length -1) {
@@ -694,9 +695,10 @@ function grafico_democraticcolearning(dataset) {
         d3.select(".tooltip")
             .html(function() {
                 let puntos_posicion = puntos_en_x_y(dot[0], dot[1])._groups[0];
-                let cadena_tooltip = "";
+                let cadena_tooltip = "<strong>" + traducir('Position') + "</strong><br>"
+                    + cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] + "<br><br>";
                 if (cuantos_duplicados(dot[0], dot[1]) > 1) {
-                    cadena_tooltip += "<strong>" + cuantos_duplicados(dot[0], dot[1]).toString() + " " + traducir("duplicated points") + "</strong><br><br>";
+                    cadena_tooltip += "<strong>" + cuantos_duplicados(dot[0], dot[1]).toString() + " " + traducir("overlapping points") + ":</strong><br>";
                 }
                 for (let i = 0; i < puntos_posicion.length; i++) {
                     let p_data = puntos_posicion[i].__data__;
@@ -817,11 +819,12 @@ function grafico_tritaining(dataset) {
     const mousemove_tritraining = function(e, dot) {
         d3.select(".tooltip")
             .html(function() {
-                let puntos_posicion;
-                puntos_posicion = puntos_en_x_y(dot[0], dot[1])._groups[0];
-                let cadena_tooltip = "";
+                let puntos_posicion = puntos_en_x_y(dot[0], dot[1])._groups[0];
+                let cadena_tooltip = "<strong>" + traducir('Position') + "</strong><br>"
+                    + cx +": " + dot[0] +"<br>" + cy + ": " + dot[1] + "<br><br>";
                 if (cuantos_duplicados(dot[0], dot[1]) > 1) {
-                    cadena_tooltip += "<strong>" + cuantos_duplicados(dot[0], dot[1]).toString() + " " + traducir("duplicated points") + "</strong><br><br>";
+                    cadena_tooltip += "<strong>" + cuantos_duplicados(dot[0], dot[1]).toString() +
+                        " " + traducir("overlapping points") + ":</strong><br>";
                 }
                 for (let i = 0; i < puntos_posicion.length; i++) {
                     let p_data = puntos_posicion[i].__data__
@@ -848,7 +851,7 @@ function grafico_tritaining(dataset) {
                     } else{
                         cadena_tooltip += escribir_duplicados(p_data[0], p_data[1], p_data[p_data.length-1]) +
                             un_clasificador_return_no_clasificado(p_data) +
-                                escribir_iteraciones_clasificado(p_data[3]);
+                            escribir_iteraciones_clasificado(p_data[3]);
                     }
 
                     if (i < puntos_posicion.length -1) {
@@ -1005,7 +1008,7 @@ function escribir_duplicados(x,y, id_duplicado, parentesis=false) {
         } else {
             cadena += "<strong>";
         }
-        cadena += traducir("Duplicate") + " " + id_duplicado.toString();
+        cadena += traducir("Point") + " " + id_duplicado.toString();
         if (parentesis) {
             cadena += ")";
         } else {
@@ -1073,19 +1076,17 @@ function puntos_a_gris() {
 }
 
 function tooltip_dato_inicial(dot) {
-    return "<strong>" + traducir('Initial data') + "</strong>" + escribir_duplicados(dot[0],dot[1], dot[dot.length-1], true) + "<br>" + cx +": " + dot[0] +"<br>" + cy + ": " +
-        dot[1] + "<br>" + traducir('Label') + ": " +
+    return "<strong>" + traducir('Initial data') + "</strong>" + escribir_duplicados(dot[0],dot[1], dot[dot.length-1], true) + "<br>" + traducir('Label') + ": " +
         "<span style='color:"+ color(parseInt(dot[2])) +"'>" + mapa[dot[2]] + "</span>";
 }
 
-function un_clasificador_return_no_clasificado(dot) {
-    return cx + ": " + dot[0] + "<br>" + cy + ": " + dot[1] + "<br>" + traducir('Classifier: Not classified') +
+function un_clasificador_return_no_clasificado() {
+    return traducir('Classifier: Not classified') +
         "<br>" + traducir('Label: Not classified');
 }
 
 function tooltip_dato_no_inicial(p_data) {
-    return cx +": " + p_data[0] +"<br>" + cy + ": " + p_data[1] +
-        "<br>" + traducir('Classifier') + ": " + obtenerSimboloUnicode(p_data[4]) +
+    return traducir('Classifier') + ": " + obtenerSimboloUnicode(p_data[4]) +
         p_data[4] + "<br>" + traducir('Label') + ": ";
 }
 
