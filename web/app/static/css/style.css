@@ -40,17 +40,6 @@ body {
     font-weight: bold;
 }
 
-.dropdown:hover>.dropdown-menu {
-    display: block;
-    right: 0;
-    left: auto;
-    z-index: 10000;
-}
-
-.dropdown>.dropdown-toggle:active {
-    pointer-events: none;
-}
-
 #alerta {
     position: absolute;
     top: 60px;
