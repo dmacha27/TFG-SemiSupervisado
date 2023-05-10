@@ -26,18 +26,18 @@ lo que la aplicación debe o no hacer (con sus limitaciones).
 \section{Usuarios de la aplicación}
 
 Como se ha comentado, existirá un sistema de usuarios en el que podrán
-diferenciarse: Usuario, Administrador y Anónimo (así lo denomina el sistema de
-gestión de cuentas utilizado \texttt{Flask-Login}). 
+diferenciarse: Usuario, Administrador y Anónimo (este último así lo denomina el
+sistema de gestión de cuentas utilizado, \texttt{Flask-Login}). 
 
 \begin{itemize}
 	\item Anónimo: Usuario que no posee una cuenta registrada en el sistema, es
-	el usuario base. Puede utilizar, sin límites, toda la aplicación:
-	seleccionar algoritmo, subir un conjunto de datos, configurar el algoritmo y
+	el usuario base. Puede utilizar toda la aplicación básica: seleccionar
+	algoritmo, subir un conjunto de datos, configurar el algoritmo y
 	visualizarlo.
 	\item Usuario: Usuario que posee una cuenta registrada sin privilegios. Al
 	igual que el anónimo base, puede utilizar la aplicación, pero además, los
 	ficheros (conjuntos de datos) y ejecuciones son almacenados en el sistema.
-	\item Administrador: Usuario que posee una cuenta registrada sin
+	\item Administrador: Usuario que posee una cuenta registrada con
 	privilegios. Es exactamente lo mismo que un Usuario, con la particularidad
 	de que podrá, además, gestionar estos Usuarios, todos los ficheros y todas
 	las ejecuciones (de todos los usuarios). 
@@ -193,3 +193,96 @@ restricciones son aplicadas de forma intrínseca en el desarrollo.
 \end{itemize}
 
 \section{Especificación de requisitos}
+
+\imagencontamano{DiagramaCasosDeUso}{fd}{1}
+
+% Caso de Uso 1 -> Visualización de un algoritmo.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-1}    & \textbf{Visualización de un algoritmo}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & David Martínez Acha \\
+		\textbf{Requisitos asociados} & RF-1, RF-1.1, RF-1.2, RF-1.3, RF-1.4 \\
+		\textbf{Descripción}          & Visualización del proceso de entrenamiento de un algoritmo semi-supervisado. Con gráfico principal y estadísticos. \\
+		\textbf{Precondición}         & No hay precondiciones \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item Ejecución del Caso de Uso 2.
+			\item Ejecución del Caso de Uso 3.
+            \item Ejecución del Caso de Uso 4.
+            \item El usuario verá en la página los distintos gráficos de su visualización. 
+            \item [Opcional] Ejecución del Caso de Uso 5.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Visualizaciones renderizadas en la Web \\
+		\textbf{Excepciones}          &  \\
+		\textbf{Importancia}          & Alta\\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-1 Visualización de un algoritmo.}
+\end{table}
+
+% Caso de Uso 2 -> Selección de algoritmo.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-1}    & \textbf{Selección de algoritmo}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & David Martínez Acha \\
+		\textbf{Requisitos asociados} & RF-1, RF-1.1 \\
+		\textbf{Descripción}          & Seleccionar el algoritmo a ejecutar (establecerlo en la sesión del usuario) \\
+		\textbf{Precondición}         & Ejecutando el Caso de Uso 1 \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario selecciona un algoritmo haciendo clic en el nombre del algoritmo en la barra de navegación.
+		\end{enumerate}\\
+        \textbf{Acciones alternativas}&
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item En caso de encontrarse en la página principal, el usuario
+		puede selecciona un algoritmo haciendo clic en una de las tarjetas de
+		presentación algoritmos. \end{enumerate}\\
+		\textbf{Postcondición}        & Algoritmo almacenado en su sesión y redirección a la página de subida \\
+		\textbf{Excepciones}          & Sin excepciones \\
+		\textbf{Importancia}          & Alta \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-3 Selección de algoritmo.}
+\end{table}
+
+% Caso de Uso X -> Cambiar de idioma.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-1}    & \textbf{Cambiar idioma}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & David Martínez Acha \\
+		\textbf{Requisitos asociados} & RF-6 \\
+		\textbf{Descripción}          & Cambiar el idioma de la página (entre inglés y español) \\
+		\textbf{Precondición}         & No hay precondiciones \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario hace clic en el símbolo de traducción en la barra de navegación.
+            \item Aparece un desplegable de idiomas.
+            \item El usuario hace clic en el idioma deseado.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & La página se ha cambiado al idioma seleccionado \\
+		\textbf{Excepciones}          & Sin excepciones \\
+		\textbf{Importancia}          & Baja \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-1 Cambiar idioma.}
+\end{table}
