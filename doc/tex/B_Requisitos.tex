@@ -2,39 +2,194 @@
 
 \section{Introducción}
 
-Una muestra de cómo podría ser una tabla de casos de uso:
-
-% Caso de Uso 1 -> Consultar Experimentos.
-\begin{table}[p]
-	\centering
-	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
-		\toprule
-		\textbf{CU-1}    & \textbf{Ejemplo de caso de uso}\\
-		\toprule
-		\textbf{Versión}              & 1.0    \\
-		\textbf{Autor}                & Alumno \\
-		\textbf{Requisitos asociados} & RF-xx, RF-xx \\
-		\textbf{Descripción}          & La descripción del CU \\
-		\textbf{Precondición}         & Precondiciones (podría haber más de una) \\
-		\textbf{Acciones}             &
-		\begin{enumerate}
-			\def\labelenumi{\arabic{enumi}.}
-			\tightlist
-			\item Pasos del CU
-			\item Pasos del CU (añadir tantos como sean necesarios)
-		\end{enumerate}\\
-		\textbf{Postcondición}        & Postcondiciones (podría haber más de una) \\
-		\textbf{Excepciones}          & Excepciones \\
-		\textbf{Importancia}          & Alta o Media o Baja... \\
-		\bottomrule
-	\end{tabularx}
-	\caption{CU-1 Nombre del caso de uso.}
-\end{table}
+En esta sección se detalla la Especificación de requisitos. Aquí quedará
+registrado qué es lo que la aplicación debe hacer (y cómo).
 
 \section{Objetivos generales}
+Los objetivos del proyecto pueden resumirse en los siguientes:
+\begin{enumerate}
+    \item Implementación de Self-Training, Co-Training, Democratic Co-Learning y
+    Tri-Training.
+    \item Creación de una aplicación Web e integración de los cuatro algoritmos
+    en la aplicación Web para su visualización.
+    \item Sistema de usuarios que les permita controlar sus ficheros y
+    ejecuciones.
+    \item Administración de los usuarios y todos los ficheros y ejecuciones
+    (mediante un rol administrador).
+\end{enumerate}
+
+El núcleo del proyecto, pese a la importancia de las implementaciones los
+algoritmos, es la aplicación Web, pues representa la parte interactiva del
+proyecto. Por este motivo, el presente apartado analizará con precisión que es
+lo que la aplicación debe o no hacer (con sus limitaciones).
+
+\section{Usuarios de la aplicación}
+
+Como se ha comentado, existirá un sistema de usuarios en el que podrán
+diferenciarse: Usuario, Administrador y Anónimo (así lo denomina el sistema de
+gestión de cuentas utilizado \texttt{Flask-Login}). 
+
+\begin{itemize}
+	\item Anónimo: Usuario que no posee una cuenta registrada en el sistema, es
+	el usuario base. Puede utilizar, sin límites, toda la aplicación:
+	seleccionar algoritmo, subir un conjunto de datos, configurar el algoritmo y
+	visualizarlo.
+	\item Usuario: Usuario que posee una cuenta registrada sin privilegios. Al
+	igual que el anónimo base, puede utilizar la aplicación, pero además, los
+	ficheros (conjuntos de datos) y ejecuciones son almacenados en el sistema.
+	\item Administrador: Usuario que posee una cuenta registrada sin
+	privilegios. Es exactamente lo mismo que un Usuario, con la particularidad
+	de que podrá, además, gestionar estos Usuarios, todos los ficheros y todas
+	las ejecuciones (de todos los usuarios). 
+\end{itemize}
 
 \section{Catálogo de requisitos}
 
+
+A continuación se detallan los requisitos funcionales así como los no
+funcionales.
+
+\subsection{Requisitos funcionales}
+
+\begin{itemize}
+	\item \textbf{RF-1 Visualización de algoritmos semi-supervisados}: la
+	aplicación debe permitir visualizar el proceso de entrenamiento de los
+	algoritmos implementados (con sus estadísticas pertinentes).
+    \begin{itemize}
+        \item \textbf{RF-1.1 Selección de algoritmo}: la aplicación debe
+        permitir seleccionar uno de los algoritmos implementados.
+        \item \textbf{RF-1.2 Carga de conjunto de datos}: la aplicación debe
+        permitir subir un fichero \texttt{ARFF} o \texttt{ACSV} con el conjunto
+        de datos. 
+        \item \textbf{RF-1.3 Configuración del algoritmo}: la aplicación debe
+        permitir configurar la ejecución del algoritmo con los parámetros
+        específicos del mismo.
+        \item \textbf{RF-1.4 Control visualizaciones}: la aplicación debe
+        mostrar visualizaciones interactivas: principal (gráfico de dos
+        dimensiones con los puntos del conjunto de datos) y estadísticas
+        (gráficos de líneas).
+        \begin{itemize}
+            \item \textbf{RF-1.3.1 Controlar paso (iteración)}: la aplicación
+            debe permitir controlar el paso del proceso de entrenamiento
+            (iteración anterior/siguiente).
+            \item \textbf{RF-1.3.1 Interacción con el gráfico principal}: el
+            gráfico principal debe mostrar información relevante en un
+            \texttt{tooltip} cuando el usuario interactúe con cada punto.
+        \end{itemize}
+    \end{itemize}
+    
+    \item \textbf{RF-2 Manejo de usuarios}: la aplicación debe manejar cuentas
+    de usuario.
+    \begin{itemize}
+        \item \textbf{RF-2.1 Registro}: la aplicación debe permitir crear
+        cuentas de usuario (no administrador).
+        \item \textbf{RF-2.2 Inicio de sesión}: la aplicación debe permitir el
+        inicio de sesión a aquellos usuarios con cuenta.
+    \end{itemize}
+    \item \textbf{RF-3 Personalización del perfil}: los usuarios con cuenta (no
+    anónimos) deben poder modificar sus datos personales de su perfil de
+    usuario.
+
+    \item \textbf{RF-4 Espacio personal}: los usuarios con cuenta (no anónimos)
+    deben poseer de un espacio personal.
+    \begin{itemize}
+        \item \textbf{RF-4.1 Control de conjunto de datos}: los usuarios con
+        cuenta deben poder consultar sus ficheros subidos.
+        \begin{itemize}
+            \item \textbf{RF-4.1.1 Ejecución de un nuevo algoritmo}: los
+            usuarios con cuenta deben poder utilizar esos ficheros en un
+            algoritmo (nueva ejecución).
+            
+            \item \textbf{RF-4.1.2 Eliminación}: los usuarios con cuenta deben
+            poder eliminar esos ficheros del sistema.
+        \end{itemize}
+        \item \textbf{RF-4.2 Control de ejecuciones}:  los usuarios con cuenta
+        deben poder consultar sus ejecuciones anteriores (con toda su
+        información).
+        \begin{itemize}
+            \item \textbf{RF-4.2.1 Replicar ejecución}: los usuarios con cuenta
+            deben poder replicar las ejecuciones.
+            
+            \item \textbf{RF-4.2.2 Eliminación}: los usuarios con cuenta deben
+            poder eliminar las ejecuciones.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{RF-5 Administración}: la aplicación debe manejar cuentas de
+    usuario de tipo administrador.
+    \begin{itemize}
+        \item \textbf{RF-5.1 Control de usuarios}: el administrador deben poder
+        consultar los usuarios registrados.
+        \begin{itemize}
+            \item \textbf{RF-5.1.1 Edición de usuario}: el administrador debe
+            poder modificar los datos de los usuarios.
+            \item \textbf{RF-5.1.2 Eliminación}: el administrador debe poder
+            eliminar usuarios del sistema.
+            \item \textbf{RF-5.1.3 Total}: el administrador debe poder ver el
+            número total de usuarios.
+        \end{itemize}
+        \item \textbf{RF-5.2 Control de conjuntos de datos global}: el
+        administrador debe poder consultar todos los ficheros subidos.
+        \begin{itemize}          
+            \item \textbf{RF-5.2.1 Eliminación}: el administrador debe poder
+            eliminar cualquier fichero de los usuarios registrados.
+            \item \textbf{RF-5.2.2 Últimos ficheros}: el administrador debe
+            poder ver el \textbf{número} de ficheros subidos de los últimos 7
+            días.
+        \end{itemize}
+        \item \textbf{RF-5.3 Control de ejecuciones global}: el administrador
+        debe poder consultar todas ejecuciones (con toda su información).
+        \begin{itemize}          
+            \item \textbf{RF-5.3.1 Eliminación}: el administrador deben poder
+            eliminar cualquier ejecución de los usuarios registrados.
+            \item \textbf{RF-5.3.2 Últimas ejecuciones}: el administrador debe
+            poder ver el \textbf{número} de ficheros subidos de los últimos 7
+            días.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{RF-6 Cambio de idioma}: todos los usuarios deben poder cambiar
+    el idioma a placer (inglés o español).
+
+\end{itemize}
+
+\subsection{Requisitos no funcionales}
+Los requisitos anteriores definen de alguna manera lo que el sistema debe hacer.
+En este caso, los no funcionales son restricciones, por así decirlo, de calidad.
+Responden a la pregunta de cómo funciona y no qué es lo que hace. Todas estas
+restricciones son aplicadas de forma intrínseca en el desarrollo.
+
+\begin{itemize}
+	\item \textbf{RNF-1 Disponibilidad}: el sistema de funcionar con muy alta
+	probabilidad ante una petición. Es decir, debe encontrarse en condiciones de
+	funcionamiento.
+	\item \textbf{RNF-2 Accesibilidad}: el sistema debe poder abarcar el mayor
+	público posible, facilitando su acceso y su manejo independientemente de las
+	capacidades personales.
+    \item \textbf{RNF-3 Soporte}: el sistema debe poder utilizarse en el mayor
+    número posible de navegadores (dada su naturaleza Web).
+	\item \textbf{RNF-4 Mantenibilidad}: el sistema debe ser fácil de modificar,
+	mejorar o adaptar cuando se presenten nuevas necesidades.
+	\item \textbf{RNF-5 Seguridad}: el sistema debe asegurar la información
+	sensible (mediante cifrado y controles de accesos) y debe ser accesible
+	mediante protocolos segurizados (SSL).
+	\item \textbf{RNF-6 Privacidad\footnote{La privacidad puede ser definida
+	como el ámbito de la vida personal de un individuo, quien se desarrolla en
+	un espacio reservado, el cual tiene como propósito principal mantenerse
+	confidencial \cite{eswiki:148719517}}}: el sistema debe respetar la
+	información privada y, de ninguna forma, compartirla con terceros. Debe ser
+	un espacio reservado confidencial entre el usuario y la aplicación.
+	\item \textbf{RNF-7 Escalabilidad}: el sistema debe ser capaz de crecer para
+	ajustarse a la carga de trabajo.
+	\item \textbf{RNF-8 Extensibilidad}: debe ser fácil añadir nueva
+	funcionalidad al sistema, concretamente, la adición de nuevos algoritmos
+	debe implicar pocas modificaciones.
+	\item \textbf{RNF-9 Robustez}: el sistema debe ser altamente capaz de
+	manejar los errores durante la ejecución (entradas erróneas, bugs...),
+	mostrando información precisa al usuario y recuperándose de ellos a una
+	situación estable.
+	\item \textbf{RNF-10 Internacionalización}: el sistema debe soportar múltiples idiomas.
+
+\end{itemize}
+
 \section{Especificación de requisitos}
-
-
