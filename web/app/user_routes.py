@@ -37,7 +37,7 @@ def login():
         usuario = User.query.filter_by(email=email).first()
         if usuario:
             if check_password_hash(usuario.password, password):
-                flash(gettext('Loging successful!'), category='success')
+                flash(gettext('Logging successful!'), category='success')
                 usuario.last_login = datetime.now()
                 db.session.commit()
                 login_user(usuario)

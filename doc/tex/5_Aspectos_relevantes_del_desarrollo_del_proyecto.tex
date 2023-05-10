@@ -8,22 +8,22 @@ desarrollo final de estos aspectos.
 \section{Elección del proyecto}
 
 La idea de este proyecto no fue propia, ambos tutores tenían en mente realizar
-una aplicación de este estilo aplicado a estos algoritmos. Durante los meses
-anteriores aparecieron diversos proyectos de muy diferente índole que podía
-realizar. La realidad es que la inteligencia artificial es un campo que me atrae
-mucho y que incluso me abre la mente a proyectos personales. Dentro de la baraja
-de proyectos, el que iba en la línea de lo que quería hacer, era este. Al
-principio, era un poco reacio a la idea de realizar una aplicación tanto Web
-como de escritorio. Yo, demasiado enfocado en ello, quería aplicar los
-algoritmos a algo concreto. Sin embargo, pensándolo bien, el hecho de poder
-aprender algoritmos (e incluso la metodología que su desarrollo conlleva de
-investigación y entendimiento) pero además, poder desarrollar habilidades en Web
-(o escritorio en su caso aunque finalmente no ha sido así), fue la clave para
-decantarme por el proyecto. Además, como soy una persona que le gusta mucho
-<<cacharrear>>, los tutores también me comentaron que este proyecto podría
+una aplicación enfocada a la docencia de algoritmos de aprendizaje
+semi-supervisado. Durante los meses anteriores aparecieron diversos proyectos de
+muy diferente índole que podía realizar. La realidad es que la inteligencia
+artificial es un campo que me atrae mucho y que incluso me abre la mente a
+proyectos personales. Dentro de la baraja de proyectos, el que iba en la línea
+de lo que quería hacer era este. Al principio era un poco reacio a la idea de
+realizar una aplicación tanto Web como de escritorio. Demasiado enfocado en
+ello, quería aplicar los algoritmos a algo concreto. Sin embargo, pensándolo
+bien, el hecho de poder aprender algoritmos (e incluso la metodología que su
+desarrollo conlleva de investigación y entendimiento) pero además, poder
+desarrollar habilidades en Web (o escritorio, aunque finalmente no ha sido así),
+fue la clave para decantarme por el proyecto. Además, dado que disfruto mucho
+<<cacharreando>>, los tutores también me comentaron que este proyecto podría
 tenerme entretenido muchas horas para desarrollar ambas partes. Con todo ello,
-parecía muy interesante y sobre todo, muy nutritivo para mi aprendizaje, elegir
-este proyecto.
+parecía muy interesante y muy nutritivo para mi aprendizaje elegir este
+proyecto.
 
 \section{Versión de Python}
 
@@ -37,11 +37,12 @@ además que, simulando un entorno completamente real y/o empresarial, el equipo
 podría tener a su disposición servidor/es propio (o por lo menos,
 configurables). En este sentido, dado que el usuario solo necesita acceder a la
 Web, no tiene por qué conocer ni tener instalada una versión u otra. Por todo
-esto, se pensó en utilizar versiones más recientes. En el momento de inicio del
-proyecto, la más reciente era la 3.10, esto también es una ventaja en el medio
-plazo debido a que el periodo de actualizaciones y de soporte para esta versión
-termina a finales de 2026 (mientras que algunas anteriores finalizan en 2024 o
-incluso 2023).
+esto, se pensó en utilizar versiones más recientes. 
+
+En el momento de inicio del proyecto, la más reciente era la 3.10, esto también
+es una ventaja en el medio plazo debido a que el periodo de actualizaciones y de
+soporte para esta versión termina a finales de 2026 (mientras que algunas
+anteriores finalizan en 2024 o incluso 2023).
 
 \section{Utilidades para los algoritmos}
 
@@ -50,14 +51,15 @@ Surgieron dos grandes problemas, el tratamiento de los datos que utilizan los
 algoritmos (etiquetados, no etiquetados, particiones...) y por otro lado, cómo
 ajustar estos datos y comunicarlos a la Web cuando los requiera.
 
-No resultaba correcto vincular todos estos pasos ni en el código de los
-algoritmos ni en el de la propia aplicación. Tenía mucho más sentido crear unas
-utilidades que actúen de intermediarias en ciertos pasos del procedimiento.
+No resultaba correcto vincular todos estos pasos en el código de los algoritmos
+ni tampoco en el de la propia aplicación. Tenía mucho más sentido crear unas
+utilidades que actuasen de intermediarias en ciertos pasos del procedimiento.
 
-Para el primer problema se crearon tres utilidades principales: Un <<particionador>>
-de datos que se encargara de dividir los datos en conjunto de entrenamiento
-y test. Pero que además, si el conjunto estaba pensado para aprendizaje
-Supervisado, generase aleatoriamente datos no etiquetados.
+Para el primer problema se crearon tres utilidades principales: 
+
+Un <<particionador>> de datos que se encargara de dividir los datos en conjunto
+de entrenamiento y test. Pero que además, si el conjunto estaba pensado para
+aprendizaje Supervisado, generase aleatoriamente datos no etiquetados.
 
 Un codificador de etiquetas para transformar las etiquetas nominales en
 numéricas (necesarias para los algoritmos). De base, el codificador de etiquetas
@@ -66,11 +68,12 @@ lado no tratar los datos no etiquetados (internamente tratados como -1s) y por
 el otro devolver de alguna forma las transformaciones realizadas Es decir, a qué
 clase nominal corresponde cada número codificado.
 
-Y por último, un cargador de conjuntos de datos (datasetloader) que automatizara
-toda la lectura de un fichero ARFF o CSV, conversión a DataFrame y las
-transformaciones de etiquetas (utilizando la utilidad anterior). Y que además
-devuelva los datos de los atributos (x) y por separado las etiquetas (y). Es
-decir, un cargador cuyo resultado pueda ser introducido en los algoritmos. 
+Y por último, un cargador de conjuntos de datos (<<datasetloader>>) que
+automatizara toda la lectura de un fichero ARFF o CSV, conversión a DataFrame y
+las transformaciones de etiquetas (utilizando la utilidad anterior). Y que
+además devuelva los datos de los atributos ($\mathbf{x}$) y por separado las
+etiquetas ($y$). Es decir, un cargador cuyo resultado pueda ser introducido en los
+algoritmos. 
 
 Sobre el segundo problema (datos válidos para la aplicación Web) se creó una
 utilidad encargada de transformar el conjunto de datos a dos dimensiones. Esto
@@ -132,10 +135,10 @@ páginas como \textit{Stack Overflow}. Además, se optó por desarrollar la Web 
 JavaScript <<Vanilla>>, sin librerías como jQuery Se pensó que aprender las
 bases de JavaScript era más nutritivo.
 
-Es destacable la cantidad de veces que hubo que refactorizar el código. Durante
-el manejo y aprendizaje, aparecían mejores soluciones a lo que ya se tenía. Por
-ejemplo, el uso de <<imports>> permitía centralizar y reutilizar código (que al
-principio se desconocía).
+Es destacable la cantidad de veces que hubo que \textit{refactorizar} el código.
+Durante el manejo y aprendizaje, aparecían mejores soluciones a lo que ya se
+tenía. Por ejemplo, el uso de <<imports>> permitía centralizar y reutilizar
+código (que al principio se desconocía).
 
 Aparte de todo esto, exceptuando las visualizaciones (que son bastante
 particulares) y considerando todos los problemas que aparecían, el resto del

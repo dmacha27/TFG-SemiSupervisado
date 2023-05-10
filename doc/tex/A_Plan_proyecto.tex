@@ -271,10 +271,11 @@ activado su check).
 
 En cuanto a la Internacionalización, al principio resultó sencillo, ya que
 gracias a Babel (Flask-Babel) detecta automáticamente las cadenas de texto
-dentro de <<gettext>>, sin embargo, al indicar las traducciones en JavaScript,
-el intérprete tomaba <<gettext>> como una función que al no estar definida,
-lanzaba error. Al final se generó una función en la plantilla principal de tal
-forma que actúe como <<gettext>>, llamada desde los distintos scripts.
+dentro de \texttt{gettext}, sin embargo, al indicar las traducciones en
+JavaScript, el intérprete tomaba \texttt{gettext} como una función que al no
+estar definida, lanzaba error. Al final se generó una función en la plantilla
+principal de tal forma que actúe como \texttt{gettext}, llamada desde los
+distintos scripts.
 
 La visualización de Democratic Co-Learning no dio tiempo a implementarse en este Sprint.
 
@@ -366,11 +367,11 @@ mantenimiento.
 
 En la reunión del final del Sprint anterior se comentó el cómo se estaba
 validando los algoritmos y hasta ese momento solo se habían probado las
-utilidades. Se sugirió compararlo contra \textit{sslearn}, una biblioteca de José Luis
-Garrido-Labrador. Como primera aproximación se realizó una validación cruzada
-completamente manual en la que se ejecutaba al mismo tiempo las dos
-implementaciones de los distintos algoritmos (de momento sin extraer
-conclusiones). Se tardó unas 3 horas.
+utilidades. Se sugirió compararlo contra \textit{sslearn}, una biblioteca de
+José Luis Garrido-Labrador~\cite{jose_luis_garrido_labrador_2023_7781117}. Como
+primera aproximación se realizó una validación cruzada completamente manual en
+la que se ejecutaba al mismo tiempo las dos implementaciones de los distintos
+algoritmos (de momento sin extraer conclusiones). Se tardó unas 3 horas.
 
 El segundo y tercer punto se iniciaron por separado, pero llegó un momento en el
 que las funciones que se había creado en JavaScript, si se modificaban un poco,
@@ -385,8 +386,8 @@ unas 4 horas.
 
 En \texttt{Flask} se tenían varios problemas. El primero era que las
 visualizaciones de cada algoritmo tenían un \textit{endpoint} particular, pero
-esto no era necesario si se hacía un método para cada la obtención de los
-parámetros de cada algoritmo. Cuando se crearon estos métodos se generó código
+esto no era necesario si se hacía un método para la obtención de los parámetros
+de cada algoritmo por separado. Cuando se crearon estos métodos se generó código
 muy parecido porque todos ellos tenían dos partes: una en la que se obtenían los
 parámetros que no eran de los clasificadores base y otra en la que se
 incorporaban esos parámetros de los clasificadores. La primera parte es
@@ -481,7 +482,7 @@ del proyecto. En total fueron unas 6 horas.
 El proceso de validación cruzada no estaba bien enfocado, se estaba realizando
 de forma manual (y todos los posibles fallos que puede suponer) aunque la
 librería scikit-learn incorpora ya utilidades para este proceso. Concretamente
-se tiene un método que genera los distintos \texttt{Folds} dado un conjunto de
+se tiene un método que genera los distintos \textit{Folds} dado un conjunto de
 datos. El proceso manual se sustituyó por este nuevo. Se aprovechó para guardar
 los resultados como CSV.
 
@@ -495,10 +496,10 @@ estadística. Cada uno de los gráficos de esta malla es un gráfico de cajas (p
 mostrar mínimos, máximos, medias, medianas...).
 
 Sobre el último punto, aunque la idea era realizarlo en este Sprint, no se
-estimó bien la cantidad de trabajo no pudo ser realizado. Además, en las
+estimó bien la cantidad de trabajo y no pudo ser realizado. Además, en las
 ejecuciones del punto anterior (la comparativa) se vio que el algoritmo
-Co-Training estaba funcionando por debajo que el de \texttt{sslearn}. Y esto
-impedí además justificar en la memoria la validación de los algoritmos.
+Co-Training tenía peor rendimiento que el de \texttt{sslearn}. Y esto impedía
+justificar en la memoria la validación de los algoritmos.
 
 Durante estas tareas fueron surgiendo pequeños arreglos: Se colorearon las
 etiquetas de la ayuda contextual (\texttt{tooltip}) para que quedara claro qué
@@ -535,8 +536,8 @@ Las dos principales bibliotecas o recursos utilizados en la Web son
 \texttt{Bootstrap} y \texttt{D3.js}, el primer caso es un <<framework>> de CSS
 que ya viene con una gran cantidad de clases a utilizar. D3 es la biblioteca de
 JavaScript que se ha utilizado para la generación de todos los gráficos. Se
-añadió una descripción (y justificación) de uso en las \texttt{Técnicas y
-herramientas}.
+añadió una descripción (y justificación) de uso en la memoria (Técnicas y
+herramientas).
 
 Teniendo en cuanta la componente docente de este proyecto, se creyó conveniente
 la adición de unas pequeñas explicaciones de los algoritmos. Se añadieron en la
@@ -562,9 +563,10 @@ Antes de arreglar este error, la rama en la que se ejecutaba el <<subsample>> no
 se estaba realizando en ningún caso. En el momento que se arregló el anterior
 error se accedió a esta parte y apareció un nuevo error. Se confundió array de
 NumPy con lista nativa de Python y se estaban seleccionando ciertas posiciones
-de una lista de Python accediendo a ella con unos índices ( List{[}indices{]} ).
-La solución fue sencilla de igual manera, se recorría la lista en base la los
-índices y se creaba esta sublista mediante compresión de listas.
+de una lista de Python accediendo a ella con unos índices
+(\texttt{List{[}indices{]}}). La solución fue sencilla de igual manera, se
+recorría la lista en base la los índices y se creaba esta sublista mediante
+compresión de listas.
 
 Al final de este desarrollo, se comparó con una sola ejecución con sslearn. El
 nuevo algoritmo tardaba mucho más tiempo que el resto (y que sslearn). Esto era
@@ -627,20 +629,23 @@ comprobar que las modificaciones eran correctas y generales, en principio, todo
 parece correcto.
 
 Se reestructuró completamente Flask, esto es porque tal y como se encontraba la
-aplicación, era muy básica y general. Los proyecto más grandes con Flask tienen
+aplicación, era muy básica y general. Los proyectos más grandes con Flask tienen
 una estructura más o menos concreta. Esta es la idea que se ha intentado
-aplicar, utilizando <<Application Facotory>> y <<Blueprints>>. Pero sobre todo,
+aplicar, utilizando <<Application Factory>> y <<Blueprints>>. Pero sobre todo,
 para hacerla más mantenible y extensible. De hecho, aunque no está siendo usada,
-se tiene una pequeña base de datos para posibles adiciones futuras. Esta
-reestructuración causó muchos problemas en cuanto a las rutas de ficheros. Se
-tuvieron que especificar manualmente y usar la librería del sistema operativo de
-Python para independizar ciertos tratamientos de ficheros del sistema operativo
-concreto donde corra la aplicación (se ha probado en Windows y Linux).
+se tiene una pequeña base de datos para posibles adiciones futuras. 
+
+Esta reestructuración causó muchos problemas en cuanto a las rutas de ficheros.
+Se tuvieron que especificar manualmente y usar la librería del sistema operativo
+de Python para independizar ciertos tratamientos de ficheros del sistema
+operativo concreto donde se ejecute la aplicación (se ha probado en Windows y
+Linux).
 
 Finalmente, se añadió la media geométrica como métrica de validación a la hora
-de comparar contra sslearn. Además, en Sprints anteriores se comentó la idea de
-utilizar \texttt{Violinplots}, que resultan más pertinentes para los casos de
-comparación.
+de comparar contra
+\texttt{sslearn}\cite{jose_luis_garrido_labrador_2023_7781117}. Además, en
+Sprints anteriores se comentó la idea de utilizar \textit{Violinplots}, que
+resultan más pertinentes para los casos de comparación.
 
 \subsection{Sprint 14}
 Corresponde con el periodo temporal del 5 al 12 de abril de 2023.
@@ -791,8 +796,8 @@ añadieron también unos \textit{modales} para las comprobaciones del usuario.
 
 El desarrollo anterior se ha simplificado, primero se creaban versiones
 sencillas y luego se iban incorporando retoques hasta el resultado final. Por
-ejemplo, al final del todo, se añadió el estilo responsivo a estas tablas. La
-ventaja fue que DataTables ya tenía extensiones que realizaban esto
+ejemplo, al final del todo, se añadió el estilo <<\textit{responsive}>> a estas
+tablas. La ventaja fue que DataTables ya tenía extensiones que realizaban esto
 automáticamente.
 
 Continuando con la memoria, se añadieron los objetivos de proyecto y el comienzo
@@ -803,9 +808,9 @@ resto de la aplicación, en la fase de configuración de los algoritmos resultab
 conveniente permitir al usuario normalizar o no el conjunto de datos a mostrar
 (hasta ahora siempre se normalizaba), se incluyó un interruptor para ello.
 
-Además de todo esto, se hicieron algunos cambios pequeños: Footer al final de la
-página, selección de fuentes para la página, arreglar algunos bugs o estilar el
-<<card>> del perfil.
+Además de todo esto, se hicieron algunos cambios pequeños: <<Footer>> al final
+de la página, selección de fuentes para la página, arreglar algunos bugs menores
+o estilar el <<card>> del perfil.
 
 \subsection{Sprint 17}
 Corresponde con el periodo temporal del 26 de abril al 3 de mayo de 2023.
@@ -828,9 +833,9 @@ es muy sencilla, las traducciones ahora se realizan detectando qué idioma se
 ajusta más al navegador del usuario (en las peticiones existe un <<header>> que
 incluye esta información), como también se quiere que el usuario decida, todas
 las peticiones son procesadas previamente por un \texttt{endpoint} (Flask
-permite esto) que detecta si existe un parámetro <<lang>> (?lang=X) y si lo hay,
-establece el idioma a este (guardándolo en la sesión). De esta forma se consigue
-no modificar lo ya existente.
+permite esto) que detecta si existe un parámetro <<lang>> (\texttt{?lang=X}) y
+si lo hay, establece el idioma a este (guardándolo en la sesión). De esta forma
+se consigue no modificar lo ya existente.
 
 El panel de administración fue un verdadero reto, como no se quería tener que
 hacer todo de cero (mucho código duplicado), se tuvo que pensar primero la forma
@@ -849,8 +854,8 @@ una relación uno a varios.
 Finalmente, se creó la tabla de usuarios del mismo modo que el resto, creando
 una ruta donde consultar todos los datos y añadir las acciones correspondientes
 de editar el usuario o eliminarlo. Se reutilizó mucho de lo que ya se había
-codificado. La ventaja es que, aunque se tuvo que añadir bastantes cosas, ya se
-tenía el conocimiento previo fue más laborioso (el desarrollo anterior se
+codificado. La ventaja es que, aunque se tuvieron que añadir bastantes cosas, ya
+se tenía el conocimiento previo fue más laborioso (el desarrollo anterior se
 dividió en varios días) pero menos difícil.
 
 Además de lo comentado anteriormente, se quiso incluir unas estadísticas
@@ -859,7 +864,7 @@ ficheros subidos y ejecuciones, el total de los últimos siete días.
 
 Finalmente se tuvo que modificar algún \texttt{endpoint} para aumentar las
 comprobaciones de seguridad y sobre todo, para evitar duplicar código. Por
-ejemplo, la edición de un usuario por parte de un administrador se "delega" al
+ejemplo, la edición de un usuario por parte de un administrador se <<delega>> al
 propio \texttt{endpoint} del perfil. En esta línea, a medida que pasaba el
 Sprint, mejoraban las comprobaciones y controles de errores y para que el
 usuario tuviera algo de información, se añadió un modal que se activa cuando

@@ -287,7 +287,7 @@ entrenamiento para la siguiente iteración.
 \clearpage
 \paragraph{Democratic Co-Learning}
 
-Yan Zhou y Sally Goldman presentaron en \cite{zhou2004democratic} un algoritmo
+Yan Zhou y Sally Goldman presentaron en~\cite{zhou2004democratic} un algoritmo
 de aprendizaje semi-supervisado en la línea de Co-Training (varios
 clasificadores). La diferencia sustancial es que no trabajan con dos (o más)
 conjunto de atributos (para que cada clasificador utilice uno de ellos), en este
@@ -323,7 +323,7 @@ pseudoetiquetadas.
             }
             $k = arg~max_j\{c_j\}$
         }
-        /* Instancias propuestas para etiquetar*/\;
+        /* Instancias propuestas para etiquetar */\;
         \For{i = 1,...,n}{
             Utilizar $\pmb{L}$ para calcular el intervalo de confianza al 95\%, [$l_i$,~$h_i$] de $\pmb{H}_i$\;
             $w_i = (l_i + h_i)/2$
@@ -337,12 +337,12 @@ pseudoetiquetadas.
             $L'_i = L'_i  ~\cup~ \{(x,c_k)\}, ~\forall i$ tal que $H_i(x) \neq c_k$
         }
 
-        /* Estimar si añadir $L'_i$ a $L_i$ mejora la exactitud*/\;
+        /* Estimar si añadir $L'_i$ a $L_i$ mejora la exactitud */\;
 
         \For{i = 1,...,n}{
             Utilizar $\pmb{L}$ para calcular el intervalo de confianza al 95\%, [$l_i$,~$h_i$] de $\pmb{H}_i$\;
-            $q_i = |L_i|(1-2(\frac{e_i}{|L_i|})^2)$   /*Tasa de error*/\;
-            $e'_i=(1-\frac{\sum_{i=1}^{d}l_i}{d})|L'_i|$  /*Nueva tasa de error*/\;
+            $q_i = |L_i|(1-2(\frac{e_i}{|L_i|})^2)$   /* Tasa de error */\;
+            $e'_i=(1-\frac{\sum_{i=1}^{d}l_i}{d})|L'_i|$  /* Nueva tasa de error */\;
             $q'_i = |L_i ~\cup~ L'_i|(1-\frac{2(e_i~+~e'_i)}{|L_i ~\cup~ L'_i|})^2$\;
 
             \If{$q'_i > q_i$}{
@@ -358,14 +358,14 @@ pseudoetiquetadas.
 
 \begin{algorithm}
     \DontPrintSemicolon
-    \KwIn{$\pmb{H}_1,\pmb{H}_2,...,\pmb{H}_n$ y $x$ (instancia)}
+    \KwIn{$\pmb{H}_1,\pmb{H}_2,...,\pmb{H}_n$ y $\mathbf{x}$ (instancia)}
     \KwOut{Hipótesis combinadas (predicción)}
     \For{i = 1,...,n}{
         Utilizar $\pmb{L}$ para calcular el intervalo de confianza al 95\%, [$l_i$,~$h_i$] de $\pmb{H}_i$\;
             $w_i = (l_i + h_i)/2$\;
     }
     \For{i = 1,...,n}{
-        \If{$H_i(x)$ predice $c_j$ y $w_i >$ 0.5}{
+        \If{$H_i(\mathbf{x})$ predice $c_j$ y $w_i >$ 0.5}{
             Añadir $H_i$ al grupo $G_j$ /* j es etiqueta */\;
         }
     }
@@ -379,7 +379,7 @@ pseudoetiquetadas.
 \end{algorithm}
 
 Aclaración sobre la predicción final (en combinación): una vez calculadas las
-confianzas de la instancia a predecir (x) y por cada posible etiqueta, la idea
+confianzas de la instancia a predecir ($\mathbf{x}$) y por cada posible etiqueta, la idea
 de la combinación es obtener la etiqueta (k, posición en el grupo) con mayor
 confianza.
 
@@ -400,7 +400,8 @@ confianza.
      }
      \Repeat{ningún $h_i~(i \in \{1..3\})$ cambie}{
         \For{$i \in \{1..3\}$}{
-            $L_i \leftarrow \emptyset$; $update_i \leftarrow FALSE$\;
+            $L_i \leftarrow \emptyset$\;
+            $update_i \leftarrow False$\;
             $e_i \leftarrow MeasureError(h_j \& h_k)~(j, k \neq i)$\;
             \If{$e_i < e'_i$}{
                 \For{para cada $x \in U$}{
@@ -413,7 +414,7 @@ confianza.
                 }
                 \If{$l'_i < |L_i|$}{
                     \If{$e_i|L_i|< e'_i l'_i$}{
-                        $update_i \leftarrow TRUE$
+                        $update_i \leftarrow True$
                     }\ElseIf{$l'_i > \frac{e_i}{e'_i - e_i}$}{
                         $L_i \leftarrow Subsample(L_i, \lceil\frac{e'_il'_i}{e_i} - 1\rceil)$\;
                         $update_i \leftarrow TRUE$
@@ -439,9 +440,9 @@ En el resto del apartado se van a documentar los conceptos que se han utilizado
 en el desarrollo.
 
 \textbf{Hypertext Transfer Protocol (HTTP)} o Protocolo de Transferencia de
-Hipertexto es un protocolo de la capa de aplicación \footnote{Permite a las
+Hipertexto es un protocolo de la capa de aplicación\footnote{Permite a las
 aplicaciones trabajar con los servicios de las capas inferiores y define
-protocolos para el intercambio de datos \cite{eswiki:149372346}} para transmitir
+protocolos para el intercambio de datos~\cite{eswiki:149372346}} para transmitir
 documentos. Se trata de un modelo cliente-servidor clásico, el cliente realiza
 una petición al servidor, y espera a que este le devuelva una respuesta
 \cite{http:mdn}.
@@ -469,15 +470,16 @@ La realidad es que, peticiones y respuestas, tienen una estructura muy similar. 
 \begin{itemize}
 	\item \textbf{Línea de inicio}, formada por:
   \subitem El método HTTP (se describirán a continuación), indica la operación a realizar.
-  \subitem El objetivo, generalmente una URL. Para algunos métodos, aquí ser incorporan los parámetros de la petición (<<?param=X>>).
+  \subitem El objetivo, generalmente una URL. Para algunos métodos, aquí ser
+  incorporan los parámetros de la petición (\texttt{?param=X}).
   \subitem Versión del protocolo.
 	\item \textbf{Cabeceras}: Son <<metadatos>> que proporcionan información sobre la
-  metición. Cada una de ellas (puede haber varias) es un par nombre-valor.	Por
+  petición. Cada una de ellas (puede haber varias) es un par nombre-valor.	Por
   ejemplo, especificar el tipo de contenido de la petición se haría con
   <<\texttt{Content-Type: application/json}>>.
   \item \textbf{Cuerpo}: Contiene información adicional para el servidor, pudiendo enviar
   cualquier dato. No todas las peticiones llevan cuerpo, una petición GET no lo
-  necesita pero sí un POST.
+  necesita, pero sí un POST.
 \end{itemize}
 
 Para las respuestas:
@@ -506,16 +508,19 @@ reales) son \cite{enwiki:1151700575}:
   configuran esta solicitud para que el servidor pueda personalizar las
   respuestas.
   \item \textbf{POST}: Solicitud que envía datos en el cuerpo de la petición (es
-  el método de los formularios HTML, por ejemplo). Tiene diversas funciones como
-  crear un recurso o actualizarlo. Sin embargo, pese a que no está pensado para
-  ello, en muchas ocasiones, también se utiliza para solicitar información.
-  Entre otras cosas, permite reducir la longitud de las URLs para operaciones
-  GET demasiado extensas (incluso que puedan sobrepasar el límite de caracteres)
-  y también porque permite ocultar información comprometida
-  \cite{http:postnotget}. Las peticiones GET son parametrizadas mediante la
-  propia URL, mientras que en POST, los parámetros pueden incorporarse al cuerpo
-  de la petición, ocultándolos (interesante por ejemplo, si no se quiere
-  compartir identificadores).
+  el método de los formularios HTML, por ejemplo). Tiene diversas funciones,
+  como crear un recurso o actualizarlo. Sin embargo, pese a que no está pensado
+  para ello, en muchas ocasiones, también se utiliza para solicitar información.
+  
+  Entre otras cosas, solicitar información con POST, permite reducir la longitud
+  de las URLs para operaciones GET demasiado extensas (incluso que puedan
+  sobrepasar el límite de caracteres) y también permite ocultar información
+  comprometida \cite{http:postnotget}. 
+  
+  Las peticiones GET son parametrizadas mediante la propia URL, mientras que en
+  POST, los parámetros pueden incorporarse al cuerpo de la petición,
+  ocultándolos (interesante, por ejemplo, si no se quiere compartir
+  identificadores).
   \item \textbf{PUT}: Método similar a POST, también envía datos al servidor,
   pero en este caso está orientado específicamente a la actualización de los
   recursos.
@@ -523,12 +528,15 @@ reales) son \cite{enwiki:1151700575}:
 \end{itemize}
 
 Los códigos de estado antes mencionados son parte de la respuesta del servidor a
-los clientes, indicarán, por lo general, el éxito o fracaso de las operaciones.
+los clientes. Indicarán, por lo general, el éxito o fracaso de las operaciones.
+
 Hay aproximadamente 60 códigos distintos, cada uno brinda la posibilidad de
 personalizar las respuestas dependiendo del contexto. Todos estos códigos pueden
 ir acompañados de la estructura antes comentada. Por ejemplo, para una petición
 exitosa, la respuesta de un POST podría tener un \texttt{cuerpo} con más
-información. Los códigos más utilizados son:
+información junto con el código \textit{200}. 
+
+Los códigos más utilizados son:
 
 \begin{itemize}
 	\item \textbf{200}: OK, respuesta a peticiones HTTP exitosas.
@@ -548,27 +556,24 @@ información. Los códigos más utilizados son:
 
 \paragraph{HTTP Cookies}
 
-El concepto de las \textit{Cookies} es muy sencillo, son pequeños bloques de
-datos que el servidor manda al navegador del usuario mientras accede a él en las
-peticiones HTTP. Una vez que el cliente ha almacenado esta información, puede
-usarla para agilizar ciertos pasos en las siguientes peticiones. Cuando vuelva a
-acceder, junto con la petición <<normal>> enviará esta porción de datos, que el
-servidor puede interpretar y reconocer. Por ejemplo, pueden guardarse los
-inicios de sesión, preferencias o en entornos comerciales, el comportamiento del
-usuario.
+El concepto de las \textit{Cookies} es sencillo, son pequeños bloques de datos
+que el servidor manda al navegador del usuario mientras realiza peticiones HTTP
+a él. Una vez que el cliente ha almacenado esta información, puede usarla para
+agilizar ciertos pasos en las siguientes peticiones. Cuando vuelva a acceder,
+junto con la petición <<normal>> enviará esta porción de datos, que el servidor
+puede interpretar y reconocer. Por ejemplo, pueden guardarse los inicios de
+sesión, preferencias o, en entornos comerciales, el comportamiento del usuario.
 
 La idea interesante de las \textit{Cookies} es que permite almacenar
 \textbf{información de estado} para el protocolo HTTP, que es \textbf{sin
 estado} (por sí solo no puede guardar esta información).
 
-
 \section{CSRF (Cross-Site Request Forgery)}
-
 Cross-Site Request Forgery (Falsificación de petición en sitios cruzados) es un
 ataque sobre aplicaciones Web vulnerables en las que se utiliza a un usuario
 autenticado en la misma (o en el que la Web confía) para enviar una petición
 maliciosa. Los ataques CSRF explotan la confianza que una Web tiene con un
-usuario, al no poder diferencia entre una petición generada por el usuario (la
+usuario, al no poder diferenciar entre una petición generada por el usuario (la
 persona) y la petición generada por el usuario, pero sin su consentimiento
 \cite{csrf} (generalmente de forma cruzada, proveniente de otro contexto).
 
@@ -579,11 +584,11 @@ Web vulnerable: \url{https://ejemplo.es}
 
 Usuario: David (con sesión iniciada)
 
-URL de cambio de contraseña: \url{https://ejemplo.es/cambiarcontrasena} 
-(permite un parámetro <<nueva>> mediante POST para especificar la nueva contraseña)
+URL de cambio de contraseña: \url{https://ejemplo.es/cambiarcontrasena} (permite
+un parámetro <<nueva>> mediante POST para especificar la nueva contraseña)
 
-El servidor a <<securizado>> parcialmente la URL anterior comprobando que el que
-accede a esa URL es el propio usuario con sesión iniciada.
+El servidor ha <<securizado>> parcialmente la URL anterior comprobando que el
+que accede a esa URL es el propio usuario con sesión iniciada.
 \end{tcolorbox}
 
 

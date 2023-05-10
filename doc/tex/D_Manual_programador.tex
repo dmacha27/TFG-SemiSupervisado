@@ -204,22 +204,23 @@ El proyecto se desarrolla en dos ramas comunicadas (de forma unidireccional):
 los algoritmos implementados y la aplicación Web. La aplicación es la que
 utiliza los algoritmos para obtener la información presentada en la Web.
 
-\paragraph{Algoritmos semi-supervisados} (contenidos en el directorio algoritmos):
-Los algoritmos desarrollados y nuevos han de situarse en este directorio como
-raíz. La idea es que cada fichero <<.py>>, homónimo al algoritmo, contenga la
-definición de un objeto que encapsule el desarrollo del mismo, para que no haya
-confusión.
+\paragraph{Algoritmos semi-supervisados} (contenidos en el directorio
+\texttt{algoritmos}): Los algoritmos desarrollados y nuevos han de situarse en
+este directorio como raíz. La idea es que cada fichero <<.py>>, homónimo al
+algoritmo, contenga la definición de un objeto que encapsule el desarrollo del
+mismo, para que no haya confusión.
 
 Estructura de los objetos (mínima):
 
 \textbf{Constructor}: Donde se configuran los parámetros que necesita el algoritmo. Es
 recomendable realizar una validación de los mismos por si fueran utilizados de manera individual.
 
-\textbf{Método de entrenamiento (Fit)}: Dado que estos algoritmos están pensados no solo
-para entrenar, sino para almacenar el proceso de entrenamiento y estadísticas,
-siempre ha de recibir el conjunto de entrenamiento (x, y), el conjunto de test
-(x\_test, y\_test) y el nombre de las características de cada instancia (i. e. el 
-nombre de las columnas de x).
+\textbf{Método de entrenamiento (Fit)}: Dado que estos algoritmos están pensados
+no solo para entrenar, sino para almacenar el proceso de entrenamiento y
+estadísticas, siempre ha de recibir el conjunto de entrenamiento ($\mathbf{x}$,
+$y$), el conjunto de test (\texttt{x\_test}, \texttt{y\_test}) y el nombre de
+las características de cada instancia (el nombre de las columnas de
+$\mathbf{x}$).
 
 En principio, el método de desarrollo seguido es el de primero implementar el
 algoritmo para después añadir, con la librería Pandas, un registro completo de
@@ -253,8 +254,9 @@ def predict(self, instances)
 \textbf{Métodos estadísticos}: Dependiendo de lo que se desee mostrar en la
 aplicación, se incluirán ciertas estadísticas.
 
-La convención utilizada hasta ahora es crear un método que comience por <<get\_>>
-seguido del nombre de la estadística, por ejemplo \texttt{get\_accuracy\_score}.
+La convención utilizada hasta ahora es crear un método que comience por
+<<\texttt{get\_}>> seguido del nombre de la estadística, por ejemplo
+\texttt{get\_accuracy\_score}.
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Cabecera ejemplo estadística]
 \begin{minted}{python}
@@ -266,7 +268,7 @@ def get_accuracy_score(self, x_test, y_test):
 aquellos métodos que se reutilizan en el proyecto (y que intervenga en algún paso
 del algoritmo, como por ejemplo, la carga de datos). 
 
-\paragraph{Tests} El desarrollo del software debe ser validado para asegurar su
+\paragraph{Test} El desarrollo del software debe ser validado para asegurar su
 correcto funcionamiento ante las distintas casuísticas. Cuando se desarrolla
 código en esta sección, sus casos de prueba codificados deben incluirse en el
 directorio correspondiente. Se utiliza <<pytest>> como \textit{framework} de
@@ -281,14 +283,14 @@ completamente con el uso de \texttt{Blueprints} y una \texttt{Application
 Factory} que se encarga de instancia la aplicación, base de datos y pone en
 funcionamiento las distintas rutas accesibles.
 
-\textbf{run.py}: Centraliza la ejecución de la aplicación (mediante la
+\textbf{\texttt{run.py}}: Centraliza la ejecución de la aplicación (mediante la
 \texttt{Application Factory}) 
 
-\textbf{instance}: Donde se almacena la instancia de la base de datos.
+\textbf{\texttt{instance}}: Donde se almacena la instancia de la base de datos.
 
-\textbf{app}: Este directorio contiene toda la
-definición de la aplicación, el resto de los apartados comentados siguientes se
-encuentran dentro de este.
+\textbf{\texttt{app}}: Este directorio contiene toda la definición de la
+aplicación, el resto de los apartados comentados siguientes se encuentran dentro
+de este.
 
 El fichero \texttt{\_\_init\_\_.py} contiene la creación de la aplicación con un
 método \texttt{create\_app} (\texttt{Application Factory}). Aquí se específica
@@ -298,9 +300,9 @@ instancia la base de datos y se registran las rutas (organizadas con
 
 \textbf{Blueprints}: Las rutas que tiene la aplicación están organizadas en
 función de su categoría mediante los Blueprints. Y es en los ficheros que
-terminan por <<\_routes.py>> donde se definen. Si se añade una categoría nueva se
-debe crear un Blueprint que la identifique dentro de su fichero y después debe ser
-registrado en la aplicación (en \texttt{\_\_init\_\_.py}).
+terminan por <<\_routes.py>> donde se definen. Si se añade una categoría nueva
+se debe crear un Blueprint que la identifique dentro de su fichero y después
+debe ser registrado en la aplicación (en \texttt{\_\_init\_\_.py}).
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Crear Blueprint]
 \begin{minted}{python}
@@ -316,10 +318,11 @@ app.register_blueprint(nuevo_bp, url_prefix='/')
 \end{minted}
 \end{tcolorbox}
 
-\textbf{Modelos de la base de datos}: En <<models.py>> se tienen definidas todas las entidades
-que maneja la aplicación: \texttt{Users}, \texttt{Datasets} y \texttt{Runs}. Si se desea añadir alguna,
-primero se debe crear aquí la definición de la misma. Para que la aplicación sepa las entidades que
-debe manejar, también es necesario importarla en la creación de la aplicación.
+\textbf{Modelos de la base de datos}: En <<models.py>> se tienen definidas todas
+las entidades que maneja la aplicación: \texttt{Users}, \texttt{Datasets} y
+\texttt{Runs}. Si se desea añadir alguna, primero se debe crear aquí la
+definición de la misma. Para que la aplicación sepa las entidades que debe
+manejar, también es necesario importarla en la creación de la aplicación.
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Importar modelo (en <<create\_app()>> de \texttt{\_\_init\_\_.py})]
     \begin{minted}{python}
@@ -327,54 +330,59 @@ debe manejar, también es necesario importarla en la creación de la aplicación
     \end{minted}
 \end{tcolorbox}
 
-La \textbf{visualización de un algoritmo} se centra en dos pasos: la configuración del
-mismo (en las rutas \texttt{/configuracion/<algoritmo>}) donde se debe
-renderizar una página con el formulario de configuración (gestionado por
+La \textbf{visualización de un algoritmo} se centra en dos pasos: la
+configuración del mismo (en las rutas \texttt{/configuracion/<algoritmo>}) donde
+se debe renderizar una página con el formulario de configuración (gestionado por
 \texttt{configuration\_routes.py}), y la visualización
 (\texttt{/visualizacion/<algoritmo>}) donde se renderiza la página donde se
 encuentran todos los gráficos de los algoritmos (gestionado por
 \texttt{visualization\_routes.py}). Además, existe un paso intermedio en el que
 se obtienen los datos de la ejecución de los algoritmos, este paso no es una
-ruta que pueda visualizarse (gestionado por \texttt{data\_routes.py}),
-es un método auxiliar que accede el propio usuario (su navegador) para obtener
-la información. Por lo general, la convención utilizada es que todos los métodos
-y rutas lleven el nombre del algoritmo.
+ruta que pueda visualizarse (gestionado por \texttt{data\_routes.py}), es un
+método auxiliar que accede el propio usuario (su navegador) para obtener la
+información. Por lo general, la convención utilizada es que todos los métodos y
+rutas lleven el nombre del algoritmo.
 
 Las primeras tareas para añadir un algoritmo nuevo serán incorporarlos al flujo
-de las sesiones y actualizar la plantilla base (por la barra de navegación) y el inicio. 
-Para incorporarlos al flujo, esto se hace incorporándolos a la selección (\texttt{/seleccionar/<algoritmo>}).
+de las sesiones y actualizar la plantilla base (por la barra de navegación) y el
+inicio. Para incorporarlos al flujo, esto se hace incorporándolos a la selección
+(\texttt{/seleccionar/<algoritmo>}).
 
-\textbf{Formularios}: A la hora de crear un nuevo algoritmo, y como se ha comentado,
-el usuario tiene un paso de configuración del mismo. Esto se realiza mediante un
-formulario. Para crear uno (WTForm), se debe crear su objeto correspondiente en <<forms.py>>
-con los campos necesarios. Hasta el momento, los que hay implementados tienen una parte
-en común que está definida en la clase <<FormConfiguracionBase>> y en prinicpio, si se añade
-uno nuevo, deberá extender dicha clase.
+\textbf{Formularios}: A la hora de crear un nuevo algoritmo, y como se ha
+comentado, el usuario tiene un paso de configuración del mismo. Esto se realiza
+mediante un formulario. Para crear uno (WTForm), se debe crear su objeto
+correspondiente en <<forms.py>> con los campos necesarios. Hasta el momento, los
+que hay implementados tienen una parte en común que está definida en la clase
+<<\texttt{FormConfiguracionBase}>> y en prinicpio, si se añade uno nuevo, deberá
+extender dicha clase.
 
-\textbf{Plantillas (templates)}: Flask utiliza el motor de plantillas Jinja2, que añaden
-instrucciones en HTML. Obviando que cada algoritmo tiene sus particularidades,
-están organizadas mediante la extensión de plantillas. De forma general, añadir
-un algoritmo podría solo intervenir la creación de una plantilla de configuración
-(incluyendo la creación del formulario) y otra de visualización. En ambos casos se 
-tiene una plantilla base de la que se debe extender. También se debe la nomenclatura
-utilizada para el resto de algoritmos (están nombrados de forma intuitiva).
+\textbf{Plantillas (templates)}: Flask utiliza el motor de plantillas Jinja2,
+que añaden instrucciones en HTML. Obviando que cada algoritmo tiene sus
+particularidades, están organizadas mediante la extensión de plantillas. De
+forma general, añadir un algoritmo podría solo intervenir la creación de una
+plantilla de configuración (incluyendo la creación del formulario) y otra de
+visualización. En ambos casos se tiene una plantilla base de la que se debe
+extender. También se debe la nomenclatura utilizada para el resto de algoritmos
+(están nombrados de forma intuitiva).
 
-\textbf{Ficheros estáticos (static)}: El contenido dinámico debe ser creado mediante
-Javascript, de forma <<vanilla>> (sin utilizar frameworks). Es completamente necesario
-manetener la organización actual de las carpetas, las funciones que se añadan deberán incluirse
-en la carpeta de su contexto. Todos los métodos se encuentran documentados.
+\textbf{Ficheros estáticos (static)}: El contenido dinámico debe ser creado
+mediante Javascript, de forma <<vanilla>> (sin utilizar frameworks). Es
+completamente necesario manetener la organización actual de las carpetas, las
+funciones que se añadan deberán incluirse en la carpeta de su contexto. Todos
+los métodos se encuentran documentados.
 
-En menor medida, los estilos deben ser retocados en estos ficheros (css/style.css) aunque en principio 
-la aplicación está estilada con Bootstrap 5.
+En menor medida, los estilos deben ser retocados en estos ficheros
+(\texttt{css/style.css}) aunque en principio la aplicación está estilada con
+Bootstrap~5.
 
-En estos ficheros estáticos también se tienen unas imágenes con los pseudocódigos de los
-algoritmos. Estas imágenes deben verse tanto en la configuración como la
-visualización.
+En estos ficheros estáticos también se tienen unas imágenes con los
+pseudocódigos de los algoritmos. Estas imágenes deben verse tanto en la
+configuración como la visualización.
 
 Otra parte muy importante es si se quieren añadir nuevos clasificadores base con
-sus parámetros, la especificación de los mismos está almacenada en el fichero JSON 
-<<parametros.json>>. Hasta el momento del desarrollo solo existen dos tipos de entradas, los
-selectores y los numéricos.
+sus parámetros, la especificación de los mismos está almacenada en el fichero
+JSON <<parametros.json>>. Hasta el momento del desarrollo solo existen dos tipos
+de entradas, los selectores y los numéricos.
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Estructura para añadir clasificadores y sus parámetros]
 \begin{minted}{json}
@@ -400,35 +408,37 @@ selectores y los numéricos.
 \end{tcolorbox}
 
 Con <<step>> se debe tener en cuenta la posibilidad de permitir números enteros
-(al introducir 1) o números decimales (al incluir un flotante, por ejemplo, 0.01).
+(al introducir 1) o números decimales (al incluir un flotante, por ejemplo,
+0.01).
 
-Según se ha codificado, la aparición de este nuevo clasificador será automática ya que
-una vez leido este fichero, JavaScript lo recorre creando tantas opciones en los selectores como
-clasificadores haya.
+Según se ha codificado, la aparición de este nuevo clasificador será automática
+ya que una vez leido este fichero, JavaScript lo recorre creando tantas opciones
+en los selectores como clasificadores haya.
 
-Además de esto, hay tres zonas en la lógica de los \texttt{endpoints} que debe ser modificados
-si se añade un algoritmo.
-En <<data\_routes.py>>, <<configuration\_routes.py>> y <<visualization\_routes.py>> se tiene código
-específico para cada algoritmo. La <<activación>> de cada código se realiza mediante un \textit{if} 
-de tal forma que cuando coincide con el nombre del algoritmo, se realizan ciertos pasos concretos para él. 
-Se deberá ajustar la lógica para el nuevo algoritmo.
+Además de esto, hay tres zonas en la lógica de los \texttt{endpoints} que debe
+ser modificados si se añade un algoritmo. En <<\texttt{data\_routes.py}>>,
+<<\texttt{configuration\_routes.py}>> y <<\texttt{visualization\_routes.py}>> se
+tiene código específico para cada algoritmo. La <<activación>> de cada código se
+realiza mediante un \textit{if} de tal forma que cuando coincide con el nombre
+del algoritmo, se realizan ciertos pasos concretos para él. Se deberá ajustar la
+lógica para el nuevo algoritmo.
 
-\textbf{Conjunto de datos (datasets)}: Los conjuntos de datos de los usuarios (vinculados a
-sus sesiones) se almacenan localmente en la aplicación con el <<Timestamp>>
-concatenado el nombre del fichero introducido.
+\textbf{Conjunto de datos (datasets)}: Los conjuntos de datos de los usuarios
+(vinculados a sus sesiones) se almacenan localmente en la aplicación con el
+<<Timestamp>> concatenado el nombre del fichero introducido.
 
 \textbf{Internacionalización}: La aplicación está pensada para ser
 internacionalizada en cualquier idioma, aunque solo se ha incluido inglés y
 español. Una de las herramientas utilizadas es Babel, para incluir nuevo texto
 en la aplicación se debe utilizar la función \texttt{gettext()} (tanto en Jinja2
-como Python si fuera necesario). El proceso de extracción y compilación de las traducciones
-está explicado en la siguiente sección.
+como Python si fuera necesario). El proceso de extracción y compilación de las
+traducciones está explicado en la siguiente sección.
 
 \section{Compilación, instalación y ejecución del proyecto}
 
 Para poner en funcionamiento la aplicación primero se debe preparar el entorno
-de ejecución. Se recuerda la necesidad de tener instalado Python (y el administrador de
-paquetes <<pip>>).
+de ejecución. Se recuerda la necesidad de tener instalado Python (y el
+administrador de paquetes <<pip>>).
 
 \paragraph{Código fuente de la aplicación} Para obtener el código fuente de la
 aplicación, este debe ser descargado del repositorio Github utilizado\footnote{
@@ -449,13 +459,12 @@ La localización del proyecto queda a discreción del programador.
 \paragraph{Entorno virtual Python} El entorno virtual no es estrictamente
 necesario aunque es \textbf{altamente} recomendable, pues en los próximos pasos
 se instalarán múltiples librerías que sin entorno virtual quedarían instaladas
-globalmente.
-El proceso descrito a continuación puede ser sustituido en caso de que solo se
-esté trabajando con Pycharm. Este editor permite crear entornos virtuales e
-incluso realizarlo automáticamente al detectar los distintos requisitos del
-proyecto. Pero de forma general, suponiendo que se desea preparar un entorno de
-<<pruebas>> o <<producción>> y que la aplicación esté en funcionamiento, se
-realizan los siguientes pasos:
+globalmente. El proceso descrito a continuación puede ser sustituido en caso de
+que solo se esté trabajando con Pycharm. Este editor permite crear entornos
+virtuales e incluso realizarlo automáticamente al detectar los distintos
+requisitos del proyecto. Pero de forma general, suponiendo que se desea preparar
+un entorno de <<pruebas>> o <<producción>> y que la aplicación esté en
+funcionamiento, se realizan los siguientes pasos:
 \begin{tcolorbox}[colback=cyan!5!white,colframe=orange!75!black,title=Creación del entorno virtual (dentro de la carpeta deseado)]
 \begin{minted}{shell}
 $ python -m venv ./venv
@@ -510,8 +519,8 @@ $ flask run --debug
 \end{minted}
 \end{tcolorbox}
 
-Existe una última cuestión que no es estrictamente necesaria para funcionar, pero
-que añade la internacionalización a la aplicación automáticamente.
+Existe una última cuestión que no es estrictamente necesaria para funcionar,
+pero que añade la internacionalización a la aplicación automáticamente.
 
 \paragraph{Internacionalización} En el caso de que se haya incluido más texto
 traducido, este debe ser compilado con Babel para que la aplicación pueda
@@ -533,6 +542,7 @@ $ pybabel compile -d translations
 \end{minted}
 \end{tcolorbox}
 
-Todos los pasos anteriores son \textbf{estrictamente} necesarios, si realiza una 
-extracción sin incluir <<lazy\_gettext>> (por ejemplo) y a continuación se actualizan las
-traducciones, se perderán aquellas que tenían <<lazy\_gettext>>.
+Todos los pasos anteriores son \textbf{estrictamente} necesarios, si realiza una
+extracción sin incluir <<\texttt{lazy\_gettext}>> (por ejemplo) y a continuación
+se actualizan las traducciones, se perderán aquellas que tenían
+<<\texttt{lazy\_gettext}>>.

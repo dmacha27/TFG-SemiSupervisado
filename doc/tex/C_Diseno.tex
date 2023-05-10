@@ -18,8 +18,8 @@ información que ocurre durante este proceso.
 
 Para adelantar un poco el funcionamiento de la Web, todos estos datos son
 transformados a JSON, el formato de texto con la sintaxis de JavaScript que
-resulta muy sencillo para el intercambio de datos. Que a la hora de trabajar con
-ello en dicho lenguaje resulta muy sencillo (como diccionarios en otros
+resulta muy sencillo para el intercambio de datos. Además, a la hora de trabajar
+con ello en dicho lenguaje, se hace de forma directa (como diccionarios en otros
 lenguajes de programación).
 
 Pero antes de esa transformación, todos los datos son generados en Python. La
@@ -42,7 +42,7 @@ las mismas.
 Este formato sirve como base para todos los siguientes. Es una idea muy sencilla
 (pues Self-Training también lo es). 
 
-La estructura de datos contendrá múltiples filas, cada un representa cada
+La estructura de datos contendrá múltiples filas, cada una representa cada
 instancia de todo el conjunto de datos de entrenamiento. Lo que se entiende por
 conjunto de entrenamiento es, todos los datos etiquetados de los que aprenderá
 el clasificador base junto con los no etiquetados.
@@ -69,8 +69,8 @@ clasificación y/o etiquetas estarán en las columnas:
 
 Ejemplo (entrenamiento finalizado en la iteración 9):
 \begin{table}[H]
-\begin{tabular}{lllllll}
-    & petal.length & petal.width & sepal.length & sepal.width & iter & target \\ \hline
+\begin{tabular}{rrrrrrr}
+    & petal.length & petal.width & sepal.length & sepal.width & iter & target \\ \toprule
 0   & 5.6          & 2.5         & 3.9          & 1.1         & 0    & 1      \\
 1   & 6.1          & 2.8         & 4.0          & 1.3         & 0    & 2      \\
 78  & 6.7          & 3.1         & 5.6          & 2.4         & 6    & 2      \\
@@ -80,19 +80,18 @@ Ejemplo (entrenamiento finalizado en la iteración 9):
 \caption{Ejemplo de DataFrame de Self-Training}
 \end{table}
 
-En la tabla anterior se pueden un extracto de lo que podría ser una ejecución.
-Las columnas de los atributos, la iteración (con iteración 10 para denotar que
-no fue etiquetado) y la etiqueta o target (con -1 para los que no fueron
-etiquetados).
+En la tabla anterior se puede ver un extracto de lo que podría ser una
+ejecución. Las columnas de los atributos, la iteración (con iteración 10 para
+denotar que no fue etiquetado) y la etiqueta o \textit{target} (con -1 para los
+que no fueron etiquetados).
 
 \paragraph{Co-Training}
-Es muy similar a Self-Trainig salvo que este algoritmo concreto envuelve dos
+Es muy similar a Self-Training salvo que este algoritmo concreto envuelve dos
 clasificadores base. La consecuencia de esto a nivel del formato es que se
 necesita almacenar cuál de los dos clasificadores clasifica cada instancia. Pero
 más allá de esto, es el mismo formato.
 
 Recopilando, las columnas para el <<DataFrame>> de Co-Training son:
-
 \begin{itemize}
     \item Columnas con los nombres de los atributos de las instancias.
     \item Columna <<iter>>.
@@ -108,8 +107,8 @@ Recopilando, las columnas para el <<DataFrame>> de Co-Training son:
 Ejemplo (entrenamiento finalizado en la iteración 9):
 \begin{table}[H]
     \resizebox{\textwidth}{!}{%
-\begin{tabular}{llllllll}
-    & petal.length & petal.width & sepal.length & sepal.width & iter & target & clf \\ \hline
+\begin{tabular}{rrrrrrrl}
+    & petal.length & petal.width & sepal.length & sepal.width & iter & target & clf \\ \toprule
 0   & 5.6          & 2.5         & 3.9          & 1.1         & 0    & 1  & inicio    \\
 1   & 6.1          & 2.8         & 4.0          & 1.3         & 0    & 2  & inicio     \\
 78  & 6.7          & 3.1         & 5.6          & 2.4         & 6    & 2  & CLF(SVC)    \\
@@ -139,16 +138,16 @@ Recopilando, las columnas para el <<DataFrame>> de Democratic Co-Learning son:
     \item Columnas con los nombres de los atributos de las instancias.
     \item Columna <<iters>>: Lista con la iteración en la que cada clasificador
     etiqueta la instancia. En el caso de un dato inicial, esta lista sol o
-    tendrá una posición y contendrá 0 ([0]), para el resto siempre tendrá
-    tres posiciones (por los tres clasificadores base). Para este último caso
-    cada posición es independiente, es decir, si un clasificador base no ha
-    etiquetado, contendrá -1 (\textbf{diferencia con los anteriores}
-    \footnote{La razón de que se indique -1 en vez del número de iteraciones +
-    1, es porque toda esta estructura se genera antes del entrenamiento. En los
-    algoritmos anteriores, si quedaba alguna sin etiquetar, se añadía al final y
-    se sabía el número de iteraciones final.}), pero para esa misma instancia otro
+    tendrá una posición y contendrá 0 (\texttt{[0]}), para el resto siempre
+    tendrá tres posiciones (por los tres clasificadores base). Para este último
+    caso cada posición es independiente, es decir, si un clasificador base no ha
+    etiquetado, contendrá -1 (\textbf{diferencia con los anteriores}\footnote{La
+    razón de que se indique -1 en vez de número de iteraciones + 1, es porque
+    toda esta estructura se genera antes del entrenamiento. En los algoritmos
+    anteriores, si quedaba alguna sin etiquetar, se añadía al final y se sabía
+    el número de iteraciones final.}), pero para esa misma instancia otro
     clasificador base sí que puede haber etiquetado y contendrá dicha iteración
-    (por ejemplo: [-1,4,-1])
+    (por ejemplo: $[-1,4,-1]$)
     \item Columna <<targets>>: Exactamente igual a <<iters>> salvo que no indica
     la iteración, sino la etiqueta que asigna el clasificador base. De nuevo, si
     no la etiqueta, su posición contendrá -1.
@@ -156,16 +155,16 @@ Recopilando, las columnas para el <<DataFrame>> de Democratic Co-Learning son:
     columnas anteriores. Para saber a qué clasificador se refiere esta columna
     contiene otra lista con los tres nombres de los clasificadores. Si es un
     dato inicial, contendrá [inicio], en otro caso contendrá algo como
-    [CLF1(KNeighborsClassifier), CLF2(DecisionTreeClassifier),
-    CLF3(GaussianNB)]
+    \texttt{[CLF1(KNeighborsClassifier), CLF2(DecisionTreeClassifier),
+    CLF3(GaussianNB)]}.
 \end{itemize}
 
-Ejemplo (entrenamiento finalizado en la iteración 9) \footnote{Se han acortado los nombres de los clasificadores [CLF1, CLF2, CLF3]
+Ejemplo (entrenamiento finalizado en la iteración 9)\footnote{Se han acortado los nombres de los clasificadores [CLF1, CLF2, CLF3]
 debería ser [CLF1(KNeighborsClassifier), CLF2(DecisionTreeClassifier),
 CLF3(GaussianNB)]}:
 \begin{table}[H]
     \resizebox{\textwidth}{!}{%
-\begin{tabular}{llllllll}
+\begin{tabular}{rrrrrlll}
     & petal.length & petal.width & sepal.length & sepal.width & iter & target & clf \\ \hline
 0   & 5.6          & 2.5         & 3.9          & 1.1         & [0]    & [1]  & [inicio]    \\
 1   & 6.1          & 2.8         & 4.0          & 1.3         & [0]   & [2]  & [inicio]     \\
@@ -194,24 +193,25 @@ instancia podría ser etiquetada dos o más veces por un mismo clasificador base
 al contrario del anterior).
 
 
-Recopilando, las columnas para el <<DataFrame>> de Democratic Co-Learning son:
+Recopilando, las columnas para el <<DataFrame>> de Tri-Training son:
 
 \begin{itemize}
     \item Columnas con los nombres de los atributos de las instancias.
     \item Columna <<iters>>: Lista de listas con la iteración en la que cada
     clasificador etiqueta la instancia. En el caso de un dato inicial, esta
-    lista sol o tendrá una posición y contendrá 0 ([0]), para el resto siempre
-    tendrá una lista en las tres posiciones (por los tres clasificadores base).
-    Para esto último caso las posiciones siguen siendo independientes solo que
-    ahora si no se etiqueta la lista estará vacía (por ejemplo: [[2], [], []],
-    los dos últimos clasificadores no etiquetaron esa instancia en ningún
-    momento). Para clarificar lo comentado anteriormente, los clasificadores
-    podría etiquetar una misma instancia dos o más veces (por ejemplo: [[2], [2],
-    [1, 2]], el último clasificador etiquetó la instancia en dos ocasiones).
+    lista sol o tendrá una posición y contendrá 0 (\texttt{[0]}), para el resto
+    siempre tendrá una lista en las tres posiciones (por los tres clasificadores
+    base). Para esto último caso las posiciones siguen siendo independientes
+    solo que ahora si no se etiqueta la lista estará vacía (por ejemplo, las
+    iteraciones de un dato podrían ser: \texttt{[[2], [], []]}, los dos últimos
+    clasificadores no etiquetaron esa instancia en ningún momento). Para
+    clarificar lo comentado anteriormente, los clasificadores podrían etiquetar
+    una misma instancia dos o más veces (por ejemplo: \texttt{[[2], [2], [1,
+    2]]}, el último clasificador etiquetó la instancia en dos ocasiones).
     \item Columna <<targets>>: Exactamente igual a <<iters>> salvo que no indica
     la iteración, sino la etiqueta que asigna el clasificador base. Y de nuevo,
     si un clasificador no etiqueta en ningún momento esa instancia su lista
-    interna estará vacía (por ejemplo: [[2], [], [2]]).
+    interna estará vacía (por ejemplo: \texttt{[[2], [], [2]]}).
     \item Columna <<clfs>>: No se modifica respecto a Co-Training, contiene la
     lista de los nombres de los tres clasificadores.
 \end{itemize}
@@ -221,7 +221,7 @@ debería ser [CLF1(KNeighborsClassifier), CLF2(DecisionTreeClassifier),
 CLF3(GaussianNB)]}:
 \begin{table}[H]
     \resizebox{\textwidth}{!}{%
-\begin{tabular}{llllllll}
+\begin{tabular}{rrrrrlll}
     & petal.length & petal.width & sepal.length & sepal.width & iter & target & clf \\ \hline
 0   & 5.6          & 2.5         & 3.9          & 1.1         & [0]    & [1]  & [inicio]    \\
 1   & 6.1          & 2.8         & 4.0          & 1.3         & [0]   & [2]  & [inicio]     \\
@@ -243,7 +243,7 @@ separado e incluso más de una vez).
 
 Cuando se genera el gráfico con sus puntos, cada punto lleva guardada la
 información de las iteraciones, etiquetas y clasificadores. Así se controla
-cuando ocultar/colorear/mostrar un punto. Por ejemplo, cuando se navega a la
+cuándo ocultar/colorear/mostrar un punto. Por ejemplo, cuando se navega a la
 siguiente iteración se filtran todos los puntos que tenga esa iteración en la
 columna <<iter>> (o <<iters>>). Obviamente, cada algoritmo tiene sus
 particularidades, pero esta es la idea general.
@@ -276,9 +276,10 @@ Democratic Co-Learning y Tri-Training.
 El núcleo de esta estructura de datos siguen siendo los <<DataFrames>>, sin
 embargo, se han envuelto en un diccionario. El diccionario tiene como claves,
 cada uno de los nombres de los clasificadores base de la ejecución (por ejemplo:
-CLF3(GaussianNB)). Los valores serán esos <<DataFrames>> que son exactamente
-iguales que para las estadísticas generales. Guardarán por cada iteración
-(fila), las estadísticas (columnas) para el clasificador base concreto.
+\texttt{CLF3(GaussianNB)}). Los valores serán esos <<DataFrames>> que son
+exactamente iguales que para las estadísticas generales. Guardarán por cada
+iteración (fila), las estadísticas (columnas) para el clasificador base
+concreto.
 
 \section{Diseño procedimental}
 
