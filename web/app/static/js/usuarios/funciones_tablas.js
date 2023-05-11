@@ -168,6 +168,30 @@ function fetch_eliminar(ruta, table, row, file, id) {
                 .catch(error => {console.log(error)});
         } else {
             row.remove().draw();
+
+            if ('/datasets/eliminar' === ruta) {
+                let n_uploads = document.getElementById('n_uploads');
+                if (n_uploads !== null) {
+                    n_uploads.innerHTML = (parseInt(n_uploads.innerHTML) - 1).toString();
+                }
+
+                let recent_datasets = document.getElementById('recent_datasets');
+                if (recent_datasets !== null) {
+                    recent_datasets.innerHTML = (parseInt(recent_datasets.innerHTML) - 1).toString();
+                }
+
+            } else if ('/historial/eliminar' === ruta) {
+                let n_runs = document.getElementById('n_runs');
+                if (n_runs !== null) {
+                    n_runs.innerHTML = (parseInt(n_runs.innerHTML) - 1).toString();
+                }
+
+                let recent_runs = document.getElementById('recent_runs');
+                if (recent_runs !== null) {
+                    recent_runs.innerHTML = (parseInt(recent_runs.innerHTML) - 1).toString();
+                }
+            }
+
         }
     })
         .catch(error => console.log(error));
@@ -258,11 +282,6 @@ export function generateDatasetTable(datasets, locale, all_users) {
             btn_eliminar.onclick = function (e) {
                 modal.hide()
                 fetch_eliminar('/datasets/eliminar', table, row, file, id);
-                if (!all_users) {
-                    let n_uploads = document.getElementById('n_uploads');
-                    n_uploads.innerHTML = (parseInt(n_uploads.innerHTML) - 1).toString();
-                }
-
             }
             // Ejecutar
         } else if (event.target.classList.contains('run')) {
