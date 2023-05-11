@@ -60,6 +60,10 @@ body {
     }
 }
 
+.dropdown {
+    z-index: 10000;
+}
+
 .separacion {
     border: none;
     height: 5px;

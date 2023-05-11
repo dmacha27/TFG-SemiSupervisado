@@ -111,6 +111,9 @@ def editar(user_id, redirect_page):
 
     form = UserForm(request.form)
 
+    if current_user.is_admin:
+        form.current_password.validators = []
+
     usuario = User.query.get(int(user_id))
     if not usuario:
         flash(gettext("User doesn't exist"), category='error')
@@ -125,9 +128,10 @@ def editar(user_id, redirect_page):
         current_password = request.form.get('current_password')
         new_password = request.form.get('new_password')
 
-        if not check_password_hash(usuario.password, current_password):
-            form.current_password.errors.append(gettext('Incorrect current password'))
-            errores = True
+        if not current_user.is_admin:
+            if not check_password_hash(usuario.password, current_password):
+                form.current_password.errors.append(gettext('Incorrect current password'))
+                errores = True
 
         check_email = User.query.filter_by(email=new_email).first()
         if check_email and new_email != usuario.email:

@@ -30,17 +30,19 @@
                 </div>
             {% endif %}
         </div>
-        <div class="form-group mt-3 mx-5">
-            {{ form.current_password.label }}
-            {{ form.current_password(class_="form-control") }}
-            {% if form.current_password.errors %}
-                <div class="alert alert-danger text-break">
-                    {% for error in form.current_password.errors %}
-                        {{ error }}<br>
-                    {% endfor %}
-                </div>
-            {% endif %}
-        </div>
+        {% if current_user.is_admin and 'perfil' in request.path or not current_user.is_admin%}
+            <div class="form-group mt-3 mx-5">
+                {{ form.current_password.label }}
+                {{ form.current_password(class_="form-control") }}
+                {% if form.current_password.errors %}
+                    <div class="alert alert-danger text-break">
+                        {% for error in form.current_password.errors %}
+                            {{ error }}<br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
         <div class="form-group mt-3 mx-5">
             {{ form.new_password.label }}
             {{ form.new_password(class_="form-control") }}
