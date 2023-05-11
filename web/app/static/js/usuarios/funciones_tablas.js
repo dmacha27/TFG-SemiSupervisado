@@ -4,19 +4,34 @@ function nombredataset(file) {
 }
 
 let parametros_reales = {
-    "target": "Target attribute",
-    "cx": "X component",
-    "cy": "Y component",
-    "pca": "PCA",
-    "norm": "Normalize",
-    "p_unlabelled": "Unlabelled percentage",
-    "p_test": "Test percentage",
-    "nst": "N",
-    "th": "Threshold",
-    "n_iter": "Number of iterations",
-    "p": "Positives",
-    "nct": "Negatives",
-    "u": "Number of initial data"
+    "en": {
+        "target": "Target attribute",
+        "cx": "X component",
+        "cy": "Y component",
+        "pca": "PCA",
+        "norm": "Normalize",
+        "p_unlabelled": "Unlabelled percentage",
+        "p_test": "Test percentage",
+        "nst": "N",
+        "th": "Threshold",
+        "n_iter": "Number of iterations",
+        "p": "Positives",
+        "nct": "Negatives",
+        "u": "Number of initial data" },
+    "es": {
+        "target": "Atributo clase",
+        "cx": "Componente X",
+        "cy": "Componente Y",
+        "pca": "PCA",
+        "norm": "Normalizar",
+        "p_unlabelled": "Porcentaje de no etiquetados",
+        "p_test": "Porcentaje de test",
+        "nst": "N",
+        "th": "Límite",
+        "n_iter": "Número de iteraciones",
+        "p": "Positivos",
+        "nct": "Negativos",
+        "u": "Número de iteraciones" }
 };
 
 const idiomas = {
@@ -385,9 +400,8 @@ export function generateHistoryTable(historial, locale, all_users) {
                         aux += "ct";
                     }
                 }
-                if (aux in parametros_reales) {
-
-                    readable_json[parametros_reales[aux]] = json[key]
+                if (aux in parametros_reales[locale]) {
+                    readable_json[parametros_reales[locale][aux]] = json[key]
                 } else {
                     readable_json[aux] = json[key];
                 }
