@@ -196,12 +196,15 @@ restricciones son aplicadas de forma intrínseca en el desarrollo.
 
 \imagencontamano{DiagramaCasosDeUso}{Diagrama de casos de uso}{1}
 
-% Caso de Uso 1 -> Visualización de un algoritmo.
+Y a continuación, se detalla la descripción de cada uno de los casos de uso
+representados en el diagrama anterior.
+
+% Caso de Uso 1 -> Visualizar un algoritmo.
 \begin{table}[p]
 	\centering
 	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
 		\toprule
-		\textbf{CU-1}    & \textbf{Visualización de un algoritmo}\\
+		\textbf{CU-1}    & \textbf{Visualizar un algoritmo}\\
 		\toprule
 		\textbf{Versión}              & 1.0    \\
 		\textbf{Autor}                & David Martínez Acha \\
@@ -215,56 +218,586 @@ restricciones son aplicadas de forma intrínseca en el desarrollo.
 			\item Ejecución del Caso de Uso 2.
 			\item Ejecución del Caso de Uso 3.
             \item Ejecución del Caso de Uso 4.
+			\item Ejecución interna del algoritmo, obtención de la información y creación de los gráficos.
             \item El usuario verá en la página los distintos gráficos de su visualización. 
             \item [Opcional] Ejecución del Caso de Uso 5.
 		\end{enumerate}\\
+		\textbf{Extensiones}          & 4a Si el usuario estuviera registrado, toda la información de la ejecución será almacenada. \\
 		\textbf{Postcondición}        & Visualizaciones renderizadas en la Web \\
-		\textbf{Excepciones}          &  \\
+		\textbf{Excepciones}          & \begin{itemize}
+			\item Excepciones de los casos de uso ejecutados controladas por ellos mismos.
+			\item El conjunto de datos tenía atributos nominales (paso 4). En este caso se mostrará un mensaje (en forma de modal) y al cerrarlo volverá al paso 3.
+			\item La ejecución del algoritmo finalizó con excepciones (paso 4), serán capturadas y se volverá al paso 3.
+		\end{itemize}	 \\
 		\textbf{Importancia}          & Alta\\
 		\bottomrule
 	\end{tabularx}
-	\caption{CU-1 Visualización de un algoritmo.}
+	\caption{CU-1 Visualizar un algoritmo.}
 \end{table}
 
-% Caso de Uso 2 -> Selección de algoritmo.
+
+
+% Caso de Uso 2 -> Seleccionar algoritmo.
 \begin{table}[p]
 	\centering
 	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
 		\toprule
-		\textbf{CU-1}    & \textbf{Selección de algoritmo}\\
+		\textbf{CU-2}    & \textbf{Seleccionar algoritmo}\\
 		\toprule
 		\textbf{Versión}              & 1.0    \\
 		\textbf{Autor}                & David Martínez Acha \\
 		\textbf{Requisitos asociados} & RF-1, RF-1.1 \\
-		\textbf{Descripción}          & Seleccionar el algoritmo a ejecutar (establecerlo en la sesión del usuario) \\
-		\textbf{Precondición}         & Ejecutando el Caso de Uso 1 \\
+		\textbf{Descripción}          & Seleccionar el algoritmo a ejecutar (establecerlo en la sesión del usuario). \\
+		\textbf{Precondición}         & Ejecutando el Caso de Uso 1. \\
 		\textbf{Acciones}             &
 		\begin{enumerate}
 			\def\labelenumi{\arabic{enumi}.}
 			\tightlist
 			\item El usuario selecciona un algoritmo haciendo clic en el nombre del algoritmo en la barra de navegación.
+			\item Se redirige al usuario a la página de subida.
 		\end{enumerate}\\
         \textbf{Acciones alternativas}&
 		\begin{enumerate}
 			\def\labelenumi{\arabic{enumi}.}
 			\tightlist
 			\item En caso de encontrarse en la página principal, el usuario
-		puede selecciona un algoritmo haciendo clic en una de las tarjetas de
-		presentación algoritmos. \end{enumerate}\\
-		\textbf{Postcondición}        & Algoritmo almacenado en su sesión y redirección a la página de subida \\
+		puede seleccionar un algoritmo haciendo clic en una de las tarjetas de
+		presentación de algoritmos.
+			\item Se redirige al usuario a la página de subida. \end{enumerate}\\
+		\textbf{Postcondición}        & Algoritmo almacenado en su sesión y redirección a la página de subida. \\
 		\textbf{Excepciones}          & Sin excepciones \\
 		\textbf{Importancia}          & Alta \\
 		\bottomrule
 	\end{tabularx}
-	\caption{CU-3 Selección de algoritmo.}
+	\caption{CU-2 Seleccionar algoritmo.}
 \end{table}
 
-% Caso de Uso X -> Cambiar de idioma.
+% Caso de Uso 3 -> Cargar conjunto de datos.
 \begin{table}[p]
 	\centering
 	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
 		\toprule
-		\textbf{CU-1}    & \textbf{Cambiar idioma}\\
+		\textbf{CU-3}    & \textbf{Cargar conjunto de datos}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & David Martínez Acha \\
+		\textbf{Requisitos asociados} & RF-1, RF-1.2 \\
+		\textbf{Descripción}          & Carga en el sistema de un fichero ARFF o CSV con el conjunto de datos a utilizar. \\
+		\textbf{Precondición}         & Ejecutando el Caso de Uso 1 y haber ejecutado ya el Caso de Uso 2.\\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item [Opcional] El usuario puede descargar un fichero de prueba si no lo tuviera haciendo clic en el botón de descarga.
+			\item El usuario sube un fichero ARFF o CSV en la zona de subida (arrastrando o seleccionando del sistema).
+			\item Una vez que la carga se ha completado, se habilita el botón de configuración.
+			\item El usuario hace clic en dicho botón.
+			\item Se redirige al usuario a la página de configuración.
+		\end{enumerate}\\
+		\textbf{Extensiones}          & 3a Si el usuario estuviera registrado, el fichero será vinculado a su cuenta (en base de datos). \\
+		\textbf{Postcondición}        & Conjunto de datos almacenado en su sesión (y fichero local) y redirección a la página de configuración \\
+		\textbf{Excepciones}          & \begin{itemize}
+			\item El usuario ha accedido a la página de subida sin seleccionar un algoritmo, será redirigido a la página principal (con un mensaje de aviso de esta situación) y se ejecutará el Caso de Uso 2.
+			\item El fichero no es ARFF ni CSV, al hacer clic en el botón, será redirigido a esta misma página (subida) y deberá realizar el caso de uso de nuevo.
+		\end{itemize} \\
+		\textbf{Importancia}          & Alta \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-3 Cargar conjunto de datos.}
+\end{table}
+
+% Caso de Uso 4 -> Configurar algoritmo.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-4}    & \textbf{Configurar algoritmo}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & David Martínez Acha \\
+		\textbf{Requisitos asociados} & RF-1, RF-1.3 \\
+		\textbf{Descripción}          & Parametrización de la ejecución del algoritmo. Cada algoritmo tiene sus propios parámetros (mismo procedimiento). \\
+		\textbf{Precondición}         & Ejecutando el caso de uso 1 y haber ejecutado ya el caso de uso 3. \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario verá el apartado teórico por un lado y el formulario de parámetros por otro.
+			\item El usuario selecciona e introduce los parámetros deseados para la ejecución del algoritmo.
+			\item El usuario hace clic en el botón de ejecución.
+			\item Se redirige al usuario a la página de visualización.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Redirección a la página de visualización \\
+		\textbf{Excepciones}          & \begin{itemize}
+			\item El usuario ha accedido a la página de subida sin seleccionar un algoritmo, será redirigido a la página principal (con un mensaje de aviso de esta situación) y se ejecutará el Caso de Uso 2.
+			\item El usuario ha accedido a la página de configuración sin cargar un conjunto de datos, será redirigido a la página de subida (con un mensaje de aviso de esta situación) y se ejecutará el Caso de Uso 3.
+			\item El usuario sí que ha cargado un conjunto de datos, pero el sistema no puede acceder al fichero. Redirección a página de error, deberá volver a intentar el caso de uso.
+			\item El formulario está incompleto o erróneo. En este caso se bloqueará el envío del formulario indicando qué se debe arreglar.
+		\end{itemize} \\
+		\textbf{Importancia}          & Alta \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-4 Configurar algoritmo.}
+\end{table}
+
+% Caso de Uso 5 -> Controlar visualizaciones.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-5}    & \textbf{Controlar visualizaciones}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & David Martínez Acha \\
+		\textbf{Requisitos asociados} & RF-1, RF-1.4 \\
+		\textbf{Descripción}          & Manipulación de las visualizaciones de forma interactiva. \\
+		\textbf{Precondición}         & Ejecutando el caso de uso 1 y haber ejecutado ya el caso de uso 4. \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario verá la visualización principal así como las estadísticas.
+			\item El usuario puede avanzar o retroceder en las iteraciones del algoritmo.
+			\item El usuario puede realizar \textit{zoom} sobre el gráfico principal así como reiniciarlo.
+			\item El usuario puede ver información particular sobre cada punto en el gráfico principal pasando el ratón por encima de ellos.
+			\item El usuario puede interactuar con los estadísticas.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & El usuario ha podido manejar con libertad los elementos mostrados. \\
+		\textbf{Excepciones}          & Sin excepciones \\
+		\textbf{Importancia}          & Alta \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-5 Controlar visualizaciones.}
+\end{table}
+
+% Caso de Uso 6 -> Registrar.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-6}    & \textbf{Registrar}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & David Martínez Acha \\
+		\textbf{Requisitos asociados} & RF-2, RF-2.1 \\
+		\textbf{Descripción}          & Creación de una cuenta por parte de un usuario anónimo. \\
+		\textbf{Precondición}         & Usuario con rol de anónimo (sin cuenta/sin inicio de sesión). \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario hace clic en el enlace de registro de la barra de navegación.
+			\item Se redirige al usuario a la página de registro.
+			\item Se mostrará un formulario de registro.
+			\item El usuario introduce su nombre.
+			\item El usuario introduce su correo electrónico (\textit{email}).
+			\item El usuario introduce una contraseña.
+			\item El usuario introduce la contraseña del paso anterior repetida (confirmación).
+            \item El usuario hace clic en el botón de envío.
+			\item Se redirige al usuario a la página principal con sesión iniciada.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & El usuario ha sido registrado en el sistema (base de datos) y se encuentra con sesión iniciada. \\
+		\textbf{Excepciones}          & \begin{itemize}
+			\item Un campo del formulario no se ha rellenado. Se impedirá enviar el formulario instando al usuario a completar todos los campos.
+			\item El \texttt{email} ya tiene una cuenta registrada. Se mostrará un mensaje de error debajo del campo.
+			\item La contraseña de confirmación no es la misma. Se mostrará un mensaje de error debajo del campo.
+		\end{itemize}\\
+		\textbf{Importancia}          & Media \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-6 Registrar.}
+\end{table}
+
+% Caso de Uso 7 -> Iniciar de sesión.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-7}    & \textbf{Iniciar de sesión}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & David Martínez Acha \\
+		\textbf{Requisitos asociados} & RF-2, RF-2.2 \\
+		\textbf{Descripción}          & Inicio de sesión en la aplicación. \\
+		\textbf{Precondición}         & Usuario con rol de anónimo. \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario hace clic en el enlace de inicio de sesión de la barra de navegación.
+			\item Se redirige al usuario a la página de inicio de sesión.
+			\item Se mostrará un formulario de inicio de sesión.
+			\item El usuario introduce su correo electrónico (\textit{email}).
+			\item El usuario introduce su contraseña.
+            \item El usuario hace clic en el botón de envío.
+			\item Se redirige al usuario a la página principal.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & El usuario ha iniciado sesión y se encuentra en la página principal. \\
+		\textbf{Excepciones}          & \begin{itemize}
+			\item Un campo no se ha rellenado. Se impedirá el envío del formulario instando al usuario a completar todos los campos.
+			\item El \texttt{email} no está en el sistema. Se mostrará un mensaje de error debajo del campo.
+			\item La contraseña no coincide con la almacenada. Se mostrará un mensaje de error debajo del campo.
+		\end{itemize}\\
+		\textbf{Importancia}          & Media \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-7 Iniciar de sesión.}
+\end{table}
+
+% Caso de Uso 8 -> Cerrar sesión.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-8}    & \textbf{Cerrar sesión}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & David Martínez Acha \\
+		\textbf{Requisitos asociados} & RF-2, RF-2.3 \\
+		\textbf{Descripción}          & Cerrar sesión en la aplicación \\
+		\textbf{Precondición}         & Usuario con sesión iniciada. \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario hace clic en su nombre usuario en la barra de navegación.
+			\item El usuario hace clic en <<Cerrar sesión>> en el desplegable mostrado.
+			\item Se redirige al usuario a la página principal y ya no tiene sesión iniciada.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & El usuario ya no tiene sesión y se encuentra en la página principal. \\
+		\textbf{Excepciones}          & Sin excepciones \\
+		\textbf{Importancia}          & Media \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-8 Iniciar de sesión.}
+\end{table}
+
+% Caso de Uso 9 -> Personalizar perfil.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-9}    & \textbf{Personalizar perfil}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & David Martínez Acha \\
+		\textbf{Requisitos asociados} & RF-3 \\
+		\textbf{Descripción}          & Edición de los datos personales del usuario. \\
+		\textbf{Precondición}         & Usuario con sesión iniciada. \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario hace clic en su nombre usuario en la barra de navegación.
+			\item El usuario hace clic en <<Perfil>> en el desplegable mostrado.
+			\item Se redirige al usuario a la página de su perfil.
+			\item Se mostrará un formulario de edición.
+			\item El usuario modifica su nombre, \textit{email} y contraseña (cada uno de manera opcional).
+			\item El usuario introduce su contraseña actual.
+			\item El usuario hace clic en el botón de envío.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Los datos del usuario se han actualizado en la base de datos y mantiene su sesión. \\
+		\textbf{Excepciones}          & \begin{itemize}
+			\item No se ha introducido contraseña actual. En este caso, se impedirá el envío del formulario instando al usuario a rellenar ese campo.
+			\item El \texttt{email} ha sido modificado y el nuevo ya está en el sistema. En este caso, se mostrará un mensaje de error debajo del campo.
+			\item La contraseña actual no coincide con la almacenada. En este caso, se mostrará un mensaje de error debajo del campo y no se modificarán los datos.
+		\end{itemize}\\
+		\textbf{Importancia}          & Baja \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-9 Personalizar perfil.}
+\end{table}
+
+% Caso de Uso 10 -> Acceder espacio personal.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-10}    & \textbf{Acceder espacio personal}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & David Martínez Acha \\
+		\textbf{Requisitos asociados} & RF-4, RF-4.1, RF-4.2 \\
+		\textbf{Descripción}          & Acceso a al espacio personal del usuario donde visualizar sus conjuntos de datos y ejecuciones realizadas anteriormente. \\
+		\textbf{Precondición}         & Usuario con sesión iniciada. \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario hace clic en su nombre usuario en la barra de navegación.
+			\item El usuario hace clic en <<Mi Espacio>> en el desplegable mostrado.
+			\item Se redirige al usuario a la página del espacio personal.
+			\item Se mostrarán las tablas de sus conjuntos de datos y sus ejecuciones realizadas.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & El usuario puede visualizar sus conjuntos de datos subidos y sus ejecuciones. \\
+		\textbf{Excepciones}          & Los datos no pueden recuperarse de la base de datos, se mostrará el error para después volver a la página principal\\
+		\textbf{Importancia}          & Media \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-10 Acceder espacio personal.}
+\end{table}
+
+
+% Caso de Uso 11 -> Ejecutar conjunto de datos.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-11}    & \textbf{Ejecutar conjunto de datos}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & David Martínez Acha \\
+		\textbf{Requisitos asociados} & RF-4.1.1 \\
+		\textbf{Descripción}          & Utilizar un conjunto de datos subido para ejecutar uno de los algoritmos. \\
+		\textbf{Precondición}         & Encontrarse en el espacio personal (caso de uso 9). \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario decide qué conjunto de datos utilizar.
+			\item El usuario pulsa en el botón con el símbolo \textit{play}.
+			\item Se mostrará un <<modal>> con los algoritmos.
+			\item El usuario hace clic en uno de los algoritmos.
+			\item Se redirige al usuario a la página de configuración del algoritmo.
+			\item Ejecutar caso de uso 1 desde el paso 3.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & El usuario ha sido redirigido a la configuración del algoritmo seleccionado. El sistema muestra además el fichero seleccionado. \\
+		\textbf{Excepciones}          & Sin excepciones \\
+		\textbf{Importancia}          & Media \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-11 Ejecutar conjunto de datos.}
+\end{table}
+
+% Caso de Uso 12 -> Replicar ejecución.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-12}    & \textbf{Replicar ejecución}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & David Martínez Acha \\
+		\textbf{Requisitos asociados} & RF-4.2.1 \\
+		\textbf{Descripción}          & Ejecutar de nuevo una ejecución previa exactamente como ocurrió. \\
+		\textbf{Precondición}         & Encontrarse en el espacio personal (caso de uso 9). \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario decide qué ejecución replicar.
+			\item El usuario pulsa en el botón con el símbolo de \textit{refresh}.
+			\item Se redirige al usuario directamente a la página de visualización del algoritmo.
+			\item Ejecutar el caso de uso 1 desde el paso 4.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & El usuario ha sido redirigido a la visualización de la ejecución (del algoritmo). \\
+		\textbf{Excepciones}          & Sin excepciones (ver excepciones del caso de uso 1)\\
+		\textbf{Importancia}          & Media \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-12 Replicar ejecución.}
+\end{table}
+
+% Caso de Uso 13 -> Acceder panel de administración.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-13}    & \textbf{Acceder panel de administración}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & David Martínez Acha \\
+		\textbf{Requisitos asociados} & RF-5, RF-5.1, RF-5.1.3, RF-5.2, RF-5.2.2, RF-5.3, RF-5.3.2\\
+		\textbf{Descripción}          & Acceso a al panel de administración del usuario con rol de administrador donde visualizar 
+		todos los usuarios, los conjuntos de datos y ejecuciones realizadas.\\
+		\textbf{Precondición}         & Usuario con sesión iniciada con rol de administrador. \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El administrador hace clic en su nombre usuario en la barra de navegación.
+			\item El administrador hace clic en <<Panel de administración>> en el desplegable mostrado.
+			\item Se redirige al administrador a la página del panel de administración (\textit{dashboard}).
+			\item Se mostrarán las tablas de los usuarios, conjuntos de datos y ejecuciones realizadas (de todos los usuarios).
+			\item Se mostrarán estadísticas básicas:
+			\begin{itemize}
+				\item Número total de usuarios.
+				\item Ficheros (conjuntos de datos) subidos en los últimos 7 días.
+				\item Ejecuciones realizadas en los últimos 7 días.
+			\end{itemize}
+		\end{enumerate}\\
+		\textbf{Postcondición}        & El administrador tiene una vista global de todas las tablas sus estadísticas básicas. \\
+		\textbf{Excepciones}          & Los datos no pueden recuperarse de la base de datos, se mostrará el error para después volver a la página principal\\
+		\textbf{Importancia}          & Media \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-13 Acceder panel de administración.}
+\end{table}
+
+% Caso de Uso 14 -> Eliminar conjunto de datos.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-14}    & \textbf{Eliminar conjunto de datos}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & David Martínez Acha \\
+		\textbf{Requisitos asociados} & RF-4.1.2, RF-5.1.2 \\
+		\textbf{Descripción}          & Eliminar un conjunto de datos (fichero) del sistema. \\
+		\textbf{Precondición}         & Encontrarse en el espacio personal (caso de uso 9) o, si tiene rol de administrador, en el panel de administración (caso de uso 12). \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario decide qué conjunto de datos eliminar sobre la tabla de conjuntos de datos.
+			\item El usuario pulsa en el botón rojo con el símbolo de \textit{papelera}  en esa fila.
+			\item Se mostrará un <<modal>> para confirmar la operación.
+			\item El usuario confirma la operación.
+			\item El fichero se ha eliminado y ha desaparecido de la tabla.
+		\end{enumerate}\\
+		\textbf{Acciones alternativas}&
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario decide qué conjunto de datos eliminar.
+			\item El usuario pulsa en el botón rojo con el símbolo de \textit{papelera}.
+			\item Se mostrará un <<modal>> para confirmar la operación.
+			\item El usuario cancela la operación.
+			\item Todo se encuentra en el mismo estado que al iniciar el caso de uso.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Si el usuario ha decidido eliminar el fichero, la fila ha sido eliminada y el fichero ha sido borrado del sistema junto con su referencia en la base de datos. 
+		En caso contrario, todo se encuentra como al principio.\\
+		\textbf{Excepciones}          & No ha sido posible eliminar el fichero (sistema y/o base de datos). En este caso se muestra un mensaje de error para informar al usuario. \\
+		\textbf{Importancia}          & Media \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-14 Eliminar conjunto de datos.}
+\end{table}
+
+% Caso de Uso 15 -> Eliminar ejecución.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-15}    & \textbf{Eliminar ejecución}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & David Martínez Acha \\
+		\textbf{Requisitos asociados} & RF-4.2.2, RF-5.2.2 \\
+		\textbf{Descripción}          & Eliminar una ejecución previa del sistema. \\
+		\textbf{Precondición}         & Encontrarse en el espacio personal (caso de uso 9) o, si tiene rol de administrador, en el panel de administración (caso de uso 12). \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario decide qué ejecución eliminar sobre la tabla de ejecuciones.
+			\item El usuario pulsa en el botón rojo con el símbolo de \textit{papelera} en esa fila.
+			\item Se mostrará un <<modal>> para confirmar la operación.
+			\item El usuario confirma la operación.
+			\item La ejecución se ha eliminado y ha desaparecido de la tabla.
+		\end{enumerate}\\
+		\textbf{Acciones alternativas}&
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario decide qué ejecución eliminar sobre la tabla de ejecuciones.
+			\item El usuario pulsa en el botón rojo con el símbolo de \textit{papelera} en esa fila.
+			\item Se mostrará un <<modal>> para confirmar la operación.
+			\item El usuario cancela la operación.
+			\item Todo se encuentra en el mismo estado que al iniciar el caso de uso.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Si el usuario ha decidido eliminar la ejecución, la fila ha sido eliminada y los datos de la ejecución han sido borrados del sistema junto con su referencia en la base de datos. 
+		En caso contrario, todo se encuentra como al principio.\\
+		\textbf{Excepciones}          & No ha sido posible eliminar la ejecución (sistema y/o base de datos). En este caso se muestra un mensaje de error para informar al usuario. \\
+		\textbf{Importancia}          & Media \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-15 Eliminar ejecución.}
+\end{table}
+
+% Caso de Uso 16 -> Editar perfil ajeno.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-16}    & \textbf{Editar perfil ajeno}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & David Martínez Acha \\
+		\textbf{Requisitos asociados} & RF-5.1.1 \\
+		\textbf{Descripción}          & Edición de los datos personales de cualquier usuario del sistema. \\
+		\textbf{Precondición}         & Encontrarse en el panel de administración (caso de uso 12). \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El administrador decide qué usuario editar.
+			\item El administrador pulsa en el botón verde con el símbolo de \textit{lápiz} en esa fila.
+			\item Se redirige a la página de personalización del perfil.
+			\item Se muestra al administrador el punto de vista del usuario que se está editando con un indicativo.
+			\item El administrador modifica los campos que desee del usuario.
+			\item El administrador envía el formulario.
+			\item Se actualizan los datos del usuario.
+			\item Se redirige al administrador al panel de administrador.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Los datos del usuario se han actualizado en la base de datos y el administrador se encuentra en el panel de administrador. \\
+		\textbf{Excepciones}          & \begin{itemize}
+			\item El \texttt{email} ha sido modificado y el nuevo ya está en el sistema. En este caso, se mostrará un mensaje de error debajo del campo.
+		\end{itemize}\\
+		\textbf{Importancia}          & Baja \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-16 Editar perfil ajeno.}
+\end{table}
+
+% Caso de Uso 17 -> Eliminar usuario.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-17}    & \textbf{Eliminar usuario}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & David Martínez Acha \\
+		\textbf{Requisitos asociados} & RF-5.1.2 \\
+		\textbf{Descripción}          & Eliminar un usuario del sistema. \\
+		\textbf{Precondición}         & Encontrarse en el panel de administración (caso de uso 12). \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario decide qué usuario eliminar sobre la tabla de usuarios.
+			\item El usuario pulsa en el botón rojo con el símbolo de \textit{papelera} en esa fila.
+			\item Se mostrará un <<modal>> para confirmar la operación.
+			\item El usuario confirma la operación.
+			\item La ejecución se ha eliminado y ha desaparecido de la tabla.
+		\end{enumerate}\\
+		\textbf{Acciones alternativas}&
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario decide qué usuario eliminar sobre la tabla de ejecuciones.
+			\item El usuario pulsa en el botón rojo con el símbolo de \textit{papelera} en esa fila.
+			\item Se mostrará un <<modal>> para confirmar la operación.
+			\item El usuario cancela la operación.
+			\item Todo se encuentra en el mismo estado que al iniciar el caso de uso.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Si el usuario ha decidido eliminar el usuario, la fila ha sido eliminada y los datos del usuario (incluidos ficheros y ejecuciones) han sido borrados del sistema junto con su referencia en la base de datos. 
+		En caso contrario, todo se encuentra como al principio.\\
+		\textbf{Excepciones}          & No ha sido posible eliminar el usuario (sistema y/o base de datos). En este caso se muestra un mensaje de error para informar al administrador. \\
+		\textbf{Importancia}          & Media \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-17 Eliminar usuario.}
+\end{table}
+
+% Caso de Uso 18 -> Cambiar idioma.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-18}    & \textbf{Cambiar idioma}\\
 		\toprule
 		\textbf{Versión}              & 1.0    \\
 		\textbf{Autor}                & David Martínez Acha \\
@@ -284,5 +817,5 @@ restricciones son aplicadas de forma intrínseca en el desarrollo.
 		\textbf{Importancia}          & Baja \\
 		\bottomrule
 	\end{tabularx}
-	\caption{CU-1 Cambiar idioma.}
+	\caption{CU-18 Cambiar idioma.}
 \end{table}
