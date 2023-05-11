@@ -3,6 +3,22 @@ function nombredataset(file) {
     return file.split('-').slice(0, -1).join('-');
 }
 
+let parametros_reales = {
+    "target": "Target attribute",
+    "cx": "X component",
+    "cy": "Y component",
+    "pca": "PCA",
+    "norm": "Normalize",
+    "p_unlabelled": "Unlabelled percentage",
+    "p_test": "Test percentage",
+    "nst": "N",
+    "th": "Threshold",
+    "n_iter": "Number of iterations",
+    "p": "Positives",
+    "nct": "Negatives",
+    "u": "Number of initial data"
+};
+
 const idiomas = {
     "en": {
         "decimal":        "",
@@ -355,11 +371,31 @@ export function generateHistoryTable(historial, locale, all_users) {
             let row_data = row.data();
 
             let json = JSON.parse(row_data[3]);
-            console.log(json)
             let modal = new bootstrap.Modal(document.getElementById('modal_parametros'));
             modal.show();
 
-            document.getElementById("json_parameters").innerHTML = JSON.stringify(json, null, "  ");
+            let readable_json = {}
+            for (let key of Object.keys(json)) {
+                let aux = key;
+                if (key === "n") {
+                    if (row_data[0] === "selftraining") {
+
+                        aux += "st";
+                    } else if (row_data[0] === "cotraining") {
+                        aux += "ct";
+                    }
+                }
+                if (aux in parametros_reales) {
+
+                    readable_json[parametros_reales[aux]] = json[key]
+                } else {
+                    readable_json[aux] = json[key];
+                }
+            }
+
+            document.getElementById("json_parameters").innerHTML = JSON.stringify(readable_json, null, "  ");
+
+
 
         }
     });
