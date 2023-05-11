@@ -25,10 +25,13 @@ async function inicializar(rutadatos, elementos) {
                     resolve(datos);
                 } else {
                     document.getElementById("div_cargando").remove();
-                    let error = JSON.parse(xhr.responseText).error;
+                    let respuesta = JSON.parse(xhr.responseText);
                     let error_modal = new bootstrap.Modal(document.getElementById('modal_error'));
                     error_modal.show();
-                    document.getElementById('error_text').innerText = error;
+                    if (respuesta.status === "warning") {
+                        document.getElementById('titulo_error').innerText = traducir('Warning');
+                    }
+                    document.getElementById('error_text').innerText = respuesta.error;
                     document.getElementById('btn_error_close').addEventListener('click', function () {
                         history.back();
                     })

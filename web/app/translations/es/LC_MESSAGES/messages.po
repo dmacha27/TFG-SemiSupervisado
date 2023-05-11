@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-05-09 19:25+0200\n"
+"POT-Creation-Date: 2023-05-11 17:23+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -145,7 +145,8 @@ msgid "Come back soon!"
 msgstr "¡Vuelve pronto!"
 
 #: user_routes.py:40
-msgid "Loging successful!"
+#, fuzzy
+msgid "Logging successful!"
 msgstr "¡Inicio de sesión correcto!"
 
 #: user_routes.py:48
@@ -184,42 +185,42 @@ msgstr "¡Cuenta actualizada!"
 msgid "You must select the parameters of the algorithm"
 msgstr "Debe seleccionar los parámetros del algoritmo"
 
-#: templates/base.html:69 templates/usuarios/admin.html:12
+#: templates/base.html:70 templates/usuarios/admin.html:12
 #: templates/usuarios/admin.html:17
 msgid "Admin dashboard"
 msgstr "Panel de administración"
 
-#: templates/base.html:71 templates/usuarios/miespacio.html:12
+#: templates/base.html:72 templates/usuarios/miespacio.html:12
 #: templates/usuarios/miespacio.html:13
 msgid "My Space"
 msgstr "Mi Espacio"
 
-#: templates/base.html:72 templates/usuarios/base_user.html:21
+#: templates/base.html:73 templates/usuarios/base_user.html:21
 msgid "Profile"
 msgstr "Perfil"
 
-#: templates/base.html:74
+#: templates/base.html:75
 msgid "Log Out"
 msgstr "Cerrar sesión"
 
-#: templates/base.html:80 templates/usuarios/registro.html:2
+#: templates/base.html:81 templates/usuarios/registro.html:2
 #: templates/usuarios/registro.html:3
 msgid "Sign Up"
 msgstr "Registrarse"
 
-#: templates/base.html:83
+#: templates/base.html:84
 msgid "Login"
 msgstr "Iniciar sesión"
 
-#: templates/base.html:102
+#: templates/base.html:103
 msgid "Success"
 msgstr "Éxito"
 
-#: templates/base.html:106
+#: templates/base.html:107 templates/visualizacion/base_visualizacion.html:100
 msgid "Warning"
 msgstr "Advertencia"
 
-#: templates/base.html:112
+#: templates/base.html:113
 msgid "just now"
 msgstr "justo ahora"
 

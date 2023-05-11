@@ -28,15 +28,20 @@ def datosselftraining():
     n = int(request.form['n'])
     th = float(request.form['th'])
 
-    st = SelfTraining(
-        clf=obtener_clasificador(clasificador, obtener_parametros_clasificador(clasificador, "clasificador1")),
-        n=n if n != -1 else None,
-        th=th if th != -1 else None,
-        n_iter=int(request.form['n_iter']))
-
     try:
+        st = SelfTraining(
+            clf=obtener_clasificador(clasificador, obtener_parametros_clasificador(clasificador, "clasificador1")),
+            n=n if n != -1 else None,
+            th=th if th != -1 else None,
+            n_iter=int(request.form['n_iter']))
+
         info = obtener_info(st)
     except ValueError as e:
+        return jsonify({
+            "status": "warning",
+            "error": str(e)
+        }), 500
+    except Exception as e:
         return jsonify({
             "status": "error",
             "error": str(e)
@@ -49,21 +54,28 @@ def datosselftraining():
 def datoscotraining():
     clasificador1 = request.form['clasificador1']
     clasificador2 = request.form['clasificador2']
-    ct = CoTraining(
-        clf1=obtener_clasificador(clasificador1, obtener_parametros_clasificador(clasificador1, "clasificador1")),
-        clf2=obtener_clasificador(clasificador2, obtener_parametros_clasificador(clasificador2, "clasificador2")),
-        p=int(request.form['p']),
-        n=int(request.form['n']),
-        u=int(request.form['u']),
-        n_iter=int(request.form['n_iter']))
 
     try:
+        ct = CoTraining(
+            clf1=obtener_clasificador(clasificador1, obtener_parametros_clasificador(clasificador1, "clasificador1")),
+            clf2=obtener_clasificador(clasificador2, obtener_parametros_clasificador(clasificador2, "clasificador2")),
+            p=int(request.form['p']),
+            n=int(request.form['n']),
+            u=int(request.form['u']),
+            n_iter=int(request.form['n_iter']))
+
         info = obtener_info(ct)
     except ValueError as e:
+        return jsonify({
+            "status": "warning",
+            "error": str(e)
+        }), 500
+    except Exception as e:
         return jsonify({
             "status": "error",
             "error": str(e)
         }), 500
+
     return json.dumps(info)
 
 
@@ -75,15 +87,19 @@ def datossingleview(is_democratic):
     clf1 = obtener_clasificador(clasificador1, obtener_parametros_clasificador(clasificador1, "clasificador1"))
     clf2 = obtener_clasificador(clasificador2, obtener_parametros_clasificador(clasificador2, "clasificador2"))
     clf3 = obtener_clasificador(clasificador3, obtener_parametros_clasificador(clasificador3, "clasificador3"))
-
-    if is_democratic:
-        svclf = DemocraticCoLearning([clf1, clf2, clf3])
-    else:
-        svclf = TriTraining([clf1, clf2, clf3])
-
     try:
+        if is_democratic:
+            svclf = DemocraticCoLearning([clf1, clf2, clf3])
+        else:
+            svclf = TriTraining([clf1, clf2, clf3])
+
         info = obtener_info(svclf)
     except ValueError as e:
+        return jsonify({
+            "status": "warning",
+            "error": str(e)
+        }), 500
+    except Exception as e:
         return jsonify({
             "status": "error",
             "error": str(e)
