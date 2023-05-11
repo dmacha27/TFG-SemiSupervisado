@@ -54,7 +54,7 @@ def visualizar_algoritmo_json(algoritmo, run_id):
         abort(401)
 
     session['ALGORITMO'] = algoritmo
-    session['FICHERO'] = os.path.join(current_app.config['CARPETA_DATASETS'], run.filename)
+    session['FICHERO'] = os.path.join(current_app.config['CARPETA_DATASETS_REGISTRADOS'], run.filename)
 
     with open(os.path.join(current_app.config['CARPETA_RUNS'], run.jsonfile)) as f:
         json_data = json.load(f)

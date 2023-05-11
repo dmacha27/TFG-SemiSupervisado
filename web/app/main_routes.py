@@ -40,7 +40,7 @@ def seleccionar_algoritmo_ejecutar(algoritmo, fichero):
         abort(401)
 
     session['ALGORITMO'] = algoritmo
-    session['FICHERO'] = os.path.join(current_app.config['CARPETA_DATASETS'], fichero)
+    session['FICHERO'] = os.path.join(current_app.config['CARPETA_DATASETS_REGISTRADOS'], fichero)
     return redirect(url_for('configuration_bp.configurar_algoritmo', algoritmo=algoritmo))
 
 
@@ -66,8 +66,13 @@ def subida():
             return redirect(request.url)
         if file_received:
             filename = secure_filename(file_received.filename) + "-" + str(int(datetime.now().timestamp()))
-            complete_path = os.path.join(current_app.config['CARPETA_DATASETS'], filename)
-            session['FICHERO'] = os.path.join(current_app.config['CARPETA_DATASETS'], filename)
+            if current_user.is_authenticated:
+                complete_path = os.path.join(current_app.config['CARPETA_DATASETS_REGISTRADOS'], filename)
+                session['FICHERO'] = os.path.join(current_app.config['CARPETA_DATASETS_REGISTRADOS'], filename)
+            else:
+                complete_path = os.path.join(current_app.config['CARPETA_DATASETS_ANONIMOS'], filename)
+                session['FICHERO'] = os.path.join(current_app.config['CARPETA_DATASETS_ANONIMOS'], filename)
+
             file_received.save(complete_path)
 
             # Si está logeado, se puede guardar el fichero en base de datos

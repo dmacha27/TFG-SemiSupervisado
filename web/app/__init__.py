@@ -24,7 +24,12 @@ def create_app():
     app.secret_key = "ae4c977b14e2ecf38d485869018ec8f924b312132ee3d11d1ce755cdff9bc0af"
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     app.config.update(SESSION_COOKIE_SAMESITE='Strict')
-    app.config['CARPETA_DATASETS'] = os.path.join(os.path.basename(os.path.dirname(__file__)), 'datasets')
+    app.config['CARPETA_DATASETS_REGISTRADOS'] = os.path.join(os.path.basename(os.path.dirname(__file__)),
+                                                              'datasets',
+                                                              'registrados')
+    app.config['CARPETA_DATASETS_ANONIMOS'] = os.path.join(os.path.basename(os.path.dirname(__file__)),
+                                                           'datasets',
+                                                           'anonimos')
     app.config['CARPETA_RUNS'] = os.path.join(os.path.basename(os.path.dirname(__file__)), 'runs')
     app.config['ALGORITMOS_SELECCIONABLES'] = ["selftraining", "cotraining", "democraticcolearning", "tritraining"]
     db.init_app(app)

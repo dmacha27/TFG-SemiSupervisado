@@ -22,6 +22,8 @@ main_bp_inicio = 'main_bp.inicio'
 @login_required
 def logout():
     logout_user()
+    session.pop('ALGORITMO', None)
+    session.pop('FICHERO', None)
     flash(gettext('Come back soon!'), category='')
     return redirect(url_for(main_bp_inicio))
 
@@ -223,7 +225,7 @@ def eliminar_dataset():
     try:
         Dataset.query.filter(Dataset.filename == json_request['fichero']).delete()
         db.session.commit()
-        os.remove(os.path.join(current_app.config['CARPETA_DATASETS'], json_request['fichero']))
+        os.remove(os.path.join(current_app.config['CARPETA_DATASETS_REGISTRADOS'], json_request['fichero']))
         session.pop('ALGORITMO', None)
         session.pop('FICHERO', None)
     except Exception as e:
@@ -367,7 +369,7 @@ def eliminar_usuario():
         db.session.commit()
 
         for filename in datasets_filenames:
-            os.remove(os.path.join(current_app.config['CARPETA_DATASETS'], filename))
+            os.remove(os.path.join(current_app.config['CARPETA_DATASETS_REGISTRADOS'], filename))
 
         for filename in runs_filenames:
             os.remove(os.path.join(current_app.config['CARPETA_RUNS'], filename))
