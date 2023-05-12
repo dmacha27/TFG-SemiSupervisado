@@ -21,7 +21,7 @@ class RegistrationForm(FlaskForm):
     password = PasswordField(lazy_gettext('Password'),
                              name="password",
                              id="password",
-                             validators=[DataRequired()],
+                             validators=[DataRequired(), Length(min=8)],
                              render_kw={"placeholder": lazy_gettext('Password')})
 
     confirm_password = PasswordField(lazy_gettext('Confirm password'),
@@ -54,12 +54,13 @@ class UserForm(FlaskForm):
     current_password = PasswordField(lazy_gettext('Current password'),
                                      name="current_password",
                                      id="current_password",
-                                     validators=[DataRequired()],
+                                     validators=[DataRequired(), Length(min=8)],
                                      render_kw={"placeholder": lazy_gettext('Current password')})
 
     new_password = PasswordField(lazy_gettext('New password'),
                                  name="new_password",
                                  id="new_password",
+                                 validators=[Length(min=8)],
                                  render_kw={"placeholder": lazy_gettext('New password')})
 
 

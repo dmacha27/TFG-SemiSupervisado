@@ -88,7 +88,7 @@ def create_app():
         if not admin:
             admin = User()
             admin.name = 'Admin'
-            admin.password = 'sha256$zEFcUwahChTyfiye$69259df8a304fcb9704e0cc0226b2b32f342f341f7a9f9e6aa5037c0a25b8fa3'
+            admin.password = 'sha256$c1Z5RKttVOGiVMVX$36f02e0dc282437fbe547ad0efdf02b94479ec7f0cd310a31fe2b3b7d06dd62a'
             admin.email = 'admin@admin.es'
             admin.admin = True
             db.session.add(admin)

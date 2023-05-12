@@ -4,7 +4,7 @@
     {{ super() }}
     <meta name="csrf-token" content="{{ csrf_token() }}">
 {% endblock %}
-{% block title %}{{ gettext('Dataset selection') }}{% endblock %}
+{% block title %}{{ gettext('Dataset upload') }}{% endblock %}
 {% block content %}
     <button id="btn_volver" type="button" onclick="history.back()" class="btn sticky-top">
         <i class="bi bi-caret-left-fill"></i>{{ gettext('Go back') }}</button>| {{ gettext('Algorithm') }}: {{ titulos[session['ALGORITMO']] }}

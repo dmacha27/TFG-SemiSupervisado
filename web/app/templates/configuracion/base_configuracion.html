@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {%  from "macros.html" import formulario_comun %}
-{% block title %}{{ gettext('Run configuration') }}{% endblock %}
+{% block title %}{{ gettext('Algorithm configuration') }}{% endblock %}
 {% block content %}
     <button id="btn_volver" type="button" onclick="history.back()" class="btn sticky-top">
         <i class="bi bi-caret-left-fill"></i>{{ gettext('Go back') }}</button>| {{ gettext('Dataset') }}: {{ session['FICHERO']|nombredataset }}
