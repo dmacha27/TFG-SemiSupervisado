@@ -77,10 +77,20 @@ Estos son los directorios en los que se organiza el proyecto:
             contiene (durante el funcionamiento de la aplicación) todos los conjuntos de
             datos que los usuarios introducen{.}\\
         \end{minipage}.
+        .4 \textbf{anonimos}: \begin{minipage}[t]{8cm}
+            conjuntos de datos subidos por los usuarios anónimos{.}\\
+        \end{minipage}.
+        .4 \textbf{registrados}: \begin{minipage}[t]{8cm}
+            conjuntos de datos subidos por los usuarios registrados{.}\\
+        \end{minipage}.
         .4 \textbf{seleccionar}: \begin{minipage}[t]{8cm}
             conjuntos de datos para seleccionar de prueba, principalmente
             durante el desarrollo de la aplicación{.} También almacena el fichero de
             prueba que los usuarios pueden descargar{.}\\
+        \end{minipage}.
+        .3 \textbf{runs}: \begin{minipage}[t]{8cm}
+            contiene las ejecuciones de los algoritmos en formato JSON, 
+            solo de los usuarios registrados{.}\\
         \end{minipage}.
         .3 \textbf{static}: \begin{minipage}[t]{10cm}
             ficheros estáticos que utiliza la aplicación Web: CSS,
@@ -101,18 +111,6 @@ Estos son los directorios en los que se organiza el proyecto:
         .5 \textbf{visualizacion}: \begin{minipage}[t]{10cm}
             ficheros JavaScript encargados de la inicialización y generación de los gráficos en la visualización (gráfico principal y estadísticas){.}\\
         \end{minipage}.
-        .4 \textbf{json}: \begin{minipage}[t]{10cm}
-            ficheros JSON{.}\\
-        \end{minipage}.
-        .4 \textbf{pseudocodigos}: \begin{minipage}[t]{10cm}
-            imágenes de los pseudocódigos{.}\\
-        \end{minipage}.
-        .5 \textbf{en}: \begin{minipage}[t]{10cm}
-            imágenes de los pseudocódigos en inglés{.}\\
-        \end{minipage}.
-        .5 \textbf{es}: \begin{minipage}[t]{10cm}
-            imágenes de los pseudocódigos en español{.}\\
-        \end{minipage}.
     }
 \end{figure}
 
@@ -125,6 +123,28 @@ Estos son los directorios en los que se organiza el proyecto:
         .2 \textbf{app}: \begin{minipage}[t]{10cm} contiene la
         definición de las rutas, modelos de la base de datos y la
         \texttt{Application Factory} que instancia la aplicación{.}\\
+        \end{minipage}.
+        .3 \textbf{static}: \begin{minipage}[t]{10cm}
+            ficheros estáticos que utiliza la aplicación Web: CSS,
+            Javascript, JSON o imágenes{.}\\
+        \end{minipage}.
+        .4 \textbf{css}: \begin{minipage}[t]{10cm}
+            ficheros CSS{.}\\
+        \end{minipage}.
+        .4 \textbf{js}: \begin{minipage}[t]{10cm}
+            ficheros JavaScript{.}\\
+        \end{minipage}.
+        .4 \textbf{json}: \begin{minipage}[t]{10cm}
+            ficheros JSON{.}\\
+        \end{minipage}.
+        .4 \textbf{pseudocodigos}: \begin{minipage}[t]{10cm}
+            imágenes de los pseudocódigos{.}\\
+        \end{minipage}.
+        .5 \textbf{en}: \begin{minipage}[t]{10cm}
+            imágenes de los pseudocódigos en inglés{.}\\
+        \end{minipage}.
+        .5 \textbf{es}: \begin{minipage}[t]{10cm}
+            imágenes de los pseudocódigos en español{.}\\
         \end{minipage}.
         .3 \textbf{templates}: \begin{minipage}[t]{10cm}
             plantillas HTML (Jinja2) que renderiza la aplicación Web
@@ -149,8 +169,8 @@ Estos son los directorios en los que se organiza el proyecto:
 \end{figure}
 
 \section{Manual del programador}
-El objetivo de este manual es dar el conocimiento necesario para continuarlo al 
-lector/desarrollador que comience a trabajar con este proyecto. Se ha de
+El objetivo de este manual es dar el conocimiento necesario al 
+lector/desarrollador que comience a trabajar con este proyecto para continuarlo . Se ha de
 tener en cuenta que lo descrito a continuación es lo que se ha estado utilizando 
 para el entorno desarrollo inicial y será explicado para este (sin limitación, por ejemplo,
 a usar otras herramientas).
@@ -352,9 +372,9 @@ inicio. Para incorporarlos al flujo, esto se hace incorporándolos a la selecci�
 comentado, el usuario tiene un paso de configuración del mismo. Esto se realiza
 mediante un formulario. Para crear uno (WTForm), se debe crear su objeto
 correspondiente en <<forms.py>> con los campos necesarios. Hasta el momento, los
-que hay implementados tienen una parte en común que está definida en la clase
-<<\texttt{FormConfiguracionBase}>> y en prinicpio, si se añade uno nuevo, deberá
-extender dicha clase.
+algoritmos que hay implementados tienen una parte en común que está definida en
+la clase <<\texttt{FormConfiguracionBase}>> y en prinicpio, si se añade uno
+nuevo, deberá extender dicha clase.
 
 \textbf{Plantillas (templates)}: Flask utiliza el motor de plantillas Jinja2,
 que añaden instrucciones en HTML. Obviando que cada algoritmo tiene sus
@@ -362,14 +382,59 @@ particularidades, están organizadas mediante la extensión de plantillas. De
 forma general, añadir un algoritmo podría solo intervenir la creación de una
 plantilla de configuración (incluyendo la creación del formulario) y otra de
 visualización. En ambos casos se tiene una plantilla base de la que se debe
-extender. También se debe la nomenclatura utilizada para el resto de algoritmos
-(están nombrados de forma intuitiva).
+extender. También se deben nombrar como resto de algoritmos (están nombrados de
+forma intuitiva).
 
-\textbf{Ficheros estáticos (static)}: El contenido dinámico debe ser creado
-mediante Javascript, de forma <<vanilla>> (sin utilizar frameworks). Es
-completamente necesario manetener la organización actual de las carpetas, las
-funciones que se añadan deberán incluirse en la carpeta de su contexto. Todos
-los métodos se encuentran documentados.
+De forma general, las plantillas se encuentran repartidas en varios
+subdirectorios, cada uno de ellos engloban una parte de la aplicación.
+
+\begin{figure}[H]
+    \dirtree{%
+        .1 \textbf{templates}: \begin{minipage}[t]{10cm}
+            plantillas HTML (Jinja2) que renderiza la aplicación Web
+            (Flask){.}\\
+        \end{minipage}.
+        .2 \textbf{configuracion}: \begin{minipage}[t]{10cm}
+            plantillas concretas de la ventana de configuración de la ejecución de los algoritmos{.}\\
+        \end{minipage}.
+        .2 \textbf{usuarios}: \begin{minipage}[t]{10cm}
+            plantillas concretas de las distintas ventanas de los usuarios: login, registro, perfil, espacio personal y panel de administración{.}\\
+        \end{minipage}.
+        .2 \textbf{visualizacion}: \begin{minipage}[t]{10cm}
+            plantillas concretas de las distintas ventanas de visualización de los algoritmos{.}\\
+        \end{minipage}.
+    }
+\end{figure}
+
+Debe evaluarse la adición de nuevas sub-carpetas si así fuera. Además, aquellas
+plantillas que sean generales y no vinculadas a una parte concreta, se incluirán
+directamente en \texttt{templates}.
+
+\textbf{Ficheros estáticos (static)}: 
+
+El contenido dinámico debe ser creado mediante Javascript, de forma <<vanilla>> 
+(sin utilizar frameworks). 
+
+Al igual que con las plantillas, es completamente necesario mantener la
+organización actual de las carpetas, las funciones que se añadan deberán
+incluirse en la carpeta de su contexto.
+
+\begin{figure}[H]
+    \dirtree{%
+        .1 \textbf{js}: \begin{minipage}[t]{10cm}
+            ficheros JavaScript{.}\\
+        \end{minipage}.
+        .2 \textbf{configuracion}: \begin{minipage}[t]{10cm}
+            ficheros JavaScript encargados de la configuración de la ejecución de los algoritmos{.}\\
+        \end{minipage}.
+        .2 \textbf{usuarios}: \begin{minipage}[t]{10cm}
+            ficheros JavaScript encargados de la generación de tablas y control del espacio personal de los usuarios y el panel de administración{.}\\
+        \end{minipage}.
+        .2 \textbf{visualizacion}: \begin{minipage}[t]{10cm}
+            ficheros JavaScript encargados de la inicialización y generación de los gráficos en la visualización (gráfico principal y estadísticas){.}\\
+        \end{minipage}.
+    }
+\end{figure}
 
 En menor medida, los estilos deben ser retocados en estos ficheros
 (\texttt{css/style.css}) aunque en principio la aplicación está estilada con
@@ -381,8 +446,10 @@ configuración como la visualización.
 
 Otra parte muy importante es si se quieren añadir nuevos clasificadores base con
 sus parámetros, la especificación de los mismos está almacenada en el fichero
-JSON <<parametros.json>>. Hasta el momento del desarrollo solo existen dos tipos
-de entradas, los selectores y los numéricos.
+JSON <<parametros.json>>. 
+
+Hasta el momento del desarrollo solo existen dos tipos de entradas, los
+selectores y los numéricos.
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Estructura para añadir clasificadores y sus parámetros]
 \begin{minted}{json}
@@ -411,28 +478,75 @@ Con <<step>> se debe tener en cuenta la posibilidad de permitir números enteros
 (al introducir 1) o números decimales (al incluir un flotante, por ejemplo,
 0.01).
 
-Según se ha codificado, la aparición de este nuevo clasificador será automática
-ya que una vez leido este fichero, JavaScript lo recorre creando tantas opciones
-en los selectores como clasificadores haya.
+Según se ha codificado, la aparición de este nuevo clasificador será automática,
+ya que una vez leído este fichero, JavaScript lo recorre creando tantas opciones
+en los selectores como clasificadores haya y a su vez, todos los parámetros de
+estos clasificadores.
 
-Además de esto, hay tres zonas en la lógica de los \texttt{endpoints} que debe
-ser modificados si se añade un algoritmo. En <<\texttt{data\_routes.py}>>,
+Además de esto, hay tres zonas en la lógica de los \texttt{endpoints} que deben
+ser modificadas si se añade un algoritmo. En <<\texttt{data\_routes.py}>>,
 <<\texttt{configuration\_routes.py}>> y <<\texttt{visualization\_routes.py}>> se
 tiene código específico para cada algoritmo. La <<activación>> de cada código se
 realiza mediante un \textit{if} de tal forma que cuando coincide con el nombre
 del algoritmo, se realizan ciertos pasos concretos para él. Se deberá ajustar la
 lógica para el nuevo algoritmo.
 
-\textbf{Conjunto de datos (datasets)}: Los conjuntos de datos de los usuarios
-(vinculados a sus sesiones) se almacenan localmente en la aplicación con el
-<<Timestamp>> concatenado el nombre del fichero introducido.
+En <<\texttt{data\_routes.py}>> se deberá crear la ruta de datos del algoritmo
+(que se encarga de instanciar el algoritmo con los parámetros de la
+configuración, y de ejecutarlo), en <<\texttt{configuration\_routes.py}>> es
+donde se instancian los formularios de los algoritmos y en
+<<\texttt{visualization\_routes.py}>> se obtienen los parámetros introducidos en
+el formulario mediante una función creada para ello.
+
+\textbf{Conjunto de datos (\textit{datasets})}: Los conjuntos de datos de los
+usuarios (vinculados a sus sesiones) se almacenan localmente en la aplicación
+con el <<Timestamp>> concatenado el nombre del fichero introducido.
+
+Pero para agilizar el proceso del mantenimiento (principalmente del
+almacenamiento del servidor), los ficheros subidos por usuarios anónimos se
+guardan en una sub-carpeta distinta a la de los usuarios registrados.
 
 \textbf{Internacionalización}: La aplicación está pensada para ser
 internacionalizada en cualquier idioma, aunque solo se ha incluido inglés y
 español. Una de las herramientas utilizadas es Babel, para incluir nuevo texto
-en la aplicación se debe utilizar la función \texttt{gettext()} (tanto en Jinja2
-como Python si fuera necesario). El proceso de extracción y compilación de las
-traducciones está explicado en la siguiente sección.
+en la aplicación se debe utilizar la función \texttt{gettext} o
+\texttt{lazy\_gettext} (tanto en Jinja2 como Python si fuera necesario). El
+proceso de extracción y compilación de las traducciones está explicado en la
+siguiente sección.
+
+Estas funciones envolventes no funcionan en JavaScript. Por si esto ocurre
+durante el posterior desarrollo, se han considerado dos alternativas. 
+
+Para el caso de las visualizaciones, en la plantilla
+<<\texttt{base\_visualizacion}>> se ha incluido una función de traducción
+embebida directamente en <<\texttt{</script>}>>. Al incluirse de esta forma,
+Babel si puede capturar esas funciones. 
+
+La otra posibilidad es mediante diccionarios y la declaración de una variable
+que indique el idioma (\textit{locale}). Por ejemplo, en el espacio personal
+(plantilla <<\texttt{miespacio}>>) y en el panel de administración (plantilla
+<<\texttt{admin}>>), se ha definido una constante que consulta el idioma actual.
+A partir de aquí, cuando existe un texto generado en JavaScript que necesita ser
+traducido, se define un diccionario que contiene en los valores, las palabras
+deseadas. Este diccionario realmente será un diccionario de diccionarios, el
+primer nivel tendrá el idioma.
+
+Ejemplo:
+
+\begin{minted}{javascript}
+    let diccionario = {
+        "en": {"clave": "palabra en inglés"},
+        "es": {"clave": "palabra en español"}
+    };
+\end{minted}
+
+Ahora, cuando un texto ha de ser traducido, primer se accede al primer nivel y luego a la palabra concreta.
+
+
+\begin{minted}{javascript}
+    // locale es la constante declarada en la propia plantilla
+    let palabra_localizada = diccionario[locale]["clave"];
+\end{minted}
 
 \section{Compilación, instalación y ejecución del proyecto}
 
@@ -503,7 +617,9 @@ $ python -m pip install -r requierements.txt
 $ python -m pip install .
 \end{minted}
 \end{tcolorbox}
-A partir de aquí ya se tiene configurado todo el entorno y los requisitos necesarios para poder ejecutar la aplicación.
+A partir de aquí ya se tiene configurado todo el entorno y los requisitos
+necesarios para poder ejecutar la aplicación.
+
 \paragraph{Ejecución} Referida a la ejecución de la aplicación Web (Flask), se
 debe estar situado en el directorio \textbf{/web} del proyecto.
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,fontupper=\footnotesize,fontlower=\footnotesize,title=Ejecución]
@@ -526,7 +642,7 @@ pero que añade la internacionalización a la aplicación automáticamente.
 traducido, este debe ser compilado con Babel para que la aplicación pueda
 detectarlo.
 
-\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,fontupper=\footnotesize,title=Proceso de internacionalización (desde /web/app)]
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,fontupper=\footnotesize,title=Proceso de internacionalización (desde \texttt{/web/app})]
 \begin{minted}{shell}
 Extraer los textos encapsulados por gettext
 $ pybabel extract -F babel.cfg -o messages.pot .
@@ -536,13 +652,26 @@ $ pybabel extract -F babel.cfg -k lazy_gettext -o messages.pot .
 
 Actualizar los textos extraidos en el fichero de compilación
 $ pybabel update -i messages.pot -d translations
+\end{minted}
+\end{tcolorbox}
 
+Todos los pasos anteriores son \textbf{estrictamente} necesarios, si se realiza
+una extracción sin incluir <<\texttt{lazy\_gettext}>> (por ejemplo) y a
+continuación se actualizan las traducciones, se perderán aquellas que tenían
+<<\texttt{lazy\_gettext}>>.
+
+Una vez que se han extraido los textos, se han de indicar las traducciones.
+Todos los textos envueltos por las funciones antes comentadas actúan como
+identificadores. En \texttt{translations/es/LC\_MESSAGES/messages.po} se tienen
+esos identificadores junto con la traducción (estará vacía si no se ha
+introducido). En ese fichero se incluirán las traducciones.
+
+El siguiente paso es la compilación de estas traducciones para que \texttt{Babel} pueda sustituir
+los textos dinámicamente.
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,fontupper=\footnotesize,title=Compilación de traducciones (desde \texttt{/web/app})]
+\begin{minted}{shell}
 Compilación de las traducciones
 $ pybabel compile -d translations 
 \end{minted}
 \end{tcolorbox}
-
-Todos los pasos anteriores son \textbf{estrictamente} necesarios, si realiza una
-extracción sin incluir <<\texttt{lazy\_gettext}>> (por ejemplo) y a continuación
-se actualizan las traducciones, se perderán aquellas que tenían
-<<\texttt{lazy\_gettext}>>.
