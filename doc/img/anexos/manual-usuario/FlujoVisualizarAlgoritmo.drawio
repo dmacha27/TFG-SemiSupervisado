@@ -1,0 +1,22 @@
+<mxfile host="app.diagrams.net" modified="2023-05-12T16:58:06.954Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/113.0" etag="jzTDCVUzq8y0p2NwqM6Y" version="21.2.9" type="device">
+  <diagram name="Página-1" id="fyCs6bSFm8VbDF3Rfxcq">
+    <mxGraphModel dx="989" dy="520" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="cLRPxZnlgGMBh-7isQkK-2" value="Visualizar" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=30;notch=30;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="540" y="150" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="cLRPxZnlgGMBh-7isQkK-5" value="Seleccionar&lt;br&gt;algoritmo" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=30;notch=30;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="30" y="150" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="cLRPxZnlgGMBh-7isQkK-6" value="&lt;div&gt;Carga del&lt;/div&gt;&lt;div&gt;conjunto&lt;/div&gt;&lt;div&gt;de datos&lt;br&gt;&lt;/div&gt;" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=30;notch=30;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="200" y="150" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="cLRPxZnlgGMBh-7isQkK-7" value="&lt;div&gt;Configuración&lt;/div&gt;&lt;div&gt;del&lt;/div&gt;&lt;div&gt;algoritmo&lt;br&gt;&lt;/div&gt;" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=30;notch=30;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="370" y="150" width="150" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
