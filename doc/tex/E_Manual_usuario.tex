@@ -3,7 +3,7 @@
 \section{Introducción}
 
 Es esta sección se presenta los requisitos que el usuario debe satisfacer para
-utilizar la aplicación junto con la Instalación y manual de la misma.
+utilizar la aplicación junto con la instalación y manual de la misma.
 
 \section{Requisitos de usuarios}
 
@@ -11,4 +11,355 @@ utilizar la aplicación junto con la Instalación y manual de la misma.
 
 \section{Manual del usuario}
 
+Con la ayuda de imágenes capturadas directamente de la Web, esta sección
+describe cómo se realizan todas las acciones de la aplicación.
 
+Dado que la documentación presente se encuentra en español, todas las interfaces
+se mostrarán en español. Aun así, la aplicación está preparada para el idioma
+inglés de igual forma.
+
+\subsection{Visualizar un algoritmo}
+
+El flujo para visualizar un algoritmo en el siguiente:
+
+\imagen{anexos/manual-usuario/FlujoVisualizarAlgoritmo}{Flujo de la visualización de un algoritmo}
+
+\subsubsection{Seleccionar algoritmo}
+Para seleccionar un algoritmo, se puede hacer de dos formas. La primera es
+haciendo clic a los enlaces que aparecen en la barra de navegación (que además
+está siempre presente en todas las pestañas) y también haciendo clic en las
+tarjetas de presentación de cada algoritmo en la página principal.
+
+IMAGEN DE LA PÁGINA PRINCIPAL INDICANDO LOS ENLACES DE LA NAV Y LAS TARJETAS.
+
+Una vez que se haya seleccionado, será redirigido a la página de subida del
+fichero. 
+
+\subsubsection{Carga del conjunto de datos}
+
+El fichero contendrá el conjunto de datos. Para subir un fichero, simplemente se
+puede arrastrar desde el propio sistema hasta la zona marcada con rayas o
+abriendo el explorador de archivos con el botón de <<Selecciona fichero>>. Podrá
+ver durante la carga el progreso de la misma.
+
+Si el usuario no dispone de un fichero, la aplicación incluye un enlace para
+descargar uno de prueba, pulsando en el botón <<Descargar fichero de prueba>>. A
+partir de aquí, es el mismo procedimiento comentado anteriormente.
+
+\imagen{anexos/manual-usuario/Carga del conjunto de datos - VASS}{Carga del conjunto de datos}
+
+\paragraph{Consideraciones del conjunto de datos} En primer lugar, los ficheros
+subidos solo podrán tener extensiones ARFF o CSV, en caso contrario, al intentar
+pasar al siguiente paso, el usuario será devuelto a esta misma página con un
+mensaje de error.
+
+El contenido del fichero de datos tiene que cumplir un requisito fundamental
+derivado de la ausencia de un pre-procesamiento completo: 
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black,fontupper=\footnotesize,title=Requisito fundamental]
+Todos los atributos del conjunto de datos deben ser numéricos (internamente los
+algoritmos requieren de este tipo de datos), esto \textbf{no} incluye al
+atributo de la clase, que sí puede ser categórico/nominal (esa parte del
+pre-procesado sí que es realizada).
+\end{tcolorbox}
+
+Una vez que el fichero ha sido cargado (porcentaje completado), se habrá
+habilitado el botón de configuración. Pulsando en él, se redirigirá a la
+siguiente página del flujo (configuración).
+
+\subsubsection{Configuración del algoritmo}
+\label{mu:configuracion}
+Se encontrará en la página de configuración del algoritmo, donde podrá observar
+un apartado teórico con sus conceptos generales y su pseudocódigo. Por otro
+lado, tendrá un formulario con todos los parámetros que se pueden configurar
+para ese algoritmo.
+
+\imagen{anexos/manual-usuario/Configuración del algoritmo - VASS}{Configuración del algoritmo}
+
+Todos los parámetros tienen establecido un valor por defecto (con la
+configuración <<estable>>), pero se tiene libertad completa para modificar cada
+uno de ellos. En principio, si solamente se quiere ejecutar sin modificar ningún
+parámetro, sí es necesario seleccionar correctamente el atributo de la clase.
+Este atributo no puede ser establecido automáticamente por la aplicación, ya que
+depende del conjunto de datos subido. 
+
+Una vez configurado, se puede visualizar el algoritmo pulsando en el botón de
+<<Ejecutar>>.
+
+\subsubsection{Visualización}
+\label{mu:visualizacion}
+Ya en la página de visualización, se mostrará durante unos momentos una
+animación de carga. Cuando el sistema haya finalizado la ejecución, se podrán
+ver los distintos gráficos.
+
+En principio, los errores que ocurran en el sistema serán mostrados. Sin
+embargo, en el caso de que la animación dure un periodo de tiempo excesivo, se
+recomienda reintentar la configuración.
+
+\imagen{anexos/manual-usuario/Visualización - VASS}{Vista general de una visualización}
+
+\paragraph{Visualización principal} En el gráfico principal se mostrará el
+conjunto de datos en dos dimensiones. Aquí podrá verse qué es lo que ocurre
+durante el proceso de entrenamiento del algoritmo.
+
+\imagen{anexos/manual-usuario/Visualización principal}{Visualización principal}
+
+Este gráfico es interactivo:
+\begin{itemize}
+    \item Permite realizar \texttt{zoom} sobre una zona deseada mediante el
+    doble clic o moviendo la ruleta del ratón.
+    \item Al pasar el ratón por uno de los puntos, se mostrará toda la
+    información relativa a esa posición en un recuadro informativo (aparecerá en
+    las proximidades del ratón). Esto se está ejemplificando en la imagen
+    anterior.
+\end{itemize}
+
+Para controlar la evolución, en la parte inferior se encuentra un panel de
+control que permite:
+\begin{itemize}
+    \item Reiniciar \texttt{zoom}. Pese a que es posible reducir/aumentar el
+    \texttt{zoom} manualmente, sirve para volver a la posición original.
+    \item Visualizar la iteración actual: mediante el número y una barra de
+    progreso.
+    \item Reproducir automáticamente pulsando en el botón con el símbolo
+    \textit{play}.
+    \item Avanzar iteración manualmente.
+    \item Reducir iteración.
+\end{itemize}
+
+Todas estas acciones modificarán el estado de los gráficos.
+
+\paragraph{Gráficos estadísticos} En la zona de la derecha se incluirá el resto
+de gráficos adicionales, que serán principalmente estadísticas.
+
+\imagen{anexos/manual-usuario/ZonaEstadisticas}{Gráficos estadísticos}
+
+En la parte superior de esta zona se tiene un desplegable (contraído por
+defecto) que contiene el pseudocódigo (el mismo que en la fase de
+configuración). Si se desea consultar, simplemente se pulsa en cualquier parte
+del desplegable:
+
+\imagen{anexos/manual-usuario/Pseudocodigo}{Desplegable pseudocódigo}
+
+El gráfico de estadísticas generales simplemente será a interpretación del
+usuario (no puede realizar ninguna opción). 
+
+En el caso de las estadísticas específicas puede seleccionar qué estadística
+mostrar mediante el selector superior, y de qué clasificadores mostrarla
+mediante las casillas en la parte inferior.
+
+Ambos gráficos contienen información similar, en el eje X se indican las
+iteraciones y en el eje Y el valor de la estadística(s).
+
+\subsection{Cambiar de idioma}
+
+Aunque la propia aplicación detecta el mejor idioma (entre español e inglés) que
+mostrar, se puede seleccionar el idioma de forma manual.
+
+En la barra de navegación hay un símbolo de traducción característico que al
+pulsar aparece un desplegable.
+
+\imagencontamano{anexos/manual-usuario/Cambiar de idioma}{Cambiar de idioma}{0.4}
+
+Pulsando en el idioma se refrescará la página acorde al idioma seleccionado.
+Esta característica \textbf{no} se incluye en la página de visualización.
+
+\subsection{Registrarse}
+
+Para aquellos usuarios anónimos que deseen crear una cuenta en la aplicación,
+será necesario realizar el proceso de registro.
+
+Para acceder a él, en la barra de navegación se dispone (en la parte derecha) de
+un enlace que redirecciona al formulario de creación. Una vez accedido, se deben
+rellenar los siguientes campos (todos obligatorios):
+\begin{itemize}
+    \item Nombre: entre 2 y 10 caracteres.
+    \item Correo electrónico: será el identificador del usuario en el sistema y
+    por lo tanto solo podrá haber uno.
+    \item Contraseña: con al menos ocho caracteres.
+    \item Confirmar contraseña: misma contraseña que el campo anterior.
+\end{itemize}
+
+\imagen{anexos/manual-usuario/Registrarse - VASS}{Formulario de registro}
+
+Una vez enviado el formulario (y después de la comprobación de todos los
+campos), la cuenta quedará registrada y se habrá iniciado sesión
+automáticamente.
+
+\subsection{Iniciar sesión}
+
+Al igual que para el registro, para iniciar sesión existe un enlace en la barra
+de navegación (en la parte derecha) que redirecciona al formulario de inicio de
+sesión.
+
+\imagen{anexos/manual-usuario/Iniciar sesión - VASS}{Formulario de inicio de sesión}
+
+Este formulario es más sencillo y solo requiere el correo electrónico y
+contraseña introducidos en el registro o los nuevos si se han modificado (la
+modificación de un perfil se verá más adelante).
+
+\subsection{Cerrar sesión}
+
+Si ya tiene sesión iniciada, debe hacer clic en su nombre en la barra de
+navegación (parte derecha). Esto abrirá un desplegable en el que, aparte de
+otras opciones, podrá cerrar la sesión.
+
+\imagencontamano{anexos/manual-usuario/Cerrar sesión}{Cierre de sesión}{0.4}
+
+\subsection{Personalizar perfil}
+
+Es posible ver el perfil propio y modificar los datos con los que se creó la
+cuenta.
+
+En primer lugar, para acceder al perfil, similar a otros casos, en el
+desplegable de la barra de navegación del usuario se pulsa en <<Perfil>>.
+
+\imagencontamano{anexos/manual-usuario/DesplegablePerfil}{Acceso al perfil}{0.4}
+
+Una vez dentro, en el lateral izquierdo aparece la información general del
+perfil (ficheros subidos, ejecuciones, correo electrónico...).
+
+La parte de edición (zona derecha) contiene un formulario similar al del
+registro. Se pueden modificar todos los datos mostrados, pero para que las
+modificaciones puedan realizarse, se debe introducir la contraseña actual. Si
+fuera errónea o no se introduce, el formulario no se enviará.
+
+\imagen{anexos/manual-usuario/Mi Perfil - VASS}{Perfil personal y edición}
+\label{mu:perfil}
+
+\subsection{Espacio personal}
+
+Todos los usuarios poseen de un espacio personal en el que visualizar y
+controlar sus ficheros subidos y las ejecuciones realzadas hasta el momento.
+
+En primer lugar, para acceder al perfil, similar a otros casos, en el
+desplegable de la barra de navegación del usuario se pulsa en <<Mi Espacio>>.
+
+\imagencontamano{anexos/manual-usuario/DesplegableMiEspacio}{Acceso al espacio personal}{0.4}
+
+Una vez dentro, en el lateral izquierdo aparece la información general del
+perfil (ficheros subidos, ejecuciones, correo electrónico...).
+
+En la parte derecha se encontrarán dos tablas en las que se reflejan los
+ficheros subidos y las ejecuciones.
+
+\imagen{anexos/manual-usuario/Mi Espacio - VASS}{Espacio personal}
+
+Ambas tablas tienen un buscador donde se puede filtrar por cualquier palabra, en
+todas las columnas de todas las filas. Además, puede elegir cuantas entradas
+mostrar y en su caso, pasar las páginas para seguir mostrando más entradas.
+
+\paragraph{Control de los conjuntos de datos subidos} Particularmente, los
+conjuntos de datos (ficheros) pueden ser ejecutados o eliminados.
+
+En el caso de querer utilizar el fichero para \textbf{ejecutar un algoritmo},
+simplemente se ha de pulsar en el botón con el símbolo \texttt{play}. Al
+hacerlo, se mostrará una ventana emergente (\texttt{modal}) para seleccionar el
+algoritmo deseado.
+
+\imagen{anexos/manual-usuario/EjecuciónDataset - VASS}{Selección de algoritmo}
+
+Cuando se pulse en uno de los botones se redirige a la pestaña de configuración
+(\ref{mu:configuracion}).
+
+\label{mu:eliminardataset}
+Por otro lado, si se quiere \textbf{eliminar un fichero} de la cuenta (y del
+sistema), se pulsa en el botón con el símbolo de la papelera. De igual manera,
+se mostrará una ventana emergente de confirmación.
+
+\imagen{anexos/manual-usuario/EliminarDataset - VASS}{Eliminar fichero}
+
+Si todo ha ido correctamente, habrá desaparecido la fila correspondiente del
+fichero. En caso contrario se mostrará otra ventana emergente con el error.
+
+\paragraph{Control de las ejecuciones} En el historial de ejecuciones también
+pueden realizarse varias acciones.
+
+\label{mu:parametrosrun}
+En primer lugar, los \textbf{parámetros de configuración} que se introdujeron en
+una ejecución se pueden consultar pulsando en el botón de la columna
+<<Parámetros>>. Esto mostrará una ventana emergente con un JSON legible y
+formateado.
+
+\imagen{anexos/manual-usuario/ParametrosRun - VASS}{Parámetros de una ejecución}
+
+De forma similar a los conjuntos de datos, las ejecuciones pueden ser
+\textbf{re-ejecutadas}, repitiendo exactamente lo mismo que ocurrió en su momento. Para
+ello simplemente se debe pulsar en el botón amarillo con el símbolo típico de
+recargar página.
+
+Aunque en este caso, no se mostrará ninguna ventana emergente, redirigirá
+directamente a la visualización del algoritmo (\ref{mu:visualizacion}).
+
+\label{mu:eliminarrun}
+Y exactamente igual a los conjuntos de datos, las ejecuciones pueden \textbf{eliminarse}
+pulsando en el botón con el símbolo de papelera mostrando una ventana emergente
+de confirmación similar a la anterior.
+
+\imagen{anexos/manual-usuario/EliminarRun - VASS}{Eliminar ejecución}
+
+
+\section{Manual del administrador}
+
+Conviene dividir el manual general para usuarios anónimos y registrados de los
+administradores. Aun con ello, un usuario administrador puede realizar las
+mismas acciones que el resto de roles.
+
+\subsection{Panel de administración}
+
+Además de estas, el administrador puede controlar a los usuarios, todos los
+ficheros subidos y todas las ejecuciones.
+
+El administrador posee de un panel de administración en el que visualizar tablas
+con toda esa información.
+
+En primer lugar, para acceder al panel, similar a otros casos, en el desplegable
+de la barra de navegación del usuario (con rol administrador) se pulsa en <<Mi
+Espacio>>.
+
+\imagencontamano{anexos/manual-usuario/DesplegablePanel}{Acceso al panel de administración}{0.4}
+
+Una vez dentro, se tiene un menú organizado en pestañas donde ver las tres tablas.
+
+\imagen{anexos/manual-usuario/PanelUsuarios - VASS}{Administración de usuarios}
+
+\imagen{anexos/manual-usuario/PanelDatasets - VASS}{Conjunto de datos subidos}
+
+\imagen{anexos/manual-usuario/PanelRuns - VASS}{Historial de ejecuciones}
+
+Para el caso de <<Conjunto de datos subidos>> y <<Historial de ejecuciones>>, el
+proceso es el mismo que en el manual del usuario. Salvo porque en las acciones
+solo puede eliminar (no ejecutar o re-ejecutar respectivamente). Consultar
+\ref{mu:eliminardataset} (eliminar fichero), \ref{mu:parametrosrun} (mostrar
+parámetros de ejecución) y \ref{mu:eliminarrun} (eliminar ejecución).
+
+En el caso de los usuarios, el administrador tiene dos posibilidades, editar sus
+datos o eliminar el usuario.
+
+Si se quiere \textbf{editar} un usuario, se debe pulsar el botón con el símbolo
+del lápiz. Esto redirigirá a una pestaña similar a \ref{mu:perfil} (perfil del
+usuario) y de hecho, será como adoptar la vista del usuario que se está editando
+salvo por la inclusión de un indicativo como recordatorio al administrador.
+
+\imagen{anexos/manual-usuario/PerfilAjeno - VASS}{Edición de un perfil ajeno}
+
+Es de destacar también que en este caso, el formulario no incluye la contraseña
+actual de ese usuario como confirmación. Esto es porque el administrador tiene
+todos los privilegios para realizar esta acción. Cuando el administrador
+modifique algún dato y envíe el formulario, los datos serán actualizados en el
+sistema. 
+
+Obviamente los campos tienen ciertas limitaciones (similares a las del
+registro):
+\begin{itemize}
+    \item Nombre: entre 2 y 10 caracteres.
+    \item Correo electrónico: será el identificador del usuario en el sistema y
+    por lo tanto solo podrá haber uno.
+    \item Nueva contraseña: con al menos ocho caracteres.
+\end{itemize}
+
+Si lo que se quiere es \textbf{eliminar} un usuario, el proceso es el mismo que
+se ha visto para el resto de eliminaciones. Se debe pulsar en el botón que
+incluye el símbolo de la papelera y se pedirá confirmación del proceso.
+
+\imagen{anexos/manual-usuario/EliminarUsuario - VASS}{Eliminación de usuario}
