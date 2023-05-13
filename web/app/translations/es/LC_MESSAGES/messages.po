@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-05-11 17:23+0200\n"
+"POT-Creation-Date: 2023-05-13 11:24+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,31 +18,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.11.0\n"
 
-#: __init__.py:48
+#: __init__.py:53
 msgid "English"
 msgstr "Inglés"
 
-#: __init__.py:49
+#: __init__.py:54
 msgid "Spanish"
 msgstr "Español"
 
-#: __init__.py:108
+#: __init__.py:113
 msgid "Internal Server Error"
 msgstr "Error interno del servidor"
 
-#: __init__.py:112
+#: __init__.py:117
 msgid "Not found"
 msgstr "No encontrado"
 
-#: __init__.py:116
+#: __init__.py:121
 msgid "Forbidden"
 msgstr "Petición denegada por el servidor"
 
-#: __init__.py:120
+#: __init__.py:125
 msgid "Unauthorized"
 msgstr "No autorizado"
 
-#: __init__.py:124
+#: __init__.py:129
 msgid "Bad request"
 msgstr "Mala petición"
 
@@ -75,64 +75,64 @@ msgstr "Confirmar contraseña"
 msgid "Current password"
 msgstr "Contraseña actual"
 
-#: forms.py:60 forms.py:63
+#: forms.py:60 forms.py:64
 msgid "New password"
 msgstr "Nueva contraseña"
 
-#: forms.py:67
+#: forms.py:68
 msgid "Select the target/class attribute of the dataset"
 msgstr "Selecciona el atributo de la clase/etiqueta del conjunto de datos"
 
-#: forms.py:72
+#: forms.py:73
 msgid "Select X component"
 msgstr "Selecciona la componente X"
 
-#: forms.py:77
+#: forms.py:78
 msgid "Select Y component"
 msgstr "Selecciona la componente Y"
 
-#: forms.py:82
+#: forms.py:83
 msgid "Use PCA to reduce to 2D"
 msgstr "Utilizar PCA para reducir a 2D"
 
-#: forms.py:86
+#: forms.py:87
 msgid "Normalize"
 msgstr "Normalizar"
 
-#: forms.py:90
+#: forms.py:91
 msgid "Unlabelled percentage"
 msgstr "Porcentaje de no etiquetados"
 
-#: forms.py:96
+#: forms.py:97
 msgid "Test percentage (after unlabelled percentage)"
 msgstr "Porcentaje de test (después de aplicar el no etiquetados)"
 
-#: forms.py:104 forms.py:128 forms.py:133 forms.py:164 forms.py:169
-#: forms.py:174
+#: forms.py:105 forms.py:129 forms.py:134 forms.py:165 forms.py:170
+#: forms.py:175
 msgid "Select classifier"
 msgstr "Selecciona clasificador"
 
-#: forms.py:109
+#: forms.py:110
 msgid "N (Number of instances to select in each iteration)"
 msgstr "N (Número de datos a seleccionar en cada iteración)"
 
-#: forms.py:115
+#: forms.py:116
 msgid "Threshold"
 msgstr "Límite"
 
-#: forms.py:120 forms.py:156
+#: forms.py:121 forms.py:157
 msgid "Number of iterations"
 msgstr "Número de iteraciones"
 
-#: forms.py:138
+#: forms.py:139
 msgid "Positives"
 msgstr "Positivos"
 
-#: forms.py:144
+#: forms.py:145
 msgid "Negatives"
 msgstr "Negativos"
 
-#: forms.py:150
+#: forms.py:151
 msgid "Number of initial data"
 msgstr "Número de datos iniciales"
 
@@ -140,44 +140,44 @@ msgstr "Número de datos iniciales"
 msgid "You must select an algorithm"
 msgstr "Debe seleccionar un algoritmo"
 
-#: user_routes.py:25
+#: user_routes.py:27
 msgid "Come back soon!"
 msgstr "¡Vuelve pronto!"
 
-#: user_routes.py:40
+#: user_routes.py:42
 #, fuzzy
 msgid "Logging successful!"
 msgstr "¡Inicio de sesión correcto!"
 
-#: user_routes.py:48
+#: user_routes.py:50
 msgid "Incorrect password"
 msgstr "Contraseña incorrecta"
 
-#: user_routes.py:50
+#: user_routes.py:52
 msgid "Email not found"
 msgstr "Correo electrónico no encontrado"
 
-#: user_routes.py:66 user_routes.py:134
+#: user_routes.py:68 user_routes.py:140
 msgid "Email already exists"
 msgstr "El correo electrónico ya existe"
 
-#: user_routes.py:79
+#: user_routes.py:81
 msgid "Could not create account!"
 msgstr "La cuenta no pudo ser creada"
 
-#: user_routes.py:87
+#: user_routes.py:89
 msgid "Account created!"
 msgstr "¡Cuenta creada!"
 
-#: user_routes.py:116
+#: user_routes.py:121
 msgid "User doesn't exist"
 msgstr "El usuario no existe"
 
-#: user_routes.py:129
+#: user_routes.py:135
 msgid "Incorrect current password"
 msgstr "Contraseña actual incorrecta"
 
-#: user_routes.py:151
+#: user_routes.py:157
 msgid "Account updated!"
 msgstr "¡Cuenta actualizada!"
 
@@ -344,9 +344,9 @@ msgstr "Selecciona un algoritmo"
 msgid "An error occurred"
 msgstr "Ha ocurrido un error"
 
-#: templates/subida.html:7
-msgid "Dataset selection"
-msgstr "Selección del conjunto de datos"
+#: templates/subida.html:7 templates/subida.html:12
+msgid "Dataset upload"
+msgstr "Carga del conjunto de datos"
 
 #: templates/configuracion/base_configuracion.html:6 templates/subida.html:10
 #: templates/usuarios/admin.html:15 templates/usuarios/base_form.html:4
@@ -354,10 +354,6 @@ msgstr "Selección del conjunto de datos"
 #: templates/visualizacion/base_visualizacion.html:14
 msgid "Go back"
 msgstr "Volver"
-
-#: templates/subida.html:12
-msgid "Dataset upload"
-msgstr "Carga del conjunto de datos"
 
 #: templates/subida.html:18
 msgid "File selection"
@@ -396,17 +392,14 @@ msgid "Download test file"
 msgstr "Descargar fichero de prueba"
 
 #: templates/configuracion/base_configuracion.html:3
-msgid "Run configuration"
-msgstr "Configuración de la ejecución"
+#: templates/configuracion/base_configuracion.html:9
+msgid "Algorithm configuration"
+msgstr "Configuración del algoritmo"
 
 #: templates/configuracion/base_configuracion.html:6
 #: templates/visualizacion/base_visualizacion.html:14
 msgid "Dataset"
 msgstr "Conjunto de datos"
-
-#: templates/configuracion/base_configuracion.html:9
-msgid "Algorithm configuration"
-msgstr "Configuración del algoritmo"
 
 #: templates/configuracion/base_configuracion.html:17
 msgid "Theory"
@@ -572,6 +565,11 @@ msgstr ""
 
 #: templates/configuracion/tritrainingconfig.html:6
 #: templates/visualizacion/tritraining.html:4
+msgid "/pseudocodigos/en/TriTraining.png"
+msgstr "/pseudocodigos/es/TriTraining.png"
+
+#: templates/configuracion/tritrainingconfig.html:6
+#: templates/visualizacion/tritraining.html:4
 msgid "Tri-Training Pseudocode"
 msgstr "Pseudocódigo de Tri-Training"
 
@@ -591,7 +589,7 @@ msgstr "Cargas de los últimos 7 días"
 msgid "Last 7 days runs"
 msgstr "Ejecuciones de los últimos 7 días"
 
-#: templates/usuarios/base_form.html:15 templates/usuarios/perfil.html:56
+#: templates/usuarios/base_form.html:15 templates/usuarios/perfil.html:58
 msgid "Submit"
 msgstr "Enviar"
 
