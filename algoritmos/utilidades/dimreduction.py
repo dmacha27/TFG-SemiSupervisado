@@ -2,7 +2,6 @@
 # Fecha: 27/01/2023 12:37
 # Descripción: Reduce la dimensionalidad de los datos para ser representados
 # Version: 1.1
-import sys
 
 import pandas as pd
 from sklearn.decomposition import PCA

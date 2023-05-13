@@ -1,5 +1,4 @@
 import os
-import re
 
 from flask import Flask, request, render_template, session
 from flask_babel import Babel, gettext

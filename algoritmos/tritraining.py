@@ -5,19 +5,11 @@
 
 import numpy as np
 from math import floor, ceil
-import time
-import pandas as pd
-from sklearn.datasets import load_breast_cancer
-from sklearn.metrics import accuracy_score
-from sklearn.naive_bayes import GaussianNB
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import SVC
-from sklearn.tree import DecisionTreeClassifier
 
-import sslearn.wrapper
+import pandas as pd
+from sklearn.metrics import accuracy_score
 
 from algoritmos.utilidades.common import obtain_train_unlabelled, calculate_log_statistics
-from algoritmos.utilidades.datasplitter import data_split
 
 
 class TriTraining:

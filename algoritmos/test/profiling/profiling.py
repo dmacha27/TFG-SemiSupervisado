@@ -3,10 +3,8 @@ import pstats
 
 from sklearn.datasets import load_breast_cancer
 from sklearn.naive_bayes import GaussianNB
-from sklearn.svm import SVC
 
 from algoritmos import SelfTraining, CoTraining
-from algoritmos.utilidades.datasetloader import DatasetLoader
 from algoritmos.utilidades.datasplitter import data_split
 
 TRAINING_FILE = '../utilidades/datasets/waveform5000.arff'
