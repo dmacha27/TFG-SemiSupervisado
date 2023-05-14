@@ -13,6 +13,8 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(20))
     admin = db.Column(db.Boolean, default=False)
     last_login = db.Column(db.DateTime, default=func.now())
+    datasets = relationship("Dataset", back_populates='user')
+    runs = relationship("Run", back_populates='user')
 
     @property
     def is_admin(self):
@@ -28,7 +30,7 @@ class Dataset(db.Model):
     filename = db.Column(db.String(50), unique=True)
     date = db.Column(db.DateTime, default=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('Users.id'))
-    user = relationship("User", backref='datasets')
+    user = relationship("User", back_populates='datasets')
 
     def to_list(self):
         return [self.filename, self.date.strftime("%Y-%m-%d %H:%M:%S"), self.user.email]
@@ -45,7 +47,7 @@ class Run(db.Model):
     cy = db.Column(db.String(20))
     jsonfile = db.Column(db.String(50), unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey('Users.id'))
-    user = relationship("User", backref='runs')
+    user = relationship("User", back_populates='runs')
 
     def to_list(self):
         return [self.id, self.algorithm, self.filename, self.date.strftime("%Y-%m-%d %H:%M:%S"),
