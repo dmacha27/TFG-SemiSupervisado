@@ -890,6 +890,142 @@ concatenar una columna a un DataFrame que tiene columnas idénticas.
     \item Refactorizaciones generales para evitar código duplicado.
 \end{itemize}
 
+\subsection{Sprint 18}
+Corresponde con el periodo temporal del 3 al 10 de mayo de 2023.
+
+Puntos a desarrollar:
+\begin{enumerate}
+    \item <<Toasts>> como alertas.
+    \item Arreglar visualizaciones (\texttt{tooltips}).
+    \item Cambiar formularios a WTForms.
+    \item Mostrar parámetros de las ejecuciones en el historial.
+    \item Conceptos teóricos Tri-Training.
+    \item Conceptos teóricos HTTP.
+\end{enumerate}
+
+En primer lugar, el aspecto que se le había dado a los mensajes <<Flash>> de la
+aplicación parecía un poco pobre. Bootstrap tiene los llamados <<Toasts>> que
+son avisos más sofisticados y estilados. Partiendo un ejemplo de la
+documentación, simplemente se filtra por la categoría del mensaje (error,
+advertencia, información...) y se genera el <<Toast>> con unos colores acordes.
+
+Durante el Sprint anterior se estuvieron probando las visualizaciones. El
+problema es que los \texttt{tooltips} muestran información confusa.
+
+En primer lugar, estos recuadros que aparecen al pasar el ratón por un punto, no
+se posicionaban correctamente. Mediante un ejemplo encontrado en
+internet\footnote{Ejemplo de \texttt{tooltip}:
+\url{https://observablehq.com/@clhenrick/tooltip-d3-convention}}, se vio que el
+propio D3 tiene una función que determina la posición del ratón correctamente.
+Además, el elemento \texttt{tooltip} tenía una posición absoluta respecto de
+toda la página para arreglarlo, se le añadió la posición relativa al contenedor.
+Esto se aplicó a los cuatro algoritmos.
+
+El mayor problema era arreglar la información confusa. Como es obvio, el
+conjunto de datos que introduzca el usuario puede tener puntos duplicados y
+además al realizar PCA, puede ocurrir que dos datos aparezcan en la misma
+posición. Esto no se estaba contemplando y no se indicaba. Es aún más confuso en
+Democratic Co-Learning y Tri-Training pues cada punto puede ser clasificado por
+varios clasificadores e incluso en varias iteraciones.
+
+Para ayudar al usuario a tener toda la información, el \texttt{tooltip} muestra
+ahora los puntos duplicados. Es decir, cuando solo hay un punto, simplemente
+mostrará la información normal, pero cuando haya puntos solapados (quizá por
+PCA o porque en el propio conjunto hay datos duplicados), los detectará y
+mostrará un identificador de duplicado en orden creciente.
+
+Para determinar esto lo que se ha hecho es comprobar (mediante diccionarios) si
+un punto ya había sido visto, en cuyo caso existen puntos solapados.
+ 
+Otra cosa añadida al \texttt{tooltip} es la iteración de clasificación. Cuando
+el punto se acaba de clasificar o estamos en una iteración posterior, al lado de
+la etiqueta se muestra entre paréntesis la iteración en la que se clasificó.
+
+Al final del Sprint (y justo coincidiendo con una reunión de seguimiento), se
+planteó que el \texttt{tooltip} podía ser simplificado. Por una parte, cada vez
+que se muestra todos los puntos, cada uno de ellos tiene su posición X e Y.
+Ahora solo se muestra como si fuera un título una única vez.
+
+Otra idea era que no se mostrase información futura (para Democratic Co-Learning
+y Tri-Training). Por ejemplo, si dos clasificadores habían etiquetado un punto
+en iteraciones 4 y 5 respectivamente, hasta ahora, en la iteración 2 (por
+ejemplo), el \texttt{tooltip} tenía <<reservado>> el espacio para escribir esos
+dos etiquetados. El comportamiento bueno sería que en una iteración menor que 4
+simplemente mostrase un único texto para ese punto (ejemplificando que todavía
+no ha sido etiquetado). Cuando se llega a la iteración 4, se mostrará la
+etiqueta que le dio el primer clasificador, pero sin mostrar todavía el de la
+iteración 5. Y así sucesivamente.
+
+En cuanto a los formularios, los de configuración del algoritmo estaban hechos
+directamente en HTML. Dado que se había empezado a utilizar WTForms (inicio de
+sesión, registro...), era conveniente modificarlos y trabajar con esta librería.
+Todos los formularios tienen una parte común, lo primero que se hizo es crear
+una clase de formulario base del que el resto extendería. A partir de aquí,
+simplemente se trasladó todo lo que se tenía en HTML a los distintos
+\texttt{Fields} de WTForms. En el HTML simplemente se hace referencia a estos
+campos. Fue un proceso laborioso aunque sencillo.
+
+Esto además permitía añadir el <<token>> CSRF para arreglar ciertas
+vulnerabilidades.
+
+En la tabla del historial de ejecuciones faltaba la posibilidad de ver los
+parámetros de las ejecuciones. Para verlos, se añadió un campo de texto en la
+entidad de la base de datos de ejecuciones. 
+
+El formato JSON se pensó que era suficientemente legible como para mostrar los
+parámetros con él. Para ello, se creó una función (en Python) que transforma
+todos los parámetros que provienen del formulario de configuración en un
+diccionario. Este diccionario luego es transformado en texto para almacenarlo en
+ese campo nuevo.
+
+Desde la Web, simplemente se lee ese campo de la ejecución y se formatea como
+JSON. Existe un nuevo botón en la tabla que permite mostrar un <<modal>> con los
+parámetros.
+
+Se añadieron los conceptos teóricos de HTTP, con una descripción del protocolo,
+la estructura de las peticiones, \texttt{cookies} y el ataque CSRF (Cross-Site
+Request Forgery) junto a su solución (<<CSRF token>> comentado anteriomente).
+
+En cuanto a Tri-Training, se añadió el pseudocódigo del mismo.
+
+Además, también se realizaron otras modificaciones, las más notorias:
+\begin{itemize}
+    \item Añadir favicon.
+    \item Control de errores.
+    \item Arreglar bugs en las tablas del espacio personal.
+    \item Añadir algún aspecto relevante.
+\end{itemize}
+
+
+\subsection{Sprint 19}
+Corresponde con el periodo temporal del 10 al 17 de mayo de 2023.
+
+Puntos a desarrollar:
+\begin{enumerate}
+    \item Anexo requisitos.
+    \item Anexo documentación de usuario.
+    \item Actualizar manual del programador.
+\end{enumerate}
+
+En este Sprint se quería aumentar bastante la documentación. El primer objetivo
+era realizar el anexo de los requisitos. Lo primero fue añadir el catálogo de
+requisitos que la aplicación debía poder realizar.
+
+A continuación, se realizó un primer diagrama de casos de uso general. A partir
+de este, se realizó la descripción de todos ellos (con sus pasos,
+precondiciones, excepciones, requisitos asociados...). Sin embargo, durante la
+realización de estos, se vio que el diagrama podía ser simplificado. El
+administrador, al igual que los usuarios, pueden eliminar los ficheros y
+ejecuciones, y por esta razón realizan el mismo caso de uso en ambos casos. 
+
+Se actualizó el diagrama de casos de uso y se añadieron todas las descripciones
+acordes de todos ellos.
+
+El anexo de la documentación de usuario se podría realizar más adelante por si
+la aplicación sufre algún cambio final. Sin embargo, estos cambios serán,
+probablemente, en cuanto aspecto. Es por esto que las instrucciones útiles para
+el usuario serán las mismas (en principio). Además, resultaba una tarea
+apetecible.
 
 \section{Estudio de viabilidad}
 
