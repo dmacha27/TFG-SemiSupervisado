@@ -281,9 +281,59 @@ exactamente iguales que para las estadísticas generales. Guardarán por cada
 iteración (fila), las estadísticas (columnas) para el clasificador base
 concreto.
 
+\subsection{Base de datos}
+
+Entidades:
+
+\begin{itemize}
+    \item \textbf{Usuario} (User): Representa al usuario registrado en la
+    aplicación. Contiene un identificador que representa la clave primaria. Los
+    datos personales de los usuarios que guarda la entidad son: email (único en
+    toda la base de datos), el nombre y la contraseña (cifrada mediante
+    SHA-256). Aparte de estos, también se guarda el último inicio de sesión y un
+    campo que indica si el usuario es administrador.
+
+    Por último, un usuario puede tener varios ficheros y varias ejecuciones.
+    Esto está ejemplificado mediante dos relaciones a las otras dos entidades
+    (serán \texttt{One-To-Many} bidireccional).
+
+    \item \textbf{Dataset}: Representa un fichero subido por el usuario.
+    Contiene un identificador que representa la clave primaria. Como datos
+    propios del fichero contiene el nombre del mismo (tal y como se guarda en el
+    sistema) y la fecha de subida. 
+
+    Esta entidad mantiene una clave foránea al usuario (el identificador del
+    usuario) junto con una referencia directa a él (como se comentaba por la
+    relación).
+
+    \item \textbf{Run}: Representa la ejecución de un algoritmo. Contiene un
+    identificador que representa la clave primaria. Como datos propios de una
+    ejecución contiene:
+    \begin{itemize}
+        \item El nombre del algoritmo.
+        \item La cadena de caracteres (JSON) con los parámetros.
+        \item El nombre del fichero con el que se ejecutó (conjunto de datos).
+        \item La fecha de ejecución.
+        \item Componente X.
+        \item Componente Y.
+        \item Nombre del fichero del sistema que guarda todos los datos de la ejecución.
+    \end{itemize}
+
+    Esta entidad también mantiene una clave foránea al usuario (el identificador
+    del usuario) junto con una referencia directa a él (como se comentaba por la
+    relación).
+\end{itemize}
+
+\begin{landscape}
+\subsubsection{Diagrama Entidad/Relación}
+\imagencontamano{anexos/diseño/ER}{Diagrama Entidad/Relación}{1.5}
+\end{landscape}
+
+\subsubsection{Diagrama relacional}
+\imagen{anexos/diseño/Tablas}{Diagrama relacional}
 \section{Diseño procedimental}
 
-\imagencontamano{anexos/ProcedimientoWeb}{Diagrama de secuencia de la interacción Web}{1.1}
+\imagencontamano{anexos/diseño/ProcedimientoWeb}{Diagrama de secuencia de la visualización de un algoritmo}{1.1}
 
 \section{Diseño arquitectónico}
 
@@ -294,13 +344,13 @@ Se presenta el primer Mockup o maqueta que se comentó de la página Web. Todas
 las páginas tendrán una base común en la que aparecerá información general como
 la Universidad de Burgos (barra superior).
 
-\imagen{anexos/mockups/MUP_Inicio}{Página inicial de la Web.}
+\imagen{anexos/diseño/MUP_Inicio}{Página inicial de la Web.}
 
 En esta página inicial el usuario podrá seleccionar el algoritmo que desea
 visualizar. En los cuadrados existirá un logo o imagen representativa del
 algoritmo junto con su nombre.
 
-\imagen{anexos/mockups/MUP_ConfAlgoritmo}{Página de configuración del algoritmo.}
+\imagen{anexos/diseño/MUP_ConfAlgoritmo}{Página de configuración del algoritmo.}
 
 En esta ventana el usuario podrá subir el conjunto de datos que desee o incluso
 seleccionar alguno de los almacenados localmente. Además, como los algoritmos
@@ -310,7 +360,7 @@ Antes de iniciar, se muestra una explicación del algoritmo general y su
 pseudocódigo.
 
 
-\imagen{anexos/mockups/MUP_Algoritmo}{Página de ejecución del algoritmo.}
+\imagen{anexos/diseño/MUP_Algoritmo}{Página de ejecución del algoritmo.}
 
 Mostrará la evolución del entrenamiento de los algoritmos con una vista
 principal (izquierda) de la clasificación y un compendio de métricas como la
@@ -319,8 +369,8 @@ para ocultar/ver lo que el usuario desee en cada momento.
 
 \subsection{Diseño de Usuarios}
 
-\imagen{anexos/mockups/MUP_NAVBAR}{Barra de navegación principal}
-\imagen{anexos/mockups/MUP_NAVBAR_LOGGED}{Barra de navegación con usuario}
-\imagen{anexos/mockups/MUP_NAVBAR_HOVER}{Animación <<hover>> en barra de navegación}
-\imagen{anexos/mockups/MUP_MIESPACIO}{Espacio personal del usuario}
-\imagen{anexos/mockups/MUP_PERFIL}{visualización del perfil y modificación}
+\imagen{anexos/diseño/MUP_NAVBAR}{Barra de navegación principal}
+\imagen{anexos/diseño/MUP_NAVBAR_LOGGED}{Barra de navegación con usuario}
+\imagen{anexos/diseño/MUP_NAVBAR_HOVER}{Animación <<hover>> en barra de navegación}
+\imagen{anexos/diseño/MUP_MIESPACIO}{Espacio personal del usuario}
+\imagen{anexos/diseño/MUP_PERFIL}{visualización del perfil y modificación}
