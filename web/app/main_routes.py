@@ -68,20 +68,21 @@ def subida():
             filename = secure_filename(file_received.filename) + "-" + str(int(datetime.now().timestamp()))
             if current_user.is_authenticated:
                 complete_path = os.path.join(current_app.config['CARPETA_DATASETS_REGISTRADOS'], filename)
-                session['FICHERO'] = os.path.join(current_app.config['CARPETA_DATASETS_REGISTRADOS'], filename)
+                session['FICHERO'] = complete_path
             else:
                 complete_path = os.path.join(current_app.config['CARPETA_DATASETS_ANONIMOS'], filename)
-                session['FICHERO'] = os.path.join(current_app.config['CARPETA_DATASETS_ANONIMOS'], filename)
+                session['FICHERO'] = complete_path
 
-            file_received.save(complete_path)
+            if file_received.filename.upper().endswith('.ARFF') or file_received.filename.upper().endswith('.CSV'):
+                file_received.save(complete_path)
 
-            # Si está logeado, se puede guardar el fichero en base de datos
-            if current_user.is_authenticated:
-                dataset = Dataset()
-                dataset.filename = filename
-                dataset.date = datetime.now()
-                dataset.user_id = current_user.id
-                db.session.add(dataset)
-                db.session.commit()
+                # Si está logeado, se puede guardar el fichero en base de datos
+                if current_user.is_authenticated:
+                    dataset = Dataset()
+                    dataset.filename = filename
+                    dataset.date = datetime.now()
+                    dataset.user_id = current_user.id
+                    db.session.add(dataset)
+                    db.session.commit()
 
     return render_template('subida.html', ya_hay_fichero=ya_hay_fichero)

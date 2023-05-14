@@ -1,5 +1,6 @@
 import json
 import os
+import sys
 
 from flask import flash, render_template, redirect, session, url_for, Blueprint, current_app, abort
 from flask_babel import gettext
@@ -16,9 +17,11 @@ def configurar_algoritmo(algoritmo):
         flash(gettext("You must upload a file"), category='error')
         return redirect(url_for('main_bp.subida'))
 
-    if '.ARFF' not in session['FICHERO'].upper():
-        if '.CSV' not in session['FICHERO'].upper():
-            flash(gettext("File must be ARFF or CSV"), category='error')
+    filename = session['FICHERO'].rsplit("-", 1)[0]
+    if not filename.upper().endswith('.ARFF'):
+        if not filename.upper().endswith('.CSV'):
+            flash(gettext("File must be ARFF or CSV"), category='warning')
+            session.pop('FICHERO', None)
             return redirect(url_for('main_bp.subida'))
 
     if algoritmo not in current_app.config['ALGORITMOS_SELECCIONABLES']:
