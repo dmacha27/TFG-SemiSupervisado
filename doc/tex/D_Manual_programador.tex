@@ -618,6 +618,27 @@ $ python -m pip install -r requierements.txt
 $ python -m pip install .
 \end{minted}
 \end{tcolorbox}
+
+Por último, hay tres directorios que deben crearse para almacenar recursos de
+los usuarios durante la ejecución.
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,fontupper=\footnotesize,fontlower=\footnotesize,title=Creación de directorios (desde \texttt{/web/app})]
+\begin{minted}{matlab}
+//Windows
+$ MD runs
+$ MD datasets\anonimos
+$ MD datasets\registrados
+\end{minted}
+\tcblower
+\begin{minted}{shell}
+//Linux
+$ mkdir runs
+$ mkdir datasets/anonimos
+$ mkdir datasets/registrados
+\end{minted}
+\end{tcolorbox}
+
+
 A partir de aquí ya se tiene configurado todo el entorno y los requisitos
 necesarios para poder ejecutar la aplicación.
 
@@ -625,13 +646,15 @@ necesarios para poder ejecutar la aplicación.
 debe estar situado en el directorio \textbf{/web} del proyecto.
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,fontupper=\footnotesize,fontlower=\footnotesize,title=Ejecución]
 \begin{minted}{shell}
-$ set FLASK_APP=app.py //Windows
+//Windows
+$ set FLASK_APP=app.py
 $ flask run
 $ flask run --debug
 \end{minted}
 \tcblower
 \begin{minted}{shell}
-$ flask run //Linux
+//Linux
+$ flask run
 $ flask run --debug
 \end{minted}
 \end{tcolorbox}
