@@ -337,6 +337,108 @@ Entidades:
 
 \section{Diseño arquitectónico}
 
+Adelantando el contenido de este apartado, la arquitectura seguida en el
+desarrollo del software es la arquitectura de tres capas. Sin embargo, esta
+arquitectura tiene como punto de partida la arquitectura
+\texttt{cliente-servidor}.
+
+La arquitectura cliente-servidor es un modelo de diseño en el que las tareas se
+reparten entre los servidores (proveedores) y los clientes (demandantes)
+\cite{eswiki:149310099}. De hecho, como en principio solo tienen estos dos
+elementos, suele referirse a veces como arquitectura de dos capas.
+
+La separación entre ambos elementos es lógica y además el servidor no tiene por
+qué ser una única máquina. Y aquí es donde entran en juego los cimientos de la
+arquitectura de tres capas. Una disposición muy utilizada de cliente-servidor
+son los sistemas multicapa, en ellos, el servidor se descompone en más elementos
+(mayor desacoplamiento).
+
+\subsection{Arquitectura de tres capas}
+
+Estas tres capas o niveles son: capa de presentación, capa de aplicación o de
+negocio y la capa de datos. En la figura
+\ref{fig:anexos/diseño/ArquitecturaNormal} se representa un diagrama de este
+tipo de arquitectura.
+
+\imagen{anexos/diseño/ArquitecturaNormal}{Arquitectura de tres capas.}
+
+
+\begin{itemize}
+    \item \textbf{Capa de presentación}: es la capa con la que se presenta el
+    sistema y el usuario interactúa. Muestra la información al usuario y además
+    recopila información de este. Esta capa es la que ejecuta el navegador Web
+    desde el que accede el usuario \cite{arq3capas:ibm}. Se conoce también como
+    interfaz gráfica (del sistema). Esta capa solo se comunica con la capa de
+    negocio \cite{eswiki:149121324} (exclusivamente).
+
+    En el proyecto, esta capa está implementada mediante todas las plantillas,
+    estilos (CSS) y código JavaScript que con todos los formularios, enlaces,
+    botónes, visualizaciones... Concretamente, esto es generado por el
+    <<framework>> Flask (este <<framework>> puede verse en este caso como la
+    capa de presentación). Y realmente, toda esta capa se nutre de la
+    información que solicita a la capa de negocio (por ejemplo, los datos de las
+    ejecuciones, que no son generadas por esta capa sino por esta última). 
+\end{itemize}
+
+La comunicación entre la capa anterior y la siguiente se realiza mediante el
+protocolo HTTP (peticiones HTTP, los conceptos pueden encontrarse en la
+memoria). Aquí aparece el concepto de API, que define cómo se comunica el
+navegador con el servidor. En el proyecto actual se está utilizando una API
+<<privada>>, en el sentido de que no está pensada para ser accedida por todos
+los usuarios, sino solo los que estén manejando la aplicación y en el flujo de
+la misma. 
+
+\begin{itemize}
+    \item \textbf{Capa de negocio}: es el núcleo de la aplicación, se encarga de
+    manejar las peticiones del usuario desde la capa de presentación y de enviar
+    las respuestas correspondientes. Su nombre reside en que aquí se define la
+    lógica empresarial (qué es lo que hace la aplicación). También se comunica
+    con la capa de datos para almacenar o recuperar información.
+
+    En el proyecto, esta capa está implementada en Python en el código de cada
+    ruta accedida. Es decir, las peticiones que realiza el usuario serán
+    manejadas por las rutas correspondientes, realizando el procesamiento
+    correspondiente (el negocio). Por ejemplo, la ejecución de un algoritmo
+    dados sus parámetros para retornar los datos de la ejecución o el registro
+    de un nuevo usuario.
+\end{itemize}
+
+La comunicación entre la capa anterior y la siguiente se realiza mediante DB-API
+(Python Database API). No es un protocolo como tal, sino un conjunto de clases y
+funciones para el acceso a múltiples bases de datos (MySQL, SQLite,
+PostgreSQL...). Además, no se está utilizando directamente, sino que se hace uso
+de <<SQLAlchemy>>, que oculta el manejo de todas esas funciones y lo hace mucho
+más simple. Dependiendo del dialecto de la base de datos, cuando se intenta
+acceder a una base de datos, se establecerá lo que se llama una <<conexión
+DBAPI>>.
+
+\begin{itemize}
+    \item \textbf{Capa de datos}: conocida también como nivel de base de datos o
+    nivel de acceso, almacena y gestiona el acceso a los datos. Por lo general
+    esta capa es un sistema de gestión de base de datos como MySQL, PostgreSQL,
+    Oracle...
+\end{itemize}
+
+
+En el proyecto actual se está utilizando SQLite, una biblioteca que implementa
+un motor de base de datos. Actúa por sí mismo como si fuera un servidor
+independiente \cite{sqlite} (simulando lo que hacen otras bases de datos), pero
+completamente acoplado a la aplicación (en local). Es decir, no se crea como en
+otras bases de datos (MySQL), un proceso o instancia separada de la aplicación
+(que incluso suele estar en otro servidor). La base de datos SQLite es un <<todo
+en uno>> que se encuentra en la misma estructura de la aplicación, almacenada
+como un archivo único. Desde el punto de vista de la aplicación (capa de
+negocio) esto no tiene relevancia y actúa de la misma forma que con otros
+gestores.
+
+Por todo esto, el esquema de la arquitectura de tres capas podría ahora verse
+como en la figura \ref{fig:anexos/diseño/ArquitecturaVASS}.
+
+\imagen{anexos/diseño/ArquitecturaVASS}{Arquitectura de tres capas.}
+
+Siguen estando las tres capas propias de la arquitectura, pero con la
+particularidad de que no se tiene un servidor dedicado para la base de datos.
+
 \section{Diseño Web}
 
 \subsection{Primer mockup o maqueta}
