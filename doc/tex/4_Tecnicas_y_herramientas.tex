@@ -7,17 +7,56 @@ simplemente se seleccionaron directamente.
 
 \section{Técnicas}
 
-\textbf{Diseño adpatable}: Una de las herramientas utilizadas (ver siguiente sección) es Bootstrap, un
-conjunto de estilos ya predefinidos que pueden utilizarse sin necesidad de tener
-que codificar CSS. La idea de la aplicación Web desarrollada es que tenga la
-máxima accesibilidad. Esto se consigue partiendo de un diseño que sea apto para
-los dispositivos móviles, lo que se denomina estilo adaptable (<<responsive>>).
-Se trata de una técnica de diseño web para adaptar la visualización de la página
-al dispositivo desde el que se accede, haciendo que sea atractiva una mayor
-cantidad de usuarios. El diseño <<responsive>> se consolida como una de las
-mejores prácticas en el diseño web \cite{40defiebre}. En toda la aplicación,
-cuando el tamaño de la pantalla se reduce lo suficiente, los contenidos se
-adaptan y se posicionan de tal forma que puedan seguir utilizándose.
+\textbf{PEP8}: PEP corresponde con las siglas de \textit{Python Enhacement
+Proposal}. Un PEP es un documento dedicado a la comunidad Python para describir
+características de Python.
+
+PEP8 se trata de uno de estos documentos, describe una guía sobre cómo escribir
+código en Python junto con las mejores prácticas \cite{pep8:desc}. En
+definitiva, es una guía de estilos. Fue escrita por Guido van Rossum, Barry
+Warsaw, and Nick Coghlan en 2001. Es la guía de estilo que se ha usado en todo
+el desarrollo Python del proyecto.
+
+La necesidad de utilizar PEP8 recae concretamente en la legibilidad. La idea
+subyacente de esto es que el <<código es leído mucho más a menudo de lo que es
+escrito>> (Guido van Rossum). Cuando se ha escrito un código, lo lógico sería
+que al volver a él, el desarrollador sepa qué es lo que esa porción de código
+hace. Sin seguir unas guías de estilo esta tarea es mucho más difícil (nombres
+de variables sin contexto, código amontonado, comentarios en línea y de
+funciones escasos e inútiles...).
+
+A grandes rasgos, PEP8 considera los siguientes aspectos \cite{pep8}:
+
+\begin{itemize}
+	\item Diseño de código: como las indentaciones de 4 espacios o longitud
+	máxima de líneas de 79 caracteres.
+	\item Cadenas de caracteres: con libertad si utilizar comillas dobles o
+	simple.
+	\item Espacios en blanco: recomendaciones sobre cuándo dejar o no espacios.
+	\item Comentarios: mantener los comentarios actualizados, claros y
+	fácilmente entendibles. Los comentarios en línea deberían ser útiles (sin
+	obviedades) y los comentarios de documentación siempre deben aparecer en
+	todas las funciones (no privadas) después del <<def>>.
+	\item Convenciones de nombres: con nombres a evitar (como 'O') o cómo poner
+	nombres correctos de paquetes, módulos, clases, funciones, constantes...
+\end{itemize}
+
+Algo que ha facilitado mucho la aplicación de esta guía de estilo es la
+capacidad de la propia herramienta utilizada (Pycharm, se verá más adelante) de
+detectar automáticamente la violación de algunas de estas recomendaciones.
+
+\textbf{Diseño adpatable}: Una de las herramientas utilizadas (ver siguiente
+sección) es Bootstrap, un conjunto de estilos ya predefinidos que pueden
+utilizarse sin necesidad de tener que codificar CSS. La idea de la aplicación
+Web desarrollada es que tenga la máxima accesibilidad. Esto se consigue
+partiendo de un diseño que sea apto para los dispositivos móviles, lo que se
+denomina estilo adaptable (<<responsive>>). Se trata de una técnica de diseño
+web para adaptar la visualización de la página al dispositivo desde el que se
+accede, haciendo que sea atractiva una mayor cantidad de usuarios. El diseño
+<<responsive>> se consolida como una de las mejores prácticas en el diseño web
+\cite{40defiebre}. En toda la aplicación, cuando el tamaño de la pantalla se
+reduce lo suficiente, los contenidos se adaptan y se posicionan de tal forma que
+puedan seguir utilizándose.
 
 \textbf{Internacionalización (i18n)\footnote{Denominado así por las 18 letras
 entre la <<i>> y la <<n>> en Internationalization}}: Se trata de una
@@ -38,12 +77,13 @@ claves, que luego son sustituidas cuando el usuario accede.
 \section{Herramientas}
 
 \paragraph{PyCharm}
-Se trata de un \texttt{entorno de desarrollo integrado} ("<IDE">) desarrollado por
-JetBrains. Está creado para la programación en lenguaje Python y aunque no se ha
-usado en este proyecto también Java. Este "<IDE"> se ha convertido junto con Visual
-Studio Code y Jupyter en el más utilizado por los desarrolladores.
+Se trata de un \texttt{entorno de desarrollo integrado} ("<IDE">) desarrollado
+por JetBrains. Está creado para la programación en lenguaje Python y aunque no
+se ha usado en este proyecto también Java. Este "<IDE"> se ha convertido junto
+con Visual Studio Code y Jupyter en el más utilizado por los desarrolladores.
 
-Ofrece multitud de funcionalidades (\url{https://www.jetbrains.com/es-es/pycharm/features/}):
+Ofrece multitud de funcionalidades
+(\url{https://www.jetbrains.com/es-es/pycharm/features/}):
 \begin{itemize}
 	\item Inspección de código.
 	\item Indicación de errores (compilación).
@@ -56,13 +96,20 @@ Ofrece multitud de funcionalidades (\url{https://www.jetbrains.com/es-es/pycharm
 
 Estas son solo algunas de las muchas funcionalidades que permite y que han hecho
 que se haya seleccionado para este proyecto. Además, dado que el proyecto tiene
-una fuerte componente de desarrollo Web así como frameworks, PyCharm tiene una
-integración completa con estos ámbitos, pudiendo desarrollar también de forma
-nativa con JavaScript o lenguajes de marcas (HTML o CSS).
+una fuerte componente de desarrollo Web, PyCharm tiene una integración completa
+con estos ámbitos, pudiendo desarrollar también de forma nativa con JavaScript o
+lenguajes de marcas (HTML o CSS).
 
-Otra ventaja del uso de PyCharm y concretamente gracias a la Universidad de
-Burgos es que el alumnado tiene acceso a la edición "<Professional"> que
-habilita ese desarrollo Web, por ejemplo.
+También se ha destacar otra funcionalidad que ha sido de gran utilidad.
+JetBrains tiene una herramienta específica para la conexión con bases de datos
+\texttt{DataGrip}. Sin embargo Pycharm, de forma nativa, tiene ciertas de estas
+utilidades. En concreto, en este proyecto se ha usado la visualización del
+contenido de la base de datos junto con el diagrama de tablas/entidades (que
+muestra relaciones, claves primarias, foráneas e incluso los tipos de datos).
+
+Finalmente, el factor decisivo para usar PyCharm y concretamente gracias a la
+Universidad de Burgos, es que el alumnado tiene acceso a la edición
+"<Professional">, que habilita ese desarrollo Web, por ejemplo.
 
 Por último, esta aplicación ya había sido usada con anterioridad y por tanto su
 aprendizaje básico no era necesario.
@@ -82,11 +129,10 @@ desarrollan y que permiten agilizar en lo posible las tareas del programador.
 
 A pesar de todas las ventajas, el manejo de PyCharm ha resultado más sencillo de
 utilizar (durante la experiencia previa a este proyecto) en el desarrollo del
-software. Pero debido a su versatilidad y al desarrollo de esta
-documentación en Latex, VS Code es el editor adecuado para ello. Gracias a las
-extensiones y a la instalación local de \LaTeX, permite tener un control completo
-para la creación de este tipo de documentos. 
-
+software. Pero debido a su versatilidad y al desarrollo de esta documentación en
+Latex, VS Code es el editor adecuado para ello. Gracias a las extensiones y a la
+instalación local de \LaTeX, permite tener un control completo para la creación
+de este tipo de documentos.
 
 \paragraph{GitHub Desktop}
 Es una aplicación que permite interactuar con GitHub utilizando una interfaz
@@ -102,6 +148,34 @@ vistazo y seleccionar dinámicamente los cambios que se deseen aplicar.
 
 Aún con todo esto, no es más que una aplicación para agilizar el ya por lo
 general rápido proceso de control de versiones.
+
+\paragraph{Diagrams.net (Draw.io)}
+Es una herramienta online y de escritorio para la creación de diagramas. Con
+ella se pueden crear diagramas de flujo, de UML o de red entre otras muchas
+posibilidades. Para crear estos diagramas, posee un listado de elementos
+(organizados) de cada tipo de diagrama (actores, cajas de clases, rombos de
+relaciones...). Pero aunque esté pensado específicamente para diagramas, existen
+muchos más elementos como flechas, figuras, iconos... Esto permite no solo crear
+diagramas sino todo tipo de cosas.
+
+Con esta herramienta se han creado prácticamente todos los diagramas de la
+documentación.
+
+\paragraph{PuTTy}
+La aplicación Web del proyecto se encuentra en funcionamiento en internet a
+través de \url{https://vass.dmacha.dev}. Para gestionar el servidor en el que se
+tiene lanzada se ha utilizado PuTTy.
+
+Se trata de una aplicación de escritorio de código abierto y gratuita que
+permite emular una terminal de comandos. Soporta múltiples protocolos como SSH
+(\textit{Secure Shell}), que es el que se ha usado mediante la generación de
+clave pública y privada. Una vez que se establece la conexión con el equipo
+remoto, se convierte en la misma terminal que podría visualizarse en la pantalla
+de este.
+
+Además de esta funcionalidad, PuTTy alberga muchas otras utilidades como la de
+generación de claves o incluso la transferencia de ficheros con SFTP
+(\textit{Secure File Transfer Protocol}).
 
 \paragraph{Librerías Python}
 Para el proyecto se están utilizando múltiples librerías que facilitan en gran
@@ -119,7 +193,7 @@ especificadas en los requisitos (\textit{requirements}).
 	desarrollo de aplicaciones Web. Impone además su formato de plantillas
 	(Jinja2).
 	\item \textbf{flask-babel}: Es una extensión de Flask que permite la
-	internacionalización concreta de aplicacones Flask (con la ayuda de Babel).
+	internacionalización concreta de aplicaciones Flask (con la ayuda de Babel).
 	\item \textbf{Flask-SQLAlchemy}: Librería que actúa de extensión de Flask y
 	añade el soporte para SQLAlchemy. No modifica el comportamiento de este
 	último.
@@ -141,7 +215,7 @@ especificadas en los requisitos (\textit{requirements}).
 	datos Semi-Supervisados como extensión de scikit-learn. Creada por José Luis
 	Garrido-Labrador.
 	\item \textbf{Werkzeug}: Librería para aplicaciones WSGI (Web Server Gateway
-	Inteface). Contiene un colección de utilidades para este tipo de
+	Inteface). Contiene una colección de utilidades para este tipo de
 	aplicaciones.
 	\item \textbf{matplotlib}: Librería para la creación de gráficos en 2D.
 	\item \textbf{Flask-WTF}: Librería que actúa de extensión de Flask y añade
@@ -171,6 +245,12 @@ plantillas creadas con HTML, CSS y JavaScript para componentes de la interfaz
 que el usuario simplemente puede hacer uso de ellas. En HTML, Bootstrap se
 incorpora en las clases de los componentes y en su página oficial se tiene toda
 la documentación\footnote{Bootstrap: \url{https://getbootstrap.com/}}.
+
+\textbf{Bootstrap Icons}: es una librería aparte de Bootstrap con iconos SVG.
+Los iconos son tratados como clases que se incorporan a los elementos HTML.
+Desde \url{https://icons.getbootstrap.com/} se pueden encontrar todos los iconos
+que incluye la librería junto con el código a utilizar para copiar y pegar
+directamente.
 
 \textbf{D3.js}: su nombre se debe a Data-Drive-Documents, es una librería de
 JavaScript que permite representar datos en distintas visualizaciones mediante
@@ -211,3 +291,6 @@ mismos problemas. A la hora de crear las tablas, tiene multitud de opciones,
 tanto para la tabla general, como para celdas, columnas o filas concretas. Como
 más importante, existen opciones para <<renderizar>> código HTML en unas
 columnas (típica columna de Acciones, por ejemplo).
+
+También es de destacar que se ha incluido la extensión <<responsive>> de
+DataTables para habilitar el estilo adaptativo de las tablas.
