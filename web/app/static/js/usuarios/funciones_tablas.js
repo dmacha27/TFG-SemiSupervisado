@@ -299,8 +299,8 @@ export function generateDatasetTable(datasets, locale, all_users) {
             let democraticcolearning = document.getElementById('democraticcolearning_link');
             democraticcolearning.setAttribute('href', '/seleccionar/democraticcolearning/' + file);
 
-            let triraining = document.getElementById('triraining_link');
-            triraining.setAttribute('href', '/seleccionar/triraining/' + file);
+            let triraining = document.getElementById('tritraining_link');
+            triraining.setAttribute('href', '/seleccionar/tritraining/' + file);
 
         }
     });
