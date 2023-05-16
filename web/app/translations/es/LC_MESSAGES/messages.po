@@ -1,13 +1,13 @@
 # Spanish translations for PROJECT.
 # Copyright (C) 2023 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+# David Martínez Acha <dma1004@alu.ubu.es>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-05-13 11:24+0200\n"
+"POT-Creation-Date: 2023-05-16 17:29+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,39 +18,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.11.0\n"
 
-#: __init__.py:53
+#: __init__.py:52
 msgid "English"
 msgstr "Inglés"
 
-#: __init__.py:54
+#: __init__.py:53
 msgid "Spanish"
 msgstr "Español"
 
-#: __init__.py:113
+#: __init__.py:112
 msgid "Internal Server Error"
 msgstr "Error interno del servidor"
 
-#: __init__.py:117
+#: __init__.py:116
 msgid "Not found"
 msgstr "No encontrado"
 
-#: __init__.py:121
+#: __init__.py:120
 msgid "Forbidden"
 msgstr "Petición denegada por el servidor"
 
-#: __init__.py:125
+#: __init__.py:124
 msgid "Unauthorized"
 msgstr "No autorizado"
 
-#: __init__.py:129
+#: __init__.py:128
 msgid "Bad request"
 msgstr "Mala petición"
 
-#: configuration_routes.py:16
+#: configuration_routes.py:17
 msgid "You must upload a file"
 msgstr "Debe subir un archivo"
 
-#: configuration_routes.py:21
+#: configuration_routes.py:23
 msgid "File must be ARFF or CSV"
 msgstr "El fichero debe ser ARFF o CSV"
 
@@ -96,8 +96,8 @@ msgid "Use PCA to reduce to 2D"
 msgstr "Utilizar PCA para reducir a 2D"
 
 #: forms.py:87
-msgid "Normalize"
-msgstr "Normalizar"
+msgid "Standardize"
+msgstr "Estandarizar"
 
 #: forms.py:91
 msgid "Unlabelled percentage"
@@ -681,4 +681,3 @@ msgstr "puntos solapados"
 #: templates/visualizacion/singleview.html:3
 msgid "Specific statistics"
 msgstr "Estadísticas específicas"
-

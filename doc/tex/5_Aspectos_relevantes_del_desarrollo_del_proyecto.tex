@@ -88,9 +88,15 @@ atributos), a dos dimensiones (solo los atributos, no el <<target>> ni el resto
 de columnas). El usuario puede seleccionar dos posibilidades, o realizar PCA o
 seleccionar él dos atributos del conjunto.
 
-En ambos casos apareció la decisión de la normalización. Al principio se
+En ambos casos apareció la decisión de la estandarización. Al principio se
 realizaba en ambos casos directamente, pero finalmente se permitía al usuario
-elegir si normalizar o no.
+elegir si estandarizar o no.
+
+Como se puede ver, no se está normalizando sino estandarizando. Esta decisión es
+debida, principalmente, al efecto de los \texttt{outliers} (valores atípicos).
+Un valor extremo en normalización puede hacer que la visualización sea muy
+pobre, juntando la mayoría de los puntos a una zona. Con la estandarización este
+efecto es mucho menor, pues se tiene en cuenta la media de los valores.
 
 \section{Desarrollo de los algoritmos}
 

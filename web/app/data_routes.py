@@ -146,16 +146,16 @@ def obtener_info(algoritmo):
     else:
         log, stats, specific_stats, iteration = algoritmo.fit(x, y, x_test, y_test, datasetloader.get_only_features())
 
-    norm = True if request.form['norm'] == 'y' else False
+    stand = True if request.form['stand'] == 'y' else False
 
     if request.form['pca'] == 'y':
         _2d = log_pca_reduction(log,
-                                datasetloader.get_only_features(), normalize=norm).to_json()
+                                datasetloader.get_only_features(), standardize=stand).to_json()
     else:
         _2d = log_cxcy_reduction(log,
                                  request.form['cx'],
                                  request.form['cy'],
-                                 datasetloader.get_only_features(), normalize=norm).to_json()
+                                 datasetloader.get_only_features(), standardize=stand).to_json()
 
     info = {'iterations': iteration,
             'log': _2d,

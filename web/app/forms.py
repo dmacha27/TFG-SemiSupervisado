@@ -84,9 +84,9 @@ class FormConfiguracionBase(FlaskForm):
                        name="pca",
                        id="pca")
 
-    norm = BooleanField(lazy_gettext('Normalize'),
-                        name="norm",
-                        id="norm")
+    stand = BooleanField(lazy_gettext('Standardize'),
+                         name="stand",
+                         id="stand")
 
     p_unlabelled = IntegerRangeField(lazy_gettext('Unlabelled percentage'),
                                      name="p_unlabelled",

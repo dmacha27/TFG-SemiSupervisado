@@ -8,7 +8,7 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 
 
-def log_pca_reduction(log, features, n_com=2, normalize=True):
+def log_pca_reduction(log, features, n_com=2, standardize=True):
     """
     Reduce las características (features) de los datos para ser representado
     en un gráfico. En principio para 2 componentes, etiquetadas como C1, C2..
@@ -16,7 +16,7 @@ def log_pca_reduction(log, features, n_com=2, normalize=True):
     :param log: información de entrenamiento.
     :param features: lista de características que se van a reducir.
     :param n_com: Número de componentes a reducir.
-    :param normalize: indica si los atributos seleccionados deben ser normalizados.
+    :param standardize: indica si los atributos seleccionados deben ser estandarizados.
     :return: log transformado al número de componentes
     """
 
@@ -24,7 +24,7 @@ def log_pca_reduction(log, features, n_com=2, normalize=True):
     rest = log[not_features]
     features = log[features]
 
-    if normalize:
+    if standardize:
         features = StandardScaler().fit_transform(features)
 
     pca = PCA(n_components=n_com)
@@ -39,7 +39,7 @@ def log_pca_reduction(log, features, n_com=2, normalize=True):
     return df
 
 
-def log_cxcy_reduction(log, cx, cy, features, normalize=True):
+def log_cxcy_reduction(log, cx, cy, features, standardize=True):
     """
     Reduce el log a las dos características (features) especificadas. Con las dos componentes cx y cy
 
@@ -47,7 +47,7 @@ def log_cxcy_reduction(log, cx, cy, features, normalize=True):
     :param cx: componente X.
     :param cy: componente Y.
     :param features: características de los datos (sin target o información adicional).
-    :param normalize: indica si los atributos seleccionados deben ser normalizados.
+    :param standardize: indica si los atributos seleccionados deben ser estandarizados.
     :return: log transformado.
     """
 
@@ -57,7 +57,7 @@ def log_cxcy_reduction(log, cx, cy, features, normalize=True):
     rest = log[not_features]
     features = log[[cx, cy] if c_not_equal else [cx]]
 
-    if normalize:
+    if standardize:
         features = StandardScaler().fit_transform(features)
 
     df = pd.DataFrame(
