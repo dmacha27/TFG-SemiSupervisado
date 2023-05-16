@@ -21,7 +21,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/dma1004/TFG-SemiSupervisado">
+  <a href="https://vass.dmacha.dev">
     <img src="./vass.png" alt="Logo" width="451" height="451">
   </a>
 

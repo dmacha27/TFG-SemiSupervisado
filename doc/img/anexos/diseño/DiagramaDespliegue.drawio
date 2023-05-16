@@ -1,0 +1,64 @@
+<mxfile host="app.diagrams.net" modified="2023-05-16T19:36:49.197Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/113.0" etag="G2s8aqmnJEFaKKdXV4CX" version="21.3.2" type="device">
+  <diagram name="Página-1" id="1ETJvQTOkNLDrXgBLH7d">
+    <mxGraphModel dx="1274" dy="1846" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="nCaYWi8LtKrmk4JnwUJk-1" value="&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;Servidor Web&lt;br&gt;&lt;/b&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=20;direction=south;fontStyle=4;html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="440" y="230" width="290" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="nCaYWi8LtKrmk4JnwUJk-2" value="" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="505" y="320" width="130" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="nCaYWi8LtKrmk4JnwUJk-5" value="&lt;div&gt;Aplicación &lt;br&gt;&lt;/div&gt;&lt;div&gt;Flask&lt;/div&gt;" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="530" y="342" width="80" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="nCaYWi8LtKrmk4JnwUJk-7" value="" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="505" y="440" width="130" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="nCaYWi8LtKrmk4JnwUJk-8" value="SQLite" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="530" y="462" width="80" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="nCaYWi8LtKrmk4JnwUJk-11" value="&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;PC&lt;/b&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=20;direction=south;fontStyle=4;html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="470" y="-30" width="230" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="nCaYWi8LtKrmk4JnwUJk-18" value="" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="505" y="58" width="130" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="nCaYWi8LtKrmk4JnwUJk-19" value="&lt;div&gt;Navegador&lt;/div&gt;&lt;div&gt;Web&lt;br&gt;&lt;/div&gt;" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="530" y="80" width="80" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="nCaYWi8LtKrmk4JnwUJk-21" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" parent="1" source="nCaYWi8LtKrmk4JnwUJk-18" target="nCaYWi8LtKrmk4JnwUJk-2" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="200" y="590" as="sourcePoint" />
+            <mxPoint x="250" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="nCaYWi8LtKrmk4JnwUJk-22" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" parent="1" source="nCaYWi8LtKrmk4JnwUJk-7" target="nCaYWi8LtKrmk4JnwUJk-2" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="310" y="590" as="sourcePoint" />
+            <mxPoint x="360" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="nCaYWi8LtKrmk4JnwUJk-23" value="Conexión HTTP/HTTPS" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;rotation=0;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="560" y="185" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nCaYWi8LtKrmk4JnwUJk-24" value="&lt;b&gt;DB-API&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="570" y="400" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nCaYWi8LtKrmk4JnwUJk-25" value="Usuario" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
+          <mxGeometry x="300" y="53" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="nCaYWi8LtKrmk4JnwUJk-28" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0.078;entryY=0.354;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="nCaYWi8LtKrmk4JnwUJk-25" target="nCaYWi8LtKrmk4JnwUJk-18" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="220" y="230" as="sourcePoint" />
+            <mxPoint x="270" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7zPr78HWbbJPUYGZGSxP-1" value="&lt;b&gt;Interfaz de usuario&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="345" y="55" width="130" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
