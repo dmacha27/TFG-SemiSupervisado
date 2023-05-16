@@ -433,6 +433,98 @@ confianza.
      \caption{Tri-Training}\label{pseudo:tri-training}
 \end{algorithm}
 \clearpage
+
+\section{Técnicas de tratamiento de datos}
+
+En el proceso de minería de datos y aprendizaje una de las primeras etapas y
+principales es el preprocesamiento de datos. Este concepto hace referencia a la
+manipulación y eliminación de datos antes de ser usados para mejorar el
+rendimiento del proceso \cite{enwiki:1138293751}.
+
+El tratamiento de datos, también es particularmente útil en el área de
+interpretación y visualización de datos. En ocasiones, el conocimiento obtenido
+es difícil de interpretar con reglas o puras matemáticas.
+
+En esta sección se van a comentar algunos conceptos que se han aplicado en el
+área de tratamiento de datos (tanto en la parte de preprocesamiento como
+visualización).
+
+\subsection{Codificación de variables categóricas}
+Este es el único tratamiento que el proyecto tiene incluido dentro del
+preprocesamiento de los datos (el usuario es el encargado de tratar el resto de
+cuestiones). Además, solo se aplica al atributo de la clase.
+
+Muchos algoritmos de aprendizaje automático no son capaces de trabajar con
+variables categóricas (no numéricas). Además, la categorización está presente en
+muchos conjuntos de datos, ya que son muy útiles para aportar significado (los
+números serían más difíciles de entender).Debido a las limitaciones de los
+algoritmos, estos valores categóricos deben ser codificados a unos valores
+numéricos.
+
+Una de las ideas más directas (y la aplicada en el proyecto) es la
+<<Codificación de etiquetas>> (\textit{Label encoding}). Esta técnica
+simplemente trata cada valor único de etiqueta como un valor numérico también
+único.
+
+\begin{table}[H]
+    \centering
+\begin{tabular}{l|c}
+Etiquetas originales & Etiquetas codificadas \\ \hline
+Amarillo             & 0                     \\
+Rojo                 & 1                     \\
+Verde                & 2                     \\
+Amarillo             & 0                     \\
+Azul                 & 3                    
+\end{tabular}
+\caption{Codificación de etiquetas}
+\end{table}
+
+Desde el punto de vista del algoritmo, no necesita tener esa información que
+aportaba la categoría (y que a nosotros sí nos ayuda). Simplemente manteniendo
+la misma codificación para cada etiqueta, es suficiente.
+
+\subsection{PCA (\textit{Principal Component Analysis})} 
+
+Desde el punto de vista de la interpretación de los datos, PCA puede ser muy
+útil (también se utiliza en el preprocesamiento en algún proceso de minería).
+
+El análisis de componentes principales es un algoritmo matemático que reduce la
+dimensionalidad de los datos manteniendo la mayoría de las variaciones en los
+datos. Esto lo realiza identificando componentes principales
+\cite{ringner2008principal}. Una componente principal es una nueva variable que
+es combinación lineal de las variables originales. La idea es mantener los
+patrones escondidos en los datos, en las componentes principales, para que si se
+aplica a un proceso de minería de datos, se pueda seguir extrayendo
+conocimiento.
+
+Aplicar PCA permite utilizar solo unas pocas componentes que pueden ser
+graficadas y hacer posible la visualización de diferencias y similitudes.
+
+Esta idea es la que se ha usado para las visualizaciones del proyecto. En muchos
+casos se tendrá una dimensionalidad alta y por lo tanto no se puede visualizar
+en dos dimensiones.
+
+\subsection{Estandarización}
+
+La estandarización en el campo de tratamiento de datos hace referencia a la
+transformación de los valores para centrarlos en una media y con una cierta
+desviación estándar (típicamente media cero y desviación 1).
+
+\begin{equation}
+  z = (x - u) / s
+\end{equation}
+
+$z$ es el nuevo valor, $x$ el valor original, $u$ la media y $s$ la desviación.
+
+La estandarización es útil cuando no se quiere establecer un rango fijo  de
+valores (como en la normalización), y además, los
+\textit{outliers\footnote{Valor atípico}} no afectan demasiado, ya que se
+considera la media de todos ellos.
+
+En el proyecto, es la posibilidad que se le da al usuario para mostrar los datos
+finales, ya que permite mantener las relaciones entre los datos pero
+compactándolos lo suficiente para una buena visualización.
+
 \subsection{HTTP (Descripción general)}
 
 Al ser una aplicación Web, este proyecto tiene alta relación con este protocolo.
