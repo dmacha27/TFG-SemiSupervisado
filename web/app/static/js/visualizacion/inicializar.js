@@ -34,6 +34,13 @@ async function inicializar(rutadatos, elementos) {
                     document.getElementById('error_text').innerText = respuesta.error;
                     document.getElementById('btn_error_close').addEventListener('click', function () {
                         history.back();
+                    });
+                    document.getElementById('btn_error_close_cross').addEventListener('click', function () {
+                        history.back();
+                    });
+
+                    document.getElementById('modal_error').addEventListener('hide.bs.modal', function () {
+                        history.back();
                     })
 
                 }
