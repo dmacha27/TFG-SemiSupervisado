@@ -1,13 +1,14 @@
 \capitulo{4}{Técnicas y herramientas}
 
-En este apartado se presentarán las técnicas (procedimientos) y herramientas que
-se han utilizado para el desarrollo del presente proyecto. En algunos de los
-casos la experiencia u otros aspectos han hecho decantarse por una u otra o
-simplemente se seleccionaron directamente.
+En este apartado se presentarán las técnicas y herramientas que se han utilizado
+para el desarrollo del presente proyecto. En algunos de los casos la experiencia
+u otros aspectos han hecho decantarse por una u otra o simplemente se
+seleccionaron directamente.
 
 \section{Técnicas}
 
-\textbf{PEP8}: PEP corresponde con las siglas de \textit{Python Enhacement
+
+\paragraph{PEP8} PEP corresponde con las siglas de \textit{Python Enhacement
 Proposal}. Un PEP es un documento dedicado a la comunidad Python para describir
 características de Python.
 
@@ -45,7 +46,7 @@ Algo que ha facilitado mucho la aplicación de esta guía de estilo es la
 capacidad de la propia herramienta utilizada (Pycharm, se verá más adelante) de
 detectar automáticamente la violación de algunas de estas recomendaciones.
 
-\textbf{Diseño adpatable}: Una de las herramientas utilizadas (ver siguiente
+\paragraph{Diseño adpatable} Una de las herramientas utilizadas (ver siguiente
 sección) es Bootstrap, un conjunto de estilos ya predefinidos que pueden
 utilizarse sin necesidad de tener que codificar CSS. La idea de la aplicación
 Web desarrollada es que tenga la máxima accesibilidad. Esto se consigue
@@ -54,12 +55,13 @@ denomina estilo adaptable (<<responsive>>). Se trata de una técnica de diseño
 web para adaptar la visualización de la página al dispositivo desde el que se
 accede, haciendo que sea atractiva una mayor cantidad de usuarios. El diseño
 <<responsive>> se consolida como una de las mejores prácticas en el diseño web
-\cite{40defiebre}. En toda la aplicación, cuando el tamaño de la pantalla se
-reduce lo suficiente, los contenidos se adaptan y se posicionan de tal forma que
-puedan seguir utilizándose.
+\cite{40defiebre}. En toda la aplicación (excepto las visualizaciones que
+requieren de mucho más espacio), cuando el tamaño de la pantalla se reduce lo
+suficiente, los contenidos se adaptan y se posicionan de tal forma que puedan
+seguir utilizándose.
 
-\textbf{Internacionalización (i18n)\footnote{Denominado así por las 18 letras
-entre la <<i>> y la <<n>> en Internationalization}}: Se trata de una
+\paragraph{Internacionalización (i18n)}\footnote{Denominado así por las 18 letras
+entre la <<i>> y la <<n>> en Internationalization}: Se trata de una
 técnica/procedimiento por el que se desarrolla el software para poder ser
 adaptado y localizado posteriormente a otras culturas y
 lenguajes~\cite{lokalise}. Concretamente, este proyecto se está centrando en la
@@ -100,7 +102,7 @@ una fuerte componente de desarrollo Web, PyCharm tiene una integración completa
 con estos ámbitos, pudiendo desarrollar también de forma nativa con JavaScript o
 lenguajes de marcas (HTML o CSS).
 
-También se ha destacar otra funcionalidad que ha sido de gran utilidad.
+También se ha de destacar otra funcionalidad que ha sido de gran utilidad.
 JetBrains tiene una herramienta específica para la conexión con bases de datos
 \texttt{DataGrip}. Sin embargo Pycharm, de forma nativa, tiene ciertas de estas
 utilidades. En concreto, en este proyecto se ha usado la visualización del
@@ -111,20 +113,20 @@ Finalmente, el factor decisivo para usar PyCharm y concretamente gracias a la
 Universidad de Burgos, es que el alumnado tiene acceso a la edición
 "<Professional">, que habilita ese desarrollo Web, por ejemplo.
 
-Por último, esta aplicación ya había sido usada con anterioridad y por tanto su
-aprendizaje básico no era necesario.
+Esta aplicación ya había sido usada con anterioridad y por tanto su aprendizaje
+básico no era necesario.
 
 \paragraph{Visual Studio Code}
 Se trata de un editor de código fuente desarrollado por Microsoft. Es el editor
 por excelencia en todo el ámbito de la programación pues permite la programación
-en casi cualquier lenguaje de programación haciéndole muy versátil y un "<todo
+en casi cualquier lenguaje de programación, haciéndole muy versátil y un "<todo
 en uno">.
 
 Ofrece todas las funcionalidades que cabe esperar (incluyendo a las que ofrece
 PyCharm): sintaxis, depuración, personalización, integración git...
 
 Además del núcleo propio del editor y su constante actualización, uno de sus
-puntos fuertes son las extensiones que empresas o incluso la comunidad
+puntos fuertes son las extensiones, que empresas o incluso la comunidad,
 desarrollan y que permiten agilizar en lo posible las tareas del programador.
 
 A pesar de todas las ventajas, el manejo de PyCharm ha resultado más sencillo de
@@ -141,22 +143,22 @@ realizar las operaciones más comunes y básicas de Git.
 
 Pese a que no tiene toda la funcionalidad que sí ofrece la línea de comandos no
 se previó un uso muy exhaustivo de Git y, por tanto, es suficiente
-("<Commit">,"<Push">,"<Pull">,"<Merge">...).
+(<<Commit>>>,<<Push>>,<<Pull>>,<<Merge>>...).
 
 Además, puede visualizarse cada cambio respecto a la última versión de un
 vistazo y seleccionar dinámicamente los cambios que se deseen aplicar.
 
-Aún con todo esto, no es más que una aplicación para agilizar el ya por lo
-general rápido proceso de control de versiones.
+Aún con todo esto, no es más que una aplicación para agilizar el proceso de
+control de versiones.
 
 \paragraph{Diagrams.net (Draw.io)}
 Es una herramienta online y de escritorio para la creación de diagramas. Con
 ella se pueden crear diagramas de flujo, de UML o de red entre otras muchas
 posibilidades. Para crear estos diagramas, posee un listado de elementos
 (organizados) de cada tipo de diagrama (actores, cajas de clases, rombos de
-relaciones...). Pero aunque esté pensado específicamente para diagramas, existen
-muchos más elementos como flechas, figuras, iconos... Esto permite no solo crear
-diagramas sino todo tipo de cosas.
+relaciones, bloques...). Pero aunque esté pensado específicamente para
+diagramas, existen muchos más elementos como flechas, figuras e iconos que
+permiten no solo crear diagramas, sino todo tipo de cosas.
 
 Con esta herramienta se han creado prácticamente todos los diagramas de la
 documentación.
@@ -180,8 +182,7 @@ generación de claves o incluso la transferencia de ficheros con SFTP
 \paragraph{Librerías Python}
 Para el proyecto se están utilizando múltiples librerías que facilitan en gran
 medida el desarrollo del mismo. Implementan funcionalidades que pueden ser
-utilizadas directamente. En el proyecto, las librerías usadas están
-especificadas en los requisitos (\textit{requirements}).
+utilizadas directamente.
 
 \begin{itemize}
 	\item \textbf{pandas}: Librería para el manejo de estructuras de datos que
@@ -234,17 +235,19 @@ especificadas en los requisitos (\textit{requirements}).
 utilización de dos bibliotecas que han resultado fundamentales.
 
 \textbf{Bootstrap}: No es considerado una biblioteca al uso, sino que está
-categorizado como un <<framework>> de CSS. Fue lanzado en 2011 con una gran
+categorizado como un <<framework>> de CSS. Fue lanzado en 2011, con gran
 cantidad de actualizaciones y de lanzamientos de nuevas versiones. La versión
-más reciente y la utilizada en el proyecto, es Bootstrap 5, que mejora el código
-fuente de la versión 4 y añade propiedades nuevas. La intención del equipo de
-Bootstrap es promover el desarrollo web con novedades de CSS y menores
-dependencias. Su principal objetivo es la creación de Webs con diseño responsivo
-(adaptados a móviles) de la forma más sencilla posible. Contiene infinidad de
-plantillas creadas con HTML, CSS y JavaScript para componentes de la interfaz
-que el usuario simplemente puede hacer uso de ellas. En HTML, Bootstrap se
-incorpora en las clases de los componentes y en su página oficial se tiene toda
-la documentación\footnote{Bootstrap: \url{https://getbootstrap.com/}}.
+más reciente y la utilizada en el proyecto es Bootstrap 5, que mejora el código
+fuente de la versión 4 y añade propiedades nuevas. 
+
+La intención del equipo de Bootstrap es promover el desarrollo web con novedades
+de CSS y menores dependencias. Su principal objetivo es la creación de Webs con
+diseño responsivo (adaptados a móviles) de la forma más sencilla posible.
+Contiene infinidad de plantillas creadas con HTML, CSS y JavaScript para
+componentes de la interfaz que el usuario simplemente puede hacer uso de ellas.
+En HTML, Bootstrap se incorpora en las clases de los componentes y en su página
+oficial se tiene toda la documentación\footnote{Bootstrap:
+\url{https://getbootstrap.com/}}.
 
 \textbf{Bootstrap Icons}: es una librería aparte de Bootstrap con iconos SVG.
 Los iconos son tratados como clases que se incorporan a los elementos HTML.
@@ -287,10 +290,12 @@ es por recomendación de los tutores. Pese a que las tareas relativas a los
 usuarios fue compleja y se tardaron dos Sprints en terminar todo lo relativo a
 las tablas, DataTables tiene una muy buena documentación. Además, en el momento
 de consultar una duda, en su propio foro otros usuarios ya habían tenido los
-mismos problemas. A la hora de crear las tablas, tiene multitud de opciones,
-tanto para la tabla general, como para celdas, columnas o filas concretas. Como
-más importante, existen opciones para <<renderizar>> código HTML en unas
-columnas (típica columna de Acciones, por ejemplo).
+mismos problemas.
+
+A la hora de crear las tablas, tiene multitud de opciones, tanto para la tabla
+general, como para celdas, columnas o filas concretas. Como más importante,
+existen opciones para <<renderizar>> código HTML en unas columnas (típica
+columna de Acciones, por ejemplo).
 
 También es de destacar que se ha incluido la extensión <<responsive>> de
 DataTables para habilitar el estilo adaptativo de las tablas.

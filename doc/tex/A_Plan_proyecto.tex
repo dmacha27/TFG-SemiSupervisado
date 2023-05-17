@@ -8,22 +8,25 @@ Scrum en la que el trabajo estará dividido en Sprints. Por cada Sprint se
 realiza una reunión para la revisión del avance y los objetivos para el
 siguiente.  Con esta metodología se mantendrá en todo momento lo que se conoce
 como \textit{Product Backlog} que es una lista de las tareas a realizar. Esta
-lista será actualizada, en principio, en cada reunión para así mantener un
-desarrollo constante. Las reuniones en un principio se realizan cada dos
-semanas, intensificando a cada semana en el momento del inicio del periodo
-temporal del segundo cuatrimestre.
+lista será actualizada en cada reunión para mantener un desarrollo constante.
+
+Las reuniones, en un principio, se realizan cada dos semanas, intensificando a
+cada semana en el momento del inicio del periodo temporal del segundo
+cuatrimestre.
+
+Finalmente también se incluirá un análisis de la viabilidad económica y legal
+(ámbito de licencias software).
 
 El objetivo de este plan es servir como herramienta para registrar el avance del
 proyecto y también para poder cumplir con el objetivo final del desarrollo.
 
-
 \section{Planificación temporal}
 La planificación temporal se comenzó mediante Sprints de dos semanas. En la
-presente sección se comentará el desarrollo realiza en cada uno de ellos.
+presente sección se comentará el desarrollo realizado en cada uno de ellos.
 
 \subsection{Sprint 0}
 
-Desde el punto de vista temporal corresponde desde el inicio del curso del
+Desde el punto de vista temporal, corresponde desde el inicio del curso del
 primer cuatrimestre académico (septiembre) hasta el Sprint 1. El día 15 de
 septiembre se tuvo la primera reunión con los tutores sobre el trabajo presente
 donde se establecieron las líneas generales y temática sobre el mismo.
@@ -48,9 +51,8 @@ Corresponde con el periodo temporal del 19 de octubre al 2 de noviembre de 2022.
 
 Durante el sprint se implementó un prototipo del algoritmo Self-Training en el
 que posteriormente se hicieron unas correcciones en el código. También se
-comenzó con la redacción de conceptos teóricos (tarea "<In progess">), concretamente, sobre el
+comenzó con la redacción de conceptos teóricos, concretamente, sobre el
 aprendizaje automático.
-
 
 \subsection{Sprint 3}
 
@@ -58,21 +60,22 @@ Corresponde con el periodo temporal del 16 al 30 de noviembre de 2022.
 
 Durante el sprint se aumentaron los conceptos teóricos sobre el aprendizaje
 supervisado, no supervisado y semi-supervisado. Se refactorizó el prototipo para
-su documentación (PEP), evitar datos duplicados y modularizando el código.
+su documentación (PEP), evitar datos duplicados y modularizar el código.
 
 La memoria fue parcialmente modificada basándose en las correcciones propuestas
 de los tutores.
 
 \subsection{Sprint 4}
 
-Corresponde con el periodo temporal del 25 de enero al 1 de febrero de 2023. En este
-momento las duraciones de los Sprints cambiaron a una semana, iniciando así el
-periodo temporal real del desarrollo del proyecto (segundo cuatrimestre)
+Corresponde con el periodo temporal del 25 de enero al 1 de febrero de 2023. En
+este momento las duraciones de los Sprints cambiaron a una semana, iniciando así
+el periodo temporal real del desarrollo del proyecto (segundo cuatrimestre).
 
 Durante el sprint se retomaron las tareas y el desarrollo general del proyecto.
-Se mejoró el algoritmo de \texttt{SelfTraining} que estaba como prototipo y se avanzó en
-la tarea de primera aproximación en la aplicación. mediante Flask. Sobre esto último, se creó
-una visualización del proceso de entrenamiento muy básica por cada iteración.
+Se mejoró el algoritmo de \texttt{SelfTraining} que estaba como prototipo y se
+avanzó en la tarea de la primera aproximación en la aplicación mediante el
+\textit{framework} Flask. Sobre esto último, se creó una visualización del
+proceso de entrenamiento muy básica por cada iteración.
 
 Se creó un prototipo del algoritmo \texttt{CoTraining} sin cumplir con todas sus
 condiciones que posteriormente se completaron a falta de revisión. 
@@ -82,21 +85,24 @@ Sobre estos dos algoritmos se propuso la versión 1.0.
 Continuando con la Web, se realizó la interfaz general funcional. Incluye:
 \begin{itemize}
     \item Página de Inicio donde seleccionar el algoritmo.
-    \item Página de subida de archivos en formatos ARFF y CSV de los conjuntos de datos
+    \item Página de subida de archivos en formatos <<ARFF>> y <<CSV>> de los
+    conjuntos de datos
     \item Páginas correspondientes para SelfTraining y CoTraining: Cada una
     tiene sus parámetros específicos con la posibilidad de seleccionar si
-    utilizar PCA (Principal Component Analysis) o dos componentes que elija el usuario.
+    utilizar PCA (\texit{Principal Component Analysis}) o dos componentes que
+    elija el usuario.
     \item Página de visualización del algoritmo (su entrenamiento): Se tiene la
     vista principal que será común a todos los algoritmos (con algunas
-    variaciones en caso necesario) con la posibilidad de avanzar en la
+    variaciones en caso necesario), con la posibilidad de avanzar en la
     visualización (con controles) y barra de progreso. Desde el punto de vista
     del gráfico los colores están automatizados dependiendo del número de
-    clases, leyenda y etiqueta de ejes. 
+    clases, leyenda y etiqueta de ejes.
 \end{itemize}
-En el servidor (Flask) a nivel de programación se añadieron los "<endpoints">
-correspondientes (subida, configuración, visualización...) y un control de
-acceso a las páginas muy básico (por ejemplo, si no se configuró el algoritmo,
-no se puede visualizar y le redirecciona a la configuración con un mensaje de error)
+
+En Flask se añadieron los <<endpoints>> correspondientes (subida, configuración,
+visualización...) y un control de acceso a las páginas muy básico (por ejemplo,
+si no se configuró el algoritmo, no se puede visualizar y le redirecciona a la
+configuración con un mensaje de error)
 
 \subsection{Sprint 5}
 Corresponde con el periodo temporal del 1 al 8 de febrero de 2023.
@@ -105,16 +111,16 @@ En la reunión del 1 de febrero se revisó lo realizado en el anterior y se fija
 una serie de mejoras/modificaciones y nuevas tareas:
 \begin{enumerate}
     \item Modificación de los algoritmos para trabajar con la convención de
-    "<-1s"> en el conjunto de datos para los datos no etiquetados. Así el
+    <<-1s>> en el conjunto de datos para los datos no etiquetados. Así el
     usuario podrá subir un archivo ya \textit{Semi-Supervisado}.
     \item Permitir al usuario seleccionar los porcentajes de no etiquetados y de
     test (para las futuras estadísticas).
     \item Sobre la página general de la visualización de los algoritmos: volver
-    a la configuración, el "<feedback"> de la iteración actual y el nombre del
+    a la configuración, el <<feedback>> de la iteración actual y el nombre del
     conjunto de datos utilizado.
     \item Del gráfico de la visualización: Diferenciar en el algoritmo
-    CoTraining cuál de los dos clasificadores han etiquetado cada punto y los
-    puntos "<etiquetados"> en la iteración 0 deben mostrarse de forma diferente.
+    Co-Training cuál de los dos clasificadores han etiquetado cada punto y los
+    puntos <<etiquetados>> en la iteración 0 deben mostrarse de forma diferente.
     \item Avanzar con los trabajos relacionados.
     \item Avanzar con la documentación teórica y anexos.
 \end{enumerate}
@@ -122,25 +128,25 @@ una serie de mejoras/modificaciones y nuevas tareas:
 El punto 1 ha llevado unas 12 horas de compresión y desarrollo. Esto es debido a
 que los dos algoritmos implementados hasta ahora debían ser modificados para
 trabajar con la nueva convención. Además, el problema principal fue (aunque no
-implementado en este Sprint) dejar preparado una forma de carga del conjunto de
-datos que permita tratar datos no etiquetados ("<?"> por ejemplo en el caso de
-ARFF) pues además de los algoritmos (su correcto funcionamiento) se han probado
-con ficheros. También conllevó la creación de un codificador de etiquetas propio
+implementado en este Sprint) dejar preparada una forma de carga del conjunto de
+datos que permita tratar datos no etiquetados (los <<?>> en el caso de ARFF),
+pues además de los algoritmos (su correcto funcionamiento), se han probado con
+ficheros. También conllevó la creación de un codificador de etiquetas propio
 para ignorar los no etiquetados en clases categóricas (y no realizar la
-conversión en esos casos)
+conversión en esos casos).
 
 El punto 2 volvió a causar bastantes problemas tanto en la ejecución de los
 algoritmos como en la Web. Hasta el momento, el usuario no seleccionaba los
-porcentajes de las divisiones. Al incluir esto, los algoritmos ya no se encargan
-de esta tarea y había que modificar tanto los algoritmos como aquellas rutas de
-la Web que debían encargarse de esto. Aproximadamente 4 horas.
+porcentajes de las divisiones, pero al incluir esto, los algoritmos ya no se
+encargan de esta tarea y había que modificar tanto los algoritmos como aquellas
+rutas de la Web que debían encargarse de esto. Aproximadamente 4 horas.
 
 El punto 3 no resultó demasiado difícil más allá de seguir habituándose a
 JavaScript/HTML. Unas 3 horas.
 
 El punto 4 requirió unas 10 horas, en un principio se perdió mucho tiempo
-intentando solucionarlo de una forma que resultó inútil, pero finalmente ahora en
-el algoritmo se diferencian los datos clasificados por cada uno.
+intentando solucionarlo de una forma que resultó inútil, pero finalmente ahora
+en el algoritmo se diferencian los datos clasificados por cada uno.
 
 Los trabajos relacionados (no terminados) se realizaron en varios días con un
 tiempo aproximado de 6 horas.
@@ -157,26 +163,26 @@ comentaron algunas tareas a realizar:
     \item Realizar alguna visualización de estadísticas.
     \item Valor por defecto en las configuraciones.
     \item Sobre el gráfico: mejorar la diferenciación de los puntos, información
-    útil en los "<tooltips"> y colocación leyenda.
+    útil en los <<tooltips>> y colocación de la leyenda.
     \item Avanzar con los trabajos relacionados.
     \item Avanzar con la memoria y anexos.
 \end{enumerate}
 
 Los puntos 1 y 2 estaban muy avanzados gracias al trabajo adicional del sprint
-anterior, ya que ya estaba prácticamente implementada la forma en la que
-detectar datos no etiquetados de forma automática. Unas 5 horas para terminar de
+anterior, ya que estaba prácticamente implementada la forma en la que detectar
+datos no etiquetados de forma automática. Unas 5 horas para terminar de
 implementar, corregir errores sobre la marcha y realizar alguna prueba
 confeccionando ficheros semi-supervisados.
 
 Al realizar las pruebas anteriores se encontró un error en la visualización
-provocando que los datos que, por la iteración máxima, no se habían clasificado
-ni siquiera eran retornadas a la Web. Entre descubrir cómo hacerlo y sus
-modificaciones se tardó unas 3 horas.
+provocando que los datos que los datos no se habían clasificado ni siquiera eran
+retornados a la Web. Entre descubrir cómo corregirlo y sus modificaciones se
+tardó unas 3 horas.
 
 El punto 3 fue el más complicado, pese a que era una idea sencilla, se optó por
 visualizar la gráfica de la evolución de la precisión. Cada punto del gráfico
 está unido por una serie de líneas. Este tipo de gráficos (según la
-documentación) se suelen hacer mediante "<paths"> o caminos, que son una única
+documentación) se suelen hacer mediante <<paths>> o caminos, que son una única
 línea, pero como en este caso era necesario no visualizar todo, sino por cada
 iteración, no se encontró una solución rápida. Unas 6 horas para probar muchas
 posibilidades hasta encontrar la que funcionó, acoplarla a los controles del
@@ -203,21 +209,25 @@ La implementación del algoritmo Democratic Co-Learning supuso unas 14 horas
 divididas en varios días. Al principio se dedicó un tiempo para leer el artículo
 en el que se presentaba su implementación en forma de pseudocódigo junto con sus
 explicaciones teóricas. La realidad es que en primera instancia parecía algo
-fácil de realizar y entender, pero una vez comenzada la implementación se
-encontraban muchas alternativas a la hora de resolverlo. Además, pese a que en
-el artículo estaba bien explicado, el formato de pseudocódigo (en el archivo
-encontrado) las indentaciones eran incorrectas y se perdió mucho tiempo
-comprobando si era una interpretación errónea o si realmente era un fallo.
+fácil de realizar y entender, pero una vez comenzada la implementación, se
+encontraban muchas cuestiones a la hora de resolverlo. 
+
+Además, pese a que en el artículo estaba bien explicado, el formato de
+pseudocódigo (en el archivo encontrado) tenía indentaciones incorrectas y se
+perdió mucho tiempo comprobando si era una interpretación errónea o si realmente
+era un fallo.
 
 Se realizaron algunas pruebas de rendimiento para comprobar si los algoritmos
 tardaban demasiado con conjuntos de datos muy grandes (5\,000 instancias). Se
 observó que, dada la configuración que se tenía, tardaba alrededor de 40-50
 segundos en terminar la ejecución. Es por esto que para este Sprint se añadió la
 tarea de hacer un pequeño estudio dedicado a medir los tiempos de ejecución para
-ver qué se podía optimizar. Este proceso fue de unas 2 horas y el resultado fue
-que el código implementado no afectaba mucho, eran los propios algoritmos de
-entrenamiento de los clasificadores de Scikit-Learn los que tardaban tanto. Por
-ejemplo, para un estimador gaussiano el tiempo se reducía drásticamente.
+ver qué se podía optimizar. 
+
+Este proceso fue de unas 2 horas y el resultado fue que el código implementado
+no afectaba mucho, eran los propios algoritmos de entrenamiento de los
+clasificadores de Scikit-Learn los que tardaban tanto. Por ejemplo, para un
+estimador gaussiano el tiempo se reducía drásticamente.
 
 Para el caso de las estadísticas, se modificaron un poco las plantillas y la
 generación de sus gráficas para incluir más y revisarlas en la reunión. Unas 2
@@ -256,8 +266,8 @@ clasificador tiene su propio conjunto de entrenamiento, se estaba tomando que el
 índice de la instancia sumado a la longitud de su conjunto de entrenamiento era
 la posición en la que actualizar la etiqueta, obviamente esto no funciona pues
 esa suma puede superar la longitud del propio conjunto. Había que almacenar la
-posición concreta sin realizar esos cálculos y se optó por un diccionario de
-<<ids>> para cada clasificador en el que el valor es la posición en las
+posición concreta sin realizar esos cálculos. Se optó por un diccionario de
+identificadores para cada clasificador en el que el valor es la posición en las
 etiquetas del conjunto del clasificador.
 
 Las correcciones de la documentación se incorporaron según las indicaciones de
@@ -267,26 +277,27 @@ El gráfico de estadísticas fue unificado, permitiendo seleccionar al usuario
 mediante unos <<checkboxes>>. Aproximadamente unas 4 horas para generar el
 formulario correspondiente que controle la aparición de cada línea y controlar
 los eventos de las iteraciones (por ejemplo, añadir siguiente punto solo si está
-activado su check).
+activado su \textit{check}).
 
-En cuanto a la Internacionalización, al principio resultó sencillo, ya que
-gracias a Babel (Flask-Babel) detecta automáticamente las cadenas de texto
-dentro de \texttt{gettext}, sin embargo, al indicar las traducciones en
-JavaScript, el intérprete tomaba \texttt{gettext} como una función que al no
-estar definida, lanzaba error. Al final se generó una función en la plantilla
-principal de tal forma que actúe como \texttt{gettext}, llamada desde los
-distintos scripts.
+En cuanto a la Internacionalización, al principio resultó sencillo, ya que Babel
+(Flask-Babel) detecta automáticamente las cadenas de texto dentro de
+\texttt{gettext}. Sin embargo, al indicar las traducciones en JavaScript, el
+intérprete tomaba \texttt{gettext} como una función que al no estar definida,
+lanzaba error. Al final se generó una función en la plantilla principal de tal
+forma que actúe como \texttt{gettext}, llamada desde los distintos scripts.
 
-La visualización de Democratic Co-Learning no dio tiempo a implementarse en este Sprint.
+La visualización de Democratic Co-Learning no dio tiempo a implementarse en este
+Sprint.
 
 Además, a partir de este Sprint se incorporan todas las tareas en Zenhub para la
-generación de los gráficos Burndown (ver Imagen~\ref{fig:anexos/sprints/sprint8}).
+generación de los gráficos Burndown (ver
+Imagen~\ref{fig:anexos/sprints/sprint8}).
 
 \imagen{anexos/sprints/sprint8}{Burndown chart del sprint 8.}
 
 
 \subsection{Sprint 9}
-Corresponde con el periodo temporal del 1 de febrero al 8 de marzo de 2023.
+Corresponde con el periodo temporal del 1 al 8 de marzo de 2023.
 
 Puntos a desarrollar:
 \begin{enumerate}
@@ -294,27 +305,28 @@ Puntos a desarrollar:
     \item Formulario de los parámetros de los clasificadores.
     \item Estadísticas generales en Democratic Co-Learning.
     \item Estadísticas específicas en Democratic Co-Learning
-    \item Condición de parada reetiquetado
+    \item Condición de parada re-etiquetado
 \end{enumerate}
 
 La visualización principal fue relativamente sencilla pues en realidad es muy
 similar a Co-Training. Hubo algún ajuste adicional para generar la información
-de la \textit{tooltip} al pasar por encima de un punto. Como en cada posición podía haber
-varios clasificadores había que mostrar esa información.
+del \textit{tooltip} al pasar por encima de un punto. Como en cada posición
+podía haber varios clasificadores había que mostrar esa información.
 
 Para el formulario de los parámetros se consideró el uso de Flask-WTF que al
 final se descartó. Se tenía como punto de partida utilizar un JSON del que leer
-los parámetros, así que lo primero fue pensar una forma sencilla de
-codificarlos, con la información necesaria de las entradas
-(<<type>>,<<step>>...). La ventaja de JSON es que aparte de que la lectura es
-muy sencilla, son diccionarios, muy fáciles de utilizar (tanto desde Python como
-desde las propias plantillas/JavaScript). Para generar el formulario se pensó en
-hacerlo de la forma más automática posible para así solo tener que cambiar el
-JSON, esto se hizo con un método de JavaScript que para cada clasificador genera
-el formulario correspondiente con los parámetros del JSON. El tiempo total fue
-unas 6 horas, pues también se perdió tiempo debido a que no era posible
-seleccionar elementos del DOM (pues no estaba cargado) y los elementos debían
-seleccionarse mediante CSS (algo que no se sabía por desconocimiento de
+los parámetros, así que lo primero fue pensar una forma sencilla de codificarlos
+con la información necesaria de las entradas (<<type>>,<<step>>...). 
+
+La ventaja de JSON es que aparte de que la lectura es muy sencilla, son
+diccionarios, muy fáciles de utilizar (tanto desde Python como desde las propias
+plantillas/JavaScript). Para generar el formulario se pensó en hacerlo de la
+forma más automática posible para así solo tener que cambiar el JSON en el
+futuro. Esto se hizo con un método de JavaScript que para cada clasificador
+genera el formulario correspondiente con los parámetros del JSON. El tiempo
+total fue unas 6 horas, pues también se perdió tiempo debido a que no era
+posible seleccionar elementos del DOM (pues no estaba cargado) y los elementos
+debían seleccionarse mediante CSS (algo que no se sabía por desconocimiento de
 JavaScript).
 
 Se añadieron las estadísticas generales de Democratic Co-Learning de forma muy
@@ -323,24 +335,24 @@ realizó añadiendo el \textit{DataFrame} en el propio algoritmo con las
 estadísticas deseadas (como el resto de los algoritmos).
 
 Había mucho código muy parecido o exactamente igual en las plantillas de los
-algoritmos, así que aprovechando esta tarea también se automatizaron por
+algoritmos, así que aprovechando la refactorización, se automatizaron por
 completo las estadísticas. Se pensó de tal forma que solo con las columnas de
 los \textit{DataFrames} que retornan los algoritmos, la Web ya se encargue de
 generar el resto. A la vez que esto (e iniciando la tarea de las estadísticas
-individuales), otro punto importante que se tuvo en cuenta eran las futuras
-estadísticas individuales para Democratic Co-Learning, todas las funciones
-fueron transformadas para trabajar con elementos del DOM específicos, de esta
-forma al indicarle por ejemplo un <<DIV>>, se generen las estadísticas sobre ese
-elemento. En total unas 8 horas. 
+individuales), se tuvieron en cuenta las futuras estadísticas individuales para
+Democratic Co-Learning. Todas las funciones fueron transformadas para trabajar
+con elementos del DOM específicos, de esta forma, al indicarle por ejemplo un
+<<DIV>>, se generan las estadísticas sobre ese elemento. En total unas 8 horas. 
 
-Para estas estadísticas individuales, aparte de las funciones generalizadas se
+Para estas estadísticas individuales, aparte de las funciones generalizadas, se
 creó una nueva que sobre un elemento (un <<DIV>>) se generase un selector con el
 nombre de los clasificadores que intervienen en el algoritmo junto con los
-contenedores dentro de él para las estadísticas de cada clasificador.
+contenedores (<<DIV>>) dentro de él para las estadísticas de cada clasificador.
 Finalmente, se utilizan las funciones de la tarea anterior para añadir a esos
-contenedores nuevos los gráficos individuales. Unas 4 horas.
+contenedores nuevos los gráficos individuales (uno por cada clasificador). Unas
+4 horas.
 
-Sobre el último punto, se comentó que una etiqueta que es reetiquetada al mismo
+Sobre el último punto, se comentó que una etiqueta que es re-etiquetada al mismo
 valor no debe <<contar>> como mejora (o cambio en el algoritmo). Si no se
 realiza así, el tiempo de ejecución aumenta demasiado.
 
@@ -353,7 +365,7 @@ Corresponde con el periodo temporal del 8 de febrero al 15 de marzo de 2023.
 
 Puntos a desarrollar:
 \begin{enumerate}
-    \item Comparación sslearn
+    \item Comparación sslearn.
     \item Refactorización de plantillas.
     \item Refactorizacion Javascript.
     \item Refactorización Flask (app).
@@ -365,39 +377,43 @@ En este Sprint no se contaba con demasiado tiempo así que aunque sí se realiz�
 alguna tarea para añadir funciones, la idea era dedicarlo a mejorar el código y
 mantenimiento.
 
-En la reunión del final del Sprint anterior se comentó el cómo se estaba
+En la reunión del final del Sprint anterior se comentó el cómo se estaban
 validando los algoritmos y hasta ese momento solo se habían probado las
 utilidades. Se sugirió compararlo contra \textit{sslearn}, una biblioteca de
 José Luis Garrido-Labrador~\cite{jose_luis_garrido_labrador_2023_7781117}. Como
-primera aproximación se realizó una validación cruzada completamente manual en
+primera aproximación, se realizó una validación cruzada completamente manual en
 la que se ejecutaba al mismo tiempo las dos implementaciones de los distintos
 algoritmos (de momento sin extraer conclusiones). Se tardó unas 3 horas.
 
 El segundo y tercer punto se iniciaron por separado, pero llegó un momento en el
 que las funciones que se había creado en JavaScript, si se modificaban un poco,
-podrían simplificarse a su vez las plantillas. Todos los métodos los gráficos
-estaban separados por cada uno de los algoritmos, esto lo hacía muy engorroso
-porque incluso algún método tenía el mismo nombre. Se modificaron las funciones
-de tal forma que fuesen específicas para cada algoritmo para así juntarlas en un
-único Script. Por parte de las plantillas, como había partes repetidas se
-crearon macros y se identificó una parte común a todos los algoritmos en su
-configuración, esto se añadió a la base de las configuraciones. Todo esto llevó
-unas 4 horas.
+podrían simplificarse las plantillas. 
+
+Todos los métodos de los gráficos estaban separados por cada uno de los
+algoritmos, esto lo hacía muy engorroso porque incluso algún método tenía el
+mismo nombre. Se modificaron las funciones de tal forma que fuesen específicas
+para cada algoritmo para así juntarlas en un único Script. Por parte de las
+plantillas, como había partes repetidas se crearon macros y se identificó una
+parte común a todos los algoritmos en su configuración, esto se añadió a la base
+de las configuraciones. Todo esto llevó unas 4 horas.
 
 En \texttt{Flask} se tenían varios problemas. El primero era que las
 visualizaciones de cada algoritmo tenían un \textit{endpoint} particular, pero
 esto no era necesario si se hacía un método para la obtención de los parámetros
-de cada algoritmo por separado. Cuando se crearon estos métodos se generó código
-muy parecido porque todos ellos tenían dos partes: una en la que se obtenían los
-parámetros que no eran de los clasificadores base y otra en la que se
-incorporaban esos parámetros de los clasificadores. La primera parte es
-particular para cada algoritmo, pero la segunda es común a todos. Se creó otro
-método para ese paso. Por último, por cada algoritmo se tiene un
-\textit{endpoint} para la ejecución y obtención de la información de
-entrenamiento, pero había una parte que todos hacían prácticamente igual. Se
-creó un método que engloba: carga de datos, separación de los datos para
-entrenamiento, entrenamiento y obtención de los algoritmos y la aplicación de
-PCA (o no).
+de cada algoritmo por separado (y finalmente un solo <<endpoint>> indicándole el
+algoritmo en la propia ruta). 
+
+Cuando se crearon esos nuevos métodos se generó código muy parecido porque todos
+ellos tenían dos partes: una en la que se obtenían los parámetros que no eran de
+los clasificadores base y otra en la que se incorporaban esos parámetros de los
+clasificadores. La primera parte es particular para cada algoritmo, pero la
+segunda es común a todos. Se creó otro método para ese paso común. 
+
+Por último, por cada algoritmo se tiene un \textit{endpoint} para la ejecución y
+obtención de la información de entrenamiento, pero había una parte que todos
+hacían prácticamente igual. Se creó un método que engloba: carga de datos,
+separación de los datos para entrenamiento, entrenamiento y obtención de los
+algoritmos y la aplicación de PCA (o no).
 
 La visualización principal de los algoritmos tenía el problema de que cuando los
 puntos estaban demasiado cerca, no se llegan a apreciar individualmente. Esto se
@@ -407,10 +423,12 @@ implementaciones parecidas a ejemplos encontrados en la documentación, pero en
 todas ellas se perdía la ayuda contextual del \textit{tooltip}. Al final se optó
 por volver a empezar de cero con el conocimiento adquirido y junto con un último
 ejemplo \footnote{Ejemplo D3:
-\url{https://observablehq.com/@d3/zoom-with-tooltip}} y ciertas modificaciones
-se consiguió. Posteriormente se añadió el reinicio del \textit{zoom} para volver
-a la posición original. El proceso duró unas 5 horas pues cada intento parecía
-ser definitivo, pero al final siempre había ciertos límites.
+\url{https://observablehq.com/@d3/zoom-with-tooltip}} y ciertas modificaciones,
+se consiguió. 
+
+Posteriormente se añadió el reinicio del \textit{zoom} para volver a la posición
+original. El proceso duró unas 5 horas pues cada intento parecía ser definitivo,
+pero al final siempre había ciertos límites.
 
 Al final del Sprint se añadieron los conceptos teóricos de Democratic
 Co-Learning (conceptos y pseudocódigos).
@@ -474,17 +492,17 @@ por el tamaño de las palabras, centrarla y poder organizar mejor las columnas e
 las que se divide esa plantilla.
 
 Sobre el manual del programador, se añadió la estructura de directorios con el
-paquete \texttt{dirtree} de \LaTeX, se completó el manual del programador, centrado en
-qué es lo que debe saber un desarrollador para continuar con el proyecto y
-finalmente se describió el proceso de la compilación, instalación y ejecución
-del proyecto. En total fueron unas 6 horas.
+paquete \texttt{dirtree} de \LaTeX y se completó el manual del programador,
+centrado en qué es lo que debe saber un desarrollador para continuar con el
+proyecto. Finalmente se describió el proceso de la compilación, instalación y
+ejecución del proyecto. En total fueron unas 6 horas.
 
 El proceso de validación cruzada no estaba bien enfocado, se estaba realizando
-de forma manual (y todos los posibles fallos que puede suponer) aunque la
-librería scikit-learn incorpora ya utilidades para este proceso. Concretamente
-se tiene un método que genera los distintos \textit{Folds} dado un conjunto de
-datos. El proceso manual se sustituyó por este nuevo. Se aprovechó para guardar
-los resultados como CSV.
+de forma manual (y todos los posibles fallos que puede suponer). La librería
+scikit-learn incorpora ya utilidades para este proceso. Concretamente se tiene
+un método que genera los distintos \textit{Folds} dado un conjunto de datos. El
+proceso manual se sustituyó por este nuevo. Se aprovechó para guardar los
+resultados como CSV.
 
 Con el proceso de validación cruzada la idea era obtener métricas para
 compararlas en alguna gráfica/tabla y comprobar que las implementaciones son
@@ -498,14 +516,13 @@ mostrar mínimos, máximos, medias, medianas...).
 Sobre el último punto, aunque la idea era realizarlo en este Sprint, no se
 estimó bien la cantidad de trabajo y no pudo ser realizado. Además, en las
 ejecuciones del punto anterior (la comparativa) se vio que el algoritmo
-Co-Training tenía peor rendimiento que el de \texttt{sslearn}. Y esto impedía
+Co-Training tenía peor rendimiento que el de \texttt{sslearn}. Esto impedía
 justificar en la memoria la validación de los algoritmos.
 
 Durante estas tareas fueron surgiendo pequeños arreglos: Se colorearon las
 etiquetas de la ayuda contextual (\texttt{tooltip}) para que quedara claro qué
 etiqueta lleva cada punto (no solo el nombre) y se actualizaron las
 traducciones.
-
 
 El gráfico Burndown se visualiza en la imagen~\ref{fig:anexos/sprints/sprint11}.
 \imagen{anexos/sprints/sprint11}{Burndown chart del sprint 11.}
@@ -788,7 +805,7 @@ problema, se utilizaron los <<fetch>> de JavaScript y cuando se obtenía
 respuesta, se creaban las tablas. El verdadero problema fue la incorporación de
 acciones (como la de borrar), en la propia documentación de DataTables y gracias
 a su foro, se consiguieron generar botones en esta columna (con puro HTML). El
-siguiente reto fue crear otras peticiones como respuesta a los clicks de estos
+siguiente reto fue crear otras peticiones como respuesta a los clics de estos
 botones. La suerte fue que DataTables permite obtener los datos de una fila
 directamente, lo que resultó de mucha ayuda para, por ejemplo, extraer el nombre
 de un fichero y posteriormente incorporarlo a las peticiones de borrado. Se
