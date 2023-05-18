@@ -89,7 +89,7 @@ Continuando con la Web, se realizó la interfaz general funcional. Incluye:
     conjuntos de datos
     \item Páginas correspondientes para SelfTraining y CoTraining: Cada una
     tiene sus parámetros específicos con la posibilidad de seleccionar si
-    utilizar PCA (\texit{Principal Component Analysis}) o dos componentes que
+    utilizar PCA (\textit{Principal Component Analysis}) o dos componentes que
     elija el usuario.
     \item Página de visualización del algoritmo (su entrenamiento): Se tiene la
     vista principal que será común a todos los algoritmos (con algunas
@@ -291,9 +291,9 @@ Sprint.
 
 Además, a partir de este Sprint se incorporan todas las tareas en Zenhub para la
 generación de los gráficos Burndown (ver
-Imagen~\ref{fig:anexos/sprints/sprint8}).
+Imagen~\ref{fig:anexos/planproyecto/sprint8}).
 
-\imagen{anexos/sprints/sprint8}{Burndown chart del sprint 8.}
+\imagen{anexos/planproyecto/sprint8}{Burndown chart del sprint 8.}
 
 
 \subsection{Sprint 9}
@@ -357,8 +357,8 @@ valor no debe <<contar>> como mejora (o cambio en el algoritmo). Si no se
 realiza así, el tiempo de ejecución aumenta demasiado.
 
 
-El gráfico Burndown se visualiza en la imagen~\ref{fig:anexos/sprints/sprint9}.
-\imagen{anexos/sprints/sprint9}{Burndown chart del sprint 9.}
+El gráfico Burndown se visualiza en la imagen~\ref{fig:anexos/planproyecto/sprint9}.
+\imagen{anexos/planproyecto/sprint9}{Burndown chart del sprint 9.}
 
 \subsection{Sprint 10}
 Corresponde con el periodo temporal del 8 de febrero al 15 de marzo de 2023.
@@ -439,8 +439,8 @@ visualizaciones y ayuda contextual, actualización de traducciones y se añadió
 fichero de prueba que el usuario puede descargar si solo quiere probar la
 aplicación.
 
-El gráfico Burndown se visualiza en la imagen~\ref{fig:anexos/sprints/sprint10}.
-\imagen{anexos/sprints/sprint10}{Burndown chart del sprint 10.}
+El gráfico Burndown se visualiza en la imagen~\ref{fig:anexos/planproyecto/sprint10}.
+\imagen{anexos/planproyecto/sprint10}{Burndown chart del sprint 10.}
 
 \subsection{Sprint 11}
 Corresponde con el periodo temporal del 15 al 22 de marzo de 2023.
@@ -524,8 +524,8 @@ etiquetas de la ayuda contextual (\texttt{tooltip}) para que quedara claro qué
 etiqueta lleva cada punto (no solo el nombre) y se actualizaron las
 traducciones.
 
-El gráfico Burndown se visualiza en la imagen~\ref{fig:anexos/sprints/sprint11}.
-\imagen{anexos/sprints/sprint11}{Burndown chart del sprint 11.}
+El gráfico Burndown se visualiza en la imagen~\ref{fig:anexos/planproyecto/sprint11}.
+\imagen{anexos/planproyecto/sprint11}{Burndown chart del sprint 11.}
 
 
 \subsection{Sprint 12}
@@ -1050,4 +1050,93 @@ apetecible.
 
 \subsection{Viabilidad legal}
 
+El estudio de la viabilidad legal se basa en las licencias de las
+bibliotecas/librerías que se han utilizado en el desarrollo. A partir del
+listado de estas, se estudiará la permisividad en conjunto para saber cuál es la
+más restrictiva y seleccionar acordemente la de este proyecto.
 
+\begin{table}[h!]
+    \centering
+    \resizebox{0.7\textwidth}{!}{%
+    \begin{tabular}{lcl}
+    \toprule
+    \textbf{Librería}         & \textbf{Versión} & \textbf{Licencia}                        \\ \midrule
+    \textit{pandas}           & 1.4.3            & BSD 3                                    \\
+    \textit{Babel}            & 2.11.0           & BSD 3                                    \\
+    \textit{Flask}            & 2.2.5            & BSD 3                                    \\
+    \textit{flask-babel}      & 3.0.1            & BSD 3                                    \\
+    \textit{Flask-SQLAlchemy} & 3.0.3            & BSD 3                                    \\
+    \textit{Flask-Login}      & 0.6.2            & MIT                                      \\
+    \textit{scikit-learn}     & 1.2.0            & BSD 3                                    \\
+    \textit{numpy}            & 1.23.3           & BSD 3                                    \\
+    \textit{scipy}            & 1.9.3            & BSD 3                                    \\
+    \textit{setuptools}       & 65.5.1           & MIT                                      \\
+    \textit{pytest}           & 7.2.0            & MIT                                      \\
+    \textit{Werkzeug}         & 2.2.3            & BSD 3                                    \\
+    \textit{matplotlib}       & 3.7.1            & PSF\tablefootnote{Python Software Foundation License} \\
+    \textit{WTForms}          & 3.0.1            & BSD 3                                    \\
+    \textit{Flask-WTF}        & 1.1.1            & BSD 3                                    \\
+    \textit{SQLAlchemy}       & 2.0.13           & MIT                                      \\
+    \textit{sslearn}          & 1.0.3.1          & BSD 3                                    \\
+    \textit{imbalanced-learn} & 0.10.1           & MIT                                      \\
+    \textit{Bootstrap}        & 5.2.3            & MIT                                      \\
+    \textit{D3js}             & 7.8.4            & ISC\tablefootnote{Internet Systems Consortium, equivalente a MIT}                 \\
+    \textit{jQuery}           & 3.6.4            & MIT                                      \\
+    \textit{DataTables}       & 1.13.4           & MIT                                      \\ \bottomrule
+    \end{tabular}%
+    }
+    \caption{Bibliotecas usadas, versiones y licencias}
+\end{table}
+
+\imagen{anexos/planproyecto/Licencias}{Permisividad de las licencias.}
+
+Para tener cierto contexto, en la figura \ref{fig:anexos/planproyecto/Licencias}
+se representan las licencias organizadas según las restricciones que imponen.
+Cuanto más arriba, mayor restricción (una anchura mayor representa mayores
+libertades). Se debe tener en cuenta que solo es una representación para
+determinar la licencia más restrictiva, es decir, no es una representación
+calculada con exactitud.
+
+
+\paragraph{Selección}
+Para seleccionar la licencia apropiada a este proyecto se tiene en cuenta que
+incluir una licencia menos restrictiva que \texttt{BSD 3-clause} estaría
+incumpliendo algunas de las <<cláusulas>> que esta impone. Por tanto, para
+mantener esas normas y condiciones impuestas, el proyecto tendrá la licencia
+\textbf{BSD 3-clause}.
+
+\paragraph{Implicaciones de BSD 3-clause} Esta licencia tiene las siguientes implicaciones
+(traducción no oficial)\cite{bsd}:
+\begin{enumerate}
+    \item Las redistribuciones del código fuente deben conservar el aviso de
+    derechos de autor anterior, esta lista de condiciones y el siguiente
+    descargo de responsabilidad.
+    \begin{verbatim}
+        ESTE SOFTWARE ES PROPORCIONADO POR LOS TITULARES 
+        DE LOS DERECHOS DE AUTOR Y LOS CONTRIBUYENTES 
+        <<TAL CUAL>> Y CUALQUIER GARANTÍA EXPLÍCITA O
+        IMPLÍCITA, INCLUYENDO, ENTRE OTRAS, LAS GARANTÍAS
+        IMPLÍCITAS DE COMERCIABILIDAD E IDONEIDAD PARA 
+        UN PROPÓSITO EN PARTICULAR. EN NINGÚN CASO EL 
+        TITULAR DE LOS DERECHOS DE AUTOR O LOS 
+        CONTRIBUYENTES SERÁN RESPONSABLES POR CUALQUIER 
+        DAÑO DIRECTO, INDIRECTO, INCIDENTAL, ESPECIAL, 
+        EJEMPLAR O CONSECUENTE (INCLUYENDO, ENTRE OTROS, 
+        LA ADQUISICIÓN DE BIENES O SERVICIOS SUSTITUTOS;
+        PÉRDIDA DE USO, DATOS O BENEFICIOS; O 
+        INTERRUPCIÓN DEL NEGOCIO) CUALQUIER CAUSA Y 
+        SOBRE CUALQUIER TEORÍA DE RESPONSABILIDAD, YA 
+        SEA POR CONTRATO, RESPONSABILIDAD ESTRICTA O 
+        AGRAVIO (INCLUYENDO NEGLIGENCIA O DE OTRO TIPO)
+        QUE SURJA DE CUALQUIER MANERA DEL USO DE ESTE 
+        SOFTWARE, INCLUSO SI SE ADVIERTE DE LA 
+        POSIBILIDAD DE DICHO DAÑO.
+    \end{verbatim}
+    \item Las redistribuciones en forma binaria deben reproducir el aviso de
+    derechos de autor anterior, esta lista de condiciones y el siguiente
+    descargo de responsabilidad en la documentación y/u otros materiales
+    provistos con la distribución.
+    \item Ni el nombre del titular de los derechos de autor ni los nombres de
+    sus colaboradores pueden utilizarse para respaldar o promocionar productos
+    derivados de este software sin el permiso previo por escrito.
+\end{enumerate}
