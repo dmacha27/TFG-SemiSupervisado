@@ -1063,7 +1063,7 @@ junio (unos 5 meses).
 
 \subsubsection{Costes}
 
-\textbf{Empleados}:\\
+\textbf{Empleados}:
 
 El desarrollador ha realizado una media de 4.5 horas diarias (progresivamente
 aumentando hasta la fecha límite de entrega): unas 3 horas en días laborables y
@@ -1100,10 +1100,12 @@ generales.
 \begin{table}[H]
     \centering
     \begin{tabular}{ll}
-    \textbf{CONTINGENCIAS}   (Comunes)  & 23.60\% \\
-    \textbf{DESEMPLEO}   (Tipo General) & 5.50\%  \\
-    \textbf{FOGASA}                     & 0.20\%  \\
-    \textbf{FORMACIÓN PROFESIONAL}      & 0.60\% 
+        \toprule
+    \textbf{Concepto}  & \textbf{Impuesto} \\ \midrule
+    CONTINGENCIAS   (Comunes)  & 23.60\% \\
+    DESEMPLEO  (Tipo General) & 5.50\%  \\
+    FOGASA                   & 0.20\%  \\
+    FORMACIÓN PROFESIONAL      & 0.60\% 
     \end{tabular}%
     \caption{Tabla de impuestos}
     \label{tabla:seg-social}
@@ -1112,9 +1114,13 @@ generales.
 Por lo que la fórmula del cómputo total que la empresa debe pagar por los
 empleados es:
 
+\begin{figure}
 \begin{center}
-$ \frac{Salario}{1-(0.236+0.055+0.002+0.006)}$
+    $Gasto de la empresa = \frac{Salario}{1-(0.236+0.055+0.002+0.006)}$
 \end{center}
+\caption{Cálculo de la amortización para este proyecto}
+\end{figure}
+
 
 \begin{table}[H]
 \resizebox{\textwidth}{!}{%
@@ -1130,13 +1136,112 @@ César Ignacio García Osorio (sup)       & 88                      & 125,53    
 \end{tabular}%
 }
 \caption{Salarios brutos y coste que supone a la empresa}
-\label{table:salarios}
+\label{tabla:salarios}
 \end{table}
 
-En la tabla \ref{table:salarios} se presentan todos los costes de los empleados.
+En la tabla \ref{tabla:salarios} se presentan todos los costes de los empleados.
 El total, para los 5 meses de duración aproximada es 11.141\,23\texteuro.
 
-\textbf{Empleados}:\\
+\textbf{Hardware}:
+
+Para desarrollar el proyecto se ha utilizado un ordenador de sobremesa montado
+por piezas. Está compuesto por un AMD Ryzen 7 5800X de 8 núcleos a 3.8 GHz, 16
+GB de memoria RAM y 1TB SSD NVMe M.2. Este equipo está valorado en 1800
+\texteuro. La vida útil de este activo es de 3 años.
+
+Además, para hacer la aplicación accesible a todo el mundo, se ha adquirido un
+servidor para ello. Este servidor está compuesto por dos AMD EPYC, 8 GB de
+memoria RAM y 80gb de SSD. El equipo está valorado en 1300\texteuro. La vida
+útil de este activo es de 3 años.
+
+Teniendo en cuenta que la duración del proyecto es de 5 meses, el cálculo de la
+amortización se realiza de la siguiente forma:
+
+\begin{figure}[H]
+\begin{center}
+$Amortización = \frac{Coste}{Vida útil} \cdot \frac{5}{12}$
+\end{center}
+\caption{Cálculo de la amortización para este proyecto}
+\end{figure}
+
+
+En la tabla \ref{tabla:hardware} se presentan los costes de estos activos y el
+coste amortizado de los mismos.
+
+\begin{table}[H]
+    \centering
+\begin{tabular}{lrr}
+\toprule
+\textbf{Activo}      & \textbf{Coste (€)}      & \textbf{Coste amortizado (€)}      \\ \midrule
+Equipo sobremesa     & 1800                    & 250                      \\
+Servidor             & 1300                    & 180,55                      \\ \midrule
+\textbf{Total}       & 3100                    & 430,55                      \\ \midrule
+\end{tabular}
+\caption{Costes del hardware}
+\label{tabla:hardware}
+\end{table}
+
+
+\textbf{Software}:
+
+Para el desarrollo del producto se ha hecho uso de \texttt{software}. En la
+medida de lo posible se han utilizado licencias gratuitas y/o proporcionadas por
+pertenecer a la Universidad de Burgos.
+
+Los activos software que han supuesto un coste para la empresa es la adquisición
+del sistema operativo Windows 10 Pro del equipo de sobremesa. Está valorado en
+250 \texteuro. La vida útil se tiene en cuenta la finalización del soporte de
+Microsoft el 14 de octubre de 2025, aproximadamente dos años y medio.
+
+Por lo que el coste amortizado será 41,66 \texteuro.
+
+\clearpage
+\textbf{Costes indirectos}:
+
+\begin{table}[H]
+    \centering
+\begin{tabular}{lr}
+\toprule
+\textbf{Concepto}      & \textbf{Coste (€)}     \\ \midrule
+Dominio <<dmacha.dev>>     & 12                    \\
+XX                   & 600                     \\ \midrule
+\textbf{Total}       & 612                     \\ \midrule
+\end{tabular}
+\caption{Costes indirectos}
+\label{tabla:indirectos}
+\end{table}
+
+
+\textbf{Total}:
+
+En la tabla \ref{tabla:total} se presenta la suma de todos los costes descritos.
+
+\begin{table}[H]
+    \centering
+\begin{tabular}{lr}
+\toprule
+\textbf{Tipo de coste}     & \textbf{Coste (€)}     \\ \midrule
+Empleados                  & 11141,23                    \\
+Hardware                   & 3100                     \\
+Software                   & 41,66                     \\
+Indirectos                 & 600                     \\
+\textbf{Total}             & 14894,89                     \\ \midrule
+\end{tabular}
+\caption{Coste total}
+\label{tabla:total}
+\end{table}
+
+El coste total del proyecto finalmente es: 14894,89 \texteuro.
+
+\subsubsection{Beneficios}
+
+La aplicación no está pensada para extraer beneficio con su uso. Se trata de una
+aplicación de índole docente que permite el acceso completo a todos los
+usuarios. Esto incluye las ventajas que un usuario registrado tiene sobre un
+anónimo, este último puede adquirir dichas ventajas de forma gratuita
+(registro).
+
+\clearpage
 \subsection{Viabilidad legal}
 
 El estudio de la viabilidad legal se basa en las licencias de las
