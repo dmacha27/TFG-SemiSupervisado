@@ -1048,6 +1048,95 @@ apetecible.
 
 \subsection{Viabilidad económica}
 
+El estudio de la viabilidad económica viene a evaluar cuáles son los costes
+derivados del desarrollo del proyecto y beneficios esperados.
+
+Aún con todo esto, el contexto del proyecto, desde el inicio, se ha marcado como
+una aplicación de tipo docente. Esto tendrá ciertas implicaciones que se irán
+comentando durante este estudio.
+
+Se supondrá un entorno real de una empresa creada con el fin de llevar a cabo
+este proyecto. Esta empresa contará con un empleado desarrollador (alumno), dos
+supervisores (tutores) y los activos hardware y software. El comienzo oficial
+del proyecto fue el 25 de enero de 2023 y su fecha límite estipulada es el 8 de
+junio (unos 5 meses). 
+
+\subsubsection{Costes}
+
+\textbf{Empleados}:\\
+
+El desarrollador ha realizado una media de 4.5 horas diarias (progresivamente
+aumentando hasta la fecha límite de entrega): unas 3 horas en días laborables y
+teniendo en los fines de semana se empleaban alrededor de las 8 horas.
+
+El cómputo del salario bruto del alumno, suponiendo un salario de
+11\texteuro/hora según lo estipulado en las bases mínimas de Ingenieros y
+Licenciados en \cite{cotizacion2023}:
+
+\begin{center}
+$4.5 \frac{horas}{día} \cdot 7 \frac{días}{semana} \cdot 11
+\frac{\text{\texteuro}}{hora} \cdot 4 \frac{semanas}{mes} = 1386\frac{\text{\texteuro}}{mes} $
+\end{center}
+
+Para el caso de los supervisores (tutores), el tiempo empleado de ambos es de 2
+horas/semana para la revisión del progreso y reuniones. Por lo que suponiendo
+mismas bases mínimas anteriores, el salario bruto es:
+
+\begin{center}
+$2 \frac{horas}{semana} \cdot 11 \frac{\text{\texteuro}}{hora} \cdot 4
+\frac{semanas}{mes} = 88\frac{\text{\texteuro}}{mes} $
+\end{center}
+
+
+Constituido el salario bruto que recibe el alumno, deben añadirse todos los
+impuestos de la Seguridad Social estipulados para el año 2023. Estos impuestos,
+recogidos en la web oficial de la seguridad social en el <<Régimen General de la
+Seguridad Social>> en \cite{cotizacion2023}.
+
+En la tabla \ref{tabla:seg-social} se puede ver un resumen de los impuestos que
+han de aplicarse al salario bruto de los empleados considerando categorías
+generales.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{ll}
+    \textbf{CONTINGENCIAS}   (Comunes)  & 23.60\% \\
+    \textbf{DESEMPLEO}   (Tipo General) & 5.50\%  \\
+    \textbf{FOGASA}                     & 0.20\%  \\
+    \textbf{FORMACIÓN PROFESIONAL}      & 0.60\% 
+    \end{tabular}%
+    \caption{Tabla de impuestos}
+    \label{tabla:seg-social}
+\end{table}
+
+Por lo que la fórmula del cómputo total que la empresa debe pagar por los
+empleados es:
+
+\begin{center}
+$ \frac{Salario}{1-(0.236+0.055+0.002+0.006)}$
+\end{center}
+
+\begin{table}[H]
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrr}
+\toprule
+\textbf{Empleado}                               & \textbf{Salario bruto (€)}       & \textbf{Gasto de la empresa (€)}      \\ \midrule
+David Martínez Acha (des)               & 1386                    & 1977,18                      \\
+Álvar Arnaiz González (sup)             & 88                      & 125,53                       \\
+César Ignacio García Osorio (sup)       & 88                      & 125,53                       \\ \midrule
+\textbf{Total}                          & 1562                    & 2228,25                      \\ \midrule
+\textbf{Total 5 meses}                  & 7810                    & 11141,23                      \\ \midrule
+\multicolumn{3}{l}{\begin{tabular}[c]{@{}l@{}}des: desarrollador\\ sup: supervisor\end{tabular}}
+\end{tabular}%
+}
+\caption{Salarios brutos y coste que supone a la empresa}
+\label{table:salarios}
+\end{table}
+
+En la tabla \ref{table:salarios} se presentan todos los costes de los empleados.
+El total, para los 5 meses de duración aproximada es 11.141\,23\texteuro.
+
+\textbf{Empleados}:\\
 \subsection{Viabilidad legal}
 
 El estudio de la viabilidad legal se basa en las licencias de las
@@ -1057,7 +1146,6 @@ más restrictiva y seleccionar acordemente la de este proyecto.
 
 \begin{table}[h!]
     \centering
-    \resizebox{0.7\textwidth}{!}{%
     \begin{tabular}{lcl}
     \toprule
     \textbf{Librería}         & \textbf{Versión} & \textbf{Licencia}                        \\ \midrule
@@ -1084,7 +1172,6 @@ más restrictiva y seleccionar acordemente la de este proyecto.
     \textit{jQuery}           & 3.6.4            & MIT                                      \\
     \textit{DataTables}       & 1.13.4           & MIT                                      \\ \bottomrule
     \end{tabular}%
-    }
     \caption{Bibliotecas usadas, versiones y licencias}
 \end{table}
 
@@ -1095,7 +1182,7 @@ se representan las licencias organizadas según las restricciones que imponen.
 Cuanto más arriba, mayor restricción (una anchura mayor representa mayores
 libertades). Se debe tener en cuenta que solo es una representación para
 determinar la licencia más restrictiva, es decir, no es una representación
-calculada con exactitud.
+calculada con exactitud. 
 
 
 \paragraph{Selección}
