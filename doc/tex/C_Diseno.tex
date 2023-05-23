@@ -2,8 +2,8 @@
 
 \section{Introducción}
 
-En esta sección se van a describir las decisiones tomadas para llevar a cabo
-todos los objetivos y requisitos iniciales establecidos. Se presentará el
+En esta sección se van a describir las decisiones de diseño tomadas para llevar
+a cabo todos los objetivos y requisitos iniciales establecidos. Se presentará el
 formato que se utiliza para tratar los datos, cuál es el procedimiento interno
 que realiza la Web para ofrecer al usuario las visualizaciones y cómo se traduce
 todo ello en la arquitectura subyacente.
@@ -274,12 +274,12 @@ estadísticas particulares de los clasificadores base. Esto aplica para
 Democratic Co-Learning y Tri-Training.
 
 El núcleo de esta estructura de datos siguen siendo los <<DataFrames>>, sin
-embargo, se han envuelto en un diccionario. El diccionario tiene como claves,
+embargo, se han envuelto en un diccionario. El diccionario tiene como claves
 cada uno de los nombres de los clasificadores base de la ejecución (por ejemplo:
-\texttt{CLF3(GaussianNB)}). Los valores serán esos <<DataFrames>> que son
-exactamente iguales que para las estadísticas generales. Guardarán por cada
-iteración (fila), las estadísticas (columnas) para el clasificador base
-concreto.
+\texttt{CLF3(GaussianNB)}). Los valores del diccionario serán esos
+<<DataFrames>> que son exactamente iguales que para las estadísticas generales.
+Guardarán por cada iteración (fila), las estadísticas (columnas) para el
+clasificador base concreto (el de la clave).
 
 \subsection{Base de datos}
 
@@ -295,23 +295,23 @@ Entidades:
 
     Por último, un usuario puede tener varios ficheros y varias ejecuciones.
     Esto está ejemplificado mediante dos relaciones a las otras dos entidades
-    (serán \texttt{One-To-Many} bidireccional).
+    siguientes (relaciones \texttt{One-To-Many}).
 
     \item \textbf{Dataset}: Representa un fichero subido por el usuario.
     Contiene un identificador que representa la clave primaria. Como datos
-    propios del fichero contiene el nombre del mismo (tal y como se guarda en el
-    sistema) y la fecha de subida. 
+    propios del fichero, contiene el nombre del mismo (tal y como se guarda en
+    el sistema) y la fecha de subida. 
 
     Esta entidad mantiene una clave foránea al usuario (el identificador del
-    usuario) junto con una referencia directa a él (como se comentaba por la
-    relación).
+    usuario) junto con una referencia directa a él (aspecto interno de
+    \texttt{SQLAlchemy} para poder acceder al usuario sin realizar consulta).
 
     \item \textbf{Run}: Representa la ejecución de un algoritmo. Contiene un
     identificador que representa la clave primaria. Como datos propios de una
     ejecución contiene:
     \begin{itemize}
         \item El nombre del algoritmo.
-        \item La cadena de caracteres (JSON) con los parámetros.
+        \item La cadena de caracteres (JSON) con todos los parámetros.
         \item El nombre del fichero con el que se ejecutó (conjunto de datos).
         \item La fecha de ejecución.
         \item Componente X.
@@ -320,8 +320,8 @@ Entidades:
     \end{itemize}
 
     Esta entidad también mantiene una clave foránea al usuario (el identificador
-    del usuario) junto con una referencia directa a él (como se comentaba por la
-    relación).
+    del usuario) junto con una referencia directa a él (aspecto interno de
+    \texttt{SQLAlchemy} para poder acceder al usuario sin realizar consulta).
 \end{itemize}
 
 \begin{landscape}
@@ -368,25 +368,24 @@ tipo de arquitectura.
     sistema y el usuario interactúa. Muestra la información al usuario y además
     recopila información de este. Esta capa es la que ejecuta el navegador Web
     desde el que accede el usuario \cite{arq3capas:ibm}. Se conoce también como
-    interfaz gráfica (del sistema). Esta capa solo se comunica con la capa de
-    negocio \cite{eswiki:149121324} (exclusivamente).
+    interfaz gráfica (del sistema). Esta capa se comunica exclusivamente con la
+    capa de negocio \cite{eswiki:149121324}.
 
     En el proyecto, esta capa está implementada mediante todas las plantillas,
-    estilos (CSS) y código JavaScript que con todos los formularios, enlaces,
-    botónes, visualizaciones... Concretamente, esto es generado por el
+    estilos (CSS) y código JavaScript con todos los formularios, enlaces,
+    botones y visualizaciones. Concretamente, esto es generado por el
     <<framework>> Flask (este <<framework>> puede verse en este caso como la
-    capa de presentación). Y realmente, toda esta capa se nutre de la
-    información que solicita a la capa de negocio (por ejemplo, los datos de las
-    ejecuciones, que no son generadas por esta capa sino por esta última). 
+    capa de presentación). Toda esta capa se nutre de la información que
+    solicita a la capa de negocio (por ejemplo, los datos de las ejecuciones, no
+    son generados por la capa de presentación sino por esta última). 
 \end{itemize}
 
 La comunicación entre la capa anterior y la siguiente se realiza mediante el
-protocolo HTTP (peticiones HTTP, los conceptos pueden encontrarse en la
-memoria). Aquí aparece el concepto de API, que define cómo se comunica el
-navegador con el servidor. En el proyecto actual se está utilizando una API
-<<privada>>, en el sentido de que no está pensada para ser accedida por todos
-los usuarios, sino solo los que estén manejando la aplicación y en el flujo de
-la misma. 
+protocolo HTTP (los conceptos pueden encontrarse en la memoria). Aquí aparece el
+concepto de API, que define cómo se comunica el navegador con el servidor. En el
+proyecto actual se está utilizando una API por así decirlo, <<privada>>, en el
+sentido de que no está pensada para ser accedida por todos los usuarios, sino
+solo los que estén manejando la aplicación y en el flujo de la misma. 
 
 \begin{itemize}
     \item \textbf{Capa de negocio}: es el núcleo de la aplicación, se encarga de
@@ -398,9 +397,9 @@ la misma.
     En el proyecto, esta capa está implementada en Python en el código de cada
     ruta accedida. Es decir, las peticiones que realiza el usuario serán
     manejadas por las rutas correspondientes, realizando el procesamiento
-    correspondiente (el negocio). Por ejemplo, la ejecución de un algoritmo
-    dados sus parámetros para retornar los datos de la ejecución o el registro
-    de un nuevo usuario.
+    adecuado (el negocio). Por ejemplo, la ejecución de un algoritmo dados sus
+    parámetros para retornar los datos de la ejecución o el registro de un nuevo
+    usuario.
 \end{itemize}
 
 La comunicación entre la capa anterior y la siguiente se realiza mediante DB-API
@@ -436,7 +435,7 @@ como en la figura \ref{fig:anexos/diseño/ArquitecturaVASS}.
 
 \imagen{anexos/diseño/ArquitecturaVASS}{Arquitectura de tres capas.}
 
-Siguen estando las tres capas propias de la arquitectura, pero con la
+Siguen apareciendo las tres capas propias de la arquitectura, pero con la
 particularidad de que no se tiene un servidor dedicado para la base de datos.
 
 \subsection{Diagrama de despliegue}

@@ -12,7 +12,7 @@ Los requisitos que debe cumplir el usuario son:
     \item Periféricos básicos: pantalla, teclado y ratón.
     \item Navegador Web (Firefox, Chrome, Edge...).
     \item Conexión a internet.
-    \item JavaScript habilitado.
+    \item JavaScript habilitado en el navegador.
 \end{itemize}
 
 \section{Instalación}
@@ -68,7 +68,7 @@ pasar al siguiente paso, el usuario será devuelto a esta misma página con un
 mensaje de error.
 
 El contenido del fichero de datos tiene que cumplir un requisito fundamental
-derivado de la ausencia de un pre-procesamiento completo: 
+derivado de la ausencia de un pre-procesado completo: 
 
 \begin{tcolorbox}[colback=red!5!white,colframe=red!75!black,fontupper=\footnotesize,title=Requisito fundamental]
 Todos los atributos del conjunto de datos deben ser numéricos (internamente los
@@ -108,7 +108,8 @@ ver los distintos gráficos.
 
 En principio, los errores que ocurran en el sistema serán mostrados. Sin
 embargo, en el caso de que la animación dure un periodo de tiempo excesivo, se
-recomienda reintentar la configuración.
+recomienda reintentar la configuración (podrían ser problema de red
+simplemente).
 
 \imagen{anexos/manual-usuario/Visualización - VASS}{Vista general de una visualización}
 
@@ -166,13 +167,13 @@ En el caso de las estadísticas específicas puede seleccionar qué estadística
 mostrar mediante el selector superior, y de qué clasificadores mostrarla
 mediante las casillas en la parte inferior.
 
-Ambos gráficos contienen información similar, en el eje X se indican las
-iteraciones y en el eje Y el valor de la estadística(s).
+Ambos gráficos anteriores contienen información similar, en el eje X se indican
+las iteraciones y en el eje Y el valor de la estadística(s).
 
 \subsection{Cambiar de idioma}
 
-Aunque la propia aplicación detecta el mejor idioma (entre español e inglés) que
-mostrar, se puede seleccionar el idioma de forma manual.
+Aunque la propia aplicación detecta el idioma más adecuado (entre español e
+inglés) que mostrar, se puede seleccionar el idioma de forma manual.
 
 En la barra de navegación hay un símbolo de traducción característico que al
 pulsar aparece un desplegable.
@@ -187,9 +188,9 @@ Esta característica \textbf{no} se incluye en la página de visualización.
 Para aquellos usuarios anónimos que deseen crear una cuenta en la aplicación,
 será necesario realizar el proceso de registro.
 
-Para acceder a él, en la barra de navegación se dispone (en la parte derecha) de
-un enlace que redirecciona al formulario de creación. Una vez accedido, se deben
-rellenar los siguientes campos (todos obligatorios):
+Para acceder a él, en la barra de navegación se dispone de un enlace (en la
+parte derecha) que redirecciona al formulario de creación. Una vez accedido, se
+deben rellenar los siguientes campos (todos obligatorios):
 \begin{itemize}
     \item Nombre: entre 2 y 10 caracteres.
     \item Correo electrónico: será el identificador del usuario en el sistema y
@@ -213,7 +214,7 @@ sesión.
 \imagen{anexos/manual-usuario/Iniciar sesión - VASS}{Formulario de inicio de sesión}
 
 Este formulario es más sencillo y solo requiere el correo electrónico y
-contraseña introducidos en el registro o los nuevos si se han modificado (la
+contraseña introducidos en el registro, o los nuevos si se han modificado (la
 modificación de un perfil se verá más adelante).
 
 \subsection{Cerrar sesión}
@@ -229,8 +230,8 @@ otras opciones, podrá cerrar la sesión.
 Es posible ver el perfil propio y modificar los datos con los que se creó la
 cuenta.
 
-En primer lugar, para acceder al perfil, similar a otros casos, en el
-desplegable de la barra de navegación del usuario se pulsa en <<Perfil>>.
+En primer lugar, y similar a otros casos, en el desplegable de la barra de
+navegación del usuario se pulsa en <<Perfil>>.
 
 \imagencontamano{anexos/manual-usuario/DesplegablePerfil}{Acceso al perfil}{0.4}
 
@@ -248,10 +249,10 @@ fuera errónea o no se introduce, el formulario no se enviará.
 \subsection{Espacio personal}
 
 Todos los usuarios poseen de un espacio personal en el que visualizar y
-controlar sus ficheros subidos y las ejecuciones realzadas hasta el momento.
+controlar sus ficheros subidos y las ejecuciones realizadas hasta el momento.
 
-En primer lugar, para acceder al perfil, similar a otros casos, en el
-desplegable de la barra de navegación del usuario se pulsa en <<Mi Espacio>>.
+En primer lugar, y similar a otros casos, en el desplegable de la barra de
+navegación del usuario se pulsa en <<Mi Espacio>>.
 
 \imagencontamano{anexos/manual-usuario/DesplegableMiEspacio}{Acceso al espacio personal}{0.4}
 
@@ -265,7 +266,9 @@ ficheros subidos y las ejecuciones.
 
 Ambas tablas tienen un buscador donde se puede filtrar por cualquier palabra, en
 todas las columnas de todas las filas. Además, puede elegir cuantas entradas
-mostrar y en su caso, pasar las páginas para seguir mostrando más entradas.
+mostrar (selector en la esquina superior izquierda) y en su caso, pasar las
+páginas para seguir mostrando más entradas (paginado en la esquina inferior
+derecha).
 
 \paragraph{Control de los conjuntos de datos subidos} Particularmente, los
 conjuntos de datos (ficheros) pueden ser ejecutados o eliminados.
@@ -302,17 +305,17 @@ formateado.
 \imagen{anexos/manual-usuario/ParametrosRun - VASS}{Parámetros de una ejecución}
 
 De forma similar a los conjuntos de datos, las ejecuciones pueden ser
-\textbf{re-ejecutadas}, repitiendo exactamente lo mismo que ocurrió en su momento. Para
-ello simplemente se debe pulsar en el botón amarillo con el símbolo típico de
-recargar página.
+\textbf{re-ejecutadas}, repitiendo exactamente lo mismo que ocurrió en su
+momento. Para ello simplemente se debe pulsar en el botón amarillo con el
+símbolo típico de recargar página.
 
-Aunque en este caso, no se mostrará ninguna ventana emergente, redirigirá
-directamente a la visualización del algoritmo (\ref{mu:visualizacion}).
+Este caso no se mostrará ninguna ventana emergente, redirigirá directamente a la
+visualización del algoritmo (\ref{mu:visualizacion}).
 
 \label{mu:eliminarrun}
-Y exactamente igual a los conjuntos de datos, las ejecuciones pueden \textbf{eliminarse}
-pulsando en el botón con el símbolo de papelera mostrando una ventana emergente
-de confirmación similar a la anterior.
+Exactamente igual a los conjuntos de datos, las ejecuciones pueden
+\textbf{eliminarse} pulsando en el botón con el símbolo de papelera mostrando
+una ventana emergente de confirmación similar a la anterior.
 
 \imagen{anexos/manual-usuario/EliminarRun - VASS}{Eliminar ejecución}
 
@@ -323,13 +326,18 @@ Conviene dividir el manual general para usuarios anónimos y registrados de los
 administradores. Aun con ello, un usuario administrador puede realizar las
 mismas acciones que el resto de roles.
 
+Para acceder a esta sección se ha creado un administrador público con las
+siguientes credenciales:
+\begin{itemize}
+    \item Email: admin@admin.es
+    \item Contraseña: 12345678
+\end{itemize}
+
 \subsection{Panel de administración}
 
-Además de estas, el administrador puede controlar a los usuarios, todos los
-ficheros subidos y todas las ejecuciones.
-
-El administrador posee de un panel de administración en el que visualizar tablas
-con toda esa información.
+El administrador puede controlar a los usuarios, todos los ficheros subidos y
+todas las ejecuciones. Para ello, posee de un panel de administración en el que
+visualizar tablas con toda esa información.
 
 En primer lugar, para acceder al panel, similar a otros casos, en el desplegable
 de la barra de navegación del usuario (con rol administrador) se pulsa en <<Mi
@@ -345,11 +353,11 @@ Una vez dentro, se tiene un menú organizado en pestañas donde ver las tres tab
 
 \imagen{anexos/manual-usuario/PanelRuns - VASS}{Historial de ejecuciones}
 
-Para el caso de <<Conjunto de datos subidos>> y <<Historial de ejecuciones>>, el
-proceso es el mismo que en el manual del usuario. Salvo porque en las acciones
-solo puede eliminar (no ejecutar o re-ejecutar respectivamente). Consultar
-\ref{mu:eliminardataset} (eliminar fichero), \ref{mu:parametrosrun} (mostrar
-parámetros de ejecución) y \ref{mu:eliminarrun} (eliminar ejecución).
+Para el caso de <<Conjunto de datos subidos>> e <<Historial de ejecuciones>>, el
+proceso es el mismo que en el manual del usuario. La diferencia es que en las
+acciones solo puede eliminar (no ejecutar o re-ejecutar respectivamente).
+Consultar \ref{mu:eliminardataset} (eliminar fichero), \ref{mu:parametrosrun}
+(mostrar parámetros de ejecución) y \ref{mu:eliminarrun} (eliminar ejecución).
 
 En el caso de los usuarios, el administrador tiene dos posibilidades, editar sus
 datos o eliminar el usuario.
@@ -367,12 +375,12 @@ todos los privilegios para realizar esta acción. Cuando el administrador
 modifique algún dato y envíe el formulario, los datos serán actualizados en el
 sistema. 
 
-Obviamente los campos tienen ciertas limitaciones (similares a las del
+Obviamente, los campos tienen ciertas limitaciones (similares a las del
 registro):
 \begin{itemize}
     \item Nombre: entre 2 y 10 caracteres.
     \item Correo electrónico: será el identificador del usuario en el sistema y
-    por lo tanto solo podrá haber uno.
+    por lo tanto solo podrá haber uno en el sistema.
     \item Nueva contraseña: con al menos ocho caracteres.
 \end{itemize}
 

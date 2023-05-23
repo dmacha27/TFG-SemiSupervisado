@@ -21,7 +21,7 @@ Los objetivos del proyecto pueden resumirse en los siguientes:
 El núcleo del proyecto, pese a la importancia de las implementaciones los
 algoritmos, es la aplicación Web, pues representa la parte interactiva del
 proyecto. Por este motivo, el presente apartado analizará con precisión que es
-lo que la aplicación debe o no hacer (con sus limitaciones).
+lo que la aplicación debe hacer (con sus limitaciones).
 
 \section{Usuarios de la aplicación}
 
@@ -65,9 +65,9 @@ funcionales.
         permitir configurar la ejecución del algoritmo con los parámetros
         específicos del mismo.
         \item \textbf{RF-1.4 Control visualizaciones}: la aplicación debe
-        mostrar visualizaciones interactivas: principal (gráfico de dos
-        dimensiones con los puntos del conjunto de datos) y estadísticas
-        (gráficos de líneas).
+        mostrar visualizaciones interactivas: una principal (gráfico de dos
+        dimensiones con los puntos del conjunto de datos) y una o varias
+        estadísticas (gráficos de líneas).
         \begin{itemize}
             \item \textbf{RF-1.3.1 Controlar paso (iteración)}: la aplicación
             debe permitir controlar el paso del proceso de entrenamiento
@@ -109,7 +109,6 @@ funcionales.
         \begin{itemize}
             \item \textbf{RF-4.2.1 Replicar ejecución}: los usuarios con cuenta
             deben poder replicar las ejecuciones.
-            
             \item \textbf{RF-4.2.2 Eliminación}: los usuarios con cuenta deben
             poder eliminar las ejecuciones.
         \end{itemize}
@@ -118,7 +117,7 @@ funcionales.
     \item \textbf{RF-5 Administración}: la aplicación debe manejar cuentas de
     usuario de tipo administrador.
     \begin{itemize}
-        \item \textbf{RF-5.1 Control de usuarios}: el administrador deben poder
+        \item \textbf{RF-5.1 Control de usuarios}: el administrador debe poder
         consultar los usuarios registrados.
         \begin{itemize}
             \item \textbf{RF-5.1.1 Edición de usuario}: el administrador debe
@@ -140,7 +139,7 @@ funcionales.
         \item \textbf{RF-5.3 Control de ejecuciones global}: el administrador
         debe poder consultar todas ejecuciones (con toda su información).
         \begin{itemize}          
-            \item \textbf{RF-5.3.1 Eliminación}: el administrador deben poder
+            \item \textbf{RF-5.3.1 Eliminación}: el administrador debe poder
             eliminar cualquier ejecución de los usuarios registrados.
             \item \textbf{RF-5.3.2 Últimas ejecuciones}: el administrador debe
             poder ver el \textbf{número} de ficheros subidos de los últimos 7
@@ -149,7 +148,7 @@ funcionales.
     \end{itemize}
 
     \item \textbf{RF-6 Cambio de idioma}: todos los usuarios deben poder cambiar
-    el idioma a placer (inglés o español).
+    el idioma (inglés o español).
 
 \end{itemize}
 
@@ -178,7 +177,7 @@ restricciones son aplicadas de forma intrínseca en el desarrollo.
 	un espacio reservado, el cual tiene como propósito principal mantenerse
 	confidencial \cite{eswiki:148719517}}}: el sistema debe respetar la
 	información privada y, de ninguna forma, compartirla con terceros. Debe ser
-	un espacio reservado confidencial entre el usuario y la aplicación.
+	un espacio reservado confidencial con el usuario.
 	\item \textbf{RNF-7 Escalabilidad}: el sistema debe ser capaz de crecer para
 	ajustarse a la carga de trabajo.
 	\item \textbf{RNF-8 Extensibilidad}: debe ser fácil añadir nueva
@@ -215,12 +214,12 @@ representados en el diagrama anterior.
 		\begin{enumerate}
 			\def\labelenumi{\arabic{enumi}.}
 			\tightlist
-			\item Ejecución del Caso de Uso 2.
-			\item Ejecución del Caso de Uso 3.
-            \item Ejecución del Caso de Uso 4.
-			\item Ejecución interna del algoritmo, obtención de la información y creación de los gráficos.
+			\item Ejecución del Caso de Uso 2 (Seleccionar algoritmo).
+			\item Ejecución del Caso de Uso 3 (Cargar conjunto de datos).
+            \item Ejecución del Caso de Uso 4 (Configurar algoritmo).
+			\item Se realiza la ejecución interna del algoritmo, obtención de la información y creación de los gráficos.
             \item El usuario verá en la página los distintos gráficos de su visualización. 
-            \item [Opcional] Ejecución del Caso de Uso 5.
+            \item [Opcional] Ejecución del Caso de Uso 5 (Controlar visualizaciones).
 		\end{enumerate}\\
 		\textbf{Extensiones}          & 4a Si el usuario estuviera registrado, toda la información de la ejecución será almacenada. \\
 		\textbf{Postcondición}        & Visualizaciones renderizadas en la Web \\
@@ -360,7 +359,7 @@ representados en el diagrama anterior.
 			\item El usuario puede avanzar o retroceder en las iteraciones del algoritmo.
 			\item El usuario puede realizar \textit{zoom} sobre el gráfico principal así como reiniciarlo.
 			\item El usuario puede ver información particular sobre cada punto en el gráfico principal pasando el ratón por encima de ellos.
-			\item El usuario puede interactuar con los estadísticas.
+			\item El usuario puede interactuar con las estadísticas.
 		\end{enumerate}\\
 		\textbf{Postcondición}        & El usuario ha podido manejar con libertad los elementos mostrados. \\
 		\textbf{Excepciones}          & Sin excepciones \\
@@ -400,7 +399,7 @@ representados en el diagrama anterior.
 		\textbf{Excepciones}          & \begin{itemize}
 			\item Un campo del formulario no se ha rellenado. Se impedirá enviar el formulario instando al usuario a completar todos los campos.
 			\item El \texttt{email} ya tiene una cuenta registrada. Se mostrará un mensaje de error debajo del campo.
-			\item La contraseña de confirmación no es la misma. Se mostrará un mensaje de error debajo del campo.
+			\item La contraseña de confirmación no coincide. Se mostrará un mensaje de error debajo del campo.
 		\end{itemize}\\
 		\textbf{Importancia}          & Media \\
 		\bottomrule
@@ -499,7 +498,7 @@ representados en el diagrama anterior.
 		\textbf{Postcondición}        & Los datos del usuario se han actualizado en la base de datos y mantiene su sesión. \\
 		\textbf{Excepciones}          & \begin{itemize}
 			\item No se ha introducido contraseña actual. En este caso, se impedirá el envío del formulario instando al usuario a rellenar ese campo.
-			\item El \texttt{email} ha sido modificado y el nuevo ya está en el sistema. En este caso, se mostrará un mensaje de error debajo del campo.
+			\item El \texttt{email} ha sido modificado y el nuevo ya está en el sistema. En este caso, se mostrará un mensaje de error debajo del campo (no conllevará cambios).
 			\item La contraseña actual no coincide con la almacenada. En este caso, se mostrará un mensaje de error debajo del campo y no se modificarán los datos.
 		\end{itemize}\\
 		\textbf{Importancia}          & Baja \\
@@ -549,7 +548,7 @@ representados en el diagrama anterior.
 		\textbf{Autor}                & David Martínez Acha \\
 		\textbf{Requisitos asociados} & RF-4.1.1 \\
 		\textbf{Descripción}          & Utilizar un conjunto de datos subido para ejecutar uno de los algoritmos. \\
-		\textbf{Precondición}         & Encontrarse en el espacio personal (caso de uso 9). \\
+		\textbf{Precondición}         & Encontrarse en el espacio personal (caso de uso 10). \\
 		\textbf{Acciones}             &
 		\begin{enumerate}
 			\def\labelenumi{\arabic{enumi}.}
@@ -562,7 +561,7 @@ representados en el diagrama anterior.
 			\item Ejecutar caso de uso 1 desde el paso 3.
 		\end{enumerate}\\
 		\textbf{Postcondición}        & El usuario ha sido redirigido a la configuración del algoritmo seleccionado. El sistema muestra además el fichero seleccionado. \\
-		\textbf{Excepciones}          & Sin excepciones \\
+		\textbf{Excepciones}          & Sin excepciones (ver excepciones del caso de uso 1)\\
 		\textbf{Importancia}          & Media \\
 		\bottomrule
 	\end{tabularx}
@@ -580,7 +579,7 @@ representados en el diagrama anterior.
 		\textbf{Autor}                & David Martínez Acha \\
 		\textbf{Requisitos asociados} & RF-4.2.1 \\
 		\textbf{Descripción}          & Ejecutar de nuevo una ejecución previa exactamente como ocurrió. \\
-		\textbf{Precondición}         & Encontrarse en el espacio personal (caso de uso 9). \\
+		\textbf{Precondición}         & Encontrarse en el espacio personal (caso de uso 10). \\
 		\textbf{Acciones}             &
 		\begin{enumerate}
 			\def\labelenumi{\arabic{enumi}.}
@@ -626,7 +625,7 @@ representados en el diagrama anterior.
 				\item Ejecuciones realizadas en los últimos 7 días.
 			\end{itemize}
 		\end{enumerate}\\
-		\textbf{Postcondición}        & El administrador tiene una vista global de todas las tablas sus estadísticas básicas. \\
+		\textbf{Postcondición}        & El administrador tiene una vista global de todas las tablas con sus estadísticas básicas.\\
 		\textbf{Excepciones}          & Los datos no pueden recuperarse de la base de datos, se mostrará el error para después volver a la página principal\\
 		\textbf{Importancia}          & Media \\
 		\bottomrule
@@ -645,7 +644,7 @@ representados en el diagrama anterior.
 		\textbf{Autor}                & David Martínez Acha \\
 		\textbf{Requisitos asociados} & RF-4.1.2, RF-5.1.2 \\
 		\textbf{Descripción}          & Eliminar un conjunto de datos (fichero) del sistema. \\
-		\textbf{Precondición}         & Encontrarse en el espacio personal (caso de uso 9) o, si tiene rol de administrador, en el panel de administración (caso de uso 12). \\
+		\textbf{Precondición}         & Encontrarse en el espacio personal (caso de uso 10) o, si tiene rol de administrador, en el panel de administración (caso de uso 13). \\
 		\textbf{Acciones}             &
 		\begin{enumerate}
 			\def\labelenumi{\arabic{enumi}.}
@@ -686,7 +685,7 @@ representados en el diagrama anterior.
 		\textbf{Autor}                & David Martínez Acha \\
 		\textbf{Requisitos asociados} & RF-4.2.2, RF-5.2.2 \\
 		\textbf{Descripción}          & Eliminar una ejecución previa del sistema. \\
-		\textbf{Precondición}         & Encontrarse en el espacio personal (caso de uso 9) o, si tiene rol de administrador, en el panel de administración (caso de uso 12). \\
+		\textbf{Precondición}         & Encontrarse en el espacio personal (caso de uso 10) o, si tiene rol de administrador, en el panel de administración (caso de uso 13). \\
 		\textbf{Acciones}             &
 		\begin{enumerate}
 			\def\labelenumi{\arabic{enumi}.}
@@ -727,7 +726,7 @@ representados en el diagrama anterior.
 		\textbf{Autor}                & David Martínez Acha \\
 		\textbf{Requisitos asociados} & RF-5.1.1 \\
 		\textbf{Descripción}          & Edición de los datos personales de cualquier usuario del sistema. \\
-		\textbf{Precondición}         & Encontrarse en el panel de administración (caso de uso 12). \\
+		\textbf{Precondición}         & Encontrarse en el panel de administración (caso de uso 13). \\
 		\textbf{Acciones}             &
 		\begin{enumerate}
 			\def\labelenumi{\arabic{enumi}.}
@@ -762,7 +761,7 @@ representados en el diagrama anterior.
 		\textbf{Autor}                & David Martínez Acha \\
 		\textbf{Requisitos asociados} & RF-5.1.2 \\
 		\textbf{Descripción}          & Eliminar un usuario del sistema. \\
-		\textbf{Precondición}         & Encontrarse en el panel de administración (caso de uso 12). \\
+		\textbf{Precondición}         & Encontrarse en el panel de administración (caso de uso 13). \\
 		\textbf{Acciones}             &
 		\begin{enumerate}
 			\def\labelenumi{\arabic{enumi}.}
@@ -811,6 +810,7 @@ representados en el diagrama anterior.
 			\item El usuario hace clic en el símbolo de traducción en la barra de navegación.
             \item Aparece un desplegable de idiomas.
             \item El usuario hace clic en el idioma deseado.
+            \item Se actualiza la página indicando el idioma a la aplicación.
 		\end{enumerate}\\
 		\textbf{Postcondición}        & La página se ha cambiado al idioma seleccionado \\
 		\textbf{Excepciones}          & Sin excepciones \\

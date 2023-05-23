@@ -3,9 +3,10 @@
 \section{Introducción}
 En esta sección se presenta toda la documentación técnica del desarrollo del
 proyecto. Trata de ser una guía para entender cómo se ha hecho el proyecto
-comenzando por los directorios y su contenido, con un manual introductorio para
-un programador que es iniciado en el proyecto, una explicación y ejemplificación de la
-instalación del mismo y las pruebas que se han realizado para validarlo.
+comenzando por los directorios y su contenido junto con un manual introductorio
+para un programador que es iniciado en el proyecto. También se presenta una
+explicación y ejemplificación de la instalación del mismo junto con las pruebas
+que se han realizado para su validación.
 
 \tcbset{colback=red!5!white,fonttitle=\bfseries}
 \begin{tcolorbox}[enhanced,title=Repositorio Github,
@@ -169,11 +170,11 @@ Estos son los directorios en los que se organiza el proyecto:
 \end{figure}
 
 \section{Manual del programador}
-El objetivo de este manual es dar el conocimiento necesario al 
-lector/desarrollador que comience a trabajar con este proyecto para continuarlo . Se ha de
-tener en cuenta que lo descrito a continuación es lo que se ha estado utilizando 
-para el entorno desarrollo inicial y será explicado para este (sin limitación, por ejemplo,
-a usar otras herramientas).
+El objetivo de este manual es dar el conocimiento necesario al
+lector/desarrollador que comience a trabajar con este proyecto para continuarlo.
+Se ha de tener en cuenta que lo descrito a continuación es lo que se ha
+utilizado para el desarrollo inicial y será explicado para este (sin limitación,
+por ejemplo, a usar otras herramientas).
 
 En primer lugar se listan las herramientas consideradas para el desarrollo:
 \begin{itemize}
@@ -228,12 +229,13 @@ utiliza los algoritmos para obtener la información presentada en la Web.
 \texttt{algoritmos}): Los algoritmos desarrollados y nuevos han de situarse en
 este directorio como raíz. La idea es que cada fichero <<.py>>, homónimo al
 algoritmo, contenga la definición de un objeto que encapsule el desarrollo del
-mismo, para que no haya confusión.
+mismo.
 
 Estructura de los objetos (mínima):
 
-\textbf{Constructor}: Donde se configuran los parámetros que necesita el algoritmo. Es
-recomendable realizar una validación de los mismos por si fueran utilizados de manera individual.
+\textbf{Constructor}: Donde se configuran los parámetros que necesita el
+algoritmo. Es recomendable realizar una validación de los mismos por si fueran
+utilizados de manera individual.
 
 \textbf{Método de entrenamiento (Fit)}: Dado que estos algoritmos están pensados
 no solo para entrenar, sino para almacenar el proceso de entrenamiento y
@@ -300,11 +302,11 @@ La aplicación está desarrollada con el <<micro-framework>> Flask, que permite 
 creación de aplicaciones Web en Python. A lo largo del desarrollo la estructura
 de la aplicación ha variado bastante. Finalmente, se ha modularizado
 completamente con el uso de \texttt{Blueprints} y una \texttt{Application
-Factory} que se encarga de instancia la aplicación, base de datos y pone en
+Factory} que se encarga de instanciar la aplicación, base de datos y poner en
 funcionamiento las distintas rutas accesibles.
 
 \textbf{\texttt{run.py}}: Centraliza la ejecución de la aplicación (mediante la
-\texttt{Application Factory}) 
+\texttt{Application Factory}).
 
 \textbf{\texttt{instance}}: Donde se almacena la instancia de la base de datos.
 
@@ -342,7 +344,7 @@ app.register_blueprint(nuevo_bp, url_prefix='/')
 las entidades que maneja la aplicación: \texttt{Users}, \texttt{Datasets} y
 \texttt{Runs}. Si se desea añadir alguna, primero se debe crear aquí la
 definición de la misma. Para que la aplicación sepa las entidades que debe
-manejar, también es necesario importarla en la creación de la aplicación.
+manejar, también es recomendable importarla en la creación de la aplicación.
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Importar modelo (en <<create\_app()>> de \texttt{\_\_init\_\_.py})]
     \begin{minted}{python}
@@ -359,31 +361,32 @@ encuentran todos los gráficos de los algoritmos (gestionado por
 \texttt{visualization\_routes.py}). Además, existe un paso intermedio en el que
 se obtienen los datos de la ejecución de los algoritmos, este paso no es una
 ruta que pueda visualizarse (gestionado por \texttt{data\_routes.py}), es un
-método auxiliar que accede el propio usuario (su navegador) para obtener la
-información. Por lo general, la convención utilizada es que todos los métodos y
-rutas lleven el nombre del algoritmo.
+método auxiliar que accede el propio el navegador del usuario (petición) para
+obtener la información. Por lo general, la convención utilizada es que todos los
+métodos y rutas lleven el nombre del algoritmo.
 
 Las primeras tareas para añadir un algoritmo nuevo serán incorporarlos al flujo
 de las sesiones y actualizar la plantilla base (por la barra de navegación) y el
-inicio. Para incorporarlos al flujo, esto se hace incorporándolos a la selección
-(\texttt{/seleccionar/<algoritmo>}).
+inicio. La incorporación al flujo de las sesiones se hace incorporándolos a la
+selección (\texttt{/seleccionar/<algoritmo>}), que guarda en la sesión del
+usuario el nombre del algoritmo.
 
 \textbf{Formularios}: A la hora de crear un nuevo algoritmo, y como se ha
 comentado, el usuario tiene un paso de configuración del mismo. Esto se realiza
 mediante un formulario. Para crear uno (WTForm), se debe crear su objeto
 correspondiente en <<forms.py>> con los campos necesarios. Hasta el momento, los
 algoritmos que hay implementados tienen una parte en común que está definida en
-la clase <<\texttt{FormConfiguracionBase}>> y en prinicpio, si se añade uno
+la clase <<\texttt{FormConfiguracionBase}>> y en principio, si se añade uno
 nuevo, deberá extender dicha clase.
 
 \textbf{Plantillas (templates)}: Flask utiliza el motor de plantillas Jinja2,
 que añaden instrucciones en HTML. Obviando que cada algoritmo tiene sus
 particularidades, están organizadas mediante la extensión de plantillas. De
-forma general, añadir un algoritmo podría solo intervenir la creación de una
+forma general, añadir un algoritmo podría solo conllevar la creación de una
 plantilla de configuración (incluyendo la creación del formulario) y otra de
 visualización. En ambos casos se tiene una plantilla base de la que se debe
 extender. También se deben nombrar como resto de algoritmos (están nombrados de
-forma intuitiva).
+forma intuitiva incluyen el propio nombre del algoritmo).
 
 De forma general, las plantillas se encuentran repartidas en varios
 subdirectorios, cada uno de ellos engloban una parte de la aplicación.
@@ -412,8 +415,8 @@ directamente en \texttt{templates}.
 
 \textbf{Ficheros estáticos (static)}: 
 
-El contenido dinámico debe ser creado mediante Javascript, de forma <<vanilla>> 
-(sin utilizar frameworks). 
+El contenido dinámico debe ser creado mediante Javascript, de forma <<vanilla>>
+(sin utilizar <<frameworks>>). 
 
 Al igual que con las plantillas, es completamente necesario mantener la
 organización actual de las carpetas, las funciones que se añadan deberán
@@ -440,12 +443,13 @@ En menor medida, los estilos deben ser retocados en estos ficheros
 (\texttt{css/style.css}) aunque en principio la aplicación está estilada con
 Bootstrap~5.
 
-En estos ficheros estáticos también se tienen unas imágenes con los
+Entre estos ficheros estáticos también se tienen unas imágenes con los
 pseudocódigos de los algoritmos. Estas imágenes deben verse tanto en la
-configuración como la visualización.
+configuración como en la visualización. Se puede consultar alguna de las
+plantillas existentes de ejemplo.
 
 Otra parte muy importante es si se quieren añadir nuevos clasificadores base con
-sus parámetros, la especificación de los mismos está almacenada en el fichero
+sus parámetros. La especificación de los mismos está almacenada en el fichero
 JSON <<parametros.json>>. 
 
 Hasta el momento del desarrollo solo existen dos tipos de entradas, los
@@ -500,11 +504,15 @@ el formulario mediante una función creada para ello.
 
 \textbf{Conjunto de datos (\textit{datasets})}: Los conjuntos de datos de los
 usuarios (vinculados a sus sesiones) se almacenan localmente en la aplicación
-con el <<Timestamp>> concatenado el nombre del fichero introducido.
+con el <<Timestamp>> concatenado al nombre del fichero introducido.
 
-Pero para agilizar el proceso del mantenimiento (principalmente del
-almacenamiento del servidor), los ficheros subidos por usuarios anónimos se
-guardan en una sub-carpeta distinta a la de los usuarios registrados.
+Para agilizar el proceso del mantenimiento (principalmente del almacenamiento
+del servidor), los ficheros subidos por usuarios anónimos se guardan en una
+sub-carpeta distinta a la de los usuarios registrados. Con <<current\_user>> de
+\texttt{Flask-Login} se puede conocer si se trata de usuarios anónimos o
+registrados. En función de esto, la aplicación tiene almacenada una ruta para
+los ficheros anónimos (<<CARPETA\_DATASETS\_ANONIMOS>>) y otra para los
+registrados (<<CARPETA\_DATASETS\_REGISTRADOS>>).
 
 \textbf{Internacionalización}: La aplicación está pensada para ser
 internacionalizada en cualquier idioma, aunque solo se ha incluido inglés y
@@ -520,16 +528,18 @@ durante el posterior desarrollo, se han considerado dos alternativas.
 Para el caso de las visualizaciones, en la plantilla
 <<\texttt{base\_visualizacion}>> se ha incluido una función de traducción
 embebida directamente en <<\texttt{</script>}>>. Al incluirse de esta forma,
-Babel si puede capturar esas funciones. 
+Babel sí puede capturar esas funciones y al acceder a la función retornar el
+texto adecuado. 
 
 La otra posibilidad es mediante diccionarios y la declaración de una variable
-que indique el idioma (\textit{locale}). Por ejemplo, en el espacio personal
-(plantilla <<\texttt{miespacio}>>) y en el panel de administración (plantilla
-<<\texttt{admin}>>), se ha definido una constante que consulta el idioma actual.
-A partir de aquí, cuando existe un texto generado en JavaScript que necesita ser
-traducido, se define un diccionario que contiene en los valores, las palabras
-deseadas. Este diccionario realmente será un diccionario de diccionarios, el
-primer nivel tendrá el idioma.
+que indique el idioma (\textit{locale}) en HTML. Por ejemplo, en el espacio
+personal (plantilla <<\texttt{miespacio}>>) y en el panel de administración
+(plantilla <<\texttt{admin}>>), se ha definido una constante que consulta el
+idioma actual (es una variable global declarada en Flask con
+<<@app.context\_processor>>). A partir de aquí, cuando existe un texto generado
+en JavaScript que necesita ser traducido, se define un diccionario que contiene
+en los valores las palabras deseadas. Este diccionario realmente será un
+diccionario de diccionarios, el primer nivel tendrá el idioma.
 
 Ejemplo:
 
@@ -586,7 +596,6 @@ $ python -m venv ./venv
 \end{minted}
 \end{tcolorbox}
 
-
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,fontupper=\footnotesize,fontlower=\footnotesize,title=Activación del entorno virtual]
 \begin{minted}{matlab}
 $ venv\activate.bat //Windows
@@ -613,7 +622,7 @@ $ python -m pip install -r requierements.txt
 \end{minted}
 \end{tcolorbox}
 
-\begin{tcolorbox}[colback=cyan!5!white,colframe=orange!75!black,title=Instalar paquete de algoritmos]
+\begin{tcolorbox}[colback=cyan!5!white,colframe=orange!75!black,title=Instalar resto de paquetes (principalmente los algoritmos)]
 \begin{minted}{shell}
 $ python -m pip install .
 \end{minted}
@@ -684,8 +693,8 @@ una extracción sin incluir <<\texttt{lazy\_gettext}>> (por ejemplo) y a
 continuación se actualizan las traducciones, se perderán aquellas que tenían
 <<\texttt{lazy\_gettext}>>.
 
-Una vez que se han extraido los textos, se han de indicar las traducciones.
-Todos los textos envueltos por las funciones antes comentadas actúan como
+Una vez que se han extraído los textos, se han de indicar las traducciones (a
+mano). Todos los textos envueltos por las funciones antes comentadas actúan como
 identificadores. En \texttt{translations/es/LC\_MESSAGES/messages.po} se tienen
 esos identificadores junto con la traducción (estará vacía si no se ha
 introducido). En ese fichero se incluirán las traducciones.
