@@ -106,6 +106,23 @@ footer {
     background: linear-gradient(to bottom, #4D7080 50%, #FFF 50%);
 }
 
+.tooltip > .tooltip-inner {
+    background-color: #737C80;
+}
+
+.bs-tooltip-auto[data-popper-placement^="top"] .tooltip-arrow::before {
+    border-top-color: #737C80 !important;
+}
+.bs-tooltip-auto[data-popper-placement^="bottom"] .tooltip-arrow::before {
+    border-bottom-color: #737C80 !important;
+}
+.bs-tooltip-auto[data-popper-placement^="left"] .tooltip-arrow::before {
+    border-left-color: #737C80 !important;
+}
+.bs-tooltip-auto[data-popper-placement^="right"] .tooltip-arrow::before {
+    border-right-color: #737C80 !important;
+}
+
 @media (max-width: 1220px) {
     .dos-colores {
         background: linear-gradient(to bottom, #4D7080 75%, #FFF 25%);
@@ -116,44 +133,6 @@ footer {
     .dos-colores {
         background: linear-gradient(to bottom, #4D7080 90%, #FFF 10%);
     }
-}
-
-/*https://www.w3schools.com/howto/howto_css_tooltip.asp*/
-.tooltip-info {
-    position: relative;
-    display: inline-block;
-}
-
-.tooltip-info .tooltip-info-text {
-    visibility: hidden;
-    width: 200px;
-    background-color: #737C80;
-    color: #fff;
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 6px;
-    position: absolute;
-    z-index: 1;
-    bottom: 110%;
-    left: -120%;
-    margin-left: -60px;
-
-    opacity: 0;
-    transition: opacity 0.2s;
-}
-
-.tooltip-info .tooltip-info-text::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-}
-
-.tooltip-info:hover .tooltip-info-text {
-    visibility: visible;
-    opacity: 1;
 }
 
 .parametros {
@@ -266,27 +245,4 @@ footer {
         width: 50vw;
     }
 }
-
-#btn_info {
-    border-radius: 10px 0 0 10px;
-}
-
-#panel_info{
-    position: absolute;
-    top: 70%;
-    right: 0;
-}
-
-#card_info {
-    width: 0;
-    border-radius: 0;
-    transition:300ms linear;
-    height: 220px;
-}
-
-#card_info_text{
-    display: none;
-    overflow: hidden;
-}
-
 

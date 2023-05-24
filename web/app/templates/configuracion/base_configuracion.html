@@ -1,10 +1,13 @@
 {% extends "base.html" %}
 {%  from "macros.html" import formulario_comun %}
+{% block head %}
+    {{ super() }}
+    <script type="text/javascript" src="/js/configuracion/configuracion.js"></script>
+{% endblock %}
 {% block title %}{{ gettext('Algorithm configuration') }}{% endblock %}
 {% block content %}
     <button id="btn_volver" type="button" onclick="history.back()" class="btn sticky-top">
         <i class="bi bi-caret-left-fill"></i>{{ gettext('Go back') }}</button>| {{ gettext('Dataset') }}: {{ session['FICHERO']|nombredataset }}
-    <script type="text/javascript" src="/js/configuracion/configuracion.js"></script>
     <div class="text-center pb-3">
         <h1 class="title-mulish text-bold">{{ gettext('Algorithm configuration') }}: {{ titulos[session['ALGORITMO']] }}</h1>
         <hr class="separacion" style="width: 14rem;"/>
@@ -50,4 +53,8 @@
             </div>
         </div>
     </div>
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
 {% endblock %}

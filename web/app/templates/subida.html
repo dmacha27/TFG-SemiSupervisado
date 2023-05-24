@@ -2,6 +2,7 @@
 {%  from "macros.html" import tooltip %}
 {% block head %}
     {{ super() }}
+    <script type="text/javascript" src="/js/subida.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 {% endblock %}
 {% block title %}{{ gettext('Dataset upload') }}{% endblock %}
@@ -53,6 +54,5 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="/js/subida.js"></script>
 {% endblock %}
 
