@@ -13,7 +13,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.datasets import load_breast_cancer, load_diabetes, load_iris, load_digits, load_wine
+from sklearn.datasets import load_breast_cancer, load_iris, load_wine
 
 from sklearn.metrics import accuracy_score, f1_score
 from imblearn.metrics import geometric_mean_score
@@ -41,23 +41,6 @@ def cross_validation(own_clf, clf1_params, other_clf, clf2_params, x, y, folds, 
     :return: exactitud de ambos modelos (mismo orden que de entrada) junto con ambas desviaciones estándar
     """
 
-    (
-        x,
-        y,
-        x_test,
-        y_test
-    ) = data_split(x, y, is_unlabelled=False, p_unlabelled=0.8, p_test=0.2)
-
-    first_i_u = np.where(y == -1)[0][0]
-    x_labelled = x[:first_i_u]
-    x_unlabelled = x[first_i_u:]
-
-    y = y[:first_i_u]
-
-    # En x e y solo hay datos etiquetados
-    x = np.concatenate((x_labelled, x_test), axis=0)
-    y = np.concatenate((y, y_test))
-
     kf = KFold(n_splits=folds)
 
     stats_clf1 = pd.DataFrame(columns=['Gmean', 'F1-Score', 'Accuracy'])
@@ -70,8 +53,8 @@ def cross_validation(own_clf, clf1_params, other_clf, clf2_params, x, y, folds, 
 
         x_train = x[train_index]
         y_train = y[train_index]
-        x_train = np.concatenate((x_train, x_unlabelled), axis=0)
-        y_train = np.concatenate((y_train, [-1] * len(x_unlabelled)))
+        indices_unlabelled = np.random.choice(x_train.shape[0], size=int(x_train.shape[0] * 0.8), replace=False)
+        y_train[indices_unlabelled] = -1
 
         clf1 = own_clf(**copy.deepcopy(clf1_params))
 
@@ -137,9 +120,7 @@ def cotraining_comparison(data, comparison_name):
                             10,
                             data.feature_names,
                             comparison_name,
-                            [list(range(n_features // 2 + 1)),
-                             list(range(n_features // 2 + 1,
-                                        n_features))])
+                            [*np.array_split(list(range(n_features)), 2)])
 
 
 def democraticolearning_comparison(data, comparison_name):
@@ -249,9 +230,9 @@ def draw_performance(dataset_name):
 
 
 if __name__ == '__main__':
-    data = load_breast_cancer()
+    data = load_wine()
 
-    dataset_name = "Breast"
+    dataset_name = "Wine"
 
     print("---Self-Training---")
     own, std_own, ssl, std_ssl = selftraining_comparison(data, f"SelfTraining-{dataset_name}")
