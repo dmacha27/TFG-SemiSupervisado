@@ -98,9 +98,171 @@ Un valor extremo en normalización puede hacer que la visualización sea muy
 pobre, juntando la mayoría de los puntos a una zona. Con la estandarización este
 efecto es mucho menor, pues se tiene en cuenta la media de los valores.
 
+\clearpage
 \section{Desarrollo de los algoritmos}
 
+Junto con la Web, este desarrollo es el más importante realizado. Ha supuesto un verdadero reto documentarse
+con los artículos científicos de estos algoritmos. Al fin y al cabo, no se tienen absolutamente todos los conocimientos
+del aprendizaje y en muchas ocasiones se <<perdía>> más tiempo leyendo y entendiendo que programando. Sí que es verdad que 
+los algoritmos que se han desarrollado tienen ideas bastante lógicas y directas.
+
+Para desarrollar un algoritmo lo primero que se realizaba era leer y entender la
+teoría que se presentaba en los artículos, consultando conceptos que no se
+entendían en internet. En segundo lugar, en todos ellos siempre aparecía un
+pseudocódigo que describía formalmente todo el proceso del algoritmo y que luego
+se pasaba a la implementación. Exceptuando Self-Training, no era posible
+entender su funcionamiento sin entender la teoría y la dificultad se encontraba
+en que no se había trabajado con este tipo de notaciones particulares y era muy
+fácil perderse.
+
+Entrando más en cómo se desarrollaban, la idea siempre era crear un objeto con
+ese algoritmo. De hecho, al principio del proyecto (con Self-Training) se
+realizaba como una función única. Sin embargo, la idea de la orientación a
+objetos permitía un manejo mucho más fino para crear funciones separadas
+(entrenamiento, estadísticas, predicciones...) pero del mismo contexto y
+facilitaban su uso en la parte de la aplicación Web (Flask).
+
+Por lo general, se creaban unas versiones básicas en las que simplemente se
+quería tener una implementación funcional. En esas primeras fases no se
+consideraban <<refactorizaciones>> en cuanto a estructuras de datos más óptimas
+o exceso de complejidad, sino que era una toma de contacto para ajustar el
+pensamiento a cada uno de ellos en particular. Para probar estos algoritmos de
+forma rudimentaria, se utilizaban los conjuntos de datos de <<juguete>> de
+\texttt{Scikit-Learn}.
+
+Cuando se pensaba que la implementación correspondía (en principio) a los
+artículos, se comenzaban esas tareas de depuración. Por ejemplo, tanto en
+Democratic Co-Learning como en Tri-Training se detectó que los tiempos de
+entrenamiento eran demasiado grandes. En el primer caso resultó ser porque la
+condición de parada estaba mal planteada y ejecutaba muchas más iteraciones de
+las necesarias. En el segundo caso resultó ser precisamente el uso de
+estructuras de datos más lentas (se subsanó utilizando \texttt{numpy}).
+
 \subsection{Validación}
+
+Aparte de intentar depurar el código generado, no era suficiente con la
+intuición de que estos algoritmos eran correctos. Para comprobarlo, se ha
+comparado con la biblioteca \texttt{sslearn}
+\cite{jose_luis_garrido_labrador_2023_7781117}. Esta biblioteca cubre todos los
+algoritmos desarrollados en este proyecto y que además está mantenida
+periódicamente.
+
+Antes de presentar los resultados de esta validación, se definen las
+estadísticas que se han utilizado para comprobar que la implementación propia es
+comparable con \texttt{sslearn} y concluir que es correcta.
+
+\begin{itemize}
+    \item \textit{\textbf{Accuracy}}: Esta métrica será el núcleo principal de
+    la comparación. Representa la proporción de aciertos entre todos los datos.
+
+    \item \textit{\textbf{F1 score}}: Esta métrica se calcula como la media
+    armónica de la precisión\footnote{Precisión: proporción de clasificados
+    positivos (verdaderos positivos + falsos positivos) que son clasificados
+    positivos (verdaderos positivos)} y \texttt{recall} (es igual que la
+    sensibilidad).
+
+    \begin{center}
+        $ F_1 = 2\frac{precisión \cdot recall}{precisión + recall} $
+    \end{center}
+
+    \item \textit{\textbf{Geometric mean (Gmean)}}: En este contexto, la media
+    geométrica trata maximizar cada una de las medidas de <<accuracy>> de cada
+    clase \cite{imbalanced_learn}.
+
+    Para realizar su cálculo, se tiene en cuenta si se trata de clasificación
+    binaria o multiclase:
+    \begin{itemize}
+        \item Binaria: la media geométrica se calcula como la raíz cuadrada del
+        producto de la sensibilidad\footnote{Sensibilidad: proporción de
+        positivos correctamente identificados (clasificados como positivos
+        respecto a todos los positivos)\cite{eswiki:145396343}} y la
+        especificidad\footnote{Especificidad: proporción de negativos
+        correctamente identificados (clasificados como negativos respecto a
+        todos los negativos)\cite{eswiki:145396343}}.
+
+        \begin{center}
+            $ Gmean = \sqrt{sensibilidad \cdot especificidad} $
+        \end{center}
+        
+
+        \item Multiclase: la media geométrica se calcula como la raíz n-ésima
+        del producto de las sensibilidades de cada clase.
+
+        \begin{center}
+            $Gmean = \sqrt[\leftroot{5} \uproot{5} n]{sensibilidad_1 \cdot
+            sensibilidad_2 ~...~..~\cdot sensibilidad_n }$
+        \end{center}
+    \end{itemize}
+
+    El mejor valor es 1 y el peor 0.
+\end{itemize}
+
+La comparación consistirá en una validación cruzada con 10 \textit{folds} con
+tres conjuntos de datos diferentes. Por cada iteración de la validación cruzada
+se tendrá el 90\% de datos para entrenar y 10\% de test.
+
+Sobre ese 90\% de entrenamiento, solo el 20\% va a estar etiquetados, el resto
+serán no etiquetados. En conjunto esos serán los datos para entrenar el
+algoritmo.
+
+Por cada uno de los conjuntos de datos se presenta un gráfico comparando cada
+algoritmo propio con el de \texttt{sslearn} mediante gráficos de caja. En el eje
+X se presentan los algoritmos que se están comparando y en el eje Y cada una de
+las estadísticas antes comentadas.
+
+Contenido de cada gráfico de cajas:
+\vspace{-0.4cm}
+\begin{itemize}
+    \item \textbf{Línea continua azul}: representa la media.
+    \item \textbf{Línea discontinua negra}: representa la mediana (segundo
+    cuartil).
+    \item \textbf{Borde superior de la caja coloreada}: representa el tercer cuartil.
+    \item \textbf{Borde inferior de la caja coloreada}: representa el primer cuartil.
+    \item \textbf{Límite del bigote superior}: representa el máximo de los valores
+    encontrados.
+    \item \textbf{Límite del bigote inferior}: representa el mínimo de los valores
+    encontrados.
+\end{itemize}
+
+En la tabla \ref{tabla:clasificadores} se pueden ver los clasificadores base
+seleccionados para cada algoritmo. La selección es completamente arbitraria (con
+base en los clasificadores que se han usado personalmente en el proyecto y fuera
+de él).
+
+\begin{table}[H]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{l|l|l|l}
+    \textbf{Self-Training}         & \textbf{Co-Training}                             & \textbf{Democratic Co-Learning}                                              & \textbf{Tri-Training}                      \\ \hline
+                                   & Árbol de decisión & Vectores de Soporte C (SVC)  & Árbol de decisión \\
+    Naive Bayes Gaussiano          & Naive Bayes Gaussiano & Naive Bayes Gaussiano & kNN \\
+                                   &  & Árbol de decisión & Naive Bayes Gaussiano \\
+    \end{tabular}%
+    }
+\caption{Clasificadores base}
+\label{tabla:clasificadores}
+\end{table}
+
+
+\imagen{memoria/Breast}{Comparación con \textit{Breast Cancer}.}{1}
+
+\imagen{memoria/Iris}{Comparación con \textit{Iris}.}{1}
+
+\imagen{memoria/Wine}{Comparación con \textit{Wine}.}{1}
+
+
+Por cada una de las figuras anteriores, lo interesante para comprobar si las
+implementaciones pueden considerarse como correctas es fijarse en
+\texttt{sslearn}.
+
+Como se puede ver, en todos los casos los valores de la implementación propia
+coinciden en gran medida con las de \texttt{sslearn}. Es de destacar que en los
+casos de Self-Training, Democratic Co-Learning y Tri-Training se comportan de
+manera muy similar. En el caso de Co-Training en todas hay más variabilidad.
+Esto se debe a las diferencias de implementación.
+
+Aunque haya pequeñas variaciones, los valores obtenidos son muy parecidos. Se
+concluye por tanto, que los algoritmos implementados se consideran correctos.
 
 
 \section{Desarrollo Web}
@@ -108,14 +270,16 @@ efecto es mucho menor, pues se tiene en cuenta la media de los valores.
 Pese a que los algoritmos han sido una buena parte de todo el proyecto, el
 desarrollo de la aplicación Web es el que ha ocupado la mayor parte del tiempo
 (de forma aproximada, se calcula que un 70\%). El por qué esto ha sido así
-reside en dos cuestiones. Por un lado, el tamaño de la aplicación, pese a no ser
-una aplicación extremadamente grande, todo se ha realizado desde cero. No se
-adquirió ninguna plantilla o estructura existente y la única ayuda utilizada fue
+reside en dos cuestiones. 
+
+Por un lado, el tamaño de la aplicación, que pese a no ser una aplicación
+extremadamente grande, todo se ha realizado desde cero. No se adquirió ninguna
+plantilla o estructura existente y la única ayuda utilizada fue
 \texttt{Bootstrap} (que sí agiliza el estilado de la Web). Y en segundo lugar,
-por el desconocimiento del desarrollo Web. En las asignaturas de Ingeniería
-Informática no existe una cuya temática sea el desarrollo Web. No ha sido hasta
-este mismo curso cuando se nos ha introducido el mundo Web (Diseño y
-Mantenimiento del Software).
+por el desconocimiento del desarrollo Web. Durante los estudios no se han dado
+asignaturas de esta temática sea el desarrollo Web. No ha sido hasta este mismo
+curso cuando se nos ha introducido el mundo Web (Diseño y Mantenimiento del
+Software).
 
 Durante todo el desarrollo, y hasta el final, se tomaron decisiones
 constantemente. El <<framework>> Flask fue el que se manipuló en esa asignatura,
@@ -127,7 +291,7 @@ final de la asignatura dejando solo lo básico para arrancar una aplicación Web
 \subsection{JavaScript}
 La toma de contacto con JavaScript fue compleja, no se había trabajado con este
 lenguaje y solo se tenían conceptos básicos de HTML y CSS (junto con
-<<backend>>, que al ser Python ya se tenía cierta soltura). Para intentar
+<<backend>>, que al ser Python, ya se tenía cierta soltura). Para intentar
 avanzar lo máximo posible, se optó por ver tutoriales y
 cursos\footnote{\url{https://www.w3schools.com/}} al mismo tiempo que ya se
 iniciaban las visualizaciones de los algoritmos (completamente rudimentarias).
@@ -138,7 +302,7 @@ Esta fue la línea general de desarrollo en JavaScript, en el momento que se
 presentaba un problema o el uso de una nueva librería, ir a fondo con ello
 directamente sobre la Web, hasta conseguir avances. Todo ello guiado por foros o
 páginas como \textit{Stack Overflow}. Además, se optó por desarrollar la Web en
-JavaScript <<Vanilla>>, sin librerías como jQuery Se pensó que aprender las
+JavaScript <<Vanilla>>, sin librerías como jQuery. Se pensó que aprender las
 bases de JavaScript era más nutritivo.
 
 Es destacable la cantidad de veces que hubo que \textit{refactorizar} el código.
