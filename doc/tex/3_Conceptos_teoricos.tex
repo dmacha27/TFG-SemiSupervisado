@@ -197,7 +197,7 @@ estos nuevos datos. La gran ventaja que suponen estos métodos es que pueden
 utilizarse con casi todos los clasificadores (supervisados) existentes
 \cite{vanEngelen2020}.
 
-\paragraph{Self-Training}
+\subsection{Self-Training}
 Se trata del método de aprendizaje semi-supervisado más sencillo y "<directo">.
 Este método envuelve un único clasificador base, que entrena con los datos
 etiquetados iniciales y aprovecha el proceso de pseudo etiquetado comentado para
@@ -243,7 +243,7 @@ mayor confianza) puede ser fija, o mediante un límite mínimo de
 confianza/probabilidad (todas las instancias con mayor probabilidad se
 añadirían).
 
-\paragraph{Co-Training}
+\subsection{Co-Training}
 Basado fuertemente en Self-Training, en este caso \textbf{varios} clasificadores
 (normalmente dos) se encargan del proceso e <<interactúan>> entre sí. Del mismo
 modo, una vez entrenados predicen las etiquetas de los no clasificados y todos
@@ -285,7 +285,7 @@ entrenamiento para la siguiente iteración.
 \end{algorithm}
 
 \clearpage
-\paragraph{Democratic Co-Learning}
+\subsection{Democratic Co-Learning}
 
 Yan Zhou y Sally Goldman presentaron en~\cite{zhou2004democratic} un algoritmo
 de aprendizaje semi-supervisado en la línea de Co-Training (varios
@@ -301,7 +301,7 @@ de entrenamiento junto a la etiqueta mayoritaria, de esta forma se <<obliga>> en
 la siguiente iteración a aprenderla. Todo el proceso se repite hasta que no se
 añadan más instancias a ningún conjunto de entrenamiento, esto se alcanza cuando
 no se mejora la precisión pese a la adición de nuevas instancias
-pseudoetiquetadas.
+pseudo-etiquetadas.
 
 \begin{algorithm}
     \DontPrintSemicolon
@@ -386,7 +386,76 @@ confianza.
 \clearpage
 \clearpage
 
-\paragraph{Tri-Training}
+\subsection{Tri-Training}
+
+En Co-Training, los algoritmos son entrenados con el conjunto de datos
+etiquetados para luego ser reentrenados con los datos no etiquetados que han
+pasado a estarlo.
+
+En \cite{1512038} (Tri-Training), Zhi-Hua Zhou y Ming Li, comentan la idea de
+que para determinar qué ejemplo no etiquetado debe seleccionarse (para
+etiquetar) y qué clasificador debe tener más influencia, se debe calcular la
+\textit{confianza de etiquetado} de cada uno de los clasificadores. Sin embargo, esto
+puede ser muy costoso de calcular.
+
+En este caso, se tendrán tres clasificadores base. La idea es que, en línea de
+lo anterior, para que un clasificador etiquete un ejemplo sin etiquetar, los
+otros dos clasificadores deben coincidir en la etiqueta de ese ejemplo. Aunque
+no es necesario calcular esa \textit{confianza de etiquetado} de cada
+clasificador en particular.
+
+Una consecuencia de lo anterior es que, si los otros dos clasificadores fallan
+en su predicción (y coinciden), se añadirá esa etiqueta y se estaría
+introduciendo un ejemplo mal etiquetado. Sin embargo, en el peor caso, el ruido
+introducido puede ser compensado si hay suficientes datos nuevos etiquetados
+(bajo ciertas condiciones \cite{1512038}).
+
+Una particularidad de Tri-Training es que tanto la cantidad como los ejemplos
+concretos no etiquetados que son seleccionados para ser etiquetados no será
+siempre el mismo en cada iteración. Para comprender esto, cada uno de los
+clasificadores tiene, aparte del conjunto de entrada etiquetado $L$, un conjunto
+con los datos recién etiquetados en cada iteración $L_i$\footnote{Constituido
+por esos ejemplos en los que los otros dos clasificadores determinan la misma
+etiqueta}. Y de hecho, este conjunto es <<vaciado>> entre una iteración y otra.
+Es utilizado para reentrenar al clasificador al final de la iteración uniendo
+$L$ y $L_i$.
+
+\paragraph{Proceso general}
+
+El primer paso es entrenar a cada uno de los tres clasificadores ($h_i$, $h_j$ y
+$h_k$) mediante una muestra aleatoria del conjunto de entrada $L$.
+
+A continuación, el algoritmo entra en un bucle cuya condición de parada es que
+ningún clasificador obtenga nuevos ejemplos para entrenar (ejemplos que eran no
+etiquetados). 
+
+Dentro del bucle y suponiendo la perspectiva del clasificador $i$ lo primero que
+se hace <<vaciar>> el conjunto de datos seleccionados para él, $L_i$. En segundo
+lugar, se realiza una estimación del error de la combinación de las hipótesis
+$h_j$ y $h_k$ \footnote{El error de clasificación se aproxima dividiendo el
+número de instancias (de entrenamiento) en las que $h_j$ y $h_k$ se equivocan
+entre el número de instancias en las que predicen la misma etiqueta
+\cite{1512038}.}. Si el error no es menor que el de la iteración anterior $e_i$,
+se vuelve al inicio del bucle.
+
+Si el error sí era menor, el conjunto $L_i$ es rellenado con aquellos ejemplos
+del conjunto de no etiquetados $U$ en los que $h_j$ y $h_k$ predicen la misma
+etiqueta.
+
+A partir de aquí, se realizan comprobaciones sobre ecuaciones del ratio de ruido
+y errores \cite{1512038} que determinarán si los ejemplos realmente serán
+utilizados para reentrenar. De hecho, es posible también que el conjunto $L_i$
+sea reducido.
+
+Al final del bucle si las comprobaciones realizadas determinaron que $L_i$
+contiene ejemplos de interés para $h_i$, dicho clasificador es entrenado con la
+unión de $L$ y $L_i$.
+
+\paragraph{Predicción}
+
+La predicción de una nueva instancia es un proceso sencillo. Cada uno de los
+clasificadores $h_i$, $h_j$ y $h_k$ predicen la etiqueta de esta nueva instancia
+y se retorna la mayoritaria.
 
 \begin{algorithm}
     \DontPrintSemicolon
