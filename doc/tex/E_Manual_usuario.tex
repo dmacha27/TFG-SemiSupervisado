@@ -148,8 +148,133 @@ Todas estas acciones modificarán el estado de los gráficos.
 encima de un punto tiene varios formatos dependiendo del algoritmo mostrado y de
 los datos introducidos.
 
-\paragraph{Gráficos estadísticos} En la zona de la derecha se incluirá el resto
-de gráficos adicionales, que serán principalmente estadísticas.
+\paragraph{Tooltip: Casos comunes}
+
+Existe un formato común a todos los algoritmos para los casos de los datos
+iniciales. Este tipo de puntos se representa mediante un círculo. Como dato
+inicial, tendrá la etiqueta correspondiente. Además, cada punto tiene en la
+parte superior la posición que ocupa en el gráfico. Esta posición coincide con
+los atributos seleccionados para representar los datos. En la siguiente imagen
+se presenta un ejemplo de todo lo anterior donde se seleccionó PCA y por eso
+aparece <<C1>> y <<C2>>.
+
+\imagencontamano{anexos/manual-usuario/tooltips/Inicial}{Tooltip con dato inicial}{0.25}
+
+Otro formato común es en el caso de puntos solapados (derivados de ejemplos
+duplicados en el conjunto de datos o por PCA). En este caso, donde en el anterior
+aparecía la información del punto, ahora aparecerá un listado con todos los
+puntos solapados. Ejemplo:
+
+\imagencontamano{anexos/manual-usuario/tooltips/Solapados}{Tooltip con datos solapados}{0.25}
+
+Como se puede ver en este ejemplo anterior, los puntos no han sido clasificados
+(captura tomada en iteración cero), esto no es importante, la diferencia con una
+iteración posterior es que aparecerá la etiqueta asignada (se verá en cada
+algoritmo). Además, aparece un indicativo de <<Clasificador>>, se ha querido
+incluir en este ejemplo porque en todos los algoritmos excepto Self-Training se
+indica el clasificador que se ha encargado de etiquetar cada punto.
+
+Es interesante comentar que puede darse el caso de puntos solapados en el que
+alguno o todos sean datos iniciales. Por ejemplo:
+
+\imagencontamano{anexos/manual-usuario/tooltips/Solapados+Inicial}{Tooltip con datos solapados con uno inicial}{0.25}
+
+\paragraph{Tooltip: Self-Training}
+
+El formato de tooltip para Self-Training no tiene grandes complicaciones y
+comprendiendo los anteriores ejemplos resulta sencillo de interpretar.
+
+Existen dos formatos, el primero es en el que el dato no ha sido etiquetado
+(porque se etiqueta en una iteración posterior o simplemente porque nunca es
+etiquetado). Por ejemplo, una captura tomada en la iteración dos de una dato no
+etiquetado es\footnote{En el ejemplo puede ser extraño que no aparezca un título
+indicando el punto (algo como <<Punto 1>>), ese formato solo se <<activa>>
+cuando existen datos solapados.}:
+
+\imagencontamano{anexos/manual-usuario/tooltips/STNoClasificado}{Tooltip con un dato no clasificado}{0.25}
+
+El otro formato es en el que el dato ya ha sido clasificado (en la iteración
+actual o en una previa). Por ejemplo, una captura tomada en la iteración ocho de
+una dato etiquetado en la iteración seis es:
+
+\imagencontamano{anexos/manual-usuario/tooltips/STClasificado}{Tooltip con un dato clasificado}{0.3}
+
+En este formato anterior se muestra la etiqueta asignada así como la iteración
+en la que se clasificó entre paréntesis.
+
+\paragraph{Tooltip: Co-Training}
+
+Realmente, el tooltip para Co-Training es muy similar a Self-Training. No existe
+ningún caso extraño o adicional.
+
+Vuelven a existir dos formatos, cuando el dato no ha sido etiquetado todavía (o
+nunca) y cuando sí está etiquetado. 
+
+\imagencontamano{anexos/manual-usuario/tooltips/CTNoClasificado}{Tooltip con un dato no clasificado}{0.3}
+
+Para el caso del dato clasificado sí que es necesario puntualizar alguna
+cuestión (se verá en el ejemplo siguiente). Co-Training considera dos
+clasificadores base y cada uno de ellos puede clasificar a un punto. Esto se ha
+representado de dos maneras. La primera señal es que el símbolo del punto será
+uno concreto para cada clasificador. La segunda señal es que en el tooltip
+aparecerá una línea de <<Clasificador:>> que estará seguida de dicho símbolo y
+el nombre del clasificador. Se mantiene también el número de la iteración en la
+que se ha clasificado.
+
+\imagencontamano{anexos/manual-usuario/tooltips/CTClasificado}{Tooltip con un dato clasificado}{0.45}
+
+Esta idea también es la misma si existen datos solapados. En ese caso, en cada
+uno de los puntos que se indiquen en el listado de solapados aparecerá el
+clasificador (el símbolo y el nombre) junto con la etiqueta.
+
+\imagencontamano{anexos/manual-usuario/tooltips/CTSolapadosClasificados}{Tooltip con datos solapados y clasificados}{0.45}
+
+\paragraph{Tooltip: Democratic Co-Learning y Tri-Training}
+
+En el caso de que un dato no haya sido clasificado es exactamente lo mismo que
+para Co-Training, simplemente mostrará la posición y que no ha sido clasificado
+(<<No clasificado>>).
+
+La particularidad que tiene Democratic Co-Learning y Tri-Training es que cada
+dato puede ser etiquetado por varios clasificadores. Para ejemplificar esto
+simplemente se realiza un listado de los clasificadores que lo han etiquetado.
+
+\imagencontamano{anexos/manual-usuario/tooltips/DCLClasificados1}{Tooltip con un dato clasificado por dos clasificadores}{0.45}
+
+Es de destacar que solo aparecen aquellos que en la iteración actual o una
+previa han etiquetado el dato.
+
+El formato de ambos algoritmos es el mismo. Sin embargo, se cree conveniente
+explicar el funcionamiento básico.
+
+En \textbf{Democratic Co-Learning} cada punto solo puede ser clasificado
+\textbf{una vez} por cada clasificador durante toda la ejecución. Esto, a
+efectos de visualización, significa que el listado de clasificadores del tooltip
+solo puede aumentar (si es que el punto es clasificado alguna vez).
+
+En \textbf{Democratic Co-Learning} cada punto puede ser clasificado
+\textbf{varias veces} por cada clasificador. Esto es así porque cada
+clasificador mantiene su propio conjunto de entrenamiento y este es vaciado al
+comienzo de cada iteración (y rellenado durante la misma). Todo esto significa
+que durante una visualización, un ejemplo puede ser clasificado por una lista de
+clasificadores y en la siguiente iteración por otra (igual o distinta).
+
+Esto no afecta al formato comentado, pero puede llegar a ser extraño sin
+especificarlo.
+
+Por último, como en todos los anteriores formatos, pueden existir datos
+solapados. El ejemplo mostrado a continuación es de Democratic Co-Learning, pero
+como se ha comentado es el mismo formato que el de Tri-Training.
+
+\imagencontamano{anexos/manual-usuario/tooltips/DCLSolapadosClasificados}{Tooltip con datos solapados y clasificados}{0.45}
+
+En este ejemplo solo un clasificador ha clasificado cada dato solapado. Se ha
+elegido este ejemplo porque, como es de esperar, si los tres clasificadores
+etiquetan, el tooltip crecerá de igual manera.
+
+\paragraph{Gráficos estadísticos} Pasando a otra parte de la ventana completa de
+visualización, en la zona de la derecha se incluirá el resto de gráficos
+adicionales, que serán principalmente estadísticas.
 
 \imagen{anexos/manual-usuario/ZonaEstadisticas}{Gráficos estadísticos}
 
