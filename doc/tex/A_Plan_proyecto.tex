@@ -1022,6 +1022,9 @@ Puntos a desarrollar:
     \item Anexo requisitos.
     \item Anexo documentación de usuario.
     \item Actualizar manual del programador.
+    \item Diseño arquitectónico.
+    \item Técnicas y herramientas
+    \item Conceptos teóricos del tratamiento de datos.
 \end{enumerate}
 
 En este Sprint se quería aumentar bastante la documentación. El primer objetivo
@@ -1041,8 +1044,66 @@ acordes de todos ellos.
 El anexo de la documentación de usuario se podría realizar más adelante por si
 la aplicación sufre algún cambio final. Sin embargo, estos cambios serán,
 probablemente, en cuanto aspecto. Es por esto que las instrucciones útiles para
-el usuario serán las mismas (en principio). Además, resultaba una tarea
-apetecible.
+el usuario serán las mismas. Además, resultaba una tarea apetecible en esos
+momentos. En este manual se explicó todo lo que un usuario podía realizar
+(anónimo o registrado). Además, como también existe un rol administrador, se
+describieron todos sus privilegios.
+
+En el anexo del diseño se añadió el diseño arquitectónico que se ha planteado
+para la aplicación, una arquitectura de tres capas. Se explicaron los conceptos
+relativos junto cómo se reflejaba en la aplicación global.
+
+Se añadió PEP8 a las técnicas y \texttt{Draw.io}, \texttt{Putty} y
+\texttt{Bootstrap Icons} en las herramientas.
+
+Y por último, como otro gran apartado de este Sprint, se añadieron algunos
+conceptos que se han utilizado en la aplicación sobre el tratamiento de datos.
+Pese a que la aplicación no realiza un pre-procesado completo, convenía explicar
+la codificación de variables categóricas, el análisis de componentes principales
+(PCA) y la estandarización que se puede aplicar a los datos al visualizarlos.
+
+Además, también se realizaron numerosos cambios:
+\begin{itemize}
+    \item Se eliminó el efecto <<hover>> en la barra de navegación que causaba
+    muchos problemas en móviles.
+    \item Los parámetros mostrados en las ejecuciones se muestran de forma
+    legible (nombre apropiados, no los identificadores de los formularios) y con
+    traducciones acordes.
+    \item Control de errores en la visualización.
+    \item Pseudocódigo Tri-Training (actualizado y añadido a Web).
+    \item Fijar dependencias del proyecto.
+    \item Se mejoró la comprobación de las extensiones de ficheros para que
+    obligatoriamente terminen en <<.arff>> o <<.csv>>.
+    \item Diagrama de despliegue en el diseño.
+\end{itemize}
+
+\subsection{Sprint 19}
+Corresponde con el periodo temporal del 17 al 24 de mayo de 2023.
+
+Puntos a desarrollar:
+\begin{enumerate}
+    \item Análisis de viabilidad: económica y legal.
+    \item Añadir Scrum como técnica.
+\end{enumerate}
+
+El desarrollo se vio ralentizado en este Sprint debido al periodo de
+convocatoria final.
+
+Para ir completando los anexos se añadió tanto la viabilidad legal como
+económica. En el caso de la económica, se contaba con algún ejemplo de cómo se
+debía realizar de alumnos previos (proporcionado por los tutores). Durante su
+desarrollo se contemplaron todos los costes (suposiciones) derivados de los
+empleados y de activos \textit{hardware} y \textit{software}. Además, se tomó la
+decisión lógica de no incluir beneficios, ya que se trata de una aplicación
+completamente docente y pensada para que cualquiera pueda usarla.
+
+En cuanto a la legal, se estudiaron todas las licencias del \textit{software}
+que se ha empleado para determinar cuál sería la correcta. Finalmente se escogió
+la licencia BSD 3-Clause.
+
+Como la metodología Scrum es altamente utilizada (y ya no resulta una clara
+novedad), se incluyó en las técnicas una pequeña explicación de todo lo que
+interviene en ella.
 
 \section{Estudio de viabilidad}
 
@@ -1067,11 +1128,11 @@ junio (unos 5 meses).
 
 El desarrollador ha realizado una media de 4.5 horas diarias (progresivamente
 aumentando hasta la fecha límite de entrega): unas 3 horas en días laborables y
-teniendo en los fines de semana se empleaban alrededor de las 8 horas.
+en los fines de semana se empleaban alrededor de las 8 horas.
 
 El cómputo del salario bruto del alumno, suponiendo un salario de
-11\texteuro/hora según lo estipulado en las bases mínimas de Ingenieros y
-Licenciados en \cite{cotizacion2023}:
+11\texteuro/hora, según lo estipulado en las bases mínimas de Ingenieros y
+Licenciados en \cite{cotizacion2023} es:
 
 \begin{center}
 $4.5 \frac{horas}{día} \cdot 7 \frac{días}{semana} \cdot 11
@@ -1088,10 +1149,10 @@ $2 \frac{horas}{semana} \cdot 11 \frac{\text{\texteuro}}{hora} \cdot 4
 \end{center}
 
 
-Constituido el salario bruto que recibe el alumno, deben añadirse todos los
-impuestos de la Seguridad Social estipulados para el año 2023. Estos impuestos,
-recogidos en la web oficial de la seguridad social en el <<Régimen General de la
-Seguridad Social>> en \cite{cotizacion2023}.
+Constituido el salario bruto que recibe cada empleado, deben añadirse todos los
+impuestos de la Seguridad Social estipulados para el año 2023. Estos impuestos
+están recogidos en la web oficial de la seguridad social en el <<Régimen General
+de la Seguridad Social>> en \cite{cotizacion2023}.
 
 En la tabla \ref{tabla:seg-social} se puede ver un resumen de los impuestos que
 han de aplicarse al salario bruto de los empleados considerando categorías
@@ -1150,9 +1211,9 @@ GB de memoria RAM y 1TB SSD NVMe M.2. Este equipo está valorado en
 1.800\texteuro. La vida útil de este activo es de 3 años.
 
 Además, para hacer la aplicación accesible a todo el mundo, se ha adquirido un
-servidor para ello. Este servidor está compuesto por dos AMD EPYC, 8 GB de
-memoria RAM y 80gb de SSD. El equipo está valorado en 1.300\texteuro. La vida
-útil de este activo es de 3 años.
+servidor para ello (supuesto). Este servidor está compuesto por dos AMD EPYC, 8
+GB de memoria RAM y 80gb de SSD. El equipo está valorado en 1.300\texteuro. La
+vida útil de este activo es de 3 años.
 
 Teniendo en cuenta que la duración del proyecto es de 5 meses, el cálculo de la
 amortización se realiza de la siguiente forma:
@@ -1194,13 +1255,13 @@ del sistema operativo Windows 10 Pro del equipo de sobremesa. Está valorado en
 finalización del soporte de Microsoft el 14 de octubre de 2025, aproximadamente
 dos años y medio.
 
-Por lo que el coste amortizado será 41,66\texteuro.
+El coste amortizado será 41,66\texteuro (aplicando el mismo cálculo que antes).
 
 \clearpage
 \textbf{Costes indirectos}:
 
-Se consideran unos gastos indirectos iguales al 12\% del resto de gastos
-anteriores. 
+Se consideran unos gastos fijos indirectos iguales al 12\% del resto de gastos
+anteriores. A estos se le añade otros gastos considerados.
 
 \begin{table}[H]
     \centering
