@@ -197,6 +197,14 @@ function fetch_eliminar(ruta, table, row, file, id) {
         .catch(error => console.log(error));
 }
 
+function asociar_evento_resize_tab(table) {
+    let lista_tabs = document.querySelectorAll('button[data-bs-toggle="tab"]');
+    lista_tabs.forEach(function(tab){
+        tab.addEventListener('shown.bs.tab', function (event) {
+            table.columns.adjust().responsive.recalc();
+        })
+    });
+}
 
 // https://datatables.net/forums/discussion/54495/remove-table-row-from-a-button-inside-the-same-row-when-collapsed
 // Transformado a vanilla
@@ -249,6 +257,7 @@ export function generateDatasetTable(datasets, locale, all_users) {
     let id;
 
     if (all_users) {
+        asociar_evento_resize_tab(table);
         id = -1;
     } else {
         id = document.querySelector('#user_id').value;
@@ -368,6 +377,7 @@ export function generateHistoryTable(historial, locale, all_users) {
     let id;
 
     if (all_users) {
+        asociar_evento_resize_tab(table);
         id = -1;
     } else {
         id = document.querySelector('#user_id').value;
@@ -465,6 +475,8 @@ export function generateUserTable(usuarios, locale) {
                 }
             }]
     });
+
+    asociar_evento_resize_tab(table);
 
     usertable.addEventListener('click', function (event) {
         // Eliminar
