@@ -197,7 +197,7 @@ estos nuevos datos. La gran ventaja que suponen estos métodos es que pueden
 utilizarse con casi todos los clasificadores (supervisados) existentes
 \cite{vanEngelen2020}.
 
-\subsection{Self-Training}
+\section{Self-Training}
 Se trata del método de aprendizaje semi-supervisado más sencillo y "<directo">.
 Este método envuelve un único clasificador base, que entrena con los datos
 etiquetados iniciales y aprovecha el proceso de pseudo etiquetado comentado para
@@ -243,7 +243,7 @@ mayor confianza) puede ser fija, o mediante un límite mínimo de
 confianza/probabilidad (todas las instancias con mayor probabilidad se
 añadirían).
 
-\subsection{Co-Training}
+\section{Co-Training}
 Basado fuertemente en Self-Training, en este caso \textbf{varios} clasificadores
 (normalmente dos) se encargan del proceso e <<interactúan>> entre sí. Del mismo
 modo, una vez entrenados predicen las etiquetas de los no clasificados y todos
@@ -285,7 +285,7 @@ entrenamiento para la siguiente iteración.
 \end{algorithm}
 
 \clearpage
-\subsection{Democratic Co-Learning}
+\section{Democratic Co-Learning}
 
 Yan Zhou y Sally Goldman presentaron en~\cite{zhou2004democratic} un algoritmo
 de aprendizaje semi-supervisado en la línea de Co-Training (varios
@@ -386,7 +386,7 @@ confianza.
 \clearpage
 \clearpage
 
-\subsection{Tri-Training}
+\section{Tri-Training}
 
 En Co-Training, los algoritmos son entrenados con el conjunto de datos
 etiquetados para luego ser reentrenados con los datos no etiquetados que han

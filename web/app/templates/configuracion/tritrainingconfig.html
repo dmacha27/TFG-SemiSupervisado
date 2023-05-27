@@ -1,6 +1,19 @@
 {% extends "configuracion/singleviewconfig.html" %}
 {% block explicaciones %}
-    <p>{{ gettext('TRITRAINING') }}</p>
+    <p>{{ gettext('It is a co-training algorithm style where unlabelled data is
+    pseudo-labelled for retraining the base classifiers. In this case there are
+    three base classifiers. So that an unlabelled example can be used later for retraining
+    it is necessary that the other two classifiers agree in their prediction of that example
+    (although could be wrong). Each base classifier has its own set with that pseudo-labelled
+    examples. A peculiarity of Tri-Training is that this set is "emptied" at each iteration.
+    This entails that each classifier can pseudo-label the same example multiple times (through
+    iterations).
+    ')}}
+    </p>
+    <p>{{ gettext('The process of continuous retraining is repeated until none
+    of the base classifiers receive new pseudo-labelled examples. This will happen
+    when the error verifications are not met.')}}
+    </p>
 {% endblock %}
 {% block pseudocodigo %}
     <img src="{{ gettext('/pseudocodigos/en/TriTraining.png') }}" width="75%" alt="{{ gettext('Tri-Training Pseudocode') }}"/>

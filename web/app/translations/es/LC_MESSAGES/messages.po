@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-05-16 17:29+0200\n"
+"POT-Creation-Date: 2023-05-27 16:50+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: David Martínez Acha <dma1004@alu.ubu.es>\n"
 "Language: es\n"
 "Language-Team: es <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -54,12 +54,12 @@ msgstr "Debe subir un archivo"
 msgid "File must be ARFF or CSV"
 msgstr "El fichero debe ser ARFF o CSV"
 
-#: forms.py:9 forms.py:13 forms.py:43 forms.py:47 templates/macros.html:106
+#: forms.py:9 forms.py:13 forms.py:43 forms.py:47 templates/macros.html:105
 msgid "Name"
 msgstr "Nombre"
 
 #: forms.py:15 forms.py:19 forms.py:35 forms.py:36 forms.py:49 forms.py:52
-#: templates/macros.html:107
+#: templates/macros.html:106
 msgid "Email"
 msgstr "Correo electrónico"
 
@@ -269,143 +269,143 @@ msgstr "Desmarca PCA para seleccionar componentes específicas"
 msgid "If already semi-supervised, it will be ignored"
 msgstr "Si ya fuera semi-supervisado, será ignorado"
 
-#: templates/macros.html:73 templates/usuarios/admin.html:30
+#: templates/macros.html:72 templates/usuarios/admin.html:30
 #: templates/usuarios/admin.html:67 templates/usuarios/miespacio.html:18
 msgid "Uploaded datasets"
 msgstr "Conjunto de datos subidos"
 
-#: templates/macros.html:76 templates/macros.html:91
+#: templates/macros.html:75 templates/macros.html:90
 msgid "Dataset file"
 msgstr "Fichero del conjunto de datos"
 
-#: templates/macros.html:78
+#: templates/macros.html:77
 msgid "Upload date"
 msgstr "Fecha de subida"
 
-#: templates/macros.html:79 templates/macros.html:94
+#: templates/macros.html:78 templates/macros.html:93
 msgid "User"
 msgstr "Usuario"
 
-#: templates/macros.html:80 templates/macros.html:95 templates/macros.html:109
+#: templates/macros.html:79 templates/macros.html:94 templates/macros.html:108
 msgid "Actions"
 msgstr "Acciones"
 
-#: templates/macros.html:87 templates/usuarios/admin.html:35
+#: templates/macros.html:86 templates/usuarios/admin.html:35
 #: templates/usuarios/admin.html:90 templates/usuarios/miespacio.html:26
 msgid "Run history"
 msgstr "Historial de ejecuciones"
 
-#: templates/macros.html:90 templates/subida.html:10
+#: templates/macros.html:89 templates/subida.html:11
 msgid "Algorithm"
 msgstr "Algoritmo"
 
-#: templates/macros.html:92
+#: templates/macros.html:91
 msgid "Run date"
 msgstr "Fecha de ejecución"
 
-#: templates/configuracion/base_configuracion.html:31 templates/macros.html:93
-#: templates/macros.html:140
+#: templates/configuracion/base_configuracion.html:34 templates/macros.html:92
+#: templates/macros.html:139
 msgid "Parameters"
 msgstr "Parámetros"
 
-#: templates/macros.html:103
+#: templates/macros.html:102
 msgid "Users"
 msgstr "Usuarios"
 
-#: templates/macros.html:108 templates/usuarios/base_user.html:41
+#: templates/macros.html:107 templates/usuarios/base_user.html:41
 msgid "Last login"
 msgstr "Último inicio de sesión"
 
-#: templates/macros.html:120
+#: templates/macros.html:119
 msgid "Are you sure?"
 msgstr "¿Estás seguro?"
 
-#: templates/macros.html:124
+#: templates/macros.html:123
 msgid "You are about to delete: "
 msgstr "Vas a eliminar: "
 
-#: templates/macros.html:127
+#: templates/macros.html:126
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: templates/macros.html:128
+#: templates/macros.html:127
 msgid "Delete"
 msgstr "Eliminar"
 
-#: templates/macros.html:147 templates/macros.html:185
+#: templates/macros.html:146 templates/macros.html:184
 msgid "Close"
 msgstr "Cerrar"
 
-#: templates/macros.html:159
+#: templates/macros.html:158
 msgid "Select algorithm"
 msgstr "Selecciona un algoritmo"
 
-#: templates/macros.html:182
+#: templates/macros.html:181
 msgid "An error occurred"
 msgstr "Ha ocurrido un error"
 
-#: templates/subida.html:7 templates/subida.html:12
+#: templates/subida.html:8 templates/subida.html:13
 msgid "Dataset upload"
 msgstr "Carga del conjunto de datos"
 
-#: templates/configuracion/base_configuracion.html:6 templates/subida.html:10
+#: templates/configuracion/base_configuracion.html:10 templates/subida.html:11
 #: templates/usuarios/admin.html:15 templates/usuarios/base_form.html:4
 #: templates/usuarios/base_user.html:4
 #: templates/visualizacion/base_visualizacion.html:14
 msgid "Go back"
 msgstr "Volver"
 
-#: templates/subida.html:18
+#: templates/subida.html:19
 msgid "File selection"
 msgstr "Selección de fichero"
 
-#: templates/subida.html:26
+#: templates/subida.html:27
 msgid "Allowed extensions: .CSV & .ARFF"
 msgstr "Extensiones permitidas: .CSV & .ARFF"
 
-#: templates/subida.html:27
+#: templates/subida.html:28
 msgid "Drag and drop your file"
 msgstr "Arrastra y suelta tu archivo"
 
-#: templates/subida.html:28
+#: templates/subida.html:29
 msgid "or"
 msgstr "o"
 
-#: templates/subida.html:30
+#: templates/subida.html:31
 msgid "Choose file"
 msgstr "Selecciona fichero"
 
-#: templates/subida.html:36
+#: templates/subida.html:37
 msgid "completed"
 msgstr "completado"
 
-#: templates/subida.html:45
+#: templates/subida.html:46
 msgid "Previous file detected: "
 msgstr "Fichero previo detectado: "
 
-#: templates/subida.html:46 templates/subida.html:48
+#: templates/subida.html:47 templates/subida.html:49
 msgid "Configure algorithm"
 msgstr "Configurar algoritmo"
 
-#: templates/subida.html:52
+#: templates/subida.html:53
 msgid "Download test file"
 msgstr "Descargar fichero de prueba"
 
-#: templates/configuracion/base_configuracion.html:3
-#: templates/configuracion/base_configuracion.html:9
+#: templates/configuracion/base_configuracion.html:7
+#: templates/configuracion/base_configuracion.html:12
 msgid "Algorithm configuration"
 msgstr "Configuración del algoritmo"
 
-#: templates/configuracion/base_configuracion.html:6
+#: templates/configuracion/base_configuracion.html:10
 #: templates/visualizacion/base_visualizacion.html:14
 msgid "Dataset"
 msgstr "Conjunto de datos"
 
-#: templates/configuracion/base_configuracion.html:17
+#: templates/configuracion/base_configuracion.html:20
 msgid "Theory"
 msgstr "Teoría"
 
-#: templates/configuracion/base_configuracion.html:45
+#: templates/configuracion/base_configuracion.html:48
 msgid "Run"
 msgstr "Ejecutar"
 
@@ -537,8 +537,8 @@ msgid ""
 "label all data or a maximum number of iterations)."
 msgstr ""
 "Se trata del método de aprendizaje semi-supervisado más sencillo y "
-"«directo». Este método envuelve un único clasificador base, que entrena "
-"con los datos etiquetados iniciales y aprovecha el proceso de pseudo "
+"\"directo\". Este método envuelve un único clasificador base, que entrena"
+" con los datos etiquetados iniciales y aprovecha el proceso de pseudo "
 "etiquetado para continuar su entrenamiento. \n"
 "El método comienza por entrenar ese clasificador con los datos "
 "etiquetados que se tienen. A partir de este aprendizaje inicial, se "
@@ -560,15 +560,52 @@ msgid "Self-Training Pseudocode"
 msgstr "Pseudocódigo de Self-Training"
 
 #: templates/configuracion/tritrainingconfig.html:3
-msgid "TRITRAINING"
+msgid ""
+"It is a co-training algorithm style where unlabelled data is\n"
+"    pseudo-labelled for retraining the base classifiers. In this case "
+"there are\n"
+"    three base classifiers. So that an unlabelled example can be used "
+"later for retraining\n"
+"    it is necessary that the other two classifiers agree in their "
+"prediction of that example\n"
+"    (although could be wrong). Each base classifier has its own set with "
+"that pseudo-labelled\n"
+"    examples. A peculiarity of Tri-Training is that this set is "
+"\"emptied\" at each iteration.\n"
+"    This entails that each classifier can pseudo-label the same example "
+"multiple times (through\n"
+"    iterations).\n"
+"    "
 msgstr ""
+"Se trata de un algoritmo de la rama co-training donde datos no "
+"etiquetados son pseudo-etiquetados para reentrenar los clasificadores "
+"base. En este caso se tienen tres clasificadores base. Para que un "
+"ejemplo no etiquetado pueda ser utilizado después para reentrenar es "
+"necesario que los otros dos clasificadores coincidan en su predicción "
+"(aunque podría ser errónea). Cada uno de los clasificadores base tiene un"
+" conjunto propio con los nuevos ejemplos pseudo-etiquetados. Una "
+"particularidad de Tri-Training es que este conjunto es \"vaciado\" en "
+"cada iteración. Esto conlleva que cada clasificador puede pseudo-"
+"etiquetar un mismo ejemplo varias veces (en distintas iteraciones)."
 
-#: templates/configuracion/tritrainingconfig.html:6
+#: templates/configuracion/tritrainingconfig.html:13
+msgid ""
+"The process of continuous retraining is repeated until none\n"
+"    of the base classifiers receive new pseudo-labelled examples. This "
+"will happen\n"
+"    when the error verifications are not met."
+msgstr ""
+"El proceso de sucesivos reentrenamientos es repetido hasta que ninguno de"
+" los clasificadores base reciba nuevos ejemplos pseudo-etiquetados. Esto "
+"será cuando las comprobaciones en cuanto al error realizadas no se "
+"cumplan."
+
+#: templates/configuracion/tritrainingconfig.html:19
 #: templates/visualizacion/tritraining.html:4
 msgid "/pseudocodigos/en/TriTraining.png"
 msgstr "/pseudocodigos/es/TriTraining.png"
 
-#: templates/configuracion/tritrainingconfig.html:6
+#: templates/configuracion/tritrainingconfig.html:19
 #: templates/visualizacion/tritraining.html:4
 msgid "Tri-Training Pseudocode"
 msgstr "Pseudocódigo de Tri-Training"
