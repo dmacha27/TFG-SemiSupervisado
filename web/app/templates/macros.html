@@ -50,6 +50,49 @@
     </button>
 {% endmacro %}
 
+{% macro modalcondiciones() %}
+    <div class="modal fade" id="modal_condiciones" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">{{ gettext('Input conditions') }}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ol class="list-group list-group-numbered">
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">{{ gettext('Allowed extensions: .CSV & .ARFF') }}</div>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">{{ gettext('All attributes must be numeric') }}</div>
+                                {{ gettext('This does not include the target attribute (it can be categorical)') }}
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">{{ gettext('Supervised datasets can be uploaded') }}</div>
+                                {{ gettext('With all examples labelled') }}
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">{{ gettext('Semi-supervised datasets can be uploaded') }}</div>
+                                {{ gettext('Examples with -1, -1.0, and "?" on the target attribute will be interpreted as unlabelled examples') }}
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+                <div class="modal-footer justify-content-around">
+                    <button type="button" class="btn btn-warning text-white" data-bs-dismiss="modal">{{ gettext('Close') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
 {% macro table_scripts_links() %}
     <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css" rel="stylesheet">

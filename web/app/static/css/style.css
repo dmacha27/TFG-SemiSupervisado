@@ -212,6 +212,13 @@ footer {
     transform: scale(1.05);
 }
 
+#btn_condiciones {
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translate(12%,-50%);
+}
+
 @media (max-width: 750px) {
     #theory-card {
         width: 95vw;

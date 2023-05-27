@@ -24,6 +24,12 @@ document.addEventListener('DOMContentLoaded', function() {
         new bootstrap.Tooltip(el);
     });
 
+    let btn_condiciones = document.getElementById('btn_condiciones');
+    btn_condiciones.onclick = function (e) {
+        let modal = new bootstrap.Modal(document.getElementById('modal_condiciones'));
+        modal.show();
+    }
+
     /**
      *
      * Gestiona la subida del fichero realizando una petición post

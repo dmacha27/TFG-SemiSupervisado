@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-05-27 16:50+0200\n"
+"POT-Creation-Date: 2023-05-27 22:10+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: David Martínez Acha <dma1004@alu.ubu.es>\n"
 "Language: es\n"
@@ -54,12 +54,12 @@ msgstr "Debe subir un archivo"
 msgid "File must be ARFF or CSV"
 msgstr "El fichero debe ser ARFF o CSV"
 
-#: forms.py:9 forms.py:13 forms.py:43 forms.py:47 templates/macros.html:105
+#: forms.py:9 forms.py:13 forms.py:43 forms.py:47 templates/macros.html:148
 msgid "Name"
 msgstr "Nombre"
 
 #: forms.py:15 forms.py:19 forms.py:35 forms.py:36 forms.py:49 forms.py:52
-#: templates/macros.html:106
+#: templates/macros.html:149
 msgid "Email"
 msgstr "Correo electrónico"
 
@@ -269,78 +269,114 @@ msgstr "Desmarca PCA para seleccionar componentes específicas"
 msgid "If already semi-supervised, it will be ignored"
 msgstr "Si ya fuera semi-supervisado, será ignorado"
 
-#: templates/macros.html:72 templates/usuarios/admin.html:30
+#: templates/macros.html:58
+msgid "Input conditions"
+msgstr "Condiciones de entrada"
+
+#: templates/macros.html:65 templates/subida.html:28
+msgid "Allowed extensions: .CSV & .ARFF"
+msgstr "Extensiones permitidas: .CSV & .ARFF"
+
+#: templates/macros.html:70
+msgid "All attributes must be numeric"
+msgstr "Todos los atributos deben ser numéricos"
+
+#: templates/macros.html:71
+msgid "This does not include the target attribute (it can be categorical)"
+msgstr "Esto no incluye al atributo de la clase (este puede ser categórico)"
+
+#: templates/macros.html:76
+msgid "Supervised datasets can be uploaded"
+msgstr "Se pueden cargar conjuntos de datos supervisados"
+
+#: templates/macros.html:77
+msgid "With all examples labelled"
+msgstr "Con todos los datos etiquetados"
+
+#: templates/macros.html:82
+msgid "Semi-supervised datasets can be uploaded"
+msgstr "Se pueden cargar conjuntos de datos semi-supervisados"
+
+#: templates/macros.html:83
+msgid ""
+"Examples with -1, -1.0, and \"?\" on the target attribute will be "
+"interpreted as unlabelled examples"
+msgstr "Los ejemplos con -1, 1.0 y \"?\" en el atributo de la clase serán "
+"interpretados como ejemplos no etiquetados"
+
+#: templates/macros.html:89 templates/macros.html:189 templates/macros.html:227
+msgid "Close"
+msgstr "Cerrar"
+
+#: templates/macros.html:115 templates/usuarios/admin.html:30
 #: templates/usuarios/admin.html:67 templates/usuarios/miespacio.html:18
 msgid "Uploaded datasets"
 msgstr "Conjunto de datos subidos"
 
-#: templates/macros.html:75 templates/macros.html:90
+#: templates/macros.html:118 templates/macros.html:133
 msgid "Dataset file"
 msgstr "Fichero del conjunto de datos"
 
-#: templates/macros.html:77
+#: templates/macros.html:120
 msgid "Upload date"
 msgstr "Fecha de subida"
 
-#: templates/macros.html:78 templates/macros.html:93
+#: templates/macros.html:121 templates/macros.html:136
 msgid "User"
 msgstr "Usuario"
 
-#: templates/macros.html:79 templates/macros.html:94 templates/macros.html:108
+#: templates/macros.html:122 templates/macros.html:137
+#: templates/macros.html:151
 msgid "Actions"
 msgstr "Acciones"
 
-#: templates/macros.html:86 templates/usuarios/admin.html:35
+#: templates/macros.html:129 templates/usuarios/admin.html:35
 #: templates/usuarios/admin.html:90 templates/usuarios/miespacio.html:26
 msgid "Run history"
 msgstr "Historial de ejecuciones"
 
-#: templates/macros.html:89 templates/subida.html:11
+#: templates/macros.html:132 templates/subida.html:11
 msgid "Algorithm"
 msgstr "Algoritmo"
 
-#: templates/macros.html:91
+#: templates/macros.html:134
 msgid "Run date"
 msgstr "Fecha de ejecución"
 
-#: templates/configuracion/base_configuracion.html:34 templates/macros.html:92
-#: templates/macros.html:139
+#: templates/configuracion/base_configuracion.html:34 templates/macros.html:135
+#: templates/macros.html:182
 msgid "Parameters"
 msgstr "Parámetros"
 
-#: templates/macros.html:102
+#: templates/macros.html:145
 msgid "Users"
 msgstr "Usuarios"
 
-#: templates/macros.html:107 templates/usuarios/base_user.html:41
+#: templates/macros.html:150 templates/usuarios/base_user.html:41
 msgid "Last login"
 msgstr "Último inicio de sesión"
 
-#: templates/macros.html:119
+#: templates/macros.html:162
 msgid "Are you sure?"
 msgstr "¿Estás seguro?"
 
-#: templates/macros.html:123
+#: templates/macros.html:166
 msgid "You are about to delete: "
 msgstr "Vas a eliminar: "
 
-#: templates/macros.html:126
+#: templates/macros.html:169
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: templates/macros.html:127
+#: templates/macros.html:170
 msgid "Delete"
 msgstr "Eliminar"
 
-#: templates/macros.html:146 templates/macros.html:184
-msgid "Close"
-msgstr "Cerrar"
-
-#: templates/macros.html:158
+#: templates/macros.html:201
 msgid "Select algorithm"
 msgstr "Selecciona un algoritmo"
 
-#: templates/macros.html:181
+#: templates/macros.html:224
 msgid "An error occurred"
 msgstr "Ha ocurrido un error"
 
@@ -355,39 +391,39 @@ msgstr "Carga del conjunto de datos"
 msgid "Go back"
 msgstr "Volver"
 
-#: templates/subida.html:19
+#: templates/subida.html:18
+msgid "Conditions"
+msgstr "Condiciones"
+
+#: templates/subida.html:20
 msgid "File selection"
 msgstr "Selección de fichero"
 
-#: templates/subida.html:27
-msgid "Allowed extensions: .CSV & .ARFF"
-msgstr "Extensiones permitidas: .CSV & .ARFF"
-
-#: templates/subida.html:28
+#: templates/subida.html:29
 msgid "Drag and drop your file"
 msgstr "Arrastra y suelta tu archivo"
 
-#: templates/subida.html:29
+#: templates/subida.html:30
 msgid "or"
 msgstr "o"
 
-#: templates/subida.html:31
+#: templates/subida.html:32
 msgid "Choose file"
 msgstr "Selecciona fichero"
 
-#: templates/subida.html:37
+#: templates/subida.html:38
 msgid "completed"
 msgstr "completado"
 
-#: templates/subida.html:46
+#: templates/subida.html:47
 msgid "Previous file detected: "
 msgstr "Fichero previo detectado: "
 
-#: templates/subida.html:47 templates/subida.html:49
+#: templates/subida.html:48 templates/subida.html:50
 msgid "Configure algorithm"
 msgstr "Configurar algoritmo"
 
-#: templates/subida.html:53
+#: templates/subida.html:54
 msgid "Download test file"
 msgstr "Descargar fichero de prueba"
 
@@ -718,3 +754,4 @@ msgstr "puntos solapados"
 #: templates/visualizacion/singleview.html:3
 msgid "Specific statistics"
 msgstr "Estadísticas específicas"
+

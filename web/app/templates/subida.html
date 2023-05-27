@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{%  from "macros.html" import tooltip %}
+{%  from "macros.html" import tooltip, modalcondiciones %}
 {% block head %}
     {{ super() }}
     <script type="text/javascript" src="/js/subida.js"></script>
@@ -14,7 +14,8 @@
         <hr class="separacion" style="width: 14rem;"/>
     </div>
     <div class="d-flex justify-content-center align-items-center">
-        <div id="card_subida" class="rounded-4 mt-4 mb-5 m-auto p-4 shadow-lg d-inline-block">
+        <div id="card_subida" class="rounded-4 mt-4 mb-5 m-auto p-4 shadow-lg d-inline-block position-relative">
+            <button id="btn_condiciones" class='btn btn-warning text-white'>{{ gettext('Conditions') }}</button>
             <div class="d-flex justify-content-center align-items-center">
                 <p class="h2 text-center title-mulish">{{ gettext('File selection') }}</p>
             </div>
@@ -54,5 +55,6 @@
             </div>
         </div>
     </div>
+    {{ modalcondiciones() }}
 {% endblock %}
 
