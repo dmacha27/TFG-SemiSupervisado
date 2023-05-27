@@ -129,10 +129,7 @@ def obtener_info(algoritmo):
     datasetloader = DatasetLoader(session['FICHERO'])
     datasetloader.set_target(request.form['target'])
 
-    try:
-        x, y, mapa, is_unlabelled = datasetloader.get_x_y()
-    except ValueError as e:
-        raise e
+    x, y, mapa, is_unlabelled = datasetloader.get_x_y()
 
     (x, y, x_test, y_test) = data_split(x,
                                         y,

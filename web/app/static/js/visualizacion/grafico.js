@@ -669,12 +669,6 @@ function preparardataset_democraticcolearning(datos) {
         }
     }
 
-    /*
-    let id_duplicado = generar_id_duplicado(3, 6);
-    dataset.push([3, 6, 0,3, "CLF3(GaussianNB)", id_duplicado]);
-    dataset.push([3, 6, 0,3, "CLF2(DecisionTreeClassifier)", id_duplicado]);
-    */
-
     clf_forma = Array.from(clasificadores)
     return dataset;
 }
@@ -835,7 +829,6 @@ function escribir_iteraciones_clasificado(iteraciones) {
     let algo = false;
     for (let i = 0; i < iteraciones.length; i++) {
         if (iteraciones[i] === cont) {
-            algo = true;
             cadena += iteraciones[i].toString();
             return cadena + ")</span>";
         }
