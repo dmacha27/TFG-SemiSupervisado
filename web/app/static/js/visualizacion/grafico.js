@@ -325,7 +325,7 @@ function grafico_selftraining(dataset) {
                         }
                     } else{
                         cadena_tooltip += escribir_duplicados(p_data[0],p_data[1], p_data[p_data.length-1]) +
-                            un_clasificador_return_no_clasificado();
+                            un_clasificador_return_no_clasificado(false);
                     }
                     if (i < puntos_posicion.length -1) {
                         cadena_tooltip += "<br>-------<br>";
@@ -1176,9 +1176,15 @@ function tooltip_dato_inicial(dot) {
         "<span style='color:"+ color(parseInt(dot[2])) +"'>" + mapa[dot[2]] + "</span>";
 }
 
-function un_clasificador_return_no_clasificado() {
-    return traducir('Classifier: Not classified') +
-        "<br>" + traducir('Label: Not classified');
+function un_clasificador_return_no_clasificado(mostrar_clasificador=true) {
+    let cadena = "";
+
+    if (mostrar_clasificador) {
+        cadena += traducir('Classifier: Not classified') +
+        "<br>";
+    }
+
+    return  cadena + traducir('Label: Not classified');
 }
 
 function tooltip_dato_no_inicial(p_data) {
