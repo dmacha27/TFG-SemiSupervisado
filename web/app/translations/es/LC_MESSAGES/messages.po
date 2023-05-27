@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-05-27 22:10+0200\n"
+"POT-Creation-Date: 2023-05-27 22:30+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: David Martínez Acha <dma1004@alu.ubu.es>\n"
 "Language: es\n"
@@ -54,12 +54,12 @@ msgstr "Debe subir un archivo"
 msgid "File must be ARFF or CSV"
 msgstr "El fichero debe ser ARFF o CSV"
 
-#: forms.py:9 forms.py:13 forms.py:43 forms.py:47 templates/macros.html:148
+#: forms.py:9 forms.py:13 forms.py:43 forms.py:47 templates/macros.html:149
 msgid "Name"
 msgstr "Nombre"
 
 #: forms.py:15 forms.py:19 forms.py:35 forms.py:36 forms.py:49 forms.py:52
-#: templates/macros.html:149
+#: templates/macros.html:150
 msgid "Email"
 msgstr "Correo electrónico"
 
@@ -145,7 +145,6 @@ msgid "Come back soon!"
 msgstr "¡Vuelve pronto!"
 
 #: user_routes.py:42
-#, fuzzy
 msgid "Logging successful!"
 msgstr "¡Inicio de sesión correcto!"
 
@@ -299,84 +298,92 @@ msgstr "Se pueden cargar conjuntos de datos semi-supervisados"
 
 #: templates/macros.html:83
 msgid ""
-"Examples with -1, -1.0, and \"?\" on the target attribute will be "
+"Examples with -1, -1.0 or \"?\" on the target attribute will be "
 "interpreted as unlabelled examples"
-msgstr "Los ejemplos con -1, 1.0 y \"?\" en el atributo de la clase serán "
-"interpretados como ejemplos no etiquetados"
+msgstr ""
+"Los ejemplos con -1, 1.0 o \"?\" en el atributo de la clase "
+"serán interpretados como ejemplos no etiquetados"
 
-#: templates/macros.html:89 templates/macros.html:189 templates/macros.html:227
+#: templates/macros.html:84
+msgid ""
+"A dataset can contain multiple unlabelled examples, but with the same "
+"type (-1, -1.0 or \"?\")"
+msgstr "Un conjunto de datos puede contener múltiples ejemplos no etiquetados, pero "
+"con el mismo tipo (-1, -1.0 o \"?\")"
+
+#: templates/macros.html:90 templates/macros.html:190 templates/macros.html:228
 msgid "Close"
 msgstr "Cerrar"
 
-#: templates/macros.html:115 templates/usuarios/admin.html:30
+#: templates/macros.html:116 templates/usuarios/admin.html:30
 #: templates/usuarios/admin.html:67 templates/usuarios/miespacio.html:18
 msgid "Uploaded datasets"
 msgstr "Conjunto de datos subidos"
 
-#: templates/macros.html:118 templates/macros.html:133
+#: templates/macros.html:119 templates/macros.html:134
 msgid "Dataset file"
 msgstr "Fichero del conjunto de datos"
 
-#: templates/macros.html:120
+#: templates/macros.html:121
 msgid "Upload date"
 msgstr "Fecha de subida"
 
-#: templates/macros.html:121 templates/macros.html:136
+#: templates/macros.html:122 templates/macros.html:137
 msgid "User"
 msgstr "Usuario"
 
-#: templates/macros.html:122 templates/macros.html:137
-#: templates/macros.html:151
+#: templates/macros.html:123 templates/macros.html:138
+#: templates/macros.html:152
 msgid "Actions"
 msgstr "Acciones"
 
-#: templates/macros.html:129 templates/usuarios/admin.html:35
+#: templates/macros.html:130 templates/usuarios/admin.html:35
 #: templates/usuarios/admin.html:90 templates/usuarios/miespacio.html:26
 msgid "Run history"
 msgstr "Historial de ejecuciones"
 
-#: templates/macros.html:132 templates/subida.html:11
+#: templates/macros.html:133 templates/subida.html:11
 msgid "Algorithm"
 msgstr "Algoritmo"
 
-#: templates/macros.html:134
+#: templates/macros.html:135
 msgid "Run date"
 msgstr "Fecha de ejecución"
 
-#: templates/configuracion/base_configuracion.html:34 templates/macros.html:135
-#: templates/macros.html:182
+#: templates/configuracion/base_configuracion.html:34 templates/macros.html:136
+#: templates/macros.html:183
 msgid "Parameters"
 msgstr "Parámetros"
 
-#: templates/macros.html:145
+#: templates/macros.html:146
 msgid "Users"
 msgstr "Usuarios"
 
-#: templates/macros.html:150 templates/usuarios/base_user.html:41
+#: templates/macros.html:151 templates/usuarios/base_user.html:41
 msgid "Last login"
 msgstr "Último inicio de sesión"
 
-#: templates/macros.html:162
+#: templates/macros.html:163
 msgid "Are you sure?"
 msgstr "¿Estás seguro?"
 
-#: templates/macros.html:166
+#: templates/macros.html:167
 msgid "You are about to delete: "
 msgstr "Vas a eliminar: "
 
-#: templates/macros.html:169
+#: templates/macros.html:170
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: templates/macros.html:170
+#: templates/macros.html:171
 msgid "Delete"
 msgstr "Eliminar"
 
-#: templates/macros.html:201
+#: templates/macros.html:202
 msgid "Select algorithm"
 msgstr "Selecciona un algoritmo"
 
-#: templates/macros.html:224
+#: templates/macros.html:225
 msgid "An error occurred"
 msgstr "Ha ocurrido un error"
 

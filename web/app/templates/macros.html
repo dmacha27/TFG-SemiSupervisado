@@ -80,7 +80,8 @@
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto">
                                 <div class="fw-bold">{{ gettext('Semi-supervised datasets can be uploaded') }}</div>
-                                {{ gettext('Examples with -1, -1.0, and "?" on the target attribute will be interpreted as unlabelled examples') }}
+                                <p>{{ gettext('Examples with -1, -1.0 or "?" on the target attribute will be interpreted as unlabelled examples') }}</p>
+                                <p>{{ gettext('A dataset can contain multiple unlabelled examples, but with the same type (-1, -1.0 or "?")') }}</p>
                             </div>
                         </li>
                     </ol>
