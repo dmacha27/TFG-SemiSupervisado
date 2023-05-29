@@ -47,7 +47,7 @@
                         {% if 'visualizacion' not in request.path %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-translate text-white"></i>
+                                    <i id="selector_idioma" class="bi bi-translate text-white"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     {% for idioma in idiomas.items() %}

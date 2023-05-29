@@ -2,7 +2,7 @@ from flask_babel import lazy_gettext
 from flask_wtf import FlaskForm
 from wtforms import (StringField, EmailField, PasswordField, SelectField, IntegerField, DecimalField, BooleanField,
                      IntegerRangeField)
-from wtforms.validators import (DataRequired, InputRequired, Length, EqualTo, NumberRange)
+from wtforms.validators import (DataRequired, InputRequired, Length, EqualTo, NumberRange, Optional)
 
 
 class RegistrationForm(FlaskForm):
@@ -60,7 +60,7 @@ class UserForm(FlaskForm):
     new_password = PasswordField(lazy_gettext('New password'),
                                  name="new_password",
                                  id="new_password",
-                                 validators=[Length(min=8)],
+                                 validators=[Length(min=8), Optional()],
                                  render_kw={"placeholder": lazy_gettext('New password')})
 
 
