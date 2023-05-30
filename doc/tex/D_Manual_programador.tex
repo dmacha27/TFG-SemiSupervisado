@@ -109,7 +109,7 @@ Estos son los directorios en los que se organiza el proyecto:
         .5 \textbf{usuarios}: \begin{minipage}[t]{10cm}
             ficheros JavaScript encargados de la generación de tablas y control del espacio personal de los usuarios y el panel de administración{.}\\
         \end{minipage}.
-        .5 \textbf{visualizacion}: \begin{minipage}[t]{10cm}
+        .5 \textbf{visualizacion}: \begin{minipage}[t]{6cm}
             ficheros JavaScript encargados de la inicialización y generación de los gráficos en la visualización (gráfico principal y estadísticas){.}\\
         \end{minipage}.
     }
@@ -129,12 +129,6 @@ Estos son los directorios en los que se organiza el proyecto:
             ficheros estáticos que utiliza la aplicación Web: CSS,
             Javascript, JSON o imágenes{.}\\
         \end{minipage}.
-        .4 \textbf{css}: \begin{minipage}[t]{10cm}
-            ficheros CSS{.}\\
-        \end{minipage}.
-        .4 \textbf{js}: \begin{minipage}[t]{10cm}
-            ficheros JavaScript{.}\\
-        \end{minipage}.
         .4 \textbf{json}: \begin{minipage}[t]{10cm}
             ficheros JSON{.}\\
         \end{minipage}.
@@ -151,18 +145,24 @@ Estos son los directorios en los que se organiza el proyecto:
             plantillas HTML (Jinja2) que renderiza la aplicación Web
             (Flask){.}\\
         \end{minipage}.
-        .4 \textbf{configuracion}: \begin{minipage}[t]{10cm}
+        .4 \textbf{configuracion}: \begin{minipage}[t]{6cm}
             plantillas concretas de la ventana de configuración de la ejecución de los algoritmos{.}\\
         \end{minipage}.
-        .4 \textbf{usuarios}: \begin{minipage}[t]{10cm}
+        .4 \textbf{usuarios}: \begin{minipage}[t]{6cm}
             plantillas concretas de las distintas ventanas de los usuarios: login, registro, perfil, espacio personal y panel de administración{.}\\
         \end{minipage}.
-        .4 \textbf{visualizacion}: \begin{minipage}[t]{10cm}
+        .4 \textbf{visualizacion}: \begin{minipage}[t]{6cm}
             plantillas concretas de las distintas ventanas de visualización de los algoritmos{.}\\
         \end{minipage}.
-        .3 \textbf{translations}: \begin{minipage}[t]{10cm}
+        .3 \textbf{translations}: \begin{minipage}[t]{6cm}
             traducciones de los textos de la aplicación (por idiomas){.}\\
-        \end{minipage}. 
+        \end{minipage}.
+        .3 \textbf{tests}: \begin{minipage}[t]{10cm}
+            pruebas del sistema{.}\\
+        \end{minipage}.
+        .4 \textbf{ficheros}: \begin{minipage}[t]{10cm}
+            ficheros para las pruebas del sistema{.}\\
+        \end{minipage}.
         .2 \textbf{instance}: \begin{minipage}[t]{10cm} contiene
         la base de datos de la aplicación (SQLite){.}\\
             \end{minipage}.
@@ -555,7 +555,7 @@ luego a la palabra concreta.
 
 
 \begin{minted}{javascript}
-    // locale es la constante declarada en la propia plantilla
+    // locale es la constante declarada en la plantilla
     let palabra_localizada = diccionario[locale]["clave"];
 \end{minted}
 
@@ -868,7 +868,7 @@ Precondiciones  & \multicolumn{4}{l}{Usuario prueba creado y con sesión iniciad
 Postcondiciones & \multicolumn{4}{l}{El usuario ha cerrado la sesión}                                                     \\ \hline
 \rowcolor{gray!25}
 \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-Acceder a '/admin'                                          &                        & Encontrarse en la página de error                                  & Encontrarse en la página de error                                    & Éxito  \\ \hline
+Acceder a '/admin?lang=es'                                          &                        & Encontrarse en la página de error                                  & Encontrarse en la página de error                                    & Éxito  \\ \hline
 Comprobar error      &                        & El código de error y mensaje son <<401>> y <<No autorizado>>                               & El código de error y mensaje son <<401>> y <<No autorizado>>                                & Éxito  \\ \hline 
 \end{tabular}
 \caption{CP6: Usuario sin acceso a administración.}
@@ -887,8 +887,8 @@ Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciada}          
 Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                                                     \\ \hline
 \rowcolor{gray!25}
 \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-Acceder a '/admin'                         &                        & Encontrarse en la página de inicio de sesión                                 & Encontrarse en la página de inicio de sesión                                     & Éxito  \\ \hline
-Comprobar advertencia (mensaje flash)      &                        & El mensaje es <<Please log in to access this page.>>                               & El mensaje es <<Please log in to access this page.>>                                 & Éxito  \\ \hline 
+Acceder a '/admin?lang=es'                         &                        & Encontrarse en la página de inicio de sesión                                 & Encontrarse en la página de inicio de sesión                                     & Éxito  \\ \hline
+Comprobar advertencia (mensaje flash)      &                        & El mensaje es <<Por favor, inicia sesión para acceder a esta página.>>                               & El mensaje es <<Por favor, inicia sesión para acceder a esta página.>>                                 & Éxito  \\ \hline 
 \end{tabular}
 \caption{CP7: Anónimo sin acceso a administración.}
 \end{table}
