@@ -725,289 +725,345 @@ ejecutarse en cualquier momento (atendiendo a las precondiciones establecidas).
 A continuación se presentan todos los casos de prueba que prueban las partes más
 importantes de la aplicación.
 
-\begin{center}
-    \begin{table}[H]
-    \begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
-    \rowcolor{gray!25}
-    Identificador   & \multicolumn{4}{l}{CP1}                                                    \\
-    Prioridad   & \multicolumn{4}{l}{Media}                                                    \\
-    \rowcolor{gray!25}
-    Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
-    Objetivo        & \multicolumn{4}{l}{Probar el registro de usuarios en la aplicación}                                                     \\
-    \rowcolor{gray!25}
-    Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciada}                                                     \\
-    Postcondiciones & \multicolumn{4}{l}{El usuario ha cerrado la sesión}                                                     \\ \hline
-    \rowcolor{gray!25}
-    \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-    Acceder a '/?lang=es'                               &                                                                                                         & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito                            \\ \hline
-    Hacer clic en <<Registrarse>>                       &                                                                                                          & Encontrarse en la página de registro                                 & Encontrarse en la página de registro                                 & Éxito                            \\ \hline
-    Introducir datos de usuario                        & Nombre: Prueba, Email: prueba@gmail.com, Contraseña: 12345678, Confirmar contraseña: 12345678 & Datos introducidos                       & Datos introducidos                                                   & Éxito                            \\ \hline
-    Hacer clic en <<Enviar>>                             &                                                                                                         & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito                            \\ \hline
-    Comprobar presencia nombre de usuario              &                                                                                                         & El nombre de usuario <<Prueba>> se encuentra en la barra de navegación & El nombre de usuario <<Prueba>> se encuentra en la barra de navegación & Éxito                           
-    \end{tabular}
-    \caption{CP1: Registro.}
-    \end{table}
-    \end{center}
-    
-    \begin{center}
-    \begin{table}[H]
-    \begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
-    \rowcolor{gray!25}
-    Identificador   & \multicolumn{4}{l}{CP2}                                                    \\
-    Prioridad   & \multicolumn{4}{l}{Media}                                                    \\
-    \rowcolor{gray!25}
-    Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
-    Objetivo        & \multicolumn{4}{l}{Probar el inicio de sesión de usuarios en la aplicación}                                                     \\
-    \rowcolor{gray!25}
-    Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciado y usuario prueba creado}                                                     \\
-    Postcondiciones & \multicolumn{4}{l}{El usuario ha cerrado la sesión}                                                     \\ \hline
-    \rowcolor{gray!25}
-    \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-    Acceder a '/?lang=es'                              &                                                                                                         & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito                            \\ \hline
-    Hacer clic en <<Iniciar sesión>>                       &                                                                                                          & Encontrarse en la página de inicio de sesión                                 & Encontrarse en la página de inicio de sesión                                 & Éxito                            \\ \hline
-    Introducir datos de usuario                        & Nombre: Prueba, Email: prueba@gmail.com, Contraseña: 12345678 & Datos introducidos                       & Datos introducidos                                                   & Éxito                            \\ \hline
-    Hacer clic en <<Enviar>>                             &                                                                                                         & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito                            \\ \hline
-    Comprobar presencia nombre de usuario              &                                                                                                         & El nombre de usuario <<Prueba>> se encuentra en la barra de navegación & El nombre de usuario <<Prueba>> se encuentra en la barra de navegación & Éxito                           
-    \end{tabular}
-    \caption{CP2: Inicio de sesión.}
-    \end{table}
-    \end{center}
-    
-    \begin{center}
-    \begin{table}[H]
-    \begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
-    \rowcolor{gray!25}
-    Identificador   & \multicolumn{4}{l}{CP3}                                                    \\
-    Prioridad   & \multicolumn{4}{l}{Baja}                                                    \\
-    \rowcolor{gray!25}
-    Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
-    Objetivo        & \multicolumn{4}{l}{Probar el cambio de idioma en la aplicación}                                                     \\
-    \rowcolor{gray!25}
-    Precondiciones  & \multicolumn{4}{l}{Sin precondiciones}                                                     \\
-    Postcondiciones & \multicolumn{4}{l}{Idioma cambiado correctamente}                                                     \\ \hline
-    \rowcolor{gray!25}
-    \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-    Acceder a '/?lang=es'                                  &                                                                                                         & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito                            \\ \hline
-    Comprobar idioma español                               &                        & El subtítulo principal es <<Trabajo Fin de Grado sobre algoritmos semi-supervisados y su visualización>>  & El subtítulo principal es <<Trabajo Fin de Grado sobre algoritmos semi-supervisados y su visualización>>         & Éxito                            \\ \hline
-    Hacer clic en el icono de idiomas                      &                        & Menú desplegable de idiomas mostrado                                 & Menú desplegable de idiomas mostrado                                 & Éxito                            \\ \hline
-    Hacer clic en el botón de <<Inglés>>                   &                        & El subtítulo principal es <<Final Degree Project on semi-supervised algorithms and their visualization>>  & El subtítulo principal es <<Final Degree Project on semi-supervised algorithms and their visualization>>  & Éxito                            \\ \hline
-    \end{tabular}
-    \caption{CP3: Cambio de idioma.}
-    \end{table}
-    \end{center}
-    
-    \begin{center}
-    \begin{table}[H]
-    \begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
-    \rowcolor{gray!25}
-    Identificador   & \multicolumn{4}{l}{CP4}                                                    \\
-    Prioridad   & \multicolumn{4}{l}{Media}                                                    \\
-    \rowcolor{gray!25}
-    Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
-    Objetivo        & \multicolumn{4}{l}{Probar la edición del perfil de usuario}                                                     \\
-    \rowcolor{gray!25}
-    Precondiciones  & \multicolumn{4}{l}{Usuario prueba creado y con sesión iniciada}                                                     \\
-    Postcondiciones & \multicolumn{4}{p{0.80\textwidth}}{El usuario prueba tiene los datos originales (para no afectar a casos de prueba futuros)}                                                     \\ \hline
-    \rowcolor{gray!25}
-    \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-    Acceder a '/?lang=es'                                  &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito  \\ \hline
-    Hacer clic en el nombre de usuario <<Prueba>> y en el botón de <<Perfil>>      &                        & Encontrarse en la página del perfil de usuario                                 & Encontrarse en la página del perfil de usuario                                & Éxito  \\ \hline 
-    Introducir datos de usuario                            & Nombre: Prueba, Email: pruebacambiado@gmail.com, Contraseña actual: 12345678                  & Datos introducidos                                                   & Datos introducidos                                                   & Éxito                            \\ \hline
-    Hacer clic en el botón de <<Enviar>>                   &                        & Encontrarse en la página principal                       & Encontrarse en la página principal                      & Éxito  \\ \hline
-    Hacer clic en el nombre de usuario <<Prueba>> y en el botón de <<Perfil>>      &                        & Encontrarse en la página del perfil de usuario                                 & Encontrarse en la página del perfil de usuario                                & Éxito  \\ \hline 
-    Comprobar email actualizado                            &                       &  El email que aparece es <<pruebacambiado@gmail.com>>     &  El email que aparece es <<pruebacambiado@gmail.com>>  & Éxito
-    \end{tabular}
-    \caption{CP4: Edición perfil.}
-    \end{table}
-    \end{center}
-    
-    
-    \begin{center}
-    \begin{table}[H]
-    \begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
-    \rowcolor{gray!25}
-    Identificador   & \multicolumn{4}{l}{CP5}                                                   \\
-    Prioridad   & \multicolumn{4}{l}{Alta}                                                    \\
-    \rowcolor{gray!25}
-    Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
-    Objetivo        & \multicolumn{4}{l}{Probar la seguridad de la edición del perfil de usuario}                                                     \\
-    \rowcolor{gray!25}
-    Precondiciones  & \multicolumn{4}{l}{Usuario prueba creado y con sesión iniciada}                                                     \\
-    Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                                                     \\ \hline
-    \rowcolor{gray!25}
-    \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-    Acceder a '/?lang=es'                          &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito  \\ \hline
-    Hacer clic en el nombre de usuario <<Prueba>> y en el botón de <<Perfil>>      &                        & Encontrarse en la página del perfil de usuario                                 & Encontrarse en la página del perfil de usuario                                & Éxito  \\ \hline 
-    Introducir datos de usuario (contraseña errónea)                           & Nombre: Prueba, Email: pruebacambiado@gmail.com, Contraseña actual: \textbf{1234567899}                  & Datos introducidos                                                   & Datos introducidos                                                   & Éxito                            \\ \hline
-    Hacer clic en el botón de <<Enviar>>           &                       &  El mensaje de error que aparece es <<Contraseña actual incorrecta>>     &  El error que aparece es <<Contraseña actual incorrecta>>  & Éxito
-    \end{tabular}
-    \caption{CP5: Edición perfil con contraseña incorrecta.}
-    \end{table}
-    \end{center}
-    
-    \begin{center}
-    \begin{table}[H]
-    \begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
-    \rowcolor{gray!25}
-    Identificador   & \multicolumn{4}{l}{CP6}                                                   \\
-    Prioridad   & \multicolumn{4}{l}{Alta}                                                    \\
-    \rowcolor{gray!25}
-    Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
-    Objetivo        & \multicolumn{4}{p{0.80\textwidth}}{Probar la seguridad del acceso a la ruta de administración con usuario registrado}                                                     \\
-    \rowcolor{gray!25}
-    Precondiciones  & \multicolumn{4}{l}{Usuario prueba creado y con sesión iniciada}                                                     \\
-    Postcondiciones & \multicolumn{4}{l}{El usuario ha cerrado la sesión}                                                     \\ \hline
-    \rowcolor{gray!25}
-    \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-    Acceder a '/admin'                                          &                        & Encontrarse en la página de error                                  & Encontrarse en la página de error                                    & Éxito  \\ \hline
-    Comprobar error      &                        & El código de error y mensaje son <<401>> y <<No autorizado>>                               & El código de error y mensaje son <<401>> y <<No autorizado>>                                & Éxito  \\ \hline 
-    \end{tabular}
-    \caption{CP6: Usuario sin acceso a administración.}
-    \end{table}
-    \end{center}
-    
-    \begin{center}
-    \begin{table}[H]
-    \begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
-    \rowcolor{gray!25}
-    Identificador   & \multicolumn{4}{l}{CP7}                                                   \\
-    Prioridad   & \multicolumn{4}{l}{Alta}                                                    \\
-    \rowcolor{gray!25}
-    Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
-    Objetivo        & \multicolumn{4}{p{0.80\textwidth}}{Probar la seguridad del acceso a la ruta de administración con anónimo}                                                     \\
-    \rowcolor{gray!25}
-    Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciada}                                                     \\
-    Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                                                     \\ \hline
-    \rowcolor{gray!25}
-    \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-    Acceder a '/admin'                         &                        & Encontrarse en la página de inicio de sesión                                 & Encontrarse en la página de inicio de sesión                                     & Éxito  \\ \hline
-    Comprobar advertencia (mensaje flash)      &                        & El mensaje es <<Please log in to access this page.>>                               & El mensaje es <<Please log in to access this page.>>                                 & Éxito  \\ \hline 
-    \end{tabular}
-    \caption{CP7: Anónimo sin acceso a administración.}
-    \end{table}
-    \end{center}
-    
-    \begin{center}
-    \begin{table}[H]
-    \begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
-    \rowcolor{gray!25}
-    Identificador   & \multicolumn{4}{l}{CP8}                                                   \\
-    Prioridad   & \multicolumn{4}{l}{Alta}                                                    \\
-    \rowcolor{gray!25}
-    Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
-    Objetivo        & \multicolumn{4}{p{0.80\textwidth}}{Probar la denegación de ficheros que no sean ARFF o CSV}                                                     \\
-    \rowcolor{gray!25}
-    Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciada}                                                     \\
-    Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                                                     \\ \hline
-    \rowcolor{gray!25}
-    \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-    Acceder a '/?lang=es'                                 &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito  \\ \hline
-    Hacer clic en <<Self-Training>>                       &                        & Encontrarse en la página de subida                                   & Encontrarse en la página de subida                                & Éxito                            \\ \hline
-    Subir un fichero .txt                                 &                        & Porcentaje de subida al 100\%                                        & Porcentaje de subida al 100\%                                & Éxito                            \\ \hline
-    Hacer clic en <<Configurar algoritmo>>                &                        & Redirección a la página de subida                                    & Redirección a la página de subida                                 & Éxito                            \\ \hline
-    Comprobar advertencia (mensaje flash)                 &                        & El mensaje es <<El fichero debe ser ARFF o CSV>>                     & El mensaje es <<El fichero debe ser ARFF o CSV>>                                 & Éxito  \\ \hline 
-    \end{tabular}
-    \caption{CP8: Fichero sin extensión ARFF o CSV.}
-    \end{table}
-    \end{center}
-    
-    \begin{center}
-    \begin{table}[H]
-    \begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
-    \rowcolor{gray!25}
-    Identificador   & \multicolumn{4}{l}{CP9}                                                   \\
-    Prioridad   & \multicolumn{4}{l}{Muy alta}                                                    \\
-    \rowcolor{gray!25}
-    Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
-    Objetivo        & \multicolumn{4}{p{0.80\textwidth}}{Probar la ejecución del algoritmo Self-Training}                                                     \\
-    \rowcolor{gray!25}
-    Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciada}                                                     \\
-    Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                                                     \\ \hline
-    \rowcolor{gray!25}
-    \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-    Acceder a '/?lang=es'                                 &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
-    Hacer clic en <<Self-Training>>                       &                        & Encontrarse en la página de subida                                   & Encontrarse en la página de subida                           & Éxito                            \\ \hline
-    Subir el conjunto de datos iris                       & Fichero <<iris.arff>>  & Porcentaje de subida al 100\%                                        & Porcentaje de subida al 100\%                                & Éxito                            \\ \hline
-    Hacer clic en <<Configurar algoritmo>>                &                        & Redirección a la página de configuración                             & Redirección a la página de configuración                     & Éxito                            \\ \hline
-    Seleccionar <<class>> como atributo de la clase &                & & & Éxito \\ \hline
-    Hacer clic en <<Ejecutar>>                            &                        & Encontrarse en la página de visualización                            & Encontrarse en la página de visualización                    & Éxito                            \\ \hline
-    Comprobar la existencia de los <<SVGs>>               &                        & Se han generado los <<SVGs>> (visualización y estadísticas generales) & Se han generados los <<SVGs>> (visualización y estadísticas generales)& Éxito  \\ \hline 
-    Comprobar leyenda <<SVG>> principal                   &                        & La leyenda incluye: <<Iris-setosa>>, <<Iris-versicolor>>, <<Iris-virginica>> & La leyenda incluye: <<Iris-setosa>>, <<Iris-versicolor>>, <<Iris-virginica>> & Éxito \\ \hline
-    Comprobar iteración 0                                 &                        & El valor de la iteración es 0                                        & El valor de la iteración es 0                                & Éxito \\ \hline
-    \end{tabular}
-    \caption{CP9: Ejecución correcta Self-Training.}
-    \end{table}
-    \end{center}
-    
-    \begin{center}
-    \begin{table}[H]
-    \begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
-    \rowcolor{gray!25}
-    Identificador   & \multicolumn{4}{l}{CP10}                                                   \\
-    Prioridad   & \multicolumn{4}{l}{Alta}                                                    \\
-    \rowcolor{gray!25}
-    Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
-    Objetivo        & \multicolumn{4}{p{0.80\textwidth}}{Probar el control de errores de la condición de entrada sobre los atributos categóricos}                                                     \\
-    \rowcolor{gray!25}
-    Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciada}                                                     \\
-    Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                                                     \\ \hline
-    \rowcolor{gray!25}
-    \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-    Acceder a '/?lang=es'                                 &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
-    Hacer clic en <<Self-Training>>                       &                        & Encontrarse en la página de subida                                   & Encontrarse en la página de subida                           & Éxito                            \\ \hline
-    Subir el conjunto de datos iris                       & Fichero <<iris.arff>>  & Porcentaje de subida al 100\%                                        & Porcentaje de subida al 100\%                                & Éxito                            \\ \hline
-    Hacer clic en <<Configurar algoritmo>>                &                        & Redirección a la página de configuración                             & Redirección a la página de configuración                     & Éxito                            \\ \hline
-    Seleccionar <<petalwidth>> como atributo de la clase &                & & & Éxito \\ \hline
-    Hacer clic en <<Ejecutar>>                            &                        & Encontrarse en la página de visualización                            & Encontrarse en la página de visualización                    & Éxito                            \\ \hline
-    Esperar a la aparición de una ventana emergente&                   & & & Éxito  \\ \hline 
-    Comprobar mensaje de aviso                            &                        & Mensaje: <<Se han detectado características categóricas o indefinidas, es necesario que se aseguren características numéricas>> & Mensaje: <<Se han detectado características categóricas o indefinidas, es necesario que se aseguren características numéricas>> & Éxito \\ \hline
-    \end{tabular}
-    \caption{CP10: Error con atributos categóricos.}
-    \end{table}
-    \end{center}
-    
-    \begin{center}
-    \begin{table}[H]
-    \begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
-    \rowcolor{gray!25}
-    Identificador   & \multicolumn{4}{l}{CP11}                                                   \\
-    Prioridad   & \multicolumn{4}{l}{Media}                                                    \\
-    \rowcolor{gray!25}
-    Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
-    Objetivo        & \multicolumn{4}{p{0.80\textwidth}}{Probar el borrado de un conjunto de datos (fichero)}                                                     \\
-    \rowcolor{gray!25}
-    Precondiciones  & \multicolumn{4}{p{0.80\textwidth}}{Usuario prueba creado, con sesión iniciada y con un único fichero subido}                                                     \\
-    Postcondiciones & \multicolumn{4}{l}{Conjunto de datos borrado}                                                     \\ \hline
-    \rowcolor{gray!25}
-    \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-    Acceder a '/?lang=es'                                 &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
-    Hacer clic en el nombre de usuario <<Prueba>> y en el botón de <<Mi Espacio>>  &     & Encontrarse en la página del espacio personal                  & Encontrarse en la página del espacio personal                       & Éxito  \\ \hline 
-    Hacer clic en el botón de eliminar (símbolo de papelera) en la tabla de los conjuntos de datos &                     & Modal de confirmación visible                                     & Modal de confirmación visible                     & Éxito                            \\ \hline
-    Hacer clic en <<Eliminar>> (en el modal)              &                        & Modal ocultado y tabla de conjunto de datos vacía                    & Modal ocultado y tabla de conjunto de datos vacía            & Éxito                            \\ \hline
-    \end{tabular}
-    \caption{CP11: Borrar conjunto de datos.}
-    \end{table}
-    \end{center}
-    
-    \begin{center}
-    \begin{table}[H]
-    \begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
-    \rowcolor{gray!25}
-    Identificador   & \multicolumn{4}{l}{CP12}                                                   \\
-    Prioridad   & \multicolumn{4}{l}{Media}                                                    \\
-    \rowcolor{gray!25}
-    Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
-    Objetivo        & \multicolumn{4}{p{0.80\textwidth}}{Probar el borrado de una ejecución del historial}                                                     \\
-    \rowcolor{gray!25}
-    Precondiciones  & \multicolumn{4}{p{0.80\textwidth}}{Usuario prueba creado, con sesión iniciada y con una única ejecución anterior}                                                     \\
-    Postcondiciones & \multicolumn{4}{l}{Ejecución borrada}                                                     \\ \hline
-    \rowcolor{gray!25}
-    \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-    Acceder a '/?lang=es'                                 &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
-    Hacer clic en el nombre de usuario <<Prueba>> y en el botón de <<Mi Espacio>>  &     & Encontrarse en la página del espacio personal                  & Encontrarse en la página del espacio personal                       & Éxito  \\ \hline 
-    Hacer clic en el botón de eliminar (símbolo de papelera) en la tabla del historial de ejecuciones &                     & Modal de confirmación visible                                     & Modal de confirmación visible                     & Éxito                            \\ \hline
-    Hacer clic en <<Eliminar>> (en el modal)              &                        & Modal ocultado y tabla del historial de ejecuciones                    & Modal ocultado y tabla del historial de ejecuciones            & Éxito                            \\ \hline
-    \end{tabular}
-    \caption{CP12: Borrar ejecución.}
-    \end{table}
-    \end{center}
+\begin{table}[H]
+\begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
+\rowcolor{gray!25}
+Identificador   & \multicolumn{4}{l}{CP1}                                                    \\
+Prioridad   & \multicolumn{4}{l}{Media}                                                    \\
+\rowcolor{gray!25}
+Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
+Objetivo        & \multicolumn{4}{l}{Probar el registro de usuarios en la aplicación}                                                     \\
+\rowcolor{gray!25}
+Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciada}                                                     \\
+Postcondiciones & \multicolumn{4}{l}{El usuario ha cerrado la sesión}                                                     \\ \hline
+\rowcolor{gray!25}
+\textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
+Acceder a '/?lang=es'                               &                                                                                                         & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito                            \\ \hline
+Hacer clic en <<Registrarse>>                       &                                                                                                          & Encontrarse en la página de registro                                 & Encontrarse en la página de registro                                 & Éxito                            \\ \hline
+Introducir datos de usuario                        & Nombre: Prueba, Email: prueba@gmail.com, Contraseña: 12345678, Confirmar contraseña: 12345678 & Datos introducidos                       & Datos introducidos                                                   & Éxito                            \\ \hline
+Hacer clic en <<Enviar>>                             &                                                                                                         & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito                            \\ \hline
+Comprobar presencia nombre de usuario              &                                                                                                         & El nombre de usuario <<Prueba>> se encuentra en la barra de navegación & El nombre de usuario <<Prueba>> se encuentra en la barra de navegación & Éxito                           
+\end{tabular}
+\caption{CP1: Registro.}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
+\rowcolor{gray!25}
+Identificador   & \multicolumn{4}{l}{CP2}                                                    \\
+Prioridad   & \multicolumn{4}{l}{Media}                                                    \\
+\rowcolor{gray!25}
+Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
+Objetivo        & \multicolumn{4}{l}{Probar el inicio de sesión de usuarios en la aplicación}                                                     \\
+\rowcolor{gray!25}
+Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciado y usuario prueba creado}                                                     \\
+Postcondiciones & \multicolumn{4}{l}{El usuario ha cerrado la sesión}                                                     \\ \hline
+\rowcolor{gray!25}
+\textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
+Acceder a '/?lang=es'                              &                                                                                                         & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito                            \\ \hline
+Hacer clic en <<Iniciar sesión>>                       &                                                                                                          & Encontrarse en la página de inicio de sesión                                 & Encontrarse en la página de inicio de sesión                                 & Éxito                            \\ \hline
+Introducir datos de usuario                        & Nombre: Prueba, Email: prueba@gmail.com, Contraseña: 12345678 & Datos introducidos                       & Datos introducidos                                                   & Éxito                            \\ \hline
+Hacer clic en <<Enviar>>                             &                                                                                                         & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito                            \\ \hline
+Comprobar presencia nombre de usuario              &                                                                                                         & El nombre de usuario <<Prueba>> se encuentra en la barra de navegación & El nombre de usuario <<Prueba>> se encuentra en la barra de navegación & Éxito                           
+\end{tabular}
+\caption{CP2: Inicio de sesión.}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
+\rowcolor{gray!25}
+Identificador   & \multicolumn{4}{l}{CP3}                                                    \\
+Prioridad   & \multicolumn{4}{l}{Baja}                                                    \\
+\rowcolor{gray!25}
+Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
+Objetivo        & \multicolumn{4}{l}{Probar el cambio de idioma en la aplicación}                                                     \\
+\rowcolor{gray!25}
+Precondiciones  & \multicolumn{4}{l}{Sin precondiciones}                                                     \\
+Postcondiciones & \multicolumn{4}{l}{Idioma cambiado correctamente}                                                     \\ \hline
+\rowcolor{gray!25}
+\textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
+Acceder a '/?lang=es'                                  &                                                                                                         & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito                            \\ \hline
+Comprobar idioma español                               &                        & El subtítulo principal es <<Trabajo Fin de Grado sobre algoritmos semi-supervisados y su visualización>>  & El subtítulo principal es <<Trabajo Fin de Grado sobre algoritmos semi-supervisados y su visualización>>         & Éxito                            \\ \hline
+Hacer clic en el icono de idiomas                      &                        & Menú desplegable de idiomas mostrado                                 & Menú desplegable de idiomas mostrado                                 & Éxito                            \\ \hline
+Hacer clic en el botón de <<Inglés>>                   &                        & El subtítulo principal es <<Final Degree Project on semi-supervised algorithms and their visualization>>  & El subtítulo principal es <<Final Degree Project on semi-supervised algorithms and their visualization>>  & Éxito                            \\ \hline
+\end{tabular}
+\caption{CP3: Cambio de idioma.}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
+\rowcolor{gray!25}
+Identificador   & \multicolumn{4}{l}{CP4}                                                    \\
+Prioridad   & \multicolumn{4}{l}{Media}                                                    \\
+\rowcolor{gray!25}
+Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
+Objetivo        & \multicolumn{4}{l}{Probar la edición del perfil de usuario}                                                     \\
+\rowcolor{gray!25}
+Precondiciones  & \multicolumn{4}{l}{Usuario prueba creado y con sesión iniciada}                                                     \\
+Postcondiciones & \multicolumn{4}{p{0.80\textwidth}}{El usuario prueba tiene los datos originales (para no afectar a casos de prueba futuros)}                                                     \\ \hline
+\rowcolor{gray!25}
+\textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
+Acceder a '/?lang=es'                                  &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito  \\ \hline
+Hacer clic en el nombre de usuario <<Prueba>> y en el botón de <<Perfil>>      &                        & Encontrarse en la página del perfil de usuario                                 & Encontrarse en la página del perfil de usuario                                & Éxito  \\ \hline 
+Introducir datos de usuario                            & Nombre: Prueba, Email: pruebacambiado@gmail.com, Contraseña actual: 12345678                  & Datos introducidos                                                   & Datos introducidos                                                   & Éxito                            \\ \hline
+Hacer clic en el botón de <<Enviar>>                   &                        & Encontrarse en la página principal                       & Encontrarse en la página principal                      & Éxito  \\ \hline
+Hacer clic en el nombre de usuario <<Prueba>> y en el botón de <<Perfil>>      &                        & Encontrarse en la página del perfil de usuario                                 & Encontrarse en la página del perfil de usuario                                & Éxito  \\ \hline 
+Comprobar email actualizado                            &                       &  El email que aparece es <<pruebacambiado@gmail.com>>     &  El email que aparece es <<pruebacambiado@gmail.com>>  & Éxito
+\end{tabular}
+\caption{CP4: Edición perfil.}
+\end{table}
+
+
+\begin{table}[H]
+\begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
+\rowcolor{gray!25}
+Identificador   & \multicolumn{4}{l}{CP5}                                                   \\
+Prioridad   & \multicolumn{4}{l}{Alta}                                                    \\
+\rowcolor{gray!25}
+Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
+Objetivo        & \multicolumn{4}{l}{Probar la seguridad de la edición del perfil de usuario}                                                     \\
+\rowcolor{gray!25}
+Precondiciones  & \multicolumn{4}{l}{Usuario prueba creado y con sesión iniciada}                                                     \\
+Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                                                     \\ \hline
+\rowcolor{gray!25}
+\textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
+Acceder a '/?lang=es'                          &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito  \\ \hline
+Hacer clic en el nombre de usuario <<Prueba>> y en el botón de <<Perfil>>      &                        & Encontrarse en la página del perfil de usuario                                 & Encontrarse en la página del perfil de usuario                                & Éxito  \\ \hline 
+Introducir datos de usuario (contraseña errónea)                           & Nombre: Prueba, Email: pruebacambiado@gmail.com, Contraseña actual: \textbf{1234567899}                  & Datos introducidos                                                   & Datos introducidos                                                   & Éxito                            \\ \hline
+Hacer clic en el botón de <<Enviar>>           &                       &  El mensaje de error que aparece es <<Contraseña actual incorrecta>>     &  El error que aparece es <<Contraseña actual incorrecta>>  & Éxito
+\end{tabular}
+\caption{CP5: Edición perfil con contraseña incorrecta.}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
+\rowcolor{gray!25}
+Identificador   & \multicolumn{4}{l}{CP6}                                                   \\
+Prioridad   & \multicolumn{4}{l}{Alta}                                                    \\
+\rowcolor{gray!25}
+Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
+Objetivo        & \multicolumn{4}{p{0.80\textwidth}}{Probar la seguridad del acceso a la ruta de administración con usuario registrado}                                                     \\
+\rowcolor{gray!25}
+Precondiciones  & \multicolumn{4}{l}{Usuario prueba creado y con sesión iniciada}                                                     \\
+Postcondiciones & \multicolumn{4}{l}{El usuario ha cerrado la sesión}                                                     \\ \hline
+\rowcolor{gray!25}
+\textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
+Acceder a '/admin'                                          &                        & Encontrarse en la página de error                                  & Encontrarse en la página de error                                    & Éxito  \\ \hline
+Comprobar error      &                        & El código de error y mensaje son <<401>> y <<No autorizado>>                               & El código de error y mensaje son <<401>> y <<No autorizado>>                                & Éxito  \\ \hline 
+\end{tabular}
+\caption{CP6: Usuario sin acceso a administración.}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
+\rowcolor{gray!25}
+Identificador   & \multicolumn{4}{l}{CP7}                                                   \\
+Prioridad   & \multicolumn{4}{l}{Alta}                                                    \\
+\rowcolor{gray!25}
+Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
+Objetivo        & \multicolumn{4}{p{0.80\textwidth}}{Probar la seguridad del acceso a la ruta de administración con anónimo}                                                     \\
+\rowcolor{gray!25}
+Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciada}                                                     \\
+Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                                                     \\ \hline
+\rowcolor{gray!25}
+\textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
+Acceder a '/admin'                         &                        & Encontrarse en la página de inicio de sesión                                 & Encontrarse en la página de inicio de sesión                                     & Éxito  \\ \hline
+Comprobar advertencia (mensaje flash)      &                        & El mensaje es <<Please log in to access this page.>>                               & El mensaje es <<Please log in to access this page.>>                                 & Éxito  \\ \hline 
+\end{tabular}
+\caption{CP7: Anónimo sin acceso a administración.}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
+\rowcolor{gray!25}
+Identificador   & \multicolumn{4}{l}{CP8}                                                   \\
+Prioridad   & \multicolumn{4}{l}{Alta}                                                    \\
+\rowcolor{gray!25}
+Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
+Objetivo        & \multicolumn{4}{p{0.80\textwidth}}{Probar la denegación de ficheros que no sean ARFF o CSV}                                                     \\
+\rowcolor{gray!25}
+Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciada}                                                     \\
+Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                                                     \\ \hline
+\rowcolor{gray!25}
+\textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
+Acceder a '/?lang=es'                                 &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito  \\ \hline
+Hacer clic en <<Self-Training>>                       &                        & Encontrarse en la página de subida                                   & Encontrarse en la página de subida                                & Éxito                            \\ \hline
+Subir un fichero .txt                                 &                        & Porcentaje de subida al 100\%                                        & Porcentaje de subida al 100\%                                & Éxito                            \\ \hline
+Hacer clic en <<Configurar algoritmo>>                &                        & Redirección a la página de subida                                    & Redirección a la página de subida                                 & Éxito                            \\ \hline
+Comprobar advertencia (mensaje flash)                 &                        & El mensaje es <<El fichero debe ser ARFF o CSV>>                     & El mensaje es <<El fichero debe ser ARFF o CSV>>                                 & Éxito  \\ \hline 
+\end{tabular}
+\caption{CP8: Fichero sin extensión ARFF o CSV.}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
+\rowcolor{gray!25}
+Identificador   & \multicolumn{4}{l}{CP9}                                                   \\
+Prioridad   & \multicolumn{4}{l}{Muy alta}                                                    \\
+\rowcolor{gray!25}
+Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
+Objetivo        & \multicolumn{4}{p{0.80\textwidth}}{Probar la ejecución del algoritmo Self-Training}                                                     \\
+\rowcolor{gray!25}
+Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciada}                                                     \\
+Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                                                     \\ \hline
+\rowcolor{gray!25}
+\textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
+Acceder a '/'                                         &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
+Hacer clic en <<Self-Training>>                       &                        & Encontrarse en la página de subida                                   & Encontrarse en la página de subida                           & Éxito                            \\ \hline
+Subir el conjunto de datos iris                       & Fichero <<iris.arff>>  & Porcentaje de subida al 100\%                                        & Porcentaje de subida al 100\%                                & Éxito                            \\ \hline
+Hacer clic en <<Configurar algoritmo>>                &                        & Redirección a la página de configuración                             & Redirección a la página de configuración                     & Éxito                            \\ \hline
+Seleccionar <<class>> como atributo de la clase       &                        & & & Éxito \\ \hline
+Hacer clic en <<Ejecutar>>                            &                        & Encontrarse en la página de visualización                            & Encontrarse en la página de visualización                    & Éxito                            \\ \hline
+Comprobar la existencia de los <<SVGs>>               &                        & Se han generado los <<SVGs>> (visualización y estadísticas generales) & Se han generados los <<SVGs>> (visualización y estadísticas generales)& Éxito  \\ \hline 
+Comprobar leyenda principal                           &                        & La leyenda incluye: <<Iris-setosa>>, <<Iris-versicolor>>, <<Iris-virginica>> & La leyenda incluye: <<Iris-setosa>>, <<Iris-versicolor>>, <<Iris-virginica>> & Éxito \\ \hline
+Comprobar iteración 0                                 &                        & El valor de la iteración es 0                                        & El valor de la iteración es 0                                & Éxito \\ \hline
+\end{tabular}
+\caption{CP9: Ejecución correcta Self-Training.}
+\end{table}
+
+
+\begin{table}[H]
+\begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
+\rowcolor{gray!25}
+Identificador   & \multicolumn{4}{l}{CP10}                                                   \\
+Prioridad   & \multicolumn{4}{l}{Muy alta}                                                    \\
+\rowcolor{gray!25}
+Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
+Objetivo        & \multicolumn{4}{p{0.80\textwidth}}{Probar la ejecución del algoritmo Co-Training}                                                     \\
+\rowcolor{gray!25}
+Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciada}                                                     \\
+Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                                                     \\ \hline
+\rowcolor{gray!25}
+\textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
+Acceder a '/'                                         &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
+Hacer clic en <<Co-Training>>                         &                        & Encontrarse en la página de subida                                   & Encontrarse en la página de subida                           & Éxito                            \\ \hline
+Subir el conjunto de datos iris                       & Fichero <<iris.arff>>  & Porcentaje de subida al 100\%                                        & Porcentaje de subida al 100\%                                & Éxito                            \\ \hline
+Hacer clic en <<Configurar algoritmo>>                &                        & Redirección a la página de configuración                             & Redirección a la página de configuración                     & Éxito                            \\ \hline
+Seleccionar <<class>> como atributo de la clase       &                        & & & Éxito \\ \hline
+Hacer clic en <<Ejecutar>>                            &                        & Encontrarse en la página de visualización                            & Encontrarse en la página de visualización                    & Éxito                            \\ \hline
+Comprobar la existencia de los <<SVGs>>               &                        & Se han generado los <<SVGs>> (visualización y estadísticas generales) & Se han generados los <<SVGs>> (visualización y estadísticas generales)& Éxito  \\ \hline 
+Comprobar leyenda principal                           &                        & La leyenda incluye: <<Iris-setosa>>, <<Iris-versicolor>>, <<Iris-virginica>> & La leyenda incluye: <<Iris-setosa>>, <<Iris-versicolor>>, <<Iris-virginica>> & Éxito \\ \hline
+Comprobar iteración 0                                 &                        & El valor de la iteración es 0                                        & El valor de la iteración es 0                                & Éxito \\ \hline
+\end{tabular}
+\caption{CP10: Ejecución correcta Co-Training.}
+\end{table}
+
+\clearpage
+\begin{longtable}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
+\rowcolor{gray!25}
+Identificador   & \multicolumn{4}{l}{CP11}                                                   \\
+Prioridad   & \multicolumn{4}{l}{Muy alta}                                                    \\
+\rowcolor{gray!25}
+Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
+Objetivo        & \multicolumn{4}{p{0.80\textwidth}}{Probar la ejecución del algoritmo Democratic Co-Learning}                                                     \\
+\rowcolor{gray!25}
+Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciada}                                                     \\
+Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                                                     \\ \hline
+\rowcolor{gray!25}
+\textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
+Acceder a '/'                                         &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
+Hacer clic en <<Democratic Co-Learning>>              &                        & Encontrarse en la página de subida                                   & Encontrarse en la página de subida                           & Éxito                            \\ \hline
+Subir el conjunto de datos iris                       & Fichero <<iris.arff>>  & Porcentaje de subida al 100\%                                        & Porcentaje de subida al 100\%                                & Éxito                            \\ \hline
+Hacer clic en <<Configurar algoritmo>>                &                        & Redirección a la página de configuración                             & Redirección a la página de configuración                     & Éxito                            \\ \hline
+Seleccionar <<KNeighborsClassifier>>, <<DecisionTreeClassifier>> y <<GaussianNB>> clasificadores (en ese orden)       &                        & & & Éxito \\ \hline
+Seleccionar <<class>> como atributo de la clase       &                        & & & Éxito \\ \hline
+Hacer clic en <<Ejecutar>>                            &                        & Encontrarse en la página de visualización                            & Encontrarse en la página de visualización                    & Éxito                            \\ \hline
+Comprobar la existencia de los <<SVGs>>               &                        & Se han generado los <<SVGs>> (visualización, estadísticas generales y estadísticas específicas) & Se han generados los <<SVGs>> (visualización, estadísticas generales y estadísticas específicas)& Éxito  \\ \hline 
+Comprobar leyenda principal                   &                        & La leyenda incluye: <<Iris-setosa>>, <<Iris-versicolor>>, <<Iris-virginica>> & La leyenda incluye: <<Iris-setosa>>, <<Iris-versicolor>>, <<Iris-virginica>> & Éxito \\ \hline
+Comprobar leyenda estadísticas específicas    &                        & La leyenda incluye: <<CLF1 (KNeighborsClassifier)>>, <<CLF2 (DecisionTreeClassifier)>>, <<CLF3 (GaussianNB)>> & La leyenda incluye: <<CLF1 (KNeighborsClassifier)>>, <<CLF2 (DecisionTreeClassifier)>>, <<CLF3 (GaussianNB)>> & Éxito \\ \hline
+Comprobar iteración 0                                 &                        & El valor de la iteración es 0                                        & El valor de la iteración es 0                                & Éxito \\ \hline
+\caption{CP11: Ejecución correcta Democratic Co-Learning.}
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
+\rowcolor{gray!25}
+Identificador   & \multicolumn{4}{l}{CP12}                                                   \\
+Prioridad   & \multicolumn{4}{l}{Muy alta}                                                    \\
+\rowcolor{gray!25}
+Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
+Objetivo        & \multicolumn{4}{p{0.80\textwidth}}{Probar la ejecución del algoritmo Tri-Training}                                                     \\
+\rowcolor{gray!25}
+Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciada}                                                     \\
+Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                                                     \\ \hline
+\rowcolor{gray!25}
+\textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
+Acceder a '/'                                         &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
+Hacer clic en <<Tri-Training>>                        &                        & Encontrarse en la página de subida                                   & Encontrarse en la página de subida                           & Éxito                            \\ \hline
+Subir el conjunto de datos iris                       & Fichero <<iris.arff>>  & Porcentaje de subida al 100\%                                        & Porcentaje de subida al 100\%                                & Éxito                            \\ \hline
+Hacer clic en <<Configurar algoritmo>>                &                        & Redirección a la página de configuración                             & Redirección a la página de configuración                     & Éxito                            \\ \hline
+Seleccionar <<KNeighborsClassifier>>, <<DecisionTreeClassifier>> y <<GaussianNB>> clasificadores (en ese orden)       &                        & & & Éxito \\ \hline
+Seleccionar <<class>> como atributo de la clase       &                        & & & Éxito \\ \hline
+Hacer clic en <<Ejecutar>>                            &                        & Encontrarse en la página de visualización                            & Encontrarse en la página de visualización                    & Éxito                            \\ \hline
+Comprobar la existencia de los <<SVGs>>               &                        & Se han generado los <<SVGs>> (visualización, estadísticas generales y estadísticas específicas) & Se han generados los <<SVGs>> (visualización, estadísticas generales y estadísticas específicas)& Éxito  \\ \hline 
+Comprobar leyenda principal                           &                        & La leyenda incluye: <<Iris-setosa>>, <<Iris-versicolor>>, <<Iris-virginica>> & La leyenda incluye: <<Iris-setosa>>, <<Iris-versicolor>>, <<Iris-virginica>> & Éxito \\ \hline
+Comprobar leyenda estadísticas específicas            &                        & La leyenda incluye: <<CLF1 (KNeighborsClassifier)>>, <<CLF2 (DecisionTreeClassifier)>>, <<CLF3 (GaussianNB)>> & La leyenda incluye: <<CLF1 (KNeighborsClassifier)>>, <<CLF2 (DecisionTreeClassifier)>>, <<CLF3 (GaussianNB)>> & Éxito \\ \hline
+Comprobar iteración 0                                 &                        & El valor de la iteración es 0                                        & El valor de la iteración es 0                                & Éxito \\ \hline
+\caption{CP12: Ejecución correcta Tri-Training.}
+\end{longtable}
+
+\begin{table}[H]
+\begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
+\rowcolor{gray!25}
+Identificador   & \multicolumn{4}{l}{CP13}                                                   \\
+Prioridad   & \multicolumn{4}{l}{Alta}                                                    \\
+\rowcolor{gray!25}
+Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
+Objetivo        & \multicolumn{4}{p{0.80\textwidth}}{Probar el control de errores de la condición de entrada sobre los atributos categóricos}                                                     \\
+\rowcolor{gray!25}
+Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciada}                                                     \\
+Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                                                     \\ \hline
+\rowcolor{gray!25}
+\textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
+Acceder a '/?lang=es'                                 &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
+Hacer clic en <<Self-Training>>                       &                        & Encontrarse en la página de subida                                   & Encontrarse en la página de subida                           & Éxito                            \\ \hline
+Subir el conjunto de datos iris                       & Fichero <<iris.arff>>  & Porcentaje de subida al 100\%                                        & Porcentaje de subida al 100\%                                & Éxito                            \\ \hline
+Hacer clic en <<Configurar algoritmo>>                &                        & Redirección a la página de configuración                             & Redirección a la página de configuración                     & Éxito                            \\ \hline
+Seleccionar <<petalwidth>> como atributo de la clase &                & & & Éxito \\ \hline
+Hacer clic en <<Ejecutar>>                            &                        & Encontrarse en la página de visualización                            & Encontrarse en la página de visualización                    & Éxito                            \\ \hline
+Esperar a la aparición de una ventana emergente       &                   & & & Éxito  \\ \hline 
+Comprobar mensaje de aviso                            &                        & Mensaje: <<Se han detectado características categóricas o indefinidas, es necesario que se aseguren características numéricas>> & Mensaje: <<Se han detectado características categóricas o indefinidas, es necesario que se aseguren características numéricas>> & Éxito \\ \hline
+\end{tabular}
+\caption{CP13: Error con atributos categóricos.}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
+\rowcolor{gray!25}
+Identificador   & \multicolumn{4}{l}{CP14}                                                   \\
+Prioridad   & \multicolumn{4}{l}{Media}                                                    \\
+\rowcolor{gray!25}
+Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
+Objetivo        & \multicolumn{4}{p{0.80\textwidth}}{Probar el borrado de un conjunto de datos (fichero)}                                                     \\
+\rowcolor{gray!25}
+Precondiciones  & \multicolumn{4}{p{0.80\textwidth}}{Usuario prueba creado, con sesión iniciada y con un único fichero subido}                                                     \\
+Postcondiciones & \multicolumn{4}{l}{Conjunto de datos borrado}                                                     \\ \hline
+\rowcolor{gray!25}
+\textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
+Acceder a '/?lang=es'                                 &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
+Hacer clic en el nombre de usuario <<Prueba>> y en el botón de <<Mi Espacio>>  &     & Encontrarse en la página del espacio personal                  & Encontrarse en la página del espacio personal                       & Éxito  \\ \hline 
+Hacer clic en el botón de eliminar (símbolo de papelera) en la tabla de los conjuntos de datos &                     & Modal de confirmación visible                                     & Modal de confirmación visible                     & Éxito                            \\ \hline
+Hacer clic en <<Eliminar>> (en el modal)              &                        & Modal ocultado y tabla de conjunto de datos vacía                    & Modal ocultado y tabla de conjunto de datos vacía            & Éxito                            \\ \hline
+\end{tabular}
+\caption{CP14: Borrar conjunto de datos.}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
+\rowcolor{gray!25}
+Identificador   & \multicolumn{4}{l}{CP15}                                                   \\
+Prioridad   & \multicolumn{4}{l}{Media}                                                    \\
+\rowcolor{gray!25}
+Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                                                    \\
+Objetivo        & \multicolumn{4}{p{0.80\textwidth}}{Probar el borrado de una ejecución del historial}                                                     \\
+\rowcolor{gray!25}
+Precondiciones  & \multicolumn{4}{p{0.80\textwidth}}{Usuario prueba creado, con sesión iniciada y con una única ejecución anterior}                                                     \\
+Postcondiciones & \multicolumn{4}{l}{Ejecución borrada}                                                     \\ \hline
+\rowcolor{gray!25}
+\textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
+Acceder a '/?lang=es'                                 &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
+Hacer clic en el nombre de usuario <<Prueba>> y en el botón de <<Mi Espacio>>  &     & Encontrarse en la página del espacio personal                  & Encontrarse en la página del espacio personal                       & Éxito  \\ \hline 
+Hacer clic en el botón de eliminar (símbolo de papelera) en la tabla del historial de ejecuciones &                     & Modal de confirmación visible                                     & Modal de confirmación visible                     & Éxito                            \\ \hline
+Hacer clic en <<Eliminar>> (en el modal)              &                        & Modal ocultado y tabla del historial de ejecuciones                    & Modal ocultado y tabla del historial de ejecuciones            & Éxito                            \\ \hline
+\end{tabular}
+\caption{CP15: Borrar ejecución.}
+\end{table}
