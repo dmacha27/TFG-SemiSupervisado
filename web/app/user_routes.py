@@ -100,25 +100,13 @@ def registrar():
     return render_template("usuarios/registro.html", form=form)
 
 
-def user_id_int(f):
-    @wraps(f)
-    def wrapped(*args, **kwargs):
-        try:
-            _ = int(request.view_args.get('user_id', None))
-        except ValueError:
-            abort(400)
-        return f(*args, **kwargs)
-    return wrapped
-
-
-@users_bp.route('/perfil/<user_id>', defaults={'redirect_page': 'main_bp.inicio'}, methods=['GET', 'POST'])
-@users_bp.route('/perfil/<user_id>/<redirect_page>', methods=['GET', 'POST'])
+@users_bp.route('/perfil', methods=['GET', 'POST'])
 @login_required
-@user_id_int
-def editar(user_id, redirect_page):
-    if int(user_id) != current_user.id and not current_user.is_admin:
-        abort(401)
+def perfil():
+    return editar(current_user.id, 'main_bp.inicio')
 
+
+def editar(user_id, redirect_page):
     form = UserForm(request.form)
 
     if current_user.is_admin:
@@ -172,18 +160,14 @@ def editar(user_id, redirect_page):
                            n_runs=n_runs)
 
 
-@users_bp.route('/miespacio/<user_id>', methods=['GET'])
+@users_bp.route('/miespacio', methods=['GET'])
 @login_required
-@user_id_int
-def miespacio(user_id):
-    if int(user_id) != current_user.id and not current_user.is_admin:
-        abort(401)
-
-    usuario = User.query.get(int(user_id))
+def miespacio():
+    usuario = User.query.get(int(current_user.id))
     if not usuario:
         abort(404)
 
-    n_uploads, n_runs = obtener_estadisticas_usuario(user_id)
+    n_uploads, n_runs = obtener_estadisticas_usuario(current_user.id)
 
     return render_template("usuarios/miespacio.html",
                            usuario=usuario,
@@ -396,6 +380,18 @@ def eliminar_usuario():
 
     return jsonify({
         "status": "success"}), 200
+
+
+def user_id_int(f):
+    @wraps(f)
+    def wrapped(*args, **kwargs):
+        try:
+            _ = int(request.view_args.get('user_id', None))
+        except ValueError:
+            abort(400)
+        return f(*args, **kwargs)
+
+    return wrapped
 
 
 @users_bp.route('/admin/usuario/editar/<user_id>', methods=['GET', 'POST'])
