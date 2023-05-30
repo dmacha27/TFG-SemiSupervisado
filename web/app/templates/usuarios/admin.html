@@ -3,9 +3,6 @@
 {% block head %}
     {{ super() }}
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script>
-        const locale = '{{ idioma_actual }}';
-    </script>
     {{ table_scripts_links() }}
     <script type="module" src="/js/usuarios/adminpanel.js"></script>
 {% endblock %}

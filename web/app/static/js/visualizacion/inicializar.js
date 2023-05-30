@@ -12,6 +12,15 @@ let cont = 0;
  * @returns {Promise<unknown>}
  */
 async function inicializar(rutadatos, elementos) {
+
+    let traducciones = {
+        "es": {"Se han detectado características categóricas o indefinidas, es necesario que se aseguren características numéricas"
+                : "Se han detectado características categóricas o indefinidas, " +
+                    "es necesario que se aseguren características numéricas"},
+        "en": {"Se han detectado características categóricas o indefinidas, es necesario que se aseguren características numéricas":
+                "Categorical or indeterminate features have been detected, it is necessary to ensure numerical features"}
+    }
+
     return new Promise((resolve) => {
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
@@ -31,20 +40,13 @@ async function inicializar(rutadatos, elementos) {
                     if (respuesta.status === "warning") {
                         document.getElementById('titulo_error').innerText = traducir('Warning');
                     }
-                    document.getElementById('error_text').innerText = respuesta.error;
-                    document.getElementById('btn_error_close').addEventListener('click', function () {
-                        history.back();
-                    });
-                    document.getElementById('btn_error_close_cross').addEventListener('click', function () {
-                        history.back();
-                    });
+                    document.getElementById('error_text').innerText = traducciones[locale][respuesta.error] ?? respuesta.error;
 
                     document.getElementById('modal_error').addEventListener('hide.bs.modal', function () {
                         history.back();
-                    })
+                    });
 
                 }
-
             }
         }
 
