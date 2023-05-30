@@ -49,7 +49,7 @@ def configurar_algoritmo(algoritmo):
         form.clasificador2.choices = clasificadores_keys
         form.clasificador3.choices = clasificadores_keys
 
-    form.sel_target.choices = caracteristicas
+    form.sel_target.choices = [""] + caracteristicas
     form.cx.choices = caracteristicas
     form.cy.choices = caracteristicas
 
