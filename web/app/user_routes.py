@@ -30,6 +30,10 @@ def logout():
 
 @users_bp.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        flash(gettext('You are already logged in!'), category='')
+        return redirect(url_for(main_bp_inicio))
+
     form = LoginForm(request.form)
 
     if request.method == 'POST' and form.validate():
@@ -56,6 +60,10 @@ def login():
 
 @users_bp.route('/registrar', methods=['GET', 'POST'])
 def registrar():
+    if current_user.is_authenticated:
+        flash(gettext('You are already registered!'), category='')
+        return redirect(url_for(main_bp_inicio))
+
     form = RegistrationForm(request.form)
 
     if request.method == 'POST' and form.validate():

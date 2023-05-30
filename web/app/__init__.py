@@ -1,7 +1,7 @@
 import os
 
 from flask import Flask, request, render_template, session
-from flask_babel import Babel, gettext
+from flask_babel import Babel, gettext, lazy_gettext
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_wtf import CSRFProtect
@@ -95,6 +95,7 @@ def create_app():
 
     login_manager = LoginManager()
     login_manager.login_view = 'users_bp.login'
+    login_manager.login_message = lazy_gettext('Please log in to access this page.')
     login_manager.init_app(app)
 
     @login_manager.user_loader

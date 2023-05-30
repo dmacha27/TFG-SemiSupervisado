@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-05-27 22:30+0200\n"
+"POT-Creation-Date: 2023-05-30 18:44+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: David Martínez Acha <dma1004@alu.ubu.es>\n"
 "Language: es\n"
@@ -26,23 +26,27 @@ msgstr "Inglés"
 msgid "Spanish"
 msgstr "Español"
 
-#: __init__.py:112
+#: __init__.py:98
+msgid "Please log in to access this page."
+msgstr "Por favor, inicia sesión para acceder a esta página."
+
+#: __init__.py:113
 msgid "Internal Server Error"
 msgstr "Error interno del servidor"
 
-#: __init__.py:116
+#: __init__.py:117
 msgid "Not found"
 msgstr "No encontrado"
 
-#: __init__.py:120
+#: __init__.py:121
 msgid "Forbidden"
 msgstr "Petición denegada por el servidor"
 
-#: __init__.py:124
+#: __init__.py:125
 msgid "Unauthorized"
 msgstr "No autorizado"
 
-#: __init__.py:128
+#: __init__.py:129
 msgid "Bad request"
 msgstr "Mala petición"
 
@@ -144,39 +148,47 @@ msgstr "Debe seleccionar un algoritmo"
 msgid "Come back soon!"
 msgstr "¡Vuelve pronto!"
 
-#: user_routes.py:42
+#: user_routes.py:34
+msgid "You are already logged in!"
+msgstr "¡Ya has iniciado sesión!"
+
+#: user_routes.py:46
 msgid "Logging successful!"
 msgstr "¡Inicio de sesión correcto!"
 
-#: user_routes.py:50
+#: user_routes.py:54
 msgid "Incorrect password"
 msgstr "Contraseña incorrecta"
 
-#: user_routes.py:52
+#: user_routes.py:56
 msgid "Email not found"
 msgstr "Correo electrónico no encontrado"
 
-#: user_routes.py:68 user_routes.py:140
+#: user_routes.py:64
+msgid "You are already registered!"
+msgstr "¡Ya estás registrado!"
+
+#: user_routes.py:76 user_routes.py:148
 msgid "Email already exists"
 msgstr "El correo electrónico ya existe"
 
-#: user_routes.py:81
+#: user_routes.py:89
 msgid "Could not create account!"
 msgstr "La cuenta no pudo ser creada"
 
-#: user_routes.py:89
+#: user_routes.py:97
 msgid "Account created!"
 msgstr "¡Cuenta creada!"
 
-#: user_routes.py:121
+#: user_routes.py:129
 msgid "User doesn't exist"
 msgstr "El usuario no existe"
 
-#: user_routes.py:135
+#: user_routes.py:143
 msgid "Incorrect current password"
 msgstr "Contraseña actual incorrecta"
 
-#: user_routes.py:157
+#: user_routes.py:165
 msgid "Account updated!"
 msgstr "¡Cuenta actualizada!"
 
@@ -301,15 +313,16 @@ msgid ""
 "Examples with -1, -1.0 or \"?\" on the target attribute will be "
 "interpreted as unlabelled examples"
 msgstr ""
-"Los ejemplos con -1, 1.0 o \"?\" en el atributo de la clase "
-"serán interpretados como ejemplos no etiquetados"
+"Los ejemplos con -1, 1.0 o \"?\" en el atributo de la clase serán "
+"interpretados como ejemplos no etiquetados"
 
 #: templates/macros.html:84
 msgid ""
 "A dataset can contain multiple unlabelled examples, but with the same "
 "type (-1, -1.0 or \"?\")"
-msgstr "Un conjunto de datos puede contener múltiples ejemplos no etiquetados, pero "
-"con el mismo tipo (-1, -1.0 o \"?\")"
+msgstr ""
+"Un conjunto de datos puede contener múltiples ejemplos no etiquetados, "
+"pero con el mismo tipo (-1, -1.0 o \"?\")"
 
 #: templates/macros.html:90 templates/macros.html:190 templates/macros.html:228
 msgid "Close"
