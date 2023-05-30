@@ -720,10 +720,30 @@ de un entorno de pruebas para aplicaciones Web. Estas pruebas estarán
 documentadas a continuación y se almacenará su código en el proyecto para poder
 ejecutarse en cualquier momento (atendiendo a las precondiciones establecidas).
 
+\subsection{Pruebas con Selenium IDE}
+
+Para codificar y ejecutar las pruebas se debe instalar la extensión <<Selenium
+IDE>> en el navegador \texttt{Google Chrome} (incorpora funcionalidades que no
+existen en otros). 
+
+A continuación, se debe abrir el proyecto de pruebas ya creado (incluido en el
+código fuente). En él aparecerá todo el listado de casos de prueba. Cada uno de
+ellos puede ser ejecutado por separado o en conjunto (secuencialmente). En
+principio se recomienda esta última opción (uno detrás de otro), ya que está
+preparado para cumplir con las precondiciones.
+
+\imagen{anexos/manual-programador/Selenium}{Entorno Selenium IDE}
+
 \subsection{Casos de prueba}
 
 A continuación se presentan todos los casos de prueba que prueban las partes más
 importantes de la aplicación.
+
+Algunas de las precondiciones que aparecen a continuación no se han codificado
+en todas las pruebas de <<Selenium>>, esto es porque los casos de prueba en
+dicha extensión están pensados para ejecutarse secuencialmente, de tal forma que
+casos de prueba anteriores pueden dejar la aplicación en el estado correcto para
+cumplir esas precondiciones.
 
 \begin{table}[H]
 \begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
@@ -1057,7 +1077,7 @@ Fecha de ejecución   & \multicolumn{4}{l}{29/05/2023}                          
 Objetivo        & \multicolumn{4}{p{0.80\textwidth}}{Probar el borrado de una ejecución del historial}                                                     \\
 \rowcolor{gray!25}
 Precondiciones  & \multicolumn{4}{p{0.80\textwidth}}{Usuario prueba creado, con sesión iniciada y con una única ejecución anterior}                                                     \\
-Postcondiciones & \multicolumn{4}{l}{Ejecución borrada}                                                     \\ \hline
+Postcondiciones & \multicolumn{4}{l}{Ejecución borrada y sin sesión iniciada}                                                     \\ \hline
 \rowcolor{gray!25}
 \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
 Acceder a '/?lang=es'                                 &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
@@ -1066,4 +1086,48 @@ Hacer clic en el botón de eliminar (símbolo de papelera) en la tabla del histo
 Hacer clic en <<Eliminar>> (en el modal)              &                        & Modal ocultado y tabla del historial de ejecuciones                    & Modal ocultado y tabla del historial de ejecuciones            & Éxito                            \\ \hline
 \end{tabular}
 \caption{CP15: Borrar ejecución.}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
+\rowcolor{gray!25}
+Identificador   & \multicolumn{4}{l}{CP16}                                                    \\
+Prioridad   & \multicolumn{4}{l}{Alta}                                                    \\
+\rowcolor{gray!25}
+Fecha de ejecución   & \multicolumn{4}{l}{30/05/2023}                                                    \\
+Objetivo        & \multicolumn{4}{p{0.84\textwidth}}{Probar la edición del perfil de un usuario por parte de un administrador}                                                     \\
+\rowcolor{gray!25}
+Precondiciones  & \multicolumn{4}{p{0.84\textwidth}}{Usuario prueba como único usuario creado (aparte del administrador) y administrador con sesión iniciada}                                                     \\
+Postcondiciones & \multicolumn{4}{p{0.80\textwidth}}{El usuario prueba tiene el email modificado}                                                     \\ \hline
+\rowcolor{gray!25}
+\textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
+Acceder a '/admin?lang=es'                                  &                        & Encontrarse en la página de administración                                   & Encontrarse en la página de administración                                   & Éxito  \\ \hline
+Hacer clic en el botón de edición (símbolo de lápiz) del usuario <<Prueba>> en la tabla de usuarios &                     & Encontrarse en la página de edición                                     & Encontrarse en la página de edición                     & Éxito                            \\ \hline
+Introducir datos de usuario                            & Nombre: Prueba, Email: pruebaadministrador@gmail.com, Contraseña actual: 12345678                  & Datos introducidos                                                   & Datos introducidos                                                   & Éxito                            \\ \hline
+Hacer clic en el botón de <<Enviar>>                   &                        & Encontrarse en la página de administración                       & Encontrarse en la página de administración                      & Éxito  \\ \hline
+Comprobar email actualizado del usuario <<Prueba>> en la tabla de usuarios      &                       &  El email que aparece es <<pruebaadministrador@gmail.com>>     &  El email que aparece es <<pruebaadministrador@gmail.com>>  & Éxito
+\end{tabular}
+\caption{CP16: Edición perfil (administrador).}
+\end{table}
+
+
+\begin{table}[H]
+\begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
+\rowcolor{gray!25}
+Identificador   & \multicolumn{4}{l}{CP17}                                                    \\
+Prioridad   & \multicolumn{4}{l}{Alta}                                                    \\
+\rowcolor{gray!25}
+Fecha de ejecución   & \multicolumn{4}{l}{30/05/2023}                                                    \\
+Objetivo        & \multicolumn{4}{p{0.84\textwidth}}{Probar el borrado de un usuario por parte de un administrador}                                                     \\
+\rowcolor{gray!25}
+Precondiciones  & \multicolumn{4}{p{0.84\textwidth}}{Usuario prueba como único usuario creado (aparte del administrador) y administrador con sesión iniciada}                                                     \\
+Postcondiciones & \multicolumn{4}{p{0.80\textwidth}}{El usuario ha sido borrado}                                                     \\ \hline
+\rowcolor{gray!25}
+\textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
+Acceder a '/admin?lang=es'                                  &                        & Encontrarse en la página de administración                                   & Encontrarse en la página de administración                                   & Éxito  \\ \hline
+Hacer clic en el botón de eliminar (símbolo de papelera) del usuario <<Prueba>> en la tabla de usuarios &                     & Modal de confirmación visible                                     & Modal de confirmación visible                    & Éxito                            \\ \hline
+Hacer clic en <<Eliminar>> (en el modal)              &                        & Modal ocultado y tabla de usuario con una única entrada                    & Modal ocultado y tabla de usuario con una única entrada            & Éxito                            \\ \hline
+Comprobar que la única entrada es la del administrador &                       & La entrada corresponde con el email <<admin@admin.es>>                     & La entrada corresponde con el email <<admin@admin.es>> & Éxito \\ \hline
+\end{tabular}
+\caption{CP17: Borrar perfil (administrador).}
 \end{table}
