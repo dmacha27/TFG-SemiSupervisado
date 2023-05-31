@@ -122,6 +122,8 @@ Principalmente para un entorno Linux:
    ```
 2. Crear entorno virtual
    ```sh
+   cd TFG-SemiSupervisado
+   
    python -m venv ./venv
    ```
 4. Activar entorno virtual
@@ -133,6 +135,16 @@ Principalmente para un entorno Linux:
    pip install -r requirements.txt
 
    pip install .  #paquetes locales
+   ```
+6. Creación de directorios
+   ```sh
+   cd web
+   
+   mkdir runs
+   
+   mkdir datasets/anonimos
+   
+   mkdir datasets/registrados
    ```
 6. Compilar traducciones
    ```sh
@@ -156,7 +168,7 @@ Principalmente para un entorno Linux:
 Para usar la aplicación solo será necesario tener un navegador (Firefox, Google Chrome, Edge...)
 y acceder a [VASS](https://vass.dmacha.dev)
 
-Un manual de usuario completo puede encontrarse en la [Documentación](https://github.com/dma1004/TFG-SemiSupervisado/tree/main/doc).
+Un manual de usuario completo puede encontrarse en la [Documentación](https://github.com/dma1004/TFG-SemiSupervisado/tree/main/doc/anexos.pdf).
 
 <p align="right">(<a href="#readme-top">volver al principio</a>)</p>
 
@@ -166,7 +178,7 @@ Un manual de usuario completo puede encontrarse en la [Documentación](https://g
 ## Roadmap
 
 - [x] Biblioteca del algoritmos personalizados
-- [~] Validación de los algoritmos
+- [x] Validación de los algoritmos
 - [x] Aplicación Web en funcionamiento
 - [x] Visualización Self-Training
 - [x] Visualización Co-Training
@@ -175,8 +187,8 @@ Un manual de usuario completo puede encontrarse en la [Documentación](https://g
 - [x] Soporte para múltiples lenguajes
     - [x] Inglés
     - [x] Español
-- [] Pruebas de sistema
-- [] Documentación
+- [x] Pruebas de sistema
+- [ ] Documentación
 
 <p align="right">(<a href="#readme-top">volver al principio</a>)</p>
 

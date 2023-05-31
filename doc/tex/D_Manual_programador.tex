@@ -598,11 +598,14 @@ $ python -m venv ./venv
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,fontupper=\footnotesize,fontlower=\footnotesize,title=Activación del entorno virtual]
 \begin{minted}{matlab}
-$ venv\activate.bat //Windows
+//Windows
+$ venv\Scripts\activate.bat //CMD
+$ venv\Scripts\Activate.ps1 //PowerShell
 \end{minted}
 \tcblower
 \begin{minted}{matlab}
-$ source ruta/al/entorno/virtual/bin/activate //Linux
+//Linux
+$ source ruta/al/entorno/virtual/bin/activate
 \end{minted}
 \end{tcolorbox}
 
@@ -618,13 +621,13 @@ implementados también están configurados como un paquete que puede ser
 instalado.
 \begin{tcolorbox}[colback=cyan!5!white,colframe=orange!75!black,title=Instalar librerías externas]
 \begin{minted}{shell}
-$ python -m pip install -r requierements.txt
+$ pip install -r requierements.txt
 \end{minted}
 \end{tcolorbox}
 
-\begin{tcolorbox}[colback=cyan!5!white,colframe=orange!75!black,title=Instalar resto de paquetes (principalmente los algoritmos)]
+\begin{tcolorbox}[colback=cyan!5!white,colframe=orange!75!black,title=Instalar resto de paquetes (definidos en setup.py)]
 \begin{minted}{shell}
-$ python -m pip install .
+$ pip install .
 \end{minted}
 \end{tcolorbox}
 
@@ -656,15 +659,13 @@ debe estar situado en el directorio \textbf{/web} del proyecto.
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,fontupper=\footnotesize,fontlower=\footnotesize,title=Ejecución]
 \begin{minted}{shell}
 //Windows
-$ set FLASK_APP=app.py
-$ flask run
-$ flask run --debug
+$ set FLASK_APP=run.py
+$ flask run (--debug)
 \end{minted}
 \tcblower
 \begin{minted}{shell}
 //Linux
-$ flask run
-$ flask run --debug
+$ flask run (--debug)
 \end{minted}
 \end{tcolorbox}
 
@@ -762,7 +763,7 @@ Acceder a '/?lang=es'                               &                           
 Hacer clic en <<Registrarse>>                       &                                                                                                          & Encontrarse en la página de registro                                 & Encontrarse en la página de registro                                 & Éxito                            \\ \hline
 Introducir datos de usuario                        & Nombre: Prueba, Email: prueba@gmail.com, Contraseña: 12345678, Confirmar contraseña: 12345678 & Datos introducidos                       & Datos introducidos                                                   & Éxito                            \\ \hline
 Hacer clic en <<Enviar>>                             &                                                                                                         & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito                            \\ \hline
-Comprobar presencia nombre de usuario              &                                                                                                         & El nombre de usuario <<Prueba>> se encuentra en la barra de navegación & El nombre de usuario <<Prueba>> se encuentra en la barra de navegación & Éxito                           
+Comprobar presencia nombre de usuario              &                                                                                                         & El nombre de usuario <<Prueba>> se encuentra en la barra de navegación & El nombre de usuario <<Prueba>> se encuentra en la barra de navegación & Éxito   \\ \hline                        
 \end{tabular}
 \caption{CP1: Registro.}
 \end{table}
@@ -784,7 +785,7 @@ Acceder a '/?lang=es'                              &                            
 Hacer clic en <<Iniciar sesión>>                       &                                                                                                          & Encontrarse en la página de inicio de sesión                                 & Encontrarse en la página de inicio de sesión                                 & Éxito                            \\ \hline
 Introducir datos de usuario                        & Nombre: Prueba, Email: prueba@gmail.com, Contraseña: 12345678 & Datos introducidos                       & Datos introducidos                                                   & Éxito                            \\ \hline
 Hacer clic en <<Enviar>>                             &                                                                                                         & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito                            \\ \hline
-Comprobar presencia nombre de usuario              &                                                                                                         & El nombre de usuario <<Prueba>> se encuentra en la barra de navegación & El nombre de usuario <<Prueba>> se encuentra en la barra de navegación & Éxito                           
+Comprobar presencia nombre de usuario              &                                                                                                         & El nombre de usuario <<Prueba>> se encuentra en la barra de navegación & El nombre de usuario <<Prueba>> se encuentra en la barra de navegación & Éxito  \\ \hline                         
 \end{tabular}
 \caption{CP2: Inicio de sesión.}
 \end{table}
@@ -828,7 +829,7 @@ Hacer clic en el nombre de usuario <<Prueba>> y en el botón de <<Perfil>>      
 Introducir datos de usuario                            & Nombre: Prueba, Email: pruebacambiado@gmail.com, Contraseña actual: 12345678                  & Datos introducidos                                                   & Datos introducidos                                                   & Éxito                            \\ \hline
 Hacer clic en el botón de <<Enviar>>                   &                        & Encontrarse en la página principal                       & Encontrarse en la página principal                      & Éxito  \\ \hline
 Hacer clic en el nombre de usuario <<Prueba>> y en el botón de <<Perfil>>      &                        & Encontrarse en la página del perfil de usuario                                 & Encontrarse en la página del perfil de usuario                                & Éxito  \\ \hline 
-Comprobar email actualizado                            &                       &  El email que aparece es <<pruebacambiado@gmail.com>>     &  El email que aparece es <<pruebacambiado@gmail.com>>  & Éxito
+Comprobar email actualizado                            &                       &  El email que aparece es <<pruebacambiado@gmail.com>>     &  El email que aparece es <<pruebacambiado@gmail.com>>  & Éxito \\ \hline
 \end{tabular}
 \caption{CP4: Edición perfil.}
 \end{table}
@@ -850,7 +851,7 @@ Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                       
 Acceder a '/?lang=es'                          &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito  \\ \hline
 Hacer clic en el nombre de usuario <<Prueba>> y en el botón de <<Perfil>>      &                        & Encontrarse en la página del perfil de usuario                                 & Encontrarse en la página del perfil de usuario                                & Éxito  \\ \hline 
 Introducir datos de usuario (contraseña errónea)                           & Nombre: Prueba, Email: pruebacambiado@gmail.com, Contraseña actual: \textbf{1234567899}                  & Datos introducidos                                                   & Datos introducidos                                                   & Éxito                            \\ \hline
-Hacer clic en el botón de <<Enviar>>           &                       &  El mensaje de error que aparece es <<Contraseña actual incorrecta>>     &  El error que aparece es <<Contraseña actual incorrecta>>  & Éxito
+Hacer clic en el botón de <<Enviar>>           &                       &  El mensaje de error que aparece es <<Contraseña actual incorrecta>>     &  El error que aparece es <<Contraseña actual incorrecta>>  & Éxito \\ \hline
 \end{tabular}
 \caption{CP5: Edición perfil con contraseña incorrecta.}
 \end{table}
