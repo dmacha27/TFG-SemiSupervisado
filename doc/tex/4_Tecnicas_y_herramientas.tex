@@ -21,19 +21,20 @@ la gestión del trabajo de forma eficiente.
 
 Las \textbf{reuniones} (también llamadas ceremonias) son las siguientes:
 \begin{itemize}
-    \item \textbf{\textit{Sprint}}: periodo de tiempo en el que se realizan las tareas para crear
-    un incremento del producto.
-    \item \textbf{\textit{Sprint planning}} (planificación del sprint): es una reunión
-    que inicia un Sprint con una duración máxima de 8 horas, en ella se
-    establece el objetivo del sprint.
+    \item \textbf{\textit{Sprint}}: periodo de tiempo en el que se realizan las
+    tareas para crear un incremento del producto.
+    \item \textbf{\textit{Sprint planning}} (planificación del \emph{sprint}):
+    es una reunión que inicia un \emph{sprint} con una duración máxima de 8
+    horas, en ella se establece el objetivo del sprint.
     \item \textbf{\textit{Daily Scrum}}: es una reunión realizada cada día para
     comprobar el progreso del trabajo marcado para el Sprint, su duración varía
     entre 10 y 15 minutos.
-    \item \textbf{\textit{Sprint review}}: es una demostración del trabajo realizado
-    durante el Sprint para comprobar que el progreso es el adecuado para
-    alcanzar el objetivo.
-    \item \textbf{\textit{Sprint retrospective}}: es la última reunión del Sprint para
-    determinar que es lo que ha ido como se planeaba y qué es lo que no.
+    \item \textbf{\textit{Sprint review}}: es una demostración del trabajo
+    realizado durante el \emph{sprint} para comprobar que el progreso es el
+    adecuado para alcanzar el objetivo.
+    \item \textbf{\textit{Sprint retrospective}}: es la última reunión del
+    \emph{sprint} para determinar que es lo que ha ido como se planeaba y qué es
+    lo que no.
 \end{itemize}
 
 Los \textbf{artefactos} (o documentos) más relevantes son los siguientes:
@@ -43,9 +44,9 @@ Los \textbf{artefactos} (o documentos) más relevantes son los siguientes:
 	tener. Este documento se actualiza periódicamente.
 	\item \textbf{\textit{Sprint Backlog}}: contiene las funcionalidades y
 	requisitos del \textit{product backlog} que se planean cumplimentar en el
-	\textit{Sprint}.
+	\emph{sprint}.
 	\item \textbf{\textit{Incremento}}: es el resultado de todos los elementos
-	completados durante el \textit{Sprint}, que añade valor y es potencialmente
+	completados durante el \emph{sprint}, que añade valor y es potencialmente
 	entregable.
 \end{itemize}
 
@@ -55,15 +56,15 @@ Y por último, los \textbf{roles} que intervienen en todo este proceso ágil son
 	\item \textbf{\textit{Scrum Master}}: es el encargado de establecer Scrum,
 	de que todos lo entiendan y lo apliquen correctamente.
 	\item \textbf{\textit{Product Owner}}: se encarga de maximizar el valor del
-	producto. Esto lo realiza principalmente manejando el \textit{Product
-	Backlog} (ordenando) y asegurando que es visible y entendido.
+	producto. Esto lo realiza principalmente manejando el \textit{product
+	backlog} (ordenando) y asegurando que es visible y entendido.
 	\item \textbf{\textit{Desarrolladores}}: son los encargados de llevar a cabo
 	el incremente de cada \textit{Sprint}.
 \end{itemize}
 
 
 \paragraph{PEP8} Las siglas de PEP corresponden con \textit{Python Enhacement
-Proposal}. Un PEP es un documento dedicado a la comunidad Python para describir
+Proposal}. Un PEP es un documento que la comunidad Python utiliza para describir
 características de Python.
 
 PEP8 se trata de uno de estos documentos, describe una guía sobre cómo escribir
@@ -91,8 +92,8 @@ A grandes rasgos, PEP8 considera los siguientes aspectos \cite{pep8}:
 	\item Comentarios: mantener los comentarios actualizados, claros y
 	fácilmente entendibles. Los comentarios en línea deberían ser útiles (sin
 	obviedades) y los comentarios de documentación siempre deben aparecer en
-	todas las funciones (no privadas) después del <<def>>.
-	\item Convenciones de nombres: con nombres a evitar (como 'O') o cómo poner
+	todas las funciones (no privadas) después del <<\texttt{def}>>.
+	\item Convenciones de nombres: con nombres a evitar (como `O') o cómo poner
 	nombres correctos de paquetes, módulos, clases, funciones, constantes...
 \end{itemize}
 
@@ -103,19 +104,19 @@ automáticamente la violación de algunas de estas recomendaciones.
 \paragraph{Diseño adaptable} Una de las herramientas utilizadas (ver siguiente
 sección) es Bootstrap, un conjunto de estilos ya predefinidos que pueden
 utilizarse sin necesidad de tener que codificar CSS. La idea de la aplicación
-Web desarrollada es que tenga la máxima accesibilidad. Esto se consigue
-partiendo de un diseño que sea apto para los dispositivos móviles, lo que se
-denomina estilo adaptable (<<responsive>>). Se trata de una técnica de diseño
-web para adaptar la visualización de la página al dispositivo desde el que se
-accede, haciendo que sea atractiva una mayor cantidad de usuarios. El diseño
-<<responsive>> se consolida como una de las mejores prácticas en el diseño web
-\cite{40defiebre}. En toda la aplicación (excepto las visualizaciones que
-requieren de mucho más espacio), cuando el tamaño de la pantalla se reduce lo
-suficiente, los contenidos se adaptan y se posicionan de tal forma que puedan
-seguir utilizándose.
+web desarrollada es que tenga la máxima accesibilidad. Esto se consigue
+construyendo un diseño que sea apto tanto para los dispositivos móviles como
+para los ordenadores, lo que se denomina estilo adaptable (<<responsive>>). Se
+trata de una técnica de diseño web para adaptar la visualización de la página al
+dispositivo desde el que se accede, haciendo que sea atractiva a una mayor
+cantidad de usuarios. El diseño <<responsive>> se consolida como una de las
+mejores prácticas en el diseño web \cite{40defiebre}. En toda la aplicación
+(excepto las visualizaciones que requieren de mucho más espacio), cuando el
+tamaño de la pantalla se reduce lo suficiente, los contenidos se adaptan y se
+posicionan de tal forma que puedan seguir utilizándose.
 
-\paragraph{Internacionalización (i18n)}\footnote{Denominado así por las 18 letras
-entre la <<i>> y la <<n>> en Internationalization}: Se trata de una
+\paragraph{Internacionalización (i18n\protect\footnote{Denominado así por las 18
+letras entre la <<i>> y la <<n>> en Internationalization})} Se trata de una
 técnica/procedimiento por el que se desarrolla el software para poder ser
 adaptado y localizado posteriormente a otras culturas y
 lenguajes~\cite{lokalise}. Concretamente, este proyecto se está centrando en la
@@ -123,7 +124,7 @@ parte lingüística, con Inglés y Español como los idiomas principales. La ide
 esta técnica es conseguir esto, pero haciendo un código completamente neutral,
 es decir, permitir que todo lo que se ha hecho para un idioma, pueda hacerse a
 posteriori con la misma facilidad. En este entorno de Python y Flask existe la
-librería (Babel) que permite capturar el texto (previamente anotado) y
+biblioteca Babel que permite capturar el texto (previamente anotado) y
 sustituirlo en cada momento por las palabras adecuadas a la localización del
 usuario (o bien con un cambio manual mediante botones). Por así decirlo, en vez
 de codificar a un solo idioma, las palabras del idioma original se convierten en
@@ -133,10 +134,10 @@ claves, que luego son sustituidas cuando el usuario accede.
 \section{Herramientas}
 
 \paragraph{PyCharm}
-Se trata de un \texttt{entorno de desarrollo integrado} ("<IDE">) desarrollado
-por JetBrains. Está creado para la programación en lenguaje Python y aunque no
-se ha usado en este proyecto también Java. Este "<IDE"> se ha convertido junto
-con Visual Studio Code y Jupyter en el más utilizado por los desarrolladores.
+Se trata de un entorno de desarrollo integrado (<<IDE>>) desarrollado por
+JetBrains. Está creado para la programación en lenguaje Python y aunque no se ha
+usado en este proyecto también Java. Este "<IDE"> se ha convertido junto con
+Visual Studio Code y Jupyter en el más utilizado por los desarrolladores.
 
 Ofrece multitud de funcionalidades
 (\url{https://www.jetbrains.com/es-es/pycharm/features/}):
@@ -165,7 +166,7 @@ muestra relaciones, claves primarias, foráneas e incluso los tipos de datos).
 
 Finalmente, el factor decisivo para usar PyCharm y concretamente gracias a la
 Universidad de Burgos, es que el alumnado tiene acceso a la edición
-"<Professional">, que habilita ese desarrollo Web, por ejemplo.
+"<Professional">, que habilita ese desarrollo web, por ejemplo.
 
 Esta aplicación ya había sido usada con anterioridad y por tanto su aprendizaje
 básico no era necesario.
@@ -197,7 +198,7 @@ realizar las operaciones más comunes y básicas de Git.
 
 Pese a que no tiene toda la funcionalidad que sí ofrece la línea de comandos no
 se previó un uso muy exhaustivo de Git y, por tanto, es suficiente
-(<<Commit>>>,<<Push>>,<<Pull>>,<<Merge>>...).
+(<<Commit>>,<<Push>>,<<Pull>>,<<Merge>>...).
 
 Además, puede visualizarse cada cambio respecto a la última versión de un
 vistazo y seleccionar dinámicamente los cambios que se deseen aplicar.
@@ -233,118 +234,119 @@ Además de esta funcionalidad, PuTTy alberga muchas otras utilidades como la de
 generación de claves o incluso la transferencia de ficheros con SFTP
 (\textit{Secure File Transfer Protocol}).
 
-\paragraph{Librerías Python}
-Para el proyecto se están utilizando múltiples librerías que facilitan en gran
+\paragraph{Bibliotecas Python}
+Para el proyecto se están utilizando múltiples bibliotecas que facilitan en gran
 medida el desarrollo del mismo. Implementan funcionalidades que pueden ser
 utilizadas directamente.
 
 \begin{itemize}
-	\item \textbf{pandas}: Librería para el manejo de estructuras de datos que
+	\item \textbf{Pandas}: Biblioteca para el manejo de estructuras de datos que
 	implementa muchas operaciones útiles (guardado/lectura CSV, reordenaciones,
 	divisiones...) y de manera eficiente.
 	\item \textbf{Babel}: Colección de utilidades para la internacionalización y
 	localización de aplicaciones en Python.
 	\item \textbf{Flask}: Es un micro Framework escrito en Python para el
-	desarrollo de aplicaciones Web. Impone además su formato de plantillas
+	desarrollo de aplicaciones web. Impone además su formato de plantillas
 	(Jinja2).
-	\item \textbf{flask-babel}: Es una extensión de Flask que permite la
+	\item \textbf{Flask-babel}: Es una extensión de Flask que permite la
 	internacionalización concreta de aplicaciones Flask (con la ayuda de Babel).
-	\item \textbf{Flask-SQLAlchemy}: Librería que actúa de extensión de Flask y
+	\item \textbf{Flask-SQLAlchemy}: Biblioteca que actúa de extensión de Flask y
 	añade el soporte para SQLAlchemy. No modifica el comportamiento de este
 	último.
-	\item \textbf{Flask-Login}: Librería complementaria a Flask para el manejo
+	\item \textbf{Flask-Login}: Biblioteca complementaria a Flask para el manejo
 	de sesiones de usuarios, automatizando los inicios y cierres de sesión entre
 	otras cosas.
-	\item \textbf{scikit-learn}: Librería más extendida de aprendizaje
+	\item \textbf{Scikit-learn}: Librería más extendida de aprendizaje
 	automático (<<machine learning>>) para Python. Junto con Flask es el núcleo
 	del proyecto, ya que utiliza muchos de sus paquetes implementados.
-	\item \textbf{numpy}: Es una librería especializada en el cálculo numérico y
+	\item \textbf{Numpy}: Es una Biblioteca especializada en el cálculo numérico y
 	análisis de datos. Se caracteriza por su eficiente manejo de grandes
 	volúmenes de datos gracias a su parcial implementación en lenguaje C (mucho
 	más eficiente).
-	\item \textbf{scipy}: Librería que incluye algoritmos matemáticos.
-	\item \textbf{setuptools}: Librería que permite crear e instalar paquetes de
+	\item \textbf{Scipy}: Biblioteca que incluye algoritmos matemáticos.
+	\item \textbf{Setuptools}: Biblioteca que permite crear e instalar paquetes de
 	software de Python.
-	\item \textbf{pytest}: Es un Framework de pruebas unitarias para Python.
-	\item \textbf{sslearn}: Librería para aprendizaje automático en conjuntos de
-	datos Semi-Supervisados como extensión de scikit-learn. Creada por José Luis
+	\item \textbf{Pytest}: Es un \emph{framewrok} de pruebas unitarias para
+	Python.
+	\item \textbf{Sslearn}: Biblioteca para aprendizaje automático en conjuntos de
+	datos Semi-Supervisados como extensión de Scikit-learn. Creada por José Luis
 	Garrido-Labrador.
-	\item \textbf{Werkzeug}: Librería para aplicaciones WSGI (Web Server Gateway
+	\item \textbf{Werkzeug}: Biblioteca para aplicaciones WSGI (Web Server Gateway
 	Inteface). Contiene una colección de utilidades para este tipo de
 	aplicaciones.
-	\item \textbf{matplotlib}: Librería para la creación de gráficos en 2D.
-	\item \textbf{Flask-WTF}: Librería que actúa de extensión de Flask y añade
-	el soporte para WTForms.
-	\item \textbf{WTForms}: Librería para la creación de formularios seguros.
+	\item \textbf{Matplotlib}: Biblioteca para la creación de gráficos en 2D.
+	\item \textbf{WTForms}: Biblioteca para la creación de formularios seguros.
 	Permite añadir múltiples validaciones en los campos de los formularios.
 	Además, son útiles para crear <<plantillas>> base existen muchos formularios
 	comunes.
-	\item \textbf{SQLAlchemy}: Librería que incorpora una serie de herramientas
+	\item \textbf{Flask-WTF}: Biblioteca que actúa de extensión de Flask y añade
+	el soporte para WTForms.
+	\item \textbf{SQLAlchemy}: Biblioteca que incorpora una serie de herramientas
 	SQL junto con el <<mapeo>> de los objetos relacionales. Ha resultado
 	especialmente importante para desvincular la instancia de la base de datos
 	(SQLite, MySQL...) de las consultas y operaciones.
 \end{itemize}
 
-\paragraph{Bibliotecas Web} Para el desarrollo Web conviene comentar la
+\paragraph{Bibliotecas Web} Para el desarrollo web conviene comentar la
 utilización de dos bibliotecas que han resultado fundamentales.
 
 \textbf{Bootstrap}: No es considerado una biblioteca al uso, sino que está
-categorizado como un <<framework>> de CSS. Fue lanzado en 2011, con gran
+categorizado como un <<\emph{framework}>> de CSS. Fue lanzado en 2011, con gran
 cantidad de actualizaciones y de lanzamientos de nuevas versiones. La versión
 más reciente y la utilizada en el proyecto es Bootstrap 5, que mejora el código
 fuente de la versión 4 y añade propiedades nuevas. 
 
 La intención del equipo de Bootstrap es promover el desarrollo web con novedades
-de CSS y menores dependencias. Su principal objetivo es la creación de Webs con
-diseño responsivo (adaptados a móviles) de la forma más sencilla posible.
-Contiene infinidad de plantillas creadas con HTML, CSS y JavaScript para
-componentes de la interfaz que el usuario simplemente puede hacer uso de ellas.
-En HTML, Bootstrap se incorpora en las clases de los componentes y en su página
-oficial se tiene toda la documentación\footnote{Bootstrap:
-\url{https://getbootstrap.com/}}.
+de CSS y menores dependencias. Su principal objetivo es la creación de páginas y
+aplicaciones webs con diseño adaptable (adaptados al tamaño del dispositivo de
+acceso) de la forma más sencilla posible. Contiene infinidad de plantillas
+creadas con HTML, CSS y JavaScript para componentes de la interfaz que el
+usuario simplemente puede hacer uso de ellas. En HTML, Bootstrap se incorpora en
+las clases de los componentes y en su página oficial se tiene toda la
+documentación\footnote{Bootstrap: \url{https://getbootstrap.com/}}.
 
-\textbf{Bootstrap Icons}: es una librería aparte de Bootstrap con iconos SVG.
+\textbf{Bootstrap Icons}: es una biblioteca aparte de Bootstrap con iconos SVG.
 Los iconos son tratados como clases que se incorporan a los elementos HTML.
 Desde \url{https://icons.getbootstrap.com/} se pueden encontrar todos los iconos
 que incluye la librería junto con el código a utilizar para copiar y pegar
 directamente.
 
-\textbf{D3.js}: su nombre se debe a Data-Drive-Documents, es una librería de
+\textbf{D3.js}: su nombre significa Data-Drive-Documents, es una biblioteca de
 JavaScript que permite representar datos en distintas visualizaciones mediante
-HTML, SVG y CSS. D3 trabaja sobre el Modelo de Objetos del Documento (<<Document
-Object Model>>) para aplicar transformaciones dirigidas por datos. Todas las
-visualizaciones presentadas en la Web se han realizado con D3. D3 permite un
-amplio abanico de posibilidades y creatividad, pueden crearse visualizaciones
-más bien estáticas y añadir estilos, anotaciones o leyendas entre otra cosas,
-pero también permite la creación de gráficos altamente interactivos incluyendo
-<<zoom>>, aprovechar los eventos en el DOM o transiciones completamente
-personalizadas.
+HTML, SVG y CSS. D3 trabaja sobre el Modelo de Objetos del Documento
+(<<\emph{Document Object Model}>>) para aplicar transformaciones dirigidas por
+datos. Todas las visualizaciones presentadas en la aplicación web desarrollada
+se han realizado con D3. D3 permite un amplio abanico de posibilidades y
+creatividad, pueden crearse visualizaciones más bien estáticas y añadir estilos,
+anotaciones o leyendas entre otra cosas, pero también permite la creación de
+gráficos altamente interactivos incluyendo <<zoom>>, aprovechar los eventos en
+el DOM o transiciones completamente personalizadas.
 
 Para este caso se cree necesario comentar y justificar el uso de D3 ya que en el
 ámbito de las visualizaciones, existe una gran cantidad de librerías disponibles
-como JSAV (JavaScript Algorithm Visualization Library) o Algorithm-Visualizer
-(contexto concreto de este proyecto) o incluso otras grandes librerías como
-Anime.js, Chart.js o FusionCharts. Sin embargo, durante el periodo de estudio de
-las distintas herramientas disponibles, D3 es superior a la demás en su
-documentación. Tanto porque existen páginas dedicadas a la ejemplificación con
-D3, como la gran cantidad de foros que se han creado solucionando dudas y
-problemas. Sobre las últimas librerías mencionadas (y otras grandes existentes),
-D3 está particularmente pensado para la completa personalización y aunque estas
-también, no al nivel de D3.
+como JSAV (\emph{JavaScript Algorithm Visualization Library}) o
+Algorithm-Visualizer (contexto concreto de este proyecto) o incluso otras
+grandes librerías como Anime.js, Chart.js o FusionCharts. Sin embargo, durante
+el periodo de estudio de las distintas herramientas disponibles, D3 es superior
+a la demás en su documentación. Tanto porque existen páginas dedicadas a mostrar
+ejemplos de uso de D3, como por la gran cantidad de foros que se han creado
+solucionando dudas y problemas. Sobre las últimas bibliotecas mencionadas (y
+otras grandes existentes), D3 está particularmente pensada para la completa
+personalización y aunque estas también, no al nivel de D3.
 
 La desventaja de D3 es que tiene una curva de aprendizaje bastante grande, pero
-gracias a la documentación en internet, esto puede ser solventado en mayor
-medida.
+gracias a la documentación en internet, esto puede ser solventado sin grandes
+problemas.
 
-\textbf{DataTables}: Es un plug-in para la librería JQuery. Su objetivo es la
-creación de tablas dinámicas e interactivas de la forma más sencilla posible.
-Este plug-in se ha utilizado en todos los apartados de los usuarios, tanto el
-espacio personal como el panel de administración. La elección de esta librería
-es por recomendación de los tutores. Pese a que las tareas relativas a los
-usuarios fue compleja y se tardaron dos Sprints en terminar todo lo relativo a
-las tablas, DataTables tiene una muy buena documentación. Además, en el momento
-de consultar una duda, en su propio foro otros usuarios ya habían tenido los
-mismos problemas.
+\textbf{DataTables}: Es un complemento para la librería JQuery. Su objetivo es
+la creación de tablas dinámicas e interactivas de la forma más sencilla posible.
+Este complemento se ha utilizado en todos los apartados de los usuarios, tanto
+el espacio personal como el panel de administración. La elección de esta
+biblioteca es por recomendación de los tutores. Pese a que las tareas relativas
+a los usuarios fue compleja y se tardaron dos Sprints en terminar todo lo
+relativo a las tablas, DataTables tiene una muy buena documentación. Además, en
+el momento de consultar una duda, en su propio foro otros usuarios ya habían
+tenido los mismos problemas.
 
 A la hora de crear las tablas, tiene multitud de opciones, tanto para la tabla
 general, como para celdas, columnas o filas concretas. Como más importante,

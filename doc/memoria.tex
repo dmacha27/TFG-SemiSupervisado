@@ -28,6 +28,7 @@
 \SetKwFor{For}{for}{}{endfor}
 \SetKwFor{While}{while}{}{endwhile}
 
+\newcommand{\bfit}[1]{\ensuremath{\textbf{\textit{#1}}}}
 
 % Rutas de fichero / paquete
 \newcommand{\ruta}[1]{{\sffamily #1}}
@@ -361,9 +362,13 @@
   {%
     \noindent\LARGE
     Presentado por \@author{}\\ 
-    en Universidad de Burgos --- \@date{}\\
-    Tutor: \@tutor{}\\
-    Cotutor: \@cotutor{}\\
+    en Universidad de Burgos \\
+    el \@date{}\\
+    \begin{tabbing}
+    Tutores: \= \kill
+    Tutores: \> \@tutor{}\\
+          \> \@cotutor{}\\
+    \end{tabbing}
   }%
   \end{center}%
   \null
@@ -373,8 +378,8 @@
 
 \newcommand{\titulo}{Herramienta docente para la visualización en Web de algoritmos de aprendizaje Semi-Supervisado}
 \newcommand{\nombre}{David Martínez Acha}
-\newcommand{\tut}{Álvar Arnaiz González}
-\newcommand{\cotut}{César Ignacio García Osorio}
+\newcommand{\tut}{Dr. Álvar Arnaiz González}
+\newcommand{\cotut}{Dr. César Ignacio García Osorio}
 
 % Datos de portada
 \title{\titulo}
@@ -397,17 +402,17 @@
 
 \noindent\includegraphics[width=\textwidth]{cabecera}\vspace{1cm}
 
-\noindent D. \tut, profesor del departamento de Ingeniería Informática, área
-de Lenguajes y Sistemas informáticos, junto a D. \cotut,
-profesor del departamento de Ingeniería Informática, área de Lenguajes y
-Sistemas informáticos.
+\noindent El \tut, junto a el \cotut, profesores del departamento de Ingeniería
+Informática, área de Lenguajes y Sistemas informáticos.
 
 \noindent Exponen:
 
-\noindent Que el alumno D. \nombre, con DNI 71310644H, ha realizado el Trabajo final de Grado en Ingeniería Informática titulado \titulo.
+\noindent Que el alumno D. \nombre, con DNI 71310644H, ha realizado el Trabajo
+final de Grado en Ingeniería Informática titulado \titulo.
 
 
-\noindent Y que dicho trabajo ha sido realizado por el alumno bajo la dirección del que suscribe, en virtud de lo cual se autoriza su presentación y defensa.
+\noindent Y que dicho trabajo ha sido realizado por el alumno bajo la dirección
+del que suscribe, en virtud de lo cual se autoriza su presentación y defensa.
 
 \begin{center} %\large
 En Burgos, {\large \today}

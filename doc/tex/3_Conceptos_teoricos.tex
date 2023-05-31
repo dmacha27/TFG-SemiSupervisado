@@ -7,7 +7,7 @@ semi-supervisado.
 \section{Aprendizaje automático}
 
 Según \cite{intelligent:ml}, el aprendizaje automático (\textit{machine
-learning}) es una rama de la Inteligencia artificial como una técnica de
+learning}) es una rama de la Inteligencia Artificial como una técnica de
 análisis de datos que enseña a las computadoras a aprender de la
 \textbf{experiencia} (es decir, lo que realizan los humanos). Para ello, el
 aprendizaje automático se nutre de gran cantidad de datos (o los suficientes
@@ -21,7 +21,7 @@ rendimiento de forma automática basándose en procesos de entrenamiento y tambi
 en las fases posteriores de explotación. Debido a sus propiedades, el
 aprendizaje automático se ha convertido en un campo de alta importancia,
 aplicándose a multitud de campos como medicina, automoción, visión
-artificial\ldots Los tipos de aprendizaje automático se suelen clasificar en los
+artificial... Los tipos de aprendizaje automático se suelen clasificar en los
 siguientes: aprendizaje supervisado, aprendizaje no supervisado y aprendizaje
 por refuerzo. Sin embargo, aparece una nueva disciplina que se encuentra a
 caballo entre el supervisado y no supervisado (utiliza tanto datos etiquetados
@@ -43,34 +43,35 @@ no. Estos datos tienen una serie de características (e.g. en el caso de una
 biopsia se tendría la edad, tamaño tumoral, si ha tenido lugar mitosis o no...)
 y todas ellas pueden ser binarias, categóricas o continuas \cite{salim:sl}.
 
-Es común que antes del entrenamiento, estos datos son particionados en: conjunto de
-entrenamiento, conjunto de test o conjunto de validación. De forma resumida, el
-conjunto de entrenamiento serán los datos que utilice el propio algoritmo para
-aprender y generalizar los comportamientos ocultos de los mismos. El conjunto de
-validación se utilizará para tener un control de que el modelo está
-generalizando y no sobreajustando (memorizando los datos) y por último, el
-conjunto de test sirve para estimar el rendimiento real que podrá tener el
-modelo en explotación \cite{enwiki:conjuntos}. En la figura
-\ref{fig:memoria/aprendizajesupervisado} puede visualizarse el funcionamiento general.
+Es común que antes del entrenamiento, estos datos sean particionados en:
+conjunto de entrenamiento, conjunto de test y conjunto de validación. De forma
+resumida, el conjunto de entrenamiento serán los datos que utilice el propio
+algoritmo para aprender y generalizar los comportamientos ocultos de los mismos.
+El conjunto de validación se utilizará para tener un control de que el modelo
+está generalizando y no sobreajustando (memorizando los datos) y también para
+decidir cuando finalizar el entrenamiento. Por último, el conjunto de test sirve
+para estimar el rendimiento real que podrá tener el modelo en explotación
+\cite{enwiki:conjuntos}. En la figura \ref{fig:memoria/aprendizajesupervisado}
+puede visualizarse el funcionamiento general.
 
 \imagen{memoria/aprendizajesupervisado}{Funcionamiento general del aprendizaje supervisado \cite{salim:sl}.}{1}
 
 El aprendizaje supervisado está altamente influenciado por esto. Por un lado, si
-las etiquetas son categóricas o binarias el modelo será de
-\textbf{clasificación} y por otro, si las etiquetas son continuas el modelo será
-de \textbf{regresión}.
+el valor a predecir es uno entre un conjunto finito, el modelo será de
+\textbf{clasificación} y por otro, si el valor a predecir es un valor continuo,
+el modelo será de \textbf{regresión}.
 
 \begin{itemize}
-    \item \textbf{Clasificación}: Los algoritmos de clasificación, a veces
-    denominados simplemente como clasificadores, tratan de predecir la clase de
-    una nueva entrada a partir del entrenamiento previo realizado. Estas clases
-    son discretas y en clasificación pueden referirse a clases (o etiquetas)
-    binarias o clases múltiples.
+    \item \textbf{Clasificación}: Los modelos de clasificación (generados a
+    partir de algoritmos de aprendizaje), a veces denominados simplemente como
+    clasificadores, tratan de predecir la clase de una nueva entrada a partir
+    del entrenamiento previo realizado. Estas clases son discretas y en
+    clasificación pueden referirse a clases (o etiquetas) binarias o clases
+    múltiples.
     
-    \item \textbf{Regresión}: En este caso, el algoritmo asigna un valor
-    continuo a una entrada. Es decir, trata de encontrar una función continua
-    basándose en las variables de entrada. Se denomina también ajuste de
-    funciones.
+    \item \textbf{Regresión}: En este caso, el modelo asigna un valor continuo a
+    una entrada. Es decir, trata de encontrar una función continua basándose en
+    las variables de entrada. Se denomina también ajuste de funciones.
 \end{itemize}
 
 \clearpage
@@ -78,64 +79,65 @@ de \textbf{regresión}.
 \subsection{Aprendizaje no supervisado}
 
 A diferencia del aprendizaje supervisado, en el no supervisado, los algoritmos
-no se nutren de datos etiquetados. En otras palabras, los usuarios no "<supervisan"> el modelo
-\cite{salim:usl}. Esto quiere decir que no aprenderán de etiquetas, sino de la
-propia estructura que se encuentre en los datos (patrones). Por ejemplo, dadas
-unas imágenes de animales, sin especificar cuál es cuál, el aprendizaje no
-supervisado identificará las similitudes entre imágenes y como resultado podría
-dar la separación de las especies (o separaciones entre colores, pelaje,
-raza...).
+de aprendizaje no se nutren de datos etiquetados. En otras palabras, los
+usuarios no "<supervisan"> el algoritmo \cite{salim:usl}. Esto quiere decir que
+no aprenderán de etiquetas, sino de la propia estructura que se encuentre en los
+datos (patrones). Por ejemplo, dadas unas imágenes de animales, sin especificar
+cuál es cuál, el aprendizaje no supervisado identificará las similitudes entre
+imágenes y como resultado podría dar la separación de las especies (o
+separaciones entre colores, pelaje, raza...).
 
 Como principales usos del aprendizaje no supervisado, suele aplicarse a:
 \vspace{-4px}
 \begin{enumerate}
-    \item \textbf{Agrupamiento (Clustering)}: Este modelo de aprendizaje no
-    supervisado trata de dividir los datos en grupos. Para ello, estudia las
-    similitudes entre ellos y también en las disimilitudes con otros. Estos
-    modelos pueden tanto descubrir por ellos mismos los "<clústeres"> o grupos
-    que se encuentran o indicarle cuántos debe identificar \cite{salim:usl}.
+    \item \textbf{Agrupamiento (Clustering)}: Este tipo de algoritmo de
+    aprendizaje no supervisado trata de dividir los datos en grupos. Para ello,
+    estudia las similitudes entre ellos y también en las disimilitudes con
+    otros. Estos algoritmos pueden tanto descubrir por ellos mismos los
+    <<clústeres>> o grupos que se encuentran o indicarle cuántos debe
+    identificar \cite{salim:usl}.
     \item \textbf{Reducción de la dimensionalidad}: Para empezar, el término
     "<dimensionalidad"> hace referencia al número de variables de entrada que
     tienen los datos. En la realidad, los conjuntos de datos sobre los que se
     trabaja suelen tener una dimensionalidad grande. Según
     \cite{javatpoint:reduccionsdims} la reducción de dimensionalidad se denomina
-    como "<Una forma de convertir conjuntos de datos de alta dimensionalidad en
+    como: \begin{quote}<<Una forma de convertir conjuntos de datos de alta dimensionalidad en
     conjunto de datos de menor dimensionalidad, pero garantizando que proporciona
-    información similar">. Es decir, simplificar el problema pero sin perder
+    información similar.>>\end{quote} Es decir, simplificar el problema pero sin perder
     toda esa estructura interesante de los datos. Algunos ejemplos pueden ser:
     \begin{itemize}
-        \item Análisis de Componentes Principales (PCA)
-        \item Cuantificación vectorial
-        \item Autoencoders
+        \item Análisis de Componentes Principales (PCA).
+        \item Cuantificación vectorial.
+        \item Autoencoders.
     \end{itemize}
 \end{enumerate}
 
-\imagenconurl{memoria/clustering}{Clusters}{\footnotesize{Clusters. Ejemplo de
-clustering, a la izquierda los datos no etiquetados y a la derecha los datos
+\imagenconurl{memoria/clustering}{Clusters}{\footnotesize{\emph{Clusters}. Ejemplo de
+agrupamiento, a la izquierda los datos no etiquetados y a la derecha los datos
 coloreados según las clases identificadas por el algoritmo de clustering. By
 hellisp - Own work, Public Domain,
 \url{https://commons.wikimedia.org/w/index.php?curid=36929773}. }}{0.5} 
 \subsection{Aprendizaje semi-supervisado}
 
 Según \cite{vanEngelen2020}, el aprendizaje semi-supervisado es la rama del
-aprendizaje automático referido al uso de datos tanto etiquetados como no
-etiquetados simultáneamente para realizar tareas de aprendizaje. Se encuentra a
-caballo  entre el aprendizaje supervisado y no supervisado. Concretamente, los
+aprendizaje automático referido al uso simultáneo de datos tanto etiquetados
+como no etiquetados para realizar tareas de aprendizaje. Se encuentra a caballo
+entre el aprendizaje supervisado y el no supervisado. Concretamente, los
 problemas donde más se aplica, y donde más investigación se realiza es en
 clasificación. Los métodos semi-supervisados resultan especialmente útiles
 cuando se tienen escasos datos etiquetados, que, aparte de ser una situación
-común en problemas reales, el proceso de etiquetado es una labor compleja, que
-consume tiempo y es costosa.
+común en problemas reales, hacen que el proceso de etiquetado sea una labor
+compleja, que consume tiempo y es costosa.
 
 \subsubsection{Suposiciones}
 El objetivo de usar datos no etiquetados es construir un clasificador que sea
-mejor que el aprendizaje supervisado, en el que solo se tienen datos
-etiquetados. Pero para que el aprendizaje semi-supervisado mejore a lo ya
-existente, tiene una serie de suposiciones que han de cumplirse.
+mejor que el que se obtendría utilizando aprendizaje supervisado, donde solo se
+tienen datos etiquetados. Pero para que el aprendizaje semi-supervisado mejore a
+lo ya existente, tiene una serie de suposiciones que han de cumplirse.
 
 En primera instancia se dice que la condición necesaria es que la distribución
-\textit{p(x)} del espacio de entrada contiene información sobre la distribución
-posterior \textit{p(y|x)} \cite{vanEngelen2020}.
+$p(x)$ del espacio de entrada contiene información sobre la distribución
+posterior $p(y|x)$ \cite{vanEngelen2020}.
 
 Pero la forma en el que interactúan los datos de una distribución y la posterior,
 no siempre es la misma:
@@ -155,10 +157,11 @@ no siempre es la misma:
     Los datos pueden tener una dimensionalidad alta (muchas características)
     pero generalmente no todas las características son completamente útiles. Los
     datos a menudo se encuentran en unas estructuras de más baja
-    dimensionalidad. Estas estructuras se conocen como "<manifolds">. Esta
-    suposición indica que si los datos del espacio de entrada se encuentran en
-    estas "<manifolds"> entonces aquellos puntos que se encuentren en el mismo
-    "<manifolds"> tendrán la misma etiqueta. \cite{towardsdatascience:semi,vanEngelen2020}
+    dimensionalidad. Estas estructuras se conocen como <<\emph{manifolds}>>.
+    Esta suposición indica que si los datos del espacio de entrada se encuentran
+    en estas <<\emph{manifolds}>> entonces aquellos puntos que se encuentren en
+    el mismo <<\emph{manifolds}>> tendrán la misma etiqueta.
+    \cite{towardsdatascience:semi,vanEngelen2020}
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=\textit{Cluster assumption}]
@@ -167,10 +170,10 @@ no siempre es la misma:
 \end{tcolorbox}
 
 
-De estas suposiciones se extrae el concepto de "<similitud"> en el que en todas
-ellas se encuentra presente. Y en realidad, todas son versiones de
-\textit{Cluster assumption} en la que los puntos similares tienden a pertenecer
-al mismo grupo. 
+De estas suposiciones se extrae el concepto de "<similitud"> que está presente
+en todas ellas. Y en realidad, todas son versiones de la \textit{Cluster
+assumption}, que dice que los puntos similares tienden a pertenecer al mismo
+grupo. 
 
 Además, la suposición de clúster resulta necesaria para que el aprendizaje
 semi-supervisado mejore al supervisado. Si los datos no pueden ser agrupados,
@@ -187,19 +190,20 @@ El núcleo de este proyecto está basado en los métodos inductivos. Su idea es 
 sencilla y está altamente relacionada con el objetivo del aprendizaje
 supervisado, trata de crear un clasificador que prediga etiquetas para datos
 nuevos. Por lo tanto, los algoritmos construidos tendrán este objetivo, aunque
-con un punto más de concreción: los métodos "<wrapper"> o de envoltura.
+con un punto más de concreción: el proyecto se centrará en los métodos
+<<\emph{wrapper}>> o de envoltura.
 
-Los conocidos métodos "<wrapper"> se basan en el \textit{pseudo etiquetado}
-("<pseudo-labelling">), es el proceso en el que los clasificadores entrenados
-con datos etiquetados generan etiquetas para los no etiquetados. Una vez
-completado este proceso, el clasificador se vuelve a entrenar pero añadiendo
+Los conocidos métodos <<\emph{wrapper}>> se basan en el \textit{pseudo
+etiquetado} ("<pseudo-labelling">), es el proceso en el que los clasificadores
+entrenados con datos etiquetados generan etiquetas para los no etiquetados. Una
+vez completado este proceso, el clasificador se vuelve a entrenar pero añadiendo
 estos nuevos datos. La gran ventaja que suponen estos métodos es que pueden
 utilizarse con casi todos los clasificadores (supervisados) existentes
 \cite{vanEngelen2020}.
 
 \section{Self-Training}
-Se trata del método de aprendizaje semi-supervisado más sencillo y "<directo">.
-Este método envuelve un único clasificador base, que entrena con los datos
+Se trata del método de aprendizaje semi-supervisado más sencillo y <<directo>>.
+Este método <<envuelve>> un único clasificador base, que entrena con los datos
 etiquetados iniciales y aprovecha el proceso de pseudo etiquetado comentado para
 continuar su entrenamiento.
 
@@ -207,9 +211,10 @@ El método comienza por entrenar ese clasificador con los datos etiquetados que
 se tienen. A partir de este aprendizaje inicial, se etiqueta el resto de datos.
 De todas las nuevas predicciones se seleccionan aquellas en las que el
 clasificador más confianza tiene (de haber acertado). Una vez seleccionados, el
-clasificador es reentrenado con la unión de los ya etiquetados y estos nuevos.
-El proceso continúa hasta un criterio de parada (generalmente hasta etiquetar
-todos los datos o un número máximo de iteraciones).
+clasificador es reentrenado con la unión de los ya etiquetados y estos recién
+etiquetados. El proceso continúa hasta que se verifica un criterio de parada
+(generalmente hasta etiquetar todos los datos o un número máximo de
+iteraciones).
 
 En este proceso, el paso más importante es la incorporación de nuevos datos al
 conjunto de etiquetados porque, \textbf{probablemente}, la predicción sea la
@@ -221,25 +226,25 @@ contrario, no es posible aprovechar los beneficios que ofrece self-training~
 
 \begin{algorithm}
     \DontPrintSemicolon
-    \KwIn{Conjunto de datos etiquetados \textbf{\textit{L}}, 
-    no etiquetados \textbf{\textit{U}} y clasificador \textbf{\textit{H}}}
+    \KwIn{Conjunto de datos etiquetados \bfit{L}, 
+    no etiquetados \bfit{U} y clasificador \bfit{H}}
     \KwOut{Clasificador entrenado}
      \While{$|U| \neq 0$}{
-        Entrenar \textbf{\textit{H}} con \textbf{\textit{L}}\;
-        Predecir etiquetas de \textbf{\textit{U}}\;
-        Seleccionar un conjunto \textbf{\textit{T}} con aquellos datos que tenga la mayor probabilidad\;
-        $\textbf{\textit{L}} = \textbf{\textit{L}} \cup \textbf{\textit{T}}$\;
-        $\textbf{\textit{U}} = \textbf{\textit{U}} - \textbf{\textit{T}}$\;
+        Entrenar \bfit{H} con \bfit{L}\;
+        Predecir etiquetas de \bfit{U}\;
+        Seleccionar un conjunto \bfit{T} con aquellos datos que tenga la mayor probabilidad\;
+        $\bfit{L} = \bfit{L} \cup \bfit{T}$\;
+        $\bfit{U} = \bfit{U} - \bfit{T}$\;
      }
-     Entrenar \textbf{\textit{H}} con \textbf{\textit{L}}\;
-     \textbf{return} \textbf{\textit{H}}
+     Entrenar \bfit{H} con \bfit{L}\;
+     \textbf{return} \bfit{H}
      \caption{Self-Training}\label{pseudo:self-training}
 \end{algorithm}
 
 Sobre esta base, el algoritmo tiene muchas formas de diseñarse. En algunos casos
 la condición de parada suele tomarse como un número máximo de iteraciones.
-También, la cantidad de datos que se incorporan al conjunto \textbf{L} (con
-mayor confianza) puede ser fija, o mediante un límite mínimo de
+También, la cantidad de datos que se incorporan al conjunto \bfit{L}
+(con mayor confianza) puede ser fija, o mediante un límite mínimo de
 confianza/probabilidad (todas las instancias con mayor probabilidad se
 añadirían).
 
@@ -247,18 +252,17 @@ añadirían).
 Basado fuertemente en Self-Training, en este caso \textbf{varios} clasificadores
 (normalmente dos) se encargan del proceso e <<interactúan>> entre sí. Del mismo
 modo, una vez entrenados predicen las etiquetas de los no clasificados y todos
-los clasificadores añaden las mejores predicciones (mayor
-confianza/probabilidad).
+los clasificadores añaden las mejores predicciones.
 
 En \cite{blum1998combining}, Blum y Mitchel propusieron el funcionamiento básico
-de Co-Training con dos vistas sobre los datos (<<multi-view>>). Estas vistas
-corresponden no con subconjuntos de las instancias, sino de subconjuntos de las
-características de las mismas. Es decir, cada clasificador va a entrenarse
-teniendo en cuenta características distintas. Idealmente estas vistas son
-independientes y pueden predecir por sí solas la etiqueta (aunque no siempre se
-cumplirá). Cuando los clasificadores predicen etiquetas sobre los datos, se
-seleccionan de ambos los de mayor confianza y construyen el nuevo conjunto de
-entrenamiento para la siguiente iteración.
+de Co-Training con dos vistas sobre los datos (<<\emph{multi-view}>>). Estas
+vistas corresponden no con subconjuntos de las instancias, sino con subconjuntos
+de las características de las mismas. Es decir, cada clasificador va a
+entrenarse teniendo en cuenta características distintas. Idealmente estas vistas
+tendrían que ser independientes y servir por sí solas para predecir la etiqueta
+(aunque no siempre se cumplirá). Cuando los clasificadores predicen etiquetas
+sobre los datos, se seleccionan de ambos los de mayor confianza y se construye
+el nuevo conjunto de entrenamiento para la siguiente iteración.
 
 
 \begin{algorithm}
@@ -288,19 +292,20 @@ entrenamiento para la siguiente iteración.
 \section{Democratic Co-Learning}
 
 Yan Zhou y Sally Goldman presentaron en~\cite{zhou2004democratic} un algoritmo
-de aprendizaje semi-supervisado en la línea de Co-Training (varios
-clasificadores). La diferencia sustancial es que no trabajan con dos (o más)
-conjunto de atributos (para que cada clasificador utilice uno de ellos), en este
-caso solo se tiene un único conjunto de atributos (<<single-view>>).
+de aprendizaje semi-supervisado en la línea del Co-Training (varios
+clasificadores). La diferencia sustancial es que los clasificadores base no
+trabajan con dos (o más) conjunto de atributos (para que cada clasificador
+utilice uno de ellos), en este caso solo se tiene un único conjunto de atributos
+(<<\emph{single-view}>>).
 
 Partiendo de los datos etiquetados, varios clasificadores realizan votación
 ponderada sobre los no etiquetados. Lo que quiere decir que, para una instancia,
 su nueva etiqueta será la que vote la mayoría. Además, para aquellos
 clasificadores que no votan como la mayoría, la instancia se añade a su conjunto
 de entrenamiento junto a la etiqueta mayoritaria, de esta forma se <<obliga>> en
-la siguiente iteración a aprenderla. Todo el proceso se repite hasta que no se
-añadan más instancias a ningún conjunto de entrenamiento, esto se alcanza cuando
-no se mejora la precisión pese a la adición de nuevas instancias
+la siguiente iteración a <<aprenderla>>. Todo el proceso se repite hasta que no
+se añadan más instancias a ningún conjunto de entrenamiento, esto ocurrirá
+cuando no se mejora la precisión pese a la adición de nuevas instancias
 pseudo-etiquetadas.
 
 \begin{algorithm}
@@ -353,7 +358,7 @@ pseudo-etiquetadas.
         
      }
      \Return{Combinar($\pmb{H}_1,\pmb{H}_2,...,\pmb{H}_n$)}
-     \caption{Democratic Co-Learning - entrenamiento}\label{pseudo:democraticco-learning}
+     \caption{Democratic Co-Learning --- entrenamiento}\label{pseudo:democraticco-learning}
 \end{algorithm}
 
 \begin{algorithm}
@@ -365,22 +370,22 @@ pseudo-etiquetadas.
             $w_i = (l_i + h_i)/2$\;
     }
     \For{i = 1,...,n}{
-        \If{$H_i(\mathbf{x})$ predice $c_j$ y $w_i >$ 0.5}{
-            Añadir $H_i$ al grupo $G_j$ /* j es etiqueta */\;
+        \If{$H_i(\mathbf{x})$ predice $c_j$ ~y ~$w_i >$ 0.5}{
+            Añadir $H_i$ al grupo $G_j$ /* $j$ es etiqueta */\;
         }
     }
     
     \For{j = 1,...,r}{
         $\bar{C}_{G_j} = \frac{|G_j|+0.5}{|G_j|+1} * \frac{\sum_{H_i \in G_j} w_i}{|G_j|}$
     }
-    H predice con el grupo $G_k$ con $k = arg~max_j(\bar{C}_{G_j})$\;
-    \textbf{return} H
-    \caption{Democratic Co-Learning - predicción (combinación)}\label{pseudo:combinar}
+    $H$ predice con el grupo $G_k$ con $k = \arg \max_j(\bar{C}_{G_j})$\;
+    \textbf{return} $H$
+    \caption{Democratic Co-Learning --- predicción (combinación)}\label{pseudo:combinar}
 \end{algorithm}
 
 Aclaración sobre la predicción final (en combinación): una vez calculadas las
 confianzas de la instancia a predecir ($\mathbf{x}$) y por cada posible etiqueta, la idea
-de la combinación es obtener la etiqueta (k, posición en el grupo) con mayor
+de la combinación es obtener la etiqueta ($k$, posición en el grupo) con mayor
 confianza.
 
 \clearpage
@@ -430,11 +435,11 @@ ningún clasificador obtenga nuevos ejemplos para entrenar (ejemplos que eran no
 etiquetados). 
 
 Dentro del bucle y suponiendo la perspectiva del clasificador $i$ lo primero que
-se hace <<vaciar>> el conjunto de datos seleccionados para él, $L_i$. En segundo
-lugar, se realiza una estimación del error de la combinación de las hipótesis
-$h_j$ y $h_k$ \footnote{El error de clasificación se aproxima dividiendo el
-número de instancias (de entrenamiento) en las que $h_j$ y $h_k$ se equivocan
-entre el número de instancias en las que predicen la misma etiqueta
+se hace es <<vaciar>> el conjunto de datos seleccionados para él, $L_i$. En
+segundo lugar, se realiza una estimación del error de la combinación de las
+hipótesis $h_j$ y $h_k$\footnote{El error de clasificación se aproxima
+dividiendo el número de instancias (de entrenamiento) en las que $h_j$ y $h_k$
+se equivocan entre el número de instancias en las que predicen la misma etiqueta
 \cite{1512038}.}. Si el error no es menor que el de la iteración anterior $e_i$,
 se vuelve al inicio del bucle.
 
@@ -505,14 +510,14 @@ y se retorna la mayoritaria.
 
 \section{Técnicas de tratamiento de datos}
 
-En el proceso de minería de datos y aprendizaje una de las primeras etapas y
-principales es el preprocesamiento de datos. Este concepto hace referencia a la
-manipulación y eliminación de datos antes de ser usados para mejorar el
-rendimiento del proceso \cite{enwiki:1138293751}.
+En el proceso de minería de datos y aprendizaje automático una de las primeras
+etapas, y principales, es el preprocesamiento de datos. Este concepto hace
+referencia a la manipulación,  eliminación y/o transformación de datos antes de
+ser usados para mejorar el rendimiento del proceso \cite{enwiki:1138293751}.
 
-El tratamiento de datos también es particularmente útil en el área de
-interpretación y visualización de datos. En ocasiones, el conocimiento obtenido
-es difícil de interpretar con reglas o puras matemáticas.
+El tratamiento de datos también es particularmente útil en el área de la
+interpretación y la visualización de datos. En ocasiones, el conocimiento
+obtenido es difícil de interpretar con reglas o puras matemáticas.
 
 En esta sección se van a comentar algunos conceptos que se han aplicado en el
 área de tratamiento de datos (tanto en la parte de preprocesamiento como
@@ -527,13 +532,14 @@ Muchos algoritmos de aprendizaje automático no son capaces de trabajar con
 variables categóricas (no numéricas). Además, la categorización está presente en
 muchos conjuntos de datos, ya que son muy útiles para aportar significado (los
 números serían más difíciles de entender). Debido a las limitaciones de los
-algoritmos, estos valores categóricos deben ser codificados a unos valores
+algoritmos, estos valores categóricos deben ser codificados como unos valores
 numéricos.
 
 Una de las ideas más directas (y la aplicada en el proyecto) es la
 <<Codificación de etiquetas>> (\textit{Label encoding}). Esta técnica
-simplemente trata cada valor único de etiqueta como un valor numérico también
-único.
+simplemente trata cada valor único de etiqueta\footnote{Entendiendo etiqueta
+como un valor del atributo de clase, no de una característica.} como un valor
+numérico también único.
 
 \begin{table}[H]
     \centering
@@ -561,10 +567,11 @@ El análisis de componentes principales es un algoritmo matemático que reduce l
 dimensionalidad de los datos manteniendo la mayoría de las variaciones en los
 datos. Esto lo realiza identificando componentes principales
 \cite{ringner2008principal}. Una componente principal es una nueva variable que
-es combinación lineal de las variables originales. La idea es mantener los
-patrones escondidos en los datos, en las componentes principales, para que si se
-aplica a un proceso de minería de datos, se pueda seguir extrayendo
-conocimiento.
+es combinación lineal de las variables originales con la particularidad de que
+esa combinación de variables mantiene la mayor cantidad de varianza del conjunto
+de datos original. La idea es mantener los patrones escondidos en los datos, en
+las componentes principales, para que, si se aplica a un proceso de minería de
+datos, se pueda seguir extrayendo conocimiento.
 
 Aplicar PCA permite utilizar solo unas pocas componentes que pueden ser
 graficadas y hacer posible la visualización de diferencias y similitudes.
@@ -583,14 +590,15 @@ desviación estándar (típicamente media cero y desviación 1).
   z = (x - u) / s
 \end{equation}
 
-$z$ es el nuevo valor, $x$ el valor original, $u$ la media y $s$ la desviación.
+\noindent $z$ es el nuevo valor, $x$ el valor original, $u$ la media y $s$ la
+desviación típica.
 
 La estandarización es útil cuando no se quiere establecer un rango fijo  de
-valores (como en la normalización), y además, los
-\textit{outliers\footnote{Valor atípico}} no afectan demasiado, ya que se
-considera la media de todos ellos.
+valores (como en la normalización), y además, los \textit{outliers} (en
+castellano valores atípicos) no afectan demasiado, ya que se considera la media
+de todos ellos.
 
-En el proyecto, es la posibilidad que se le da al usuario para mostrar los datos
+En el proyecto, es una opción que se le da al usuario para mostrar los datos
 finales, ya que permite mantener las relaciones entre los datos pero
 compactándolos lo suficiente para una buena visualización.
 
@@ -600,7 +608,7 @@ Al ser una aplicación Web, este proyecto tiene alta relación con este protocol
 En el resto del apartado se van a documentar los conceptos que se han utilizado
 en el desarrollo.
 
-\textbf{Hypertext Transfer Protocol (HTTP)} o Protocolo de Transferencia de
+\emph{Hypertext Transfer Protocol (HTTP)} o Protocolo de Transferencia de
 Hipertexto es un protocolo de la capa de aplicación\footnote{Permite a las
 aplicaciones trabajar con los servicios de las capas inferiores y define
 protocolos para el intercambio de datos~\cite{eswiki:149372346}} para transmitir
@@ -632,7 +640,7 @@ La realidad es que, peticiones y respuestas, tienen una estructura muy similar. 
 	\item \textbf{Línea de inicio}, formada por:
   \subitem El método HTTP (se describirán a continuación), indica la operación a realizar.
   \subitem El objetivo, generalmente una URL. Para algunos métodos, aquí ser
-  incorporan los parámetros de la petición (\texttt{?param=X}).
+  incorporan también los parámetros de la petición (\texttt{?param=X}).
   \subitem Versión del protocolo.
 	\item \textbf{Cabeceras}: Son <<metadatos>> que proporcionan información sobre la
   petición. Cada una de ellas (puede haber varias) es un par nombre-valor.	Por
@@ -652,7 +660,7 @@ Para las respuestas:
 	\item \textbf{Cabeceras}: Del mismo modo que las peticiones, son <<metadatos>> que
   proporcionan información sobre la petición. Cada una de ellas (puede haber
   varias) es un par nombre-valor.
-  \item \textbf{Cuerpo}: Para aquellas respuestas pertinentes (algunas no tienen cuerpo),
+  \item \textbf{Cuerpo}: Para aquellas respuestas que tengan cuerpo (algunas no lo tienen),
   contiene los datos solicitados o generados por el servidor.
 \end{itemize}
 
@@ -700,24 +708,24 @@ información junto con el código \textit{200}.
 Los códigos más utilizados son:
 
 \begin{itemize}
-	\item \textbf{200}: OK, respuesta a peticiones HTTP exitosas.
-  \item \textbf{400}: Bad Request, el servidor no puede procesar la petición
+	\item \textbf{200}: \emph{OK}, respuesta a peticiones HTTP exitosas.
+  \item \textbf{400}: \emph{Bad Request}, el servidor no puede procesar la petición
   debido a una petición mal construida.
-  \item \textbf{401}: Unauthorized, no se tiene las credenciales de
+  \item \textbf{401}: \emph{Unauthorized}, no se tiene las credenciales de
   autenticación válidas para acceder al recurso solicitado.
-  \item \textbf{403}: Forbidden, el servidor entiende la petición pero la
+  \item \textbf{403}: \emph{Forbidden}, el servidor entiende la petición pero la
   rechaza.
-  \item \textbf{404}: Not Found, el recurso no puedo ser encontrado.
-  \item \textbf{405}: Method Not Allowed, el método no es soportado para acceder
+  \item \textbf{404}: \emph{Not Found}, el recurso no puedo ser encontrado.
+  \item \textbf{405}: \emph{Method Not Allowed}, el método no es soportado para acceder
   al recurso. Por ejemplo, utilizar un GET cuando está pensado para utilizarse
   un POST.
-  \item \textbf{PUT}: Internal Server Error, respuesta genérica para errores
+  \item \textbf{500}: \emph{Internal Server Error}, respuesta genérica para errores
   internos, sin mensaje específico de los mismos.
 \end{itemize}
 
 \paragraph{HTTP Cookies}
 
-El concepto de las \textit{Cookies} es sencillo, son pequeños bloques de datos
+El concepto de las \textit{cookies} es sencillo, son pequeños bloques de datos
 que el servidor manda al navegador del usuario mientras realiza peticiones HTTP
 a él. Una vez que el cliente ha almacenado esta información, puede usarla para
 agilizar ciertos pasos en las siguientes peticiones. Cuando vuelva a acceder,
@@ -725,17 +733,17 @@ junto con la petición <<normal>> enviará esta porción de datos, que el servid
 puede interpretar y reconocer. Por ejemplo, pueden guardarse los inicios de
 sesión, preferencias o, en entornos comerciales, el comportamiento del usuario.
 
-La idea interesante de las \textit{Cookies} es que permite almacenar
+La idea interesante de las \textit{cookies} es que permite almacenar
 \textbf{información de estado} para el protocolo HTTP, que es \textbf{sin
 estado} (por sí solo no puede guardar esta información).
 
 \section{CSRF (Cross-Site Request Forgery)}
-Cross-Site Request Forgery (Falsificación de petición en sitios cruzados) es un
-ataque sobre aplicaciones Web vulnerables en las que se utiliza a un usuario
-autenticado en la misma (o en el que la Web confía) para enviar una petición
-maliciosa. Los ataques CSRF explotan la confianza que una Web tiene con un
-usuario, al no poder diferenciar entre una petición generada por el usuario (la
-persona) y la petición generada por el usuario, pero sin su consentimiento
+\emph{Cross-Site Request Forgery} (falsificación de petición en sitios cruzados)
+es un ataque sobre aplicaciones web vulnerables en las que se utiliza a un
+usuario autenticado en la misma (o en el que la web confía) para enviar una
+petición maliciosa. Los ataques CSRF explotan la confianza que una web tiene con
+un usuario, al no poder diferenciar entre una petición generada por el usuario
+(la persona) y la petición generada por el usuario, pero sin su consentimiento
 \cite{csrf} (generalmente de forma cruzada, proveniente de otro contexto).
 
 Se presenta un ejemplo explicativo:
@@ -755,7 +763,8 @@ que accede a esa URL es el propio usuario con sesión iniciada.
 
 \begin{tcolorbox}[colback=red!5!white,colframe=red!75!black,title=Atacante]
     \begin{enumerate}
-        \item Ha hecho ingeniería social para saber el Email de David: david@ejemplo.es.
+        \item Ha hecho ingeniería social para saber el Email de David:
+        \mbox{\texttt{david@ejemplo.es}}.
         \item Envía un correo electrónico con un enlace que parece de Google.
         \item En realidad, todos los botones de esa página envían un formulario (POST)
         hacia \url{https://ejemplo.es/cambiarcontrasena}.
@@ -769,7 +778,7 @@ que accede a esa URL es el propio usuario con sesión iniciada.
         \item Recibe el correo en su bandeja de entrada.
         \item No se percata de que no es la página original de Google y entra en ella.
         \item Busca información en Google y pincha en un botón.
-        \item Se realiza la petición POST a la Web vulnerable en la que ha iniciado sesión.
+        \item Se realiza la petición POST a la aplicación web vulnerable en la que ha iniciado sesión.
         \item El servidor procesa la petición pues cree que es el propio usuario el que ha
         construido la petición conscientemente.
         \item La contraseña ha cambiado a <<hackeado>>.
@@ -783,12 +792,12 @@ Con el Email <<david@ejemplo.es>> y la contraseña <<hackeado>>, accede a la Web
 
 \end{tcolorbox}
 
-\paragraph{Solución} Dada la vulnerabilidad comentada anteriormente, la solución pasa por idear una
-forma de saber que esa petición se ha creado desde la propia aplicación (no por
-terceros). Por lo tanto, la idea más efectiva es la creación de un <<CSRF
-token>> único para los usuarios, que el servidor (aplicación) genera y
-<<guarda>> en la sesión de los mismos. Este <<token>> es incrustado como un
-parámetro oculto en las peticiones (en los formularios) y al realizar el envío
-del formulario, el servidor comprobará que el <<token>> recibido era el correcto
-para el usuario.
+\paragraph{Solución} Dada la vulnerabilidad comentada anteriormente, la solución
+pasa por idear una forma de saber que esa petición se ha creado desde la propia
+aplicación (no por terceros). Por lo tanto, la idea más efectiva es la creación
+de un <<\emph{CSRF token}>> único para los usuarios, que el servidor
+(aplicación) genera y <<guarda>> en la sesión de los mismos. Este <<token>> es
+incrustado como un parámetro oculto en las peticiones (en los formularios) y al
+realizar el envío del formulario, el servidor comprobará que el <<token>>
+recibido era el correcto para el usuario.
 
