@@ -2,7 +2,7 @@
 
 Con el aprendizaje automático y el uso de gran cantidad de datos, es
 completamente necesaria la visualización de los datos, procesos de entrenamiento
-y ciertas estadísticas. Al fin y al cabo, cuando se construyen modelos, se debe
+y ciertas estadísticas. Al fin y al cabo, cuando se construye un modelo, se debe
 tener una realimentación de cómo de bien está funcionando para poder extraer
 conclusiones sobre el mismo.
 
@@ -16,9 +16,9 @@ subyacentes.
 \section{Visualizadores}
 
 \subsubsection{Seshat} 
-Es una herramienta web que trata de facilitar el aprendizaje de
-la teoría de lenguajes y autómatas (análisis léxico) que utilizan los
-compiladores~\cite{arnaiz2018seshat} , puede accederse desde
+Es una herramienta web que trata de facilitar el aprendizaje de la teoría de
+lenguajes y autómatas (análisis léxico) que utilizan los
+compiladores~\cite{arnaiz2018seshat}, puede accederse desde
 \url{http://cgosorio.es/Seshat}. La herramienta propone en primera instancia
 unas explicaciones teóricas de los algoritmos con sus conceptos generales, el
 concepto concreto de las expresiones regulares y qué es un autómata finito. A
@@ -32,9 +32,9 @@ algoritmos implementados por la herramienta son:
     \item Construcción de un autómata finito determinista (AFD) a partir de una expresión regular.
     \item Minimización de un autómata finito.
 \end{enumerate}
-Para su construcción se ha usado el framework Flask en Python que actúa como
-servidor. La interfaz de usuario está construida con HTML, SVGs y Javascript
-para proporcionar el contenido dinámico.
+Para su construcción se ha usado el \emph{framework} Flask en Python que actúa
+como servidor. La interfaz de usuario está construida con HTML, SVGs y
+Javascript para proporcionar el contenido dinámico.
 
 En este proyecto se realizó un estudio de la opinión de 42 estudiantes después
 de su uso. El estudio consistía en unas afirmaciones (5) respecto a la buena
@@ -52,7 +52,7 @@ instancias, debido a la carencia de este tipo de aplicaciones para dichos
 algoritmos. La herramienta es altamente personalizable pudiendo subir el
 conjunto de datos o seleccionar qué característica visualizar en los ejes. En la
 visualización se pueden ver todos los pasos de los algoritmos junto, por
-ejemplo, a las regiones de Boronoi o el pseudocódigo. Esto hace que el alumno
+ejemplo, a las regiones de Voronoi o el pseudocódigo. Esto hace que el alumno
 pueda conocer el progreso y los conceptos particulares (influencia,
 vecindad...). Los algoritmos implementados por la herramienta son:
 \begin{enumerate}
@@ -107,8 +107,8 @@ estilo.
     \rowcolor[HTML]{FFFFFF} 
     \textbf{\begin{tabular}[c]{@{}l@{}}Incrementar la\\comprensión\end{tabular}} & \begin{tabular}[c]{@{}l@{}}Explicaciones textuales\\ Realimentación con las acciones del usuario\\ Ayuda integrada\\ Comodidad en la entrada de datos\end{tabular}                                                              \\ \hline
     \textbf{\begin{tabular}[c]{@{}l@{}}Promocionar\\ interés\end{tabular}}     & \begin{tabular}[c]{@{}l@{}}Permitir introducir datos al algoritmo\\ Manipular la visualización\\ Capacidad de volver <<rebobinar>>\\ Variación de la velocidad\\ Avanzar en la ejecución\end{tabular}         \\ \hline
-    \textbf{Aprendibilidad}                                                    & \begin{tabular}[c]{@{}l@{}}Controles familiares\\ Generalidad con otros sistemas\\ Predictibilidad de las acciones\\ Interfaz simple\end{tabular}                                                                                  \\ \hline
-    \textbf{Memorabilidad}                                                     & Interfaz común que soporte múltiples animaciones                                                                                                                                                                                   \\ \hline
+    \textbf{Facilidad de aprendizaje}                                          & \begin{tabular}[c]{@{}l@{}}Controles familiares\\ Generalidad con otros sistemas\\ Predictibilidad de las acciones\\ Interfaz simple\end{tabular}                                                                                  \\ \hline
+    \textbf{Facilidad de memorización}                                         & Interfaz común que soporte múltiples animaciones                                                                                                                                                                                   \\ \hline
     \textbf{Facilidad de uso}                                                  & \begin{tabular}[c]{@{}l@{}}Interfaz común que soporte múltiples animaciones\\ Claridad de los modelos y conceptos\end{tabular}                                                                                                     \\ \hline
     \textbf{Robustez}                                                          & \begin{tabular}[c]{@{}l@{}}Explicaciones de la visualización\\ Integración de ajustes predefinidos\\ Recuperación de errores\end{tabular}                                                                                       \\ \hline
     \textbf{Eficacia}                                                          & \begin{tabular}[c]{@{}l@{}}Visibilidad del estado del sistema\\ Control y libertad del usuario\\ Prevención de errores\\ Flexibilidad de uso\\ Ayuda al usuario para reconocer, diagnosticar y recuperarse de errores\end{tabular} \\ \hline
@@ -135,7 +135,7 @@ concretamente \texttt{K-Means Clustering}, entre muchos otros.
 VISUALGO, \url{https://visualgo.net/en}. Es una página web creada por la
 Universidad Nacional de Singapur. Esta Web permite visualizar algoritmos básicos
 (como de ordenación o camino más corto) pero también estructuras de datos (como
-"<hash tables"> o conjuntos disjuntos).
+<<\emph{hash tables}>> o conjuntos disjuntos).
 
 \imagen{memoria/visualgo}{Viajante de comercio en VISUALGO.}{1}
 
@@ -143,9 +143,9 @@ Visualizer, por Zhenbang Feng, \url{https://jasonfenggit.github.io/Visualizer/}
 \footnote{ Github: \url{https://github.com/JasonFengGit/Visualizer}}. Su autor
 lo define como una página web para proporcionar visualizaciones intuitivas e
 innovadoras de algoritmos generales y de inteligencia artificial. Las
-visualizaciones son muy visuales con las que se capta muy bien el funcionamiento
-de los algoritmos. Implementa algoritmos de búsqueda de caminos, ordenamiento e
-inteligencia artificial (como minimax).
+visualizaciones son muy atractivas, con las que se capta muy bien el
+funcionamiento de los algoritmos. Implementa algoritmos de búsqueda de caminos,
+ordenamiento e inteligencia artificial (como minimax).
 
 \imagen{memoria/visualizer}{Mergesort en Visualizer (Zhenbang Feng).}{1}
 

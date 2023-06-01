@@ -51,7 +51,7 @@ Surgieron dos grandes problemas, el tratamiento de los datos que utilizan los
 algoritmos (etiquetados, no etiquetados, particiones...) y por otro lado, cómo
 ajustar estos datos y comunicarlos a la Web cuando los requiera.
 
-No resultaba correcto vincular todos estos pasos en el código de los algoritmos
+No resultaba correcto vincular todos estos pasos en el código de los algoritmos,
 ni tampoco en el de la propia aplicación. Tenía mucho más sentido crear unas
 utilidades que actuasen de intermediarias en ciertos pasos del procedimiento.
 
@@ -59,7 +59,7 @@ Para el primer problema se crearon tres utilidades principales:
 
 Un <<particionador>> de datos que se encargara de dividir los datos en conjunto
 de entrenamiento y test. Pero que además, si el conjunto estaba pensado para
-aprendizaje Supervisado, generase aleatoriamente datos no etiquetados.
+aprendizaje supervisado, generase aleatoriamente datos no etiquetados.
 
 Un codificador de etiquetas para transformar las etiquetas nominales en
 numéricas (necesarias para los algoritmos). De base, el codificador de etiquetas
@@ -75,25 +75,25 @@ además devuelva los datos de los atributos ($\mathbf{x}$) y por separado las
 etiquetas ($y$). Es decir, un cargador cuyo resultado pueda ser introducido en los
 algoritmos. 
 
-Sobre el segundo problema (datos válidos para la aplicación Web) se creó una
+Sobre el segundo problema (datos válidos para la aplicación web) se creó una
 utilidad encargada de transformar el conjunto de datos a dos dimensiones. Esto
 es, transformar los atributos (que pueden ser más de dos) a exactamente dos,
 para poder representarlo en dos dimensiones. Sin embargo, cuando se avanzó un
 poco en el desarrollo, era obvio que no interesaba modificar el conjunto de
-datos, sino el resultado de la ejecución de la aplicación Web. Fue cuando se
+datos, sino el resultado de la ejecución de la aplicación web. Fue cuando se
 implementó y visualizó Self-Training cuando se pudo ver esta casuística.
 Finalmente, lo que se hace es, transformar la estructura de datos que retorna la
-ejecución de los algoritmos (Anexo D) que incluye todos los datos (y todos sus
-atributos), a dos dimensiones (solo los atributos, no el <<target>> ni el resto
-de columnas). El usuario puede seleccionar dos posibilidades, o realizar PCA o
-seleccionar él dos atributos del conjunto.
+ejecución de los algoritmos (consultar anexo D) que incluye todos los datos (y
+todos sus atributos), a dos dimensiones (solo los atributos, no el <<target>> ni
+el resto de columnas). El usuario puede seleccionar dos posibilidades, o
+realizar PCA o seleccionar él mismo dos atributos del conjunto.
 
 En ambos casos apareció la decisión de la estandarización. Al principio se
 realizaba en ambos casos directamente, pero finalmente se permitía al usuario
 elegir si estandarizar o no.
 
 Como se puede ver, no se está normalizando sino estandarizando. Esta decisión es
-debida, principalmente, al efecto de los \texttt{outliers} (valores atípicos).
+debida, principalmente, al efecto de los \emph{outliers} (valores atípicos).
 Un valor extremo en normalización puede hacer que la visualización sea muy
 pobre, juntando la mayoría de los puntos a una zona. Con la estandarización este
 efecto es mucho menor, pues se tiene en cuenta la media de los valores.
@@ -101,10 +101,12 @@ efecto es mucho menor, pues se tiene en cuenta la media de los valores.
 \clearpage
 \section{Desarrollo de los algoritmos}
 
-Junto con la Web, este desarrollo es el más importante realizado. Ha supuesto un verdadero reto documentarse
-con los artículos científicos de estos algoritmos. Al fin y al cabo, no se tienen absolutamente todos los conocimientos
-del aprendizaje y en muchas ocasiones se <<perdía>> más tiempo leyendo y entendiendo que programando. Sí que es verdad que 
-los algoritmos que se han desarrollado tienen ideas bastante lógicas y directas.
+Junto con la aplicación web, este desarrollo es el más importante realizado. Ha
+supuesto un verdadero reto documentarse con los artículos científicos de estos
+algoritmos. Al fin y al cabo, no se tienen absolutamente todos los conocimientos
+del aprendizaje y en muchas ocasiones se <<perdía>> más tiempo leyendo y
+entendiendo que programando. Sí que es verdad que los algoritmos que se han
+desarrollado tienen ideas bastante lógicas y directas.
 
 Para desarrollar un algoritmo lo primero que se realizaba era leer y entender la
 teoría que se presentaba en los artículos, consultando conceptos que no se
@@ -133,9 +135,9 @@ forma rudimentaria, se utilizaban los conjuntos de datos de <<juguete>> de
 Cuando se pensaba que la implementación correspondía (en principio) a los
 artículos, se comenzaban esas tareas de depuración. Por ejemplo, tanto en
 Democratic Co-Learning como en Tri-Training se detectó que los tiempos de
-entrenamiento eran demasiado grandes. En el primer caso resultó ser porque la
+entrenamiento eran demasiado grandes. En el primer caso, resultó ser porque la
 condición de parada estaba mal planteada y ejecutaba muchas más iteraciones de
-las necesarias. En el segundo caso resultó ser precisamente el uso de
+las necesarias. En el segundo caso, resultó ser precisamente el uso de
 estructuras de datos más lentas (se subsanó utilizando \texttt{numpy}).
 
 \subsection{Validación}
@@ -166,8 +168,8 @@ comparable con \texttt{sslearn} y concluir que es correcta.
     \end{center}
 
     \item \textit{\textbf{Geometric mean (Gmean)}}: En este contexto, la media
-    geométrica trata maximizar cada una de las medidas de <<accuracy>> de cada
-    clase \cite{imbalanced_learn}.
+    geométrica trata maximizar cada una de las medidas de <<\emph{accuracy}>> de
+    cada clase \cite{imbalanced_learn}.
 
     Para realizar su cálculo, se tiene en cuenta si se trata de clasificación
     binaria o multiclase:
@@ -181,16 +183,16 @@ comparable con \texttt{sslearn} y concluir que es correcta.
         todos los negativos)\cite{eswiki:145396343}}.
 
         \begin{center}
-            $ Gmean = \sqrt{sensibilidad \cdot especificidad} $
+            $ Gmean = \sqrt{\textit{sensibilidad} \cdot \textit{especificidad}} $
         \end{center}
         
 
-        \item Multiclase: la media geométrica se calcula como la raíz n-ésima
+        \item Multiclase: la media geométrica se calcula como la raíz $n$-ésima
         del producto de las sensibilidades de cada clase.
 
         \begin{center}
-            $Gmean = \sqrt[\leftroot{5} \uproot{5} n]{sensibilidad_1 \cdot
-            sensibilidad_2 ~...~..~\cdot sensibilidad_n }$
+            $Gmean = \sqrt[\leftroot{5} \uproot{5} n]{\textit{sensibilidad}_1 \cdot
+            \textit{sensibilidad}_2 ~...~..~\cdot \textit{sensibilidad}_n }$
         \end{center}
     \end{itemize}
 
@@ -207,7 +209,7 @@ algoritmo.
 
 Por cada uno de los conjuntos de datos se presenta un gráfico comparando cada
 algoritmo propio con el de \texttt{sslearn} mediante gráficos de caja. En el eje
-X se presentan los algoritmos que se están comparando y en el eje Y cada una de
+$X$ se presentan los algoritmos que se están comparando y en el eje $Y$ cada una de
 las estadísticas antes comentadas.
 
 Contenido de cada gráfico de cajas:
@@ -244,16 +246,17 @@ de él).
 \end{table}
 
 
-\imagen{memoria/Breast}{Comparación con \textit{Breast Cancer}.}{1}
+\imagen{memoria/Breast}{Comparación de métodos con el conjunto de datos \textit{Breast Cancer}.}{1}
 
-\imagen{memoria/Iris}{Comparación con \textit{Iris}.}{1}
+\imagen{memoria/Iris}{Comparación  de métodos con el conjunto de datos \textit{Iris}.}{1}
 
-\imagen{memoria/Wine}{Comparación con \textit{Wine}.}{1}
+\imagen{memoria/Wine}{Comparación  de métodos con el conjunto de datos \textit{Wine}.}{1}
 
 
 Por cada una de las figuras anteriores, lo interesante para comprobar si las
 implementaciones pueden considerarse como correctas es fijarse en
-\texttt{sslearn}.
+\texttt{sslearn\footnote{Biblioteca de algoritmos semi-supervisados creada por
+José Luis Garrido-Labrador~\cite{jose_luis_garrido_labrador_2023_7781117}}}.
 
 Como se puede ver, en todos los casos los valores de la implementación propia
 coinciden en gran medida con las de \texttt{sslearn}. Es de destacar que en los
@@ -265,25 +268,26 @@ Aunque haya pequeñas variaciones, los valores obtenidos son muy parecidos. Se
 concluye por tanto, que los algoritmos implementados se consideran correctos.
 
 
-\section{Desarrollo Web}
+\section{Desarrollo web}
 
 Pese a que los algoritmos han sido una buena parte de todo el proyecto, el
-desarrollo de la aplicación Web es el que ha ocupado la mayor parte del tiempo
+desarrollo de la aplicación web es el que ha ocupado la mayor parte del tiempo
 (de forma aproximada, se calcula que un 70\%). El por qué esto ha sido así
 reside en dos cuestiones. 
 
 Por un lado, el tamaño de la aplicación, que pese a no ser una aplicación
 extremadamente grande, todo se ha realizado desde cero. No se adquirió ninguna
 plantilla o estructura existente y la única ayuda utilizada fue
-\texttt{Bootstrap} (que sí agiliza el estilado de la Web). Y en segundo lugar,
-por el desconocimiento del desarrollo Web. Durante los estudios no se han dado
-asignaturas de esta temática sea el desarrollo Web. No ha sido hasta este mismo
-curso cuando se nos ha introducido el mundo Web (Diseño y Mantenimiento del
+\texttt{Bootstrap} (que sí agiliza el estilado de la web). Y en segundo lugar,
+por el desconocimiento del desarrollo web. Durante los estudios no se han dado
+asignaturas de esta temática sea el desarrollo web. No ha sido hasta este mismo
+curso cuando se nos ha introducido el mundo web (Diseño y Mantenimiento del
 Software).
 
 Durante todo el desarrollo, y hasta el final, se tomaron decisiones
-constantemente. El <<framework>> Flask fue el que se manipuló en esa asignatura,
-era interesante seguir en esa línea y desarrollar el proyecto con él. 
+constantemente. El \emph{framework} Flask fue el que se manipuló en esa
+asignatura, era interesante seguir en esa línea y desarrollar el proyecto con
+él. 
 
 De hecho, al comenzar el proyecto, se tomó las estructura básica del proyecto
 final de la asignatura dejando solo lo básico para arrancar una aplicación Web.
@@ -291,24 +295,24 @@ final de la asignatura dejando solo lo básico para arrancar una aplicación Web
 \subsection{JavaScript}
 La toma de contacto con JavaScript fue compleja, no se había trabajado con este
 lenguaje y solo se tenían conceptos básicos de HTML y CSS (junto con
-<<backend>>, que al ser Python, ya se tenía cierta soltura). Para intentar
-avanzar lo máximo posible, se optó por ver tutoriales y
+<<\emph{backend}>>, que al ser Python, ya se tenía cierta soltura). Para
+intentar avanzar lo máximo posible, se optó por ver tutoriales y
 cursos\footnote{\url{https://www.w3schools.com/}} al mismo tiempo que ya se
 iniciaban las visualizaciones de los algoritmos (completamente rudimentarias).
-En este sentido, se iba a utilizar la librería D3.js que, comparándola con
-otras, era algo más difícil de manejar con soltura.
+En este sentido, se iba a utilizar la librería \texttt{D3.js} que, comparándola
+con otras, era algo más difícil de manejar con soltura.
 
 Esta fue la línea general de desarrollo en JavaScript, en el momento que se
 presentaba un problema o el uso de una nueva librería, ir a fondo con ello
 directamente sobre la Web, hasta conseguir avances. Todo ello guiado por foros o
 páginas como \textit{Stack Overflow}. Además, se optó por desarrollar la Web en
 JavaScript <<Vanilla>>, sin librerías como jQuery. Se pensó que aprender las
-bases de JavaScript era más nutritivo.
+bases de JavaScript era más provechoso.
 
-Es destacable la cantidad de veces que hubo que \textit{refactorizar} el código.
-Durante el manejo y aprendizaje, aparecían mejores soluciones a lo que ya se
-tenía. Por ejemplo, el uso de <<imports>> permitía centralizar y reutilizar
-código (que al principio se desconocía).
+Es destacable la cantidad de veces que hubo que refactorizar el código. Durante
+el manejo y aprendizaje, aparecían mejores soluciones a lo que ya se tenía. Por
+ejemplo, el uso de <<\emph{imports}>> permitía centralizar y reutilizar código
+(que al principio se desconocía).
 
 Aparte de todo esto, exceptuando las visualizaciones (que son bastante
 particulares) y considerando todos los problemas que aparecían, el resto del
@@ -319,28 +323,27 @@ El avance, aunque algunas veces lento, era constante.
 
 \subsection{Rediseño completo}
 
-Uno de los puntos más destacables del desarrollo fue durante los Sprints 13 y
+Uno de los puntos más destacables del desarrollo fue durante los sprints 13 y
 14. La aplicación tuvo un rediseño completo (tanto estructura como apariencia)
 partiendo desde el <<backend>> hasta el <<frontend>>.
 
 Tal y como estaba la aplicación estructurada, todas las rutas estaban en un
-único fichero, que a su vez era el mismo que \textit{instanciaba} la aplicación.
-Esto, para \texttt{demos} o aplicaciones muy pequeñas, es una solución rápida y
-buena. Sin embargo, lo que se vio de otros proyectos es que cuando el tamaño es
-grande, es necesario compartimentar rutas, modelos de bases de datos u otros
-elementos que crecen en número. Tener absolutamente todo en un único fichero es
-engorroso.
+único fichero, que a su vez era el mismo que instanciaba la aplicación. Esto,
+para demos o aplicaciones muy pequeñas, es una solución rápida y buena. Sin
+embargo, lo que se vio de otros proyectos es que cuando el tamaño es grande, es
+necesario compartimentar rutas, modelos de bases de datos u otros elementos que
+crecen en número. Tener absolutamente todo en un único fichero es engorroso.
 
-Es por eso que se utilizó la idea de \texttt{Application Factory} y
-\texttt{Blueprints}. Por un lado, \texttt{Application Factory} ha permitido
+Es por eso que se utilizó la idea de \textit{Application Factory} y
+\textit{Blueprints}. Por un lado, \textit{Application Factory} ha permitido
 hacer un único punto de creación de la aplicación donde se configura y se
 desvincula del resto del código.
 
-Los \texttt{Blueprints} son como pequeñas aplicaciones independientes de Flask
-(que luego son unificadas en una, en esa \texttt{Application Factory}
-comentada). En cada \texttt{Blueprint} se han definido las rutas que intervienen
+Los \textit{Blueprints} son como pequeñas aplicaciones independientes de Flask
+(que luego son unificadas en una, en esa \textit{Application Factory}
+comentada). En cada \textit{Blueprint} se han definido las rutas que intervienen
 en cada contexto. Por ejemplo, para la configuración de los algoritmos, se han
-definido sus rutas exclusivas, como si fuera una aplicación por si sola. Esto
+definido sus rutas exclusivas, como si fuera una aplicación por sí sola. Esto
 permite aplicaciones \textbf{mantenibles y escalables}.
 
 Tal y como está al final, con la cantidad de rutas y utilidades codificadas,

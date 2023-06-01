@@ -746,6 +746,17 @@ dicha extensión están pensados para ejecutarse secuencialmente, de tal forma q
 casos de prueba anteriores pueden dejar la aplicación en el estado correcto para
 cumplir esas precondiciones.
 
+Durante los siguientes casos de prueba se va a manejar constantemente un usuario
+de prueba. Este usuario será <<Prueba>> y tendrá la siguiente información.
+\begin{itemize}
+    \item \textbf{Nombre}: Prueba
+    \item \textbf{Correo electrónico}: prueba@gmail.com
+    \item \textbf{Contraseña}: 12345678
+\end{itemize}
+
+En muchos de los casos se hará referencia a este usuario.
+
+\clearpage
 \begin{table}[H]
 \begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
 \rowcolor{gray!25}
@@ -765,7 +776,7 @@ Introducir datos de usuario                        & Nombre: Prueba, Email: prue
 Hacer clic en <<Enviar>>                             &                                                                                                         & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito                            \\ \hline
 Comprobar presencia nombre de usuario              &                                                                                                         & El nombre de usuario <<Prueba>> se encuentra en la barra de navegación & El nombre de usuario <<Prueba>> se encuentra en la barra de navegación & Éxito   \\ \hline                        
 \end{tabular}
-\caption{CP1: Registro.}
+\caption{Caso de prueba 1: Registro.}
 \end{table}
 
 \begin{table}[H]
@@ -787,7 +798,7 @@ Introducir datos de usuario                        & Nombre: Prueba, Email: prue
 Hacer clic en <<Enviar>>                             &                                                                                                         & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito                            \\ \hline
 Comprobar presencia nombre de usuario              &                                                                                                         & El nombre de usuario <<Prueba>> se encuentra en la barra de navegación & El nombre de usuario <<Prueba>> se encuentra en la barra de navegación & Éxito  \\ \hline                         
 \end{tabular}
-\caption{CP2: Inicio de sesión.}
+\caption{Caso de prueba 2: Inicio de sesión.}
 \end{table}
 
 \begin{table}[H]
@@ -808,7 +819,7 @@ Comprobar idioma español                               &                       
 Hacer clic en el icono de idiomas                      &                        & Menú desplegable de idiomas mostrado                                 & Menú desplegable de idiomas mostrado                                 & Éxito                            \\ \hline
 Hacer clic en el botón de <<Inglés>>                   &                        & El subtítulo principal es <<Final Degree Project on semi-supervised algorithms and their visualization>>  & El subtítulo principal es <<Final Degree Project on semi-supervised algorithms and their visualization>>  & Éxito                            \\ \hline
 \end{tabular}
-\caption{CP3: Cambio de idioma.}
+\caption{Caso de prueba 3: Cambio de idioma.}
 \end{table}
 
 \begin{table}[H]
@@ -831,7 +842,7 @@ Hacer clic en el botón de <<Enviar>>                   &                       
 Hacer clic en el nombre de usuario <<Prueba>> y en el botón de <<Perfil>>      &                        & Encontrarse en la página del perfil de usuario                                 & Encontrarse en la página del perfil de usuario                                & Éxito  \\ \hline 
 Comprobar email actualizado                            &                       &  El email que aparece es <<pruebacambiado@gmail.com>>     &  El email que aparece es <<pruebacambiado@gmail.com>>  & Éxito \\ \hline
 \end{tabular}
-\caption{CP4: Edición perfil.}
+\caption{Caso de prueba 4: Edición perfil.}
 \end{table}
 
 
@@ -853,7 +864,7 @@ Hacer clic en el nombre de usuario <<Prueba>> y en el botón de <<Perfil>>      
 Introducir datos de usuario (contraseña errónea)                           & Nombre: Prueba, Email: pruebacambiado@gmail.com, Contraseña actual: \textbf{1234567899}                  & Datos introducidos                                                   & Datos introducidos                                                   & Éxito                            \\ \hline
 Hacer clic en el botón de <<Enviar>>           &                       &  El mensaje de error que aparece es <<Contraseña actual incorrecta>>     &  El error que aparece es <<Contraseña actual incorrecta>>  & Éxito \\ \hline
 \end{tabular}
-\caption{CP5: Edición perfil con contraseña incorrecta.}
+\caption{Caso de prueba 5: Edición perfil con contraseña incorrecta.}
 \end{table}
 
 \begin{table}[H]
@@ -872,7 +883,7 @@ Postcondiciones & \multicolumn{4}{l}{El usuario ha cerrado la sesión}          
 Acceder a '/admin?lang=es'                                          &                        & Encontrarse en la página de error                                  & Encontrarse en la página de error                                    & Éxito  \\ \hline
 Comprobar error      &                        & El código de error y mensaje son <<401>> y <<No autorizado>>                               & El código de error y mensaje son <<401>> y <<No autorizado>>                                & Éxito  \\ \hline 
 \end{tabular}
-\caption{CP6: Usuario sin acceso a administración.}
+\caption{Caso de prueba 6: Usuario sin acceso a administración.}
 \end{table}
 
 \begin{table}[H]
@@ -891,7 +902,7 @@ Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                       
 Acceder a '/admin?lang=es'                         &                        & Encontrarse en la página de inicio de sesión                                 & Encontrarse en la página de inicio de sesión                                     & Éxito  \\ \hline
 Comprobar advertencia (mensaje flash)      &                        & El mensaje es <<Por favor, inicia sesión para acceder a esta página.>>                               & El mensaje es <<Por favor, inicia sesión para acceder a esta página.>>                                 & Éxito  \\ \hline 
 \end{tabular}
-\caption{CP7: Anónimo sin acceso a administración.}
+\caption{Caso de prueba 7: Anónimo sin acceso a administración.}
 \end{table}
 
 \begin{table}[H]
@@ -913,7 +924,7 @@ Subir un fichero .txt                                 &                        &
 Hacer clic en <<Configurar algoritmo>>                &                        & Redirección a la página de subida                                    & Redirección a la página de subida                                 & Éxito                            \\ \hline
 Comprobar advertencia (mensaje flash)                 &                        & El mensaje es <<El fichero debe ser ARFF o CSV>>                     & El mensaje es <<El fichero debe ser ARFF o CSV>>                                 & Éxito  \\ \hline 
 \end{tabular}
-\caption{CP8: Fichero sin extensión ARFF o CSV.}
+\caption{Caso de prueba 8: Fichero sin extensión ARFF o CSV.}
 \end{table}
 
 \begin{table}[H]
@@ -939,7 +950,7 @@ Comprobar la existencia de los <<SVGs>>               &                        &
 Comprobar leyenda principal                           &                        & La leyenda incluye: <<Iris-setosa>>, <<Iris-versicolor>>, <<Iris-virginica>> & La leyenda incluye: <<Iris-setosa>>, <<Iris-versicolor>>, <<Iris-virginica>> & Éxito \\ \hline
 Comprobar iteración 0                                 &                        & El valor de la iteración es 0                                        & El valor de la iteración es 0                                & Éxito \\ \hline
 \end{tabular}
-\caption{CP9: Ejecución correcta Self-Training.}
+\caption{Caso de prueba 9: Ejecución correcta Self-Training.}
 \end{table}
 
 
@@ -966,7 +977,7 @@ Comprobar la existencia de los <<SVGs>>               &                        &
 Comprobar leyenda principal                           &                        & La leyenda incluye: <<Iris-setosa>>, <<Iris-versicolor>>, <<Iris-virginica>> & La leyenda incluye: <<Iris-setosa>>, <<Iris-versicolor>>, <<Iris-virginica>> & Éxito \\ \hline
 Comprobar iteración 0                                 &                        & El valor de la iteración es 0                                        & El valor de la iteración es 0                                & Éxito \\ \hline
 \end{tabular}
-\caption{CP10: Ejecución correcta Co-Training.}
+\caption{Caso de prueba 10: Ejecución correcta Co-Training.}
 \end{table}
 
 \clearpage
@@ -993,7 +1004,7 @@ Comprobar la existencia de los <<SVGs>>               &                        &
 Comprobar leyenda principal                   &                        & La leyenda incluye: <<Iris-setosa>>, <<Iris-versicolor>>, <<Iris-virginica>> & La leyenda incluye: <<Iris-setosa>>, <<Iris-versicolor>>, <<Iris-virginica>> & Éxito \\ \hline
 Comprobar leyenda estadísticas específicas    &                        & La leyenda incluye: <<CLF1 (KNeighborsClassifier)>>, <<CLF2 (DecisionTreeClassifier)>>, <<CLF3 (GaussianNB)>> & La leyenda incluye: <<CLF1 (KNeighborsClassifier)>>, <<CLF2 (DecisionTreeClassifier)>>, <<CLF3 (GaussianNB)>> & Éxito \\ \hline
 Comprobar iteración 0                                 &                        & El valor de la iteración es 0                                        & El valor de la iteración es 0                                & Éxito \\ \hline
-\caption{CP11: Ejecución correcta Democratic Co-Learning.}
+\caption{Caso de prueba 11: Ejecución correcta Democratic Co-Learning.}
 \end{longtable}
 
 \begin{longtable}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
@@ -1019,7 +1030,7 @@ Comprobar la existencia de los <<SVGs>>               &                        &
 Comprobar leyenda principal                           &                        & La leyenda incluye: <<Iris-setosa>>, <<Iris-versicolor>>, <<Iris-virginica>> & La leyenda incluye: <<Iris-setosa>>, <<Iris-versicolor>>, <<Iris-virginica>> & Éxito \\ \hline
 Comprobar leyenda estadísticas específicas            &                        & La leyenda incluye: <<CLF1 (KNeighborsClassifier)>>, <<CLF2 (DecisionTreeClassifier)>>, <<CLF3 (GaussianNB)>> & La leyenda incluye: <<CLF1 (KNeighborsClassifier)>>, <<CLF2 (DecisionTreeClassifier)>>, <<CLF3 (GaussianNB)>> & Éxito \\ \hline
 Comprobar iteración 0                                 &                        & El valor de la iteración es 0                                        & El valor de la iteración es 0                                & Éxito \\ \hline
-\caption{CP12: Ejecución correcta Tri-Training.}
+\caption{Caso de prueba 12: Ejecución correcta Tri-Training.}
 \end{longtable}
 
 \begin{table}[H]
@@ -1044,7 +1055,7 @@ Hacer clic en <<Ejecutar>>                            &                        &
 Esperar a la aparición de una ventana emergente       &                   & & & Éxito  \\ \hline 
 Comprobar mensaje de aviso                            &                        & Mensaje: <<Se han detectado características categóricas o indefinidas, es necesario que se aseguren características numéricas>> & Mensaje: <<Se han detectado características categóricas o indefinidas, es necesario que se aseguren características numéricas>> & Éxito \\ \hline
 \end{tabular}
-\caption{CP13: Error con atributos categóricos.}
+\caption{Caso de prueba 13: Error con atributos categóricos.}
 \end{table}
 
 \begin{table}[H]
@@ -1065,7 +1076,7 @@ Hacer clic en el nombre de usuario <<Prueba>> y en el botón de <<Mi Espacio>>  
 Hacer clic en el botón de eliminar (símbolo de papelera) en la tabla de los conjuntos de datos &                     & Modal de confirmación visible                                     & Modal de confirmación visible                     & Éxito                            \\ \hline
 Hacer clic en <<Eliminar>> (en el modal)              &                        & Modal ocultado y tabla de conjunto de datos vacía                    & Modal ocultado y tabla de conjunto de datos vacía            & Éxito                            \\ \hline
 \end{tabular}
-\caption{CP14: Borrar conjunto de datos.}
+\caption{Caso de prueba 14: Borrar conjunto de datos.}
 \end{table}
 
 \begin{table}[H]
@@ -1086,7 +1097,7 @@ Hacer clic en el nombre de usuario <<Prueba>> y en el botón de <<Mi Espacio>>  
 Hacer clic en el botón de eliminar (símbolo de papelera) en la tabla del historial de ejecuciones &                     & Modal de confirmación visible                                     & Modal de confirmación visible                     & Éxito                            \\ \hline
 Hacer clic en <<Eliminar>> (en el modal)              &                        & Modal ocultado y tabla del historial de ejecuciones                    & Modal ocultado y tabla del historial de ejecuciones            & Éxito                            \\ \hline
 \end{tabular}
-\caption{CP15: Borrar ejecución.}
+\caption{Caso de prueba 15: Borrar ejecución.}
 \end{table}
 
 \begin{table}[H]
@@ -1108,7 +1119,7 @@ Introducir datos de usuario                            & Nombre: Prueba, Email: 
 Hacer clic en el botón de <<Enviar>>                   &                        & Encontrarse en la página de administración                       & Encontrarse en la página de administración                      & Éxito  \\ \hline
 Comprobar email actualizado del usuario <<Prueba>> en la tabla de usuarios      &                       &  El email que aparece es <<pruebaadministrador@gmail.com>>     &  El email que aparece es <<pruebaadministrador@gmail.com>>  & Éxito
 \end{tabular}
-\caption{CP16: Edición perfil (administrador).}
+\caption{Caso de prueba 16: Edición perfil (administrador).}
 \end{table}
 
 
@@ -1130,5 +1141,5 @@ Hacer clic en el botón de eliminar (símbolo de papelera) del usuario <<Prueba>
 Hacer clic en <<Eliminar>> (en el modal)              &                        & Modal ocultado y tabla de usuario con una única entrada                    & Modal ocultado y tabla de usuario con una única entrada            & Éxito                            \\ \hline
 Comprobar que la única entrada es la del administrador &                       & La entrada corresponde con el email <<admin@admin.es>>                     & La entrada corresponde con el email <<admin@admin.es>> & Éxito \\ \hline
 \end{tabular}
-\caption{CP17: Borrar perfil (administrador).}
+\caption{Caso de prueba 17: Borrar perfil (administrador).}
 \end{table}
