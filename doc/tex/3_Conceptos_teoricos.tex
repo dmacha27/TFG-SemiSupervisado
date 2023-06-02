@@ -157,10 +157,10 @@ no siempre es la misma:
     Los datos pueden tener una dimensionalidad alta (muchas características)
     pero generalmente no todas las características son completamente útiles. Los
     datos a menudo se encuentran en unas estructuras de más baja
-    dimensionalidad. Estas estructuras se conocen como <<\emph{manifolds}>>.
+    dimensionalidad. Estas estructuras se conocen como \emph{manifolds}.
     Esta suposición indica que si los datos del espacio de entrada se encuentran
-    en estas <<\emph{manifolds}>> entonces aquellos puntos que se encuentren en
-    el mismo <<\emph{manifolds}>> tendrán la misma etiqueta.
+    en estas \emph{manifolds} entonces aquellos puntos que se encuentren en
+    el mismo \emph{manifolds} tendrán la misma etiqueta.
     \cite{towardsdatascience:semi,vanEngelen2020}
 \end{tcolorbox}
 
@@ -191,12 +191,12 @@ sencilla y está altamente relacionada con el objetivo del aprendizaje
 supervisado, trata de crear un clasificador que prediga etiquetas para datos
 nuevos. Por lo tanto, los algoritmos construidos tendrán este objetivo, aunque
 con un punto más de concreción: el proyecto se centrará en los métodos
-<<\emph{wrapper}>> o de envoltura.
+\emph{wrapper} o de envoltura.
 
-Los conocidos métodos <<\emph{wrapper}>> se basan en el \textit{pseudo
-etiquetado} ("<pseudo-labelling">), es el proceso en el que los clasificadores
-entrenados con datos etiquetados generan etiquetas para los no etiquetados. Una
-vez completado este proceso, el clasificador se vuelve a entrenar pero añadiendo
+Los conocidos métodos \emph{wrapper} se basan en el \textit{pseudo etiquetado}
+(<<pseudo-labelling>>), es el proceso en el que los clasificadores entrenados
+con datos etiquetados generan etiquetas para los no etiquetados. Una vez
+completado este proceso, el clasificador se vuelve a entrenar pero añadiendo
 estos nuevos datos. La gran ventaja que suponen estos métodos es que pueden
 utilizarse con casi todos los clasificadores (supervisados) existentes
 \cite{vanEngelen2020}.
@@ -255,14 +255,14 @@ modo, una vez entrenados predicen las etiquetas de los no clasificados y todos
 los clasificadores añaden las mejores predicciones.
 
 En \cite{blum1998combining}, Blum y Mitchel propusieron el funcionamiento básico
-de Co-Training con dos vistas sobre los datos (<<\emph{multi-view}>>). Estas
-vistas corresponden no con subconjuntos de las instancias, sino con subconjuntos
-de las características de las mismas. Es decir, cada clasificador va a
-entrenarse teniendo en cuenta características distintas. Idealmente estas vistas
-tendrían que ser independientes y servir por sí solas para predecir la etiqueta
-(aunque no siempre se cumplirá). Cuando los clasificadores predicen etiquetas
-sobre los datos, se seleccionan de ambos los de mayor confianza y se construye
-el nuevo conjunto de entrenamiento para la siguiente iteración.
+de Co-Training con dos vistas sobre los datos (\emph{multi-view}). Estas vistas
+corresponden no con subconjuntos de las instancias, sino con subconjuntos de las
+características de las mismas. Es decir, cada clasificador va a entrenarse
+teniendo en cuenta características distintas. Idealmente estas vistas tendrían
+que ser independientes y servir por sí solas para predecir la etiqueta (aunque
+no siempre se cumplirá). Cuando los clasificadores predicen etiquetas sobre los
+datos, se seleccionan de ambos los de mayor confianza y se construye el nuevo
+conjunto de entrenamiento para la siguiente iteración.
 
 
 \begin{algorithm}
@@ -296,7 +296,7 @@ de aprendizaje semi-supervisado en la línea del Co-Training (varios
 clasificadores). La diferencia sustancial es que los clasificadores base no
 trabajan con dos (o más) conjunto de atributos (para que cada clasificador
 utilice uno de ellos), en este caso solo se tiene un único conjunto de atributos
-(<<\emph{single-view}>>).
+(\emph{single-view}).
 
 Partiendo de los datos etiquetados, varios clasificadores realizan votación
 ponderada sobre los no etiquetados. Lo que quiere decir que, para una instancia,
@@ -795,7 +795,7 @@ Con el Email <<david@ejemplo.es>> y la contraseña <<hackeado>>, accede a la Web
 \paragraph{Solución} Dada la vulnerabilidad comentada anteriormente, la solución
 pasa por idear una forma de saber que esa petición se ha creado desde la propia
 aplicación (no por terceros). Por lo tanto, la idea más efectiva es la creación
-de un <<\emph{CSRF token}>> único para los usuarios, que el servidor
+de un \emph{CSRF token} único para los usuarios, que el servidor
 (aplicación) genera y <<guarda>> en la sesión de los mismos. Este <<token>> es
 incrustado como un parámetro oculto en las peticiones (en los formularios) y al
 realizar el envío del formulario, el servidor comprobará que el <<token>>
