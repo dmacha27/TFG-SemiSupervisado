@@ -834,11 +834,11 @@ Corresponde con el periodo temporal del 26 de abril al 3 de mayo de 2023.
 
 Puntos a desarrollar:
 \begin{enumerate}
-    \item Botón de idioma
-    \item Panel de administración
-    \item Bootstrap icons
-    \item Mensajes flash (alertas)
-    \item Actualizar técnicas y herramientas
+    \item Botón de idioma.
+    \item Panel de administración.
+    \item Bootstrap icons.
+    \item Mensajes flash (alertas).
+    \item Actualizar técnicas y herramientas.
 \end{enumerate}
 
 Lo primero que se hizo fue sustituir los SVG de los iconos que se estaban
@@ -1104,6 +1104,79 @@ la licencia BSD 3-Clause.
 Como la metodología Scrum es altamente utilizada (y ya no resulta una clara
 novedad), se incluyó en las técnicas una pequeña explicación de todo lo que
 interviene en ella.
+
+\subsection{Sprint 20}
+Corresponde con el periodo temporal del 24 al 31 de mayo de 2023.
+
+Puntos a desarrollar:
+\begin{enumerate}
+    \item Añadir la validación de los algoritmos.
+    \item Terminar conceptos teóricos.
+    \item Añadir la descripción de los formatos de \textit{tooltip}.
+    \item Añadir pruebas del sistema.
+    \item Revisión general.
+\end{enumerate}
+
+En sprint lo que planificó era tener todo el proyecto lo más cerca posible al
+objetivo para que una vez se realice la reunión del sprint evaluar cuál es el
+estado.
+
+En primer lugar, algo que se estaba retrasando constantemente debido a la
+prioridad de nueva funcionalidad era la validación de los algoritmos. En este
+sentido sí que se tenían bastante probados, pero faltaba añadirlo a la
+documentación.
+
+Como se venía comentado en sprints anteriores, esta validación se trata de
+comparar la implementación propia contra la de \emph{sslearn} mediante gráficos
+de cajas. La idea es que si se obtienen resultados similares en las estadísticas
+comparadas, se puede concluir que la implementación propia es \emph{correcta}.
+El resultado final con la ejecución de cada algoritmo con varios conjuntos de
+datos fue positivo y se concluyó que eran correctos.
+
+Un punto a destacar de la validación fue la diferencia de implementación de
+Co-Training. En líneas generales, lo que se pudo observar de \emph{sslearn} es
+que el tamaño de \textit{pool} era más grande que lo que se venía realizando.
+Esto se subsanó aumentando los parámetros en la llamada al algoritmo propio para
+hacerlo lo más parejo posible. Aunque sigue apareciendo mayor variación que el
+resto de los algoritmos, se puede comparar perfectamente y llegar a la misma
+conclusión.
+
+En cuanto a los conceptos teóricos, se añadió la descripción de Tri-Training (el
+pseudocódigo ya estaba incluido). Para ello se revisó de nuevo el artículo
+correspondiente para incluir la idea general más importante.
+
+Algo que podía ser muy confuso para un usuario nuevo es la multitud de formatos
+de \textit{tooltip} de la visualización. Se añadió la explicación de cada uno
+para cada algoritmo en el manual de usuario.
+
+En cuanto a los anexos (a expensas de revisar y perfeccionar), el apartado que
+faltaba era el de las pruebas del sistema en el manual del programador. Por
+sugerencia de los tutores, se ha utilizado Selenium como entorno de pruebas.
+Además, en la asignatura de Validación y Pruebas se utilizó Katalon Recorder,
+que utiliza Selenium. Esto facilitó la parte de las pruebas automáticas.
+
+La idea de las pruebas era tener los suficientes casos de prueba que asegurasen
+el funcionamiento de la aplicación. De hecho, durante algunos cambios que se
+hacían, se volvían a ejecutar para comprobar que esos cambios no rompían la
+aplicación. En total fueron 17 casos de prueba teniendo en cuenta las
+visualizaciones, los usuarios (y sus permisos) y las acciones de estos
+(incluidas las del administrador).
+
+Durante todo el sprint se intentaba corregir todo lo que se veía como mejora
+(revisión general). Entre estas correcciones están:
+\begin{itemize}
+    \item Arreglar el posicionamiento de los \textit{tooltips} de ayuda
+    contextual (no los de la visualización) sustituyéndolos por los de bootstrap.
+    \item Arreglar adaptabilidad en el panel de administración ya que las tablas
+    de las pestañas dos y tres no se ajustaban (solo la primera).
+    \item Las rutas de los usuarios fueron anonimizadas, en el sentido de que
+    hasta ahora se incluía por ejemplo el identificador del usuario en la base
+    de datos (algo como <</perfil/2>>). Convenía no mostrar estos valores
+    (<</perfil>>).
+    \item Traducciones.
+    \item Justificar el por qué de la licencia BSD 3-Clause.
+\end{itemize}
+
 
 \clearpage
 \section{Estudio de viabilidad}
