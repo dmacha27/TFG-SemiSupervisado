@@ -138,7 +138,7 @@ Principalmente para un entorno Linux:
    ```
 6. Creación de directorios
    ```sh
-   cd web
+   cd web/app
    
    mkdir runs
    
@@ -146,10 +146,8 @@ Principalmente para un entorno Linux:
    
    mkdir datasets/registrados
    ```
-6. Compilar traducciones
+6. Compilar traducciones (web/app)
    ```sh
-   cd app
-
    pybabel compile -d translations
    ```
 7. Ejecución
