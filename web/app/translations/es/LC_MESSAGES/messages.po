@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-05-30 18:44+0200\n"
+"POT-Creation-Date: 2023-06-03 19:15+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: David Martínez Acha <dma1004@alu.ubu.es>\n"
 "Language: es\n"
@@ -111,8 +111,8 @@ msgstr "Porcentaje de no etiquetados"
 msgid "Test percentage (after unlabelled percentage)"
 msgstr "Porcentaje de test (después de aplicar el no etiquetados)"
 
-#: forms.py:105 forms.py:129 forms.py:134 forms.py:165 forms.py:170
-#: forms.py:175
+#: forms.py:105 forms.py:130 forms.py:135 forms.py:166 forms.py:171
+#: forms.py:176
 msgid "Select classifier"
 msgstr "Selecciona clasificador"
 
@@ -124,19 +124,19 @@ msgstr "N (Número de datos a seleccionar en cada iteración)"
 msgid "Threshold"
 msgstr "Límite"
 
-#: forms.py:121 forms.py:157
+#: forms.py:122 forms.py:158
 msgid "Number of iterations"
 msgstr "Número de iteraciones"
 
-#: forms.py:139
+#: forms.py:140
 msgid "Positives"
 msgstr "Positivos"
 
-#: forms.py:145
+#: forms.py:146
 msgid "Negatives"
 msgstr "Negativos"
 
-#: forms.py:151
+#: forms.py:152
 msgid "Number of initial data"
 msgstr "Número de datos iniciales"
 
@@ -168,7 +168,7 @@ msgstr "Correo electrónico no encontrado"
 msgid "You are already registered!"
 msgstr "¡Ya estás registrado!"
 
-#: user_routes.py:76 user_routes.py:148
+#: user_routes.py:76 user_routes.py:136
 msgid "Email already exists"
 msgstr "El correo electrónico ya existe"
 
@@ -180,15 +180,15 @@ msgstr "La cuenta no pudo ser creada"
 msgid "Account created!"
 msgstr "¡Cuenta creada!"
 
-#: user_routes.py:129
+#: user_routes.py:117
 msgid "User doesn't exist"
 msgstr "El usuario no existe"
 
-#: user_routes.py:143
+#: user_routes.py:131
 msgid "Incorrect current password"
 msgstr "Contraseña actual incorrecta"
 
-#: user_routes.py:165
+#: user_routes.py:153
 msgid "Account updated!"
 msgstr "¡Cuenta actualizada!"
 
@@ -196,42 +196,42 @@ msgstr "¡Cuenta actualizada!"
 msgid "You must select the parameters of the algorithm"
 msgstr "Debe seleccionar los parámetros del algoritmo"
 
-#: templates/base.html:70 templates/usuarios/admin.html:12
-#: templates/usuarios/admin.html:17
+#: templates/base.html:78 templates/usuarios/admin.html:9
+#: templates/usuarios/admin.html:14
 msgid "Admin dashboard"
 msgstr "Panel de administración"
 
-#: templates/base.html:72 templates/usuarios/miespacio.html:12
-#: templates/usuarios/miespacio.html:13
+#: templates/base.html:80 templates/usuarios/miespacio.html:9
+#: templates/usuarios/miespacio.html:10
 msgid "My Space"
 msgstr "Mi Espacio"
 
-#: templates/base.html:73 templates/usuarios/base_user.html:21
+#: templates/base.html:81 templates/usuarios/base_user.html:21
 msgid "Profile"
 msgstr "Perfil"
 
-#: templates/base.html:75
+#: templates/base.html:83
 msgid "Log Out"
 msgstr "Cerrar sesión"
 
-#: templates/base.html:81 templates/usuarios/registro.html:2
+#: templates/base.html:89 templates/usuarios/registro.html:2
 #: templates/usuarios/registro.html:3
 msgid "Sign Up"
 msgstr "Registrarse"
 
-#: templates/base.html:84
+#: templates/base.html:92
 msgid "Login"
 msgstr "Iniciar sesión"
 
-#: templates/base.html:103
+#: templates/base.html:111
 msgid "Success"
 msgstr "Éxito"
 
-#: templates/base.html:107 templates/visualizacion/base_visualizacion.html:100
+#: templates/base.html:115 templates/visualizacion/base_visualizacion.html:100
 msgid "Warning"
 msgstr "Advertencia"
 
-#: templates/base.html:113
+#: templates/base.html:121
 msgid "just now"
 msgstr "justo ahora"
 
@@ -328,8 +328,8 @@ msgstr ""
 msgid "Close"
 msgstr "Cerrar"
 
-#: templates/macros.html:116 templates/usuarios/admin.html:30
-#: templates/usuarios/admin.html:67 templates/usuarios/miespacio.html:18
+#: templates/macros.html:116 templates/usuarios/admin.html:27
+#: templates/usuarios/admin.html:64 templates/usuarios/miespacio.html:15
 msgid "Uploaded datasets"
 msgstr "Conjunto de datos subidos"
 
@@ -350,8 +350,8 @@ msgstr "Usuario"
 msgid "Actions"
 msgstr "Acciones"
 
-#: templates/macros.html:130 templates/usuarios/admin.html:35
-#: templates/usuarios/admin.html:90 templates/usuarios/miespacio.html:26
+#: templates/macros.html:130 templates/usuarios/admin.html:32
+#: templates/usuarios/admin.html:87 templates/usuarios/miespacio.html:23
 msgid "Run history"
 msgstr "Historial de ejecuciones"
 
@@ -405,7 +405,7 @@ msgid "Dataset upload"
 msgstr "Carga del conjunto de datos"
 
 #: templates/configuracion/base_configuracion.html:10 templates/subida.html:11
-#: templates/usuarios/admin.html:15 templates/usuarios/base_form.html:4
+#: templates/usuarios/admin.html:12 templates/usuarios/base_form.html:4
 #: templates/usuarios/base_user.html:4
 #: templates/visualizacion/base_visualizacion.html:14
 msgid "Go back"
@@ -575,7 +575,11 @@ msgstr "Pseudocódigo de la Combinación de Democratic Co-Learning"
 msgid "Empty N parameter to activate it"
 msgstr "Vacía el parámetro N para activarlo"
 
-#: templates/configuracion/selftrainingconfig.html:38
+#: templates/configuracion/selftrainingconfig.html:22
+msgid "Enter 0 to not limit the number of iterations"
+msgstr "Introduce 0 para no limitar el número de iteraciones"
+
+#: templates/configuracion/selftrainingconfig.html:41
 msgid ""
 "It is the simplest semi-supervised learning method. This method wraps a "
 "single base classifier,\n"
@@ -605,12 +609,12 @@ msgstr ""
 "hasta un criterio de parada (generalmente hasta etiquetar todos los datos"
 " o un número máximo de iteraciones)."
 
-#: templates/configuracion/selftrainingconfig.html:48
+#: templates/configuracion/selftrainingconfig.html:51
 #: templates/visualizacion/selftraining.html:4
 msgid "/pseudocodigos/en/SelfTraining.png"
 msgstr "/pseudocodigos/es/SelfTraining.png"
 
-#: templates/configuracion/selftrainingconfig.html:48
+#: templates/configuracion/selftrainingconfig.html:51
 #: templates/visualizacion/selftraining.html:4
 msgid "Self-Training Pseudocode"
 msgstr "Pseudocódigo de Self-Training"
@@ -666,19 +670,19 @@ msgstr "/pseudocodigos/es/TriTraining.png"
 msgid "Tri-Training Pseudocode"
 msgstr "Pseudocódigo de Tri-Training"
 
-#: templates/usuarios/admin.html:25 templates/usuarios/admin.html:45
+#: templates/usuarios/admin.html:22 templates/usuarios/admin.html:42
 msgid "User management"
 msgstr "Administración de usuarios"
 
-#: templates/usuarios/admin.html:54
+#: templates/usuarios/admin.html:51
 msgid "Total users"
 msgstr "Usuarios totales"
 
-#: templates/usuarios/admin.html:76
+#: templates/usuarios/admin.html:73
 msgid "Last 7 days uploads"
 msgstr "Cargas de los últimos 7 días"
 
-#: templates/usuarios/admin.html:99
+#: templates/usuarios/admin.html:96
 msgid "Last 7 days runs"
 msgstr "Ejecuciones de los últimos 7 días"
 

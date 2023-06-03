@@ -73,7 +73,7 @@ def parametros_selftraining():
     # Estos son los parámetros concretos de Self-Training
     params = [
         {"nombre": "clasificador1", "valor": request.form['clasificador1']},
-        {"nombre": "n", "valor": request.form.get('n', -1)},
+        {"nombre": "n", "valor": request.form.get('n', -1) if not request.form.get('n', -1) == "" else -1},
         {"nombre": "th", "valor": request.form.get('th', -1)},
         {"nombre": "n_iter", "valor": request.form.get('n_iter')},
         {"nombre": "target", "valor": request.form.get('target')},

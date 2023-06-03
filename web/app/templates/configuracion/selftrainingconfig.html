@@ -13,10 +13,13 @@
     </div>
     <div class="mb-3">
         {{ form.th.label }}{{ tooltip(gettext('Empty N parameter to activate it')) }}
-        {{ form.th(class_="form-control", oninput="limitarUnicoMetodoST(this.value,'n')", disabled=True)}}
+        <div class="d-flex">
+            {{ form.th(class_="form-range w-75", oninput="actualizarBadgePorcentaje(this.value,'p_th_badge')", disabled=True) }}
+            <span id="p_th_badge" class="badge bg-primary px-3 mx-auto">75%</span>
+        </div>
     </div>
     <div class="mb-3">
-        {{ form.n_iter.label }}
+        {{ form.n_iter.label }}{{ tooltip(gettext('Enter 0 to not limit the number of iterations')) }}
         {{ form.n_iter(class_="form-control") }}
     </div>
 {% endblock %}

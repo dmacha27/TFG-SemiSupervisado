@@ -111,12 +111,13 @@ class FormConfiguracionSelfTraining(FormConfiguracionBase):
                      name="n",
                      id="n",
                      default=10,
-                     validators=[InputRequired(), NumberRange(min=1)])
+                     validators=[NumberRange(min=1)])
 
-    th = DecimalField(lazy_gettext('Threshold'),
-                      name="th",
-                      id="th",
-                      validators=[InputRequired(), NumberRange(min=0, max=0.99)])
+    th = IntegerRangeField(lazy_gettext('Threshold'),
+                           name="th",
+                           id="th",
+                           default=75,
+                           validators=[InputRequired(), NumberRange(min=0, max=100)])
 
     n_iter = IntegerField(lazy_gettext('Number of iterations'),
                           name="n_iter",

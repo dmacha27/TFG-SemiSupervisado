@@ -26,13 +26,13 @@ def datosselftraining():
     clasificador = request.form['clasificador1']
 
     n = int(request.form['n'])
-    th = float(request.form['th'])
+    th = int(request.form['th'])
 
     try:
         st = SelfTraining(
             clf=obtener_clasificador(clasificador, obtener_parametros_clasificador(clasificador, "clasificador1")),
             n=n if n != -1 else None,
-            th=th if th != -1 else None,
+            th=th/100 if th != -1 else None,
             n_iter=int(request.form['n_iter']))
 
         info = obtener_info(st)
