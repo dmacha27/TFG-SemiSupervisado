@@ -55,8 +55,7 @@
 {% block explicaciones %}
     <p>{{ gettext('Strongly based on Self-Training but in this case, several classifiers (usually two)
     handle the process and "interact" with each other. As Self-Training, once classifiers are trained,
-    they predict the labels of the those unlabelled instances, and all classifiers add the best predictions
-    (higher confidence/probability).
+    they predict the labels of the those unlabelled instances, and all classifiers add the best predictions.
     Co-Training works with two views of the data ("multi-view"). These views correspond not to subsets
     of instances, but to subsets of instance´s atributtes (characteristics). Each classifier
     will train considering different characteristics. Ideally, these views are independent and can
