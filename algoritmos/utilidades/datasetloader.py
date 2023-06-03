@@ -145,7 +145,7 @@ class DatasetLoader:
                 np.array([v.decode("utf-8") if not types.is_numeric_dtype(type(v)) else v for v in
                           data[self.target].values]),
                 columns=[self.target])
-            y.replace("?", "-1", inplace=True)
+        y.replace("?", "-1", inplace=True)
 
         is_unlabelled = self._detect_unlabelled_targets(y)
 
