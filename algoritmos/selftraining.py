@@ -62,6 +62,7 @@ class SelfTraining:
         iteration = 0
         stats = pd.DataFrame(columns=['Accuracy', 'Precision', 'Error', 'F1_score', 'Recall'])
 
+        top = True
         while len(x_u) and (
                 iteration < self.n_iter or not self.n_iter):  # Criterio generalmente seguido
 
@@ -74,8 +75,9 @@ class SelfTraining:
                 top = min(self.n, len(x_u))
                 topx = points.argsort()[-top:][::-1]
             else:  # mejores con límite
-                topx = np.where(points > self.th)
+                topx = np.where(points >= self.th)
                 if not len(topx[0]):
+                    top = False
                     break
 
             # Los nuevos datos a añadir (el dato y la predicción o etiqueta)
@@ -99,7 +101,7 @@ class SelfTraining:
         self.clf.fit(x_train, y_train)  # Entrenar con los últimos etiquetados
 
         rest = pd.DataFrame(x_u, columns=features)
-        rest['iter'] = iteration
+        rest['iter'] = iteration if top else iteration + 1
         rest['target'] = -1
         log = pd.concat([log, rest], ignore_index=True)
         stats.loc[len(stats)] = calculate_log_statistics(y_test, self.predict(x_test))
