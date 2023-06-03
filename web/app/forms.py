@@ -137,13 +137,13 @@ class FormConfiguracionCoTraining(FormConfiguracionBase):
                                 id="clasificador2",
                                 validators=[InputRequired()])
 
-    p = IntegerField(lazy_gettext('Positives') + " (p)",
+    p = IntegerField(lazy_gettext('Positives'),
                      name="p",
-                     id="n",
+                     id="p",
                      default=1,
                      validators=[InputRequired(), NumberRange(min=0)])
 
-    n = IntegerField(lazy_gettext('Negatives') + " (n)",
+    n = IntegerField(lazy_gettext('Negatives'),
                      name="n",
                      id="n",
                      default=3,

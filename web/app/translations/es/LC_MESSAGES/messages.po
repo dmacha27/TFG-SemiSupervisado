@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-06-03 20:03+0200\n"
+"POT-Creation-Date: 2023-06-03 20:42+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: David Martínez Acha <dma1004@alu.ubu.es>\n"
 "Language: es\n"
@@ -465,11 +465,16 @@ msgstr "Teoría"
 msgid "Run"
 msgstr "Ejecutar"
 
-#: templates/configuracion/cotrainingconfig.html:25
+#: templates/configuracion/cotrainingconfig.html:35
 msgid "If it is larger than the total, it will be limited to it (the total)"
 msgstr "Si es mayor que el total, se limitará a él (al total)"
 
-#: templates/configuracion/cotrainingconfig.html:56
+#: templates/configuracion/cotrainingconfig.html:39
+#: templates/configuracion/selftrainingconfig.html:22
+msgid "Enter 0 to not limit the number of iterations"
+msgstr "Introduce 0 para no limitar el número de iteraciones"
+
+#: templates/configuracion/cotrainingconfig.html:82
 msgid ""
 "Strongly based on Self-Training but in this case, several classifiers "
 "(usually two)\n"
@@ -492,7 +497,8 @@ msgstr ""
 "Basado fuertemente en Self-Training, en este caso varios clasificadores "
 "(normalmente dos) se encargan del proceso e \"interactúan\" entre sí. Del"
 " mismo modo, una vez entrenados, predicen las etiquetas de los no "
-"clasificados y todos los clasificadores añaden las mejores predicciones. \n"
+"clasificados y todos los clasificadores añaden las mejores predicciones."
+" \n"
 "Co-Training trabaja con dos vistas sobre los datos (\"multi-view\"). "
 "Estas vistas corresponden no con subconjuntos de las instancias, sino de "
 "subconjuntos de las características de las mismas. Es decir, cada "
@@ -503,12 +509,12 @@ msgstr ""
 "ambos los de mayor confianza y construyen el nuevo conjunto de "
 "entrenamiento para la siguiente iteración."
 
-#: templates/configuracion/cotrainingconfig.html:68
+#: templates/configuracion/cotrainingconfig.html:94
 #: templates/visualizacion/cotraining.html:4
 msgid "/pseudocodigos/en/CoTraining.png"
 msgstr "/pseudocodigos/es/CoTraining.png"
 
-#: templates/configuracion/cotrainingconfig.html:68
+#: templates/configuracion/cotrainingconfig.html:94
 #: templates/visualizacion/cotraining.html:4
 msgid "Co-Training Pseudocode"
 msgstr "Pseudocódigo de Co-Training"
@@ -544,8 +550,8 @@ msgstr ""
 " nueva etiqueta será la que vote la mayoría. Además, para aquellos "
 "clasificadores que no votan como la mayoría, la instancia se añade a su "
 "conjunto de entrenamiento junto a la etiqueta mayoritaria, de esta forma "
-"se \"obliga\" en la siguiente iteración a \"aprenderla\". Todo el proceso se "
-"repite hasta que no se añadan más instancias a ningún conjunto de "
+"se \"obliga\" en la siguiente iteración a \"aprenderla\". Todo el proceso"
+" se repite hasta que no se añadan más instancias a ningún conjunto de "
 "entrenamiento, esto se alcanza cuando no se mejora la precisión pese a la"
 " adición de nuevas instancias pseudoetiquetadas. "
 
@@ -572,10 +578,6 @@ msgstr "Pseudocódigo de la Combinación de Democratic Co-Learning"
 #: templates/configuracion/selftrainingconfig.html:15
 msgid "Empty N parameter to activate it"
 msgstr "Vacía el parámetro N para activarlo"
-
-#: templates/configuracion/selftrainingconfig.html:22
-msgid "Enter 0 to not limit the number of iterations"
-msgstr "Introduce 0 para no limitar el número de iteraciones"
 
 #: templates/configuracion/selftrainingconfig.html:41
 msgid ""

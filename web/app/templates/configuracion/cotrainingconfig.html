@@ -14,19 +14,19 @@
     <div class="parametros" id="parametros2"></div>
     <br>
     <div class="mb-3">
-        {{ form.p.label }}
-        {{ form.p(class_="form-control") }}
+        {{ form.p.label }} (p)
+        {{ form.p(class_="form-control", oninput="check_p_n_nulos()") }}
     </div>
     <div class="mb-3">
-        {{ form.n.label }}
-        {{ form.n(class_="form-control") }}
+        {{ form.n.label }} (n)
+        {{ form.n(class_="form-control", oninput="check_p_n_nulos()") }}
     </div>
     <div class="mb-3">
         {{ form.u.label }}{{ tooltip(gettext('If it is larger than the total, it will be limited to it (the total)')) }}
         {{ form.u(class_="form-control") }}
     </div>
     <div class="mb-3">
-        {{ form.n_iter.label }}
+        {{ form.n_iter.label }}{{ tooltip(gettext('Enter 0 to not limit the number of iterations')) }}
         {{ form.n_iter(class_="form-control") }}
     </div>
 {% endblock %}
@@ -50,6 +50,22 @@
 
         generarFormParametros(clasificador1.value, div_parametros1, "clasificador1");
         generarFormParametros(clasificador2.value, div_parametros2, "clasificador2");
+
+        function check_p_n_nulos() {
+            let p = document.getElementById('p');
+            let n = document.getElementById('n');
+
+            if (p.value === '0' && n.value === '0') {
+                if (locale === 'es') {
+                   n.setCustomValidity('Los positivos y negativos no pueden ser a la vez nulos.');
+                } else {
+                   n.setCustomValidity('Positives and negatives cannot be null at the same time.');
+                }
+            } else {
+                n.setCustomValidity('');
+            }
+        }
+
     </script>
 {% endblock %}
 {% block explicaciones %}
