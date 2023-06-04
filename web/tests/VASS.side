@@ -2211,6 +2211,17 @@
       ],
       "value": ""
     }, {
+      "id": "a83606bf-83db-4fe4-a40b-7bf3d7d39bdb",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=#modal_eliminar",
+      "targets": [
+        ["css=#modal_eliminar .modal-header", "css:finder"],
+        ["xpath=//div[@id='modal_eliminar']/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div", "xpath:position"]
+      ],
+      "value": "500"
+    }, {
       "id": "bd9d4c30-f622-4c27-b7d0-25e682169282",
       "comment": "",
       "command": "click",
@@ -2464,6 +2475,17 @@
         ["xpath=//tr[2]/td[4]/a[2]/button", "xpath:position"]
       ],
       "value": ""
+    }, {
+      "id": "72e5ed57-3c63-472d-91bd-0b1b9baa5c6d",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=#modal_eliminar",
+      "targets": [
+        ["css=#modal_eliminar .modal-header", "css:finder"],
+        ["xpath=//div[@id='modal_eliminar']/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div", "xpath:position"]
+      ],
+      "value": "500"
     }, {
       "id": "d332cc2c-c55d-47f0-b64d-c86fd64a3a4e",
       "comment": "",
