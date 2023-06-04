@@ -454,7 +454,29 @@ Vº. Bº. del co-tutor:\\[2cm]
 % Abstract en castellano
 \renewcommand*\abstractname{Resumen}
 \begin{abstract}
-En este primer apartado se hace una \textbf{breve} presentación del tema que se aborda en el proyecto.
+El aprendizaje semi-supervisado es realmente útil en un contexto real, debido a
+la clara dificultad y coste de obtener datos etiquetados de calidad. Sin
+embargo, estos algoritmos no suelen tenerse muy en cuenta, e incluso en los
+contenidos docentes, suelen obviarse (centrándose en el aprendizaje supervisado
+y/o no supervisado).
+
+En este proyecto, se ha desarrollado una biblioteca con cuatro algoritmos
+semi-supervisados: \emph{Self-Training}, \emph{Co-Training}, \emph{Democratic
+Co-Learning} y \emph{Tri-Training}. El aspecto añadido de todos ellos es poder
+registrar el proceso de entrenamiento en cuanto a cómo se infiere el
+conocimiento sobre los datos no etiquetados y la extracción de estadísticas.
+
+Como objetivo final, se ha desarrollado una aplicación web dedicada a la
+visualización de este proceso de entrenamiento para ayudar a aprender el
+funcionamiento de estos algoritmos.
+
+Como objetivo secundario, la aplicación también incluye una gestión de usuarios
+que les permite almacenar sus conjuntos de datos y sus ejecuciones previas
+(además de un panel de administración). Aun así, la aplicación está
+completamente pensada para un acceso gratuito sin necesidad de un
+registro.
+
+La aplicación se encuentra disponible en \mbox{\url{https://vass.dmacha.dev}}.
 \end{abstract}
 
 \renewcommand*\abstractname{Descriptores}
@@ -467,7 +489,26 @@ aprendizaje automático, aprendizaje semi-supervisado, visualización de algorit
 % Abstract en inglés
 \renewcommand*\abstractname{Abstract}
 \begin{abstract}
-A \textbf{brief} presentation of the topic addressed in the project.
+Semi-supervised learning is really useful in a real context, due to the clear
+difficulty and cost to obtain quality labelled data. However, these algorithms
+are not taken into account, and even in teaching contents, tend to be
+ignored (focusing on supervised learning and/or unsupervised learning).
+
+In this project, a four semi-supervised algorithm library has been developed
+that includes: \emph{Self-Training}, \emph{Co-Training}, \emph{Democratic
+Co-Learning} and \emph{Tri-Training}. The additional aspect of all of them is to
+register the training process on how knowledge is inferred to the unlabelled
+data and the extraction of statistics.
+
+As final objective, a web application dedicated to the visualization of this
+training process has been developped to help to learn how these algorithms work.
+
+As a secondary objective, the application also includes a user management system
+that allows them to store their datasets and previous runs (plus an admin
+dashboard). Even so, the application has been conceived to be free access
+without registration.
+
+The application is available at \mbox{\url{https://vass.dmacha.dev}}.
 \end{abstract}
 
 \renewcommand*\abstractname{Keywords}
