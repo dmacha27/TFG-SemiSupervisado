@@ -29,7 +29,7 @@ function inicializarGrafico(datos, preparar, binding) {
 
     color = d3.scaleOrdinal()
         .domain(Object.keys(mapa))
-        .range(d3.schemeCategory10);
+        .range(d3.schemeSet3);
 
     let svg = d3.select("#visualizacion_principal")
         .append("svg")
@@ -108,7 +108,7 @@ function inicializarGrafico(datos, preparar, binding) {
     binding(dataset);
 
     const zoom = d3.zoom()
-        .scaleExtent([0.5, 8])
+        .scaleExtent([0.5, Infinity])
         .extent([[0, 0], [width, height]])
         .on("zoom", updateChart);
 
