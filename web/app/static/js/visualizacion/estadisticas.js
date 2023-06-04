@@ -218,9 +218,18 @@ function generargraficoestadistico(id_div_objetivo, datos_stats, dominio) {
         .domain([0, 1])
         .range([height, 0]);
 
+    function numero_ticks() {
+        let resto = Math.ceil(maxit / 35);
+        if (resto <= 1 ) {
+            return maxit;
+        } else {
+            return Math.ceil(maxit/resto);
+        }
+    }
+
     statsvg.append("g")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(statx).ticks(maxit));
+        .call(d3.axisBottom(statx).ticks(numero_ticks()));
 
     statsvg.append("g")
         .call(d3.axisLeft(staty));
