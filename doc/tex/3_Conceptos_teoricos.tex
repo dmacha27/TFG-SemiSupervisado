@@ -565,7 +565,7 @@ Desde el punto de vista de la interpretación de los datos, PCA puede ser muy
 
 El análisis de componentes principales es un algoritmo matemático que reduce la
 dimensionalidad de los datos manteniendo la mayoría de las variaciones en los
-datos. Esto lo realiza identificando componentes principales
+datos. Esto lo realiza identificando componentes principales~
 \cite{ringner2008principal}. Una componente principal es una nueva variable que
 es combinación lineal de las variables originales con la particularidad de que
 esa combinación de variables mantiene la mayor cantidad de varianza del conjunto
@@ -664,7 +664,30 @@ Para las respuestas:
   contiene los datos solicitados o generados por el servidor.
 \end{itemize}
 
-\imagen{memoria/curl}{Ejemplo de respuesta con su estructura.}{0.85}
+\lstdefinestyle{bash}
+{
+    backgroundcolor=\color{black},
+    basicstyle=\scriptsize\color{white}\ttfamily
+}
+\lstset{escapeinside={<@}{@>}}
+
+\begin{figure}[H]
+\begin{lstlisting}[style=bash]
+<@\textcolor{green}{acha@DESKTOP-9MJIVL5}@>:~$ curl -i https://vass.dmacha.dev
+HTTP/1.1 200 OK
+Server: nginx/1.18.0 (Ubuntu)
+Date: Mon, 05 Jun 2023 13:56:02 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 7453
+Connection: keep-alive
+Vary: Cookie
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+\end{lstlisting}
+\caption{Ejemplo de respuesta con su estructura.}
+\end{figure}
 
 Como se ha visto en las operaciones HTTP, todas tienen un indicativo, llamado
 método, que permite distinguir qué tipo de operación se quiere realizar. El

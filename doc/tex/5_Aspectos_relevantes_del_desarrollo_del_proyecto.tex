@@ -82,7 +82,7 @@ para poder representarlo en dos dimensiones. Sin embargo, cuando se avanzó un
 poco en el desarrollo, era obvio que no interesaba modificar el conjunto de
 datos, sino el resultado de la ejecución de la aplicación web. Fue cuando se
 implementó y visualizó Self-Training cuando se pudo ver esta casuística.
-Finalmente, lo que se hace es, transformar la estructura de datos que retorna la
+Finalmente, lo que se hace es: transformar la estructura de datos que retorna la
 ejecución de los algoritmos (consultar anexo D) que incluye todos los datos (y
 todos sus atributos), a dos dimensiones (solo los atributos, no el <<target>> ni
 el resto de columnas). El usuario puede seleccionar dos posibilidades, o
@@ -158,18 +158,18 @@ comparable con \texttt{sslearn} y concluir que es correcta.
     la comparación. Representa la proporción de aciertos entre todos los datos.
 
     \item \textit{\textbf{F1 score}}: Esta métrica se calcula como la media
-    armónica de la precisión\footnote{Precisión: proporción de clasificados
+    armónica de la precision\footnote{Precision: proporción de clasificados
     positivos (verdaderos positivos + falsos positivos) que son clasificados
     positivos (verdaderos positivos)} y \texttt{recall} (es igual que la
     sensibilidad).
 
     \begin{center}
-        $ F_1 = 2\frac{precisión \cdot recall}{precisión + recall} $
+        $ F_1 = 2 \cdot \frac{precision \cdot recall}{precision + recall} $
     \end{center}
 
     \item \textit{\textbf{Geometric mean (Gmean)}}: En este contexto, la media
     geométrica trata maximizar cada una de las medidas de \emph{accuracy} de
-    cada clase \cite{imbalanced_learn}.
+    cada clase~\cite{imbalanced_learn}.
 
     Para realizar su cálculo, se tiene en cuenta si se trata de clasificación
     binaria o multiclase:
@@ -177,10 +177,10 @@ comparable con \texttt{sslearn} y concluir que es correcta.
         \item Binaria: la media geométrica se calcula como la raíz cuadrada del
         producto de la sensibilidad\footnote{Sensibilidad: proporción de
         positivos correctamente identificados (clasificados como positivos
-        respecto a todos los positivos)\cite{eswiki:145396343}} y la
+        respecto a todos los positivos)~\cite{eswiki:145396343}} y la
         especificidad\footnote{Especificidad: proporción de negativos
         correctamente identificados (clasificados como negativos respecto a
-        todos los negativos)\cite{eswiki:145396343}}.
+        todos los negativos)~\cite{eswiki:145396343}}.
 
         \begin{center}
             $ Gmean = \sqrt{\textit{sensibilidad} \cdot \textit{especificidad}} $
@@ -204,7 +204,7 @@ tres conjuntos de datos diferentes. Por cada iteración de la validación cruzad
 se tendrá el 90\% de datos para entrenar y 10\% de test.
 
 Sobre ese 90\% de entrenamiento, solo el 20\% va a estar etiquetados, el resto
-serán no etiquetados. En conjunto esos serán los datos para entrenar el
+serán no etiquetados. En conjunto, esos serán los datos para entrenar el
 algoritmo.
 
 Por cada uno de los conjuntos de datos se presenta un gráfico comparando cada
@@ -324,8 +324,8 @@ El avance, aunque algunas veces lento, era constante.
 \subsection{Rediseño completo}
 
 Uno de los puntos más destacables del desarrollo fue durante los sprints 13 y
-14. La aplicación tuvo un rediseño completo (tanto estructura como apariencia)
-partiendo desde el <<backend>> hasta el <<frontend>>.
+14. La aplicación tuvo un rediseño completo (tantoen  estructura como
+apariencia) partiendo desde el <<backend>> hasta el <<frontend>>.
 
 Tal y como estaba la aplicación estructurada, todas las rutas estaban en un
 único fichero, que a su vez era el mismo que instanciaba la aplicación. Esto,
