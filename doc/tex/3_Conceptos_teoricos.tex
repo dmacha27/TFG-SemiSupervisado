@@ -6,13 +6,13 @@ semi-supervisado.
 
 \section{Aprendizaje automático}
 
-Según \cite{intelligent:ml}, el aprendizaje automático (\textit{machine
+Según~\cite{intelligent:ml}, el aprendizaje automático (\textit{machine
 learning}) es una rama de la Inteligencia Artificial como una técnica de
 análisis de datos que enseña a las computadoras a aprender de la
 \textbf{experiencia} (es decir, lo que realizan los humanos). Para ello, el
 aprendizaje automático se nutre de gran cantidad de datos (o los suficientes
 para el problema concreto) que son procesados por ciertos algoritmos. Estos
-datos son ejemplos (también llamados instancias o prototipos), \cite{pascual:ml}
+datos son ejemplos (también llamados instancias o prototipos),~\cite{pascual:ml}
 mediante los cuales, los algoritmos son capaces de generalizar comportamientos
 que se encuentran ocultos. 
 
@@ -25,23 +25,23 @@ artificial... Los tipos de aprendizaje automático se suelen clasificar en los
 siguientes: aprendizaje supervisado, aprendizaje no supervisado y aprendizaje
 por refuerzo. Sin embargo, aparece una nueva disciplina que se encuentra a
 caballo entre el supervisado y no supervisado (utiliza tanto datos etiquetados
-como no etiquetados para el entrenamiento) \cite{vanEngelen2020}.
+como no etiquetados para el entrenamiento)~\cite{vanEngelen2020}.
 
-En la figura \ref{fig:memoria/taxonomia} se puede ver una
+En la figura~\ref{fig:memoria/taxonomia} se puede ver una
 clasificación de aprendizaje automático.
 
-\imagen{memoria/taxonomia}{Clasificación de aprendizaje automático \cite{neova:taxonomy}.}{1}
+\imagen{memoria/taxonomia}{Clasificación de aprendizaje automático~\cite{neova:taxonomy}.}{1}
 
 
 \subsection{Aprendizaje supervisado}
 
 El aprendizaje supervisado es una de las aproximaciones del aprendizaje
 automático. Los algoritmos de aprendizaje supervisado son entrenados con datos
-que han sido etiquetados para una salida concreta \cite{david:sl}. Por ejemplo,
+que han sido etiquetados para una salida concreta~\cite{david:sl}. Por ejemplo,
 dadas unas biopsias de pacientes, una posible etiqueta es si padecen de cáncer o
 no. Estos datos tienen una serie de características (e.g. en el caso de una
 biopsia se tendría la edad, tamaño tumoral, si ha tenido lugar mitosis o no...)
-y todas ellas pueden ser binarias, categóricas o continuas \cite{salim:sl}.
+y todas ellas pueden ser binarias, categóricas o continuas~\cite{salim:sl}.
 
 Es común que antes del entrenamiento, estos datos sean particionados en:
 conjunto de entrenamiento, conjunto de test y conjunto de validación. De forma
@@ -51,10 +51,10 @@ El conjunto de validación se utilizará para tener un control de que el modelo
 está generalizando y no sobreajustando (memorizando los datos) y también para
 decidir cuando finalizar el entrenamiento. Por último, el conjunto de test sirve
 para estimar el rendimiento real que podrá tener el modelo en explotación
-\cite{enwiki:conjuntos}. En la figura \ref{fig:memoria/aprendizajesupervisado}
+~\cite{enwiki:conjuntos}. En la figura~\ref{fig:memoria/aprendizajesupervisado}
 puede visualizarse el funcionamiento general.
 
-\imagen{memoria/aprendizajesupervisado}{Funcionamiento general del aprendizaje supervisado \cite{salim:sl}.}{1}
+\imagen{memoria/aprendizajesupervisado}{Funcionamiento general del aprendizaje supervisado~\cite{salim:sl}.}{1}
 
 El aprendizaje supervisado está altamente influenciado por esto. Por un lado, si
 el valor a predecir es uno entre un conjunto finito, el modelo será de
@@ -80,7 +80,7 @@ el modelo será de \textbf{regresión}.
 
 A diferencia del aprendizaje supervisado, en el no supervisado, los algoritmos
 de aprendizaje no se nutren de datos etiquetados. En otras palabras, los
-usuarios no "<supervisan"> el algoritmo \cite{salim:usl}. Esto quiere decir que
+usuarios no "<supervisan"> el algoritmo~\cite{salim:usl}. Esto quiere decir que
 no aprenderán de etiquetas, sino de la propia estructura que se encuentre en los
 datos (patrones). Por ejemplo, dadas unas imágenes de animales, sin especificar
 cuál es cuál, el aprendizaje no supervisado identificará las similitudes entre
@@ -95,12 +95,12 @@ Como principales usos del aprendizaje no supervisado, suele aplicarse a:
     estudia las similitudes entre ellos y también en las disimilitudes con
     otros. Estos algoritmos pueden tanto descubrir por ellos mismos los
     <<clústeres>> o grupos que se encuentran o indicarle cuántos debe
-    identificar \cite{salim:usl}.
+    identificar~\cite{salim:usl}.
     \item \textbf{Reducción de la dimensionalidad}: Para empezar, el término
     "<dimensionalidad"> hace referencia al número de variables de entrada que
     tienen los datos. En la realidad, los conjuntos de datos sobre los que se
     trabaja suelen tener una dimensionalidad grande. Según
-    \cite{javatpoint:reduccionsdims} la reducción de dimensionalidad se denomina
+   ~\cite{javatpoint:reduccionsdims} la reducción de dimensionalidad se denomina
     como: \begin{quote}<<Una forma de convertir conjuntos de datos de alta dimensionalidad en
     conjunto de datos de menor dimensionalidad, pero garantizando que proporciona
     información similar.>>\end{quote} Es decir, simplificar el problema pero sin perder
@@ -119,7 +119,7 @@ hellisp - Own work, Public Domain,
 \url{https://commons.wikimedia.org/w/index.php?curid=36929773}. }}{0.5} 
 \subsection{Aprendizaje semi-supervisado}
 
-Según \cite{vanEngelen2020}, el aprendizaje semi-supervisado es la rama del
+Según~\cite{vanEngelen2020}, el aprendizaje semi-supervisado es la rama del
 aprendizaje automático referido al uso simultáneo de datos tanto etiquetados
 como no etiquetados para realizar tareas de aprendizaje. Se encuentra a caballo
 entre el aprendizaje supervisado y el no supervisado. Concretamente, los
@@ -137,7 +137,7 @@ lo ya existente, tiene una serie de suposiciones que han de cumplirse.
 
 En primera instancia se dice que la condición necesaria es que la distribución
 $p(x)$ del espacio de entrada contiene información sobre la distribución
-posterior $p(y|x)$ \cite{vanEngelen2020}.
+posterior $p(y|x)$~\cite{vanEngelen2020}.
 
 Pero la forma en el que interactúan los datos de una distribución y la posterior,
 no siempre es la misma:
@@ -161,7 +161,7 @@ no siempre es la misma:
     Esta suposición indica que si los datos del espacio de entrada se encuentran
     en estas \emph{manifolds} entonces aquellos puntos que se encuentren en
     el mismo \emph{manifolds} tendrán la misma etiqueta.
-    \cite{towardsdatascience:semi,vanEngelen2020}
+   ~\cite{towardsdatascience:semi,vanEngelen2020}
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=\textit{Cluster assumption}]
@@ -180,11 +180,11 @@ semi-supervisado mejore al supervisado. Si los datos no pueden ser agrupados,
 entonces no mejorará ningún método supervisado~\cite{vanEngelen2020}.
 
 
-Para tener un punto de vista general, en la figura \ref{fig:memoria/aprendizajesemisupervisado} se presenta la
+Para tener un punto de vista general, en la figura~\ref{fig:memoria/aprendizajesemisupervisado} se presenta la
 taxonomía de los métodos de aprendizaje semi-supervisado.
 
 \imagen{memoria/aprendizajesemisupervisado}{Taxonomía de métodos semi-supervisados
-\cite{vanEngelen2020}.}{1}
+~\cite{vanEngelen2020}.}{1}
 
 El núcleo de este proyecto está basado en los métodos inductivos. Su idea es muy
 sencilla y está altamente relacionada con el objetivo del aprendizaje
@@ -199,7 +199,7 @@ con datos etiquetados generan etiquetas para los no etiquetados. Una vez
 completado este proceso, el clasificador se vuelve a entrenar pero añadiendo
 estos nuevos datos. La gran ventaja que suponen estos métodos es que pueden
 utilizarse con casi todos los clasificadores (supervisados) existentes
-\cite{vanEngelen2020}.
+~\cite{vanEngelen2020}.
 
 \section{Self-Training}
 Se trata del método de aprendizaje semi-supervisado más sencillo y <<directo>>.
@@ -221,8 +221,8 @@ conjunto de etiquetados porque, \textbf{probablemente}, la predicción sea la
 correcta. Es importante entonces que el cálculo de la probabilidad se realice
 correctamente para asegurar que los nuevos datos son de interés. En caso
 contrario, no es posible aprovechar los beneficios que ofrece self-training~
-\cite{vanEngelen2020}. Todo este proceso queda descrito en el algoritmo
-\ref{pseudo:self-training}.
+~\cite{vanEngelen2020}. Todo este proceso queda descrito en el algoritmo
+~\ref{pseudo:self-training}.
 
 \begin{algorithm}
     \DontPrintSemicolon
@@ -254,7 +254,7 @@ Basado fuertemente en Self-Training, en este caso \textbf{varios} clasificadores
 modo, una vez entrenados predicen las etiquetas de los no clasificados y todos
 los clasificadores añaden las mejores predicciones.
 
-En \cite{blum1998combining}, Blum y Mitchel propusieron el funcionamiento básico
+En~\cite{blum1998combining}, Blum y Mitchel propusieron el funcionamiento básico
 de Co-Training con dos vistas sobre los datos (\emph{multi-view}). Estas vistas
 corresponden no con subconjuntos de las instancias, sino con subconjuntos de las
 características de las mismas. Es decir, cada clasificador va a entrenarse
@@ -397,7 +397,7 @@ En Co-Training, los algoritmos son entrenados con el conjunto de datos
 etiquetados para luego ser reentrenados con los datos no etiquetados que han
 pasado a estarlo.
 
-En \cite{1512038} (Tri-Training), Zhi-Hua Zhou y Ming Li, comentan la idea de
+En~\cite{1512038} (Tri-Training), Zhi-Hua Zhou y Ming Li, comentan la idea de
 que para determinar qué ejemplo no etiquetado debe seleccionarse (para
 etiquetar) y qué clasificador debe tener más influencia, se debe calcular la
 \textit{confianza de etiquetado} de cada uno de los clasificadores. Sin embargo, esto
@@ -413,7 +413,7 @@ Una consecuencia de lo anterior es que, si los otros dos clasificadores fallan
 en su predicción (y coinciden), se añadirá esa etiqueta y se estaría
 introduciendo un ejemplo mal etiquetado. Sin embargo, en el peor caso, el ruido
 introducido puede ser compensado si hay suficientes datos nuevos etiquetados
-(bajo ciertas condiciones \cite{1512038}).
+(bajo ciertas condiciones~\cite{1512038}).
 
 Una particularidad de Tri-Training es que tanto la cantidad como los ejemplos
 concretos no etiquetados que son seleccionados para ser etiquetados no será
@@ -440,7 +440,7 @@ segundo lugar, se realiza una estimación del error de la combinación de las
 hipótesis $h_j$ y $h_k$\footnote{El error de clasificación se aproxima
 dividiendo el número de instancias (de entrenamiento) en las que $h_j$ y $h_k$
 se equivocan entre el número de instancias en las que predicen la misma etiqueta
-\cite{1512038}.}. Si el error no es menor que el de la iteración anterior $e_i$,
+~\cite{1512038}.}. Si el error no es menor que el de la iteración anterior $e_i$,
 se vuelve al inicio del bucle.
 
 Si el error sí era menor, el conjunto $L_i$ es rellenado con aquellos ejemplos
@@ -448,7 +448,7 @@ del conjunto de no etiquetados $U$ en los que $h_j$ y $h_k$ predicen la misma
 etiqueta.
 
 A partir de aquí, se realizan comprobaciones sobre ecuaciones del ratio de ruido
-y errores \cite{1512038} que determinarán si los ejemplos realmente serán
+y errores~\cite{1512038} que determinarán si los ejemplos realmente serán
 utilizados para reentrenar. De hecho, es posible también que el conjunto $L_i$
 sea reducido.
 
@@ -513,7 +513,7 @@ y se retorna la mayoritaria.
 En el proceso de minería de datos y aprendizaje automático una de las primeras
 etapas, y principales, es el preprocesamiento de datos. Este concepto hace
 referencia a la manipulación,  eliminación y/o transformación de datos antes de
-ser usados para mejorar el rendimiento del proceso \cite{enwiki:1138293751}.
+ser usados para mejorar el rendimiento del proceso~\cite{enwiki:1138293751}.
 
 El tratamiento de datos también es particularmente útil en el área de la
 interpretación y la visualización de datos. En ocasiones, el conocimiento
@@ -566,7 +566,7 @@ Desde el punto de vista de la interpretación de los datos, PCA puede ser muy
 El análisis de componentes principales es un algoritmo matemático que reduce la
 dimensionalidad de los datos manteniendo la mayoría de las variaciones en los
 datos. Esto lo realiza identificando componentes principales~
-\cite{ringner2008principal}. Una componente principal es una nueva variable que
+~\cite{ringner2008principal}. Una componente principal es una nueva variable que
 es combinación lineal de las variables originales con la particularidad de que
 esa combinación de variables mantiene la mayor cantidad de varianza del conjunto
 de datos original. La idea es mantener los patrones escondidos en los datos, en
@@ -614,12 +614,12 @@ aplicaciones trabajar con los servicios de las capas inferiores y define
 protocolos para el intercambio de datos~\cite{eswiki:149372346}} para transmitir
 documentos. Se trata de un modelo cliente-servidor clásico, el cliente realiza
 una petición al servidor, y espera a que este le devuelva una respuesta
-\cite{http:mdn}.
+~\cite{http:mdn}.
 
 \imagen{memoria/HTTP}{Diagrama cliente-servidor.}{0.8}
 
 
-Características de HTTP \cite{http:features}:
+Características de HTTP~\cite{http:features}:
 \begin{itemize}
 	\item Protocolo sin conexión: esto significa que la comunicación antes
 	comentada ocurre sin realizar un acuerdo previo entre el cliente y el
@@ -693,7 +693,7 @@ Como se ha visto en las operaciones HTTP, todas tienen un indicativo, llamado
 método, que permite distinguir qué tipo de operación se quiere realizar. El
 protocolo HTTP soporta una enorme cantidad de métodos, algunos de ellos son para
 contextos muy específicos. Los más utilizados (constantemente en entornos
-reales) son \cite{enwiki:1151700575}:
+reales) son~\cite{enwiki:1151700575}:
 \begin{itemize}
 	\item \textbf{GET}: Solicitud de un recurso. Solo para recuperar datos, sin
   otras operaciones. Generalmente a la URL se le añaden parámetros que
@@ -707,7 +707,7 @@ reales) son \cite{enwiki:1151700575}:
   Entre otras cosas, solicitar información con POST, permite reducir la longitud
   de las URLs para operaciones GET demasiado extensas (incluso que puedan
   sobrepasar el límite de caracteres) y también permite ocultar información
-  comprometida \cite{http:postnotget}. 
+  comprometida~\cite{http:postnotget}. 
   
   Las peticiones GET son parametrizadas mediante la propia URL, mientras que en
   POST, los parámetros pueden incorporarse al cuerpo de la petición,
@@ -767,7 +767,7 @@ usuario autenticado en la misma (o en el que la web confía) para enviar una
 petición maliciosa. Los ataques CSRF explotan la confianza que una web tiene con
 un usuario, al no poder diferenciar entre una petición generada por el usuario
 (la persona) y la petición generada por el usuario, pero sin su consentimiento
-\cite{csrf} (generalmente de forma cruzada, proveniente de otro contexto).
+~\cite{csrf} (generalmente de forma cruzada, proveniente de otro contexto).
 
 Se presenta un ejemplo explicativo:
 

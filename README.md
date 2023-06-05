@@ -26,7 +26,7 @@
   </a>
 
   <h1 align="center">VASS</h1>
-  <h3 align="center">Visualizador de algoritmos Semi-Supervisados</h3>
+  <h3 align="center">Visualizador de Algoritmos Semi-Supervisados</h3>
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dma1004_TFG-SemiSupervisado&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dma1004_TFG-SemiSupervisado)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=dma1004_TFG-SemiSupervisado&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=dma1004_TFG-SemiSupervisado)

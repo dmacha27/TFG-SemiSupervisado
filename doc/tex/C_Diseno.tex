@@ -345,7 +345,7 @@ arquitectura tiene como punto de partida la arquitectura
 
 La arquitectura cliente-servidor es un modelo de diseño en el que las tareas se
 reparten entre los servidores (proveedores) y los clientes (demandantes)
-\cite{eswiki:149310099}. De hecho, como en principio solo tienen estos dos
+~\cite{eswiki:149310099}. De hecho, como en principio solo tienen estos dos
 elementos, suele referirse a veces como arquitectura de dos capas.
 
 La separación entre ambos elementos es lógica y además el servidor no tiene por
@@ -358,7 +358,7 @@ son los sistemas multicapa, en ellos, el servidor se descompone en más elemento
 
 Estas tres capas o niveles son: capa de presentación, capa de aplicación o de
 negocio y la capa de datos. En la figura
-\ref{fig:anexos/diseño/ArquitecturaNormal} se representa un diagrama de este
+~\ref{fig:anexos/diseño/ArquitecturaNormal} se representa un diagrama de este
 tipo de arquitectura.
 
 \imagen{anexos/diseño/ArquitecturaNormal}{Arquitectura de tres capas.}
@@ -368,9 +368,9 @@ tipo de arquitectura.
     \item \textbf{Capa de presentación}: es la capa con la que se presenta el
     sistema y el usuario interactúa. Muestra la información al usuario y además
     recopila información de este. Esta capa es la que ejecuta el navegador Web
-    desde el que accede el usuario \cite{arq3capas:ibm}. Se conoce también como
+    desde el que accede el usuario~\cite{arq3capas:ibm}. Se conoce también como
     interfaz gráfica (del sistema). Esta capa se comunica exclusivamente con la
-    capa de negocio \cite{eswiki:149121324}.
+    capa de negocio~\cite{eswiki:149121324}.
 
     En el proyecto, esta capa está implementada mediante todas las plantillas,
     estilos (CSS) y código JavaScript con todos los formularios, enlaces,
@@ -422,7 +422,7 @@ DBAPI>>.
 
 En el proyecto actual se está utilizando SQLite, una biblioteca que implementa
 un motor de base de datos. Actúa por sí mismo como si fuera un servidor
-independiente \cite{sqlite} (simulando lo que hacen otras bases de datos), pero
+independiente~\cite{sqlite} (simulando lo que hacen otras bases de datos), pero
 completamente acoplado a la aplicación (en local). Es decir, no se crea como en
 otras bases de datos (MySQL), un proceso o instancia separada de la aplicación
 (que incluso suele estar en otro servidor). La base de datos SQLite es un <<todo
@@ -432,7 +432,7 @@ negocio) esto no tiene relevancia y actúa de la misma forma que con otros
 gestores.
 
 Por todo esto, el esquema de la arquitectura de tres capas podría ahora verse
-como en la figura \ref{fig:anexos/diseño/ArquitecturaVASS}.
+como en la figura~\ref{fig:anexos/diseño/ArquitecturaVASS}.
 
 \imagen{anexos/diseño/ArquitecturaVASS}{Arquitectura de tres capas.}
 
