@@ -50,3 +50,41 @@ Una vez finalizado el proyecto, esta son las conclusiones que pueden extraerse:
     ejemplo, el desarrollo de los algoritmos.
 \end{itemize}
 
+\clearpage
+\section{Líneas de trabajo futuras}
+
+Como se ha comentado, la aplicación tiene muchos puntos de extensión y de
+mejora. Las líneas futuras consideradas son:
+
+\begin{itemize}
+    \item Incorporación de más algoritmos semi-supervisados. La aplicación está
+    pensada para que ese trabajo sea lo más fácil posible (todos los algoritmos
+    ya implementados siguen la misma estructura).
+    \item \textit{Jitter} en las visualizaciones. Esta técnica consiste en
+    añadir algo de ruido a los datos (puntos en este caso). En todas las
+    visualizaciones existe la posibilidad de tener puntos solapados que
+    entorpezcan la visualización. Al aplicar \textit{Jitter}, los puntos
+    tendrían posiciones algo diferentes a las reales, y evitarían en gran medida
+    estos solapamientos.
+    \item Exportación e importación de los parámetros de los algoritmos. La idea
+    surge de poder <<compartir>> la configuración de los mismos una vez
+    ejecutados (actualmente visibles en el apartado de <<Mi Espacio>>).
+    \item Incorporación de una lista separada tanto de los conjuntos de datos
+    subidos como de las ejecuciones. Algo parecido a una lista de favoritos. El
+    usuario tendría la posibilidad de marcar las entradas en las tablas.
+    \item Diseño completamente adaptable en las visualizaciones. Aunque las
+    visualizaciones están pensadas actualmente para un ordenador debido a las
+    grandes dimensiones de las mismas, esto beneficiaría a la accesibilidad.
+    \item Tutoriales dinámicos en toda la aplicación web. Estos tutoriales
+    contendrían las principales interacciones de la aplicación (visualizar un
+    algoritmo o ejecutarlo con un conjunto de datos ya cargado). El usuario solo
+    tendría que seguir los pasos y aprendería rápidamente el funcionamiento.
+    \item Pre-procesado completo delegado a la aplicación. Esto permitiría al
+    usuario introducir ficheros con características categóricas, opciones de
+    normalización, de eliminación de valores atípicos, etc.
+    \item Por último, y como línea de futuro más grande, añadir un pseudocódigo
+    dinámico que permita seguir cada paso que realiza el algoritmo. Esta idea
+    podría ayudar mucho a los usuarios (previsiblemente alumnos). Sin embargo,
+    podría ser necesaria una reimplementación parcial (o total) de los
+    algoritmos (para conseguir suficiente granularidad en los pasos).
+\end{itemize}
