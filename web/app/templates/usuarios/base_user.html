@@ -4,7 +4,7 @@
         <i class="bi bi-caret-left-fill"></i>{{ gettext('Go back') }}</button>
     <div class="text-center pb-3">
         <h2>{% block title_content %}{% endblock %}</h2>
-        <hr class="separacion" style="width: 20rem;"/>
+        <hr class="separacion w-20"/>
     </div>
     {% if 'usuario/editar' in request.path and usuario.id != current_user.id and current_user.is_admin %}
         <div class="w-50 p-3 m-auto text-center">
@@ -19,7 +19,7 @@
                 <div class="rounded-4 p-3 m-2 shadow-lg sticky-top">
                     <div class="text-center">
                         <h4>{{ gettext('Profile') }}</h4>
-                        <hr class="separacion" style="width: 8rem;"/>
+                        <hr class="separacion w-8"/>
                     </div>
                     <div class="d-flex flex-column justify-content-between align-items-center">
                         <h5 class="m-4">{{ usuario.name }}</h5>
@@ -37,7 +37,7 @@
                                     <span>{{ gettext('Runs') }}</span></div>
                             </div>
                         </div>
-                        <span class="badge text-bg-success fs-5 m-4">{{ usuario.email }}</span>
+                        <span class="badge text-bg-success w-9 m-4">{{ usuario.email }}</span>
                         <p class="m-1 text-center">{{ gettext('Last login') }}: {{ usuario.last_login.strftime("%Y-%m-%d %H:%M:%S") }}</p>
                     </div>
                 </div>
