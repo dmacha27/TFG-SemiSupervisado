@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-05-16T19:36:49.197Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/113.0" etag="G2s8aqmnJEFaKKdXV4CX" version="21.3.2" type="device">
+<mxfile host="app.diagrams.net" modified="2023-06-05T15:50:40.761Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/113.0" etag="E07ERGvYF1xT9CI9-xAj" version="21.3.7" type="device">
   <diagram name="Página-1" id="1ETJvQTOkNLDrXgBLH7d">
     <mxGraphModel dx="1274" dy="1846" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -40,8 +40,8 @@
             <mxPoint x="360" y="540" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="nCaYWi8LtKrmk4JnwUJk-23" value="Conexión HTTP/HTTPS" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;rotation=0;fontStyle=1" parent="1" vertex="1">
-          <mxGeometry x="560" y="185" width="160" height="30" as="geometry" />
+        <mxCell id="nCaYWi8LtKrmk4JnwUJk-23" value="Conexión HTTPS" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;rotation=0;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="568" y="185" width="120" height="30" as="geometry" />
         </mxCell>
         <mxCell id="nCaYWi8LtKrmk4JnwUJk-24" value="&lt;b&gt;DB-API&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="570" y="400" width="60" height="30" as="geometry" />
@@ -55,7 +55,7 @@
             <mxPoint x="270" y="180" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="7zPr78HWbbJPUYGZGSxP-1" value="&lt;b&gt;Interfaz de usuario&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+        <mxCell id="7zPr78HWbbJPUYGZGSxP-1" value="&lt;b&gt;Interfaz de usuario&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="345" y="55" width="130" height="30" as="geometry" />
         </mxCell>
       </root>
