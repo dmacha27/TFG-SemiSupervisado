@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-06-03 20:42+0200\n"
+"POT-Creation-Date: 2023-06-06 21:28+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: David Martínez Acha <dma1004@alu.ubu.es>\n"
 "Language: es\n"
@@ -58,12 +58,12 @@ msgstr "Debe subir un archivo"
 msgid "File must be ARFF or CSV"
 msgstr "El fichero debe ser ARFF o CSV"
 
-#: forms.py:9 forms.py:13 forms.py:43 forms.py:47 templates/macros.html:149
+#: forms.py:9 forms.py:13 forms.py:43 forms.py:47 templates/macros.html:138
 msgid "Name"
 msgstr "Nombre"
 
 #: forms.py:15 forms.py:19 forms.py:35 forms.py:36 forms.py:49 forms.py:52
-#: templates/macros.html:150
+#: templates/macros.html:139
 msgid "Email"
 msgstr "Correo electrónico"
 
@@ -196,46 +196,46 @@ msgstr "¡Cuenta actualizada!"
 msgid "You must select the parameters of the algorithm"
 msgstr "Debe seleccionar los parámetros del algoritmo"
 
-#: templates/base.html:78 templates/usuarios/admin.html:9
+#: templates/base.html:72 templates/usuarios/admin.html:9
 #: templates/usuarios/admin.html:14
 msgid "Admin dashboard"
 msgstr "Panel de administración"
 
-#: templates/base.html:80 templates/usuarios/miespacio.html:9
+#: templates/base.html:74 templates/usuarios/miespacio.html:9
 #: templates/usuarios/miespacio.html:10
 msgid "My Space"
 msgstr "Mi Espacio"
 
-#: templates/base.html:81 templates/usuarios/base_user.html:21
+#: templates/base.html:75 templates/usuarios/base_user.html:21
 msgid "Profile"
 msgstr "Perfil"
 
-#: templates/base.html:83
+#: templates/base.html:77
 msgid "Log Out"
 msgstr "Cerrar sesión"
 
-#: templates/base.html:89 templates/usuarios/registro.html:2
+#: templates/base.html:83 templates/usuarios/registro.html:2
 #: templates/usuarios/registro.html:3
 msgid "Sign Up"
 msgstr "Registrarse"
 
-#: templates/base.html:92
+#: templates/base.html:86
 msgid "Login"
 msgstr "Iniciar sesión"
 
-#: templates/base.html:111
+#: templates/base.html:105
 msgid "Success"
 msgstr "Éxito"
 
-#: templates/base.html:115 templates/visualizacion/base_visualizacion.html:100
+#: templates/base.html:109 templates/visualizacion/base_visualizacion.html:100
 msgid "Warning"
 msgstr "Advertencia"
 
-#: templates/base.html:121
+#: templates/base.html:115
 msgid "just now"
 msgstr "justo ahora"
 
-#: templates/error.html:29
+#: templates/error.html:25
 msgid "Go home"
 msgstr "Ir al inicio"
 
@@ -268,9 +268,13 @@ msgstr "Dos clasificadores"
 msgid "Multi-view"
 msgstr "Multi-view"
 
-#: templates/inicio.html:42 templates/inicio.html:55
+#: templates/inicio.html:42
 msgid "Three classifiers"
 msgstr "Tres clasificadores"
+
+#: templates/inicio.html:55
+msgid "Three or more classifiers"
+msgstr "Tres o más clasificadores"
 
 #: templates/macros.html:7
 msgid "Uncheck PCA to select specific components"
@@ -324,79 +328,79 @@ msgstr ""
 "Un conjunto de datos puede contener múltiples ejemplos no etiquetados, "
 "pero con el mismo tipo (-1, -1.0 o \"?\")"
 
-#: templates/macros.html:90 templates/macros.html:190 templates/macros.html:228
+#: templates/macros.html:90 templates/macros.html:179 templates/macros.html:217
 msgid "Close"
 msgstr "Cerrar"
 
-#: templates/macros.html:116 templates/usuarios/admin.html:27
+#: templates/macros.html:105 templates/usuarios/admin.html:27
 #: templates/usuarios/admin.html:64 templates/usuarios/miespacio.html:15
 msgid "Uploaded datasets"
 msgstr "Conjunto de datos subidos"
 
-#: templates/macros.html:119 templates/macros.html:134
+#: templates/macros.html:108 templates/macros.html:123
 msgid "Dataset file"
 msgstr "Fichero del conjunto de datos"
 
-#: templates/macros.html:121
+#: templates/macros.html:110
 msgid "Upload date"
 msgstr "Fecha de subida"
 
-#: templates/macros.html:122 templates/macros.html:137
+#: templates/macros.html:111 templates/macros.html:126
 msgid "User"
 msgstr "Usuario"
 
-#: templates/macros.html:123 templates/macros.html:138
-#: templates/macros.html:152
+#: templates/macros.html:112 templates/macros.html:127
+#: templates/macros.html:141
 msgid "Actions"
 msgstr "Acciones"
 
-#: templates/macros.html:130 templates/usuarios/admin.html:32
+#: templates/macros.html:119 templates/usuarios/admin.html:32
 #: templates/usuarios/admin.html:87 templates/usuarios/miespacio.html:23
 msgid "Run history"
 msgstr "Historial de ejecuciones"
 
-#: templates/macros.html:133 templates/subida.html:11
+#: templates/macros.html:122 templates/subida.html:11
 msgid "Algorithm"
 msgstr "Algoritmo"
 
-#: templates/macros.html:135
+#: templates/macros.html:124
 msgid "Run date"
 msgstr "Fecha de ejecución"
 
-#: templates/configuracion/base_configuracion.html:34 templates/macros.html:136
-#: templates/macros.html:183
+#: templates/configuracion/base_configuracion.html:34 templates/macros.html:125
+#: templates/macros.html:172
 msgid "Parameters"
 msgstr "Parámetros"
 
-#: templates/macros.html:146
+#: templates/macros.html:135
 msgid "Users"
 msgstr "Usuarios"
 
-#: templates/macros.html:151 templates/usuarios/base_user.html:41
+#: templates/macros.html:140 templates/usuarios/base_user.html:41
 msgid "Last login"
 msgstr "Último inicio de sesión"
 
-#: templates/macros.html:163
+#: templates/macros.html:152
 msgid "Are you sure?"
 msgstr "¿Estás seguro?"
 
-#: templates/macros.html:167
+#: templates/macros.html:156
 msgid "You are about to delete: "
 msgstr "Vas a eliminar: "
 
-#: templates/macros.html:170
+#: templates/macros.html:159
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: templates/macros.html:171
+#: templates/macros.html:160
 msgid "Delete"
 msgstr "Eliminar"
 
-#: templates/macros.html:202
+#: templates/macros.html:191
 msgid "Select algorithm"
 msgstr "Selecciona un algoritmo"
 
-#: templates/macros.html:225
+#: templates/macros.html:214
 msgid "An error occurred"
 msgstr "Ha ocurrido un error"
 
@@ -465,16 +469,16 @@ msgstr "Teoría"
 msgid "Run"
 msgstr "Ejecutar"
 
-#: templates/configuracion/cotrainingconfig.html:35
+#: templates/configuracion/cotrainingconfig.html:25
 msgid "If it is larger than the total, it will be limited to it (the total)"
 msgstr "Si es mayor que el total, se limitará a él (al total)"
 
-#: templates/configuracion/cotrainingconfig.html:39
+#: templates/configuracion/cotrainingconfig.html:29
 #: templates/configuracion/selftrainingconfig.html:22
 msgid "Enter 0 to not limit the number of iterations"
 msgstr "Introduce 0 para no limitar el número de iteraciones"
 
-#: templates/configuracion/cotrainingconfig.html:82
+#: templates/configuracion/cotrainingconfig.html:72
 msgid ""
 "Strongly based on Self-Training but in this case, several classifiers "
 "(usually two)\n"
@@ -509,12 +513,12 @@ msgstr ""
 "ambos los de mayor confianza y construyen el nuevo conjunto de "
 "entrenamiento para la siguiente iteración."
 
-#: templates/configuracion/cotrainingconfig.html:94
+#: templates/configuracion/cotrainingconfig.html:84
 #: templates/visualizacion/cotraining.html:4
 msgid "/pseudocodigos/en/CoTraining.png"
 msgstr "/pseudocodigos/es/CoTraining.png"
 
-#: templates/configuracion/cotrainingconfig.html:94
+#: templates/configuracion/cotrainingconfig.html:84
 #: templates/visualizacion/cotraining.html:4
 msgid "Co-Training Pseudocode"
 msgstr "Pseudocódigo de Co-Training"
