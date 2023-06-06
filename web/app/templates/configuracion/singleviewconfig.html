@@ -3,19 +3,19 @@
 {% block parametros %}
     <div class="mb-3">
         {{ form.clasificador1.label }}
-        {{ form.clasificador1(class_="form-select") }}
+        {{ form.clasificador1(class_="form-select", oninput="comprobarDiversidad()") }}
     </div>
     <div class="parametros" id="parametros1"></div>
     <br>
     <div class="mb-3">
         {{ form.clasificador2.label }}
-        {{ form.clasificador2(class_="form-select") }}
+        {{ form.clasificador2(class_="form-select", oninput="comprobarDiversidad()") }}
     </div>
     <div class="parametros" id="parametros2"></div>
     <br>
     <div class="mb-3">
         {{ form.clasificador3.label }}
-        {{ form.clasificador3(class_="form-select") }}
+        {{ form.clasificador3(class_="form-select", oninput="comprobarDiversidad()") }}
     </div>
     <div class="parametros" id="parametros3"></div>
     <br>
@@ -44,8 +44,31 @@
             generarFormParametros(event.target.value, div_parametros3, "clasificador3");
         });
 
-        generarFormParametros(clasificador1.value, div_parametros1, "clasificador1");
-        generarFormParametros(clasificador2.value, div_parametros2, "clasificador2");
-        generarFormParametros(clasificador3.value, div_parametros3, "clasificador3");
+        const clasificadores_base = Object.keys(todos_parametros);
+        clasificador1.value = clasificadores_base[0];
+        generarFormParametros(clasificadores_base[0], div_parametros1, "clasificador1");
+
+        clasificador2.value = clasificadores_base[1];
+        generarFormParametros(clasificadores_base[1], div_parametros2, "clasificador2");
+
+        clasificador3.value = clasificadores_base[2];
+        generarFormParametros(clasificadores_base[2], div_parametros3, "clasificador3");
+
+        function comprobarDiversidad() {
+            let dictionary = Object.fromEntries(clasificadores_base.map(x => [x, 0]));
+            let selectores = [clasificador1,clasificador2,clasificador3];
+            for (let i = 0; i < selectores.length; i++) {
+                selectores[i].setCustomValidity('');
+                dictionary[selectores[i].value] += 1;
+                if (dictionary[selectores[i].value] > 1) {
+                    if (locale === 'es') {
+                        selectores[i].setCustomValidity('Los clasificadores deben ser diferentes (diversos) para asegurar una ejecución correcta.');
+                    } else {
+                        selectores[i].setCustomValidity('Classifiers must be different (diverse) to ensure proper execution.');
+                    }
+                }
+            }
+        }
+
     </script>
 {% endblock %}

@@ -10,6 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 {% endblock %}
 {% block content %}
+    {% block avisos %}{% endblock %}
     <button id="btn_volver" type="button" onclick="history.back()" class="btn">
         <i class="bi bi-caret-left-fill"></i>{{ gettext('Go back') }}</button>| {{ gettext('Dataset') }}: {{ session['FICHERO']|nombredataset }}
     <br>
