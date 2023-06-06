@@ -667,6 +667,7 @@ $ flask run (--debug)
 //Linux
 $ flask run (--debug)
 \end{minted}
+\label{ejecucion}
 \end{tcolorbox}
 
 Existe una última cuestión que no es estrictamente necesaria para funcionar,
@@ -709,6 +710,34 @@ Compilación de las traducciones
 $ pybabel compile -d translations 
 \end{minted}
 \end{tcolorbox}
+
+\paragraph{Despliegue en <<producción>>} Los anteriores pasos son el resumen de
+todo lo que se debe hacer para iniciar la aplicación en un entorno de
+desarrollo. 
+
+Si el programador ha decidido desplegar el proyecto en un servidor y desea
+ponerlo en producción, es conveniente añadir una capa más a la aplicación. Esta
+capa consiste en establecer un servidor WSGI (Web Server Gateway Interface) que
+dictará la comunicación entre el servidor web (a discreción del programador) y
+Flask. 
+
+En el proyecto actual este servidor ha sido generado por \texttt{gunicorn}
+(\textit{green unicorn}) y su uso es extremadamente simple\footnote{Se
+encuentra entre los requisitos de bibliotecas del proyecto}.
+
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,fontupper=\footnotesize,title=Lanzar servidor WSGI sobre la aplicación]
+\begin{minted}{shell}
+//Linux
+$ gunicorn -b :5000 'app:create_app()' (--log-level debug)
+\end{minted}
+\end{tcolorbox}
+
+Esto sería lo mismo que realizar el paso de la ejecución~\ref{ejecucion}.
+
+Cabe notar que este es solo un ejemplo, ya que la aplicación ha sido desplegada
+en Linux. \texttt{Gunicorn} no puede ser usado en sistemas Windows (el
+servidor). Una alternativa muy usada para estos sistemas es \texttt{waitress}.
 
 \section{Pruebas del sistema}
 

@@ -1285,9 +1285,9 @@ GB de memoria RAM y 1TB SSD NVMe M.2. Este equipo está valorado en
 1.800\texteuro. La vida útil de este activo es de 3 años.
 
 Además, para hacer la aplicación accesible a todo el mundo, se ha adquirido un
-servidor para ello (supuesto). Este servidor está compuesto por dos AMD EPYC, 8
-GB de memoria RAM y 80gb de SSD. El equipo está valorado en 1.300\texteuro. La
-vida útil de este activo es de 3 años.
+servidor para ello (supuesto considerado). Este servidor está compuesto por dos
+AMD EPYC, 8 GB de memoria RAM y 80gb de SSD. El equipo está valorado en
+1.300\texteuro. La vida útil de este activo es de 3 años.
 
 Teniendo en cuenta que la duración del proyecto es de 5 meses, el cálculo de la
 amortización se realiza de la siguiente forma:
@@ -1414,6 +1414,7 @@ más restrictiva y seleccionar acordemente la de este proyecto.
     \textit{SQLAlchemy}       & 2.0.13           & MIT                                      \\
     \textit{sslearn}          & 1.0.3.1          & BSD 3                                    \\
     \textit{imbalanced-learn} & 0.10.1           & MIT                                      \\
+    \textit{gunicorn}         & 20.1.0           & MIT                                      \\
     \textit{Bootstrap}        & 5.2.3            & MIT                                      \\
     \textit{D3js}             & 7.8.4            & ISC\tablefootnote{Internet Systems Consortium, equivalente a MIT.}                 \\
     \textit{jQuery}           & 3.6.4            & MIT                                      \\
@@ -1430,18 +1431,17 @@ Una anchura mayor representa mayores libertades. Se debe tener en cuenta que
 solo es una representación para determinar la licencia más restrictiva, es
 decir, no es una representación calculada con exactitud.
 
-La peculiaridad de \textit{BSD 3-clause} es que incluye la cláusula de <<no
+La peculiaridad de \textit{BSD 3-Clause} es que incluye la cláusula de <<no
 respaldo>>. Esta cláusula impide promocionar un producto con el nombre de la
 organización o de sus colaboradores (que han creado el software usado). Es por
 ello que su permisividad se ha considerado algo menor.
 
-
 \paragraph{Selección}
 Para seleccionar la licencia apropiada a este proyecto se tiene en cuenta que
-incluir una licencia menos restrictiva que \texttt{BSD 3-clause} podría
+incluir una licencia menos restrictiva que \texttt{BSD 3-Clause} podría
 incumplir alguna de las <<cláusulas>> que esta impone. Por tanto, para mantener
 esas normas y condiciones impuestas, el proyecto tendrá la licencia \textbf{BSD
-3-clause}.
+3-Clause}.
 
 \paragraph{Implicaciones de BSD 3-clause} Esta licencia tiene las siguientes implicaciones
 (traducción no oficial)~\cite{bsd}:
@@ -1478,3 +1478,6 @@ esas normas y condiciones impuestas, el proyecto tendrá la licencia \textbf{BSD
     sus colaboradores pueden utilizarse para respaldar o promocionar productos
     derivados de este software sin el permiso previo por escrito.
 \end{enumerate}
+
+En general, resulta una licencia adecuada que brinda muchas libertades y dado el
+enfoque docente, es lo que se busca.

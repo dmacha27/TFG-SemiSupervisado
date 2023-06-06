@@ -2,7 +2,7 @@
 
 \section{Introducción}
 
-Es esta sección se presenta los requisitos que el usuario debe satisfacer para
+En esta sección se presenta los requisitos que el usuario debe satisfacer para
 utilizar la aplicación junto con la instalación y manual de la misma.
 
 \section{Requisitos de usuarios}
@@ -76,6 +76,16 @@ algoritmos requieren de este tipo de datos), esto \textbf{no} incluye al
 atributo de la clase, que sí puede ser categórico/nominal (esa parte del
 pre-procesado sí que es realizada).
 \end{tcolorbox}
+
+Además, si el conjunto de datos es semi-supervisado, este debe tener -1, -1.0 o
+<<?>> en los datos no etiquetados. Si en un dato apara un -1 el resto de no
+etiquetados deben ser también -1.
+
+Para el caso de ARFF se debe tener en cuenta su propio formato. Por ejemplo, si
+la clase está declarada con varios valores, las etiquetan tiene que ser uno de
+esos valores. En este sentido, si se quiere indicar un no etiquetado (o
+desconocido) es donde se incorpora <<?>> (ARFF permite este símbolo incluso
+cuando no es un valor declarado en la lista de posibles valores).
 
 Las condiciones de entrada vienen especificadas al pulsar en el botón de la
 esquina superior derecha del recuadro de selección de fichero <<Condiciones>>.

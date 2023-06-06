@@ -344,9 +344,9 @@ arquitectura tiene como punto de partida la arquitectura
 \texttt{cliente-servidor}.
 
 La arquitectura cliente-servidor es un modelo de diseño en el que las tareas se
-reparten entre los servidores (proveedores) y los clientes (demandantes)
-~\cite{eswiki:149310099}. De hecho, como en principio solo tienen estos dos
-elementos, suele referirse a veces como arquitectura de dos capas.
+reparten entre los servidores (proveedores) y los clientes
+(demandantes)~\cite{eswiki:149310099}. De hecho, como en principio solo tienen
+estos dos elementos, suele referirse a veces como arquitectura de dos capas.
 
 La separación entre ambos elementos es lógica y además el servidor no tiene por
 qué ser una única máquina. Y aquí es donde entran en juego los cimientos de la
@@ -382,7 +382,8 @@ tipo de arquitectura.
 \end{itemize}
 
 La comunicación entre la capa anterior y la siguiente se realiza mediante el
-protocolo HTTP (los conceptos pueden encontrarse en la memoria). Aquí aparece el
+protocolo HTTP (los conceptos pueden encontrarse en la memoria) añadiendo la
+segurización del mismo (HTTPS) para cifrar los mensajes. Aquí aparece el
 concepto de API, que define cómo se comunica el navegador con el servidor. En el
 proyecto actual se está utilizando una API por así decirlo, <<privada>>, en el
 sentido de que no está pensada para ser accedida por todos los usuarios, sino
