@@ -55,6 +55,7 @@ def create_app():
 
     @app.before_request
     def before_request():
+        session.permanent = False
         if 'lang' in request.args:
             session['IDIOMA'] = request.args.get('lang')
 

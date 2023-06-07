@@ -22,8 +22,7 @@ main_bp_inicio = 'main_bp.inicio'
 @login_required
 def logout():
     logout_user()
-    session.pop('ALGORITMO', None)
-    session.pop('FICHERO', None)
+    session.clear()
     flash(gettext('Come back soon!'), category='')
     return redirect(url_for(main_bp_inicio))
 
