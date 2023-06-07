@@ -1,18 +1,4 @@
 {% extends "visualizacion/base_visualizacion.html" %}
-{% block avisos %}
-    <div class="toast-container end-0 p-3">
-        <div id="liveToast" class="toast border-warning bg-warning bg-opacity-75 fade hide" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <strong class="me-auto">{{ gettext('Warning') }}</strong>
-                <small class="text-muted">{{ gettext('just now') }}</small>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-                {{ gettext('Classifiers should be different (diverse) to ensure proper execution') }}
-            </div>
-        </div>
-    </div>
-{% endblock %}
 {% block titulo_especificas %}
     <h4 class="title-mulish">{{ gettext('Specific statistics') }}</h4>
     <hr class="separacion w-10"/>

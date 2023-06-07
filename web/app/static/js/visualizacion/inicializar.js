@@ -37,11 +37,6 @@ async function inicializar(rutadatos, elementos) {
                     document.getElementById("visualizacion").style.visibility = 'visible';
                     document.getElementById("titulo_visualizacion").style.visibility = 'visible';
 
-                    if (datos.iterations === 0 && (rutadatos.includes('democraticcolearning'))) {
-                        const e = new bootstrap.Toast(document.getElementById('liveToast'), {delay: 7500});
-                        e.show();
-                    }
-
                     resolve(datos);
                 } else {
                     document.getElementById("div_cargando").remove();

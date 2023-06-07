@@ -141,7 +141,11 @@ def parametros_democraticcolearning_tritraining():
 
     # Los parámetros anteriores no incluyen los propios parámetros de los clasificadores
     # (SVM, GaussianNB...), esta función lo incluye
-    incorporar_clasificadores_params([clasificador1, clasificador2, clasificador3], params)
+    lista_clasificadores = [clasificador1, clasificador2, clasificador3]
+    incorporar_clasificadores_params(lista_clasificadores, params)
+
+    if len(set(lista_clasificadores)) != len(lista_clasificadores):
+        flash(gettext("Classifiers must be different (diverse) to ensure proper execution"), category='warning')
 
     return params
 
