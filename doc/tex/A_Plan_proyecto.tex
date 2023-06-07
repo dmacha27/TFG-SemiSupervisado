@@ -422,7 +422,7 @@ no fuese un desarrollo largo, fue una tarea compleja. Se probaron unas tres
 implementaciones parecidas a ejemplos encontrados en la documentación, pero en
 todas ellas se perdía la ayuda contextual del \textit{tooltip}. Al final se optó
 por volver a empezar de cero con el conocimiento adquirido y junto con un último
-ejemplo \footnote{Ejemplo D3:
+ejemplo\footnote{Ejemplo D3:
 \url{https://observablehq.com/@d3/zoom-with-tooltip}} y ciertas modificaciones,
 se consiguió. 
 
@@ -492,7 +492,7 @@ por el tamaño de las palabras, centrarla y poder organizar mejor las columnas e
 las que se divide esa plantilla.
 
 Sobre el manual del programador, se añadió la estructura de directorios con el
-paquete \texttt{dirtree} de \LaTeX y se completó el manual del programador,
+paquete \texttt{dirtree} de \LaTeX{} y se completó el manual del programador,
 centrado en qué es lo que debe saber un desarrollador para continuar con el
 proyecto. Finalmente se describió el proceso de la compilación, instalación y
 ejecución del proyecto. En total fueron unas 6 horas.
@@ -639,11 +639,11 @@ iteración se descoloran los puntos (a gris) y después se colorean los nuevos,
 todo esto mediante animaciones y con un cierto tiempo para que pueda darse
 cuenta.
 
-En cuanto a JavaScript, se documentó por completo todos los métodos que fueron
-creados para este proyecto. Además, se eliminó el código duplicado en cada
-fichero utilizando métodos comunes. También fue un proceso largo, sobre todo para
-comprobar que las modificaciones eran correctas y generales, en principio, todo
-parece correcto.
+En cuanto a JavaScript, se documentaron por completo todos los métodos que
+fueron creados para este proyecto. Además, se eliminó el código duplicado en
+cada fichero utilizando métodos comunes. También fue un proceso largo, sobre
+todo para comprobar que las modificaciones eran correctas y generales, en
+principio, todo parece correcto.
 
 Se reestructuró completamente Flask, esto es porque tal y como se encontraba la
 aplicación, era muy básica y general. Los proyectos más grandes con Flask tienen
@@ -730,9 +730,8 @@ Los \texttt{violinplots} que se añadieron para la comparativa de algoritmos
 resultaban algo confusos. Aunque este tipo de gráficos se utiliza mucho para
 comparar datos, para este ámbito concreto no resultó ser la mejor opción. La
 parte superior de estos gráficos, que no son el máximo de los datos, sobrepasa
-en algunos casos el valor máximo de las estadísticas (1). Esto hace parecer que
-los cálculos son incorrectos. Se volvió a incluir los gráficos de caja
-anteriores.
+en algunos casos el valor máximo de las estadísticas. Esto hace parecer que los
+cálculos son incorrectos. Se volvió a incluir los gráficos de caja anteriores.
 
 Como no resultaba una tarea grande, se incluyó la integración continua a partir
 de este momento. La herramienta SonarCloud proporciona muchas métricas de
@@ -931,7 +930,7 @@ problema es que los \texttt{tooltips} muestran información confusa.
 
 En primer lugar, estos recuadros que aparecen al pasar el ratón por un punto, no
 se posicionaban correctamente. Mediante un ejemplo encontrado en
-internet\footnote{Ejemplo de \texttt{tooltip}:
+Internet\footnote{Ejemplo de \texttt{tooltip}:
 \url{https://observablehq.com/@clhenrick/tooltip-d3-convention}}, se vio que el
 propio D3 tiene una función que determina la posición del ratón correctamente.
 Además, el elemento \texttt{tooltip} tenía una posición absoluta respecto de
@@ -1051,7 +1050,7 @@ describieron todos sus privilegios.
 
 En el anexo del diseño se añadió el diseño arquitectónico que se ha planteado
 para la aplicación, una arquitectura de tres capas. Se explicaron los conceptos
-relativos junto cómo se reflejaba en la aplicación global.
+relativos junto a cómo se reflejaba en la aplicación global.
 
 Se añadió PEP8 a las técnicas y \texttt{Draw.io}, \texttt{Putty} y
 \texttt{Bootstrap Icons} en las herramientas.
@@ -1171,8 +1170,8 @@ Durante todo el sprint se intentaba corregir todo lo que se veía como mejora
     de las pestañas dos y tres no se ajustaban (solo la primera).
     \item Las rutas de los usuarios fueron anonimizadas, en el sentido de que
     hasta ahora se incluía por ejemplo el identificador del usuario en la base
-    de datos (algo como <</perfil/2>>). Convenía no mostrar estos valores
-    (<</perfil>>).
+    de datos (algo como \texttt{/perfil/2}). Convenía no mostrar estos valores
+    (\texttt{/perfil}).
     \item Traducciones.
     \item Justificar el por qué de la licencia BSD 3-Clause.
 \end{itemize}
@@ -1209,17 +1208,18 @@ El cómputo del salario bruto del alumno, suponiendo un salario de
 Licenciados en~\cite{cotizacion2023} es:
 
 \begin{center}
-$4.5 \frac{horas}{día} \cdot 7 \frac{días}{semana} \cdot 11
-\frac{\text{\texteuro}}{hora} \cdot 4 \frac{semanas}{mes} = 1.386\frac{\text{\texteuro}}{mes} $
+$4.5 \frac{horas}{día} \times 7 \frac{días}{semana} \times 11
+\frac{\text{\texteuro}}{hora} \times 4 \frac{semanas}{mes} = 1.386\frac{\text{\texteuro}}{mes} $
 \end{center}
 
 Para el caso de los supervisores (tutores), el tiempo empleado de ambos es de 2
-horas/semana para la revisión del progreso y reuniones. Por lo que suponiendo
-mismas bases mínimas anteriores, el salario bruto es:
+horas/semana para la revisión del progreso y reuniones. Por lo que, suponiendo
+mismas bases mínimas anteriores, y añadiendo cuatro euros debido al cargo
+superior, el salario bruto es:
 
 \begin{center}
-$2 \frac{horas}{semana} \cdot 11 \frac{\text{\texteuro}}{hora} \cdot 4
-\frac{semanas}{mes} = 88\frac{\text{\texteuro}}{mes} $
+$2 \frac{horas}{semana} \times 15 \frac{\text{\texteuro}}{hora} \times 4
+\frac{semanas}{mes} = 120\frac{\text{\texteuro}}{mes} $
 \end{center}
 
 
@@ -1236,11 +1236,11 @@ generales.
     \centering
     \begin{tabular}{ll}
         \toprule
-    \textbf{Concepto}  & \textbf{Impuesto} \\ \midrule
-    CONTINGENCIAS   (Comunes)  & 23.60\% \\
-    DESEMPLEO  (Tipo General) & 5.50\%  \\
-    FOGASA                   & 0.20\%  \\
-    FORMACIÓN PROFESIONAL      & 0.60\% 
+    \textbf{Concepto}           & \textbf{Impuesto} \\ \midrule
+    CONTINGENCIAS   (Comunes)   & 23,60\% \\
+    DESEMPLEO  (Tipo General)   & 5,50\%  \\
+    FOGASA                      & 0,20\%  \\
+    FORMACIÓN PROFESIONAL       & 0,60\% \\ \bottomrule
     \end{tabular}%
     \caption{Tabla de impuestos}
     \label{tabla:seg-social}
@@ -1263,10 +1263,10 @@ empleados es:
 \toprule
 \textbf{Empleado}                               & \textbf{Salario bruto (€)}       & \textbf{Gasto de la empresa (€)}      \\ \midrule
 David Martínez Acha (des)               & 1.386                    & 1977,18                      \\
-Álvar Arnaiz González (sup)             & 88                      & 125,53                       \\
-César Ignacio García Osorio (sup)       & 88                      & 125,53                       \\ \midrule
-\textbf{Total}                          & 1.562                    & 2.228,25                      \\ \midrule
-\textbf{Total 5 meses}                  & 7.810                    & 11.141,23                      \\ \midrule
+Álvar Arnaiz González (sup)             & 120                      & 171,18                       \\
+César Ignacio García Osorio (sup)       & 120                      & 171,18                       \\ \midrule
+\textbf{Total}                          & 1.626                    & 2.319,54                      \\ \midrule
+\textbf{Total 5 meses}                  & 8.130                    & 11.597,7                      \\ \bottomrule
 \multicolumn{3}{l}{\begin{tabular}[c]{@{}l@{}}des: desarrollador\\ sup: supervisor\end{tabular}}
 \end{tabular}%
 }
@@ -1275,7 +1275,7 @@ César Ignacio García Osorio (sup)       & 88                      & 125,53    
 \end{table}
 
 En la tabla~\ref{tabla:salarios} se presentan todos los costes de los empleados.
-El total, para los 5 meses de duración aproximada es 11.141\,23\texteuro.
+El total, para los 5 meses de duración aproximada es 11.597,7\texteuro.
 
 \textbf{Hardware}:
 
@@ -1329,7 +1329,7 @@ del sistema operativo Windows 10 Pro del equipo de sobremesa. Está valorado en
 finalización del soporte de Microsoft el 14 de octubre de 2025, aproximadamente
 dos años y medio.
 
-El coste amortizado será 41,66\texteuro (aplicando el mismo cálculo que antes).
+El coste amortizado será 41,66\texteuro~(aplicando el mismo cálculo que antes).
 
 \clearpage
 \textbf{Costes indirectos}:
@@ -1343,8 +1343,8 @@ anteriores. A estos se le añade otros gastos considerados.
 \toprule
 \textbf{Concepto}      & \textbf{Coste (€)}     \\ \midrule
 Dominio <<dmacha.dev>>     & 12                    \\
-12\% costes                 & 1.393.61                     \\ \midrule
-\textbf{Total}       & 1.405,61                     \\ \midrule
+12\% costes                & 1.448,39                     \\ \midrule
+\textbf{Total}       & 1.460,39                     \\ \midrule
 \end{tabular}
 \caption{Costes indirectos}
 \label{tabla:indirectos}
@@ -1360,17 +1360,17 @@ En la tabla~\ref{tabla:total} se presenta la suma de todos los costes descritos.
 \begin{tabular}{lr}
 \toprule
 \textbf{Tipo de coste}     & \textbf{Coste (€)}     \\ \midrule
-Empleados                  & 11.141,23                    \\
+Empleados                  & 11.597,7               \\
 Hardware                   & 430,55                     \\
 Software                   & 41,66                     \\
-Indirectos                 & 1.405,61                     \\ \midrule
-\textbf{Total}             & 13.019,05                     \\ \midrule
+Indirectos                 & 1.460,39                     \\ \midrule
+\textbf{Total}             & 13.530,3                     \\ \midrule
 \end{tabular}
 \caption{Coste total}
 \label{tabla:total}
 \end{table}
 
-El coste total del proyecto, finalmente, es de 13.019,05\texteuro.
+El coste total del proyecto, finalmente, es de 13.530,3\texteuro.
 
 \subsubsection{Beneficios}
 
@@ -1444,7 +1444,9 @@ esas normas y condiciones impuestas, el proyecto tendrá la licencia \textbf{BSD
 3-Clause}.
 
 \paragraph{Implicaciones de BSD 3-clause} Esta licencia tiene las siguientes implicaciones
-(traducción no oficial)~\cite{bsd}:
+(traducción no oficial)~\cite{bsd}:\\
+
+    Copyright (c) 2023, David Martínez Acha
 \begin{enumerate}
     \item Las redistribuciones del código fuente deben conservar el aviso de
     derechos de autor anterior, esta lista de condiciones y el siguiente
