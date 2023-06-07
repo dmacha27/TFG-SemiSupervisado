@@ -2236,6 +2236,13 @@
       ],
       "value": ""
     }, {
+      "id": "645e6d59-0623-4382-9c21-5a9be40efa6c",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:5000/miespacio",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "3448dc97-d978-420d-917f-fdebbae1676b",
       "comment": "",
       "command": "verifyText",
