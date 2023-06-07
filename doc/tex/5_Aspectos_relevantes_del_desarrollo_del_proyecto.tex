@@ -371,7 +371,7 @@ El servidor donde está establecida la aplicación se trata de un servicio
 caso no tiene acceso físico, sino remoto.
 
 La aplicación en sí (lanzada mediante la ejecución normal de Flask) no puede ser
-accedida desde el exterior pues Flask se ejecuta en local (al igual que se ha
+accedida desde el exterior, ya que Flask se ejecuta en local (al igual que se ha
 hecho en el desarrollo accediendo a \url{127.0.0.1}).
 
 Para permitir el acceso desde el exterior, se ha establecido un \emph{proxy
@@ -399,11 +399,11 @@ Flask (que suele usarse en un entorno de desarrollo), y un servidor WSGI (Web
 Server Gateway Interface\footnote{Indicará cómo comunicar \texttt{Nginx} (en
 este caso) con la aplicación Flask.}) en entornos de producción. Para este
 servidor WSGI se ha considerado \texttt{gunicorn} (\textit{green unicorn}), una
-utilidad de Python que permite levantar aplicaciones como Flask. 
+utilidad de Python que permite levantar aplicaciones realizadas con Flask. 
 
 En una única ocasión con \texttt{gunicorn}, el tiempo de respuesta alcanzaba los
 2 minutos o incluso no respondía (los procesos que manejaban las peticiones se
 reiniciaban constantemente debido a la falta de recursos). De este modo, y como
 no se obtuvieron más datos de lo ocurrido, se considera la posibilidad de
 ejecutar directamente el servidor Flask para mantener el servicio en caso de
-fallos, pero siempre con preferencia por WSGI.
+fallo, pero siempre con preferencia por WSGI.
