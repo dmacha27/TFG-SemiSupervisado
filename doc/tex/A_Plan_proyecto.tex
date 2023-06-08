@@ -1176,6 +1176,92 @@ Durante todo el sprint se intentaba corregir todo lo que se veía como mejora
     \item Justificar el por qué de la licencia BSD 3-Clause.
 \end{itemize}
 
+\subsection{Sprint 21}
+Corresponde con el último periodo temporal (considerando hasta la entrega).
+
+Puntos a desarrollar:
+\begin{enumerate}
+    \item Enlazar el manual en web.
+    \item Logos de los algoritmos.
+    \item Depurar aplicación.
+    \item Completar memoria (resumen, conclusiones y líneas futuras).
+    \item Añadir videotutoriales.
+    \item Completar anexos.
+\end{enumerate}
+
+En principio, como sprint final, no se planteaba realizar ninguna
+implementación. Quizá alguna modificación/mejora que no altere el
+funcionamiento.
+
+En primer lugar, se añadió en la barra de navegación un enlace directo al manual
+de usuario de la propia documentación del proyecto. Esto conllevó la
+actualización de las capturas del manual para que se apreciara el nuevo icono y
+un nuevo caso de uso sencillo.
+
+En la aplicación web faltaban los logos de los algoritmos. Para ello, se generó
+un modelo de un robot en Dall-e\footnote{https://openai.com/dall-e-2} (consejo
+de los tutores). A partir de aquí, se fue modificando el logo base adecuándolo
+al contexto de los algoritmos.
+\begin{itemize}
+    \item SelfTraining: Único robot.
+    \item Co-Training: Son dos clasificadores (dos robots) pero están combinados
+    (funcionamiento interno del algoritmo), ya que es como si actuaran como uno
+    solo, pero cada uno ve una parte de los datos (\emph{multi-view}).
+    \item Democratic Co-Learning: Tres robots con su papeleta de voto (se basa en la votación).
+    \item Tri-Training: Se combina el conocimiento (predicciones) de dos
+    clasificadores para que un tercero aprenda.
+\end{itemize}
+
+En cuanto a la depuración de la aplicación lo que se intentó fue mejorar la
+interacción del usuario. En este sentido, se modificaron los formularios de
+configuración de Self-Training y Co-Training.
+
+En Self-Training el límite o \textit{threshold} ya no se realiza con un
+\textit{placeholder}, sino con un rango de porcentaje, más sencillo de usar.
+Además, se ha incluido un \textit{tooltip} indicando que si introduce 0 en el
+número de iteraciones no se limita internamente (0 es como infinito).
+
+En Co-Training se ha añadido el \textit{tooltip} del número de iteraciones como
+Self-Training (al poner 0 es como si fuera infinito). También se ha añadido
+control del formulario para impedir que el número de positivos y negativos sean
+nulos a la vez.
+
+Tanto en Democratic Co-Learning y Tri-Training se ha incluido la comprobación de
+diversidad en los clasificadores (deben ser diversos, diferentes). Se muestra un
+mensaje en el caso de que no sean distintos. De hecho, al entrar en la
+configuración, aparecen seleccionados tres distintos.
+
+Entre otras mejoras, en el gráfico de estadísticas, cuando había muchas
+iteraciones, los números se solapaban. Se realiza una operación de división
+entres 35 (a partir de este los números se solapaban) y ese resultado actúa de
+divisor en el número de <<rayitas>> dibujadas en las iteraciones. De esta forma,
+se evitan los solapamientos, pero se mantienen suficientes marcas.
+
+Durante unos días se sustituyó los enlaces <<CDN>> (para descargar los recursos
+o bibliotecas) por ficheros locales descargados. Esto fue revertido pues
+convenía delegar estas descargas al usuario (no sobrecargar el servidor con
+tráfico innecesario).
+
+Como último punto a destacar (además de otros retoques menores), se incorporó la
+expiración de las \textit{cookies} de sesión. Cuando el usuario cierra el
+navegador, esta \textit{cookie} es eliminada (al volver a la aplicación será
+como la primera vez).
+
+Al mismo tiempo que se fue depurando la aplicación se iba finalizando con la
+memoria. Se añadieron las conclusiones derivadas, el resumen del proyecto y las
+líneas futuras para la expansión de la aplicación. 
+
+Además, tanto para la memoria como los anexos se fueron corrigiendo los errores
+vistos por ambos tutores.
+
+Para los anexos, también se fue incorporando los elementos que faltaban (como el
+diagrama de componentes) y completando aquellas partes con alguna explicación
+más o aclaración. Por último, se añadieron unos videotutoriales (enlazados a
+esta documentación) para ejemplificar las principales acciones de los usuarios
+(anónimos, registrados y administradores).
+
+Y en definitiva, aquí concluye el desarrollo proyecto. Ha sido un largo camino e
+intenso, pero gratificante y con mucho aprendizaje.
 
 \clearpage
 \section{Estudio de viabilidad}
