@@ -2,7 +2,7 @@
 
 \section{Introducción}
 
-En esta sección se detalla la Especificación de requisitos. Aquí quedará
+En esta sección se detalla la especificación de requisitos, en ella quedará
 registrado qué es lo que la aplicación debe hacer (y cómo).
 
 \section{Objetivos generales}
@@ -20,7 +20,7 @@ Los objetivos del proyecto pueden resumirse en los siguientes:
 
 El núcleo del proyecto, pese a la importancia de las implementaciones los
 algoritmos, es la aplicación Web, pues representa la parte interactiva del
-proyecto. Por este motivo, el presente apartado analizará con precisión que es
+proyecto. Por este motivo, el presente apartado analizará con precisión qué es
 lo que la aplicación debe hacer (con sus limitaciones).
 
 \section{Usuarios de la aplicación}
@@ -196,10 +196,11 @@ restricciones son aplicadas de forma intrínseca en el desarrollo.
 
 \section{Especificación de requisitos}
 
-\imagencontamano{anexos/DiagramaCasosDeUso}{Diagrama de casos de uso}{1}
+\imagenflotante{anexos/DiagramaCasosDeUso}{Diagrama de casos de uso}
 
-Y a continuación, se detalla la descripción de cada uno de los casos de uso
-representados en el diagrama anterior.
+En la figura~\ref{fig:anexos/DiagramaCasosDeUso} se detalla el diagrama de casos
+de uso general. Y a continuación, se detalla la descripción de cada uno de los
+casos de uso representados en el diagrama anterior.
 
 % Caso de Uso 1 -> Visualizar un algoritmo.
 \begin{table}[p]
@@ -217,12 +218,12 @@ representados en el diagrama anterior.
 		\begin{enumerate}
 			\def\labelenumi{\arabic{enumi}.}
 			\tightlist
-			\item Ejecución del Caso de Uso 2 (Seleccionar algoritmo).
-			\item Ejecución del Caso de Uso 3 (Cargar conjunto de datos).
-            \item Ejecución del Caso de Uso 4 (Configurar algoritmo).
+			\item Ejecución del caso de uso 2 (Seleccionar algoritmo).
+			\item Ejecución del caso de uso 3 (Cargar conjunto de datos).
+            \item Ejecución del caso de uso 4 (Configurar algoritmo).
 			\item Se realiza la ejecución interna del algoritmo, obtención de la información y creación de los gráficos.
             \item El usuario verá en la página los distintos gráficos de su visualización. 
-            \item [Opcional] Ejecución del Caso de Uso 5 (Controlar visualizaciones).
+            \item [Opcional] Ejecución del caso de uso 5 (Controlar visualizaciones).
 		\end{enumerate}\\
 		\textbf{Extensiones}          & 4a Si el usuario estuviera registrado, toda la información de la ejecución será almacenada. \\
 		\textbf{Postcondición}        & Visualizaciones renderizadas en la Web \\
@@ -250,7 +251,7 @@ representados en el diagrama anterior.
 		\textbf{Autor}                & David Martínez Acha \\
 		\textbf{Requisitos asociados} & RF-1, RF-1.1 \\
 		\textbf{Descripción}          & Seleccionar el algoritmo a ejecutar (establecerlo en la sesión del usuario). \\
-		\textbf{Precondición}         & Ejecutando el Caso de Uso 1. \\
+		\textbf{Precondición}         & Ejecutando el caso de uso 1. \\
 		\textbf{Acciones}             &
 		\begin{enumerate}
 			\def\labelenumi{\arabic{enumi}.}
@@ -285,7 +286,7 @@ representados en el diagrama anterior.
 		\textbf{Autor}                & David Martínez Acha \\
 		\textbf{Requisitos asociados} & RF-1, RF-1.2 \\
 		\textbf{Descripción}          & Carga en el sistema de un fichero ARFF o CSV con el conjunto de datos a utilizar. \\
-		\textbf{Precondición}         & Ejecutando el Caso de Uso 1 y haber ejecutado ya el Caso de Uso 2.\\
+		\textbf{Precondición}         & Ejecutando el caso de uso 1 y haber ejecutado ya el caso de uso 2.\\
 		\textbf{Acciones}             &
 		\begin{enumerate}
 			\def\labelenumi{\arabic{enumi}.}
@@ -299,7 +300,7 @@ representados en el diagrama anterior.
 		\textbf{Extensiones}          & 3a Si el usuario estuviera registrado, el fichero será vinculado a su cuenta (en base de datos). \\
 		\textbf{Postcondición}        & Conjunto de datos almacenado en su sesión (y fichero local) y redirección a la página de configuración \\
 		\textbf{Excepciones}          & \begin{itemize}
-			\item El usuario ha accedido a la página de subida sin seleccionar un algoritmo, será redirigido a la página principal (con un mensaje de aviso de esta situación) y se ejecutará el Caso de Uso 2.
+			\item El usuario ha accedido a la página de subida sin seleccionar un algoritmo, será redirigido a la página principal (con un mensaje de aviso de esta situación) y se ejecutará el caso de uso 2.
 			\item El fichero no es ARFF ni CSV, al hacer clic en el botón, será redirigido a esta misma página (subida) y deberá realizar el caso de uso de nuevo.
 		\end{itemize} \\
 		\textbf{Importancia}          & Alta \\
@@ -331,8 +332,8 @@ representados en el diagrama anterior.
 		\end{enumerate}\\
 		\textbf{Postcondición}        & Redirección a la página de visualización \\
 		\textbf{Excepciones}          & \begin{itemize}
-			\item El usuario ha accedido a la página de subida sin seleccionar un algoritmo, será redirigido a la página principal (con un mensaje de aviso de esta situación) y se ejecutará el Caso de Uso 2.
-			\item El usuario ha accedido a la página de configuración sin cargar un conjunto de datos, será redirigido a la página de subida (con un mensaje de aviso de esta situación) y se ejecutará el Caso de Uso 3.
+			\item El usuario ha accedido a la página de subida sin seleccionar un algoritmo, será redirigido a la página principal (con un mensaje de aviso de esta situación) y se ejecutará el caso de uso 2.
+			\item El usuario ha accedido a la página de configuración sin cargar un conjunto de datos, será redirigido a la página de subida (con un mensaje de aviso de esta situación) y se ejecutará el caso de uso 3.
 			\item El usuario sí que ha cargado un conjunto de datos, pero el sistema no puede acceder al fichero. Redirección a página de error, deberá volver a intentar el caso de uso.
 			\item El formulario está incompleto o erróneo. En este caso se bloqueará el envío del formulario indicando qué se debe arreglar.
 		\end{itemize} \\

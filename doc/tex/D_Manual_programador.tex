@@ -47,8 +47,8 @@ Estos son los directorios en los que se organiza el proyecto:
             resultados de los procesos de <<profiling>>{.}\\
         \end{minipage}.
         .3 \textbf{utilidades}: \begin{minipage}[t]{8cm}
-            utilidades (programas) que realizan ciertos pasos de la
-            aplicación y de los algoritmos para centralizar estos procedimientos (comunes){.}\\
+            utilidades que realizan ciertos pasos de la
+            aplicación y de los algoritmos (comunes){.}\\
         \end{minipage}.
         .2 \textbf{docs}: \begin{minipage}[t]{8cm}
             documentación teórica y técnica del proyecto (hecha en \LaTeX){.}\\
@@ -60,8 +60,11 @@ Estos son los directorios en los que se organiza el proyecto:
             archivos de texto plano con código \LaTeX{.}\\
         \end{minipage}.
         .2 \textbf{web}: \begin{minipage}[t]{8cm}
-            estructura o código de la aplicación Web{.}\\
+            aplicación Web (\emph{se expandirá en la siguiente página}){.}\\
         \end{minipage}.
+        .2 \textbf{videos}: \begin{minipage}[t]{10cm}
+            videotutoriales de la aplicación{.}\\
+        \end{minipage}. 
     }
 \end{figure}
 
@@ -621,7 +624,7 @@ implementados también están configurados como un paquete que puede ser
 instalado.
 \begin{tcolorbox}[colback=cyan!5!white,colframe=orange!75!black,title=Instalar librerías externas]
 \begin{minted}{shell}
-$ pip install -r requierements.txt
+$ pip install -r requirements.txt
 \end{minted}
 \end{tcolorbox}
 
@@ -735,8 +738,7 @@ $ gunicorn -b :5000 'app:create_app()' (--log-level debug)
 
 Esto sería lo mismo que realizar el paso de la ejecución~\ref{ejecucion}.
 
-Cabe notar que este es solo un ejemplo, ya que la aplicación ha sido desplegada
-en Linux. \texttt{Gunicorn} no puede ser usado en sistemas Windows (el
+Cabe notar que esta es la forma en la que se ha deplegado el proyecto actual (en un entorno Linux) y debe ser tomado como un ejemplo. \texttt{Gunicorn} no puede ser usado en sistemas Windows (el
 servidor). Una alternativa muy usada para estos sistemas es \texttt{waitress}.
 
 \section{Pruebas del sistema}
@@ -776,14 +778,14 @@ casos de prueba anteriores pueden dejar la aplicación en el estado correcto par
 cumplir esas precondiciones.
 
 Durante los siguientes casos de prueba se va a manejar constantemente un usuario
-de prueba. Este usuario será <<Prueba>> y tendrá la siguiente información.
+de prueba. Este usuario será <<Prueba>> y tendrá la siguiente información (se
+hará referencia a él en muchos casos):
+\vspace{-0.4cm}
 \begin{itemize}
     \item \textbf{Nombre}: Prueba
     \item \textbf{Correo electrónico}: prueba@gmail.com
     \item \textbf{Contraseña}: 12345678
 \end{itemize}
-
-En muchos de los casos se hará referencia a este usuario.
 
 \clearpage
 \begin{table}[H]

@@ -11,6 +11,12 @@ todo ello en la arquitectura subyacente.
 \section{Diseño de datos}
 
 \subsection{Información de entrenamiento de los algoritmos}
+
+Dado que el proyecto maneja dos fuentes de datos claras (por un lado los
+algoritmos y por otro la base de datos), esta sección se ha separado del mismo
+modo para explicar cada una de las partes: la información de entrenamiento y las
+entidades utilizadas en base de datos.
+
 \label{datos:entrenamiento}
 Todas las visualizaciones de los algoritmos se nutren del proceso de
 entrenamiento. Es decir, se tuvo que diseñar una forma de aglutinar la
@@ -67,7 +73,8 @@ clasificación y/o etiquetas estarán en las columnas:
     tampoco llega a ser clasificado, corresponderá con <<-1>>.
 \end{itemize}
 
-Ejemplo (entrenamiento finalizado en la iteración 9):
+En la tabla~\ref{tabla:dataframe-st} se muestra un ejemplo del formato para
+Self-Training (entrenamiento finalizado en la iteración 9).
 \begin{table}[H]
 \begin{tabular}{rrrrrrr}
     & petal.length & petal.width & sepal.length & sepal.width & iter & target \\ \toprule
@@ -78,15 +85,16 @@ Ejemplo (entrenamiento finalizado en la iteración 9):
 142 & 6.8          & 2.8         & 4.8          & 1.4         & 10   & -1    
 \end{tabular}
 \caption{Ejemplo de DataFrame de Self-Training}
+\label{tabla:dataframe-st}
 \end{table}
 
-En la tabla anterior se puede ver un extracto de lo que podría ser una
-ejecución. Las columnas de los atributos, la iteración (con iteración 10 para
-denotar que no fue etiquetado) y la etiqueta o \textit{target} (con -1 para los
-que no fueron etiquetados).
+En la tabla~\ref{tabla:dataframe-st} se puede ver un extracto de lo que podría
+ser una ejecución. Las columnas de los atributos, la iteración (con iteración 10
+para denotar que no fue etiquetado) y la etiqueta o \textit{target} (con -1 para
+los que no fueron etiquetados).
 
 \paragraph{Co-Training}
-Es muy similar a Self-Training salvo que este algoritmo concreto envuelve dos
+Es muy similar a Self-Training salvo que este algoritmo concreto utiliza dos
 clasificadores base. La consecuencia de esto a nivel del formato es que se
 necesita almacenar cuál de los dos clasificadores clasifica cada instancia. Pero
 más allá de esto, es el mismo formato.
@@ -100,11 +108,12 @@ Recopilando, las columnas para el <<DataFrame>> de Co-Training son:
     el valor  a la etiqueta. Por convención (necesaria para otros procesos en
     Web) es que si el dato es inicial, <<clf>> valdrá <<inicio>>, si es un dato
     clasificado durante el proceso valdrá <<CLF(\textit{nombre\_clasificador})>>
-    donde \textit{nombre\_clasificador} será el extraído de \texttt{scikit-learn}
-    y si no llega a ser clasificado valdrá -1.
+    donde \textit{nombre\_clasificador} será el extraído de
+    \texttt{scikit-learn}. Si no llega a ser clasificado valdrá -1.
 \end{itemize}
 
-Ejemplo (entrenamiento finalizado en la iteración 9):
+En la tabla~\ref{tabla:dataframe-ct} se muestra un ejemplo del formato para
+Co-Training (entrenamiento finalizado en la iteración 9).
 \begin{table}[H]
     \resizebox{\textwidth}{!}{%
 \begin{tabular}{rrrrrrrl}
@@ -117,12 +126,13 @@ Ejemplo (entrenamiento finalizado en la iteración 9):
 \end{tabular}
     }
     \caption{Ejemplo de DataFrame de Co-Training}
+    \label{tabla:dataframe-ct}
 \end{table}
 
 
 \paragraph{Democratic Co-Learning}
-Tomando como base Co-Training este algoritmo no añade ninguna columna más (ni
-elimina), solo modifica las existentes. Concretamente, tres última columnas
+Tomando como base Co-Training, este algoritmo no añade ninguna columna más (ni
+elimina), solo modifica las existentes. Concretamente, las tres últimas columnas
 (<<iter>>,<<target>> y <<clf>>) que estaban en singular ahora pasan a plural:
 <<iters>>,<<targets>> y <<clfs>>. 
 
@@ -137,10 +147,10 @@ Recopilando, las columnas para el <<DataFrame>> de Democratic Co-Learning son:
 \begin{itemize}
     \item Columnas con los nombres de los atributos de las instancias.
     \item Columna <<iters>>: Lista con la iteración en la que cada clasificador
-    etiqueta la instancia. En el caso de un dato inicial, esta lista sol o
-    tendrá una posición y contendrá 0 (\texttt{[0]}), para el resto siempre
-    tendrá tres posiciones (por los tres clasificadores base). Para este último
-    caso cada posición es independiente, es decir, si un clasificador base no ha
+    etiqueta la instancia. En el caso de un dato inicial, esta lista solo tendrá
+    una posición y contendrá 0 (\texttt{[0]}), para el resto siempre tendrá tres
+    posiciones (por los tres clasificadores base). Para este último caso cada
+    posición es independiente, es decir, si un clasificador base no ha
     etiquetado, contendrá -1 (\textbf{diferencia con los anteriores}\footnote{La
     razón de que se indique -1 en vez de número de iteraciones + 1, es porque
     toda esta estructura se genera antes del entrenamiento. En los algoritmos
@@ -150,18 +160,19 @@ Recopilando, las columnas para el <<DataFrame>> de Democratic Co-Learning son:
     (por ejemplo: $[-1,4,-1]$)
     \item Columna <<targets>>: Exactamente igual a <<iters>> salvo que no indica
     la iteración, sino la etiqueta que asigna el clasificador base. De nuevo, si
-    no la etiqueta, su posición contendrá -1.
+    no asigna una, su posición contendrá -1.
     \item Columna <<clfs>>: Hasta ahora se ha hablado de posiciones en las dos
-    columnas anteriores. Para saber a qué clasificador se refiere esta columna
-    contiene otra lista con los tres nombres de los clasificadores. Si es un
-    dato inicial, contendrá [inicio], en otro caso contendrá algo como
-    \texttt{[CLF1(KNeighborsClassifier), CLF2(DecisionTreeClassifier),
-    CLF3(GaussianNB)]}.
+    columnas anteriores. Para saber a qué clasificador se refieren esas
+    posiciones, esta columna contiene otra lista con los tres nombres de los
+    clasificadores. Si es un dato inicial, contendrá [inicio], en otro caso
+    contendrá algo como \texttt{[CLF1(KNeighborsClassifier),
+    CLF2(DecisionTreeClassifier), CLF3(GaussianNB)]}.
 \end{itemize}
 
-Ejemplo (entrenamiento finalizado en la iteración 9)\footnote{Se han acortado los nombres de los clasificadores [CLF1, CLF2, CLF3]
-debería ser [CLF1(KNeighborsClassifier), CLF2(DecisionTreeClassifier),
-CLF3(GaussianNB)]}:
+En la tabla~\ref{tabla:dataframe-dcl} se muestra un ejemplo del formato para
+Democratic Co-Learning (entrenamiento finalizado en la iteración 9)\footnote{Se
+han acortado los nombres de los clasificadores [CLF1, CLF2, CLF3], debería ser
+[CLF1(KNeighborsClassifier), CLF2(DecisionTreeClassifier), CLF3(GaussianNB)]}:
 \begin{table}[H]
     \resizebox{\textwidth}{!}{%
 \begin{tabular}{rrrrrlll}
@@ -174,6 +185,7 @@ CLF3(GaussianNB)]}:
 \end{tabular}
     }
     \caption{Ejemplo de DataFrame de Democratic Co-Learning}
+    \label{tabla:dataframe-dcl}
 \end{table}
 
 
@@ -216,9 +228,10 @@ Recopilando, las columnas para el <<DataFrame>> de Tri-Training son:
     lista de los nombres de los tres clasificadores.
 \end{itemize}
 
-Ejemplo (entrenamiento finalizado en la iteración 9)\footnote{Se han acortado los nombres de los clasificadores [CLF1, CLF2, CLF3]
-debería ser [CLF1(KNeighborsClassifier), CLF2(DecisionTreeClassifier),
-CLF3(GaussianNB)]}:
+En la tabla~\ref{tabla:dataframe-tt} se muestra un ejemplo del formato para
+Tri-Training (entrenamiento finalizado en la iteración 9)\footnote{Se han
+acortado los nombres de los clasificadores [CLF1, CLF2, CLF3] debería ser
+[CLF1(KNeighborsClassifier), CLF2(DecisionTreeClassifier), CLF3(GaussianNB)]}:
 \begin{table}[H]
     \resizebox{\textwidth}{!}{%
 \begin{tabular}{rrrrrlll}
@@ -231,6 +244,7 @@ CLF3(GaussianNB)]}:
 \end{tabular}
     }
     \caption{Ejemplo de DataFrame de Tri-Training}
+    \label{tabla:dataframe-tt}
 \end{table}
 
 \paragraph{Interpretación sencilla de estos formatos} Cuando se realiza su
@@ -256,8 +270,10 @@ Se tiene un <<DataFrame>> con tantas filas como iteraciones se han ejecutado. En
 cuanto a las columnas, simplemente son los nombres de las estadísticas que se
 desean mostrar. Los nombres son los que se mostrarán en la Web.
 
-Ejemplo:
-\begin{table}[H]
+En la tabla~\ref{tabla:dataframe-generales} se presenta un ejemplo del formato
+de las estadísticas generales.
+\begin{table}
+\centering
 \begin{tabular}{llllll}
   & Accuracy  & Precision & Error    & F1\_score & Recall    \\ \hline
 0 & 0.833333  & 0.888889  & 0.166667 & 0.822222  & 0.833333  \\
@@ -266,6 +282,8 @@ Ejemplo:
 3 & 1.000000 & 1.000000 & 0.000000 & 1.000000 & 1.000000 \\
 4 & 1.000000 & 1.000000 & 0.000000 & 1.000000 & 1.000000
 \end{tabular}
+\caption{Ejemplo de DataFrame de las estadísticas generales}
+\label{tabla:dataframe-generales}
 \end{table}
 
 \subsubsection{Estadísticas específicas}
@@ -283,6 +301,7 @@ clasificador base concreto (el de la clave).
 
 \subsection{Base de datos}
 
+El diagrama general E/R se puede ver en la figura~\ref{fig:anexos/diseño/ER}.
 Para el manejo de toda la información que se ha necesitado en el flujo de la
 aplicación, se han creado las siguientes entidades:
 
@@ -333,6 +352,28 @@ aplicación, se han creado las siguientes entidades:
 \subsubsection{Diagrama relacional}
 \imagen{anexos/diseño/Tablas}{Diagrama relacional}
 \section{Diseño procedimental}
+En esta sección se incluyen los diagramas de secuencia considerados para
+explicar la interacción del usuario con la aplicación (el procedimiento
+seguido).
+
+Concretamente, la interacción principal de la aplicación consiste en la
+visualización de un algoritmo. El diagrama de secuencia de dicho proceso puede
+verse en la figura~\ref{fig:anexos/diseño/ProcedimientoWeb}. Esta interacción
+puede resumirse en:
+
+\begin{enumerate}
+    \item El usuario accede a la aplicación y selecciona un algoritmo. Por su
+    parte, el servidor, establecerá que el usuario lo ha seleccionado.
+    \item El usuario carga un conjunto de datos que el servidor almacena y le
+    permite al usuario configurar el algoritmo.
+    \item El usuario introduce los parámetros del algoritmo (propios del
+    algoritmo y de la visualización).
+    \item El navegador realizará una petición con todos esos parámetros a la
+    espera de obtener una respuesta. Mientras ocurre, el servidor se encarga de
+    instanciar el algoritmo, ejecutarlo y enviar los resultados al navegador.
+    \item El navegador (mediante JavaScript) interpretará los datos y brindará
+    las visualizaciones al usuario.
+\end{enumerate}
 
 \imagencontamano{anexos/diseño/ProcedimientoWeb}{Diagrama de secuencia de la visualización de un algoritmo}{1.1}
 
@@ -453,10 +494,11 @@ visualizar el diagrama de despliegue.
 
 \section{Diseño Web}
 
-\subsection{Primer mockup o maqueta}
-Se presenta el primer Mockup o maqueta que se comentó de la página Web. Todas
-las páginas tendrán una base común en la que aparecerá información general como
-la Universidad de Burgos (barra superior).
+\subsection{Primer \textit{mockup} o maqueta} 
+
+Se presenta el primer \textit{mockup} o maqueta que se comentó de la página Web.
+Todas las páginas tendrían una base común en la que aparecerá información
+general como la Universidad de Burgos (barra superior).
 
 \imagen{anexos/diseño/MUP_Inicio}{Página inicial de la Web.}
 

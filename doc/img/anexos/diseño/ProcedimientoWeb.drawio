@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-05-10T18:00:29.522Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/113.0" etag="ynnju3X4kEhvH9k8DYvb" version="21.2.9" type="device">
+<mxfile host="app.diagrams.net" modified="2023-06-08T15:06:42.662Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/114.0" etag="ORH7slLLOdYTB7DxBl0X" version="21.3.7" type="device">
   <diagram id="N8JM3yLiZ9JfEsMEZFWs" name="Página-1">
-    <mxGraphModel dx="1434" dy="754" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1274" dy="677" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -203,10 +203,10 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="NUUDglNFNG596hGYiFAE-12" value="&lt;div&gt;Algoritmo&lt;/div&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#4D7080;fontColor=#FFFFFF;" parent="1" vertex="1">
-          <mxGeometry x="585" y="615" width="100" height="256" as="geometry" />
+          <mxGeometry x="585" y="37" width="100" height="833" as="geometry" />
         </mxCell>
         <mxCell id="fEMCKq-2NBwSIVXVxD6m-24" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=#737C80;" parent="NUUDglNFNG596hGYiFAE-12" vertex="1">
-          <mxGeometry x="45" y="223" width="10" height="33.5" as="geometry" />
+          <mxGeometry x="45" y="799.5" width="10" height="33.5" as="geometry" />
         </mxCell>
         <mxCell id="NUUDglNFNG596hGYiFAE-16" value="Accede a la Web" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;" parent="1" source="NUUDglNFNG596hGYiFAE-9" target="NUUDglNFNG596hGYiFAE-14" edge="1">
           <mxGeometry width="80" relative="1" as="geometry">
@@ -307,17 +307,17 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="fEMCKq-2NBwSIVXVxD6m-23" value="Algoritmo(parametros)" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" parent="1" source="fEMCKq-2NBwSIVXVxD6m-22" edge="1">
+        <mxCell id="fEMCKq-2NBwSIVXVxD6m-23" value="Algoritmo(parametros)" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" parent="1" source="fEMCKq-2NBwSIVXVxD6m-22" edge="1" target="NUUDglNFNG596hGYiFAE-12">
           <mxGeometry width="80" relative="1" as="geometry">
             <mxPoint x="413" y="632" as="sourcePoint" />
-            <mxPoint x="584" y="627" as="targetPoint" />
+            <mxPoint x="560" y="642" as="targetPoint" />
             <Array as="points">
               <mxPoint x="521" y="627" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="fEMCKq-2NBwSIVXVxD6m-25" value="&lt;div&gt;Cada algoritmo tiene sus parámetros&lt;br&gt;&lt;/div&gt;" style="shape=note;size=20;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="518" y="537" width="201" height="45" as="geometry" />
+          <mxGeometry x="459" y="529" width="189" height="44" as="geometry" />
         </mxCell>
         <mxCell id="fEMCKq-2NBwSIVXVxD6m-26" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" parent="1" target="fEMCKq-2NBwSIVXVxD6m-25" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -353,10 +353,10 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="fEMCKq-2NBwSIVXVxD6m-36" value="DatasetLoader" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fontColor=#FFFFFF;fillColor=#4D7080;" parent="1" vertex="1">
-          <mxGeometry x="748" y="663" width="100" height="108" as="geometry" />
+          <mxGeometry x="748" y="37" width="100" height="735" as="geometry" />
         </mxCell>
         <mxCell id="fEMCKq-2NBwSIVXVxD6m-38" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=#737C80;" parent="fEMCKq-2NBwSIVXVxD6m-36" vertex="1">
-          <mxGeometry x="45" y="51" width="10" height="56" as="geometry" />
+          <mxGeometry x="45" y="675" width="10" height="56" as="geometry" />
         </mxCell>
         <mxCell id="fEMCKq-2NBwSIVXVxD6m-37" value="DatsetLoader(fichero)" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" parent="1" source="fEMCKq-2NBwSIVXVxD6m-22" edge="1">
           <mxGeometry width="80" relative="1" as="geometry">
@@ -389,7 +389,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="fEMCKq-2NBwSIVXVxD6m-43" value="&lt;div&gt;&lt;b&gt;mapa &lt;/b&gt;es la conversión de las etiquetas numéricas a las originales&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;is_unlabelled &lt;/b&gt;indica si los datos ya son semi-supervisados&lt;br&gt;&lt;/div&gt;" style="shape=note;size=20;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="657" y="798" width="224" height="102" as="geometry" />
+          <mxGeometry x="808" y="868" width="224" height="102" as="geometry" />
         </mxCell>
         <mxCell id="fEMCKq-2NBwSIVXVxD6m-44" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" parent="1" target="fEMCKq-2NBwSIVXVxD6m-43" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
