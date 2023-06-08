@@ -14,14 +14,14 @@ let cont = 0;
 async function inicializar(rutadatos, elementos) {
 
     let traducciones = {
-        "es": {"Se han detectado características categóricas o indefinidas, es necesario que se aseguren características numéricas"
-                : "Se han detectado características categóricas o indefinidas, es necesario que se aseguren características numéricas",
+        "es": {"Se han detectado características categóricas o indefinidas, recuerde que los algoritmos solo soportan características numéricas"
+                : "Se han detectado características categóricas o indefinidas, recuerde que los algoritmos solo soportan características numéricas",
 
                 "Los positivos y negativos no pueden ser ambos nulos (no se añadirían nuevas predicciones)":
                     "Los positivos y negativos no pueden ser ambos nulos (no se añadirían nuevas predicciones)"},
 
-        "en": {"Se han detectado características categóricas o indefinidas, es necesario que se aseguren características numéricas":
-                "Categorical or indeterminate features have been detected, it is necessary to ensure numerical features",
+        "en": {"Se han detectado características categóricas o indefinidas, recuerde que los algoritmos solo soportan características numéricas":
+                "Categorical or undefined features have been detected, remember that the algorithms only support numeric features",
 
                 "Los positivos y negativos no pueden ser ambos nulos (no se añadirían nuevas predicciones)":
                     "Positive and negative cannot both be null (no new predictions would be added)"}

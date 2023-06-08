@@ -135,8 +135,8 @@ class DatasetLoader:
         x = data.drop(columns=[self.target])
 
         if self._detect_categorical_features(x):
-            raise ValueError("Se han detectado características categóricas o indefinidas,"
-                             " es necesario que se aseguren características numéricas")
+            raise ValueError("Se han detectado características categóricas o indefinidas, "
+                             "recuerde que los algoritmos solo soportan características numéricas")
 
         if self.type == FileType.CSV:
             y = pd.DataFrame(data[self.target], columns=[self.target])
