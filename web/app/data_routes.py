@@ -138,7 +138,7 @@ def obtener_info(algoritmo):
                                         p_test=int(request.form['p_test']) / 100)
 
     specific_stats = None
-    if not isinstance(algoritmo, (DemocraticCoLearning, TriTraining)):
+    if isinstance(algoritmo, SelfTraining):
         log, stats, iteration = algoritmo.fit(x, y, x_test, y_test, datasetloader.get_only_features())
     else:
         log, stats, specific_stats, iteration = algoritmo.fit(x, y, x_test, y_test, datasetloader.get_only_features())
@@ -159,7 +159,7 @@ def obtener_info(algoritmo):
             'stats': stats.to_json(),
             'mapa': json.dumps(mapa)}
 
-    if isinstance(algoritmo, (DemocraticCoLearning, TriTraining)):
+    if not isinstance(algoritmo, SelfTraining):
         info = info | {'specific_stats': {key: specific_stats[key].to_json() for key in specific_stats}}
 
     if current_user.is_authenticated:

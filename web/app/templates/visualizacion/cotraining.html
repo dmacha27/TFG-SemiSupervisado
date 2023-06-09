@@ -3,15 +3,21 @@
 {% block pseudocodigo %}
     <img src="{{ gettext('/pseudocodigos/en/CoTraining.png') }}" width="75%" alt="{{ gettext('Co-Training Pseudocode') }}"/>
 {% endblock %}
+{% block mas_estadisticas %}
+    <div class="d-flex">
+        <div id="estadisticas_especificas"></div>
+        <div id="leyenda_estadisticas_especificas" class="d-flex flex-column align-items-start m-auto" style="width: 12rem;"></div>
+    </div>
+{% endblock %}
 {% block mas_scripts %}
     {% if ejecutar %}
         <script>
-            inicializar_con_peticion("/datos/{{ session['ALGORITMO'] }}", elementos, preparardataset_cotraining, grafico_cotraining);
+            inicializar_con_peticion("/datos/{{ session['ALGORITMO'] }}", elementos, preparardataset_cotraining, grafico_cotraining, true);
         </script>
     {% else %}
         <script>
             let datos = {{ json_data|tojson }};
-            inicializar_sin_peticion(datos, preparardataset_cotraining, grafico_cotraining)
+            inicializar_sin_peticion(datos, preparardataset_cotraining, grafico_cotraining, true)
         </script>
     {% endif %}
 {% endblock %}

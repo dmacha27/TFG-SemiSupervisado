@@ -289,15 +289,16 @@ de las estadísticas generales.
 \subsubsection{Estadísticas específicas}
 Este tipo de estadísticas se refiere a la necesidad de mostrar también las
 estadísticas particulares de los clasificadores base. Esto aplica para
-Democratic Co-Learning y Tri-Training.
+Co-Training, Democratic Co-Learning y Tri-Training.
 
 El núcleo de esta estructura de datos siguen siendo los <<DataFrames>>, sin
 embargo, se han envuelto en un diccionario. El diccionario tiene como claves
 cada uno de los nombres de los clasificadores base de la ejecución (por ejemplo:
-\texttt{CLF3(GaussianNB)}). Los valores del diccionario serán esos
-<<DataFrames>> que son exactamente iguales que para las estadísticas generales.
-Guardarán por cada iteración (fila), las estadísticas (columnas) para el
-clasificador base concreto (el de la clave).
+\texttt{CLF3(GaussianNB)})\footnote{En Co-Training nunca podría llegar a ser
+<<CLF3>> pues solo hay dos clasificadores, pero es la misma idea}. Los valores
+del diccionario serán esos <<DataFrames>> que son exactamente iguales que para
+las estadísticas generales. Guardarán por cada iteración (fila), las
+estadísticas (columnas) para el clasificador base concreto (el de la clave).
 
 \subsection{Base de datos}
 

@@ -77,6 +77,10 @@ class CoTraining:
         iteration = 0
         stats = pd.DataFrame(columns=['Accuracy', 'Precision', 'Error', 'F1_score', 'Recall'])
 
+        specific_stats = {f"CLF{i + 1}({n.__class__.__name__})": pd.DataFrame(
+            columns=['Accuracy', 'Precision', 'Error', 'F1_score', 'Recall']
+        ) for i, n in enumerate([self.clf1, self.clf2])}
+
         ids = np.random.choice(len(x_u), size=min(self.u, len(x_u)), replace=False)
         s_u_s = x_u[ids]  # Selected unlabelled samples
         x_u = np.delete(x_u, ids, axis=0)
@@ -90,6 +94,7 @@ class CoTraining:
             self.clf1.fit(x1, y_train)
             self.clf2.fit(x2, y_train)
             stats.loc[len(stats)] = calculate_log_statistics(y_test, self.predict(x_test))
+            self._register_specific_stats(x_test, y_test, specific_stats)
 
             x1_u, x2_u = np.array_split(s_u_s, 2, axis=1)
 
@@ -157,8 +162,23 @@ class CoTraining:
         rest['clf'] = -1
         log = pd.concat([log, rest], ignore_index=True)
         stats.loc[len(stats)] = calculate_log_statistics(y_test, self.predict(x_test))
+        self._register_specific_stats(x_test, y_test, specific_stats)
 
-        return log, stats, iteration
+        return log, stats, specific_stats, iteration
+
+    def _register_specific_stats(self, x_test, y_test, specific_stats):
+        """
+        Registrar las estadísticas específicas.
+        Actualiza specific_stats, sin retorno.
+
+        :param x_test:
+        :param y_test:
+        :param specific_stats:
+        """
+        x_test_splitted = np.array_split(x_test, 2, axis=1)
+        for i, n in enumerate([self.clf1, self.clf2]):
+            clf_stat = specific_stats[f"CLF{i + 1}({n.__class__.__name__})"]
+            clf_stat.loc[len(clf_stat)] = calculate_log_statistics(y_test, n.predict(x_test_splitted[i]))
 
     def predict(self, x):
         """

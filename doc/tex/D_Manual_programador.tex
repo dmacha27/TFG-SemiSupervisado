@@ -738,8 +738,10 @@ $ gunicorn -b :5000 'app:create_app()' (--log-level debug)
 
 Esto sería lo mismo que realizar el paso de la ejecución~\ref{ejecucion}.
 
-Cabe notar que esta es la forma en la que se ha deplegado el proyecto actual (en un entorno Linux) y debe ser tomado como un ejemplo. \texttt{Gunicorn} no puede ser usado en sistemas Windows (el
-servidor). Una alternativa muy usada para estos sistemas es \texttt{waitress}.
+Cabe notar que esta es la forma en la que se ha desplegado el proyecto actual
+(en un entorno Linux) y debe ser tomado como un ejemplo. \texttt{Gunicorn} no
+puede ser usado en sistemas Windows (el servidor). Una alternativa muy usada
+para estos sistemas es \texttt{waitress}.
 
 \section{Pruebas del sistema}
 
@@ -756,13 +758,18 @@ ejecutarse en cualquier momento (atendiendo a las precondiciones establecidas).
 
 Para codificar y ejecutar las pruebas se debe instalar la extensión <<Selenium
 IDE>> en el navegador \texttt{Google Chrome} (incorpora funcionalidades que no
-existen en otros). 
+existen en otros) y activar en la configuración de la extensión de Selenium IDE
+la opción <<Permitir acceso a URL de archivo>>. Esta opción se utiliza para
+poder subir archivos. Es más, también se deben configurar las rutas de los
+ficheros en los pasos en los que estos se cargan (ver descripción de los casos de prueba).
 
 A continuación, se debe abrir el proyecto de pruebas ya creado (incluido en el
 código fuente). En él aparecerá todo el listado de casos de prueba. Cada uno de
 ellos puede ser ejecutado por separado o en conjunto (secuencialmente). En
 principio se recomienda esta última opción (uno detrás de otro), ya que está
 preparado para cumplir con las precondiciones.
+
+Es \textbf{muy importante} configurar correctamente las rutas de los fic
 
 \imagen{anexos/manual-programador/Selenium}{Entorno Selenium IDE}
 
@@ -985,8 +992,7 @@ Comprobar iteración 0                                 &                        
 \end{table}
 
 
-\begin{table}[H]
-\begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
+\begin{longtable}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
 \rowcolor{gray!25}
 Identificador   & \multicolumn{4}{l}{CP10}                                                   \\
 Prioridad   & \multicolumn{4}{l}{Muy alta}                                                    \\
@@ -1002,14 +1008,16 @@ Acceder a '/'                                         &                        &
 Hacer clic en <<Co-Training>>                         &                        & Encontrarse en la página de subida                                   & Encontrarse en la página de subida                           & Éxito                            \\ \hline
 Subir el conjunto de datos iris                       & Fichero <<iris.arff>>  & Porcentaje de subida al 100\%                                        & Porcentaje de subida al 100\%                                & Éxito                            \\ \hline
 Hacer clic en <<Configurar algoritmo>>                &                        & Redirección a la página de configuración                             & Redirección a la página de configuración                     & Éxito                            \\ \hline
+Seleccionar <<KNeighborsClassifier>> y <<DecisionTreeClassifier>> clasificadores (en ese orden)       &                        & & & Éxito \\ \hline
 Seleccionar <<class>> como atributo de la clase       &                        & & & Éxito \\ \hline
 Hacer clic en <<Ejecutar>>                            &                        & Encontrarse en la página de visualización                            & Encontrarse en la página de visualización                    & Éxito                            \\ \hline
-Comprobar la existencia de los <<SVGs>>               &                        & Se han generado los <<SVGs>> (visualización y estadísticas generales) & Se han generado los <<SVGs>> (visualización y estadísticas generales)& Éxito  \\ \hline 
+Comprobar la existencia de los <<SVGs>>               &                        & Se han generado los <<SVGs>> (visualización, estadísticas generales y estadísticas específicas) & Se han generados los <<SVGs>> (visualización, estadísticas generales y estadísticas específicas)& Éxito  \\ \hline 
 Comprobar leyenda principal                           &                        & La leyenda incluye: <<Iris-setosa>>, <<Iris-versicolor>>, <<Iris-virginica>> & La leyenda incluye: <<Iris-setosa>>, <<Iris-versicolor>>, <<Iris-virginica>> & Éxito \\ \hline
+Comprobar leyenda estadísticas específicas            &                        & La leyenda incluye: <<CLF1 (KNeighborsClassifier)>> y <<CLF2 (DecisionTreeClassifier)>> & La leyenda incluye: <<CLF1 (KNeighborsClassifier)>> y <<CLF2 (DecisionTreeClassifier)>> & Éxito \\ \hline
 Comprobar iteración 0                                 &                        & El valor de la iteración es 0                                        & El valor de la iteración es 0                                & Éxito \\ \hline
-\end{tabular}
 \caption{Caso de prueba 10: Ejecución correcta Co-Training.}
-\end{table}
+\end{longtable}
+
 
 \clearpage
 \begin{longtable}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}

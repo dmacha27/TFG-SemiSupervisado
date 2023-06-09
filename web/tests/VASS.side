@@ -1062,6 +1062,13 @@
       "targets": [],
       "value": "http://127.0.0.1:5000/configuracion/cotraining?"
     }, {
+      "id": "987ca3af-11e8-4884-b88e-34c122df1f66",
+      "comment": "",
+      "command": "select",
+      "target": "id=clasificador1",
+      "targets": [],
+      "value": "label=KNeighborsClassifier"
+    }, {
       "id": "82f4c982-80bd-4ad8-8b5e-3f6198b7cc04",
       "comment": "",
       "command": "select",
@@ -1167,6 +1174,30 @@
         ["xpath=//span[contains(.,'Iris-virginica')]", "xpath:innerText"]
       ],
       "value": "Iris-virginica"
+    }, {
+      "id": "142d4fb7-ce14-460f-9e7e-3b084ed9a7e7",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=#leyenda_estadisticas_especificas > .text-left:nth-child(1)",
+      "targets": [
+        ["css=#leyenda_estadisticas_especificas > .text-left:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='leyenda_estadisticas_especificas']/span", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'CLF1(KNeighborsClassifier)')]", "xpath:innerText"]
+      ],
+      "value": "CLF1(KNeighborsClassifier)"
+    }, {
+      "id": "f9db4457-96a8-4c10-af90-d7bb59bd6748",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=#leyenda_estadisticas_especificas > .text-left:nth-child(2)",
+      "targets": [
+        ["css=#leyenda_estadisticas_especificas > .text-left:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='leyenda_estadisticas_especificas']/span[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div[2]/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'CLF2(DecisionTreeClassifier)')]", "xpath:innerText"]
+      ],
+      "value": "CLF2(DecisionTreeClassifier)"
     }, {
       "id": "06b0d170-1299-4c4c-b5c3-aa680b93fbf1",
       "comment": "",
@@ -1893,7 +1924,7 @@
         ["xpath=//p", "xpath:position"],
         ["xpath=//p[contains(.,'Se han detectado características categóricas o indefinidas, es necesario que se aseguren características numéricas')]", "xpath:innerText"]
       ],
-      "value": "Se han detectado características categóricas o indefinidas, es necesario que se aseguren características numéricas"
+      "value": "Se han detectado características categóricas o indefinidas, recuerde que los algoritmos solo soportan características numéricas"
     }, {
       "id": "2a709a1e-c228-4c77-901e-f2425d2f8e58",
       "comment": "",
