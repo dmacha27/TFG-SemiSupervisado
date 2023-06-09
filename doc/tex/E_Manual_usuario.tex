@@ -18,7 +18,7 @@ Los requisitos que debe cumplir el usuario son:
 \section{Instalación}
 
 El usuario no necesita instalar el software para utilizarlo. Puede acceder a él
-directamente desde su navegador.
+directamente desde su navegador en \url{https://vass.dmacha.dev}.
 
 \section{Manual del usuario}
 
@@ -53,7 +53,8 @@ El flujo para visualizar un algoritmo en el siguiente:
 Para seleccionar un algoritmo, se puede hacer de dos formas. La primera es
 haciendo clic a los enlaces que aparecen en la barra de navegación (que además
 está siempre presente en todas las pestañas) y también haciendo clic en las
-tarjetas de presentación de cada algoritmo en la página principal.
+tarjetas de presentación de cada algoritmo en la página principal (ver
+figura~\ref{fig:anexos/manual-usuario/Inicio - VASS}).
 
 \imagen{anexos/manual-usuario/Inicio - VASS}{Página principal}
 
@@ -64,8 +65,9 @@ fichero.
 
 El fichero contendrá el conjunto de datos. Para subir un fichero, simplemente se
 puede arrastrar desde el propio sistema hasta la zona marcada con rayas o
-abriendo el explorador de archivos con el botón de <<Selecciona fichero>>. Podrá
-ver durante la carga el progreso de la misma.
+abriendo el explorador de archivos con el botón de <<Selecciona fichero>> (ver
+figura~\ref{fig:anexos/manual-usuario/Carga del conjunto de datos - VASS}).
+Podrá ver durante la carga el progreso de la misma.
 
 Si el usuario no dispone de un fichero, la aplicación incluye un enlace para
 descargar uno de prueba, pulsando en el botón <<Descargar fichero de prueba>>. A
@@ -100,7 +102,8 @@ cuando no es un valor declarado en la lista de posibles valores).
 
 Las condiciones de entrada vienen especificadas al pulsar en el botón de la
 esquina superior derecha del recuadro de selección de fichero <<Condiciones>>.
-Al pulsar en él aparecerá una ventana emergente con dichas condiciones.
+Al pulsar en él aparecerá una ventana emergente con dichas condiciones (ver
+figura~\ref{fig:anexos/manual-usuario/Condiciones - VASS}).
 
 \imagencontamano{anexos/manual-usuario/Condiciones - VASS}{Condiciones de entrada}{0.6}
 
@@ -117,7 +120,8 @@ siguiente página del flujo (configuración).
 Se encontrará en la página de configuración del algoritmo, donde podrá observar
 un apartado teórico con sus conceptos generales y su pseudocódigo. Por otro
 lado, tendrá un formulario con todos los parámetros que se pueden configurar
-para ese algoritmo.
+para ese algoritmo (ver figura~\ref{fig:anexos/manual-usuario/Configuración del
+algoritmo - VASS}).
 
 \imagen{anexos/manual-usuario/Configuración del algoritmo - VASS}{Configuración del algoritmo}
 
@@ -135,7 +139,8 @@ Una vez configurado, se puede visualizar el algoritmo pulsando en el botón de
 \label{mu:visualizacion}
 Ya en la página de visualización, se mostrará durante unos momentos una
 animación de carga. Cuando el sistema haya finalizado la ejecución, se podrán
-ver los distintos gráficos.
+ver los distintos gráficos (ver
+figura~\ref{fig:anexos/manual-usuario/Visualización - VASS}).
 
 En principio, los errores que ocurran en el sistema serán mostrados. Sin
 embargo, en el caso de que la animación dure un periodo de tiempo excesivo, se
@@ -146,7 +151,8 @@ simplemente).
 
 \paragraph{Visualización principal} En el gráfico principal se mostrará el
 conjunto de datos en dos dimensiones. Aquí podrá verse qué es lo que ocurre
-durante el proceso de entrenamiento del algoritmo.
+durante el proceso de entrenamiento del algoritmo (ver
+figura~\ref{fig:anexos/manual-usuario/Visualización principal}).
 
 \imagen{anexos/manual-usuario/Visualización principal}{Visualización principal}
 
@@ -185,28 +191,32 @@ Existe un formato común a todos los algoritmos para los casos de los datos
 iniciales. Este tipo de puntos se representa mediante un círculo. Como dato
 inicial, tendrá la etiqueta correspondiente. Además, cada punto tiene en la
 parte superior la posición que ocupa en el gráfico. Esta posición coincide con
-los atributos seleccionados para representar los datos. En la siguiente imagen
-se presenta un ejemplo de todo lo anterior donde se seleccionó PCA y por eso
-aparece <<C1>> y <<C2>>.
+los atributos seleccionados para representar los datos. En la
+figura~\ref{fig:anexos/manual-usuario/tooltips/Inicial} se presenta un ejemplo
+de todo lo anterior donde se seleccionó PCA y por eso aparece <<C1>> y <<C2>>.
 
 \imagencontamano{anexos/manual-usuario/tooltips/Inicial}{Tooltip con dato inicial}{0.25}
 
 Otro formato común es en el caso de puntos solapados (derivados de ejemplos
-duplicados en el conjunto de datos o por PCA). En este caso, donde en el anterior
-aparecía la información del punto, ahora aparecerá un listado con todos los
-puntos solapados. Ejemplo:
+duplicados en el conjunto de datos o por PCA). En este caso, donde en el
+anterior aparecía la información del punto, ahora aparecerá un listado con todos
+los puntos solapados (ver
+figura~\ref{fig:anexos/manual-usuario/tooltips/Solapados}).
 
 \imagencontamano{anexos/manual-usuario/tooltips/Solapados}{Tooltip con datos solapados}{0.25}
 
-Como se puede ver en este ejemplo anterior, los puntos no han sido clasificados
-(captura tomada en iteración cero), esto no es importante, la diferencia con una
-iteración posterior es que aparecerá la etiqueta asignada (se verá en cada
-algoritmo). Además, aparece un indicativo de <<Clasificador>>, se ha querido
-incluir en este ejemplo porque en todos los algoritmos excepto Self-Training se
-indica el clasificador que se ha encargado de etiquetar cada punto.
+Como se puede ver en este ejemplo de la
+figura~\ref{fig:anexos/manual-usuario/tooltips/Solapados}, los puntos no han
+sido clasificados (captura tomada en iteración cero), esto no es importante, la
+diferencia con una iteración posterior es que aparecerá la etiqueta asignada (se
+verá en cada algoritmo). Además, aparece un indicativo de <<Clasificador>>, se
+ha querido incluir en este ejemplo porque en todos los algoritmos excepto
+Self-Training se indica el clasificador que se ha encargado de etiquetar cada
+punto.
 
 Es interesante comentar que puede darse el caso de puntos solapados en el que
-alguno o todos sean datos iniciales. Por ejemplo:
+alguno o todos sean datos iniciales (ver
+figura~\ref{fig:anexos/manual-usuario/tooltips/Solapados+Inicial}).
 
 \imagencontamano{anexos/manual-usuario/tooltips/Solapados+Inicial}{Tooltip con datos solapados con uno inicial}{0.25}
 
@@ -218,15 +228,18 @@ comprendiendo los anteriores ejemplos resulta sencillo de interpretar.
 Existen dos formatos, el primero es en el que el dato no ha sido etiquetado
 (porque se etiqueta en una iteración posterior o simplemente porque nunca es
 etiquetado). Por ejemplo, una captura tomada en la iteración dos de una dato no
-etiquetado es\footnote{En el ejemplo puede ser extraño que no aparezca un título
-indicando el punto (algo como <<Punto 1>>), ese formato solo se <<activa>>
-cuando existen datos solapados.}:
+etiquetado es la de la
+figura~\ref{fig:anexos/manual-usuario/tooltips/STNoClasificado}. En dicho
+ejemplo puede ser extraño que no aparezca un título indicando el punto (algo
+como <<Punto 1>>), ese formato solo se <<activa>> cuando existen datos
+solapados.
 
 \imagencontamano{anexos/manual-usuario/tooltips/STNoClasificado}{Tooltip con un dato no clasificado}{0.25}
 
 El otro formato es en el que el dato ya ha sido clasificado (en la iteración
 actual o en una previa). Por ejemplo, una captura tomada en la iteración ocho de
-una dato etiquetado en la iteración seis es:
+una dato etiquetado en la iteración seis es la de la
+figura~\ref{fig:anexos/manual-usuario/tooltips/STClasificado}.
 
 \imagencontamano{anexos/manual-usuario/tooltips/STClasificado}{Tooltip con un dato clasificado}{0.3}
 
@@ -239,7 +252,8 @@ Realmente, el tooltip para Co-Training es muy similar a Self-Training. No existe
 ningún caso extraño o adicional.
 
 Vuelven a existir dos formatos, cuando el dato no ha sido etiquetado todavía (o
-nunca) y cuando sí está etiquetado. 
+nunca, ver figura~\ref{fig:anexos/manual-usuario/tooltips/CTNoClasificado}) y
+cuando sí está etiquetado. 
 
 \imagencontamano{anexos/manual-usuario/tooltips/CTNoClasificado}{Tooltip con un dato no clasificado}{0.3}
 
@@ -247,16 +261,18 @@ Para el caso del dato clasificado sí que es necesario puntualizar alguna
 cuestión (se verá en el ejemplo siguiente). Co-Training considera dos
 clasificadores base y cada uno de ellos puede clasificar a un punto. Esto se ha
 representado de dos maneras. La primera señal es que el símbolo del punto será
-uno concreto para cada clasificador. La segunda señal es que en el tooltip
-aparecerá una línea de <<Clasificador:>> que estará seguida de dicho símbolo y
-el nombre del clasificador. Se mantiene también el número de la iteración en la
-que se ha clasificado.
+uno concreto para cada clasificador. La segunda señal es que en el
+\textit{tooltip} aparecerá una línea de <<Clasificador:>> que estará seguida de
+dicho símbolo y el nombre del clasificador (ver
+figura~\ref{fig:anexos/manual-usuario/tooltips/CTClasificado}). Se mantiene
+también el número de la iteración en la que se ha clasificado.
 
 \imagencontamano{anexos/manual-usuario/tooltips/CTClasificado}{Tooltip con un dato clasificado}{0.45}
 
 Esta idea también es la misma si existen datos solapados. En ese caso, en cada
 uno de los puntos que se indiquen en el listado de solapados aparecerá el
-clasificador (el símbolo y el nombre) junto con la etiqueta.
+clasificador (el símbolo y el nombre) junto con la etiqueta (ver
+figura~\ref{fig:anexos/manual-usuario/tooltips/CTSolapadosClasificados}).
 
 \imagencontamano{anexos/manual-usuario/tooltips/CTSolapadosClasificados}{Tooltip con datos solapados y clasificados}{0.45}
 
@@ -268,7 +284,8 @@ para Co-Training, simplemente mostrará la posición y que no ha sido clasificad
 
 La particularidad que tiene Democratic Co-Learning y Tri-Training es que cada
 dato puede ser etiquetado por varios clasificadores. Para ejemplificar esto
-simplemente se realiza un listado de los clasificadores que lo han etiquetado.
+simplemente se realiza un listado de los clasificadores que lo han etiquetado
+(ver figura~\ref{fig:anexos/manual-usuario/tooltips/DCLClasificados1}).
 
 \imagencontamano{anexos/manual-usuario/tooltips/DCLClasificados1}{Tooltip con un dato clasificado por dos clasificadores}{0.45}
 
@@ -294,8 +311,10 @@ Esto no afecta al formato comentado, pero puede llegar a ser extraño sin
 especificarlo.
 
 Por último, como en todos los anteriores formatos, pueden existir datos
-solapados. El ejemplo mostrado a continuación es de Democratic Co-Learning, pero
-como se ha comentado es el mismo formato que el de Tri-Training.
+solapados. El ejemplo mostrado en la
+figura~\ref{fig:anexos/manual-usuario/tooltips/DCLSolapadosClasificados} es de
+Democratic Co-Learning, pero como se ha comentado, es el mismo formato que el de
+Tri-Training.
 
 \imagencontamano{anexos/manual-usuario/tooltips/DCLSolapadosClasificados}{Tooltip con datos solapados y clasificados}{0.45}
 
@@ -312,7 +331,7 @@ adicionales, que serán principalmente estadísticas.
 En la parte superior de esta zona se tiene un desplegable (contraído por
 defecto) que contiene el pseudocódigo (el mismo que en la fase de
 configuración). Si se desea consultar, simplemente se pulsa en cualquier parte
-del desplegable:
+del desplegable (ver figura~\ref{fig:anexos/manual-usuario/Pseudocodigo}).
 
 \imagen{anexos/manual-usuario/Pseudocodigo}{Desplegable pseudocódigo}
 
@@ -321,7 +340,8 @@ usuario (no puede realizar ninguna opción).
 
 En el caso de las estadísticas específicas puede seleccionar qué estadística
 mostrar mediante el selector superior, y de qué clasificadores mostrarla
-mediante las casillas en la parte inferior.
+mediante las casillas en la parte inferior (ver
+figura~\ref{fig:anexos/manual-usuario/ZonaEstadisticas}).
 
 Ambos gráficos anteriores contienen información similar, en el eje X se indican
 las iteraciones y en el eje Y el valor de la estadística(s).
@@ -338,6 +358,9 @@ También hay un icono con una interrogación, este es un enlace directo al manua
 de usuario de la aplicación (esta documentación). Al pulsar en él se abre una
 nueva pestaña con dicho manual (sin modificar la actual y sin descargar).
 
+Ambas funciones pueden verse en la figura~\ref{fig:anexos/manual-usuario/Cambiar
+de idioma}.
+
 \imagencontamano{anexos/manual-usuario/Cambiar de idioma}{Cambiar de idioma}{0.4}
 
 Pulsando en el idioma se refrescará la página acorde al idioma seleccionado.
@@ -349,7 +372,8 @@ Para aquellos usuarios anónimos que deseen crear una cuenta en la aplicación,
 será necesario realizar el proceso de registro.
 
 Para acceder a él, en la barra de navegación se dispone de un enlace (en la
-parte derecha) que redirecciona al formulario de creación. Una vez accedido, se
+parte derecha) que redirecciona al formulario de creación (ver
+figura~\ref{fig:anexos/manual-usuario/Registrarse - VASS}). Una vez accedido, se
 deben rellenar los siguientes campos (todos obligatorios):
 \begin{itemize}
     \item Nombre: entre 2 y 10 caracteres.
@@ -369,7 +393,8 @@ automáticamente.
 
 Al igual que para el registro, para iniciar sesión existe un enlace en la barra
 de navegación (en la parte derecha) que redirecciona al formulario de inicio de
-sesión.
+sesión (ver
+figura~\ref{fig:anexos/manual-usuario/Iniciar sesión - VASS}).
 
 \imagen{anexos/manual-usuario/Iniciar sesión - VASS}{Formulario de inicio de sesión}
 
@@ -381,7 +406,8 @@ modificación de un perfil se verá más adelante).
 
 Si ya tiene sesión iniciada, debe hacer clic en su nombre en la barra de
 navegación (parte derecha). Esto abrirá un desplegable en el que, aparte de
-otras opciones, podrá cerrar la sesión.
+otras opciones, podrá cerrar la sesión (ver
+figura~\ref{fig:anexos/manual-usuario/Cerrar sesión}).
 
 \imagencontamano{anexos/manual-usuario/Cerrar sesión}{Cierre de sesión}{0.4}
 
@@ -391,7 +417,8 @@ Es posible ver el perfil propio y modificar los datos con los que se creó la
 cuenta.
 
 En primer lugar, y similar a otros casos, en el desplegable de la barra de
-navegación del usuario se pulsa en <<Perfil>>.
+navegación del usuario se pulsa en <<Perfil>> (ver
+figura~\ref{fig:anexos/manual-usuario/DesplegablePerfil}).
 
 \imagencontamano{anexos/manual-usuario/DesplegablePerfil}{Acceso al perfil}{0.4}
 
@@ -399,9 +426,10 @@ Una vez dentro, en el lateral izquierdo aparece la información general del
 perfil (ficheros subidos, ejecuciones, correo electrónico...).
 
 La parte de edición (zona derecha) contiene un formulario similar al del
-registro. Se pueden modificar todos los datos mostrados, pero para que las
-modificaciones puedan realizarse, se debe introducir la contraseña actual. Si
-fuera errónea o no se introduce, el formulario no se enviará.
+registro (ver figura~\ref{fig:anexos/manual-usuario/Mi Perfil - VASS}). Se
+pueden modificar todos los datos mostrados, pero para que las modificaciones
+puedan realizarse, se debe introducir la contraseña actual. Si fuera errónea o
+no se introduce, el formulario no se enviará.
 
 \imagen{anexos/manual-usuario/Mi Perfil - VASS}{Perfil personal y edición}
 \label{mu:perfil}
@@ -412,7 +440,8 @@ Todos los usuarios poseen de un espacio personal en el que visualizar y
 controlar sus ficheros subidos y las ejecuciones realizadas hasta el momento.
 
 En primer lugar, y similar a otros casos, en el desplegable de la barra de
-navegación del usuario se pulsa en <<Mi Espacio>>.
+navegación del usuario se pulsa en <<Mi Espacio>> (ver
+figura~\ref{fig:anexos/manual-usuario/DesplegableMiEspacio}).
 
 \imagencontamano{anexos/manual-usuario/DesplegableMiEspacio}{Acceso al espacio personal}{0.4}
 
@@ -420,7 +449,8 @@ Una vez dentro, en el lateral izquierdo aparece la información general del
 perfil (ficheros subidos, ejecuciones, correo electrónico...).
 
 En la parte derecha se encontrarán dos tablas en las que se reflejan los
-ficheros subidos y las ejecuciones.
+ficheros subidos y las ejecuciones (ver figura~\ref{fig:anexos/manual-usuario/Mi
+Espacio - VASS}).
 
 \imagen{anexos/manual-usuario/Mi Espacio - VASS}{Espacio personal}
 
@@ -436,7 +466,8 @@ conjuntos de datos (ficheros) pueden ser ejecutados o eliminados.
 En el caso de querer utilizar el fichero para \textbf{ejecutar un algoritmo},
 simplemente se ha de pulsar en el botón con el símbolo \texttt{play}. Al
 hacerlo, se mostrará una ventana emergente (\texttt{modal}) para seleccionar el
-algoritmo deseado.
+algoritmo deseado (ver figura~\ref{fig:anexos/manual-usuario/EjecuciónDataset -
+VASS}).
 
 \imagen{anexos/manual-usuario/EjecuciónDataset - VASS}{Selección de algoritmo}
 
@@ -446,7 +477,8 @@ Cuando se pulse en uno de los botones se redirige a la pestaña de configuració
 \label{mu:eliminardataset}
 Por otro lado, si se quiere \textbf{eliminar un fichero} de la cuenta (y del
 sistema), se pulsa en el botón con el símbolo de la papelera. De igual manera,
-se mostrará una ventana emergente de confirmación.
+se mostrará una ventana emergente de confirmación (ver
+figura~\ref{fig:anexos/manual-usuario/EliminarDataset - VASS}).
 
 \imagen{anexos/manual-usuario/EliminarDataset - VASS}{Eliminar fichero}
 
@@ -460,7 +492,7 @@ pueden realizarse varias acciones.
 En primer lugar, los \textbf{parámetros de configuración} que se introdujeron en
 una ejecución se pueden consultar pulsando en el botón de la columna
 <<Parámetros>>. Esto mostrará una ventana emergente con un JSON legible y
-formateado.
+formateado (ver figura~\ref{fig:anexos/manual-usuario/ParametrosRun - VASS}).
 
 \imagen{anexos/manual-usuario/ParametrosRun - VASS}{Parámetros de una ejecución}
 
@@ -476,7 +508,8 @@ visualización del algoritmo (ver explicación de la visualización en
 \label{mu:eliminarrun}
 Exactamente igual a los conjuntos de datos, las ejecuciones pueden
 \textbf{eliminarse} pulsando en el botón con el símbolo de papelera mostrando
-una ventana emergente de confirmación similar a la anterior.
+una ventana emergente de confirmación similar a la anterior (ver
+figura~\ref{fig:anexos/manual-usuario/EliminarRun - VASS}).
 
 \imagen{anexos/manual-usuario/EliminarRun - VASS}{Eliminar ejecución}
 
@@ -502,15 +535,20 @@ visualizar tablas con toda esa información.
 
 En primer lugar, para acceder al panel, similar a otros casos, en el desplegable
 de la barra de navegación del usuario (con rol administrador) se pulsa en
-<<Panel de administración>>.
+<<Panel de administración>> (ver
+figura~\ref{fig:anexos/manual-usuario/DesplegablePanel}).
 
 \imagencontamano{anexos/manual-usuario/DesplegablePanel}{Acceso al panel de administración}{0.4}
 
-Una vez dentro, se tiene un menú organizado en pestañas donde ver las tres tablas.
+Una vez dentro, se tiene un menú organizado en pestañas donde ver las tres
+tablas (ver figuras~\ref{fig:anexos/manual-usuario/PanelUsuarios - VASS}
+(Administración de usuarios),~\ref{fig:anexos/manual-usuario/PanelDatasets -
+VASS} (Conjuntos de datos subidos) y~\ref{fig:anexos/manual-usuario/PanelRuns -
+VASS} (Historial de ejecuciones)).
 
 \imagen{anexos/manual-usuario/PanelUsuarios - VASS}{Administración de usuarios}
 
-\imagen{anexos/manual-usuario/PanelDatasets - VASS}{Conjunto de datos subidos}
+\imagen{anexos/manual-usuario/PanelDatasets - VASS}{Conjuntos de datos subidos}
 
 \imagen{anexos/manual-usuario/PanelRuns - VASS}{Historial de ejecuciones}
 
@@ -528,7 +566,8 @@ Si se quiere \textbf{editar} un usuario, se debe pulsar el botón con el símbol
 del lápiz. Esto redirigirá a una pestaña similar a la de la figura
 ~\ref{mu:perfil} (perfil del usuario) y de hecho, será como adoptar la vista del
 usuario que se está editando salvo por la inclusión de un indicativo como
-recordatorio al administrador.
+recordatorio al administrador (ver
+figura~\ref{fig:anexos/manual-usuario/PerfilAjeno - VASS}).
 
 \imagen{anexos/manual-usuario/PerfilAjeno - VASS}{Edición de un perfil ajeno}
 
@@ -549,6 +588,7 @@ registro):
 
 Si lo que se quiere es \textbf{eliminar} un usuario, el proceso es el mismo que
 se ha visto para el resto de eliminaciones. Se debe pulsar en el botón que
-incluye el símbolo de la papelera y se pedirá confirmación del proceso.
+incluye el símbolo de la papelera y se pedirá confirmación del proceso (ver
+figura~\ref{fig:anexos/manual-usuario/EliminarUsuario - VASS}).
 
 \imagen{anexos/manual-usuario/EliminarUsuario - VASS}{Eliminación de usuario}
