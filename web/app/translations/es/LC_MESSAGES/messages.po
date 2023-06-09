@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-06-07 17:46+0200\n"
+"POT-Creation-Date: 2023-06-09 21:19+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: David Martínez Acha <dma1004@alu.ubu.es>\n"
 "Language: es\n"
@@ -26,27 +26,27 @@ msgstr "Inglés"
 msgid "Spanish"
 msgstr "Español"
 
-#: __init__.py:98
+#: __init__.py:99
 msgid "Please log in to access this page."
 msgstr "Por favor, inicia sesión para acceder a esta página."
 
-#: __init__.py:113
+#: __init__.py:114
 msgid "Internal Server Error"
 msgstr "Error interno del servidor"
 
-#: __init__.py:117
+#: __init__.py:118
 msgid "Not found"
 msgstr "No encontrado"
 
-#: __init__.py:121
+#: __init__.py:122
 msgid "Forbidden"
 msgstr "Petición denegada por el servidor"
 
-#: __init__.py:125
+#: __init__.py:126
 msgid "Unauthorized"
 msgstr "No autorizado"
 
-#: __init__.py:129
+#: __init__.py:130
 msgid "Bad request"
 msgstr "Mala petición"
 
@@ -58,12 +58,12 @@ msgstr "Debe subir un archivo"
 msgid "File must be ARFF or CSV"
 msgstr "El fichero debe ser ARFF o CSV"
 
-#: forms.py:9 forms.py:13 forms.py:43 forms.py:47 templates/macros.html:138
+#: forms.py:9 forms.py:13 forms.py:43 forms.py:47 templates/macros.html:149
 msgid "Name"
 msgstr "Nombre"
 
 #: forms.py:15 forms.py:19 forms.py:35 forms.py:36 forms.py:49 forms.py:52
-#: templates/macros.html:139
+#: templates/macros.html:150
 msgid "Email"
 msgstr "Correo electrónico"
 
@@ -198,50 +198,50 @@ msgstr "Debe seleccionar los parámetros del algoritmo"
 
 #: visualization_routes.py:148
 msgid "Classifiers must be different (diverse) to ensure proper execution"
-msgstr "Los clasificadores deben ser diferentes (diversos) para asegurar una "
+msgstr ""
+"Los clasificadores deben ser diferentes (diversos) para asegurar una "
 "ejecución correcta"
 
-
-#: templates/base.html:72 templates/usuarios/admin.html:9
+#: templates/base.html:78 templates/usuarios/admin.html:9
 #: templates/usuarios/admin.html:14
 msgid "Admin dashboard"
 msgstr "Panel de administración"
 
-#: templates/base.html:74 templates/usuarios/miespacio.html:9
+#: templates/base.html:80 templates/usuarios/miespacio.html:9
 #: templates/usuarios/miespacio.html:10
 msgid "My Space"
 msgstr "Mi Espacio"
 
-#: templates/base.html:75 templates/usuarios/base_user.html:21
+#: templates/base.html:81 templates/usuarios/base_user.html:21
 msgid "Profile"
 msgstr "Perfil"
 
-#: templates/base.html:77
+#: templates/base.html:83
 msgid "Log Out"
 msgstr "Cerrar sesión"
 
-#: templates/base.html:83 templates/usuarios/registro.html:2
+#: templates/base.html:89 templates/usuarios/registro.html:2
 #: templates/usuarios/registro.html:3
 msgid "Sign Up"
 msgstr "Registrarse"
 
-#: templates/base.html:86
+#: templates/base.html:92
 msgid "Login"
 msgstr "Iniciar sesión"
 
-#: templates/base.html:105
+#: templates/base.html:111
 msgid "Success"
 msgstr "Éxito"
 
-#: templates/base.html:109 templates/visualizacion/base_visualizacion.html:100
+#: templates/base.html:115 templates/visualizacion/base_visualizacion.html:100
 msgid "Warning"
 msgstr "Advertencia"
 
-#: templates/base.html:115
+#: templates/base.html:121
 msgid "just now"
 msgstr "justo ahora"
 
-#: templates/error.html:25
+#: templates/error.html:29
 msgid "Go home"
 msgstr "Ir al inicio"
 
@@ -334,79 +334,79 @@ msgstr ""
 "Un conjunto de datos puede contener múltiples ejemplos no etiquetados, "
 "pero con el mismo tipo (-1, -1.0 o \"?\")"
 
-#: templates/macros.html:90 templates/macros.html:179 templates/macros.html:217
+#: templates/macros.html:90 templates/macros.html:190 templates/macros.html:228
 msgid "Close"
 msgstr "Cerrar"
 
-#: templates/macros.html:105 templates/usuarios/admin.html:27
+#: templates/macros.html:116 templates/usuarios/admin.html:27
 #: templates/usuarios/admin.html:64 templates/usuarios/miespacio.html:15
 msgid "Uploaded datasets"
 msgstr "Conjunto de datos subidos"
 
-#: templates/macros.html:108 templates/macros.html:123
+#: templates/macros.html:119 templates/macros.html:134
 msgid "Dataset file"
 msgstr "Fichero del conjunto de datos"
 
-#: templates/macros.html:110
+#: templates/macros.html:121
 msgid "Upload date"
 msgstr "Fecha de subida"
 
-#: templates/macros.html:111 templates/macros.html:126
+#: templates/macros.html:122 templates/macros.html:137
 msgid "User"
 msgstr "Usuario"
 
-#: templates/macros.html:112 templates/macros.html:127
-#: templates/macros.html:141
+#: templates/macros.html:123 templates/macros.html:138
+#: templates/macros.html:152
 msgid "Actions"
 msgstr "Acciones"
 
-#: templates/macros.html:119 templates/usuarios/admin.html:32
+#: templates/macros.html:130 templates/usuarios/admin.html:32
 #: templates/usuarios/admin.html:87 templates/usuarios/miespacio.html:23
 msgid "Run history"
 msgstr "Historial de ejecuciones"
 
-#: templates/macros.html:122 templates/subida.html:11
+#: templates/macros.html:133 templates/subida.html:11
 msgid "Algorithm"
 msgstr "Algoritmo"
 
-#: templates/macros.html:124
+#: templates/macros.html:135
 msgid "Run date"
 msgstr "Fecha de ejecución"
 
-#: templates/configuracion/base_configuracion.html:34 templates/macros.html:125
-#: templates/macros.html:172
+#: templates/configuracion/base_configuracion.html:34 templates/macros.html:136
+#: templates/macros.html:183
 msgid "Parameters"
 msgstr "Parámetros"
 
-#: templates/macros.html:135
+#: templates/macros.html:146
 msgid "Users"
 msgstr "Usuarios"
 
-#: templates/macros.html:140 templates/usuarios/base_user.html:41
+#: templates/macros.html:151 templates/usuarios/base_user.html:41
 msgid "Last login"
 msgstr "Último inicio de sesión"
 
-#: templates/macros.html:152
+#: templates/macros.html:163
 msgid "Are you sure?"
 msgstr "¿Estás seguro?"
 
-#: templates/macros.html:156
+#: templates/macros.html:167
 msgid "You are about to delete: "
 msgstr "Vas a eliminar: "
 
-#: templates/macros.html:159
+#: templates/macros.html:170
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: templates/macros.html:160
+#: templates/macros.html:171
 msgid "Delete"
 msgstr "Eliminar"
 
-#: templates/macros.html:191
+#: templates/macros.html:202
 msgid "Select algorithm"
 msgstr "Selecciona un algoritmo"
 
-#: templates/macros.html:214
+#: templates/macros.html:225
 msgid "An error occurred"
 msgstr "Ha ocurrido un error"
 
