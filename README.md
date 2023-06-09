@@ -40,6 +40,9 @@
     <a href="https://github.com/dma1004/TFG-SemiSupervisado/tree/main/doc"><strong>Documentación »</strong></a>
     <br />
     <br />
+    <a href="https://universidaddeburgos-my.sharepoint.com/:f:/g/personal/dma1004_alu_ubu_es/Ejk6TXnhLVpHgo0xz55QLhwBkZOof15qkrURXXXQaxQanQ?e=ic5dZT"><strong>Videotutoriales »</strong></a>
+    <br />
+    <br />
     <a href="https://vass.dmacha.dev">Ver en directo</a>
     ·
     <a href="https://github.com/dma1004/TFG-SemiSupervisado/issues">Reportar un Bug</a>
@@ -185,8 +188,8 @@ Un manual de usuario completo puede encontrarse en la [Documentación](https://g
 - [x] Soporte para múltiples lenguajes
     - [x] Inglés
     - [x] Español
-- [x] Pruebas de sistema
-- [ ] Documentación
+- [x] Pruebas del sistema
+- [x] Documentación
 
 <p align="right">(<a href="#readme-top">volver al principio</a>)</p>
 
