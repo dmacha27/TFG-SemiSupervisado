@@ -54,6 +54,12 @@
         clasificador3.value = clasificadores_base[2];
         generarFormParametros(clasificadores_base[2], div_parametros3, "clasificador3");
 
+        /**
+         *
+         * Asegura que los clasificadores sean diferentes impidiendo
+         * que el usuario pueda enviar el formulario.
+         *
+         */
         function comprobarDiversidad() {
             let dictionary = Object.fromEntries(clasificadores_base.map(x => [x, 0]));
             let selectores = [clasificador1,clasificador2,clasificador3];

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-06-10 12:07+0200\n"
+"POT-Creation-Date: 2023-06-10 12:13+0200\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: David Martínez Acha <dma1004@alu.ubu.es>\n"
 "Language: es\n"
@@ -233,7 +233,7 @@ msgstr "Iniciar sesión"
 msgid "Success"
 msgstr "Éxito"
 
-#: templates/base.html:115 templates/visualizacion/base_visualizacion.html:100
+#: templates/base.html:115 templates/visualizacion/base_visualizacion.html:109
 msgid "Warning"
 msgstr "Advertencia"
 
@@ -484,7 +484,7 @@ msgstr "Si es mayor que el total, se limitará a él (al total)"
 msgid "Enter 0 to not limit the number of iterations"
 msgstr "Introduce 0 para no limitar el número de iteraciones"
 
-#: templates/configuracion/cotrainingconfig.html:72
+#: templates/configuracion/cotrainingconfig.html:78
 msgid ""
 "Strongly based on Self-Training but in this case, several classifiers "
 "(usually two)\n"
@@ -519,12 +519,12 @@ msgstr ""
 "ambos los de mayor confianza y construyen el nuevo conjunto de "
 "entrenamiento para la siguiente iteración."
 
-#: templates/configuracion/cotrainingconfig.html:84
+#: templates/configuracion/cotrainingconfig.html:90
 #: templates/visualizacion/cotraining.html:4
 msgid "/pseudocodigos/en/CoTraining.png"
 msgstr "/pseudocodigos/es/CoTraining.png"
 
-#: templates/configuracion/cotrainingconfig.html:84
+#: templates/configuracion/cotrainingconfig.html:90
 #: templates/visualizacion/cotraining.html:4
 msgid "Co-Training Pseudocode"
 msgstr "Pseudocódigo de Co-Training"
@@ -737,7 +737,7 @@ msgid "Zoom reset"
 msgstr "Reiniciar Zoom"
 
 #: templates/visualizacion/base_visualizacion.html:38
-#: templates/visualizacion/base_visualizacion.html:96
+#: templates/visualizacion/base_visualizacion.html:105
 msgid "Iteration"
 msgstr "Iteración"
 
@@ -749,39 +749,39 @@ msgstr "Pseudocódigo"
 msgid "General statistics"
 msgstr "Estadísticas generales"
 
-#: templates/visualizacion/base_visualizacion.html:90
+#: templates/visualizacion/base_visualizacion.html:99
 msgid "Initial data"
 msgstr "Dato inicial"
 
-#: templates/visualizacion/base_visualizacion.html:91
+#: templates/visualizacion/base_visualizacion.html:100
 msgid "Label"
 msgstr "Etiqueta"
 
-#: templates/visualizacion/base_visualizacion.html:92
+#: templates/visualizacion/base_visualizacion.html:101
 msgid "Classifier"
 msgstr "Clasificador"
 
-#: templates/visualizacion/base_visualizacion.html:93
+#: templates/visualizacion/base_visualizacion.html:102
 msgid "Classifier: Not classified"
 msgstr "Clasificador: No clasificado"
 
-#: templates/visualizacion/base_visualizacion.html:94
+#: templates/visualizacion/base_visualizacion.html:103
 msgid "Label: Not classified"
 msgstr "Etiqueta: No clasificado"
 
-#: templates/visualizacion/base_visualizacion.html:95
+#: templates/visualizacion/base_visualizacion.html:104
 msgid "Measure"
 msgstr "Valor"
 
-#: templates/visualizacion/base_visualizacion.html:97
+#: templates/visualizacion/base_visualizacion.html:106
 msgid "Point"
 msgstr "Punto"
 
-#: templates/visualizacion/base_visualizacion.html:98
+#: templates/visualizacion/base_visualizacion.html:107
 msgid "Position"
 msgstr "Posición"
 
-#: templates/visualizacion/base_visualizacion.html:99
+#: templates/visualizacion/base_visualizacion.html:108
 msgid "overlapping points"
 msgstr "puntos solapados"
 

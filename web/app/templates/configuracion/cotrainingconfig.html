@@ -51,6 +51,12 @@
         generarFormParametros(clasificador1.value, div_parametros1, "clasificador1");
         generarFormParametros(clasificador2.value, div_parametros2, "clasificador2");
 
+        /**
+         *
+         * Asegura que los positivos y negativos no sean nulos
+         * a la vez impidiendo que el usuario pueda enviar el formulario.
+         *
+         */
         function check_p_n_nulos() {
             let p = document.getElementById('p');
             let n = document.getElementById('n');

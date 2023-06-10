@@ -85,6 +85,15 @@
     </div>
     {{ modalerror() }}
     <script>
+
+        /**
+         *
+         * Centraliza traducciones de las visualizaciones accediendo
+         * a las traducciones con la misma clave que el texto.
+         *
+         * @param texto - texto a traducir.
+         * @returns {*} - texto traducido.
+         */
         function traducir(texto) {
             let traducciones = {
                 'Initial data': "{{ gettext('Initial data') }}",
