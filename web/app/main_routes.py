@@ -96,7 +96,10 @@ def subida():
 
     ya_hay_fichero = False
     if 'FICHERO' in session:
-        ya_hay_fichero = True
+        if os.path.exists(session['FICHERO']):
+            ya_hay_fichero = True
+        else:
+            session.pop('FICHERO', None)
 
     if request.method == 'POST':
         file_received = request.files['archivo']
