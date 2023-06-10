@@ -14,12 +14,26 @@ main_bp = Blueprint('main_bp', __name__)
 
 @main_bp.route('/', methods=['GET'])
 def inicio():
+    """
+    Renderiza la página de inicio
+
+    :return: función que genera la página.
+    """
+
     session.pop('ALGORITMO', None)
     return render_template('inicio.html')
 
 
 @main_bp.route('/seleccionar/<algoritmo>', methods=['GET'])
 def seleccionar_algoritmo(algoritmo):
+    """
+    Guarda en la sesión el algoritmo seleccionado y redirecciona
+    a la página de carga del conjunto de datos
+
+    :param algoritmo: nombre del algoritmo seleccionado.
+    :return: función de redirección a la carga del conjunto de datos.
+    """
+
     if algoritmo not in current_app.config['ALGORITMOS_SELECCIONABLES']:
         abort(404)
     session['ALGORITMO'] = algoritmo
@@ -29,6 +43,15 @@ def seleccionar_algoritmo(algoritmo):
 @main_bp.route('/seleccionar/<algoritmo>/<fichero>', methods=['GET'])
 @login_required
 def seleccionar_algoritmo_ejecutar(algoritmo, fichero):
+    """
+    Permite seleccionar un algoritmo a ejecutar utilizando un conjunto
+    de datos ya almacenado como fichero
+
+    :param algoritmo: nombre del algoritmo.
+    :param fichero: nombre del fichero.
+    :return: función de redirección a la configuración del algoritmo.
+    """
+
     if algoritmo not in current_app.config['ALGORITMOS_SELECCIONABLES']:
         abort(404)
 
@@ -46,12 +69,27 @@ def seleccionar_algoritmo_ejecutar(algoritmo, fichero):
 
 @main_bp.route('/descargar_prueba')
 def descargar_prueba():
+    """
+    Gestiona la descarga de un fichero de prueba (en la carga del conjunto de datos).
+
+    :return: fichero de prueba.
+    """
+
     path = 'datasets/seleccionar/Prueba.arff'
     return send_file(path, as_attachment=True)
 
 
 @main_bp.route('/subida', methods=['GET', 'POST'])
 def subida():
+    """
+    Gestiona la carga del conjunto de datos. Detecta en la sesión ya
+    existía un fichero y realiza el formateo del nombre del fichero mediante
+    el "timestamp" para hacerlo único. Finalmente, guarda este fichero en el sistema
+    y lo enlaza, si corresponde, al usuario en base de datos
+
+    :return: :return: función que genera la página.
+    """
+
     if 'ALGORITMO' not in session:
         flash(gettext("You must select an algorithm"), category='error')
         return redirect(url_for('main_bp.inicio'))

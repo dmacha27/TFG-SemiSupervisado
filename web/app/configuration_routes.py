@@ -13,6 +13,14 @@ configuration_bp = Blueprint('configuration_bp', __name__)
 
 @configuration_bp.route('/<algoritmo>', methods=['GET'])
 def configurar_algoritmo(algoritmo):
+    """
+    Renderiza la página de configuración de todos los algoritmos,
+    para ello genera el formulario correspondiente dependiente de "algoritmo"
+
+    :param algoritmo: nombre del algoritmo.
+    :return: función que genera la página.
+    """
+
     if 'FICHERO' not in session:
         flash(gettext("You must upload a file"), category='error')
         return redirect(url_for('main_bp.subida'))

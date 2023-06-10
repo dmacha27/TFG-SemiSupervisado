@@ -13,8 +13,13 @@ visualization_bp = Blueprint('visualization_bp', __name__)
 @visualization_bp.route('/<algoritmo>', methods=['POST'])
 def visualizar_algoritmo(algoritmo):
     """Centraliza la carga de la página de visualización.
-    Es el paso siguiente después de la configuración.
+    Es el paso siguiente después de la configuración
+
+    :param algoritmo: nombre del algoritmo.
+    :returns: - función de redirección si no se ha seleccionado ningún parámetro.
+              - función que genera la página.
     """
+
     if 'target' not in request.form:
         flash(gettext("You must select the parameters of the algorithm"), category='error')
         return redirect(url_for('configuration_bp.configurar_algoritmo', algoritmo="None"))
@@ -45,6 +50,14 @@ def visualizar_algoritmo(algoritmo):
 @visualization_bp.route('/<algoritmo>/<run_id>', methods=['GET'])
 @login_required
 def visualizar_algoritmo_json(algoritmo, run_id):
+    """
+    Centraliza la carga de la página de visualización con una ejecución previa
+
+    :param algoritmo: nombre del algoritmo.
+    :param run_id: identificador de la ejecución previa.
+    :return: función que genera la página.
+    """
+
     run = Run.query.filter(Run.id == run_id).first()
 
     if not run:
@@ -68,6 +81,13 @@ def visualizar_algoritmo_json(algoritmo, run_id):
 
 
 def parametros_selftraining():
+    """
+    Función auxiliar que obtiene todos los campos
+    obtenidos del formulario de Self-Training
+
+    :return: lista de parámetros (en forma de diccionario).
+    """
+
     clasificador = request.form['clasificador1']
 
     # Estos son los parámetros concretos de Self-Training
@@ -93,6 +113,13 @@ def parametros_selftraining():
 
 
 def parametros_cotraining():
+    """
+    Función auxiliar que obtiene todos los campos
+    obtenidos del formulario de Co-Training
+
+    :return: lista de parámetros (en forma de diccionario).
+    """
+
     clasificador1 = request.form['clasificador1']
     clasificador2 = request.form['clasificador2']
 
@@ -121,6 +148,13 @@ def parametros_cotraining():
 
 
 def parametros_democraticcolearning_tritraining():
+    """
+    Función auxiliar que obtiene todos los campos
+    obtenidos del formulario de Democratic Co-Learning y Tri-Training
+
+    :return: lista de parámetros (en forma de diccionario).
+    """
+
     clasificador1 = request.form['clasificador1']
     clasificador2 = request.form['clasificador2']
     clasificador3 = request.form['clasificador3']
@@ -151,8 +185,10 @@ def parametros_democraticcolearning_tritraining():
 
 
 def incorporar_clasificadores_params(nombre_clasificadores, params):
-    """Incluye los parámetros de los propios clasificadores
-    a la lista de parámetros generales.
+    """
+    Incluye los parámetros de los propios clasificadores base
+    a la lista de parámetros generales para luego realizar la petición
+    e instanciar los clasificadores con dichos parámetros.
     """
 
     with open(os.path.join(os.path.dirname(__file__), os.path.normpath("static/json/parametros.json"))) as f:

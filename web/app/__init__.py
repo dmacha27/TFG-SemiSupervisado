@@ -34,6 +34,14 @@ def create_app():
     db.init_app(app)
 
     def get_locale():
+        """
+        Devuelve el idioma que haya seleccionado el usuario
+        en la sesión. Si no ha seleccionado ninguno, se devuelve
+        el mejor posible entre español e inglés
+
+        :return: idioma
+        """
+
         idioma = session.get('IDIOMA', None)
         if idioma is not None:  # Ha seleccionado un idioma manualmente
             return idioma
@@ -45,6 +53,13 @@ def create_app():
 
     @app.context_processor
     def variables_globales():
+        """
+        Define una serie de variables globales accesibles
+        desde Jinja
+
+        :return: diccionario con variables globales.
+        """
+
         return {'titulos': {'selftraining': 'Self-Training',
                             'cotraining': 'Co-Training',
                             'democraticcolearning': 'Democratic Co-Learning',
@@ -55,6 +70,12 @@ def create_app():
 
     @app.before_request
     def before_request():
+        """
+        Actúa antes de cualquier petición comprobando
+        el establecimiento de un idioma (?lang=).
+        Lo guarda en la sesión del usuario
+        """
+
         session.permanent = False
         if 'lang' in request.args:
             session['IDIOMA'] = request.args.get('lang')

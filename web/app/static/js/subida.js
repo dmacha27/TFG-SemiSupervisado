@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
      * Gracias al evento del proceso permite determinar el porcentaje de subida.
      *
      * @param e - evento
-     * @returns {boolean} - false si existe algún problema
+     * @returns {boolean}
      */
     function subir(e) {
         e.preventDefault();

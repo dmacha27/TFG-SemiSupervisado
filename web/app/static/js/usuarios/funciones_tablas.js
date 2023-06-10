@@ -1,5 +1,16 @@
+/**
+ *
+ * Extrae el nombre del dataset eliminando
+ * marcas temporales.
+ * Ejemplo: iris.arff-32246473423
+ * Resulta en: iris.arff
+ *
+ * Foro de ayuda: https://stackoverflow.com/questions/5202085/javascript-equivalent-of-pythons-rsplit
+ *
+ * @param file - nombre del fichero completo
+ * @returns {*}
+ */
 function nombredataset(file) {
-    // https://stackoverflow.com/questions/5202085/javascript-equivalent-of-pythons-rsplit
     return file.split('-').slice(0, -1).join('-');
 }
 
@@ -82,6 +93,17 @@ const titulos = {'selftraining': 'Self-Training',
     'democraticcolearning': 'Democratic Co-Learning',
     'tritraining': 'Tri-Training'};
 
+/**
+ *
+ * Realiza una petición GET para
+ * obtener los datasets de los usuarios.
+ *
+ * Si id es null entonces se obtienen todos (se entiende
+ * que no se quiere los de un usuario concreto).
+ *
+ * @param id - identificador del usuario
+ * @returns {Promise<(*|string)[][]>}
+ */
 export const generateDatasetList = async (id=null) => {
     id = id==null ? '' : '/' + id;
     let response = await fetch('/datasets/obtener' + id);
@@ -104,6 +126,17 @@ export const generateDatasetList = async (id=null) => {
     return datasets;
 }
 
+/**
+ *
+ * Realiza una petición GET para
+ * obtener las ejecuciones de los usuarios.
+ *
+ * Si id es null entonces se obtienen todos (se entiende
+ * que no se quiere los de un usuario concreto).
+ *
+ * @param id - identificador del usuario
+ * @returns {Promise<(*|string)[][]>}
+ */
 export const generateRunList = async (id=null) => {
     id = id==null ? '' : '/' + id;
     let response = await fetch('/historial/obtener' + id)
@@ -126,6 +159,13 @@ export const generateRunList = async (id=null) => {
     return historial;
 }
 
+/**
+ *
+ * Realiza una petición GET para
+ * obtener todos los usuarios.
+ *
+ * @returns {Promise<(*|string)[][]>}
+ */
 export const generateUserList = async () => {
     let response = await fetch('/usuarios/obtener');
     let data = await response.json();
@@ -147,6 +187,17 @@ export const generateUserList = async () => {
     return usuarios;
 }
 
+/**
+ *
+ * Función común para la eliminación de los distintos
+ * elementos con de ficheros: Datasets y Ejecuciones (Runs).
+ *
+ * @param ruta - ruta de eliminación
+ * @param table - tabla sobre la que se actúa
+ * @param row - fila concreta de la tabla
+ * @param file - fichero a eliminar
+ * @param id - identificador del fichero
+ */
 function fetch_eliminar(ruta, table, row, file, id) {
     fetch(ruta, {
         method: 'DELETE',
@@ -169,7 +220,7 @@ function fetch_eliminar(ruta, table, row, file, id) {
         } else {
             row.remove().draw();
 
-            if ('/datasets/eliminar' === ruta) {
+            if ('/datasets/eliminar' === ruta) { // Actualizar contadores
                 let n_uploads = document.getElementById('n_uploads');
                 if (n_uploads !== null) {
                     n_uploads.innerHTML = (parseInt(n_uploads.innerHTML) - 1).toString();
@@ -180,7 +231,7 @@ function fetch_eliminar(ruta, table, row, file, id) {
                     recent_datasets.innerHTML = (parseInt(recent_datasets.innerHTML) - 1).toString();
                 }
 
-            } else if ('/historial/eliminar' === ruta) {
+            } else if ('/historial/eliminar' === ruta) { // Actualizar contadores
                 let n_runs = document.getElementById('n_runs');
                 if (n_runs !== null) {
                     n_runs.innerHTML = (parseInt(n_runs.innerHTML) - 1).toString();
@@ -197,6 +248,14 @@ function fetch_eliminar(ruta, table, row, file, id) {
         .catch(error => console.log(error));
 }
 
+/**
+ *
+ * Función que asocia el evento de cambio de pestaña
+ * en el panel de administrador para actualizar el tamaño
+ * de la tabla y celdas (responsive).
+ *
+ * @param table - tabla sobre a la que asociar el evento
+ */
 function asociar_evento_resize_tab(table) {
     let lista_tabs = document.querySelectorAll('button[data-bs-toggle="tab"]');
     lista_tabs.forEach(function(tab){
@@ -208,6 +267,15 @@ function asociar_evento_resize_tab(table) {
 
 // https://datatables.net/forums/discussion/54495/remove-table-row-from-a-button-inside-the-same-row-when-collapsed
 // Transformado a vanilla
+/**
+ *
+ * Crea la tabla de los datasets.
+ * Sirve tanto para un usuario registrado como administrador.
+ *
+ * @param datasets - datos con los datasets
+ * @param locale - idioma ('es' o 'en')
+ * @param all_users - flag que indica si se quieren obtener los de todos los usuarios
+ */
 export function generateDatasetTable(datasets, locale, all_users) {
 
     let datasettable = document.querySelector('#datasettable');
@@ -315,6 +383,15 @@ export function generateDatasetTable(datasets, locale, all_users) {
     });
 }
 
+/**
+ *
+ * Crea la tabla de las ejecuciones.
+ * Sirve tanto para un usuario registrado como administrador.
+ *
+ * @param historial - datos con las ejecuciones (un historial)
+ * @param locale - idioma ('es' o 'en')
+ * @param all_users - flag que indica si se quieren obtener los de todos los usuarios
+ */
 export function generateHistoryTable(historial, locale, all_users) {
 
     let historytable = document.querySelector('#historytable');
@@ -444,6 +521,14 @@ export function generateHistoryTable(historial, locale, all_users) {
     });
 }
 
+/**
+ *
+ * Crea la tabla de los usuarios.
+ * Sirve para el administrador.
+ *
+ * @param usuarios datos con las ejecuciones (un historial)
+ * @param locale idioma ('es' o 'en')
+ */
 export function generateUserTable(usuarios, locale) {
 
     let usertable = document.querySelector('#usertable');

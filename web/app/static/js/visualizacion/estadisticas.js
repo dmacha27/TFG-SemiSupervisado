@@ -156,7 +156,7 @@ function generarcheckboxes_clasificadores(id_div_objetivo, id_div_estadisticas, 
  * Deshabilita/habilita los puntos y líneas dependiendo del
  * clasificador seleccionado en los checboxes.
  *
- * Es una función que gestiona el evento "click" en un checkbox.
+ * Es una función que gestiona el evento "clic" en un checkbox.
  *
  * @param id_div_objetivo - id del <div> del gráfico SVG
  * @param checked - valor booleano que indica que si el checboxes está activo o no

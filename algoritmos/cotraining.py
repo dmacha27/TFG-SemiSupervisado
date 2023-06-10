@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 #
 # Autor: David Martínez Acha
-# Fecha: 21/03/2023 18:00
+# Fecha: 9/06/2023 18:00
 # Descripción: Algoritmo CoTraining
-# Version: 1.2
+# Version: 1.3
 
 import pandas as pd
 import numpy as np

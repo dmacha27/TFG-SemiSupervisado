@@ -21,6 +21,13 @@ main_bp_inicio = 'main_bp.inicio'
 @users_bp.route('/logout')
 @login_required
 def logout():
+    """
+    Función que gestiona el cierre de sesión del usuario,
+    elimina el algoritmo y fichero cargado de la sesión
+
+    :return: función que redirecciona a la página de inicio.
+    """
+
     logout_user()
     session.pop('ALGORITMO', None)
     session.pop('FICHERO', None)
@@ -30,6 +37,13 @@ def logout():
 
 @users_bp.route('/login', methods=['GET', 'POST'])
 def login():
+    """
+    Función que gestiona el inicio de sesión del usuario.
+
+    :returns: - función que redirecciona a la página de inicio si el inicio de sesión es correcto (POST)
+              - función que genera la página de inicio de sesión (GET).
+    """
+
     if current_user.is_authenticated:
         flash(gettext('You are already logged in!'), category='')
         return redirect(url_for(main_bp_inicio))
@@ -60,6 +74,14 @@ def login():
 
 @users_bp.route('/registrar', methods=['GET', 'POST'])
 def registrar():
+    """
+    Función que gestiona el registro del usuario.
+
+    :returns: - función que redirecciona a la página de inicio si el registro es correcto (POST)
+              - función que genera la página de registro si ha ocurrido algún error en el formulario (POST).
+              - función que genera la página de registro (GET).
+    """
+
     if current_user.is_authenticated:
         flash(gettext('You are already registered!'), category='')
         return redirect(url_for(main_bp_inicio))
@@ -103,10 +125,26 @@ def registrar():
 @users_bp.route('/perfil', methods=['GET', 'POST'])
 @login_required
 def perfil():
+    """
+    Función que gestiona el acceso al perfil del usuario.
+
+    :returns: - función que redirecciona a la página de inicio.
+              - función que genera la página del perfil.
+    """
+
     return editar(current_user.id, 'main_bp.inicio')
 
 
 def editar(user_id, redirect_page):
+    """
+    Función auxiliar que centraliza la visualización y edición de un perfil de usuario
+
+    :param user_id: identificador del usuario.
+    :param redirect_page: página de redirección.
+    :returns: - función que redirecciona a la página indicada en redirect_page
+              - función que genera la página del perfil.
+    """
+
     form = UserForm(request.form)
 
     if current_user.is_admin:
@@ -163,6 +201,12 @@ def editar(user_id, redirect_page):
 @users_bp.route('/miespacio', methods=['GET'])
 @login_required
 def miespacio():
+    """
+    Función que gestiona el acceso al espacio personal del usuario
+
+    :return: función que genera la página del espacio personal.
+    """
+
     usuario = User.query.get(int(current_user.id))
     if not usuario:
         abort(404)
@@ -176,6 +220,15 @@ def miespacio():
 
 
 def obtener_estadisticas_usuario(user_id):
+    """
+    Función auxiliar para la obtención de las estadísticas de usuario:
+        - conjuntos de datos (subidas)
+        - ejecuciones previas
+
+    :param user_id: identificador de usuario.
+    :return: número de subidas y número de ejecuciones.
+    """
+
     datasets = Dataset.query.filter_by(user_id=user_id).all()
     n_uploads = len(datasets) if datasets else 0
 
@@ -188,6 +241,14 @@ def obtener_estadisticas_usuario(user_id):
 @users_bp.route('/datasets/obtener/<user_id>', methods=['GET'])
 @login_required
 def obtener_datasets(user_id):
+    """
+    Obtiene los conjuntos de datos subidos por un usuario
+
+    :param user_id: identificador del usuario.
+    :returns: - si el usuario no está autorizado, json con el estado, el código HTTP y el mensaje del error.
+              - lista con los conjuntos de datos subidos en formato json (su información).
+    """
+
     if int(user_id) != current_user.id and not current_user.is_admin:
         return jsonify({
             "status": "error",
@@ -200,6 +261,14 @@ def obtener_datasets(user_id):
 @users_bp.route('/datasets/eliminar', methods=['DELETE'])
 @login_required
 def eliminar_dataset():
+    """
+    Elimina un conjunto de datos (base de datos y fichero en el sistema).
+    Recibe en el cuerpo de la petición el identificador del usuario y el fichero
+    a eliminar
+
+    :return: json con el estado, el código HTTP y si ha ocurrido algún error, el mensaje del mismo.
+    """
+
     json_request = request.json
     if 'id' not in json_request or 'fichero' not in json_request:
         return jsonify({
@@ -233,6 +302,14 @@ def eliminar_dataset():
 @users_bp.route('/historial/obtener/<user_id>', methods=['GET'])
 @login_required
 def obtener_historial(user_id):
+    """
+    Obtiene las ejecuciones previas de un usuario
+
+    :param user_id: identificador del usuario.
+    :returns: - si el usuario no está autorizado, json con el estado, el código HTTP y el mensaje del error.
+              - lista con las ejecuciones previas en formato json (su información).
+    """
+
     if int(user_id) != current_user.id and not current_user.is_admin:
         return jsonify({
             "status": "error",
@@ -245,6 +322,14 @@ def obtener_historial(user_id):
 @users_bp.route('/historial/eliminar', methods=['DELETE'])
 @login_required
 def eliminar_historial():
+    """
+    Elimina una ejecución previa (base de datos y fichero en el sistema)
+    Recibe en el cuerpo de la petición el identificador del usuario y el fichero
+    a eliminar
+
+    :return: json con el estado, el código HTTP y si ha ocurrido algún error, el mensaje del mismo.
+    """
+
     json_request = request.json
     if 'id' not in json_request or 'fichero' not in json_request:
         return jsonify({
@@ -275,6 +360,12 @@ def eliminar_historial():
 @users_bp.route('/admin', methods=['GET'])
 @login_required
 def admin_panel():
+    """
+    Función que gestiona el acceso al panel de administrador
+
+    :return: función que genera la página.
+    """
+
     if not current_user.is_admin:
         abort(401)
 
@@ -282,6 +373,14 @@ def admin_panel():
 
 
 def admin_api_required(f):
+    """
+    Actúa como precondición de algunas de las rutas
+    comprobando que el usuario que intenta acceder es administrador
+
+    :param f: función decorada.
+    :return: decorador con la precondición.
+    """
+
     @wraps(f)
     def wrapped(*args, **kwargs):
         if not current_user.is_admin:
@@ -298,6 +397,12 @@ def admin_api_required(f):
 @login_required
 @admin_api_required
 def obtener_datasets_todos():
+    """
+    Obtiene todos los conjuntos de datos subidos por todos los usuarios
+
+    :return: lista con los conjuntos de datos subidos en formato json (su información).
+    """
+
     return [json.dumps(d.to_list()) for d in Dataset.query.all()]
 
 
@@ -305,6 +410,12 @@ def obtener_datasets_todos():
 @login_required
 @admin_api_required
 def obtener_datasets_ultimos():
+    """
+    Obtiene el número de conjuntos de datos subidos de todos los usuarios en los últimos 7 dias
+
+    :return: número de conjuntos de datos.
+    """
+
     date = datetime.today() - timedelta(days=7)
 
     datasets = Dataset.query.filter(Dataset.date >= date).all()
@@ -316,6 +427,12 @@ def obtener_datasets_ultimos():
 @login_required
 @admin_api_required
 def obtener_historial_todos():
+    """
+    Obtiene todas las ejecuciones previas de todos los usuarios
+
+    :return: lista con las ejecuciones en formato json (su información).
+    """
+
     return [json.dumps(h.to_list()) for h in Run.query.all()]
 
 
@@ -323,6 +440,12 @@ def obtener_historial_todos():
 @login_required
 @admin_api_required
 def obtener_historial_ultimos():
+    """
+    Obtiene el número de las ejecuciones previas de todos los usuarios en los últimos 7 dias
+
+    :return: número de las ejecuciones previas.
+    """
+
     date = datetime.today() - timedelta(days=7)
 
     runs = Run.query.filter(Run.date >= date).all()
@@ -334,6 +457,12 @@ def obtener_historial_ultimos():
 @login_required
 @admin_api_required
 def obtener_usuarios_todos():
+    """
+    Obtiene todos los usuarios
+
+    :return: lista con los usuarios en formato json (su información).
+    """
+
     return [json.dumps(u.to_list()) for u in User.query.all()]
 
 
@@ -341,6 +470,14 @@ def obtener_usuarios_todos():
 @login_required
 @admin_api_required
 def eliminar_usuario():
+    """
+    Elimina un usuario. Recibe en el cuerpo de la petición el identificador del usuario.
+    Se encarga de eliminar todos los conjuntos de datos y ejecuciones previas del usuario
+    (tanto de la base de datos como ficheros del sistema) y finalmente, el usuario.
+
+    :return: json con el estado, el código HTTP y si ha ocurrido algún error, el mensaje del mismo.
+    """
+
     json_request = request.json
 
     try:
@@ -383,6 +520,14 @@ def eliminar_usuario():
 
 
 def user_id_int(f):
+    """
+    Actúa como precondición para asegurar un
+    identificador convertible a entero.
+
+    :param f: función decorada.
+    :return: decorador con la precondición.
+    """
+
     @wraps(f)
     def wrapped(*args, **kwargs):
         try:
@@ -398,6 +543,15 @@ def user_id_int(f):
 @login_required
 @user_id_int
 def admin_editar_usuario(user_id):
+    """
+    Función que gestiona la edición de un usuario por parte de un
+    administrador
+
+    :param user_id: identificador del usuario.
+    :returns: - función que redirecciona a la página de administración.
+              - función que genera la página del perfil.
+    """
+
     if not current_user.is_admin:
         abort(401)
 

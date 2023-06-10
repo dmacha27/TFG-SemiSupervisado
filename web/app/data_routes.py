@@ -23,6 +23,12 @@ data_bp = Blueprint('data_bp', __name__)
 
 @data_bp.route('/selftraining', methods=['POST'])
 def datosselftraining():
+    """
+    Obtiene los datos de la ejecución de Self-Training
+
+    :return: json con la información de ejecución.
+    """
+
     clasificador = request.form['clasificador1']
 
     n = int(request.form['n'])
@@ -52,6 +58,12 @@ def datosselftraining():
 
 @data_bp.route('/cotraining', methods=['POST'])
 def datoscotraining():
+    """
+    Obtiene los datos de la ejecución de Co-Training
+
+    :return: json con la información de ejecución.
+    """
+
     clasificador1 = request.form['clasificador1']
     clasificador2 = request.form['clasificador2']
 
@@ -80,6 +92,13 @@ def datoscotraining():
 
 
 def datossingleview(is_democratic):
+    """
+    Obtiene los datos de la ejecución de Democratic Co-Learning
+    o de Tri-Training (existen muchos pasos comunes).
+
+    :return: json con la información de ejecución.
+    """
+
     clasificador1 = request.form['clasificador1']
     clasificador2 = request.form['clasificador2']
     clasificador3 = request.form['clasificador3']
@@ -110,20 +129,33 @@ def datossingleview(is_democratic):
 
 @data_bp.route('/democraticcolearning', methods=['POST'])
 def datosdemocraticcolearning():
+    """
+    Obtiene los datos de la ejecución de Democratic Co-Learning
+
+    :return: json con la información de ejecución.
+    """
     return datossingleview(True)
 
 
 @data_bp.route('/tritraining', methods=['POST'])
 def datostritraining():
+    """
+    Obtiene los datos de la ejecución de Tri-Training
+
+    :return: json con la información de ejecución.
+    """
+
     return datossingleview(False)
 
 
 def obtener_info(algoritmo):
-    """Evita el código duplicado de la obtención de toda la información
+    """Función auxiliar que evita el código duplicado de la obtención de toda la información
     de la ejecución de los algoritmos.
 
     Realiza la carga de datos, las particiones de datos, el entrenamiento del algoritmo,
     la conversión a un log (logger) en 2D y la conversión a JSON para las plantillas.
+
+    :return: diccionario con la información de ejecución.
     """
 
     datasetloader = DatasetLoader(session['FICHERO'])
@@ -200,7 +232,10 @@ def obtener_parametros_clasificador(clasificador, nombre):
 
     Interpreta el formulario de la configuración para obtener estos valores y que puedan ser
     desempaquetados con facilidad (**).
+
+    :return: diccionario con los parámetros del clasificador.
     """
+
     with open(os.path.join(os.path.dirname(__file__), os.path.normpath("static/json/parametros.json"))) as f:
         clasificadores = json.load(f)
 
@@ -222,6 +257,8 @@ def obtener_parametros_clasificador(clasificador, nombre):
 def obtener_clasificador(nombre, params):
     """Instancia un clasificador (sklearn) a partir de su nombre y los parámetros
     introducidos (provenientes de "obtener_parametros_clasificador").
+
+    :return: instancia del clasificador.
     """
 
     if nombre == "SVC":
@@ -237,9 +274,12 @@ def obtener_clasificador(nombre, params):
 
 def generar_json_parametros():
     """
-    Genera un JSON como cadena de texto. La idea es recopilar toda la configuración
-    de ejecución que el usuario ha introducido.
+    Genera un JSON como cadena de texto. Recopila toda la configuración
+    de ejecución que el usuario ha introducido para ser almacenada en base de datos
+
+    :return: json con la información de todos los parámetros (tanto de los clasificadores como del algoritmo).
     """
+
     with open(os.path.join(os.path.dirname(__file__), os.path.normpath("static/json/parametros.json"))) as f:
         clasificadores = json.load(f)
 

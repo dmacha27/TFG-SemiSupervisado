@@ -94,8 +94,8 @@ function generarFormParametros(clasificador, div, div_clasificador) {
  * Actualiza el porcentaje de datos en el badge con
  * respecto el rango.
  *
- * @param valor valor actual del rango
- * @param id_badge id del badge
+ * @param valor - valor actual del rango
+ * @param id_badge - identificador del badge
  */
 function actualizarBadgePorcentaje(valor, id_badge) {
     let badge = document.getElementById(id_badge);

@@ -1132,6 +1132,13 @@ function generar_id_duplicado(x,y) {
     }
 }
 
+/**
+ *
+ * Declara los puntos en el SVG principal.
+ *
+ * @param dataset - datos con todos los puntos
+ * @returns {*}
+ */
 function declarar_puntos_svg(dataset) {
     return graficosvg.selectAll("dot")
         .data(dataset)
@@ -1143,6 +1150,14 @@ function declarar_puntos_svg(dataset) {
         })
 }
 
+/**
+ *
+ * Para Tri-Training, todos los puntos clasificados
+ * en la iteración actual pasen a gris. Así se conseguirá
+ * un cambio brusco para que el usuario pueda apreciar después
+ * el reetiquetado.
+ *
+ */
 function puntos_a_gris() {
     puntos.style("visibility", "visible");
 
@@ -1164,11 +1179,30 @@ function puntos_a_gris() {
         .duration(500);
 }
 
+/**
+ *
+ * Genera una porción del tooltip cuando
+ * el punto/dato es inicial.
+ *
+ * @param dot - punto del gráfico (con su información)
+ * @returns {string} - porción del tooltip como cadena de caracteres
+ */
 function tooltip_dato_inicial(dot) {
     return "<strong>" + traducir('Initial data') + "</strong>" + escribir_duplicados(dot[0],dot[1], dot[dot.length-1], true) + "<br>" + traducir('Label') + ": " +
         "<span style='color:"+ color(parseInt(dot[2])) +"'>" + mapa[dot[2]] + "</span>";
 }
 
+/**
+ *
+ * Genera una porción del tooltip cuando
+ * el punto/dato no ha sido clasificado.
+ * Mediante "mostrar_clasificado" se controla
+ * que para Self-Training no hace falta indicar un clasificador
+ * (solo hay uno).
+ *
+ * @param mostrar_clasificador - flag para indicar si se necesita indicar el clasificador
+ * @returns {string} - porción del tooltip como cadena de caracteres
+ */
 function un_clasificador_return_no_clasificado(mostrar_clasificador=true) {
     let cadena = "";
 
@@ -1180,31 +1214,16 @@ function un_clasificador_return_no_clasificado(mostrar_clasificador=true) {
     return  cadena + traducir('Label: Not classified');
 }
 
+/**
+ *
+ * Genera una porción del tooltip cuando
+ * el punto/dato ha sido clasificado
+ * indicando el clasificador.
+ *
+ * @param p_data - punto del gráfico (con su información)
+ * @returns {string} - porción del tooltip como cadena de caracteres
+ */
 function tooltip_dato_no_inicial(p_data) {
     return traducir('Classifier') + ": " + obtenerSimboloUnicode(p_data[4]) +
         p_data[4] + "<br>" + traducir('Label') + ": ";
 }
-
-function tooltip_ninguno_clasificado(alguno_clasificado, puntos_posicion, i, p_data) {
-    let cadena_aux = "";
-    if (i === 0 && !alguno_clasificado(puntos_posicion)) {
-        cadena_aux += cx + ": " + p_data[0] + "<br>" + cy + ": " + p_data[1] +
-            "<br>" + traducir('Classifier: Not classified') + "<br>" +
-            traducir('Label: Not classified');
-        cadena_aux += "<br>-------<br>";
-    }
-    return cadena_aux;
-}
-
-function ocultar_no_recien_clasificados(recien_clasificados) {
-    recien_clasificados.each(function (d_reciente){
-        puntos.filter(function (d) {
-            if (typeof d[3] === "number"){
-                return false; // REVISAR BUG PORQUE CUANDO SE CLASIFICA UN PUNTO INICIAL APARECE TAMBIEN EN TOOLTIP
-            }else {
-                return d[0] === d_reciente[0] && d[1] === d_reciente[1] && d[3].indexOf(cont) === -1;
-            }
-        }).style("visibility", "hidden")
-    });
-}
-
