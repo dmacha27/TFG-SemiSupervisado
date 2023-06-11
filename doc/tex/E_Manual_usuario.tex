@@ -141,7 +141,7 @@ Este atributo no puede ser establecido automáticamente por la aplicación, ya q
 depende del conjunto de datos subido. 
 
 Una vez configurado, se puede visualizar el algoritmo pulsando en el botón de
-<<Ejecutar>>.
+\button{Ejecutar}.
 
 \subsubsection{Visualización}
 \label{mu:visualizacion}
@@ -181,10 +181,9 @@ control que permite:
     \texttt{zoom} manualmente, sirve para volver a la posición original.
     \item Visualizar la iteración actual: mediante el número y una barra de
     progreso.
-    \item Reproducir automáticamente pulsando en el botón con el símbolo
-    \textit{play}.
-    \item Avanzar iteración manualmente.
-    \item Reducir iteración.
+    \item Reproducir automáticamente pulsando en el botón \button{$\blacktriangleright$}.
+    \item Avanzar iteración manualmente con el botón \button{$\gg$}.
+    \item Retroceder al paso previo con el botón  \button{$\ll$}.
 \end{itemize}
 
 Todas estas acciones modificarán el estado de los gráficos.
@@ -203,7 +202,7 @@ los atributos seleccionados para representar los datos. En la
 figura~\ref{fig:anexos/manual-usuario/tooltips/Inicial} se presenta un ejemplo
 de todo lo anterior donde se seleccionó PCA y por eso aparece <<C1>> y <<C2>>.
 
-\imagencontamano{anexos/manual-usuario/tooltips/Inicial}{Tooltip con dato inicial}{0.25}
+\imagencontamano{anexos/manual-usuario/tooltips/Inicial}{\textit{Tooltip} con dato inicial}{0.25}
 
 Otro formato común es en el caso de puntos solapados (derivados de ejemplos
 duplicados en el conjunto de datos o por PCA). En este caso, donde en el
@@ -211,7 +210,7 @@ anterior aparecía la información del punto, ahora aparecerá un listado con to
 los puntos solapados (ver
 figura~\ref{fig:anexos/manual-usuario/tooltips/Solapados}).
 
-\imagencontamano{anexos/manual-usuario/tooltips/Solapados}{Tooltip con datos solapados}{0.25}
+\imagencontamano{anexos/manual-usuario/tooltips/Solapados}{\textit{Tooltip} con datos solapados}{0.25}
 
 Como se puede ver en este ejemplo de la
 figura~\ref{fig:anexos/manual-usuario/tooltips/Solapados}, los puntos no han
@@ -219,19 +218,20 @@ sido clasificados (captura tomada en iteración cero), esto no es importante, la
 diferencia con una iteración posterior es que aparecerá la etiqueta asignada (se
 verá en cada algoritmo). Además, aparece un indicativo de <<Clasificador>>, se
 ha querido incluir en este ejemplo porque en todos los algoritmos excepto
-Self-Training se indica el clasificador que se ha encargado de etiquetar cada
-punto.
+\textit{Self-Training} se indica el clasificador que se ha encargado de
+etiquetar cada punto.
 
 Es interesante comentar que puede darse el caso de puntos solapados en el que
 alguno o todos sean datos iniciales (ver
 figura~\ref{fig:anexos/manual-usuario/tooltips/Solapados+Inicial}).
 
-\imagencontamano{anexos/manual-usuario/tooltips/Solapados+Inicial}{Tooltip con datos solapados con uno inicial}{0.25}
+\imagencontamano{anexos/manual-usuario/tooltips/Solapados+Inicial}{\textit{Tooltip} con datos solapados con uno inicial}{0.25}
 
-\paragraph{Tooltip: Self-Training}
+\paragraph{\textit{Tooltip}: \textit{Self-Training}}
 
-El formato de tooltip para Self-Training no tiene grandes complicaciones y
-comprendiendo los anteriores ejemplos resulta sencillo de interpretar.
+El formato de \textit{tooltip} para \textit{Self-Training} no tiene grandes
+complicaciones y comprendiendo los anteriores ejemplos resulta sencillo de
+interpretar.
 
 Existen dos formatos, el primero es en el que el dato no ha sido etiquetado
 (porque se etiqueta en una iteración posterior o simplemente porque nunca es
@@ -242,31 +242,31 @@ ejemplo puede ser extraño que no aparezca un título indicando el punto (algo
 como <<Punto 1>>), ese formato solo se <<activa>> cuando existen datos
 solapados.
 
-\imagencontamano{anexos/manual-usuario/tooltips/STNoClasificado}{Tooltip con un dato no clasificado}{0.25}
+\imagencontamano{anexos/manual-usuario/tooltips/STNoClasificado}{\textit{Tooltip} con un dato no clasificado}{0.25}
 
 El otro formato es en el que el dato ya ha sido clasificado (en la iteración
 actual o en una previa). Por ejemplo, una captura tomada en la iteración ocho de
 una dato etiquetado en la iteración seis es la de la
 figura~\ref{fig:anexos/manual-usuario/tooltips/STClasificado}.
 
-\imagencontamano{anexos/manual-usuario/tooltips/STClasificado}{Tooltip con un dato clasificado}{0.3}
+\imagencontamano{anexos/manual-usuario/tooltips/STClasificado}{\textit{Tooltip} con un dato clasificado}{0.3}
 
 En este formato anterior se muestra la etiqueta asignada así como la iteración
 en la que se clasificó entre paréntesis.
 
-\paragraph{Tooltip: Co-Training}
+\paragraph{\textit{Tooltip}: \textit{Co-Training}}
 
-Realmente, el tooltip para Co-Training es muy similar a Self-Training. No existe
-ningún caso extraño o adicional.
+Realmente, el tooltip para \textit{Co-Training} es muy similar a
+\textit{Self-Training}. No existe ningún caso extraño o adicional.
 
 Vuelven a existir dos formatos, cuando el dato no ha sido etiquetado todavía (o
 nunca, ver figura~\ref{fig:anexos/manual-usuario/tooltips/CTNoClasificado}) y
 cuando sí está etiquetado. 
 
-\imagencontamano{anexos/manual-usuario/tooltips/CTNoClasificado}{Tooltip con un dato no clasificado}{0.3}
+\imagencontamano{anexos/manual-usuario/tooltips/CTNoClasificado}{\textit{Tooltip} con un dato no clasificado}{0.3}
 
 Para el caso del dato clasificado sí que es necesario puntualizar alguna
-cuestión (se verá en el ejemplo siguiente). Co-Training considera dos
+cuestión (se verá en el ejemplo siguiente). \textit{Co-Training} considera dos
 clasificadores base y cada uno de ellos puede clasificar a un punto. Esto se ha
 representado de dos maneras. La primera señal es que el símbolo del punto será
 uno concreto para cada clasificador. La segunda señal es que en el
@@ -275,27 +275,28 @@ dicho símbolo y el nombre del clasificador (ver
 figura~\ref{fig:anexos/manual-usuario/tooltips/CTClasificado}). Se mantiene
 también el número de la iteración en la que se ha clasificado.
 
-\imagencontamano{anexos/manual-usuario/tooltips/CTClasificado}{Tooltip con un dato clasificado}{0.45}
+\imagencontamano{anexos/manual-usuario/tooltips/CTClasificado}{\textit{Tooltip} con un dato clasificado}{0.45}
 
 Esta idea también es la misma si existen datos solapados. En ese caso, en cada
 uno de los puntos que se indiquen en el listado de solapados aparecerá el
 clasificador (el símbolo y el nombre) junto con la etiqueta (ver
 figura~\ref{fig:anexos/manual-usuario/tooltips/CTSolapadosClasificados}).
 
-\imagencontamano{anexos/manual-usuario/tooltips/CTSolapadosClasificados}{Tooltip con datos solapados y clasificados}{0.45}
+\imagencontamano{anexos/manual-usuario/tooltips/CTSolapadosClasificados}{\textit{Tooltip} con datos solapados y clasificados}{0.45}
 
-\paragraph{Tooltip: Democratic Co-Learning y Tri-Training}
+\paragraph{\textit{Tooltip}: \textit{Democratic Co-Learning} y \textit{Tri-Training}}
 
 En el caso de que un dato no haya sido clasificado es exactamente lo mismo que
 para Co-Training, simplemente mostrará la posición y que no ha sido clasificado
 (<<No clasificado>>).
 
-La particularidad que tiene Democratic Co-Learning y Tri-Training es que cada
-dato puede ser etiquetado por varios clasificadores. Para ejemplificar esto
-simplemente se realiza un listado de los clasificadores que lo han etiquetado
-(ver figura~\ref{fig:anexos/manual-usuario/tooltips/DCLClasificados1}).
+La particularidad que tiene \textit{Democratic Co-Learning} y
+\textit{Tri-Training} es que cada dato puede ser etiquetado por varios
+clasificadores. Para ejemplificar esto simplemente se realiza un listado de los
+clasificadores que lo han etiquetado (ver
+figura~\ref{fig:anexos/manual-usuario/tooltips/DCLClasificados1}).
 
-\imagencontamano{anexos/manual-usuario/tooltips/DCLClasificados1}{Tooltip con un dato clasificado por dos clasificadores}{0.45}
+\imagencontamano{anexos/manual-usuario/tooltips/DCLClasificados1}{\textit{Tooltip} con un dato clasificado por dos clasificadores}{0.45}
 
 Es de destacar que solo aparecen aquellos que en la iteración actual o una
 previa han etiquetado el dato.
@@ -305,8 +306,9 @@ explicar el funcionamiento básico.
 
 En \textbf{Democratic Co-Learning} cada punto solo puede ser clasificado
 \textbf{una vez} por cada clasificador durante toda la ejecución. Esto, a
-efectos de visualización, significa que el listado de clasificadores del tooltip
-solo puede aumentar (si es que el punto es clasificado alguna vez).
+efectos de visualización, significa que el listado de clasificadores del
+\textit{tooltip} solo puede aumentar (si es que el punto es clasificado alguna
+vez).
 
 En \textbf{Democratic Co-Learning} cada punto puede ser clasificado
 \textbf{varias veces} por cada clasificador. Esto es así porque cada
@@ -321,10 +323,10 @@ especificarlo.
 Por último, como en todos los anteriores formatos, pueden existir datos
 solapados. El ejemplo mostrado en la
 figura~\ref{fig:anexos/manual-usuario/tooltips/DCLSolapadosClasificados} es de
-Democratic Co-Learning, pero como se ha comentado, es el mismo formato que el de
-Tri-Training.
+\textit{Democratic Co-Learning}, pero como se ha comentado, es el mismo formato
+que el de \textit{Tri-Training}.
 
-\imagencontamano{anexos/manual-usuario/tooltips/DCLSolapadosClasificados}{Tooltip con datos solapados y clasificados}{0.45}
+\imagencontamano{anexos/manual-usuario/tooltips/DCLSolapadosClasificados}{\textit{Tooltip} con datos solapados y clasificados}{0.45}
 
 En este ejemplo solo un clasificador ha clasificado cada dato solapado. Se ha
 elegido este ejemplo porque, como es de esperar, si los tres clasificadores
@@ -351,8 +353,8 @@ mostrar mediante el selector superior, y de qué clasificadores mostrarla
 mediante las casillas en la parte inferior (ver
 figura~\ref{fig:anexos/manual-usuario/ZonaEstadisticas}).
 
-Ambos gráficos anteriores contienen información similar, en el eje X se indican
-las iteraciones y en el eje Y el valor de la estadística(s).
+Ambos gráficos anteriores contienen información similar, en el eje $X$ se
+indican las iteraciones y en el eje $Y$ el valor de la estadística(s).
 
 \subsection{Ayuda y cambio de idioma}
 
@@ -430,7 +432,7 @@ figura~\ref{fig:anexos/manual-usuario/DesplegablePerfil}).
 
 \imagencontamano{anexos/manual-usuario/DesplegablePerfil}{Acceso al perfil}{0.4}
 
-Una vez dentro, en el lateral izquierdo aparece la información general del
+Una vez dentro, en el lateral izquierdo, aparece la información general del
 perfil (ficheros subidos, ejecuciones, correo electrónico...).
 
 La parte de edición (zona derecha) contiene un formulario similar al del
@@ -472,7 +474,7 @@ derecha).
 conjuntos de datos (ficheros) pueden ser ejecutados o eliminados.
 
 En el caso de querer utilizar el fichero para \textbf{ejecutar un algoritmo},
-simplemente se ha de pulsar en el botón con el símbolo \texttt{play}. Al
+simplemente se ha de pulsar en el botón \button[vassgold]{$\blacktriangleright$}. Al
 hacerlo, se mostrará una ventana emergente (\texttt{modal}) para seleccionar el
 algoritmo deseado (ver figura~\ref{fig:anexos/manual-usuario/EjecuciónDataset -
 VASS}).
@@ -484,8 +486,8 @@ Cuando se pulse en uno de los botones se redirige a la pestaña de configuració
 
 \label{mu:eliminardataset}
 Por otro lado, si se quiere \textbf{eliminar un fichero} de la cuenta (y del
-sistema), se pulsa en el botón con el símbolo de la papelera. De igual manera,
-se mostrará una ventana emergente de confirmación (ver
+sistema), se pulsa en el botón \button[vassred]{\faTrash}. De igual manera, se
+mostrará una ventana emergente de confirmación (ver
 figura~\ref{fig:anexos/manual-usuario/EliminarDataset - VASS}).
 
 \imagen{anexos/manual-usuario/EliminarDataset - VASS}{Eliminar fichero}
@@ -498,16 +500,17 @@ pueden realizarse varias acciones.
 
 \label{mu:parametrosrun}
 En primer lugar, los \textbf{parámetros de configuración} que se introdujeron en
-una ejecución se pueden consultar pulsando en el botón de la columna
-<<Parámetros>>. Esto mostrará una ventana emergente con un JSON legible y
-formateado (ver figura~\ref{fig:anexos/manual-usuario/ParametrosRun - VASS}).
+una ejecución se pueden consultar pulsando en el botón
+\button[vassgreen]{\faFileTextO} (columna parámetros). Esto mostrará una ventana
+emergente con un JSON legible y formateado (ver
+figura~\ref{fig:anexos/manual-usuario/ParametrosRun - VASS}).
 
 \imagen{anexos/manual-usuario/ParametrosRun - VASS}{Parámetros de una ejecución}
 
 De forma similar a los conjuntos de datos, las ejecuciones pueden ser
 \textbf{re-ejecutadas}, repitiendo exactamente lo mismo que ocurrió en su
-momento. Para ello simplemente se debe pulsar en el botón amarillo con el
-símbolo típico de recargar página.
+momento. Para ello simplemente se debe pulsar en el botón
+\button[vassgold]{\faRotateRight} (símbolo típico de recargar página).
 
 Este caso no se mostrará ninguna ventana emergente, redirigirá directamente a la
 visualización del algoritmo (ver explicación de la visualización en
@@ -515,7 +518,7 @@ visualización del algoritmo (ver explicación de la visualización en
 
 \label{mu:eliminarrun}
 Exactamente igual a los conjuntos de datos, las ejecuciones pueden
-\textbf{eliminarse} pulsando en el botón con el símbolo de papelera mostrando
+\textbf{eliminarse} pulsando en el botón \button[vassred]{\faTrash} mostrando
 una ventana emergente de confirmación similar a la anterior (ver
 figura~\ref{fig:anexos/manual-usuario/EliminarRun - VASS}).
 
@@ -570,11 +573,11 @@ Consultar las explicaciones  en~\ref{mu:eliminardataset} (eliminar fichero),
 En el caso de los usuarios, el administrador tiene dos posibilidades, editar sus
 datos o eliminar el usuario.
 
-Si se quiere \textbf{editar} un usuario, se debe pulsar el botón con el símbolo
-del lápiz. Esto redirigirá a una pestaña similar a la de la figura
-~\ref{mu:perfil} (perfil del usuario) y de hecho, será como adoptar la vista del
-usuario que se está editando salvo por la inclusión de un indicativo como
-recordatorio al administrador (ver
+Si se quiere \textbf{editar} un usuario, se debe pulsar el botón
+\button[vassgreen]{\faPencil}. Esto redirigirá a una pestaña similar a la de la
+figura ~\ref{mu:perfil} (perfil del usuario) y de hecho, será como adoptar la
+vista del usuario que se está editando salvo por la inclusión de un indicativo
+como recordatorio al administrador (ver
 figura~\ref{fig:anexos/manual-usuario/PerfilAjeno - VASS}).
 
 \imagen{anexos/manual-usuario/PerfilAjeno - VASS}{Edición de un perfil ajeno}
@@ -595,8 +598,8 @@ registro):
 \end{itemize}
 
 Si lo que se quiere es \textbf{eliminar} un usuario, el proceso es el mismo que
-se ha visto para el resto de eliminaciones. Se debe pulsar en el botón que
-incluye el símbolo de la papelera y se pedirá confirmación del proceso (ver
+se ha visto para el resto de eliminaciones. Se debe pulsar en el botón
+\button[vassred]{\faTrash} y se pedirá confirmación del proceso (ver
 figura~\ref{fig:anexos/manual-usuario/EliminarUsuario - VASS}).
 
 \imagen{anexos/manual-usuario/EliminarUsuario - VASS}{Eliminación de usuario}

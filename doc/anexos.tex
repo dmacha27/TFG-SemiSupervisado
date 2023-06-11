@@ -30,6 +30,25 @@
 \usepackage[most]{tcolorbox}
 \usepackage{minted}
 
+%VASS
+\usepackage{amssymb}
+\usepackage{fontawesome}
+
+\definecolor{vassblue}{HTML}{0d6efd}
+\definecolor{vassgold}{HTML}{f8d866}
+\definecolor{vassgreen}{HTML}{5cb85c}
+\definecolor{vassgrey}{HTML}{4D7080}
+\definecolor{vassorange}{HTML}{ffc107}
+\definecolor{vassred}{HTML}{dc3545}
+
+\newcommand{\button}[2][vassblue]%
+{   \begin{tikzpicture}[baseline=(tempname.base)] \node[draw=#1, fill=#1,
+        rounded corners=3.2pt, inner sep=1pt, minimum width=1.5em, minimum
+        height=1.5em] (tempname)
+        {\texttt{\textcolor{white}{\hspace{2mm}#2\hspace{2mm}}}};
+    \end{tikzpicture}
+}
+
 % Rutas de fichero / paquete
 \newcommand{\ruta}[1]{{\sffamily #1}}
 \usepackage{dirtree}
