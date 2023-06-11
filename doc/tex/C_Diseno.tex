@@ -22,7 +22,7 @@ Todas las visualizaciones de los algoritmos se nutren del proceso de
 entrenamiento. Es decir, se tuvo que diseñar una forma de aglutinar la
 información que ocurre durante este proceso.
 
-Para adelantar un poco el funcionamiento de la Web, todos estos datos son
+Para adelantar un poco el funcionamiento de la web, todos estos datos son
 transformados a JSON, el formato de texto con la sintaxis de JavaScript que
 resulta muy sencillo para el intercambio de datos. Además, a la hora de trabajar
 con ello en dicho lenguaje, se hace de forma directa (como diccionarios en otros
@@ -34,9 +34,9 @@ multitud de opciones) son los <<DataFrames>>. Toda la información que generan
 los algoritmos son de este tipo.
 
 Cada algoritmo retorna varios de estos <<DataFrame>>, al menos uno del proceso
-de etiquetado y otro con las estadísticas generales. En el caso de Democratic
-Co-Learning y Tri-Training, estos además retornan los de las estadísticas
-específicas de cada clasificador base.
+de etiquetado y otro con las estadísticas generales. En el caso de
+\textit{Democratic Co-Learning} y \textit{Tri-Training}, estos además retornan
+los de las estadísticas específicas de cada clasificador base.
 
 \subsubsection{Etiquetas}
 Este <<DataFrame>> contiene todas las operaciones en las que los clasificadores
@@ -46,7 +46,7 @@ las mismas.
 
 \paragraph{Self-Training}
 Este formato sirve como base para todos los siguientes. Es una idea muy sencilla
-(pues Self-Training también lo es). 
+(pues \textit{Self-Training} también lo es). 
 
 La estructura de datos contendrá múltiples filas, cada una representa cada
 instancia de todo el conjunto de datos de entrenamiento. Lo que se entiende por
@@ -59,8 +59,9 @@ clasificación y/o etiquetas estarán en las columnas:
 \begin{itemize}
     \item Columnas con los nombres de los atributos de las instancias. Por
     ejemplo, para el famoso conjunto de datos \texttt{Iris} se tendrán 4
-    columnas (una por cada atributo, \textbf{no se incluye la clase}): <<sepal
-    length>>, <<sepal width>>, <<petal length>> y <<petal width>>.
+    columnas (una por cada atributo, \textbf{no se incluye la clase}):
+    <<\textit{sepal length}>>, <<\textit{sepal width}>>, <<\textit{petal
+    length}>> y <<\textit{petal width}>>.
     \item Columna <<iter>>: Por cada fila, representa el número de la iteración
     en la que esa instancia fue clasificada. Si por el criterio de parada no
     llega a ser clasificada corresponderá con el número de iteraciones final +
@@ -94,22 +95,23 @@ para denotar que no fue etiquetado) y la etiqueta o \textit{target} (con -1 para
 los que no fueron etiquetados).
 
 \paragraph{Co-Training}
-Es muy similar a Self-Training salvo que este algoritmo concreto utiliza dos
-clasificadores base. La consecuencia de esto a nivel del formato es que se
-necesita almacenar cuál de los dos clasificadores clasifica cada instancia. Pero
-más allá de esto, es el mismo formato.
+Es muy similar a \textit{Self-Training} salvo que este algoritmo concreto
+utiliza dos clasificadores base. La consecuencia de esto a nivel del formato es
+que se necesita almacenar cuál de los dos clasificadores clasifica cada
+instancia. Pero más allá de esto, es el mismo formato.
 
-Recopilando, las columnas para el <<DataFrame>> de Co-Training son:
+Recopilando, las columnas para el <<DataFrame>> de \textit{Co-Training} son:
 \begin{itemize}
     \item Columnas con los nombres de los atributos de las instancias.
-    \item Columna <<iter>>.
-    \item Columna <<target>>.
-    \item Columna <<clf>>: Esta nueva columna indica el clasificador que le dio
-    el valor  a la etiqueta. Por convención (necesaria para otros procesos en
-    Web) es que si el dato es inicial, <<clf>> valdrá <<inicio>>, si es un dato
-    clasificado durante el proceso valdrá <<CLF(\textit{nombre\_clasificador})>>
-    donde \textit{nombre\_clasificador} será el extraído de
-    \texttt{scikit-learn}. Si no llega a ser clasificado valdrá -1.
+    \item Columna \texttt{iter}.
+    \item Columna \texttt{target}.
+    \item Columna \texttt{clf}: Esta nueva columna indica el clasificador que le
+    dio el valor  a la etiqueta. Por convención (necesaria para otros procesos
+    en Web) es que si el dato es inicial, \texttt{clf} valdrá <<inicio>>, si es
+    un dato clasificado durante el proceso valdrá
+    <<CLF(\textit{nombre\_clasificador})>> donde \textit{nombre\_clasificador}
+    será el extraído de \textit{Scikit-Learn}. Si no llega a ser clasificado
+    valdrá -1.
 \end{itemize}
 
 En la tabla~\ref{tabla:dataframe-ct} se muestra un ejemplo del formato para
@@ -146,23 +148,23 @@ Recopilando, las columnas para el <<DataFrame>> de Democratic Co-Learning son:
 
 \begin{itemize}
     \item Columnas con los nombres de los atributos de las instancias.
-    \item Columna <<iters>>: Lista con la iteración en la que cada clasificador
-    etiqueta la instancia. En el caso de un dato inicial, esta lista solo tendrá
-    una posición y contendrá 0 (\texttt{[0]}), para el resto siempre tendrá tres
-    posiciones (por los tres clasificadores base). Para este último caso cada
-    posición es independiente, es decir, si un clasificador base no ha
-    etiquetado, contendrá -1 (\textbf{diferencia con los anteriores}\footnote{La
-    razón de que se indique -1 en vez de número de iteraciones + 1, es porque
-    toda esta estructura se genera antes del entrenamiento. En los algoritmos
-    anteriores, si quedaba alguna sin etiquetar, se añadía al final y se sabía
-    el número de iteraciones final.}), pero para esa misma instancia otro
-    clasificador base sí que puede haber etiquetado y contendrá dicha iteración
-    (por ejemplo: $[-1,4,-1]$)
-    \item Columna <<targets>>: Exactamente igual a <<iters>> salvo que no indica
+    \item Columna \texttt{iters}: Lista con la iteración en la que cada
+    clasificador etiqueta la instancia. En el caso de un dato inicial, esta
+    lista solo tendrá una posición y contendrá 0 (\texttt{[0]}), para el resto
+    siempre tendrá tres posiciones (por los tres clasificadores base). Para este
+    último caso cada posición es independiente, es decir, si un clasificador
+    base no ha etiquetado, contendrá -1 (\textbf{diferencia con los
+    anteriores}\footnote{La razón de que se indique -1 en vez de número de
+    iteraciones + 1, es porque toda esta estructura se genera antes del
+    entrenamiento. En los algoritmos anteriores, si quedaba alguna sin
+    etiquetar, se añadía al final y se sabía el número de iteraciones final.}),
+    pero para esa misma instancia otro clasificador base sí que puede haber
+    etiquetado y contendrá dicha iteración (por ejemplo: $[-1,4,-1]$)
+    \item Columna \texttt{targets}: Exactamente igual a <<iters>> salvo que no indica
     la iteración, sino la etiqueta que asigna el clasificador base. De nuevo, si
     no asigna una, su posición contendrá -1.
-    \item Columna <<clfs>>: Hasta ahora se ha hablado de posiciones en las dos
-    columnas anteriores. Para saber a qué clasificador se refieren esas
+    \item Columna \texttt{clfs}: Hasta ahora se ha hablado de posiciones en las
+    dos columnas anteriores. Para saber a qué clasificador se refieren esas
     posiciones, esta columna contiene otra lista con los tres nombres de los
     clasificadores. Si es un dato inicial, contendrá [inicio], en otro caso
     contendrá algo como \texttt{[CLF1(KNeighborsClassifier),
@@ -325,7 +327,7 @@ aplicación, se han creado las siguientes entidades:
 
     Esta entidad mantiene una clave foránea al usuario (el identificador del
     usuario) junto con una referencia directa a él (aspecto interno de
-    \texttt{SQLAlchemy} para poder acceder al usuario sin realizar consulta).
+    \textit{SQLAlchemy} para poder acceder al usuario sin realizar consulta).
 
     \item \textbf{Run}: Representa la ejecución de un algoritmo. Contiene un
     identificador que representa la clave primaria. Como datos propios de una
@@ -335,14 +337,14 @@ aplicación, se han creado las siguientes entidades:
         \item La cadena de caracteres (JSON) con todos los parámetros.
         \item El nombre del fichero con el que se ejecutó (conjunto de datos).
         \item La fecha de ejecución.
-        \item Componente X.
-        \item Componente Y.
+        \item Componente $X$.
+        \item Componente $Y$.
         \item Nombre del fichero del sistema que guarda todos los datos de la ejecución.
     \end{itemize}
 
     Esta entidad también mantiene una clave foránea al usuario (el identificador
     del usuario) junto con una referencia directa a él (aspecto interno de
-    \texttt{SQLAlchemy} para poder acceder al usuario sin realizar consulta).
+    \textit{SQLAlchemy} para poder acceder al usuario sin realizar consulta).
 \end{itemize}
 
 \begin{landscape}
@@ -383,7 +385,7 @@ puede resumirse en:
 Adelantando el contenido de este apartado, la arquitectura seguida en el
 desarrollo del software es la arquitectura de tres capas. Sin embargo, esta
 arquitectura tiene como punto de partida la arquitectura
-\texttt{cliente-servidor}.
+\emph{cliente-servidor}.
 
 La arquitectura cliente-servidor es un modelo de diseño en el que las tareas se
 reparten entre los servidores (proveedores) y los clientes
@@ -496,7 +498,7 @@ aplicación como un todo, es conveniente visualizar el diagrama de despliegue
 
 \subsection{Primer \textit{mockup} o maqueta} 
 
-Se presenta el primer \textit{mockup} o maqueta que se comentó de la página Web.
+Se presenta el primer \textit{mockup} o maqueta que se comentó de la página web.
 Todas las páginas tendrían una base común en la que aparecerá información
 general como la Universidad de Burgos (barra superior).
 

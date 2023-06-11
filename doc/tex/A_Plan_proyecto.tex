@@ -72,25 +72,25 @@ este momento las duraciones de los Sprints cambiaron a una semana, iniciando as�
 el periodo temporal real del desarrollo del proyecto (segundo cuatrimestre).
 
 Durante el sprint se retomaron las tareas y el desarrollo general del proyecto.
-Se mejoró el algoritmo de \texttt{SelfTraining} que estaba como prototipo y se
+Se mejoró el algoritmo de \textit{Self-Training} que estaba como prototipo y se
 avanzó en la tarea de la primera aproximación en la aplicación mediante el
 \textit{framework} Flask. Sobre esto último, se creó una visualización del
 proceso de entrenamiento muy básica por cada iteración.
 
-Se creó un prototipo del algoritmo \texttt{CoTraining} sin cumplir con todas sus
+Se creó un prototipo del algoritmo \textit{Co-Training} sin cumplir con todas sus
 condiciones que posteriormente se completaron a falta de revisión. 
 
 Sobre estos dos algoritmos se propuso la versión 1.0. 
 
-Continuando con la Web, se realizó la interfaz general funcional. Incluye:
+Continuando con la web, se realizó la interfaz general funcional. Incluye:
 \begin{itemize}
     \item Página de Inicio donde seleccionar el algoritmo.
     \item Página de subida de archivos en formatos <<ARFF>> y <<CSV>> de los
     conjuntos de datos
-    \item Páginas correspondientes para SelfTraining y CoTraining: Cada una
-    tiene sus parámetros específicos con la posibilidad de seleccionar si
-    utilizar PCA (\textit{Principal Component Analysis}) o dos componentes que
-    elija el usuario.
+    \item Páginas correspondientes para \textit{Self-Training} y
+    \textit{Co-Training}: Cada una tiene sus parámetros específicos con la
+    posibilidad de seleccionar si utilizar PCA (\textit{Principal Component
+    Analysis}) o dos componentes que elija el usuario.
     \item Página de visualización del algoritmo (su entrenamiento): Se tiene la
     vista principal que será común a todos los algoritmos (con algunas
     variaciones en caso necesario), con la posibilidad de avanzar en la
@@ -111,16 +111,18 @@ En la reunión del 1 de febrero se revisó lo realizado en el anterior y se fija
 una serie de mejoras/modificaciones y nuevas tareas:
 \begin{enumerate}
     \item Modificación de los algoritmos para trabajar con la convención de
-    <<-1s>> en el conjunto de datos para los datos no etiquetados. Así el
-    usuario podrá subir un archivo ya \textit{Semi-Supervisado}.
+    utilizar la etiqueta <<-1s>> en el conjunto de datos para los datos no
+    etiquetados. Así el usuario podrá subir un archivo que tenga datos
+    etiquetados y no etiquetados.
     \item Permitir al usuario seleccionar los porcentajes de no etiquetados y de
     test (para las futuras estadísticas).
     \item Sobre la página general de la visualización de los algoritmos: volver
     a la configuración, el <<feedback>> de la iteración actual y el nombre del
     conjunto de datos utilizado.
     \item Del gráfico de la visualización: Diferenciar en el algoritmo
-    Co-Training cuál de los dos clasificadores han etiquetado cada punto y los
-    puntos <<etiquetados>> en la iteración 0 deben mostrarse de forma diferente.
+    \textit{Co-Training} cuál de los dos clasificadores han etiquetado cada
+    punto y los puntos <<etiquetados>> en la iteración 0 deben mostrarse de
+    forma diferente.
     \item Avanzar con los trabajos relacionados.
     \item Avanzar con la documentación teórica y anexos.
 \end{enumerate}
@@ -136,10 +138,10 @@ para ignorar los no etiquetados en clases categóricas (y no realizar la
 conversión en esos casos).
 
 El punto 2 volvió a causar bastantes problemas tanto en la ejecución de los
-algoritmos como en la Web. Hasta el momento, el usuario no seleccionaba los
+algoritmos como en la web. Hasta el momento, el usuario no seleccionaba los
 porcentajes de las divisiones, pero al incluir esto, los algoritmos ya no se
 encargan de esta tarea y había que modificar tanto los algoritmos como aquellas
-rutas de la Web que debían encargarse de esto. Aproximadamente 4 horas.
+rutas de la web que debían encargarse de esto. Aproximadamente 4 horas.
 
 El punto 3 no resultó demasiado difícil más allá de seguir habituándose a
 JavaScript/HTML. Unas 3 horas.
@@ -163,7 +165,7 @@ comentaron algunas tareas a realizar:
     \item Realizar alguna visualización de estadísticas.
     \item Valor por defecto en las configuraciones.
     \item Sobre el gráfico: mejorar la diferenciación de los puntos, información
-    útil en los <<tooltips>> y colocación de la leyenda.
+    útil en los <<\textit{tooltips}>> y colocación de la leyenda.
     \item Avanzar con los trabajos relacionados.
     \item Avanzar con la memoria y anexos.
 \end{enumerate}
@@ -182,11 +184,11 @@ tardó unas 3 horas.
 El punto 3 fue el más complicado, pese a que era una idea sencilla, se optó por
 visualizar la gráfica de la evolución de la precisión. Cada punto del gráfico
 está unido por una serie de líneas. Este tipo de gráficos (según la
-documentación) se suelen hacer mediante <<paths>> o caminos, que son una única
-línea, pero como en este caso era necesario no visualizar todo, sino por cada
-iteración, no se encontró una solución rápida. Unas 6 horas para probar muchas
-posibilidades hasta encontrar la que funcionó, acoplarla a los controles del
-paso de iteración e incluir alguna animación.
+documentación) se suelen hacer mediante <<\textit{paths}>> o caminos, que son
+una única línea, pero como en este caso era necesario no visualizar todo, sino
+por cada iteración, no se encontró una solución rápida. Unas 6 horas para probar
+muchas posibilidades hasta encontrar la que funcionó, acoplarla a los controles
+del paso de iteración e incluir alguna animación.
 
 Adicionalmente se retocó por completo toda la Web mediante los estilos de
 \texttt{Bootstrap} para establecer ya una base vistosa y bonita. Unas 5 horas
@@ -198,19 +200,19 @@ Corresponde con el periodo temporal del 15 al 22 de febrero de 2023.
 
 Puntos a desarrollar:
 \begin{enumerate}
-    \item Implementación Democratic Co-Learning.
+    \item Implementación \textit{Democratic Co-Learning}.
     \item Profiling (tiempos de ejecución).
     \item Estadísticas en la aplicación.
     \item Test de las implementaciones.
     \item Avanzar con la memoria y anexos.
 \end{enumerate}
 
-La implementación del algoritmo Democratic Co-Learning supuso unas 14 horas
-divididas en varios días. Al principio se dedicó un tiempo para leer el artículo
-en el que se presentaba su implementación en forma de pseudocódigo junto con sus
-explicaciones teóricas. La realidad es que en primera instancia parecía algo
-fácil de realizar y entender, pero una vez comenzada la implementación, se
-encontraban muchas cuestiones a la hora de resolverlo. 
+La implementación del algoritmo \textit{Democratic Co-Learning} supuso unas 14
+horas divididas en varios días. Al principio se dedicó un tiempo para leer el
+artículo en el que se presentaba su implementación en forma de pseudocódigo
+junto con sus explicaciones teóricas. La realidad es que en primera instancia
+parecía algo fácil de realizar y entender, pero una vez comenzada la
+implementación, se encontraron muchas complicaciones a la hora de hacerlo. 
 
 Además, pese a que en el artículo estaba bien explicado, el formato de
 pseudocódigo (en el archivo encontrado) tenía indentaciones incorrectas y se
@@ -220,14 +222,14 @@ era un fallo.
 Se realizaron algunas pruebas de rendimiento para comprobar si los algoritmos
 tardaban demasiado con conjuntos de datos muy grandes (5\,000 instancias). Se
 observó que, dada la configuración que se tenía, tardaba alrededor de 40-50
-segundos en terminar la ejecución. Es por esto que para este Sprint se añadió la
+segundos en terminar la ejecución. Es por esto que para este sprint se añadió la
 tarea de hacer un pequeño estudio dedicado a medir los tiempos de ejecución para
 ver qué se podía optimizar. 
 
 Este proceso fue de unas 2 horas y el resultado fue que el código implementado
 no afectaba mucho, eran los propios algoritmos de entrenamiento de los
-clasificadores de Scikit-Learn los que tardaban tanto. Por ejemplo, para un
-estimador gaussiano el tiempo se reducía drásticamente.
+clasificadores de \textit{Scikit-Learn} los que tardaban tanto. Por ejemplo,
+para un estimador gaussiano el tiempo se reducía drásticamente.
 
 Para el caso de las estadísticas, se modificaron un poco las plantillas y la
 generación de sus gráficas para incluir más y revisarlas en la reunión. Unas 2
@@ -247,12 +249,12 @@ Sprints también en ella para poder extraer los gráficos del trabajo realizado.
 
 Puntos a desarrollar:
 \begin{enumerate}
-    \item Intervalo de confianza en Democratic Co-Learning.
-    \item Control reetiquetado en Democratic Co-Learning.
+    \item Intervalo de confianza en \textit{Democratic Co-Learning}.
+    \item Control reetiquetado en \textit{Democratic Co-Learning}.
     \item Correcciones sobre memoria y anexos.
     \item Gráfico de estadísticas unificado.
-    \item Internacionalización Web.
-    \item Visualización principal de Democratic Co-Learning en la aplicación.
+    \item Internacionalización web.
+    \item Visualización principal de \textit{Democratic Co-Learning} en la aplicación.
 \end{enumerate}
 
 El primer punto fue muy sencillo, se proporcionó la implementación de los
@@ -286,11 +288,11 @@ intérprete tomaba \texttt{gettext} como una función que al no estar definida,
 lanzaba error. Al final se generó una función en la plantilla principal de tal
 forma que actúe como \texttt{gettext}, llamada desde los distintos scripts.
 
-La visualización de Democratic Co-Learning no dio tiempo a implementarse en este
-Sprint.
+La visualización de \textit{Democratic Co-Learning} no dio tiempo a
+implementarse en este sprint.
 
 Además, a partir de este Sprint se incorporan todas las tareas en Zenhub para la
-generación de los gráficos Burndown (ver
+generación de los gráficos \textit{Burndown} (ver
 Imagen~\ref{fig:anexos/planproyecto/sprint8}).
 
 \imagen{anexos/planproyecto/sprint8}{Burndown chart del sprint 8.}
@@ -301,22 +303,23 @@ Corresponde con el periodo temporal del 1 al 8 de marzo de 2023.
 
 Puntos a desarrollar:
 \begin{enumerate}
-    \item Visualización principal de Democratic Co-Learning en la aplicación.
+    \item Visualización principal de \textit{Democratic Co-Learning} en la aplicación.
     \item Formulario de los parámetros de los clasificadores.
-    \item Estadísticas generales en Democratic Co-Learning.
-    \item Estadísticas específicas en Democratic Co-Learning
-    \item Condición de parada re-etiquetado
+    \item Estadísticas generales en \textit{Democratic Co-Learning}.
+    \item Estadísticas específicas en \textit{Democratic Co-Learning}.
+    \item Condición de parada re-etiquetado.
 \end{enumerate}
 
 La visualización principal fue relativamente sencilla pues en realidad es muy
-similar a Co-Training. Hubo algún ajuste adicional para generar la información
-del \textit{tooltip} al pasar por encima de un punto. Como en cada posición
-podía haber varios clasificadores había que mostrar esa información.
+similar a \textit{Co-Training}. Hubo algún ajuste adicional para generar la
+información del \textit{tooltip} al pasar por encima de un punto. Como en cada
+posición podía haber varios clasificadores había que mostrar esa información.
 
 Para el formulario de los parámetros se consideró el uso de Flask-WTF que al
 final se descartó. Se tenía como punto de partida utilizar un JSON del que leer
 los parámetros, así que lo primero fue pensar una forma sencilla de codificarlos
-con la información necesaria de las entradas (<<type>>,<<step>>...). 
+con la información necesaria de las entradas (<<\textit{type}>>,
+<<\textit{step}>>, ...). 
 
 La ventaja de JSON es que aparte de que la lectura es muy sencilla, son
 diccionarios, muy fáciles de utilizar (tanto desde Python como desde las propias
@@ -329,20 +332,22 @@ posible seleccionar elementos del DOM (pues no estaba cargado) y los elementos
 debían seleccionarse mediante CSS (algo que no se sabía por desconocimiento de
 JavaScript).
 
-Se añadieron las estadísticas generales de Democratic Co-Learning de forma muy
-sencilla pues era exactamente igual que Co-Training (y Self-Training) esto se
-realizó añadiendo el \textit{DataFrame} en el propio algoritmo con las
-estadísticas deseadas (como el resto de los algoritmos).
+Se añadieron las estadísticas generales de \textit{Democratic Co-Learning} de
+forma muy sencilla pues era exactamente igual que \textit{Co-Training} (y
+\textit{Self-Training}) esto se realizó añadiendo el \textit{DataFrame} en el
+propio algoritmo con las estadísticas deseadas (como el resto de los
+algoritmos).
 
 Había mucho código muy parecido o exactamente igual en las plantillas de los
 algoritmos, así que aprovechando la refactorización, se automatizaron por
 completo las estadísticas. Se pensó de tal forma que solo con las columnas de
-los \textit{DataFrames} que retornan los algoritmos, la Web ya se encargue de
-generar el resto. A la vez que esto (e iniciando la tarea de las estadísticas
-individuales), se tuvieron en cuenta las futuras estadísticas individuales para
-Democratic Co-Learning. Todas las funciones fueron transformadas para trabajar
-con elementos del DOM específicos, de esta forma, al indicarle por ejemplo un
-<<DIV>>, se generan las estadísticas sobre ese elemento. En total unas 8 horas. 
+los \textit{DataFrames} que retornan los algoritmos, la página web ya se
+encargue de generar el resto. A la vez que esto (e iniciando la tarea de las
+estadísticas individuales), se tuvieron en cuenta las futuras estadísticas
+individuales para \textit{Democratic Co-Learning}. Todas las funciones fueron
+transformadas para trabajar con elementos del DOM específicos, de esta forma, al
+indicarle por ejemplo un <<DIV>>, se generan las estadísticas sobre ese
+elemento. En total unas 8 horas. 
 
 Para estas estadísticas individuales, aparte de las funciones generalizadas, se
 creó una nueva que sobre un elemento (un <<DIV>>) se generase un selector con el
@@ -365,7 +370,8 @@ Corresponde con el periodo temporal del 8 de febrero al 15 de marzo de 2023.
 
 Puntos a desarrollar:
 \begin{enumerate}
-    \item Comparación sslearn.
+    \item Comparación sslearn, una biblioteca de José Luis
+    Garrido-Labrador~\cite{jose_luis_garrido_labrador_2023_7781117}.
     \item Refactorización de plantillas.
     \item Refactorizacion Javascript.
     \item Refactorización Flask (app).
@@ -377,12 +383,11 @@ En este Sprint no se contaba con demasiado tiempo así que aunque sí se realiz�
 alguna tarea para añadir funciones, la idea era dedicarlo a mejorar el código y
 mantenimiento.
 
-En la reunión del final del Sprint anterior se comentó el cómo se estaban
+En la reunión del final del sprint anterior se comentó el cómo se estaban
 validando los algoritmos y hasta ese momento solo se habían probado las
-utilidades. Se sugirió compararlo contra \textit{sslearn}, una biblioteca de
-José Luis Garrido-Labrador~\cite{jose_luis_garrido_labrador_2023_7781117}. Como
-primera aproximación, se realizó una validación cruzada completamente manual en
-la que se ejecutaba al mismo tiempo las dos implementaciones de los distintos
+utilidades. Se sugirió compararlo contra \textit{sslearn}. Como primera
+aproximación, se realizó una validación cruzada completamente manual en la que
+se ejecutaba al mismo tiempo las dos implementaciones de los distintos
 algoritmos (de momento sin extraer conclusiones). Se tardó unas 3 horas.
 
 El segundo y tercer punto se iniciaron por separado, pero llegó un momento en el
@@ -392,16 +397,16 @@ podrían simplificarse las plantillas.
 Todos los métodos de los gráficos estaban separados por cada uno de los
 algoritmos, esto lo hacía muy engorroso porque incluso algún método tenía el
 mismo nombre. Se modificaron las funciones de tal forma que fuesen específicas
-para cada algoritmo para así juntarlas en un único Script. Por parte de las
-plantillas, como había partes repetidas se crearon macros y se identificó una
-parte común a todos los algoritmos en su configuración, esto se añadió a la base
-de las configuraciones. Todo esto llevó unas 4 horas.
+para cada algoritmo para así juntarlas en un único \textit{script}. Por parte de
+las plantillas, como había partes repetidas se crearon macros y se identificó
+una parte común a todos los algoritmos en su configuración, esto se añadió a la
+base de las configuraciones. Todo esto llevó unas 4 horas.
 
 En \texttt{Flask} se tenían varios problemas. El primero era que las
 visualizaciones de cada algoritmo tenían un \textit{endpoint} particular, pero
 esto no era necesario si se hacía un método para la obtención de los parámetros
-de cada algoritmo por separado (y finalmente un solo <<endpoint>> indicándole el
-algoritmo en la propia ruta). 
+de cada algoritmo por separado (y finalmente un solo \textit{endpoint}
+indicándole el algoritmo en la propia ruta). 
 
 Cuando se crearon esos nuevos métodos se generó código muy parecido porque todos
 ellos tenían dos partes: una en la que se obtenían los parámetros que no eran de
@@ -430,8 +435,8 @@ Posteriormente se añadió el reinicio del \textit{zoom} para volver a la posici
 original. El proceso duró unas 5 horas pues cada intento parecía ser definitivo,
 pero al final siempre había ciertos límites.
 
-Al final del Sprint se añadieron los conceptos teóricos de Democratic
-Co-Learning (conceptos y pseudocódigos).
+Al final del sprint se añadieron los conceptos teóricos de \textit{Democratic
+Co-Learning} (conceptos y pseudocódigos).
 
 Aparte de estas tareas se realizaron pequeñas modificaciones: se completó el
 estilo adaptable (<<responsive>>), se arreglaron pequeños bugs de
@@ -447,7 +452,7 @@ Corresponde con el periodo temporal del 15 al 22 de marzo de 2023.
 
 Puntos a desarrollar:
 \begin{enumerate}
-    \item Arreglos en Democratic Co-Learning.
+    \item Arreglos en \textit{Democratic Co-Learning}.
     \item Controlar los límites en los parámetros de los clasificadores.
     \item Modificar las estadísticas generales.
     \item Invertir controles en las estadísticas específicas.
@@ -457,28 +462,28 @@ Puntos a desarrollar:
     \item Añadir validación de los algoritmos a la memoria.
 \end{enumerate}
 
-En Democratic Co-Learning se estaba obviando el caso en el que si una instancia
-ya estaba etiquetada y esta es reetiquetada, pero además cambiando de etiqueta,
-no se consideraba como cambio en el algoritmo. Se ha añadido esta casuística.
-Además, Álvar sugirió en el pseudocódigo de la memoria hacer el método de
-combinación de hipótesis (predicción) para una sola instancia. Esto se ha
-realizado así en la propia implementación (y así el método \texttt{predict} se
-encarga de iterar sobre un conjunto de instancias).
+En \textit{Democratic Co-Learning} se estaba obviando el caso en el que si una
+instancia ya estaba etiquetada y esta es reetiquetada, pero además cambiando de
+etiqueta, no se consideraba como cambio en el algoritmo. Se ha añadido esta
+casuística. Además, Álvar sugirió en el pseudocódigo de la memoria hacer el
+método de combinación de hipótesis (predicción) para una sola instancia. Esto se
+ha realizado así en la propia implementación (y así el método \texttt{predict}
+se encarga de iterar sobre un conjunto de instancias).
 
 Al JSON que codifica los parámetros de los clasificadores base se añadieron los
 controles de mínimo y máximo. Esto es porque hay algunos de sus parámetros que
 requieren rangos específicos. Ahora la web (JavaScript) genera el formulario de
 configuración teniendo en cuenta estos límites.
 
-En la reunión del Sprint anterior se sugirió modificar la visualización de
+En la reunión del sprint anterior se sugirió modificar la visualización de
 estadísticas. Para el gráfico general (de estadísticas) no tenía sentido poder
 ocultar o no cada una de las estadísticas así que ahora siempre se muestran
-todas ellas. Particularmente para Democratic Co-Learning, las estadísticas
-individuales estaban manejadas mediante un selector (para seleccionar el
-clasificador base) y unos \texttt{checkboxes} para seleccionar las estadísticas
-a mostrar. Pero tiene mucho más sentido que el selector sea para las
-estadísticas. De esta forma el usuario selecciona una estadística y en el
-gráfico puede comparar esa estadística para todos los clasificadores. Además,
+todas ellas. Particularmente para \textit{Democratic Co-Learning}, las
+estadísticas individuales estaban manejadas mediante un selector (para
+seleccionar el clasificador base) y unos \texttt{checkboxes} para seleccionar
+las estadísticas a mostrar. Pero tiene mucho más sentido que el selector sea
+para las estadísticas. De esta forma el usuario selecciona una estadística y en
+el gráfico puede comparar esa estadística para todos los clasificadores. Además,
 los \texttt{checkboxes} se mantienen, pero ahora sirven para elegir qué
 clasificadores comparar. Esto llevó unas 6 horas. La organización de las
 funciones estaba altamente centrada en la versión anterior, fue un proceso
@@ -499,10 +504,10 @@ ejecución del proyecto. En total fueron unas 6 horas.
 
 El proceso de validación cruzada no estaba bien enfocado, se estaba realizando
 de forma manual (y todos los posibles fallos que puede suponer). La librería
-scikit-learn incorpora ya utilidades para este proceso. Concretamente se tiene
-un método que genera los distintos \textit{Folds} dado un conjunto de datos. El
-proceso manual se sustituyó por este nuevo. Se aprovechó para guardar los
-resultados como CSV.
+\textit{Scikit-Learn} incorpora ya utilidades para este proceso. Concretamente
+se tiene un método que genera los distintos \textit{folds} dado un conjunto de
+datos. El proceso manual se sustituyó por este nuevo. Se aprovechó para guardar
+los resultados como CSV.
 
 Con el proceso de validación cruzada la idea era obtener métricas para
 compararlas en alguna gráfica/tabla y comprobar que las implementaciones son
@@ -535,26 +540,26 @@ Puntos a desarrollar:
 \begin{enumerate}
     \item Completar manual del programador.
     \item Introducción memoria.
-    \item Añadir bibliotecas Web.
-    \item Añadir explicaciones de los algoritmos en la Web.
-    \item Añadir los pseudocódigos en la Web.
-    \item Algoritmo Tri-Training.
+    \item Añadir bibliotecas web.
+    \item Añadir explicaciones de los algoritmos en la web.
+    \item Añadir los pseudocódigos en la web.
+    \item Algoritmo \textit{Tri-Training}.
 \end{enumerate}
 
-En el Sprint anterior se empezó el manual del programador, pero quedó pendiente
+En el sprint anterior se empezó el manual del programador, pero quedó pendiente
 la compilación, instalación y ejecución del proyecto. Lo primero que se hizo en
-este Sprint es finalizar este manual describiendo todos los pasos que un
+este sprint es finalizar este manual describiendo todos los pasos que un
 programador debe seguir para poner en funcionamiento la aplicación.
 
-Para continuar con la memoria, se añadió la sección de la \texttt{Introducción}
-como presentación de todo este trabajo.
+Para continuar con la memoria, se añadió la sección de la introducción como
+presentación de todo este trabajo.
 
 Las dos principales bibliotecas o recursos utilizados en la Web son
-\texttt{Bootstrap} y \texttt{D3.js}, el primer caso es un <<framework>> de CSS
-que ya viene con una gran cantidad de clases a utilizar. D3 es la biblioteca de
-JavaScript que se ha utilizado para la generación de todos los gráficos. Se
-añadió una descripción (y justificación) de uso en la memoria (Técnicas y
-herramientas).
+\texttt{Bootstrap} y \texttt{D3.js}, el primer caso es un <<\textit{framework}>>
+de CSS que ya viene con una gran cantidad de clases a utilizar. D3 es la
+biblioteca de JavaScript que se ha utilizado para la generación de todos los
+gráficos. Se añadió una descripción (y justificación) de uso en la memoria
+(Técnicas y herramientas).
 
 Teniendo en cuanta la componente docente de este proyecto, se creyó conveniente
 la adición de unas pequeñas explicaciones de los algoritmos. Se añadieron en la
@@ -567,23 +572,23 @@ debajo de las explicaciones. También se creyó conveniente que el usuario pudie
 verlo en la fase de visualización. Se creó un desplegable con la imagen del
 pseudocódigo.
 
-Finalmente, y como desarrollo más grande de este Sprint, se creó el algoritmo
-Tri-Training. La primera versión (el primer \texttt{commit}) no fue validada de
-ninguna forma (se confirmó según se terminó). Esta versión no incluía ninguna
-forma de obtener el proceso de entrenamiento, simplemente era el esqueleto
-funcional del algoritmo. Obviamente, era claro que iba a haber algún que otro
-error. Al principio solo se detectó un error en el que el cálculo del error de
-clasificación siempre resultaba en 0. Era una cuestión de pura implementación en
-Python así que no fue difícil arreglarlo.
+Finalmente, y como desarrollo más grande de este sprint, se creó el algoritmo
+\textit{Tri-Training}. La primera versión (el primer \texttt{commit}) no fue
+validada de ninguna forma (se confirmó según se terminó). Esta versión no
+incluía ninguna forma de obtener el proceso de entrenamiento, simplemente era el
+esqueleto funcional del algoritmo. Obviamente, era claro que iba a haber algún
+que otro error. Al principio solo se detectó un error en el que el cálculo del
+error de clasificación siempre resultaba en 0. Era una cuestión de pura
+implementación en Python así que no fue difícil arreglarlo.
 
-Antes de arreglar este error, la rama en la que se ejecutaba el <<subsample>> no
-se estaba realizando en ningún caso. En el momento que se arregló el anterior
-error se accedió a esta parte y apareció un nuevo error. Se confundió array de
-NumPy con lista nativa de Python y se estaban seleccionando ciertas posiciones
-de una lista de Python accediendo a ella con unos índices
-(\texttt{List{[}indices{]}}). La solución fue sencilla de igual manera, se
-recorría la lista en base la los índices y se creaba esta sublista mediante
-compresión de listas.
+Antes de arreglar este error, la rama en la que se ejecutaba el
+<<\textit{subsample}>> no se estaba realizando en ningún caso. En el momento que
+se arregló el anterior error se accedió a esta parte y apareció un nuevo error.
+Se confundió array de NumPy con lista nativa de Python y se estaban
+seleccionando ciertas posiciones de una lista de Python accediendo a ella con
+unos índices (\texttt{List{[}indices{]}}). La solución fue sencilla de igual
+manera, se recorría la lista en base la los índices y se creaba esta sublista
+mediante compresión de listas.
 
 Al final de este desarrollo, se comparó con una sola ejecución con sslearn. El
 nuevo algoritmo tardaba mucho más tiempo que el resto (y que sslearn). Esto era
@@ -594,19 +599,21 @@ etiquetadas y con vectorización. El rendimiento se incrementó mucho.
 Durante estas tareas fueron surgiendo otras más pequeñas: Nuevas traducciones,
 correcciones de memoria y anexos y una pequeña comparación contra sslearn.
 
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black,fontupper=\footnotesize,title=Licencia Zenhub]
 La herramienta Zenhub dejó de proporcionar servicios gratuitos. Esta compañía
 actualizó sus planes gratuitos, ya no existe una versión de esas
 características. Durante este Sprint <<caducó>> la licencia que se tenía y ya no
 se podía acceder a ninguna de sus funcionalidades, tampoco a los gráficos
-<<Burndown>>.
+Burndown.    
+\end{tcolorbox}
 
 \subsection{Sprint 13}
 Corresponde con el periodo temporal del 29 marzo al 5 de abril de 2023.
 
 Puntos a desarrollar:
 \begin{enumerate}
-    \item Configuración Tri-Training
-    \item Visualizar Tri-Training.
+    \item Configuración \textit{Tri-Training}.
+    \item Visualizar \textit{Tri-Training}.
     \item Eliminar todo el código duplicado restante de JavaScript.
     \item Documentar JavaScript.
     \item Reestructurar Flask para aplicaciones grandes.
@@ -618,26 +625,26 @@ Tri-Training en la Web.
 
 El primer paso fue incluir las estructuras de datos necesarias en el esqueleto
 del algoritmo para ir almacenando la información de entrenamiento. La idea era
-igual a Democratic Co-Learning. La realidad es que la forma en la que se
-almacenan los datos es muy distinta a todas las demás. Los datos pueden ser
+igual a \textit{Democratic Co-Learning}. La realidad es que la forma en la que
+se almacenan los datos es muy distinta a todas las demás. Los datos pueden ser
 clasificador varias veces por cada clasificador en diferentes iteraciones. Por
 lo tanto, para cada clasificador base se almacena una lista para las etiquetas y
 para las iteraciones en las que se clasifican. Las estadísticas sí que se
 almacenan exactamente de la misma forma que Democratic Co-Learning.
 
-El siguiente paso fue crear la pantalla de configuración de Tri-Training, para
-ello simplemente se copiaron las plantillas ya existentes y la misma estructura
-que ya se tenía en Flask para las rutas.
+El siguiente paso fue crear la pantalla de configuración de
+\textit{Tri-Training}, para ello simplemente se copiaron las plantillas ya
+existentes y la misma estructura que ya se tenía en Flask para las rutas.
 
-Y finalmente, la pantalla de visualización de Tri-Training. Este fue uno de los
-pasos más complejos. Como se tenía una nueva estructura de los datos, se tenían
-que crear los métodos que permitiesen interpretarlos, de forma general, los que
-se ha realizado es comprobar, en cada iteración, qué clasificador han añadido
-datos etiquetados nuevos junto con su etiqueta. Para que el usuario pudiera ver
-los cambios que ocurren en cada iteración, cuando pulsa en la siguiente
-iteración se descoloran los puntos (a gris) y después se colorean los nuevos,
-todo esto mediante animaciones y con un cierto tiempo para que pueda darse
-cuenta.
+Y finalmente, la pantalla de visualización de \textit{Tri-Training}. Este fue
+uno de los pasos más complejos. Como se tenía una nueva estructura de los datos,
+se tenían que crear los métodos que permitiesen interpretarlos, de forma
+general, los que se ha realizado es comprobar, en cada iteración, qué
+clasificador han añadido datos etiquetados nuevos junto con su etiqueta. Para
+que el usuario pudiera ver los cambios que ocurren en cada iteración, cuando
+pulsa en la siguiente iteración se descoloran los puntos (a gris) y después se
+colorean los nuevos, todo esto mediante animaciones y con un cierto tiempo para
+que pueda darse cuenta.
 
 En cuanto a JavaScript, se documentaron por completo todos los métodos que
 fueron creados para este proyecto. Además, se eliminó el código duplicado en
@@ -648,9 +655,10 @@ principio, todo parece correcto.
 Se reestructuró completamente Flask, esto es porque tal y como se encontraba la
 aplicación, era muy básica y general. Los proyectos más grandes con Flask tienen
 una estructura más o menos concreta. Esta es la idea que se ha intentado
-aplicar, utilizando <<Application Factory>> y <<Blueprints>>. Pero sobre todo,
-para hacerla más mantenible y extensible. De hecho, aunque no está siendo usada,
-se tiene una pequeña base de datos para posibles adiciones futuras. 
+aplicar, utilizando <<\textit{Application Factory}>> y <<\textit{Blueprints}>>.
+Pero sobre todo, para hacerla más mantenible y extensible. De hecho, aunque no
+está siendo usada, se tiene una pequeña base de datos para posibles adiciones
+futuras. 
 
 Esta reestructuración causó muchos problemas en cuanto a las rutas de ficheros.
 Se tuvieron que especificar manualmente y usar la librería del sistema operativo
@@ -661,7 +669,7 @@ Linux).
 Finalmente, se añadió la media geométrica como métrica de validación a la hora
 de comparar contra
 \texttt{sslearn}~\cite{jose_luis_garrido_labrador_2023_7781117}. Además, en
-Sprints anteriores se comentó la idea de utilizar \textit{Violinplots}, que
+Sprints anteriores se comentó la idea de utilizar \textit{violinplots}, que
 resultan más pertinentes para los casos de comparación.
 
 \subsection{Sprint 14}
@@ -670,25 +678,25 @@ Corresponde con el periodo temporal del 5 al 12 de abril de 2023.
 Puntos a desarrollar:
 \begin{enumerate}
     \item Actualizar manual del programador
-    \item Rediseño Web completo
+    \item Rediseño web completo
     \item Ayuda contextual y errores en Web.
     \item Anexos: Diseño
 \end{enumerate}
 
-Debido a las modificaciones realizadas en los recientes Sprints, el manual del
+Debido a las modificaciones realizadas en los recientes sprints, el manual del
 programador quedó desactualizado. El cambio más notable fue la nueva
 reestructuración de Flask. Se actualizó el árbol de directorios reflejando esta
 nueva estructura. También se actualizaron todas las explicaciones posteriores
 del manual.
 
-El diseño de la Web estaba hecho prácticamente desde el principio de la Web y
+El diseño de la web estaba hecho prácticamente desde el principio de la web y
 resultaba muy poco llamativo. El primer paso para este rediseño fue elegir una
 paleta de colores, se creyeron convenientes fondos oscuros con alguno más claro
 para dar contraste.
 
 Para continuar, se pensó en la disposición y estilo general del contenido. Hasta
 el momento la página resultaba muy plana, sin cambios entre las distintas partes
-de la página. Consultando páginas Web de ejemplo parecía interesante y bonito
+de la página. Consultando páginas web de ejemplo parecía interesante y bonito
 crear efectos de sombra y se estableció como estilo general de la página. A
 partir de aquí las distintas secciones de una misma página se encuadran en un
 elemento con sombra, para llamar la atención del usuario. Además, para comprobar
@@ -712,10 +720,10 @@ han añadido los más comunes (y además muchos de ellos no han llegado a ocurri
 nunca).
 
 En reuniones anteriores se comentó que debía explicarse las estructuras de los
-ficheros JSON que maneja e interpreta la Web (JavaScript). Se añadieron todas
+ficheros JSON que maneja e interpreta la web (JavaScript). Se añadieron todas
 las explicaciones relativas a la generación de estos ficheros desde la propia
 ejecución de cada algoritmo. Se creó también un diagrama de secuencia con la
-interacción general con la Web para la visualización de un algoritmo.
+interacción general con la web para la visualización de un algoritmo.
 
 \subsection{Sprint 15}
 Corresponde con el periodo temporal del 12 al 19 de abril de 2023.
@@ -726,7 +734,7 @@ mantener la prioridad al desarrollo del proyecto. Por lo tanto, no existen
 puntos concretos a desarrollar, pero la idea era realizar, en la medida de lo
 posible, retoques en el mismo.
 
-Los \texttt{violinplots} que se añadieron para la comparativa de algoritmos
+Los \textit{violinplots} que se añadieron para la comparativa de algoritmos
 resultaban algo confusos. Aunque este tipo de gráficos se utiliza mucho para
 comparar datos, para este ámbito concreto no resultó ser la mejor opción. La
 parte superior de estos gráficos, que no son el máximo de los datos, sobrepasa
@@ -735,10 +743,10 @@ cálculos son incorrectos. Se volvió a incluir los gráficos de caja anteriores
 
 Como no resultaba una tarea grande, se incluyó la integración continua a partir
 de este momento. La herramienta SonarCloud proporciona muchas métricas de
-calidad del código (bugs, línea duplicadas, seguridad...). Gracias a estos
-análisis se realizaron todas las posibles modificaciones para reducir las
+calidad del código (\textit{bugs}, línea duplicadas, seguridad...). Gracias a
+estos análisis se realizaron todas las posibles modificaciones para reducir las
 alertas que hasta el momento podían abordarse. Por ejemplo, la protección contra
-CSRF (\texttt{Cross-Site Request Forgery}) no se había contemplado, pero la
+CSRF (\textit{Cross-Site Request Forgery}) no se había contemplado, pero la
 herramienta sí lo considera como un elemento prioritario.
 
 \subsection{Sprint 16}
@@ -746,13 +754,13 @@ Corresponde con el periodo temporal del 19 al 26 de abril de 2023.
 
 Puntos a desarrollar:
 \begin{enumerate}
-    \item Añadir usuarios (con login y registro)
+    \item Añadir usuarios (con \textit{login} y registro)
     \item Crear un espacio personal para los usuarios
     \item Continuar con la memoria
     \item Estandarización en la configuración
 \end{enumerate}
 
-Durante este Sprint se iniciaron las tareas para mantener usuarios en la
+Durante este sprint se iniciaron las tareas para mantener usuarios en la
 aplicación. El primer paso para realizar esto fue la creación del modelo de
 usuario en la base de datos. El usuario es simple, con un identificador, nombre,
 email y contraseña (este no es el objetivo principal de la aplicación).
@@ -772,7 +780,7 @@ detecta un error de este estilo, se muestra un mensaje (en rojo) con lo que ha
 ocurrido.
 
 Con todo ello, se modificó la barra de navegación incluyendo el menú de los
-usuarios: Registrarse/Iniciar sesión y una vez el usuario ha iniciado sesión, un
+usuarios: registrarse/iniciar sesión y una vez el usuario ha iniciado sesión, un
 menú desplegable que le llevaría a su espacio personal y perfil.
 
 Antes de continuar con el desarrollo, se incluyó un \textit{mockup} con lo que
@@ -797,18 +805,19 @@ los nombres de los ficheros, fecha de subida/ejecución...
 La parte visual de la actividad se realizó con DataTables, un plug-in de jQuery
 que proporciona mucha versatilidad para hacer tablas. Los datos no provenían de
 las plantillas, se crearon nuevas rutas a las que hacer peticiones (como una
-API). Una vez que se había trasteado con este plug-in e incluso vista la forma
-en la que eliminar filas, la idea es realizar una petición y que los datos
-recibidos sean incrustados en estas tablas. La obtención de los datos no fue un
-problema, se utilizaron los <<fetch>> de JavaScript y cuando se obtenía
-respuesta, se creaban las tablas. El verdadero problema fue la incorporación de
-acciones (como la de borrar), en la propia documentación de DataTables y gracias
-a su foro, se consiguieron generar botones en esta columna (con puro HTML). El
-siguiente reto fue crear otras peticiones como respuesta a los clics de estos
-botones. La suerte fue que DataTables permite obtener los datos de una fila
-directamente, lo que resultó de mucha ayuda para, por ejemplo, extraer el nombre
-de un fichero y posteriormente incorporarlo a las peticiones de borrado. Se
-añadieron también unos \textit{modales} para las comprobaciones del usuario.
+API). Una vez que se había trasteado con este \textit{plug-in} e incluso vista
+la forma en la que eliminar filas, la idea es realizar una petición y que los
+datos recibidos sean incrustados en estas tablas. La obtención de los datos no
+fue un problema, se utilizaron los <<\textit{fetch}>> de JavaScript y cuando se
+obtenía respuesta, se creaban las tablas. El verdadero problema fue la
+incorporación de acciones (como la de borrar), en la propia documentación de
+DataTables y gracias a su foro, se consiguieron generar botones en esta columna
+(con puro HTML). El siguiente reto fue crear otras peticiones como respuesta a
+los clics de estos botones. La suerte fue que DataTables permite obtener los
+datos de una fila directamente, lo que resultó de mucha ayuda para, por ejemplo,
+extraer el nombre de un fichero y posteriormente incorporarlo a las peticiones
+de borrado. Se añadieron también unos \textit{modales} para las comprobaciones
+del usuario.
 
 El desarrollo anterior se ha simplificado, primero se creaban versiones
 sencillas y luego se iban incorporando retoques hasta el resultado final. Por
@@ -825,8 +834,8 @@ conveniente permitir al usuario estandarizar o no el conjunto de datos a mostrar
 (hasta ahora siempre se estandarizaba), se incluyó un interruptor para ello.
 
 Además de todo esto, se hicieron algunos cambios pequeños: <<Footer>> al final
-de la página, selección de fuentes para la página, arreglar algunos bugs menores
-o estilar el <<card>> del perfil.
+de la página, selección de fuentes para la página, arreglar algunos
+\textit{bugs} menores o estilar el <<\textit{card}>> del perfil.
 
 \subsection{Sprint 17}
 Corresponde con el periodo temporal del 26 de abril al 3 de mayo de 2023.
@@ -835,54 +844,55 @@ Puntos a desarrollar:
 \begin{enumerate}
     \item Botón de idioma.
     \item Panel de administración.
-    \item Bootstrap icons.
+    \item Iconos de Bootstrap.
     \item Mensajes flash (alertas).
     \item Actualizar técnicas y herramientas.
 \end{enumerate}
 
 Lo primero que se hizo fue sustituir los SVG de los iconos que se estaban
-utilizando, por clases de \texttt{Bootstrap Icons}. Era muy engorroso tener cadenas tan
-grandes de texto y esta modificación solo conlleva añadir un enlace.
+utilizando, por clases de \textit{Bootstrap icons}. Era muy engorroso tener
+cadenas tan grandes de texto y esta modificación solo conlleva añadir un enlace.
 
 Lo siguiente que se realizó fue añadir un botón para cambiar el idioma. La idea
 es muy sencilla, las traducciones ahora se realizan detectando qué idioma se
-ajusta más al navegador del usuario (en las peticiones existe un <<header>> que
-incluye esta información), como también se quiere que el usuario decida, todas
-las peticiones son procesadas previamente por un \texttt{endpoint} (Flask
-permite esto) que detecta si existe un parámetro <<lang>> (\texttt{?lang=X}) y
-si lo hay, establece el idioma a este (guardándolo en la sesión). De esta forma
-se consigue no modificar lo ya existente.
+ajusta más al navegador del usuario (en las peticiones existe un
+<<\textit{header}>> que incluye esta información), como también se quiere que el
+usuario decida, todas las peticiones son procesadas previamente por un
+\textit{endpoint} (Flask permite esto) que detecta si existe un parámetro
+<<\textit{lang}>> (\texttt{?lang=X}) y si lo hay, establece el idioma a este
+(guardándolo en la sesión). De esta forma se consigue no modificar lo ya
+existente.
 
 El panel de administración fue un verdadero reto, como no se quería tener que
 hacer todo de cero (mucho código duplicado), se tuvo que pensar primero la forma
 de aprovechar las tablas que ya se habían creado. El panel de administración
 solo iba a tener una tabla nueva, además de la de los ficheros y ejecuciones que
 ya existían. Estas últimas son las que se debían reutilizar. Para ello, la
-información que debía ver el administrador además de lo que ya se mostraba era
+información que debía ver el administrador, además de lo que ya se mostraba, era
 el usuario al que pertenecen los ficheros y ejecuciones. Se añadió esta columna
-a las tablas y las funciones se parametrizaron con un <<flag>> que permitiese
-especificar si la tabla debe generarse como administrador o como usuario normal.
-En el caso del panel de administración, mostrar esa columna de usuarios. Esto
-conllevó a modificar también los modelos pues hasta ahora solo se almacenaba una
-clave foránea con el identificador del usuario (había que añadir el email) con
-una relación uno a varios.
+a las tablas y las funciones se parametrizaron con un <<\textit{flag}>> que
+permitiese especificar si la tabla debe generarse como administrador o como
+usuario normal. En el caso del panel de administración, mostrar esa columna de
+usuarios. Esto llevó a modificar también los modelos pues hasta ahora solo se
+almacenaba una clave foránea con el identificador del usuario (había que añadir
+el email) con una relación uno a varios.
 
 Finalmente, se creó la tabla de usuarios del mismo modo que el resto, creando
 una ruta donde consultar todos los datos y añadir las acciones correspondientes
 de editar el usuario o eliminarlo. Se reutilizó mucho de lo que ya se había
 codificado. La ventaja es que, aunque se tuvieron que añadir bastantes cosas, ya
-se tenía el conocimiento previo fue más laborioso (el desarrollo anterior se
-dividió en varios días) pero menos difícil.
+se tenía el conocimiento previo así que todo fue más laborioso (el desarrollo
+anterior se dividió en varios días) pero menos difícil.
 
 Además de lo comentado anteriormente, se quiso incluir unas estadísticas
 sencillas en cada una de las tablas. Para los usuarios, el total y para los
 ficheros subidos y ejecuciones, el total de los últimos siete días.
 
-Finalmente se tuvo que modificar algún \texttt{endpoint} para aumentar las
+Finalmente se tuvo que modificar algún \textit{endpoint} para aumentar las
 comprobaciones de seguridad y sobre todo, para evitar duplicar código. Por
 ejemplo, la edición de un usuario por parte de un administrador se <<delega>> al
-propio \texttt{endpoint} del perfil. En esta línea, a medida que pasaba el
-Sprint, mejoraban las comprobaciones y controles de errores y para que el
+propio \textit{endpoint} del perfil. En esta línea, a medida que pasaba el
+sprint, mejoraban las comprobaciones y controles de errores y para que el
 usuario tuviera algo de información, se añadió un modal que se activa cuando
 ocurre un error.
 
@@ -895,15 +905,20 @@ Se actualizó el apartado de las técnicas y herramientas hasta este punto.
 Además, también se realizaron otras modificaciones:
 
 \begin{itemize}
-    \item Añadir eliminación de ejecuciones: Al igual que usuarios y ficheros,
-    era interesante que pudieran eliminarse las ejecuciones.
-    \item Bug de edición perfil: Si la contraseña actual se introducía correcta,
-ocurría un error crítico (no se habían pasado todas las variables a la plantilla
-porque el código no estaba actualizado).
-    \item Bug reducción dimensionalidad: Cuando se desactivaba PCA y se incluía
-la misma columna en CX y CY, ocurría una excepción. Pandas parece no permitir
-concatenar una columna a un DataFrame que tiene columnas idénticas.
-    \item Refactorizaciones generales para evitar código duplicado.
+    \item Se añadió el botón de eliminación de ejecuciones, pues al igual que
+    usuarios y ficheros, era interesante que pudieran eliminarse las
+    ejecuciones.
+    \item Se corrigió un error en la edición de perfil en el que si la
+contraseña actual se introducía correcta, ocurría un error crítico (no se habían
+pasado todas las variables a la plantilla porque el código no estaba
+actualizado). Se actualizó el \textit{endpoint} correspondiente con todas las
+variables necesarias.
+    \item Se corrigió un error en la reducción de dimensionalidad en el que
+cuando se desactivaba PCA y se incluía la misma columna en CX y CY, ocurría una
+excepción. Pandas parece no permitir concatenar una columna a un DataFrame que
+tiene columnas idénticas. Cuando ocurre esta situación, solo se incluye una
+columna.
+    \item Se hicieron varias refactorizaciones generales para evitar código duplicado.
 \end{itemize}
 
 \subsection{Sprint 18}
@@ -911,22 +926,23 @@ Corresponde con el periodo temporal del 3 al 10 de mayo de 2023.
 
 Puntos a desarrollar:
 \begin{enumerate}
-    \item <<Toasts>> como alertas.
-    \item Arreglar visualizaciones (\texttt{tooltips}).
+    \item Añadir <<\textit{Toasts}>> como alertas.
+    \item Arreglar visualizaciones (\textit{tooltips}).
     \item Cambiar formularios a WTForms.
     \item Mostrar parámetros de las ejecuciones en el historial.
-    \item Conceptos teóricos Tri-Training.
-    \item Conceptos teóricos HTTP.
+    \item Estudiar y añadir conceptos teóricos Tri-Training.
+    \item Estudiar y añadir conceptos teóricos HTTP.
 \end{enumerate}
 
-En primer lugar, el aspecto que se le había dado a los mensajes <<Flash>> de la
+En primer lugar, el aspecto que se le había dado a los mensajes flash de la
 aplicación parecía un poco pobre. Bootstrap tiene los llamados <<Toasts>> que
 son avisos más sofisticados y estilados. Partiendo un ejemplo de la
 documentación, simplemente se filtra por la categoría del mensaje (error,
-advertencia, información...) y se genera el <<Toast>> con unos colores acordes.
+advertencia, información...) y se genera el <<\textit{Toast}>> con unos colores
+acordes.
 
 Durante el Sprint anterior se estuvieron probando las visualizaciones. El
-problema es que los \texttt{tooltips} muestran información confusa.
+problema es que los \texttt{tooltips} mostraban información confusa.
 
 En primer lugar, estos recuadros que aparecen al pasar el ratón por un punto, no
 se posicionaban correctamente. Mediante un ejemplo encontrado en
@@ -941,44 +957,44 @@ El mayor problema era arreglar la información confusa. Como es obvio, el
 conjunto de datos que introduzca el usuario puede tener puntos duplicados y
 además al realizar PCA, puede ocurrir que dos datos aparezcan en la misma
 posición. Esto no se estaba contemplando y no se indicaba. Es aún más confuso en
-Democratic Co-Learning y Tri-Training pues cada punto puede ser clasificado por
-varios clasificadores e incluso en varias iteraciones.
+\textit{Democratic Co-Learning} y \textit{Tri-Training} pues cada punto puede
+ser clasificado por varios clasificadores e incluso en varias iteraciones.
 
 Para ayudar al usuario a tener toda la información, el \texttt{tooltip} muestra
 ahora los puntos duplicados. Es decir, cuando solo hay un punto, simplemente
 mostrará la información normal, pero cuando haya puntos solapados (quizá por
 PCA o porque en el propio conjunto hay datos duplicados), los detectará y
-mostrará un identificador de duplicado en orden creciente.
+mostrará una lista de los identificadores de los puntos duplicados.
 
 Para determinar esto lo que se ha hecho es comprobar (mediante diccionarios) si
 un punto ya había sido visto, en cuyo caso existen puntos solapados.
  
-Otra cosa añadida al \texttt{tooltip} es la iteración de clasificación. Cuando
+Otra cosa añadida al \textit{tooltip} es la iteración de clasificación. Cuando
 el punto se acaba de clasificar o estamos en una iteración posterior, al lado de
 la etiqueta se muestra entre paréntesis la iteración en la que se clasificó.
 
-Al final del Sprint (y justo coincidiendo con una reunión de seguimiento), se
-planteó que el \texttt{tooltip} podía ser simplificado. Por una parte, cada vez
+Al final del sprint (y justo coincidiendo con una reunión de seguimiento), se
+planteó que el \textit{tooltip} podía ser simplificado. Por una parte, cada vez
 que se muestra todos los puntos, cada uno de ellos tiene su posición X e Y.
 Ahora solo se muestra como si fuera un título una única vez.
 
-Otra idea era que no se mostrase información futura (para Democratic Co-Learning
-y Tri-Training). Por ejemplo, si dos clasificadores habían etiquetado un punto
-en iteraciones 4 y 5 respectivamente, hasta ahora, en la iteración 2 (por
-ejemplo), el \texttt{tooltip} tenía <<reservado>> el espacio para escribir esos
-dos etiquetados. El comportamiento bueno sería que en una iteración menor que 4
-simplemente mostrase un único texto para ese punto (ejemplificando que todavía
-no ha sido etiquetado). Cuando se llega a la iteración 4, se mostrará la
-etiqueta que le dio el primer clasificador, pero sin mostrar todavía el de la
-iteración 5. Y así sucesivamente.
+Otra idea era que no se mostrase información futura (para \textit{Democratic
+Co-Learning} y \textit{Tri-Training}). Por ejemplo, si dos clasificadores habían
+etiquetado un punto en iteraciones 4 y 5 respectivamente, hasta ahora, en la
+iteración 2 (por ejemplo), el \textit{tooltip} tenía <<reservado>> el espacio
+para escribir esos dos etiquetados. El comportamiento bueno sería que en una
+iteración menor que 4 simplemente mostrase un único texto para ese punto
+(ejemplificando que todavía no ha sido etiquetado). Cuando se llega a la
+iteración 4, se mostrará la etiqueta que le dio el primer clasificador, pero sin
+mostrar todavía el de la iteración 5. Y así sucesivamente.
 
 En cuanto a los formularios, los de configuración del algoritmo estaban hechos
 directamente en HTML. Dado que se había empezado a utilizar WTForms (inicio de
-sesión, registro...), era conveniente modificarlos y trabajar con esta librería.
-Todos los formularios tienen una parte común, lo primero que se hizo es crear
-una clase de formulario base del que el resto extendería. A partir de aquí,
-simplemente se trasladó todo lo que se tenía en HTML a los distintos
-\texttt{Fields} de WTForms. En el HTML simplemente se hace referencia a estos
+sesión, registro...), era conveniente modificarlos y trabajar con esta
+biblioteca. Todos los formularios tienen una parte común, lo primero que se hizo
+es crear una clase de formulario base del que el resto extendería. A partir de
+aquí, simplemente se trasladó todo lo que se tenía en HTML a los distintos
+\textit{Fields} de WTForms. En el HTML simplemente se hace referencia a estos
 campos. Fue un proceso laborioso aunque sencillo.
 
 Esto además permitía añadir el <<token>> CSRF para arreglar ciertas
@@ -994,22 +1010,23 @@ todos los parámetros que provienen del formulario de configuración en un
 diccionario. Este diccionario luego es transformado en texto para almacenarlo en
 ese campo nuevo.
 
-Desde la Web, simplemente se lee ese campo de la ejecución y se formatea como
+Desde la web, simplemente se lee ese campo de la ejecución y se formatea como
 JSON. Existe un nuevo botón en la tabla que permite mostrar un <<modal>> con los
 parámetros.
 
 Se añadieron los conceptos teóricos de HTTP, con una descripción del protocolo,
-la estructura de las peticiones, \texttt{cookies} y el ataque CSRF (Cross-Site
-Request Forgery) junto a su solución (<<CSRF token>> comentado anteriomente).
+la estructura de las peticiones, \texttt{cookies} y el ataque CSRF
+(\textit{Cross-Site Request Forgery}) junto a su solución (<<\textit{CSRF
+token}>> comentado anteriormente).
 
-En cuanto a Tri-Training, se añadió el pseudocódigo del mismo.
+En cuanto a \textit{Tri-Training}, se añadió el pseudocódigo del mismo.
 
 Además, también se realizaron otras modificaciones, las más notorias:
 \begin{itemize}
     \item Añadir favicon.
-    \item Control de errores.
+    \item HAcer el control de errores.
     \item Arreglar bugs en las tablas del espacio personal.
-    \item Añadir algún aspecto relevante.
+    \item Añadir algún aspecto relevante a la memoria.
 \end{itemize}
 
 
@@ -1043,10 +1060,10 @@ acordes de todos ellos.
 El anexo de la documentación de usuario se podría realizar más adelante por si
 la aplicación sufre algún cambio final. Sin embargo, estos cambios serán,
 probablemente, en cuanto aspecto. Es por esto que las instrucciones útiles para
-el usuario serán las mismas. Además, resultaba una tarea apetecible en esos
-momentos. En este manual se explicó todo lo que un usuario podía realizar
-(anónimo o registrado). Además, como también existe un rol administrador, se
-describieron todos sus privilegios.
+el usuario serán las mismas. Además, resultaba una tarea apetecible (más
+motivadora) en esos momentos. En este manual se explicó todo lo que un usuario
+podía realizar (anónimo o registrado). Además, como también existe un rol
+administrador, se describieron todos sus privilegios.
 
 En el anexo del diseño se añadió el diseño arquitectónico que se ha planteado
 para la aplicación, una arquitectura de tres capas. Se explicaron los conceptos
@@ -1055,7 +1072,7 @@ relativos junto a cómo se reflejaba en la aplicación global.
 Se añadió PEP8 a las técnicas y \texttt{Draw.io}, \texttt{Putty} y
 \texttt{Bootstrap Icons} en las herramientas.
 
-Y por último, como otro gran apartado de este Sprint, se añadieron algunos
+Y por último, como otro gran apartado de este sprint, se añadieron algunos
 conceptos que se han utilizado en la aplicación sobre el tratamiento de datos.
 Pese a que la aplicación no realiza un pre-procesado completo, convenía explicar
 la codificación de variables categóricas, el análisis de componentes principales
@@ -1065,15 +1082,16 @@ Además, también se realizaron numerosos cambios:
 \begin{itemize}
     \item Se eliminó el efecto <<hover>> en la barra de navegación que causaba
     muchos problemas en móviles.
-    \item Los parámetros mostrados en las ejecuciones se muestran de forma
-    legible (nombre apropiados, no los identificadores de los formularios) y con
-    traducciones acordes.
-    \item Control de errores en la visualización.
-    \item Pseudocódigo Tri-Training (actualizado y añadido a Web).
-    \item Fijar dependencias del proyecto.
+    \item Se mejoró la visualización de los parámetros de las ejecuciones para
+    que fuera más legible (nombre apropiados, no los identificadores de los
+    formularios) y con traducciones acordes.
+    \item Hacer el control de errores en la visualización.
+    \item Se actualizó el pseudocódigo del \emph{Tri-Training} y se añadió a la
+    página web. (actualizado y añadido a Web).
+    \item Se fijaron dependencias del proyecto.
     \item Se mejoró la comprobación de las extensiones de ficheros para que
     obligatoriamente terminen en <<.arff>> o <<.csv>>.
-    \item Diagrama de despliegue en el diseño.
+    \item Se añadió el diagrama de despliegue en el diseño.
 \end{itemize}
 
 \subsection{Sprint 19}
@@ -1085,8 +1103,8 @@ Puntos a desarrollar:
     \item Añadir Scrum como técnica.
 \end{enumerate}
 
-El desarrollo se vio ralentizado en este Sprint debido al periodo de
-convocatoria final.
+El desarrollo se vio ralentizado en este sprint debido al periodo de
+convocatoria final de evaluación.
 
 Para ir completando los anexos se añadió tanto la viabilidad legal como
 económica. En el caso de la económica se contaba con algún ejemplo de cómo se
@@ -1096,9 +1114,9 @@ empleados y de activos \textit{hardware} y \textit{software}. Además, se tomó 
 decisión lógica de no incluir beneficios, ya que se trata de una aplicación
 completamente docente y pensada para que cualquiera pueda usarla.
 
-En cuanto a la legal, se estudiaron todas las licencias del \textit{software}
-que se ha empleado para determinar cuál sería la correcta. Finalmente se escogió
-la licencia BSD 3-Clause.
+En cuanto a la viabilidad legal, se estudiaron todas las licencias del
+\textit{software} que se ha empleado para determinar cuál sería la más
+apropiada. Finalmente se escogió la licencia \textit{BSD 3-Clause}.
 
 Como la metodología Scrum es altamente utilizada (y ya no resulta una clara
 novedad), se incluyó en las técnicas una pequeña explicación de todo lo que
@@ -1113,7 +1131,7 @@ Puntos a desarrollar:
     \item Terminar conceptos teóricos.
     \item Añadir la descripción de los formatos de \textit{tooltip}.
     \item Añadir pruebas del sistema.
-    \item Revisión general.
+    \item Hacer una revisión general de la aplicación, memoria y anexos.
 \end{enumerate}
 
 En sprint lo que planificó era tener todo el proyecto lo más cerca posible al
@@ -1140,9 +1158,10 @@ hacerlo lo más parejo posible. Aunque sigue apareciendo mayor variación que el
 resto de los algoritmos, se puede comparar perfectamente y llegar a la misma
 conclusión.
 
-En cuanto a los conceptos teóricos, se añadió la descripción de Tri-Training (el
-pseudocódigo ya estaba incluido). Para ello se revisó de nuevo el artículo
-correspondiente para incluir la idea general más importante.
+En cuanto a los conceptos teóricos, se añadió la descripción de
+\textit{Tri-Training} (el pseudocódigo ya estaba incluido). Para ello se revisó
+de nuevo el artículo correspondiente para incluir la idea general más
+importante.
 
 Algo que podía ser muy confuso para un usuario nuevo es la multitud de formatos
 de \textit{tooltip} de la visualización. Se añadió la explicación de cada uno
@@ -1151,8 +1170,9 @@ para cada algoritmo en el manual de usuario.
 En cuanto a los anexos (a expensas de revisar y perfeccionar), el apartado que
 faltaba era el de las pruebas del sistema en el manual del programador. Por
 sugerencia de los tutores, se ha utilizado Selenium como entorno de pruebas.
-Además, en la asignatura de Validación y Pruebas se utilizó Katalon Recorder,
-que utiliza Selenium. Esto facilitó la parte de las pruebas automáticas.
+Además, en la asignatura de <<Validación y Pruebas>> se utilizó Katalon
+Recorder, que utiliza Selenium. Esto facilitó la parte de las pruebas
+automáticas.
 
 La idea de las pruebas era tener los suficientes casos de prueba que asegurasen
 el funcionamiento de la aplicación. De hecho, durante algunos cambios que se
@@ -1168,11 +1188,11 @@ Durante todo el sprint se intentaba corregir todo lo que se veía como mejora
     contextual (no los de la visualización) sustituyéndolos por los de bootstrap.
     \item Arreglar adaptabilidad en el panel de administración ya que las tablas
     de las pestañas dos y tres no se ajustaban (solo la primera).
-    \item Las rutas de los usuarios fueron anonimizadas, en el sentido de que
-    hasta ahora se incluía por ejemplo el identificador del usuario en la base
-    de datos (algo como \texttt{/perfil/2}). Convenía no mostrar estos valores
+    \item Anonimizar las rutas de usuario, en el sentido de que hasta ahora se
+    incluía por ejemplo el identificador del usuario en la base de datos (algo
+    como \texttt{/perfil/2}). Convenía no mostrar estos valores
     (\texttt{/perfil}).
-    \item Traducciones.
+    \item Añadir traducciones.
     \item Justificar el por qué de la licencia BSD 3-Clause.
 \end{itemize}
 
@@ -1203,7 +1223,7 @@ un modelo de un robot en Dall-e\footnote{\url{https://openai.com/dall-e-2}}
 (consejo de los tutores). A partir de aquí, se fue modificando el logo base
 adecuándolo al contexto de los algoritmos.
 \begin{itemize}
-    \item SelfTraining: Único robot.
+    \item Self-Training: Único robot.
     \item Co-Training: Son dos clasificadores (dos robots) pero están combinados
     (funcionamiento interno del algoritmo), ya que es como si actuaran como uno
     solo, pero cada uno ve una parte de los datos (\emph{multi-view}).
@@ -1300,8 +1320,8 @@ El cómputo del salario bruto del alumno, suponiendo un salario de
 Licenciados en~\cite{cotizacion2023} es:
 
 \begin{center}
-$4.5 \frac{horas}{día} \times 7 \frac{días}{semana} \times 11
-\frac{\text{\texteuro}}{hora} \times 4 \frac{semanas}{mes} = 1\,386\frac{\text{\texteuro}}{mes} $
+$4.5 \frac{\text{horas}}{\text{día}} \times 7 \frac{\text{días}}{\text{semana}} \times 11
+\frac{\text{\texteuro}}{\text{hora}} \times 4 \frac{\text{semanas}}{\text{mes}} = 1\,386\frac{\text{\texteuro}}{\text{mes}} $
 \end{center}
 
 Para el caso de los supervisores (tutores), el tiempo empleado de ambos es de 2
@@ -1310,8 +1330,8 @@ mismas bases mínimas anteriores, y añadiendo cuatro euros debido al cargo
 superior, el salario bruto es:
 
 \begin{center}
-$2 \frac{horas}{semana} \times 15 \frac{\text{\texteuro}}{hora} \times 4
-\frac{semanas}{mes} = 120\frac{\text{\texteuro}}{mes} $
+$2 \frac{\text{horas}}{\text{semana}} \times 15 \frac{\text{\texteuro}}{\text{hora}} \times 4
+\frac{\text{semanas}}{\text{mes}} = 120\frac{\text{\texteuro}}{\text{mes}} $
 \end{center}
 
 
@@ -1343,7 +1363,7 @@ empleados es:
 
 \begin{figure}[H]
 \begin{center}
-    $Gasto~de~la~empresa = \frac{Salario}{1-(0.236+0.055+0.002+0.006)}$
+    $\text{Gasto de la empresa} = \frac{\text{Salario}}{1-(0.236+0.055+0.002+0.006)}$
 \end{center}
 \caption{Cálculo del gasto de la empresa por empleado}
 \end{figure}
@@ -1386,7 +1406,7 @@ amortización se realiza de la siguiente forma:
 
 \begin{figure}[H]
 \begin{center}
-$Amortización = \frac{Coste}{Vida~útil} \times \frac{5}{12}$
+$\text{Amortización} = \frac{\text{Coste}}{\text{Vida útil}} \times \frac{5}{12}$
 \end{center}
 \caption{Cálculo de la amortización para este proyecto}
 \end{figure}
@@ -1434,7 +1454,7 @@ anteriores. A estos se le añade otros gastos considerados.
 \begin{tabular}{lr}
 \toprule
 \textbf{Concepto}      & \textbf{Coste (€)}     \\ \midrule
-Dominio <<dmacha.dev>>     & 12,00                    \\
+Dominio \texttt{dmacha.dev}     & 12,00                    \\
 12\% costes                & 1\,448,39                     \\ \midrule
 \textbf{Total}       & 1\,460,39                     \\ \midrule
 \end{tabular}
@@ -1468,7 +1488,7 @@ El coste total del proyecto, finalmente, es de 13\,530,30\texteuro.
 
 La aplicación no está pensada para extraer beneficio con su uso. Se trata de una
 aplicación de índole docente que permite el acceso completo a todos los
-usuarios. Esto incluye las ventajas que un usuario registrado tiene sobre un
+usuarios. Esto incluye las ventajas que un usuario registrado tiene sobre uno
 anónimo, este último puede adquirir dichas ventajas de forma gratuita
 (registro).
 
@@ -1485,28 +1505,28 @@ más restrictiva y seleccionar acordemente la de este proyecto.
     \begin{tabular}{lcl}
     \toprule
     \textbf{Librería}         & \textbf{Versión} & \textbf{Licencia}                        \\ \midrule
-    \textit{pandas}           & 1.4.3            & BSD 3                                    \\
+    \textit{Pandas}           & 1.4.3            & BSD 3                                    \\
     \textit{Babel}            & 2.11.0           & BSD 3                                    \\
     \textit{Flask}            & 2.2.5            & BSD 3                                    \\
-    \textit{flask-babel}      & 3.0.1            & BSD 3                                    \\
+    \textit{Flask-babel}      & 3.0.1            & BSD 3                                    \\
     \textit{Flask-SQLAlchemy} & 3.0.3            & BSD 3                                    \\
     \textit{Flask-Login}      & 0.6.2            & MIT                                      \\
-    \textit{scikit-learn}     & 1.2.0            & BSD 3                                    \\
-    \textit{numpy}            & 1.23.3           & BSD 3                                    \\
-    \textit{scipy}            & 1.9.3            & BSD 3                                    \\
-    \textit{setuptools}       & 65.5.1           & MIT                                      \\
-    \textit{pytest}           & 7.2.0            & MIT                                      \\
+    \textit{Scikit-learn}     & 1.2.0            & BSD 3                                    \\
+    \textit{Numpy}            & 1.23.3           & BSD 3                                    \\
+    \textit{Scipy}            & 1.9.3            & BSD 3                                    \\
+    \textit{Setuptools}       & 65.5.1           & MIT                                      \\
+    \textit{Pytest}           & 7.2.0            & MIT                                      \\
     \textit{Werkzeug}         & 2.2.3            & BSD 3                                    \\
-    \textit{matplotlib}       & 3.7.1            & PSF\tablefootnote{Python
+    \textit{Matplotlib}       & 3.7.1            & PSF\tablefootnote{Python
     Software Foundation License. A afectos prácticos solo conlleva realizar un
     pequeño resumen de lo que se ha modificado (y solo en caso de
     modificación/adición)~\cite{psf}.} \\
     \textit{WTForms}          & 3.0.1            & BSD 3                                    \\
     \textit{Flask-WTF}        & 1.1.1            & BSD 3                                    \\
     \textit{SQLAlchemy}       & 2.0.13           & MIT                                      \\
-    \textit{sslearn}          & 1.0.3.1          & BSD 3                                    \\
-    \textit{imbalanced-learn} & 0.10.1           & MIT                                      \\
-    \textit{gunicorn}         & 20.1.0           & MIT                                      \\
+    \textit{Sslearn}          & 1.0.3.1          & BSD 3                                    \\
+    \textit{Imbalanced-learn} & 0.10.1           & MIT                                      \\
+    \textit{Gunicorn}         & 20.1.0           & MIT                                      \\
     \textit{Bootstrap}        & 5.2.3            & MIT                                      \\
     \textit{D3js}             & 7.8.4            & ISC\tablefootnote{Internet Systems Consortium, equivalente a MIT.}                 \\
     \textit{jQuery}           & 3.6.4            & MIT                                      \\
@@ -1530,7 +1550,7 @@ ello que su permisividad se ha considerado algo menor.
 
 \paragraph{Selección}
 Para seleccionar la licencia apropiada a este proyecto se tiene en cuenta que
-incluir una licencia menos restrictiva que \texttt{BSD 3-Clause} podría
+incluir una licencia menos restrictiva que \textit{BSD 3-Clause} podría
 incumplir alguna de las <<cláusulas>> que esta impone. Por tanto, para mantener
 esas normas y condiciones impuestas, el proyecto tendrá la licencia \textbf{BSD
 3-Clause}.
@@ -1568,8 +1588,8 @@ esas normas y condiciones impuestas, el proyecto tendrá la licencia \textbf{BSD
     derechos de autor anterior, esta lista de condiciones y el siguiente
     descargo de responsabilidad en la documentación y/u otros materiales
     provistos con la distribución.
-    \item Ni el nombre del titular de los derechos de autor ni los nombres de
-    sus colaboradores pueden utilizarse para respaldar o promocionar productos
+    \item Ni el nombre del titular de los derechos de autor, ni los nombres de
+    sus colaboradores, pueden utilizarse para respaldar o promocionar productos
     derivados de este software sin el permiso previo por escrito.
 \end{enumerate}
 

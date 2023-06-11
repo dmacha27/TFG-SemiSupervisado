@@ -49,8 +49,12 @@
     ·
     <a href="https://github.com/dma1004/TFG-SemiSupervisado/issues">Solicitar nueva característica</a>
   </p>
-</div>
 
+    Usuario de prueba con privilegios (no eliminar):
+
+    Correo electrónico: admin@admin.es
+    Contraseña: 12345678
+</div>
 
 
 <!-- TABLE OF CONTENTS -->
@@ -169,7 +173,7 @@ Principalmente para un entorno Linux:
 Para usar la aplicación solo será necesario tener un navegador (Firefox, Google Chrome, Edge...)
 y acceder a [VASS](https://vass.dmacha.dev)
 
-Un manual de usuario completo puede encontrarse en la [Documentación](https://github.com/dma1004/TFG-SemiSupervisado/tree/main/doc/anexos.pdf).
+Un manual de usuario completo puede encontrarse en la [Documentación](https://github.com/dma1004/TFG-SemiSupervisado/tree/main/doc/).
 
 <p align="right">(<a href="#readme-top">volver al principio</a>)</p>
 

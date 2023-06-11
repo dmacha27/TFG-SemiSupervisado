@@ -8,10 +8,10 @@ registrado qué es lo que la aplicación debe hacer (y cómo).
 \section{Objetivos generales}
 Los objetivos del proyecto pueden resumirse en los siguientes:
 \begin{enumerate}
-    \item Implementación de Self-Training, Co-Training, Democratic Co-Learning y
-    Tri-Training.
-    \item Creación de una aplicación Web e integración de los cuatro algoritmos
-    en la aplicación Web para su visualización.
+    \item Implementación de \textit{Self-Training}, \textit{Co-Training},
+    \textit{Democratic Co-Learning} y \textit{Tri-Training}.
+    \item Creación de una aplicación web e integración de los cuatro algoritmos
+    en la aplicación web para su visualización.
     \item Sistema de usuarios que les permita controlar sus ficheros y
     ejecuciones.
     \item Administración de los usuarios y todos los ficheros y ejecuciones
@@ -19,7 +19,7 @@ Los objetivos del proyecto pueden resumirse en los siguientes:
 \end{enumerate}
 
 El núcleo del proyecto, pese a la importancia de las implementaciones los
-algoritmos, es la aplicación Web, pues representa la parte interactiva del
+algoritmos, es la aplicación web, pues representa la parte interactiva del
 proyecto. Por este motivo, el presente apartado analizará con precisión qué es
 lo que la aplicación debe hacer (con sus limitaciones).
 
@@ -27,7 +27,7 @@ lo que la aplicación debe hacer (con sus limitaciones).
 
 Como se ha comentado, existirá un sistema de usuarios en el que podrán
 diferenciarse: Usuario, Administrador y Anónimo (este último así lo denomina el
-sistema de gestión de cuentas utilizado, \texttt{Flask-Login}). 
+sistema de gestión de cuentas utilizado, \textit{Flask-Login}). 
 
 \begin{itemize}
 	\item \textbf{Anónimo}: Usuario que no posee una cuenta registrada en el sistema, es
@@ -38,8 +38,8 @@ sistema de gestión de cuentas utilizado, \texttt{Flask-Login}).
 	igual que el anónimo base, puede utilizar la aplicación, pero además, los
 	ficheros (conjuntos de datos) y ejecuciones son almacenados en el sistema.
 	\item \textbf{Administrador}: Usuario que posee una cuenta registrada con
-	privilegios. Es exactamente lo mismo que un Usuario, con la particularidad
-	de que podrá, además, gestionar estos Usuarios, todos los ficheros y todas
+	privilegios. Es exactamente lo mismo que un usuario, con la particularidad
+	de que podrá, además, gestionar estos usuarios, todos los ficheros y todas
 	las ejecuciones (de todos los usuarios). 
 \end{itemize}
 
@@ -74,7 +74,7 @@ funcionales.
             (iteración anterior/siguiente).
             \item \textbf{RF-1.3.1 Interacción con el gráfico principal}: el
             gráfico principal debe mostrar información relevante en un
-            \texttt{tooltip} cuando el usuario interactúe con cada punto.
+            \textit{tooltip} cuando el usuario interactúe con cada punto.
         \end{itemize}
     \end{itemize}
     
@@ -187,10 +187,11 @@ restricciones son aplicadas de forma intrínseca en el desarrollo.
 	funcionalidad al sistema, concretamente, la adición de nuevos algoritmos
 	debe implicar pocas modificaciones.
 	\item \textbf{RNF-9 Robustez}: el sistema debe ser altamente capaz de
-	manejar los errores durante la ejecución (entradas erróneas, bugs...),
-	mostrando información precisa al usuario y recuperándose de ellos a una
-	situación estable.
-	\item \textbf{RNF-10 Internacionalización}: el sistema debe soportar múltiples idiomas.
+	manejar los errores durante la ejecución (entradas erróneas,
+	\textit{bugs}...), mostrando información precisa al usuario y recuperándose
+	de ellos a una situación estable.
+	\item \textbf{RNF-10 Internacionalización}: el sistema debe estar preparado
+	para soportar múltiples idiomas.
 
 \end{itemize}
 
@@ -229,7 +230,7 @@ casos de uso representados en el diagrama anterior.
 		\textbf{Postcondición}        & Visualizaciones renderizadas en la Web \\
 		\textbf{Excepciones}          & \begin{itemize}
 			\item Excepciones de los casos de uso ejecutados controladas por ellos mismos.
-			\item El conjunto de datos tenía atributos nominales (paso 4). En este caso se mostrará un mensaje (en forma de modal) y al cerrarlo volverá al paso 3.
+			\item El conjunto de datos tenía atributos nominales (paso 4). En este caso se mostrará un mensaje (modal) y al cerrarlo volverá al paso 3.
 			\item La ejecución del algoritmo finalizó con excepciones (paso 4), serán capturadas y se volverá al paso 3.
 		\end{itemize}	 \\
 		\textbf{Importancia}          & Alta\\
@@ -259,7 +260,7 @@ casos de uso representados en el diagrama anterior.
 			\item El usuario selecciona un algoritmo haciendo clic en el nombre del algoritmo en la barra de navegación.
 			\item Se redirige al usuario a la página de subida.
 		\end{enumerate}\\
-        \textbf{Acciones alternativas}&
+        \textbf{Acciones\newline alternativas}&
 		\begin{enumerate}
 			\def\labelenumi{\arabic{enumi}.}
 			\tightlist
@@ -402,7 +403,7 @@ casos de uso representados en el diagrama anterior.
 		\textbf{Postcondición}        & El usuario ha sido registrado en el sistema (base de datos) y se encuentra con sesión iniciada. \\
 		\textbf{Excepciones}          & \begin{itemize}
 			\item Un campo del formulario no se ha rellenado. Se impedirá enviar el formulario instando al usuario a completar todos los campos.
-			\item El \texttt{email} ya tiene una cuenta registrada. Se mostrará un mensaje de error debajo del campo.
+			\item El \emph{email} ya tiene una cuenta registrada. Se mostrará un mensaje de error debajo del campo.
 			\item La contraseña de confirmación no coincide. Se mostrará un mensaje de error debajo del campo.
 		\end{itemize}\\
 		\textbf{Importancia}          & Media \\
@@ -438,7 +439,7 @@ casos de uso representados en el diagrama anterior.
 		\textbf{Postcondición}        & El usuario ha iniciado sesión y se encuentra en la página principal. \\
 		\textbf{Excepciones}          & \begin{itemize}
 			\item Un campo no se ha rellenado. Se impedirá el envío del formulario instando al usuario a completar todos los campos.
-			\item El \texttt{email} no está en el sistema. Se mostrará un mensaje de error debajo del campo.
+			\item El \emph{email} no está en el sistema. Se mostrará un mensaje de error debajo del campo.
 			\item La contraseña no coincide con la almacenada. Se mostrará un mensaje de error debajo del campo.
 		\end{itemize}\\
 		\textbf{Importancia}          & Media \\
@@ -502,7 +503,7 @@ casos de uso representados en el diagrama anterior.
 		\textbf{Postcondición}        & Los datos del usuario se han actualizado en la base de datos y mantiene su sesión. \\
 		\textbf{Excepciones}          & \begin{itemize}
 			\item No se ha introducido contraseña actual. En este caso, se impedirá el envío del formulario instando al usuario a rellenar ese campo.
-			\item El \texttt{email} ha sido modificado y el nuevo ya está en el sistema. En este caso, se mostrará un mensaje de error debajo del campo (no conllevará cambios).
+			\item El \emph{email} ha sido modificado y el nuevo ya está en el sistema. En este caso, se mostrará un mensaje de error debajo del campo (no conllevará cambios).
 			\item La contraseña actual no coincide con la almacenada. En este caso, se mostrará un mensaje de error debajo del campo y no se modificarán los datos.
 		\end{itemize}\\
 		\textbf{Importancia}          & Baja \\
@@ -654,12 +655,12 @@ casos de uso representados en el diagrama anterior.
 			\def\labelenumi{\arabic{enumi}.}
 			\tightlist
 			\item El usuario decide qué conjunto de datos eliminar sobre la tabla de conjuntos de datos.
-			\item El usuario pulsa en el botón rojo con el símbolo de \textit{papelera}  en esa fila.
+			\item El usuario pulsa en el botón rojo con el símbolo de papelera en esa fila.
 			\item Se mostrará un <<modal>> para confirmar la operación.
 			\item El usuario confirma la operación.
 			\item El fichero se ha eliminado y ha desaparecido de la tabla.
 		\end{enumerate}\\
-		\textbf{Acciones alternativas}&
+		\textbf{Acciones\newline alternativas}&
 		\begin{enumerate}
 			\def\labelenumi{\arabic{enumi}.}
 			\tightlist
@@ -695,12 +696,12 @@ casos de uso representados en el diagrama anterior.
 			\def\labelenumi{\arabic{enumi}.}
 			\tightlist
 			\item El usuario decide qué ejecución eliminar sobre la tabla de ejecuciones.
-			\item El usuario pulsa en el botón rojo con el símbolo de \textit{papelera} en esa fila.
+			\item El usuario pulsa en el botón rojo con el símbolo de papelera en esa fila.
 			\item Se mostrará un <<modal>> para confirmar la operación.
 			\item El usuario confirma la operación.
 			\item La ejecución se ha eliminado y ha desaparecido de la tabla.
 		\end{enumerate}\\
-		\textbf{Acciones alternativas}&
+		\textbf{Acciones\newline alternativas}&
 		\begin{enumerate}
 			\def\labelenumi{\arabic{enumi}.}
 			\tightlist
@@ -736,7 +737,7 @@ casos de uso representados en el diagrama anterior.
 			\def\labelenumi{\arabic{enumi}.}
 			\tightlist
 			\item El administrador decide qué usuario editar.
-			\item El administrador pulsa en el botón verde con el símbolo de \textit{lápiz} en esa fila.
+			\item El administrador pulsa en el botón verde con el símbolo de lápiz en esa fila.
 			\item Se redirige a la página de personalización del perfil.
 			\item Se muestra al administrador el punto de vista del usuario que se está editando con un indicativo.
 			\item El administrador modifica los campos que desee del usuario.
@@ -771,12 +772,12 @@ casos de uso representados en el diagrama anterior.
 			\def\labelenumi{\arabic{enumi}.}
 			\tightlist
 			\item El usuario decide qué usuario eliminar sobre la tabla de usuarios.
-			\item El usuario pulsa en el botón rojo con el símbolo de \textit{papelera} en esa fila.
+			\item El usuario pulsa en el botón rojo con el símbolo de papelera en esa fila.
 			\item Se mostrará un <<modal>> para confirmar la operación.
 			\item El usuario confirma la operación.
 			\item La ejecución se ha eliminado y ha desaparecido de la tabla.
 		\end{enumerate}\\
-		\textbf{Acciones alternativas}&
+		\textbf{Acciones\newline alternativas}&
 		\begin{enumerate}
 			\def\labelenumi{\arabic{enumi}.}
 			\tightlist

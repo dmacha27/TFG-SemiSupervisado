@@ -60,7 +60,7 @@ Estos son los directorios en los que se organiza el proyecto:
             archivos de texto plano con código \LaTeX{.}\\
         \end{minipage}.
         .2 \textbf{web}: \begin{minipage}[t]{8cm}
-            aplicación Web (\emph{se expandirá en las siguientes páginas}){.}\\
+            aplicación web (\emph{se expandirá en las siguientes páginas}){.}\\
         \end{minipage}.
         .2 \textbf{videos}: \begin{minipage}[t]{10cm}
             videotutoriales de la aplicación{.}\\
@@ -71,7 +71,7 @@ Estos son los directorios en los que se organiza el proyecto:
 \begin{figure}[H]
     \dirtree{%
         .1 \textbf{web}: \begin{minipage}[t]{10cm}
-            estructura o código de la aplicación Web{.}\\
+            aplicación web{.}\\
         \end{minipage}. 
         .2 \textbf{app}: \begin{minipage}[t]{10cm} contiene la
         definición de las rutas, modelos de la base de datos y la
@@ -97,7 +97,7 @@ Estos son los directorios en los que se organiza el proyecto:
             solo de los usuarios registrados{.}\\
         \end{minipage}.
         .3 \textbf{static}: \begin{minipage}[t]{10cm}
-            ficheros estáticos que utiliza la aplicación Web: CSS,
+            ficheros estáticos que utiliza la aplicación web: CSS,
             Javascript, JSON o imágenes{.}\\
         \end{minipage}.
         .4 \textbf{css}: \begin{minipage}[t]{10cm}
@@ -121,17 +121,9 @@ Estos son los directorios en los que se organiza el proyecto:
 
 \begin{figure}[H]
     \dirtree{%
-        .1 \textbf{web}: \begin{minipage}[t]{10cm}
-            estructura o código de la aplicación Web{.}\\
-        \end{minipage}. 
-        .2 \textbf{app}: \begin{minipage}[t]{10cm} contiene la
-        definición de las rutas, modelos de la base de datos y la
-        \texttt{Application Factory} que instancia la aplicación{.}\\
-        \end{minipage}.
-        .3 \textbf{static}: \begin{minipage}[t]{10cm}
-            ficheros estáticos que utiliza la aplicación Web: CSS,
-            Javascript, JSON o imágenes{.}\\
-        \end{minipage}.
+        .1 \textbf{web}. 
+        .2 \textbf{app}.
+        .3 \textbf{static}.
         .4 \textbf{json}: \begin{minipage}[t]{10cm}
             ficheros JSON{.}\\
         \end{minipage}.
@@ -145,7 +137,7 @@ Estos son los directorios en los que se organiza el proyecto:
             imágenes de los pseudocódigos en español{.}\\
         \end{minipage}.
         .3 \textbf{templates}: \begin{minipage}[t]{10cm}
-            plantillas HTML (Jinja2) que renderiza la aplicación Web
+            plantillas HTML (Jinja2) que renderiza la aplicación web
             (Flask){.}\\
         \end{minipage}.
         .4 \textbf{configuracion}: \begin{minipage}[t]{6cm}
@@ -212,11 +204,12 @@ sudo apt install git-all
 \end{tcolorbox}
 
 Si el entorno es Windows, existe un instalador directo que puede descargarse
-desde la página de Git SCM (Source code management)\footnote{Git para Windows:
-\url{https://git-scm.com/download/win}}.
+desde la página de Git SCM (\textit{Source code management})\footnote{Git para
+Windows: \url{https://git-scm.com/download/win}}.
 
-Pycharm se puede descargar tanto para Windows como Linux en la página oficial de
-JetBrains\footnote{Pycharm: \url{https://www.jetbrains.com/pycharm/download/}}.
+Pycharm se puede descargar tanto para Windows como para Linux en la página
+oficial de JetBrains\footnote{Pycharm:
+\url{https://www.jetbrains.com/pycharm/download/}}.
 
 \subsection{Comprensión de la estructura}
 
@@ -225,14 +218,14 @@ directorios del proyecto con una breve descripción. La preparación del entorno
 virtual con el que trabajar se explicará en la próxima sección.
 
 El proyecto se desarrolla en dos ramas comunicadas (de forma unidireccional):
-los algoritmos implementados y la aplicación Web. La aplicación es la que
-utiliza los algoritmos para obtener la información presentada en la Web.
+los algoritmos implementados y la aplicación web. La aplicación es la que
+utiliza los algoritmos para obtener la información presentada en la web.
 
 \paragraph{Algoritmos semi-supervisados} (contenidos en el directorio
 \texttt{algoritmos}): Los algoritmos desarrollados y nuevos han de situarse en
-este directorio como raíz. La idea es que cada fichero <<.py>>, homónimo al
-algoritmo, contenga la definición de un objeto que encapsule el desarrollo del
-mismo.
+este directorio como raíz. La idea es que cada fichero <<\texttt{.py}>>,
+homónimo al algoritmo, contenga la definición de un objeto que encapsule el
+desarrollo del mismo.
 
 Estructura de los objetos (mínima):
 
@@ -261,9 +254,9 @@ def fit(x, y, x_test, y_test, features)
 \end{tcolorbox}
 
 Es importante tener en cuenta que esta estructura puede variar en la medida de
-cómo sea el algoritmo. Por ejemplo, en el caso de Democratic Co-Learning se
-hacía imprescindible añadir estadísticas específicas para cada clasificador que
-encapsula y por tanto, retornaba más elementos.
+cómo sea el algoritmo. Por ejemplo, en el caso de \textit{Democratic
+Co-Learning} se hacía imprescindible añadir estadísticas específicas para cada
+clasificador que encapsula y por tanto, retornaba más elementos.
 
 \textbf{Método de predicción}: En el caso de algoritmos que trabajan con un único
 clasificador podría ser opcional, pero en el caso de varios, es necesario
@@ -325,9 +318,10 @@ instancia la base de datos y se registran las rutas (organizadas con
 
 \textbf{Blueprints}: Las rutas que tiene la aplicación están organizadas en
 función de su categoría mediante los Blueprints. Y es en los ficheros que
-terminan por <<\_routes.py>> donde se definen. Si se añade una categoría nueva
-se debe crear un Blueprint que la identifique dentro de su fichero y después
-debe ser registrado en la aplicación (en \texttt{\_\_init\_\_.py}).
+terminan por <<\texttt{\_routes.py}>> donde se definen. Si se añade una
+categoría nueva se debe crear un Blueprint que la identifique dentro de su
+fichero y después debe ser registrado en la aplicación (en
+\texttt{\_\_init\_\_.py}).
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Crear Blueprint]
 \begin{minted}{python}
@@ -343,11 +337,12 @@ app.register_blueprint(nuevo_bp, url_prefix='/')
 \end{minted}
 \end{tcolorbox}
 
-\textbf{Modelos de la base de datos}: En <<models.py>> se tienen definidas todas
-las entidades que maneja la aplicación: \texttt{Users}, \texttt{Datasets} y
-\texttt{Runs}. Si se desea añadir alguna, primero se debe crear aquí la
-definición de la misma. Para que la aplicación sepa las entidades que debe
-manejar, también es recomendable importarla en la creación de la aplicación.
+\textbf{Modelos de la base de datos}: En <<\texttt{models.py}>> se tienen
+definidas todas las entidades que maneja la aplicación: \texttt{Users},
+\texttt{Datasets} y \texttt{Runs}. Si se desea añadir alguna, primero se debe
+crear aquí la definición de la misma. Para que la aplicación sepa las entidades
+que debe manejar, también es recomendable importarla en la creación de la
+aplicación.
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Importar modelo (en <<create\_app()>> de \texttt{\_\_init\_\_.py})]
     \begin{minted}{python}
@@ -377,10 +372,10 @@ usuario el nombre del algoritmo.
 \textbf{Formularios}: A la hora de crear un nuevo algoritmo, y como se ha
 comentado, el usuario tiene un paso de configuración del mismo. Esto se realiza
 mediante un formulario. Para crear uno (WTForm), se debe crear su objeto
-correspondiente en <<forms.py>> con los campos necesarios. Hasta el momento, los
-algoritmos que hay implementados tienen una parte en común que está definida en
-la clase <<\texttt{FormConfiguracionBase}>> y en principio, si se añade uno
-nuevo, deberá extender dicha clase.
+correspondiente en <<\texttt{forms.py}>> con los campos necesarios. Hasta el
+momento, los algoritmos que hay implementados tienen una parte en común que está
+definida en la clase <<\texttt{FormConfiguracionBase}>> y en principio, si se
+añade uno nuevo, deberá extender dicha clase.
 
 \textbf{Plantillas (templates)}: Flask utiliza el motor de plantillas Jinja2,
 que añaden instrucciones en HTML. Obviando que cada algoritmo tiene sus
@@ -418,8 +413,8 @@ directamente en \texttt{templates}.
 
 \textbf{Ficheros estáticos (static)}: 
 
-El contenido dinámico debe ser creado mediante Javascript, de forma <<vanilla>>
-(sin utilizar <<frameworks>>). 
+El contenido dinámico debe ser creado mediante Javascript, de forma
+<<\textit{vanilla}>> (sin utilizar \textit{frameworks}). 
 
 Al igual que con las plantillas, es completamente necesario mantener la
 organización actual de las carpetas, las funciones que se añadan deberán
@@ -453,7 +448,7 @@ plantillas existentes de ejemplo.
 
 Otra parte muy importante es si se quieren añadir nuevos clasificadores base con
 sus parámetros. La especificación de los mismos está almacenada en el fichero
-JSON <<parametros.json>>. 
+JSON <<\texttt{parametros.json}>>. 
 
 Hasta el momento del desarrollo solo existen dos tipos de entradas, los
 selectores y los numéricos.
@@ -481,16 +476,16 @@ selectores y los numéricos.
 \end{minted}
 \end{tcolorbox}
 
-Con <<step>> se debe tener en cuenta la posibilidad de permitir números enteros
-(al introducir 1) o números decimales (al incluir un flotante, por ejemplo,
-0.01).
+Con <<\textit{step}>> se debe tener en cuenta la posibilidad de permitir números
+enteros (al introducir 1) o números decimales (al incluir un flotante, por
+ejemplo, 0.01).
 
 Según se ha codificado, la aparición de este nuevo clasificador será automática,
 ya que una vez leído este fichero, JavaScript lo recorre creando tantas opciones
 en los selectores como clasificadores haya y a su vez, todos los parámetros de
 estos clasificadores.
 
-Además de esto, hay tres zonas en la lógica de los \texttt{endpoints} que deben
+Además de esto, hay tres zonas en la lógica de los \textit{endpoints} que deben
 ser modificadas si se añade un algoritmo. En <<\texttt{data\_routes.py}>>,
 <<\texttt{configuration\_routes.py}>> y <<\texttt{visualization\_routes.py}>> se
 tiene código específico para cada algoritmo. La <<activación>> de cada código se
@@ -507,15 +502,16 @@ el formulario mediante una función creada para ello.
 
 \textbf{Conjunto de datos (\textit{datasets})}: Los conjuntos de datos de los
 usuarios (vinculados a sus sesiones) se almacenan localmente en la aplicación
-con el <<Timestamp>> concatenado al nombre del fichero introducido.
+con el <<\textit{timestamp}>> concatenado al nombre del fichero introducido.
 
 Para agilizar el proceso del mantenimiento (principalmente del almacenamiento
 del servidor), los ficheros subidos por usuarios anónimos se guardan en una
-sub-carpeta distinta a la de los usuarios registrados. Con <<current\_user>> de
-\texttt{Flask-Login} se puede conocer si se trata de usuarios anónimos o
-registrados. En función de esto, la aplicación tiene almacenada una ruta para
-los ficheros anónimos (<<CARPETA\_DATASETS\_ANONIMOS>>) y otra para los
-registrados (<<CARPETA\_DATASETS\_REGISTRADOS>>).
+sub-carpeta distinta a la de los usuarios registrados. Con
+<<\texttt{current\_user}>> de \texttt{Flask-Login} se puede conocer si se trata
+de usuarios anónimos o registrados. En función de esto, la aplicación tiene
+almacenada una ruta para los ficheros anónimos
+(<<\texttt{CARPETA\_DATASETS\_ANONIMOS}>>) y otra para los registrados
+(<<\texttt{CARPETA\_DATASETS\_REGISTRADOS}>>).
 
 \textbf{Internacionalización}: La aplicación está pensada para ser
 internacionalizada en cualquier idioma, aunque solo se ha incluido inglés y
@@ -530,19 +526,19 @@ durante el posterior desarrollo, se han considerado dos alternativas.
 
 Para el caso de las visualizaciones, en la plantilla
 <<\texttt{base\_visualizacion}>> se ha incluido una función de traducción
-embebida directamente en <<\texttt{</script>}>>. Al incluirse de esta forma,
-Babel sí puede capturar esas funciones y al acceder a la función retornar el
-texto adecuado. 
+embebida directamente en <<\texttt{<script>}\footnote{Etiqueta HTML}>>. Al
+incluirse de esta forma, Babel sí puede capturar esas funciones y al acceder a
+la función retornar el texto adecuado. 
 
 La otra posibilidad es mediante diccionarios y la declaración de una variable
 que indique el idioma (\textit{locale}) en HTML. Por ejemplo, en el espacio
 personal (plantilla <<\texttt{miespacio}>>) y en el panel de administración
 (plantilla <<\texttt{admin}>>), se ha definido una constante que consulta el
 idioma actual (es una variable global declarada en Flask con
-<<@app.context\_processor>>). A partir de aquí, cuando existe un texto generado
-en JavaScript que necesita ser traducido, se define un diccionario que contiene
-en los valores las palabras deseadas. Este diccionario realmente será un
-diccionario de diccionarios, el primer nivel tendrá el idioma.
+<<\texttt{@app.context\_processor}>>). A partir de aquí, cuando existe un texto
+generado en JavaScript que necesita ser traducido, se define un diccionario que
+contiene en los valores las palabras deseadas. Este diccionario realmente será
+un diccionario de diccionarios, el primer nivel tendrá el idioma.
 
 Ejemplo:
 
@@ -641,14 +637,14 @@ los usuarios durante la ejecución.
 \begin{minted}{matlab}
 //Windows
 $ MD runs
-$ MD datasets\anonimos
+$ MD datasets\anonimos # el directorio datasets ya está creado
 $ MD datasets\registrados
 \end{minted}
 \tcblower
 \begin{minted}{shell}
 //Linux
 $ mkdir runs
-$ mkdir datasets/anonimos
+$ mkdir datasets/anonimos # el directorio datasets ya está creado
 $ mkdir datasets/registrados
 \end{minted}
 \end{tcolorbox}
@@ -698,14 +694,16 @@ una extracción sin incluir <<\texttt{lazy\_gettext}>> (por ejemplo) y a
 continuación se actualizan las traducciones, se perderán aquellas que tenían
 <<\texttt{lazy\_gettext}>>.
 
-Una vez que se han extraído los textos, se han de indicar las traducciones (a
+Una vez que se han extraído los textos, se han de añadir las traducciones (a
 mano). Todos los textos envueltos por las funciones antes comentadas actúan como
-identificadores. En \texttt{translations/es/LC\_MESSAGES/messages.po} se tienen
-esos identificadores junto con la traducción (estará vacía si no se ha
-introducido). En ese fichero se incluirán las traducciones.
+identificadores. 
 
-El siguiente paso es la compilación de estas traducciones para que \texttt{Babel} pueda sustituir
-los textos dinámicamente.
+En \texttt{translations/es/LC\_MESSAGES/messages.po} se tienen esos
+identificadores junto con la traducción (estará vacía si no se ha introducido).
+En ese fichero se incluirán las traducciones.
+
+El siguiente paso es la compilación de estas traducciones para que
+\texttt{Babel} pueda sustituir los textos dinámicamente.
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,fontupper=\footnotesize,title=Compilación de traducciones (desde \texttt{/web/app})]
 \begin{minted}{shell}
@@ -720,13 +718,13 @@ desarrollo.
 
 Si el programador ha decidido desplegar el proyecto en un servidor y desea
 ponerlo en producción, es conveniente añadir una capa más a la aplicación. Esta
-capa consiste en establecer un servidor WSGI (Web Server Gateway Interface) que
-dictará la comunicación entre el servidor web (a discreción del programador) y
-Flask. 
+capa consiste en establecer un servidor WSGI (\textit{Web Server Gateway
+Interface}) que dictará la comunicación entre el servidor web (a discreción del
+programador) y Flask. 
 
-En el proyecto actual este servidor ha sido generado por \texttt{gunicorn}
-(\textit{green unicorn}) y su uso es extremadamente simple\footnote{Se
-encuentra entre los requisitos de bibliotecas del proyecto}.
+En el proyecto actual este servidor ha sido generado por Gunicorn (\textit{green
+unicorn}) y su uso es extremadamente simple\footnote{Se encuentra entre los
+requisitos de bibliotecas del proyecto}.
 
 
 \begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,fontupper=\footnotesize,title=Lanzar servidor WSGI sobre la aplicación]
@@ -739,9 +737,10 @@ $ gunicorn -b :5000 'app:create_app()' (--log-level debug)
 Esto sería lo mismo que realizar el paso de la ejecución~\ref{ejecucion}.
 
 Cabe notar que esta es la forma en la que se ha desplegado el proyecto actual
-(en un entorno Linux) y debe ser tomado como un ejemplo. \texttt{Gunicorn} no
-puede ser usado en sistemas Windows (el servidor). Una alternativa muy usada
-para estos sistemas es \texttt{waitress}.
+(en un entorno Linux) y debe ser tomado como un ejemplo. Gunicorn no puede ser
+usado en sistemas Windows (el servidor). Una alternativa muy usada para estos
+sistemas es waitress\footnote{waitress:
+\url{https://pypi.org/project/waitress/}}.
 
 \section{Pruebas del sistema}
 
@@ -757,16 +756,16 @@ ejecutarse en cualquier momento (atendiendo a las precondiciones establecidas).
 \subsection{Pruebas con Selenium IDE}
 
 Para codificar y ejecutar las pruebas se debe instalar la extensión <<Selenium
-IDE>> en el navegador \texttt{Google Chrome} (incorpora funcionalidades que no
-existen en otros) y activar en la configuración de la extensión de Selenium IDE
-la opción <<Permitir acceso a URL de archivo>>. Esta opción se utiliza para
-poder subir archivos. Es más, también se deben configurar las rutas de los
-ficheros en los pasos en los que estos se cargan (ver descripción de los casos de prueba).
+IDE>> en el navegador Google Chrome (incorpora funcionalidades que no existen en
+otros) y activar en la configuración de la extensión de Selenium IDE la opción
+<<Permitir acceso a URL de archivo>>. Esta opción se utiliza para poder subir
+archivos. Es más, también se deben configurar las rutas de los ficheros en los
+pasos en los que estos se cargan (ver descripción de los casos de prueba).
 
 A continuación, se debe abrir el proyecto de pruebas ya creado (incluido en el
 código fuente). En él aparecerá todo el listado de casos de prueba. Cada uno de
 ellos puede ser ejecutado por separado o en conjunto (secuencialmente). En
-principio se recomienda esta última opción (uno detrás de otro), ya que está
+principio, se recomienda esta última opción (uno detrás de otro), ya que está
 preparado para cumplir con las precondiciones.
 
 Como se ha comentado, es \textbf{muy importante} configurar correctamente las
@@ -776,8 +775,8 @@ rutas de los ficheros con respecto al sistema donde se ejecuten.
 
 \subsection{Casos de prueba}
 
-A continuación se presentan todos los casos de prueba que prueban las partes más
-importantes de la aplicación.
+A continuación se presentan todos los casos de prueba que validan el correcto
+funcionamiento de las partes más importantes de la aplicación.
 
 Algunas de las precondiciones que aparecen a continuación no se han codificado
 en todas las pruebas de <<Selenium>>, esto es porque los casos de prueba en
@@ -791,11 +790,10 @@ hará referencia a él en muchos casos):
 \vspace{-0.4cm}
 \begin{itemize}
     \item \textbf{Nombre}: Prueba
-    \item \textbf{Correo electrónico}: prueba@gmail.com
+    \item \textbf{Correo electrónico}: \texttt{prueba@gmail.com}
     \item \textbf{Contraseña}: 12345678
 \end{itemize}
 
-\clearpage
 \begin{table}[H]
 \begin{tabular}{p{0.20\textwidth}p{0.15\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.10\textwidth}}
 \rowcolor{gray!25}
@@ -809,7 +807,7 @@ Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciada}          
 Postcondiciones & \multicolumn{4}{l}{El usuario ha cerrado la sesión}                                                     \\ \hline
 \rowcolor{gray!25}
 \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-Acceder a '/?lang=es'                               &                                                                                                         & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito                            \\ \hline
+Acceder a `\texttt{/?lang=es}'                       &                                                                                                         & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito                            \\ \hline
 Hacer clic en <<Registrarse>>                       &                                                                                                          & Encontrarse en la página de registro                                 & Encontrarse en la página de registro                                 & Éxito                            \\ \hline
 Introducir datos de usuario                        & Nombre: Prueba, Email: prueba@gmail.com, Contraseña: 12345678, Confirmar contraseña: 12345678 & Datos introducidos                       & Datos introducidos                                                   & Éxito                            \\ \hline
 Hacer clic en <<Enviar>>                             &                                                                                                         & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito                            \\ \hline
@@ -831,7 +829,7 @@ Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciado y usuario 
 Postcondiciones & \multicolumn{4}{l}{El usuario ha cerrado la sesión}                                                     \\ \hline
 \rowcolor{gray!25}
 \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-Acceder a '/?lang=es'                              &                                                                                                         & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito                            \\ \hline
+Acceder a `\texttt{/?lang=es}'                       &                                                                                                         & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito                            \\ \hline
 Hacer clic en <<Iniciar sesión>>                       &                                                                                                          & Encontrarse en la página de inicio de sesión                                 & Encontrarse en la página de inicio de sesión                                 & Éxito                            \\ \hline
 Introducir datos de usuario                        & Nombre: Prueba, Email: prueba@gmail.com, Contraseña: 12345678 & Datos introducidos                       & Datos introducidos                                                   & Éxito                            \\ \hline
 Hacer clic en <<Enviar>>                             &                                                                                                         & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito                            \\ \hline
@@ -853,10 +851,10 @@ Precondiciones  & \multicolumn{4}{l}{Sin precondiciones}                        
 Postcondiciones & \multicolumn{4}{l}{Idioma cambiado correctamente}                                                     \\ \hline
 \rowcolor{gray!25}
 \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-Acceder a '/?lang=es'                                  &                                                                                                         & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito                            \\ \hline
+Acceder a `\texttt{/?lang=es}'                                  &                                                                                                         & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito                            \\ \hline
 Comprobar idioma español                               &                        & El subtítulo principal es <<Trabajo Fin de Grado sobre algoritmos semi-supervisados y su visualización>>  & El subtítulo principal es <<Trabajo Fin de Grado sobre algoritmos semi-supervisados y su visualización>>         & Éxito                            \\ \hline
 Hacer clic en el icono de idiomas                      &                        & Menú desplegable de idiomas mostrado                                 & Menú desplegable de idiomas mostrado                                 & Éxito                            \\ \hline
-Hacer clic en el botón de <<Inglés>>                   &                        & El subtítulo principal es <<Final Degree Project on semi-supervised algorithms and their visualization>>  & El subtítulo principal es <<Final Degree Project on semi-supervised algorithms and their visualization>>  & Éxito                            \\ \hline
+Hacer clic en el botón de <<Inglés>>                   &                        & El subtítulo principal es <<\textit{Final Degree Project on semi-supervised algorithms and their visualization}>>  & El subtítulo principal es <<\textit{Final Degree Project on semi-supervised algorithms and their visualization}>>  & Éxito                            \\ \hline
 \end{tabular}
 \caption{Caso de prueba 3: Cambio de idioma.}
 \end{table}
@@ -874,7 +872,7 @@ Precondiciones  & \multicolumn{4}{l}{Usuario prueba creado y con sesión iniciad
 Postcondiciones & \multicolumn{4}{p{0.80\textwidth}}{El usuario prueba tiene los datos originales (para no afectar a casos de prueba futuros)}                                                     \\ \hline
 \rowcolor{gray!25}
 \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-Acceder a '/?lang=es'                                  &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito  \\ \hline
+Acceder a `\texttt{/?lang=es}'                                  &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito  \\ \hline
 Hacer clic en el nombre de usuario <<Prueba>> y en el botón de <<Perfil>>      &                        & Encontrarse en la página del perfil de usuario                                 & Encontrarse en la página del perfil de usuario                                & Éxito  \\ \hline 
 Introducir datos de usuario                            & Nombre: Prueba, Email: pruebacambiado@gmail.com, Contraseña actual: 12345678                  & Datos introducidos                                                   & Datos introducidos                                                   & Éxito                            \\ \hline
 Hacer clic en el botón de <<Enviar>>                   &                        & Encontrarse en la página principal                       & Encontrarse en la página principal                      & Éxito  \\ \hline
@@ -898,9 +896,9 @@ Precondiciones  & \multicolumn{4}{l}{Usuario prueba creado y con sesión iniciad
 Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                                                     \\ \hline
 \rowcolor{gray!25}
 \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-Acceder a '/?lang=es'                          &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito  \\ \hline
+Acceder a `\texttt{/?lang=es}'                          &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito  \\ \hline
 Hacer clic en el nombre de usuario <<Prueba>> y en el botón de <<Perfil>>      &                        & Encontrarse en la página del perfil de usuario                                 & Encontrarse en la página del perfil de usuario                                & Éxito  \\ \hline 
-Introducir datos de usuario (contraseña errónea)                           & Nombre: Prueba, Email: pruebacambiado@gmail.com, Contraseña actual: \textbf{1234567899}                  & Datos introducidos                                                   & Datos introducidos                                                   & Éxito                            \\ \hline
+Introducir datos de usuario (contraseña errónea)                           & Nombre: Prueba, Email: pruebacambiado@gmail.com, Contraseña actual: 1234567899                  & Datos introducidos                                                   & Datos introducidos                                                   & Éxito                            \\ \hline
 Hacer clic en el botón de <<Enviar>>           &                       &  El mensaje de error que aparece es <<Contraseña actual incorrecta>>     &  El error que aparece es <<Contraseña actual incorrecta>>  & Éxito \\ \hline
 \end{tabular}
 \caption{Caso de prueba 5: Edición perfil con contraseña incorrecta.}
@@ -919,7 +917,7 @@ Precondiciones  & \multicolumn{4}{l}{Usuario prueba creado y con sesión iniciad
 Postcondiciones & \multicolumn{4}{l}{El usuario ha cerrado la sesión}                                                     \\ \hline
 \rowcolor{gray!25}
 \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-Acceder a '/admin?lang=es'                                          &                        & Encontrarse en la página de error                                  & Encontrarse en la página de error                                    & Éxito  \\ \hline
+Acceder a `\texttt{/admin?lang=es}'                                          &                        & Encontrarse en la página de error                                  & Encontrarse en la página de error                                    & Éxito  \\ \hline
 Comprobar error      &                        & El código de error y mensaje son <<401>> y <<No autorizado>>                               & El código de error y mensaje son <<401>> y <<No autorizado>>                                & Éxito  \\ \hline 
 \end{tabular}
 \caption{Caso de prueba 6: Usuario sin acceso a administración.}
@@ -938,7 +936,7 @@ Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciada}          
 Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                                                     \\ \hline
 \rowcolor{gray!25}
 \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-Acceder a '/admin?lang=es'                         &                        & Encontrarse en la página de inicio de sesión                                 & Encontrarse en la página de inicio de sesión                                     & Éxito  \\ \hline
+Acceder a `\texttt{/admin?lang=es}'                         &                        & Encontrarse en la página de inicio de sesión                                 & Encontrarse en la página de inicio de sesión                                     & Éxito  \\ \hline
 Comprobar advertencia (mensaje flash)      &                        & El mensaje es <<Por favor, inicia sesión para acceder a esta página.>>                               & El mensaje es <<Por favor, inicia sesión para acceder a esta página.>>                                 & Éxito  \\ \hline 
 \end{tabular}
 \caption{Caso de prueba 7: Anónimo sin acceso a administración.}
@@ -957,7 +955,7 @@ Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciada}          
 Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                                                     \\ \hline
 \rowcolor{gray!25}
 \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-Acceder a '/?lang=es'                                 &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito  \\ \hline
+Acceder a `\texttt{/?lang=es}'                                 &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                                   & Éxito  \\ \hline
 Hacer clic en <<Self-Training>>                       &                        & Encontrarse en la página de subida                                   & Encontrarse en la página de subida                                & Éxito                            \\ \hline
 Subir un fichero .txt                                 &                        & Porcentaje de subida al 100\%                                        & Porcentaje de subida al 100\%                                & Éxito                            \\ \hline
 Hacer clic en <<Configurar algoritmo>>                &                        & Redirección a la página de subida                                    & Redirección a la página de subida                                 & Éxito                            \\ \hline
@@ -979,9 +977,9 @@ Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciada}          
 Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                                                     \\ \hline
 \rowcolor{gray!25}
 \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-Acceder a '/'                                         &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
+Acceder a `\texttt{/}'                                         &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
 Hacer clic en <<Self-Training>>                       &                        & Encontrarse en la página de subida                                   & Encontrarse en la página de subida                           & Éxito                            \\ \hline
-Subir el conjunto de datos iris                       & Fichero <<iris.arff>>  & Porcentaje de subida al 100\%                                        & Porcentaje de subida al 100\%                                & Éxito                            \\ \hline
+Subir el conjunto de datos iris                       & Fichero <<\texttt{iris.arff}>>  & Porcentaje de subida al 100\%                                        & Porcentaje de subida al 100\%                                & Éxito                            \\ \hline
 Hacer clic en <<Configurar algoritmo>>                &                        & Redirección a la página de configuración                             & Redirección a la página de configuración                     & Éxito                            \\ \hline
 Seleccionar <<class>> como atributo de la clase       &                        & & & Éxito \\ \hline
 Hacer clic en <<Ejecutar>>                            &                        & Encontrarse en la página de visualización                            & Encontrarse en la página de visualización                    & Éxito                            \\ \hline
@@ -1005,9 +1003,9 @@ Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciada}          
 Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                                                     \\ \hline
 \rowcolor{gray!25}
 \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-Acceder a '/'                                         &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
+Acceder a `\texttt{/}'                                         &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
 Hacer clic en <<Co-Training>>                         &                        & Encontrarse en la página de subida                                   & Encontrarse en la página de subida                           & Éxito                            \\ \hline
-Subir el conjunto de datos iris                       & Fichero <<iris.arff>>  & Porcentaje de subida al 100\%                                        & Porcentaje de subida al 100\%                                & Éxito                            \\ \hline
+Subir el conjunto de datos iris                       & Fichero <<\texttt{iris.arff}>>  & Porcentaje de subida al 100\%                                        & Porcentaje de subida al 100\%                                & Éxito                            \\ \hline
 Hacer clic en <<Configurar algoritmo>>                &                        & Redirección a la página de configuración                             & Redirección a la página de configuración                     & Éxito                            \\ \hline
 Seleccionar <<KNeighborsClassifier>> y <<DecisionTreeClassifier>> clasificadores (en ese orden)       &                        & & & Éxito \\ \hline
 Seleccionar <<class>> como atributo de la clase       &                        & & & Éxito \\ \hline
@@ -1033,9 +1031,9 @@ Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciada}          
 Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                                                     \\ \hline
 \rowcolor{gray!25}
 \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-Acceder a '/'                                         &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
+Acceder a `\texttt{/}'                                         &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
 Hacer clic en <<Democratic Co-Learning>>              &                        & Encontrarse en la página de subida                                   & Encontrarse en la página de subida                           & Éxito                            \\ \hline
-Subir el conjunto de datos iris                       & Fichero <<iris.arff>>  & Porcentaje de subida al 100\%                                        & Porcentaje de subida al 100\%                                & Éxito                            \\ \hline
+Subir el conjunto de datos iris                       & Fichero <<\texttt{iris.arff}>>  & Porcentaje de subida al 100\%                                        & Porcentaje de subida al 100\%                                & Éxito                            \\ \hline
 Hacer clic en <<Configurar algoritmo>>                &                        & Redirección a la página de configuración                             & Redirección a la página de configuración                     & Éxito                            \\ \hline
 Seleccionar <<KNeighborsClassifier>>, <<DecisionTreeClassifier>> y <<GaussianNB>> clasificadores (en ese orden)       &                        & & & Éxito \\ \hline
 Seleccionar <<class>> como atributo de la clase       &                        & & & Éxito \\ \hline
@@ -1059,9 +1057,9 @@ Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciada}          
 Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                                                     \\ \hline
 \rowcolor{gray!25}
 \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-Acceder a '/'                                         &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
+Acceder a `\texttt{/}'                                         &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
 Hacer clic en <<Tri-Training>>                        &                        & Encontrarse en la página de subida                                   & Encontrarse en la página de subida                           & Éxito                            \\ \hline
-Subir el conjunto de datos iris                       & Fichero <<iris.arff>>  & Porcentaje de subida al 100\%                                        & Porcentaje de subida al 100\%                                & Éxito                            \\ \hline
+Subir el conjunto de datos iris                       & Fichero <<\texttt{iris.arff}>>  & Porcentaje de subida al 100\%                                        & Porcentaje de subida al 100\%                                & Éxito                            \\ \hline
 Hacer clic en <<Configurar algoritmo>>                &                        & Redirección a la página de configuración                             & Redirección a la página de configuración                     & Éxito                            \\ \hline
 Seleccionar <<KNeighborsClassifier>>, <<DecisionTreeClassifier>> y <<GaussianNB>> clasificadores (en ese orden)       &                        & & & Éxito \\ \hline
 Seleccionar <<class>> como atributo de la clase       &                        & & & Éxito \\ \hline
@@ -1086,9 +1084,9 @@ Precondiciones  & \multicolumn{4}{l}{Sin usuario con sesión iniciada}          
 Postcondiciones & \multicolumn{4}{l}{Sin postcondiciones}                                                     \\ \hline
 \rowcolor{gray!25}
 \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-Acceder a '/?lang=es'                                 &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
+Acceder a `\texttt{/?lang=es}'                                 &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
 Hacer clic en <<Self-Training>>                       &                        & Encontrarse en la página de subida                                   & Encontrarse en la página de subida                           & Éxito                            \\ \hline
-Subir el conjunto de datos iris                       & Fichero <<iris.arff>>  & Porcentaje de subida al 100\%                                        & Porcentaje de subida al 100\%                                & Éxito                            \\ \hline
+Subir el conjunto de datos iris                       & Fichero <<\texttt{iris.arff}>>  & Porcentaje de subida al 100\%                                        & Porcentaje de subida al 100\%                                & Éxito                            \\ \hline
 Hacer clic en <<Configurar algoritmo>>                &                        & Redirección a la página de configuración                             & Redirección a la página de configuración                     & Éxito                            \\ \hline
 Seleccionar <<petalwidth>> como atributo de la clase &                & & & Éxito \\ \hline
 Hacer clic en <<Ejecutar>>                            &                        & Encontrarse en la página de visualización                            & Encontrarse en la página de visualización                    & Éxito                            \\ \hline
@@ -1111,7 +1109,7 @@ Precondiciones  & \multicolumn{4}{p{0.84\textwidth}}{Usuario prueba creado, con 
 Postcondiciones & \multicolumn{4}{l}{Conjunto de datos borrado}                                                     \\ \hline
 \rowcolor{gray!25}
 \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-Acceder a '/?lang=es'                                 &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
+Acceder a `\texttt{/?lang=es}'                                 &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
 Hacer clic en el nombre de usuario <<Prueba>> y en el botón de <<Mi Espacio>>  &     & Encontrarse en la página del espacio personal                  & Encontrarse en la página del espacio personal                       & Éxito  \\ \hline 
 Hacer clic en el botón de eliminar (símbolo de papelera) en la tabla de los conjuntos de datos &                     & Modal de confirmación visible                                     & Modal de confirmación visible                     & Éxito                            \\ \hline
 Hacer clic en <<Eliminar>> (en el modal)              &                        & Modal ocultado y tabla de conjunto de datos vacía                    & Modal ocultado y tabla de conjunto de datos vacía            & Éxito                            \\ \hline
@@ -1132,7 +1130,7 @@ Precondiciones  & \multicolumn{4}{p{0.84\textwidth}}{Usuario prueba creado, con 
 Postcondiciones & \multicolumn{4}{l}{Ejecución borrada y sin sesión iniciada}                                                     \\ \hline
 \rowcolor{gray!25}
 \textbf{Paso}   & \textbf{Entrada} & \textbf{Resultado esperado} & \textbf{Resultado obtenido} & \textbf{Estado} \\ \hline
-Acceder a '/?lang=es'                                 &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
+Acceder a `\texttt{/?lang=es}'                                 &                        & Encontrarse en la página principal                                   & Encontrarse en la página principal                           & Éxito  \\ \hline
 Hacer clic en el nombre de usuario <<Prueba>> y en el botón de <<Mi Espacio>>  &     & Encontrarse en la página del espacio personal                  & Encontrarse en la página del espacio personal                       & Éxito  \\ \hline 
 Hacer clic en el botón de eliminar (símbolo de papelera) en la tabla del historial de ejecuciones &                     & Modal de confirmación visible                                     & Modal de confirmación visible                     & Éxito                            \\ \hline
 Hacer clic en <<Eliminar>> (en el modal)              &                        & Modal ocultado y tabla del historial de ejecuciones                    & Modal ocultado y tabla del historial de ejecuciones            & Éxito                            \\ \hline
@@ -1157,7 +1155,7 @@ Acceder a '/admin?lang=es'                                  &                   
 Hacer clic en el botón de edición (símbolo de lápiz) del usuario <<Prueba>> en la tabla de usuarios &                     & Encontrarse en la página de edición                                     & Encontrarse en la página de edición                     & Éxito                            \\ \hline
 Introducir datos de usuario                            & Nombre: Prueba, Email: pruebaadministrador@gmail.com, Contraseña actual: 12345678                  & Datos introducidos                                                   & Datos introducidos                                                   & Éxito                            \\ \hline
 Hacer clic en el botón de <<Enviar>>                   &                        & Encontrarse en la página de administración                       & Encontrarse en la página de administración                      & Éxito  \\ \hline
-Comprobar email actualizado del usuario <<Prueba>> en la tabla de usuarios      &                       &  El email que aparece es <<pruebaadministrador@gmail.com>>     &  El email que aparece es <<pruebaadministrador@gmail.com>>  & Éxito
+Comprobar email actualizado del usuario <<Prueba>> en la tabla de usuarios      &                       &  El email que aparece es <<pruebaadministrador@gmail.com>>     &  El email que aparece es <<pruebaadministrador@gmail.com>>  & Éxito \\  \hline
 \end{tabular}
 \caption{Caso de prueba 16: Edición perfil (administrador).}
 \end{table}
