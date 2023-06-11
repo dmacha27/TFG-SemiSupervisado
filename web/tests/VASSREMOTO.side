@@ -2,7 +2,7 @@
   "id": "b1b755b9-a349-434e-a05e-74cd5a635de0",
   "version": "2.0",
   "name": "VASS",
-  "url": "http://127.0.0.1:5000",
+  "url": "https://vass.dmacha.dev/",
   "tests": [{
     "id": "3e22c9d3-f229-4323-a565-5433bd8c8d91",
     "name": "CP1: Registro",
@@ -10,7 +10,7 @@
       "id": "63873d99-a1e0-4e03-951c-f01b967a34b8",
       "comment": "",
       "command": "open",
-      "target": "http://127.0.0.1:5000/?lang=es",
+      "target": "https://vass.dmacha.dev/?lang=es",
       "targets": [],
       "value": ""
     }, {
@@ -105,7 +105,7 @@
       "command": "assert",
       "target": "url",
       "targets": [],
-      "value": "http://127.0.0.1:5000/"
+      "value": "https://vass.dmacha.dev/"
     }, {
       "id": "d212aa6f-347f-4344-9871-7ecdd2a96746",
       "comment": "",
@@ -179,7 +179,7 @@
       "id": "4c41591a-dc3f-4bac-aac8-f5abc6d5663e",
       "comment": "",
       "command": "open",
-      "target": "http://127.0.0.1:5000/?lang=es",
+      "target": "https://vass.dmacha.dev/?lang=es",
       "targets": [],
       "value": ""
     }, {
@@ -248,7 +248,7 @@
       "command": "assert",
       "target": "url",
       "targets": [],
-      "value": "http://127.0.0.1:5000/"
+      "value": "https://vass.dmacha.dev/"
     }, {
       "id": "48f05731-3397-4e86-b8fc-c0dab6c383ff",
       "comment": "",
@@ -264,7 +264,7 @@
       ],
       "value": "Prueba"
     }, {
-      "id": "23e3ec15-7c6c-4dba-901a-ac176d2bd1f8",
+      "id": "268d1ac6-66fb-40d2-b9fb-e9a42a37c1cc",
       "comment": "",
       "command": "close",
       "target": "",
@@ -278,7 +278,7 @@
       "id": "a0fa288e-c61a-4bc5-ae66-9d86312fff89",
       "comment": "",
       "command": "open",
-      "target": "http://127.0.0.1:5000/?lang=es",
+      "target": "https://vass.dmacha.dev/?lang=es",
       "targets": [],
       "value": ""
     }, {
@@ -332,7 +332,7 @@
       ],
       "value": "Final Degree Project on semi-supervised algorithms and their visualization"
     }, {
-      "id": "63268067-4b96-4d08-8185-0ebb2275cdb4",
+      "id": "a1062c46-0f65-4219-9b66-e9f8b17b4011",
       "comment": "",
       "command": "close",
       "target": "",
@@ -346,7 +346,7 @@
       "id": "25f467db-ad93-43a8-b161-4b41423b82de",
       "comment": "",
       "command": "open",
-      "target": "http://127.0.0.1:5000/?lang=es",
+      "target": "https://vass.dmacha.dev/?lang=es",
       "targets": [],
       "value": ""
     }, {
@@ -495,7 +495,7 @@
       ],
       "value": ""
     }, {
-      "id": "5e4981e0-b067-47f1-9dd7-9a3cd5ea917d",
+      "id": "9fc91ecd-06b4-42e4-b0d5-5ade1942b813",
       "comment": "",
       "command": "close",
       "target": "",
@@ -509,7 +509,7 @@
       "id": "e3226bb6-2d62-40bf-b0ce-d08b01a12b1b",
       "comment": "",
       "command": "open",
-      "target": "http://127.0.0.1:5000/?lang=es",
+      "target": "https://vass.dmacha.dev/?lang=es",
       "targets": [],
       "value": ""
     }, {
@@ -590,7 +590,7 @@
       ],
       "value": "Contraseña actual incorrecta"
     }, {
-      "id": "1a2714c8-cbab-41f0-af8b-c01778d2daa5",
+      "id": "0ce0d3b9-18a0-4c6c-9343-dd846dfdc889",
       "comment": "",
       "command": "close",
       "target": "",
@@ -604,7 +604,7 @@
       "id": "81e0a084-68c2-41dc-afcb-b70f65061cd5",
       "comment": "",
       "command": "open",
-      "target": "http://127.0.0.1:5000/admin?lang=es",
+      "target": "https://vass.dmacha.dev/admin?lang=es",
       "targets": [],
       "value": ""
     }, {
@@ -633,38 +633,20 @@
       "id": "49b71e00-3a24-4c56-a57b-ff194bb3ccfa",
       "comment": "",
       "command": "open",
-      "target": "http://127.0.0.1:5000/",
+      "target": "https://vass.dmacha.dev/logout",
       "targets": [],
       "value": ""
     }, {
-      "id": "1321b1a5-7ce6-4121-8d9f-7d908dcb2a15",
+      "id": "067f0507-5851-4bff-8d8a-46b2d65e004e",
       "comment": "",
-      "command": "click",
-      "target": "linkText=Prueba",
+      "command": "waitForText",
+      "target": "css=.toast-body",
       "targets": [
-        ["linkText=Prueba", "linkText"],
-        ["css=.dropdown-toggle", "css:finder"],
-        ["xpath=//a[contains(text(),'Prueba')]", "xpath:link"],
-        ["xpath=//div[@id='mynavbar']/ul[2]/li[2]/a", "xpath:idRelative"],
-        ["xpath=(//a[contains(@href, '#')])[2]", "xpath:href"],
-        ["xpath=//ul[2]/li[2]/a", "xpath:position"]
+        ["css=.toast-body", "css:finder"],
+        ["xpath=//div[@id='liveToast']/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]", "xpath:position"]
       ],
-      "value": ""
-    }, {
-      "id": "c1427479-242e-45f3-a036-91506afd5d5f",
-      "comment": "",
-      "command": "click",
-      "target": "linkText=Cerrar sesión",
-      "targets": [
-        ["linkText=Cerrar sesión", "linkText"],
-        ["css=li:nth-child(4) > .dropdown-item", "css:finder"],
-        ["xpath=//a[contains(text(),'Cerrar sesión')]", "xpath:link"],
-        ["xpath=//div[@id='mynavbar']/ul[2]/li[2]/ul/li[4]/a", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, '/logout')]", "xpath:href"],
-        ["xpath=//li[2]/ul/li[4]/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Cerrar sesión')]", "xpath:innerText"]
-      ],
-      "value": ""
+      "value": "¡Vuelve pronto!"
     }, {
       "id": "acd0ceba-2c6c-4be0-85dc-ff6dc0f2ddee",
       "comment": "",
@@ -680,7 +662,7 @@
       "id": "6b833fc8-85f1-4f6e-b7ab-b77c2b14e6ac",
       "comment": "",
       "command": "open",
-      "target": "http://127.0.0.1:5000/?lang=es",
+      "target": "https://vass.dmacha.dev/?lang=es",
       "targets": [],
       "value": ""
     }, {
@@ -711,7 +693,7 @@
       "command": "assert",
       "target": "url",
       "targets": [],
-      "value": "http://127.0.0.1:5000/subida"
+      "value": "https://vass.dmacha.dev/subida"
     }, {
       "id": "3afafe03-03c6-4ad7-bbc9-91810aed1200",
       "comment": "",
@@ -765,7 +747,7 @@
       "id": "e4dfcf6f-f716-4199-8fb9-0b9952debd6e",
       "comment": "",
       "command": "open",
-      "target": "http://127.0.0.1:5000/",
+      "target": "https://vass.dmacha.dev/",
       "targets": [],
       "value": ""
     }, {
@@ -796,7 +778,7 @@
       "command": "assert",
       "target": "url",
       "targets": [],
-      "value": "http://127.0.0.1:5000/subida"
+      "value": "https://vass.dmacha.dev/subida"
     }, {
       "id": "9cf9bdf2-7e19-4ed8-8a8e-0db7bc8f782f",
       "comment": "",
@@ -848,7 +830,7 @@
       "command": "assert",
       "target": "url",
       "targets": [],
-      "value": "http://127.0.0.1:5000/configuracion/selftraining?"
+      "value": "https://vass.dmacha.dev/configuracion/selftraining?"
     }, {
       "id": "75d477f2-dfa3-48bf-943e-4d297a4f2e7a",
       "comment": "",
@@ -882,7 +864,7 @@
       "command": "assert",
       "target": "url",
       "targets": [],
-      "value": "http://127.0.0.1:5000/visualizacion/selftraining"
+      "value": "https://vass.dmacha.dev/visualizacion/selftraining"
     }, {
       "id": "0917d481-ee3f-42e8-9845-67d32183398e",
       "comment": "",
@@ -977,7 +959,7 @@
       "id": "589f3fe8-f007-4fce-afe4-8d5a5dc13876",
       "comment": "",
       "command": "open",
-      "target": "http://127.0.0.1:5000/",
+      "target": "https://vass.dmacha.dev/",
       "targets": [],
       "value": ""
     }, {
@@ -1008,7 +990,7 @@
       "command": "assert",
       "target": "url",
       "targets": [],
-      "value": "http://127.0.0.1:5000/subida"
+      "value": "https://vass.dmacha.dev/subida"
     }, {
       "id": "6fb3cc7d-4b4e-4890-bfa7-fc5fc71db6c7",
       "comment": "",
@@ -1060,7 +1042,7 @@
       "command": "assert",
       "target": "url",
       "targets": [],
-      "value": "http://127.0.0.1:5000/configuracion/cotraining?"
+      "value": "https://vass.dmacha.dev/configuracion/cotraining?"
     }, {
       "id": "987ca3af-11e8-4884-b88e-34c122df1f66",
       "comment": "",
@@ -1108,7 +1090,7 @@
       "command": "assert",
       "target": "url",
       "targets": [],
-      "value": "http://127.0.0.1:5000/visualizacion/cotraining"
+      "value": "https://vass.dmacha.dev/visualizacion/cotraining"
     }, {
       "id": "0d792ae3-d5f6-440e-a5bb-4e499f49f0fc",
       "comment": "",
@@ -1227,7 +1209,7 @@
       "id": "7fe94080-ffa7-4e9b-94fc-b1ab95215971",
       "comment": "",
       "command": "open",
-      "target": "http://127.0.0.1:5000/",
+      "target": "https://vass.dmacha.dev/",
       "targets": [],
       "value": ""
     }, {
@@ -1258,7 +1240,7 @@
       "command": "assert",
       "target": "url",
       "targets": [],
-      "value": "http://127.0.0.1:5000/subida"
+      "value": "https://vass.dmacha.dev/subida"
     }, {
       "id": "4e54490f-03a8-46c4-8b84-d4af7bc83589",
       "comment": "",
@@ -1310,7 +1292,7 @@
       "command": "assert",
       "target": "url",
       "targets": [],
-      "value": "http://127.0.0.1:5000/configuracion/democraticcolearning?"
+      "value": "https://vass.dmacha.dev/configuracion/democraticcolearning?"
     }, {
       "id": "ffba1de0-f388-4dea-958a-cfcb955ac96b",
       "comment": "",
@@ -1365,7 +1347,7 @@
       "command": "assert",
       "target": "url",
       "targets": [],
-      "value": "http://127.0.0.1:5000/visualizacion/democraticcolearning"
+      "value": "https://vass.dmacha.dev/visualizacion/democraticcolearning"
     }, {
       "id": "7abc1856-ea21-43d9-981b-ec29e666cb64",
       "comment": "",
@@ -1505,7 +1487,7 @@
       "id": "3180c44f-ff92-4fc2-bc6a-1c5fc9df52fb",
       "comment": "",
       "command": "open",
-      "target": "http://127.0.0.1:5000/",
+      "target": "https://vass.dmacha.dev/",
       "targets": [],
       "value": ""
     }, {
@@ -1536,7 +1518,7 @@
       "command": "assert",
       "target": "url",
       "targets": [],
-      "value": "http://127.0.0.1:5000/subida"
+      "value": "https://vass.dmacha.dev/subida"
     }, {
       "id": "9421b222-f9a9-4b8b-8110-acea7f9063c9",
       "comment": "",
@@ -1588,7 +1570,7 @@
       "command": "assert",
       "target": "url",
       "targets": [],
-      "value": "http://127.0.0.1:5000/configuracion/tritraining?"
+      "value": "https://vass.dmacha.dev/configuracion/tritraining?"
     }, {
       "id": "dd9ebfea-b6b1-46c9-b810-578a6bc54080",
       "comment": "",
@@ -1643,7 +1625,7 @@
       "command": "assert",
       "target": "url",
       "targets": [],
-      "value": "http://127.0.0.1:5000/visualizacion/tritraining"
+      "value": "https://vass.dmacha.dev/visualizacion/tritraining"
     }, {
       "id": "628c3dd8-cf6c-4ac6-978b-932bb81dd383",
       "comment": "",
@@ -1783,7 +1765,7 @@
       "id": "679bc0a8-eea0-4d8b-a16d-465e50235f6d",
       "comment": "",
       "command": "open",
-      "target": "http://127.0.0.1:5000/?lang=es",
+      "target": "https://vass.dmacha.dev/?lang=es",
       "targets": [],
       "value": ""
     }, {
@@ -1814,7 +1796,7 @@
       "command": "assert",
       "target": "url",
       "targets": [],
-      "value": "http://127.0.0.1:5000/subida"
+      "value": "https://vass.dmacha.dev/subida"
     }, {
       "id": "45948a34-ed7c-4bdb-945a-9f1cae07bbd2",
       "comment": "",
@@ -1866,7 +1848,7 @@
       "command": "assert",
       "target": "url",
       "targets": [],
-      "value": "http://127.0.0.1:5000/configuracion/selftraining?"
+      "value": "https://vass.dmacha.dev/configuracion/selftraining?"
     }, {
       "id": "54630544-1816-4dfb-8aa6-e1f7b2196aae",
       "comment": "",
@@ -1899,7 +1881,7 @@
       "command": "assert",
       "target": "url",
       "targets": [],
-      "value": "http://127.0.0.1:5000/visualizacion/selftraining"
+      "value": "https://vass.dmacha.dev/visualizacion/selftraining"
     }, {
       "id": "06d5674e-2204-4824-9193-469f1da768e5",
       "comment": "",
@@ -1940,7 +1922,7 @@
       "id": "179d2b7e-e587-4ab6-94ce-1b2a93005ae5",
       "comment": "",
       "command": "open",
-      "target": "http://127.0.0.1:5000/?lang=es",
+      "target": "https://vass.dmacha.dev/?lang=es",
       "targets": [],
       "value": ""
     }, {
@@ -2191,7 +2173,7 @@
       "id": "602bbf41-8fa1-4ade-b779-5590c28378b1",
       "comment": "",
       "command": "open",
-      "target": "http://127.0.0.1:5000/?lang=es",
+      "target": "https://vass.dmacha.dev/?lang=es",
       "targets": [],
       "value": ""
     }, {
@@ -2270,7 +2252,7 @@
       "id": "645e6d59-0623-4382-9c21-5a9be40efa6c",
       "comment": "",
       "command": "open",
-      "target": "http://127.0.0.1:5000/miespacio",
+      "target": "https://vass.dmacha.dev/miespacio",
       "targets": [],
       "value": ""
     }, {
@@ -2285,34 +2267,23 @@
       ],
       "value": "No hay información"
     }, {
-      "id": "a0c6b2ef-172c-448d-84f5-3cf9aa9b891e",
+      "id": "5cd35e09-7e57-4788-b5c6-bf625fa8253c",
       "comment": "",
-      "command": "click",
-      "target": "linkText=Prueba",
-      "targets": [
-        ["linkText=Prueba", "linkText"],
-        ["css=.dropdown-toggle", "css:finder"],
-        ["xpath=//a[contains(text(),'Prueba')]", "xpath:link"],
-        ["xpath=//div[@id='mynavbar']/ul[2]/li[2]/a", "xpath:idRelative"],
-        ["xpath=(//a[contains(@href, '#')])[2]", "xpath:href"],
-        ["xpath=//ul[2]/li[2]/a", "xpath:position"]
-      ],
+      "command": "open",
+      "target": "https://vass.dmacha.dev/logout",
+      "targets": [],
       "value": ""
     }, {
-      "id": "40fb19f5-d329-45f2-8c36-d6b44ea22ac8",
+      "id": "a5895abd-808f-45a4-a91a-f96942ab6d05",
       "comment": "",
-      "command": "click",
-      "target": "linkText=Cerrar sesión",
+      "command": "waitForText",
+      "target": "css=.toast-body",
       "targets": [
-        ["linkText=Cerrar sesión", "linkText"],
-        ["css=li:nth-child(4) > .dropdown-item", "css:finder"],
-        ["xpath=//a[contains(text(),'Cerrar sesión')]", "xpath:link"],
-        ["xpath=//div[@id='mynavbar']/ul[2]/li[2]/ul/li[4]/a", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, '/logout')]", "xpath:href"],
-        ["xpath=//li[2]/ul/li[4]/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Cerrar sesión')]", "xpath:innerText"]
+        ["css=.toast-body", "css:finder"],
+        ["xpath=//div[@id='liveToast']/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]", "xpath:position"]
       ],
-      "value": ""
+      "value": "¡Vuelve pronto!"
     }, {
       "id": "be0c72ad-64c6-4c1d-9406-0956b443db1e",
       "comment": "",
@@ -2328,7 +2299,7 @@
       "id": "a00a1050-0525-4a58-b7e7-a0b673b41f51",
       "comment": "",
       "command": "open",
-      "target": "http://127.0.0.1:5000/admin?lang=es",
+      "target": "https://vass.dmacha.dev/admin?lang=es",
       "targets": [],
       "value": ""
     }, {
@@ -2357,7 +2328,7 @@
       "id": "b26aa7e1-3f0c-4792-b5c4-8db0c00df230",
       "comment": "",
       "command": "open",
-      "target": "http://127.0.0.1:5000/?lang=es",
+      "target": "https://vass.dmacha.dev/?lang=es",
       "targets": [],
       "value": ""
     }, {
@@ -2421,10 +2392,21 @@
       ],
       "value": ""
     }, {
+      "id": "e44b7fd6-e916-4e0b-befb-20021e0c4360",
+      "comment": "",
+      "command": "waitForText",
+      "target": "css=.toast-body",
+      "targets": [
+        ["css=.toast-body", "css:finder"],
+        ["xpath=//div[@id='liveToast']/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]", "xpath:position"]
+      ],
+      "value": "¡Inicio de sesión correcto!"
+    }, {
       "id": "1c785fec-79d7-4f25-9350-0f4c62279c61",
       "comment": "",
       "command": "open",
-      "target": "http://127.0.0.1:5000/admin?lang=es",
+      "target": "https://vass.dmacha.dev/admin?lang=es",
       "targets": [],
       "value": ""
     }, {
@@ -2469,7 +2451,7 @@
       "id": "30e42fa9-ecb2-4a4d-9e78-fa93733aff64",
       "comment": "",
       "command": "open",
-      "target": "http://127.0.0.1:5000/admin",
+      "target": "https://vass.dmacha.dev/admin",
       "targets": [],
       "value": ""
     }, {
@@ -2492,7 +2474,7 @@
       "id": "4f9a93bf-c97c-42c4-a94a-c5ede72c4212",
       "comment": "",
       "command": "open",
-      "target": "http://127.0.0.1:5000/admin?lang=es",
+      "target": "https://vass.dmacha.dev/admin?lang=es",
       "targets": [],
       "value": ""
     }, {
