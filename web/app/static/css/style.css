@@ -8,6 +8,10 @@ body {
     font-family: 'Mulish', sans-serif !important;
 }
 
+.w-4 {
+    width: 4rem;
+}
+
 .w-8 {
     width: 8rem;
 }
@@ -161,26 +165,32 @@ footer {
 
 }
 
+@media (max-width: 770px) {
+    #card_inicial {
+        max-width: 36rem;
+    }
+}
+
 @media (max-width: 610px) {
-    #card_subida {
+    #card_subida, #card_inicial {
         max-width: 35rem;
     }
 }
 
 @media (max-width: 580px) {
-    #card_subida {
+    #card_subida, #card_inicial {
         max-width: 32rem;
     }
 }
 
 @media (max-width: 545px) {
-    #card_subida {
+    #card_subida, #card_inicial {
         max-width: 28rem;
     }
 }
 
 @media (max-width: 515px) {
-    #card_subida {
+    #card_subida, #card_inicial {
         max-width: 28rem;
     }
 }
@@ -191,7 +201,7 @@ footer {
         margin: 0;
         padding: 2vh 1vh;
     }
-    #card_subida {
+    #card_subida, #card_inicial {
         max-width: 22rem;
     }
 }

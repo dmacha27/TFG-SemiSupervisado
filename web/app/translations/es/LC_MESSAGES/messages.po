@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-06-10 12:13+0200\n"
+"POT-Creation-Date: 2024-02-08 22:59+0100\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: David Martínez Acha <dma1004@alu.ubu.es>\n"
 "Language: es\n"
@@ -250,35 +250,140 @@ msgid "Home"
 msgstr "Inicio"
 
 #: templates/inicio.html:6
-msgid "Final Degree Project on semi-supervised algorithms and their visualization"
-msgstr "Trabajo Fin de Grado sobre algoritmos semi-supervisados y su visualización"
+msgid "Semi-Supervised Algorithm Visualizer"
+msgstr "Visualizador de Algoritmos Semi-Supervisados"
 
-#: templates/inicio.html:16
+#: templates/inicio.html:15
+msgid "A little bit of theory..."
+msgstr "Un poco de teoría..."
+
+#: templates/inicio.html:19
+msgid ""
+"<strong>Semi-supervised learning</strong> is the branch of machine "
+"learning that\n"
+"                            refers to the simultaneous use of data both "
+"<strong>labeled</strong> and\n"
+"                            <strong>unlabeled</strong> to perform "
+"learning tasks. It sits between supervised\n"
+"                            and unsupervised learning.<br><br>Among all "
+"<strong>semi-supervised algorithms</strong>,\n"
+"                            the core of this project is based on "
+"<strong>inductive methods</strong>.\n"
+"                            Their idea is very simple: they try to create"
+" a classifier that predicts labels for new data.\n"
+"                            The proposed algorithms have this objective, "
+"albeit with a bit more specificity:\n"
+"                            <strong>wrapper methods</strong>. The well-"
+"known <strong>wrapper methods</strong>\n"
+"                            are based on <strong>pseudo-"
+"labeling</strong>, which is the process where classifiers\n"
+"                            trained with labeled data generate labels for"
+" the unlabeled ones. Once this process is\n"
+"                            completed, the classifier is retrained, "
+"incorporating these new labels."
+msgstr ""
+"El <strong>aprendizaje semi-supervisado</strong> es la rama del "
+"aprendizaje automático referido al uso simultáneo de datos tanto "
+"<strong>etiquetados</strong> como <strong>no etiquetados</strong> para "
+"realizar tareas de aprendizaje. Se encuentra a caballo entre el "
+"aprendizaje supervisado y el no supervisado.<br><br>Dentro de todos los "
+"algoritmos semi-supervisados, el núcleo de este proyecto está basado en "
+"los <strong>métodos inductivos</strong>. Su idea es muy sencilla, tratan "
+"de crear un clasificador que prediga etiquetas para datos nuevos. Los "
+"algoritmos propuestos tienen este objetivo, Los conocidos métodos wrapper"
+" se basan en el <strong>pseudo-etiquetado</strong> (pseudo-labelling), es"
+" el proceso en el que los clasificadores entrenados con datos etiquetados"
+" generan etiquetas para los no etiquetados. Una vez completado este "
+"proceso, el clasificador se vuelve a entrenar pero añadiendo estos "
+"nuevos."
+
+#: templates/inicio.html:33
+msgid ""
+"In the following cards, four of the most representative algorithms of\n"
+"                            semi-supervised learning are presented: "
+"<strong>Self-Training</strong>,\n"
+"                            <strong>Co-Training</strong>, <strong>Tri-"
+"Training</strong> and\n"
+"                            <strong>Democratic Co-Learning</strong>. "
+"<br><br> Internally, each algorithm utilizes\n"
+"                            one or several classifiers (wrapper methods)."
+" Additionally, the number\n"
+"                            of views on the data is distinguished (a view"
+" being the subset of attributes of the dataset\n"
+"                            that the algorithm uses to learn the model). "
+"Unlike <strong>Single-view</strong>, a\n"
+"                            <strong>Multi-view</strong> algorithm views "
+"the dataset attributes as multiple subsets.\n"
+"                            For example, in the Co-Training algorithm, "
+"the first classifier might only \"see\" half of\n"
+"                            the attributes while the second one sees the "
+"other half. Each of them will work with its\n"
+"                            specific subset of attributes."
+msgstr ""
+"En las tarjetas que aparecen a continuación se presentan cuatro de los "
+"algoritmos más representativos del aprendizaje semi-supervisado: <strong"
+">Self-Training</strong>, <strong>Co-Training</strong>, <strong>Tri-"
+"Training</strong> y <strong>Democratic Co-Learning</strong>. "
+"<br><br>Internamente cada algoritmo utiliza uno o varios clasificadores "
+"(métodos de envoltura). Y además, se distingue el número de vistas sobre "
+"los datos (una vista es el subconjunto de atributos del conjunto de datos"
+" que usa el algoritmo para aprender el modelo). Al contrario que <strong"
+">Single-view</strong>, un algoritmo <strong>Multi-view</strong> verá el "
+"conjunto de atributos de los datos como varios subconjuntos. de atributos"
+" mientras que el segundo la otra mitad. Cada uno de ellos trabajará con "
+"su subconjunto de atributos concreto."
+
+#: templates/inicio.html:47
+msgid "Objective"
+msgstr "Objetivo"
+
+#: templates/inicio.html:51
+msgid ""
+"The aim of this tool is to facilitate, through visualizations, the "
+"understanding\n"
+"                            of how the main semi-supervised algorithms "
+"actually work when combined with theoretical\n"
+"                            concepts. <br><br>By selecting any of the "
+"algorithms, you will be redirected to load the\n"
+"                            dataset. Subsequently, you can configure the "
+"algorithm with the desired parameters and\n"
+"                            finally obtain a visualization of the "
+"training process."
+msgstr ""
+"El objetivo de esta herramienta es facilitar, mediante visualizaciones, "
+"la comprensión de cómo funcionan realmente los principales algoritmos "
+"semi-supervisados cuando se compagina con los conceptos teóricos. "
+"<br><br>Al seleccionar cualquiera de los algoritmos, será redireccionado "
+"a la carga del conjunto de datos. Posteriormente, podrá configurar el "
+"algoritmo con los parámetros deseados y finalmente obtener una "
+"visualización del entrenamiento."
+
+#: templates/inicio.html:70
 msgid "One classifier"
 msgstr "Un clasificador"
 
-#: templates/inicio.html:17 templates/inicio.html:43 templates/inicio.html:56
+#: templates/inicio.html:71 templates/inicio.html:97 templates/inicio.html:110
 msgid "Single-view"
 msgstr "Single-view"
 
-#: templates/inicio.html:20 templates/inicio.html:33 templates/inicio.html:46
-#: templates/inicio.html:59
+#: templates/inicio.html:74 templates/inicio.html:87 templates/inicio.html:100
+#: templates/inicio.html:113
 msgid "Select"
 msgstr "Seleccionar"
 
-#: templates/inicio.html:29
+#: templates/inicio.html:83
 msgid "Two classifiers"
 msgstr "Dos clasificadores"
 
-#: templates/inicio.html:30
+#: templates/inicio.html:84
 msgid "Multi-view"
 msgstr "Multi-view"
 
-#: templates/inicio.html:42
+#: templates/inicio.html:96
 msgid "Three classifiers"
 msgstr "Tres clasificadores"
 
-#: templates/inicio.html:55
+#: templates/inicio.html:109
 msgid "Three or more classifiers"
 msgstr "Tres o más clasificadores"
 

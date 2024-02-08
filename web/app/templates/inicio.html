@@ -1,9 +1,63 @@
 {% extends "base.html" %}
 {% block title %}{{ gettext('Home') }}{% endblock %}
 {% block content %}
-    <div class="mt-4 p-5 A text-white">
+    <div class="mt-1 p-3 pb-1 A text-white text-center">
         <h1 class="title-mulish text-bold">VASS</h1>
-        <p>{{ gettext('Final Degree Project on semi-supervised algorithms and their visualization') }}</p>
+        <h4 class="title-mulish">{{ gettext('Semi-Supervised Algorithm Visualizer') }}</h4>
+        <hr class="separacion w-8"/>
+    </div>
+    <div class="A">
+        <div class="d-flex justify-content-center align-items-center">
+            <div id="card_inicial" class="col-md-11 B rounded-4 p-4 m-2 shadow-lg">
+                <div class="row justify-content-center">
+                    <div class="col-md">
+                        <div class="text-center">
+                            <h4 class="title-mulish">{{ gettext('A little bit of theory...') }}</h4>
+                            <hr class="separacion w-8"/>
+                        </div>
+                        <div class="m-2 p-2">
+                            {{ gettext('<strong>Semi-supervised learning</strong> is the branch of machine learning that
+                            refers to the simultaneous use of data both <strong>labeled</strong> and
+                            <strong>unlabeled</strong> to perform learning tasks. It sits between supervised
+                            and unsupervised learning.<br><br>Among all <strong>semi-supervised algorithms</strong>,
+                            the core of this project is based on <strong>inductive methods</strong>.
+                            Their idea is very simple: they try to create a classifier that predicts labels for new data.
+                            The proposed algorithms have this objective, albeit with a bit more specificity:
+                            <strong>wrapper methods</strong>. The well-known <strong>wrapper methods</strong>
+                            are based on <strong>pseudo-labeling</strong>, which is the process where classifiers
+                            trained with labeled data generate labels for the unlabeled ones. Once this process is
+                            completed, the classifier is retrained, incorporating these new labels.') }}
+
+                        </div>
+                        <div class="m-2 p-2">
+                            {{ gettext('In the following cards, four of the most representative algorithms of
+                            semi-supervised learning are presented: <strong>Self-Training</strong>,
+                            <strong>Co-Training</strong>, <strong>Tri-Training</strong> and
+                            <strong>Democratic Co-Learning</strong>. <br><br> Internally, each algorithm utilizes
+                            one or several classifiers (wrapper methods). Additionally, the number
+                            of views on the data is distinguished (a view being the subset of attributes of the dataset
+                            that the algorithm uses to learn the model). Unlike <strong>Single-view</strong>, a
+                            <strong>Multi-view</strong> algorithm views the dataset attributes as multiple subsets.
+                            For example, in the Co-Training algorithm, the first classifier might only "see" half of
+                            the attributes while the second one sees the other half. Each of them will work with its
+                            specific subset of attributes.') }}
+
+                        </div>
+                        <div class="text-center">
+                            <h4 class="title-mulish">{{ gettext('Objective') }}</h4>
+                            <hr class="separacion w-8"/>
+                        </div>
+                        <div class="m-2 p-2">
+                            {{ gettext('The aim of this tool is to facilitate, through visualizations, the understanding
+                            of how the main semi-supervised algorithms actually work when combined with theoretical
+                            concepts. <br><br>By selecting any of the algorithms, you will be redirected to load the
+                            dataset. Subsequently, you can configure the algorithm with the desired parameters and
+                            finally obtain a visualization of the training process.') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="dos-colores container-fluid bg-3 text-center">
         <div class="row justify-content-around">
