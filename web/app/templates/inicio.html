@@ -8,15 +8,21 @@
     </div>
     <div class="A">
         <div class="d-flex justify-content-center align-items-center">
-            <div id="card_inicial" class="col-md-11 B rounded-4 p-4 m-2 shadow-lg">
-                <div class="row justify-content-center">
-                    <div class="col-md">
-                        <div class="text-center">
-                            <h4 class="title-mulish">{{ gettext('A little bit of theory...') }}</h4>
-                            <hr class="separacion w-8"/>
-                        </div>
-                        <div class="m-2 p-2">
-                            {{ gettext('<strong>Semi-supervised learning</strong> is the branch of machine learning that
+            <div id="card_inicial" class="accordion col-md-6 m-4">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panel-teoria" aria-expanded="false" aria-controls="panel-teoria">
+                            {{ gettext('A little bit of theory...') }}
+                        </button>
+                    </h2>
+                    <div id="panel-teoria" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <div class="text-center">
+                                <h4 class="title-mulish">{{ gettext('A little bit of theory...') }}</h4>
+                                <hr class="separacion w-8"/>
+                            </div>
+                            <div class="m-2 p-2">
+                                {{ gettext('<strong>Semi-supervised learning</strong> is the branch of machine learning that
                             refers to the simultaneous use of data both <strong>labeled</strong> and
                             <strong>unlabeled</strong> to perform learning tasks. It sits between supervised
                             and unsupervised learning.<br><br>Among all <strong>semi-supervised algorithms</strong>,
@@ -28,9 +34,9 @@
                             trained with labeled data generate labels for the unlabeled ones. Once this process is
                             completed, the classifier is retrained, incorporating these new labels.') }}
 
-                        </div>
-                        <div class="m-2 p-2">
-                            {{ gettext('In the following cards, four of the most representative algorithms of
+                            </div>
+                            <div class="m-2 p-2">
+                                {{ gettext('In the following cards, four of the most representative algorithms of
                             semi-supervised learning are presented: <strong>Self-Training</strong>,
                             <strong>Co-Training</strong>, <strong>Tri-Training</strong> and
                             <strong>Democratic Co-Learning</strong>. <br><br> Internally, each algorithm utilizes
@@ -41,18 +47,29 @@
                             For example, in the Co-Training algorithm, the first classifier might only "see" half of
                             the attributes while the second one sees the other half. Each of them will work with its
                             specific subset of attributes.') }}
-
+                            </div>
                         </div>
-                        <div class="text-center">
-                            <h4 class="title-mulish">{{ gettext('Objective') }}</h4>
-                            <hr class="separacion w-8"/>
-                        </div>
-                        <div class="m-2 p-2">
-                            {{ gettext('The aim of this tool is to facilitate, through visualizations, the understanding
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panel-objetivo" aria-expanded="false" aria-controls="panel-objetivo">
+                            {{ gettext('Objective') }}
+                        </button>
+                    </h2>
+                    <div id="panel-objetivo" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <div class="text-center">
+                                <h4 class="title-mulish">{{ gettext('Objective') }}</h4>
+                                <hr class="separacion w-8"/>
+                            </div>
+                            <div class="m-2 p-2">
+                                {{ gettext('The aim of this tool is to facilitate, through visualizations, the understanding
                             of how the main semi-supervised algorithms actually work when combined with theoretical
                             concepts. <br><br>By selecting any of the algorithms, you will be redirected to load the
                             dataset. Subsequently, you can configure the algorithm with the desired parameters and
                             finally obtain a visualization of the training process.') }}
+                            </div>
                         </div>
                     </div>
                 </div>

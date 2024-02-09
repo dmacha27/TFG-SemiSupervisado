@@ -48,7 +48,7 @@
                     <hr>
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="https://raw.githubusercontent.com/dma1004/TFG-SemiSupervisado/main/doc/manual.pdf" target="_blank" rel="noopener" title="Manual">
+                            <a class="nav-link" href="https://raw.githubusercontent.com/dmacha27/TFG-SemiSupervisado/main/doc/manual.pdf" target="_blank" rel="noopener" title="Manual">
                                 <i class="bi bi-question-square-fill text-white"></i>
                             </a>
                         </li>
@@ -103,73 +103,73 @@
                 {% set primer_mensaje = mensajes[0] %}
                 {% if primer_mensaje[0] == 'error' %}
                     <div id="liveToast" class="toast border-danger bg-danger bg-opacity-75" role="alert" aria-live="assertive" aria-atomic="true">
-                        <div class="toast-header">
-                            <strong class="me-auto">Error</strong>
+                    <div class="toast-header">
+                    <strong class="me-auto">Error</strong>
                 {% elif primer_mensaje[0] == 'success' %}
                     <div id="liveToast" class="toast border-success bg-success bg-opacity-75" role="alert" aria-live="assertive" aria-atomic="true">
-                        <div class="toast-header">
-                            <strong class="me-auto">{{ gettext('Success') }}</strong>
+                    <div class="toast-header">
+                    <strong class="me-auto">{{ gettext('Success') }}</strong>
                 {% elif primer_mensaje[0] == 'warning' %}
                     <div id="liveToast" class="toast border-warning bg-warning bg-opacity-75" role="alert" aria-live="assertive" aria-atomic="true">
-                        <div class="toast-header">
-                            <strong class="me-auto">{{ gettext('Warning') }}</strong>
+                    <div class="toast-header">
+                    <strong class="me-auto">{{ gettext('Warning') }}</strong>
                 {% else %}
                     <div id="liveToast" class="toast border-info bg-info bg-opacity-75" role="alert" aria-live="assertive" aria-atomic="true">
-                        <div class="toast-header">
-                            <strong class="me-auto">Info</strong>
+                    <div class="toast-header">
+                    <strong class="me-auto">Info</strong>
                 {% endif %}
-                            <small class="text-muted">{{ gettext('just now') }}</small>
-                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                        </div>
-                        <div class="toast-body">
-                            {% for categoria, mensaje in mensajes|reverse %}
-                                {{ mensaje }}
-                                {% if loop.index < mensajes|length %}
-                                    <br>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <script>
-                        const e = new bootstrap.Toast(document.getElementById('liveToast'), {delay: 7500});
-                        e.show();
-                    </script>
-                </div>
+            <small class="text-muted">{{ gettext('just now') }}</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                {% for categoria, mensaje in mensajes|reverse %}
+                    {{ mensaje }}
+                    {% if loop.index < mensajes|length %}
+                        <br>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            </div>
+            <script>
+                const e = new bootstrap.Toast(document.getElementById('liveToast'), {delay: 7500});
+                e.show();
+            </script>
+            </div>
             {% endif %}
         {% endwith %}
 
         {% block content %}{% endblock %}
-            <div class="main-footer widgets-dark typo-light d-flex">
-                <div class="container">
-                    <div class="row align-items-center shadow-lg rounded-4 mb-2" id="logos">
-                        <div class="col-xs-12 col-sm-6 col-md-3">
-                            <a target="_blank" rel="noopener noreferrer" href="https://ec.europa.eu/regional_policy/es/funding/erdf/">
-                                <img class="img-fluid" alt="FEDER" src="/FEDER.svg">
-                            </a>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-3">
-                            <a target="_blank" rel="noopener noreferrer" href="http://www.mineco.gob.es/portal/site/mineco/">
-                                <img class="img-fluid" alt="MEC" src="/MEC.svg">
-                            </a>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-3">
-                            <a target="_blank" rel="noopener noreferrer" href="https://www.jcyl.es/">
-                                <img class="img-fluid" alt="JCYL" src="/JCYL.svg">
-                            </a>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-3">
-                            <a target="_blank" rel="noopener noreferrer" href="https://www.educa.jcyl.es/universidad/es/fondos-europeos/fondo-europeo-desarrollo-regional-feder/">
-                                <img class="img-fluid" alt="JCYL_impulsa" src="/JCYL_impulsa.svg">
-                            </a>
-                        </div>
+        <div class="main-footer widgets-dark typo-light d-flex">
+            <div class="container">
+                <div class="row align-items-center shadow-lg rounded-4 mb-2" id="logos">
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <a target="_blank" rel="noopener noreferrer" href="https://ec.europa.eu/regional_policy/es/funding/erdf/">
+                            <img class="img-fluid" alt="FEDER" src="/FEDER.svg">
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <a target="_blank" rel="noopener noreferrer" href="http://www.mineco.gob.es/portal/site/mineco/">
+                            <img class="img-fluid" alt="MEC" src="/MEC.svg">
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.jcyl.es/">
+                            <img class="img-fluid" alt="JCYL" src="/JCYL.svg">
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.educa.jcyl.es/universidad/es/fondos-europeos/fondo-europeo-desarrollo-regional-feder/">
+                            <img class="img-fluid" alt="JCYL_impulsa" src="/JCYL_impulsa.svg">
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
+        </div>
         <footer class="D d-flex text-center title-mulish text-white">
             <p class="m-auto">© 2023 David Martínez Acha - <a class="text-white text-decoration-none" href="https://www.ubu.es/">Universidad de Burgos</a>
                 |
-                <a class="text-white text-decoration-none" href="https://github.com/dma1004/TFG-SemiSupervisado"><i class="bi bi-github"></i> Github</a></p>
+                <a class="text-white text-decoration-none" href="https://github.com/dmacha27/TFG-SemiSupervisado"><i class="bi bi-github"></i> Github</a></p>
         </footer>
         </div>
 </body>

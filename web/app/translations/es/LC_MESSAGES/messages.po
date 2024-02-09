@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-02-08 22:59+0100\n"
+"POT-Creation-Date: 2024-02-09 13:03+0100\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: David Martínez Acha <dma1004@alu.ubu.es>\n"
 "Language: es\n"
@@ -253,11 +253,11 @@ msgstr "Inicio"
 msgid "Semi-Supervised Algorithm Visualizer"
 msgstr "Visualizador de Algoritmos Semi-Supervisados"
 
-#: templates/inicio.html:15
+#: templates/inicio.html:15 templates/inicio.html:21
 msgid "A little bit of theory..."
 msgstr "Un poco de teoría..."
 
-#: templates/inicio.html:19
+#: templates/inicio.html:25
 msgid ""
 "<strong>Semi-supervised learning</strong> is the branch of machine "
 "learning that\n"
@@ -297,7 +297,7 @@ msgstr ""
 "proceso, el clasificador se vuelve a entrenar pero añadiendo estos "
 "nuevos."
 
-#: templates/inicio.html:33
+#: templates/inicio.html:39
 msgid ""
 "In the following cards, four of the most representative algorithms of\n"
 "                            semi-supervised learning are presented: "
@@ -333,11 +333,11 @@ msgstr ""
 " mientras que el segundo la otra mitad. Cada uno de ellos trabajará con "
 "su subconjunto de atributos concreto."
 
-#: templates/inicio.html:47
+#: templates/inicio.html:57 templates/inicio.html:63
 msgid "Objective"
 msgstr "Objetivo"
 
-#: templates/inicio.html:51
+#: templates/inicio.html:67
 msgid ""
 "The aim of this tool is to facilitate, through visualizations, the "
 "understanding\n"
@@ -358,32 +358,32 @@ msgstr ""
 "algoritmo con los parámetros deseados y finalmente obtener una "
 "visualización del entrenamiento."
 
-#: templates/inicio.html:70
+#: templates/inicio.html:87
 msgid "One classifier"
 msgstr "Un clasificador"
 
-#: templates/inicio.html:71 templates/inicio.html:97 templates/inicio.html:110
+#: templates/inicio.html:88 templates/inicio.html:114 templates/inicio.html:127
 msgid "Single-view"
 msgstr "Single-view"
 
-#: templates/inicio.html:74 templates/inicio.html:87 templates/inicio.html:100
-#: templates/inicio.html:113
+#: templates/inicio.html:91 templates/inicio.html:104 templates/inicio.html:117
+#: templates/inicio.html:130
 msgid "Select"
 msgstr "Seleccionar"
 
-#: templates/inicio.html:83
+#: templates/inicio.html:100
 msgid "Two classifiers"
 msgstr "Dos clasificadores"
 
-#: templates/inicio.html:84
+#: templates/inicio.html:101
 msgid "Multi-view"
 msgstr "Multi-view"
 
-#: templates/inicio.html:96
+#: templates/inicio.html:113
 msgid "Three classifiers"
 msgstr "Tres clasificadores"
 
-#: templates/inicio.html:109
+#: templates/inicio.html:126
 msgid "Three or more classifiers"
 msgstr "Tres o más clasificadores"
 
