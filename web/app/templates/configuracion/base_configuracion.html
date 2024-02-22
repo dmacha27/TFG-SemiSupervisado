@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{%  from "macros.html" import formulario_comun %}
+{% from "macros.html" import formulario_comun %}
 {% block head %}
     {{ super() }}
     <script type="text/javascript" src="/js/configuracion/configuracion.js"></script>
@@ -7,7 +7,8 @@
 {% block title %}{{ gettext('Algorithm configuration') }}{% endblock %}
 {% block content %}
     <button id="btn_volver" type="button" onclick="history.back()" class="btn sticky-top">
-        <i class="bi bi-caret-left-fill"></i>{{ gettext('Go back') }}</button>| {{ gettext('Dataset') }}: {{ session['FICHERO']|nombredataset }}
+        <i class="bi bi-caret-left-fill"></i>{{ gettext('Go back') }}</button>| {{ gettext('Dataset') }}:
+    {{ session['FICHERO']|nombredataset }}
     <div class="text-center pb-3">
         <h1 class="title-mulish text-bold">{{ gettext('Algorithm configuration') }}: {{ titulos[session['ALGORITMO']] }}</h1>
         <hr class="separacion w-14"/>
@@ -34,7 +35,8 @@
                         <h4 class="title-mulish">{{ gettext('Parameters') }}</h4>
                         <hr class="separacion w-8"/>
                     </div>
-                    <form action="{{ url_for('visualization_bp.visualizar_algoritmo', algoritmo=session['ALGORITMO']) }}" method="POST">
+                    <form action="{{ url_for('visualization_bp.visualizar_algoritmo', algoritmo=session['ALGORITMO']) }}"
+                          method="POST">
                         {{ form.csrf_token }}
                         <div class="row">
                             <div class="col-md">
@@ -45,7 +47,9 @@
                             </div>
                         </div>
                         <div class="row">
-                            <button type="submit" class="btn btn-primary m-auto" style="width: 20rem">{{ gettext('Run') }}</button>
+                            <button id="btn_run"
+                                    type="submit" class="btn btn-primary m-auto"
+                                    style="width: 20rem">{{ gettext('Run') }}</button>
                         </div>
                     </form>
                     {% block form_scripts %}{% endblock %}
@@ -57,6 +61,37 @@
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
         tooltipTriggerList.forEach(function (el) {
             new bootstrap.Tooltip(el);
+        });
+
+        document.getElementById('inicio_tutorial').addEventListener('click', function () {
+            this.style.animation = "none";
+            introJs().setOptions({
+                steps: [
+                    {
+                        title: "{{ gettext("Configuration area") }}",
+                        intro: "{{ gettext("On this page, you'll be able to customize the parameters of algorithm ") }}" + "{{ titulos[session['ALGORITMO']] }}."
+                    },
+                    {
+                        element: '#theory-card',
+                        intro: "{{ gettext("You can gain a deeper understanding of the algorithm by reviewing its theory and pseudocode.") }}"
+                    },
+                    {
+                        element: '#parameters-card',
+                        intro: "{{ gettext("Here you can select the desired parameters.") }}"
+                    },
+                    {
+                        element: '#sel_target',
+                        intro: "{{ gettext("It's crucial to select the column of data that acts as the target correctly. The rest of the parameters can be used as default.") }}"
+                    },
+                    {
+                        element: '#btn_run',
+                        intro: "{{ gettext("And finally, execute the algorithm. The application may take a few seconds to display the complete execution.") }}"
+                    }
+                ],
+                'nextLabel': "{{ gettext("Next") }}",
+                'prevLabel': "{{ gettext("Previous") }}",
+                'doneLabel': "{{ gettext("Done") }}",
+            }).start();
         });
     </script>
 {% endblock %}

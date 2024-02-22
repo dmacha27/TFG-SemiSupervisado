@@ -1,5 +1,5 @@
 {% extends "usuarios/base_user.html" %}
-{%  from "macros.html" import table_scripts_links,datasettable, historytable, modaleliminar, modalparametros, modalejecutar, modalerror %}
+{% from "macros.html" import table_scripts_links,datasettable, historytable, modaleliminar, modalparametros, modalejecutar, modalerror %}
 {% block head %}
     {{ super() }}
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -34,4 +34,32 @@
 
     {{ modalerror() }}
 
+    <script>
+        document.getElementById('inicio_tutorial').addEventListener('click', function () {
+            this.style.animation = "none";
+            introJs().setOptions({
+                steps: [
+                    {
+                        title: "{{ gettext("Personal space") }}",
+                        intro: "{{ gettext("This is your personal space.") }}"
+                    },
+                    {
+                        element: '#resumen_perfil',
+                        intro: "{{ gettext("Here you can see a summary of your profile.") }}"
+                    },
+                    {
+                        element: '#datasettable',
+                        intro: "{{ gettext("In this table, you can observe the files (datasets) that the application has saved. You can choose to run an algorithm with one of them or delete it from the system.") }}"
+                    },
+                    {
+                        element: '#historytable',
+                        intro: "{{ gettext("Also, you can view the executions you have performed previously. You can rerun any of them, delete them, or check the parameters you used.") }}"
+                    }
+                ],
+                'nextLabel': "{{ gettext("Next") }}",
+                'prevLabel': "{{ gettext("Previous") }}",
+                'doneLabel': "{{ gettext("Done") }}",
+            }).start();
+        });
+    </script>
 {% endblock %}

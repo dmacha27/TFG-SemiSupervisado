@@ -178,7 +178,7 @@ def parametros_democraticcolearning_tritraining():
     lista_clasificadores = [clasificador1, clasificador2, clasificador3]
     incorporar_clasificadores_params(lista_clasificadores, params)
 
-    if len(set(lista_clasificadores)) != len(lista_clasificadores):
+    if len(set(lista_clasificadores)) != len(lista_clasificadores) and session['ALGORITMO'] == "democraticcolearning":
         flash(gettext("Classifiers must be different (diverse) to ensure proper execution"), category='warning')
 
     return params

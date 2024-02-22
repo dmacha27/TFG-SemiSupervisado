@@ -11,7 +11,8 @@
             <div id="card_inicial" class="accordion col-md-6 m-4">
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panel-teoria" aria-expanded="false" aria-controls="panel-teoria">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panel-teoria" aria-expanded="false" aria-controls="panel-teoria">
                             {{ gettext('A little bit of theory...') }}
                         </button>
                     </h2>
@@ -53,7 +54,8 @@
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panel-objetivo" aria-expanded="false" aria-controls="panel-objetivo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panel-objetivo" aria-expanded="false" aria-controls="panel-objetivo">
                             {{ gettext('Objective') }}
                         </button>
                     </h2>
@@ -88,7 +90,8 @@
                     <li class="list-group-item">{{ gettext('Single-view') }}</li>
                 </ul>
                 <div class="card-body align-bottom">
-                    <a href="/seleccionar/selftraining" class="btn btn-primary stretched-link">{{ gettext('Select') }}</a>
+                    <a href="/seleccionar/selftraining"
+                       class="btn btn-primary stretched-link">{{ gettext('Select') }}</a>
                 </div>
             </div>
             <div class="card shadow m-2" style="width: 18rem;">
@@ -114,24 +117,84 @@
                     <li class="list-group-item">{{ gettext('Single-view') }}</li>
                 </ul>
                 <div class="card-body">
-                    <a href="/seleccionar/tritraining" class="btn btn-primary stretched-link">{{ gettext('Select') }}</a>
+                    <a href="/seleccionar/tritraining"
+                       class="btn btn-primary stretched-link">{{ gettext('Select') }}</a>
                 </div>
             </div>
             <div class="card shadow m-2" style="width: 18rem;">
-                <img class="card-img-top mt-2" src="/DemocraticCoLearning.png" width="300" height="250" alt="Democratic Co-Learning">
+                <img class="card-img-top mt-2" src="/DemocraticCoLearning.png" width="300" height="250"
+                     alt="Democratic Co-Learning">
                 <div class="card-body">
                     <h6 class="card-title title-mulish text-bold">Democratic Co-Learning</h6>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item" style="font-size: 0.95rem">{{ gettext('Three or more classifiers') }}</li>
+                    <li class="list-group-item"
+                        style="font-size: 0.95rem">{{ gettext('Three or more classifiers') }}</li>
                     <li class="list-group-item">{{ gettext('Single-view') }}</li>
                 </ul>
                 <div class="card-body">
-                    <a href="/seleccionar/democraticcolearning" class="btn btn-primary stretched-link">{{ gettext('Select') }}</a>
+                    <a href="/seleccionar/democraticcolearning"
+                       class="btn btn-primary stretched-link">{{ gettext('Select') }}</a>
                 </div>
             </div>
         </div>
     </div><br>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let steps = [{
+                    title: "{{ gettext('Welcome') }}",
+                    intro: "{{ gettext('Welcome to VASS! This is a basic tutorial.') }}"
+                },
+                {
+                    element: '#card_inicial',
+                    intro: "{{ gettext("Here's a quick rundown of some theoretical concepts and what the app aims to do.") }}"
+                },
+                {
+                    element: '.card',
+                    intro: "{{ gettext("By selecting any of these algorithms, you'll be able to upload a dataset to work with.") }}"
+                },
+                {
+                    element: '#selectores_algoritmo',
+                    intro: "{{ gettext("Likewise, you can select any algorithm using these selectors.") }}"
+                },
+                {
+                    element: '#inicio_tutorial',
+                    intro: "{{ gettext("On every page of the application, you'll always find a basic tutorial by clicking on this button.") }}"
+                },
+                {
+                    element: '#link_manual',
+                    intro: "{{ gettext("At any time, you can refer to the application's guide by clicking on this button.") }}"
+                },
+                {
+                    element: '#selector_idioma',
+                    intro: "{{ gettext("You can also choose the desired language.") }}"
+                }
+            ];
+
+            if (document.getElementById('inicio_sesion')) {
+                steps.push({
+                    element: '#inicio_sesion',
+                    position: 'left',
+                    intro: "{{ gettext("You can log in or register in the application. This will allow you to store datasets and even save executions.") }}"
+                });
+            } else {
+                steps.push({
+                    element: '#nombre_usuario',
+                    intro: "{{ gettext("Here you can access the profile and personal space with datasets and executions.") }}"
+                });
+            }
+
+            document.getElementById('inicio_tutorial').addEventListener('click', function () {
+                this.style.animation = "none";
+                introJs().setOptions({
+                    steps: steps,
+                    'nextLabel': "{{ gettext("Next") }}",
+                    'prevLabel': "{{ gettext("Previous") }}",
+                    'doneLabel': "{{ gettext("Done") }}",
+                }).start();
+            });
+        });
+
+    </script>
 {% endblock %}
-
-

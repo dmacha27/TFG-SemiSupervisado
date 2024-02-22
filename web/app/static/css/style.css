@@ -76,6 +76,43 @@ body {
     z-index: 10000;
 }
 
+@keyframes bounce {
+    0%, 15%, 25%, 30% {
+        transform: translateY(0);
+    }
+    10% {
+        transform: translateY(20px);
+    }
+    20% {
+        transform: translateY(12px);
+    }
+    27% {
+        transform: translateY(4px);
+    }
+
+}
+
+@media (max-width: 575px) {
+    @keyframes bounce {
+        0%, 15%, 25%, 30% {
+            transform: translateX(0);
+        }
+        10% {
+            transform: translateX(20px);
+        }
+        20% {
+            transform: translateX(12px);
+        }
+        27% {
+            transform: translateX(4px);
+        }
+    }
+}
+
+#inicio_tutorial {
+    animation: bounce 3s 4;
+}
+
 .separacion {
     border: none;
     height: 5px;
@@ -102,7 +139,7 @@ footer {
 
 .flash {
     color: black;
-    margin:0;
+    margin: 0;
     text-align: center;
 }
 
@@ -125,12 +162,15 @@ footer {
 .bs-tooltip-auto[data-popper-placement^="top"] .tooltip-arrow::before {
     border-top-color: #737C80 !important;
 }
+
 .bs-tooltip-auto[data-popper-placement^="bottom"] .tooltip-arrow::before {
     border-bottom-color: #737C80 !important;
 }
+
 .bs-tooltip-auto[data-popper-placement^="left"] .tooltip-arrow::before {
     border-left-color: #737C80 !important;
 }
+
 .bs-tooltip-auto[data-popper-placement^="right"] .tooltip-arrow::before {
     border-right-color: #737C80 !important;
 }
@@ -201,12 +241,13 @@ footer {
         margin: 0;
         padding: 2vh 1vh;
     }
+
     #card_subida, #card_inicial {
         max-width: 22rem;
     }
 }
 
-#archivo{
+#archivo {
     width: 0;
     height: 0;
     opacity: 0;
@@ -234,7 +275,7 @@ footer {
     position: absolute;
     right: 0;
     top: 0;
-    transform: translate(12%,-50%);
+    transform: translate(12%, -50%);
 }
 
 @media (max-width: 750px) {
@@ -242,6 +283,7 @@ footer {
         width: 95vw;
         margin: 1rem auto !important;
     }
+
     #parameters-card {
         width: 95vw;
         margin: 1rem auto !important;
@@ -258,7 +300,11 @@ footer {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 

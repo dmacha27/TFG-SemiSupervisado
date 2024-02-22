@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{%  from "macros.html" import modalerror %}
+{% from "macros.html" import modalerror %}
 {% block head %}
     {{ super() }}
     <script type="text/javascript" src="/js/visualizacion/d3.min.js"></script>
@@ -11,7 +11,8 @@
 {% endblock %}
 {% block content %}
     <button id="btn_volver" type="button" onclick="history.back()" class="btn">
-        <i class="bi bi-caret-left-fill"></i>{{ gettext('Go back') }}</button>| {{ gettext('Dataset') }}: {{ session['FICHERO']|nombredataset }}
+        <i class="bi bi-caret-left-fill"></i>{{ gettext('Go back') }}</button>| {{ gettext('Dataset') }}:
+    {{ session['FICHERO']|nombredataset }}
     <br>
     <div id="titulo_visualizacion" class="text-center pb-3">
         <h1 class="title-mulish text-bold">{{ titulos[session['ALGORITMO']] }}</h1>
@@ -20,7 +21,8 @@
     <div id="div_cargando">
         <div id="cargando" class="cargando m-auto"></div>
     </div>
-    <div id="visualizacion" style="visibility: hidden;" class="d-flex flex-wrap justify-content-around mb-3 position-relative">
+    <div id="visualizacion" style="visibility: hidden;"
+         class="d-flex flex-wrap justify-content-around mb-3 position-relative">
         <div id="visualization-card" class="col-md">
             <div class="m-2 pt-4 pb-2 shadow-lg rounded-4 sticky-top">
                 <div class="text-center position-relative">
@@ -29,7 +31,8 @@
                     <div id="zona_gráfico" class="d-flex mt-4 justify-content-center align-items-center">
                         <div class="d-flex">
                             <div class="position-relative" id="visualizacion_principal"></div>
-                            <div id="leyenda_visualizacion" class="d-flex flex-column align-items-start m-auto" style="width: 7rem;"></div>
+                            <div id="leyenda_visualizacion" class="d-flex flex-column align-items-start m-auto"
+                                 style="width: 7rem;"></div>
                         </div>
                     </div>
                     <div class="text_center" id="controles">
@@ -54,11 +57,14 @@
                 <div class="accordion w-75 mx-auto" id="pseudocodigo">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="encabezado">
-                            <button class="accordion-button collapsed title-mulish" type="button" data-bs-toggle="collapse" data-bs-target="#collapse" aria-expanded="false" aria-controls="collapse">
+                            <button class="accordion-button collapsed title-mulish" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#collapse" aria-expanded="false"
+                                    aria-controls="collapse">
                                 {{ gettext('Pseudocode') }}
                             </button>
                         </h2>
-                        <div id="collapse" class="accordion-collapse collapse" aria-labelledby="encabezado" data-bs-parent="#accordionExample">
+                        <div id="collapse" class="accordion-collapse collapse" aria-labelledby="encabezado"
+                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 {% block pseudocodigo %}{% endblock %}
                             </div>
@@ -68,15 +74,18 @@
                 <br>
                 <h4 class="title-mulish">{{ gettext('General statistics') }}</h4>
                 <hr class="separacion w-10"/>
-                <div id="zona_estadisticas_generales" class=" d-flex mt-4 justify-content-center align-items-center text-center">
+                <div id="zona_estadisticas_generales"
+                     class=" d-flex mt-4 justify-content-center align-items-center text-center">
                     <div class="d-flex">
                         <div id="estadisticas_generales"></div>
-                        <div id="leyenda_estadisticas_generales" class="d-flex flex-column align-items-start m-auto" style="width: 12rem;"></div>
+                        <div id="leyenda_estadisticas_generales" class="d-flex flex-column align-items-start m-auto"
+                             style="width: 12rem;"></div>
                     </div>
                 </div>
                 <br>
                 {% block titulo_especificas %}{% endblock %}
-                <div id="zona_estadisticas_especificas" class=" d-flex justify-content-center align-items-center text-center">
+                <div id="zona_estadisticas_especificas"
+                     class=" d-flex justify-content-center align-items-center text-center">
                     <!-- Si fuesen necesarias más estadísticas se incluirán aquí -->
                     {% block mas_estadisticas %}{% endblock %}
                 </div>
@@ -125,6 +134,64 @@
         {% endfor %}
 
         let cx = "{{ cx }}", cy = "{{ cy }}";
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let steps = [
+                {
+                    title: "{{ gettext("Visualization area") }}",
+                    intro: "{{ gettext("This page is the heart of the application. Here, you can observe the algorithm training process.") }}"
+                },
+                {
+                    element: '#visualization-card',
+                    intro: "{{ gettext("This is the main chart area.") }}",
+                    position: 'right'
+                },
+                {
+                    element: '#visualizacion_principal',
+                    intro: "{{ gettext("This chart will display the data classified by the algorithm. It's interactive; you can zoom in, scroll around, or select a data point (to display relevant information).") }}"
+                },
+                {
+                    element: '#controles',
+                    intro: "{{ gettext("You can proceed through the algorithm steps manually or automatically while visualizing the events.") }}"
+                },
+                {
+                    element: '#stats-card',
+                    intro: "{{ gettext("This is the statistics area.") }}",
+                    position: 'left'
+                },
+                {
+                    element: '#zona_estadisticas_generales',
+                    intro: "{{ gettext("Here, the statistics extracted in each iteration are displayed in a general way, as if it were a single model.") }}"
+                }
+            ];
+
+            if (!(window.location.pathname.includes('selftraining'))) {
+                steps.push({
+                        element: '#zona_estadisticas_especificas',
+                        intro: "{{ gettext("Here, the statistics extracted in each iteration for each base classifier are displayed.") }}"
+                    },
+                    {
+                        element: '#selector_stat',
+                        intro: "{{ gettext("Through this selector, you can choose the metric you want to see.") }}"
+                    },
+                    {
+                        element: '#checkboxes_especifico_grafico_stat',
+                        intro: "{{ gettext("This allows you to select which base classifier to display.") }}"
+                    });
+            }
+
+            document.getElementById('inicio_tutorial').addEventListener('click', function () {
+                this.style.animation = "none";
+                introJs().setOptions({
+                    steps: steps,
+                    'nextLabel': "{{ gettext("Next") }}",
+                    'prevLabel': "{{ gettext("Previous") }}",
+                    'doneLabel': "{{ gettext("Done") }}",
+                }).start();
+            });
+        });
+
     </script>
     <!-- Si fuesen necesarios más se incluirán aquí -->
     <!-- En principio siempre (al menos) se ejecutará la petición POST -->

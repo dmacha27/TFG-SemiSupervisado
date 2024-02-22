@@ -1,4 +1,5 @@
-{% extends "configuracion/singleviewconfig.html" %}
+{% extends "configuracion/base_configuracion.html" %}
+{%  from "macros.html" import selector %}
 {% block explicaciones %}
     <p>{{ gettext('It is a co-training algorithm style where unlabelled data is
     pseudo-labelled for retraining the base classifiers. In this case there are
@@ -17,4 +18,60 @@
 {% endblock %}
 {% block pseudocodigo %}
     <img src="{{ gettext('/pseudocodigos/en/TriTraining.png') }}" width="75%" alt="{{ gettext('Tri-Training Pseudocode') }}"/>
+{% endblock %}
+{% block parametros %}
+    <div class="mb-3">
+        {{ form.clasificador1.label }}
+        {{ form.clasificador1(class_="form-select") }}
+    </div>
+    <div class="parametros" id="parametros1"></div>
+    <br>
+    <div class="mb-3">
+        {{ form.clasificador2.label }}
+        {{ form.clasificador2(class_="form-select") }}
+    </div>
+    <div class="parametros" id="parametros2"></div>
+    <br>
+    <div class="mb-3">
+        {{ form.clasificador3.label }}
+        {{ form.clasificador3(class_="form-select") }}
+    </div>
+    <div class="parametros" id="parametros3"></div>
+    <br>
+{% endblock %}
+{% block form_scripts %}
+    <script>
+        const clasificador1 = document.querySelector('#clasificador1');
+        const clasificador2 = document.querySelector('#clasificador2');
+        const clasificador3 = document.querySelector('#clasificador3');
+
+        const div_parametros1 = document.querySelector('#parametros1');
+        const div_parametros2 = document.querySelector('#parametros2');
+        const div_parametros3 = document.querySelector('#parametros3');
+
+        const todos_parametros = {{ parametros|tojson }};
+
+        clasificador1.addEventListener('change', (event) => {
+            generarFormParametros(event.target.value, div_parametros1, "clasificador1");
+        });
+
+        clasificador2.addEventListener('change', (event) => {
+            generarFormParametros(event.target.value, div_parametros2, "clasificador2");
+        });
+
+        clasificador3.addEventListener('change', (event) => {
+            generarFormParametros(event.target.value, div_parametros3, "clasificador3");
+        });
+
+        const clasificadores_base = Object.keys(todos_parametros);
+        clasificador1.value = clasificadores_base[0];
+        generarFormParametros(clasificadores_base[0], div_parametros1, "clasificador1");
+
+        clasificador2.value = clasificadores_base[0];
+        generarFormParametros(clasificadores_base[0], div_parametros2, "clasificador2");
+
+        clasificador3.value = clasificadores_base[0];
+        generarFormParametros(clasificadores_base[0], div_parametros3, "clasificador3");
+
+    </script>
 {% endblock %}

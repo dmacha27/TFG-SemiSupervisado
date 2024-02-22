@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-02-09 13:03+0100\n"
+"POT-Creation-Date: 2024-02-22 11:48+0100\n"
 "PO-Revision-Date: 2023-02-26 14:39+0100\n"
 "Last-Translator: David Martínez Acha <dma1004@alu.ubu.es>\n"
 "Language: es\n"
@@ -202,42 +202,43 @@ msgstr ""
 "Los clasificadores deben ser diferentes (diversos) para asegurar una "
 "ejecución correcta"
 
-#: templates/base.html:78 templates/usuarios/admin.html:9
+#: templates/base.html:85 templates/usuarios/admin.html:9
 #: templates/usuarios/admin.html:14
 msgid "Admin dashboard"
 msgstr "Panel de administración"
 
-#: templates/base.html:80 templates/usuarios/miespacio.html:9
+#: templates/base.html:87 templates/usuarios/miespacio.html:9
 #: templates/usuarios/miespacio.html:10
 msgid "My Space"
 msgstr "Mi Espacio"
 
-#: templates/base.html:81 templates/usuarios/base_user.html:21
+#: templates/base.html:88 templates/usuarios/base_user.html:21
+#: templates/usuarios/perfil.html:68
 msgid "Profile"
 msgstr "Perfil"
 
-#: templates/base.html:83
+#: templates/base.html:90
 msgid "Log Out"
 msgstr "Cerrar sesión"
 
-#: templates/base.html:89 templates/usuarios/registro.html:2
+#: templates/base.html:96 templates/usuarios/registro.html:2
 #: templates/usuarios/registro.html:3
 msgid "Sign Up"
 msgstr "Registrarse"
 
-#: templates/base.html:92
+#: templates/base.html:99
 msgid "Login"
 msgstr "Iniciar sesión"
 
-#: templates/base.html:111
+#: templates/base.html:118
 msgid "Success"
 msgstr "Éxito"
 
-#: templates/base.html:115 templates/visualizacion/base_visualizacion.html:109
+#: templates/base.html:122 templates/visualizacion/base_visualizacion.html:118
 msgid "Warning"
 msgstr "Advertencia"
 
-#: templates/base.html:121
+#: templates/base.html:128
 msgid "just now"
 msgstr "justo ahora"
 
@@ -253,11 +254,11 @@ msgstr "Inicio"
 msgid "Semi-Supervised Algorithm Visualizer"
 msgstr "Visualizador de Algoritmos Semi-Supervisados"
 
-#: templates/inicio.html:15 templates/inicio.html:21
+#: templates/inicio.html:16 templates/inicio.html:22
 msgid "A little bit of theory..."
 msgstr "Un poco de teoría..."
 
-#: templates/inicio.html:25
+#: templates/inicio.html:26
 msgid ""
 "<strong>Semi-supervised learning</strong> is the branch of machine "
 "learning that\n"
@@ -297,7 +298,7 @@ msgstr ""
 "proceso, el clasificador se vuelve a entrenar pero añadiendo estos "
 "nuevos."
 
-#: templates/inicio.html:39
+#: templates/inicio.html:40
 msgid ""
 "In the following cards, four of the most representative algorithms of\n"
 "                            semi-supervised learning are presented: "
@@ -329,15 +330,16 @@ msgstr ""
 "los datos (una vista es el subconjunto de atributos del conjunto de datos"
 " que usa el algoritmo para aprender el modelo). Al contrario que <strong"
 ">Single-view</strong>, un algoritmo <strong>Multi-view</strong> verá el "
-"conjunto de atributos de los datos como varios subconjuntos. de atributos"
-" mientras que el segundo la otra mitad. Cada uno de ellos trabajará con "
-"su subconjunto de atributos concreto."
+"conjunto de atributos de los datos como varios subconjuntos. Por ejemplo,"
+" en el algoritmo Co-Training, el primer clasificador podría solo \"ver\" "
+"la mitad de atributos mientras que el segundo la otra mitad. Cada uno de "
+"ellos trabajará con su subconjunto de atributos concreto."
 
-#: templates/inicio.html:57 templates/inicio.html:63
+#: templates/inicio.html:59 templates/inicio.html:65
 msgid "Objective"
 msgstr "Objetivo"
 
-#: templates/inicio.html:67
+#: templates/inicio.html:69
 msgid ""
 "The aim of this tool is to facilitate, through visualizations, the "
 "understanding\n"
@@ -358,34 +360,121 @@ msgstr ""
 "algoritmo con los parámetros deseados y finalmente obtener una "
 "visualización del entrenamiento."
 
-#: templates/inicio.html:87
+#: templates/inicio.html:89
 msgid "One classifier"
 msgstr "Un clasificador"
 
-#: templates/inicio.html:88 templates/inicio.html:114 templates/inicio.html:127
+#: templates/inicio.html:90 templates/inicio.html:117 templates/inicio.html:133
 msgid "Single-view"
 msgstr "Single-view"
 
-#: templates/inicio.html:91 templates/inicio.html:104 templates/inicio.html:117
-#: templates/inicio.html:130
+#: templates/inicio.html:94 templates/inicio.html:107 templates/inicio.html:121
+#: templates/inicio.html:137
 msgid "Select"
 msgstr "Seleccionar"
 
-#: templates/inicio.html:100
+#: templates/inicio.html:103
 msgid "Two classifiers"
 msgstr "Dos clasificadores"
 
-#: templates/inicio.html:101
+#: templates/inicio.html:104
 msgid "Multi-view"
 msgstr "Multi-view"
 
-#: templates/inicio.html:113
+#: templates/inicio.html:116
 msgid "Three classifiers"
 msgstr "Tres clasificadores"
 
-#: templates/inicio.html:126
+#: templates/inicio.html:132
 msgid "Three or more classifiers"
 msgstr "Tres o más clasificadores"
+
+#: templates/inicio.html:146
+msgid "Welcome"
+msgstr "Bienvenido/a"
+
+#: templates/inicio.html:147
+msgid "Welcome to VASS! This is a basic tutorial."
+msgstr "¡Bienvenido/a a Vass! Esto es un tutorial básico."
+
+#: templates/inicio.html:151
+msgid ""
+"Here's a quick rundown of some theoretical concepts and what the app aims"
+" to do."
+msgstr ""
+"Aquí se realiza una pequeña introducción de conceptos teóricos y del "
+"objetivo de la aplicación."
+
+#: templates/inicio.html:155
+msgid ""
+"By selecting any of these algorithms, you'll be able to upload a dataset "
+"to work with."
+msgstr ""
+"Al seleccionar cualquiera de estos algoritmos podrás subir un conjunto de"
+" datos con el que trabajar."
+
+#: templates/inicio.html:159
+msgid "Likewise, you can select any algorithm using these selectors."
+msgstr ""
+"Del mismo modo, puede seleccionar cualquier algoritmo mediante estos "
+"selectores."
+
+#: templates/inicio.html:163
+msgid ""
+"On every page of the application, you'll always find a basic tutorial by "
+"clicking on this button."
+msgstr ""
+"En todas las páginas de la aplicación siempre encontrarás un tutorial "
+"básico pulsando en este botón."
+
+#: templates/inicio.html:167
+msgid ""
+"At any time, you can refer to the application's guide by clicking on this"
+" button."
+msgstr ""
+"En cualquier momento puedes consultar el manual de la aplicación en este "
+"botón."
+
+#: templates/inicio.html:171
+msgid "You can also choose the desired language."
+msgstr "También puedes elegir el idioma deseado."
+
+#: templates/inicio.html:179
+msgid ""
+"You can log in or register in the application. This will allow you to "
+"store datasets and even save executions."
+msgstr ""
+"Puedes iniciar sesión o registrarte en la aplicación. Esto permitirá "
+"almacenar conjuntos de datos e incluso guardar ejecuciones."
+
+#: templates/inicio.html:184
+msgid ""
+"Here you can access the profile and personal space with datasets and "
+"executions."
+msgstr ""
+"Aquí podrás acceder al perfil y al espacio personal con los conjuntos de "
+"datos y ejecuciones."
+
+#: templates/configuracion/base_configuracion.html:91 templates/inicio.html:192
+#: templates/subida.html:94 templates/usuarios/miespacio.html:59
+#: templates/usuarios/perfil.html:80
+#: templates/visualizacion/base_visualizacion.html:188
+msgid "Next"
+msgstr "Siguiente"
+
+#: templates/configuracion/base_configuracion.html:92 templates/inicio.html:193
+#: templates/subida.html:95 templates/usuarios/miespacio.html:60
+#: templates/usuarios/perfil.html:81
+#: templates/visualizacion/base_visualizacion.html:189
+msgid "Previous"
+msgstr "Anterior"
+
+#: templates/configuracion/base_configuracion.html:93 templates/inicio.html:194
+#: templates/subida.html:96 templates/usuarios/miespacio.html:61
+#: templates/usuarios/perfil.html:82
+#: templates/visualizacion/base_visualizacion.html:190
+msgid "Done"
+msgstr "Hecho"
 
 #: templates/macros.html:7
 msgid "Uncheck PCA to select specific components"
@@ -399,7 +488,7 @@ msgstr "Si ya fuera semi-supervisado, será ignorado"
 msgid "Input conditions"
 msgstr "Condiciones de entrada"
 
-#: templates/macros.html:65 templates/subida.html:28
+#: templates/macros.html:65 templates/subida.html:29
 msgid "Allowed extensions: .CSV & .ARFF"
 msgstr "Extensiones permitidas: .CSV & .ARFF"
 
@@ -478,7 +567,7 @@ msgstr "Algoritmo"
 msgid "Run date"
 msgstr "Fecha de ejecución"
 
-#: templates/configuracion/base_configuracion.html:34 templates/macros.html:136
+#: templates/configuracion/base_configuracion.html:35 templates/macros.html:136
 #: templates/macros.html:183
 msgid "Parameters"
 msgstr "Parámetros"
@@ -515,7 +604,7 @@ msgstr "Selecciona un algoritmo"
 msgid "An error occurred"
 msgstr "Ha ocurrido un error"
 
-#: templates/subida.html:8 templates/subida.html:13
+#: templates/subida.html:8 templates/subida.html:14
 msgid "Dataset upload"
 msgstr "Carga del conjunto de datos"
 
@@ -526,44 +615,80 @@ msgstr "Carga del conjunto de datos"
 msgid "Go back"
 msgstr "Volver"
 
-#: templates/subida.html:18
+#: templates/subida.html:19
 msgid "Conditions"
 msgstr "Condiciones"
 
-#: templates/subida.html:20
+#: templates/subida.html:21
 msgid "File selection"
 msgstr "Selección de fichero"
 
-#: templates/subida.html:29
+#: templates/subida.html:30
 msgid "Drag and drop your file"
 msgstr "Arrastra y suelta tu archivo"
 
-#: templates/subida.html:30
+#: templates/subida.html:31
 msgid "or"
 msgstr "o"
 
-#: templates/subida.html:32
+#: templates/subida.html:33
 msgid "Choose file"
 msgstr "Selecciona fichero"
 
-#: templates/subida.html:38
+#: templates/subida.html:39
 msgid "completed"
 msgstr "completado"
 
-#: templates/subida.html:47
+#: templates/subida.html:50
 msgid "Previous file detected: "
 msgstr "Fichero previo detectado: "
 
-#: templates/subida.html:48 templates/subida.html:50
+#: templates/subida.html:52 templates/subida.html:55
 msgid "Configure algorithm"
 msgstr "Configurar algoritmo"
 
-#: templates/subida.html:54
+#: templates/subida.html:60
 msgid "Download test file"
 msgstr "Descargar fichero de prueba"
 
+#: templates/subida.html:73
+msgid "Data upload"
+msgstr "Carga de datos"
+
+#: templates/subida.html:74
+msgid ""
+"On this page, you can upload a dataset to test the algorithm. You can "
+"follow along with this tutorial while doing the process."
+msgstr ""
+"En esta página puedes cargar un conjunto de datos con el que probar el "
+"algoritmo. Puedes realizar el proceso a la vez que este tutorial."
+
+#: templates/subida.html:78
+msgid "It's important that the dataset meets certain conditions."
+msgstr "Es importante que el conjunto de datos cumpla una serie de condiciones."
+
+#: templates/subida.html:82
+msgid ""
+"If you don't have a dataset available, you can download this example one "
+"(Iris)."
+msgstr ""
+"Si no dispones de un conjunto de datos, puedes descargar este de ejemplo "
+"(Iris)."
+
+#: templates/subida.html:86
+msgid ""
+"If you have one, you can drag and drop it or select it from your file "
+"system."
+msgstr ""
+"Si dispones de uno, puedes arrastrar o seleccionarlo desde tu sistema de "
+"archivos."
+
+#: templates/subida.html:91
+msgid "Once loaded, you can proceed to configure the algorithm "
+msgstr "Una vez cargado podrás pasar a la configuración del algoritmo "
+
 #: templates/configuracion/base_configuracion.html:7
-#: templates/configuracion/base_configuracion.html:12
+#: templates/configuracion/base_configuracion.html:13
 msgid "Algorithm configuration"
 msgstr "Configuración del algoritmo"
 
@@ -572,13 +697,49 @@ msgstr "Configuración del algoritmo"
 msgid "Dataset"
 msgstr "Conjunto de datos"
 
-#: templates/configuracion/base_configuracion.html:20
+#: templates/configuracion/base_configuracion.html:21
 msgid "Theory"
 msgstr "Teoría"
 
-#: templates/configuracion/base_configuracion.html:48
+#: templates/configuracion/base_configuracion.html:52
 msgid "Run"
 msgstr "Ejecutar"
+
+#: templates/configuracion/base_configuracion.html:71
+msgid "Configuration area"
+msgstr "Área de configuración"
+
+#: templates/configuracion/base_configuracion.html:72
+msgid "On this page, you'll be able to customize the parameters of algorithm "
+msgstr "En esta página podrás personalizar los parámetros del algoritmo."
+
+#: templates/configuracion/base_configuracion.html:76
+msgid ""
+"You can gain a deeper understanding of the algorithm by reviewing its "
+"theory and pseudocode."
+msgstr ""
+"Puedes conocer el algoritmo con mayor profundidad viendo su teoría y "
+"pseudocódigo."
+
+#: templates/configuracion/base_configuracion.html:80
+msgid "Here you can select the desired parameters."
+msgstr "Aquí puedes seleccionar los parámetros deseados."
+
+#: templates/configuracion/base_configuracion.html:84
+msgid ""
+"It's crucial to select the column of data that acts as the target "
+"correctly. The rest of the parameters can be used as default."
+msgstr ""
+"Es muy importante seleccionar correctamente la columna de los datos que "
+"actúa como objetivo. El resto de parámetros pueden servir por defecto."
+
+#: templates/configuracion/base_configuracion.html:88
+msgid ""
+"And finally, execute the algorithm. The application may take a few "
+"seconds to display the complete execution."
+msgstr ""
+"Y finalmente ejecutar el algoritmo. La aplicación puede tardar unos "
+"segundos en mostrar la ejecución completa."
 
 #: templates/configuracion/cotrainingconfig.html:25
 msgid "If it is larger than the total, it will be limited to it (the total)"
@@ -634,7 +795,7 @@ msgstr "/pseudocodigos/es/CoTraining.png"
 msgid "Co-Training Pseudocode"
 msgstr "Pseudocódigo de Co-Training"
 
-#: templates/configuracion/democraticcolearningconfig.html:3
+#: templates/configuracion/democraticcolearningconfig.html:4
 msgid ""
 "Democratic Co-Learning is a semi-supervised learning algorithm along the "
 "lines of Co-Training\n"
@@ -646,7 +807,7 @@ msgid ""
 "weighted voting over those not labelled.\n"
 "        That means that, for an instance, its new label will be the one "
 "voted by the majority.\n"
-"        Furthermote, for those classifiers that do not vote as the "
+"        Furthermore, for those classifiers that do not vote as the "
 "majority, the instance (with the majority label)\n"
 "        is added to their training set. This forces those misclassified "
 "classifiers to learn it in the next iteration.\n"
@@ -670,22 +831,22 @@ msgstr ""
 "entrenamiento, esto se alcanza cuando no se mejora la precisión pese a la"
 " adición de nuevas instancias pseudoetiquetadas. "
 
-#: templates/configuracion/democraticcolearningconfig.html:14
+#: templates/configuracion/democraticcolearningconfig.html:15
 #: templates/visualizacion/democraticcolearning.html:4
 msgid "/pseudocodigos/en/DemocraticCoLearningFit.png"
 msgstr "/pseudocodigos/es/DemocraticCoLearningEntrenar.png"
 
-#: templates/configuracion/democraticcolearningconfig.html:14
+#: templates/configuracion/democraticcolearningconfig.html:15
 #: templates/visualizacion/democraticcolearning.html:4
 msgid "Democratic Co-Learning Fit Pseudocode"
 msgstr "Pseudocódigo del Entrenamiento de Democratic Co-Learning"
 
-#: templates/configuracion/democraticcolearningconfig.html:15
+#: templates/configuracion/democraticcolearningconfig.html:16
 #: templates/visualizacion/democraticcolearning.html:5
 msgid "/pseudocodigos/en/DemocraticCoLearningCombine.png"
 msgstr "/pseudocodigos/es/DemocraticCoLearningCombinar.png"
 
-#: templates/configuracion/democraticcolearningconfig.html:15
+#: templates/configuracion/democraticcolearningconfig.html:16
 #: templates/visualizacion/democraticcolearning.html:5
 msgid "Democratic Co-Learning Combine Pseudocode"
 msgstr "Pseudocódigo de la Combinación de Democratic Co-Learning"
@@ -734,7 +895,7 @@ msgstr "/pseudocodigos/es/SelfTraining.png"
 msgid "Self-Training Pseudocode"
 msgstr "Pseudocódigo de Self-Training"
 
-#: templates/configuracion/tritrainingconfig.html:3
+#: templates/configuracion/tritrainingconfig.html:4
 msgid ""
 "It is a co-training algorithm style where unlabelled data is\n"
 "    pseudo-labelled for retraining the base classifiers. In this case "
@@ -763,7 +924,7 @@ msgstr ""
 "cada iteración. Esto conlleva que cada clasificador puede pseudo-"
 "etiquetar un mismo ejemplo varias veces (en distintas iteraciones)."
 
-#: templates/configuracion/tritrainingconfig.html:13
+#: templates/configuracion/tritrainingconfig.html:14
 msgid ""
 "The process of continuous retraining is repeated until none\n"
 "    of the base classifiers receive new pseudo-labelled examples. This "
@@ -775,12 +936,12 @@ msgstr ""
 "será cuando las comprobaciones en cuanto al error realizadas no se "
 "cumplan."
 
-#: templates/configuracion/tritrainingconfig.html:19
+#: templates/configuracion/tritrainingconfig.html:20
 #: templates/visualizacion/tritraining.html:4
 msgid "/pseudocodigos/en/TriTraining.png"
 msgstr "/pseudocodigos/es/TriTraining.png"
 
-#: templates/configuracion/tritrainingconfig.html:19
+#: templates/configuracion/tritrainingconfig.html:20
 #: templates/visualizacion/tritraining.html:4
 msgid "Tri-Training Pseudocode"
 msgstr "Pseudocódigo de Tri-Training"
@@ -825,6 +986,37 @@ msgstr "Iniciar sesión"
 msgid "Create account"
 msgstr "Crear cuenta"
 
+#: templates/usuarios/miespacio.html:43
+msgid "Personal space"
+msgstr "Espacio personal"
+
+#: templates/usuarios/miespacio.html:44
+msgid "This is your personal space."
+msgstr "Este es tu espacio personal."
+
+#: templates/usuarios/miespacio.html:48 templates/usuarios/perfil.html:73
+msgid "Here you can see a summary of your profile."
+msgstr "Aquí puedes ver un resumen de tu perfil."
+
+#: templates/usuarios/miespacio.html:52
+msgid ""
+"In this table, you can observe the files (datasets) that the application "
+"has saved. You can choose to run an algorithm with one of them or delete "
+"it from the system."
+msgstr ""
+"En esta tabla puedes observar los ficheros (conjuntos de datos) que la "
+"aplicación ha guardado. Puedes elegir ejecutar un algoritmo con uno de "
+"ellos o eliminarlo del sistema."
+
+#: templates/usuarios/miespacio.html:56
+msgid ""
+"Also, you can view the executions you have performed previously. You can "
+"rerun any of them, delete them, or check the parameters you used."
+msgstr ""
+"Del mismo modo, puedes ver las ejecuciones que has realizado "
+"anteriormente. Puedes re-ejecutar cualquiera de ellas, eliminarlas o "
+"consultar los parámetros que utilizaste."
+
 #: templates/usuarios/perfil.html:2 templates/usuarios/perfil.html:3
 msgid "My Profile"
 msgstr "Mi Perfil"
@@ -833,62 +1025,132 @@ msgstr "Mi Perfil"
 msgid "Edit profile"
 msgstr "Editar perfil"
 
-#: templates/visualizacion/base_visualizacion.html:27
+#: templates/usuarios/perfil.html:69
+msgid "This is your profile."
+msgstr "Este es tu perfil."
+
+#: templates/usuarios/perfil.html:77
+msgid "Here you can modify the basic data of your profile."
+msgstr "Aquí puedes modificar los datos básicos de tu perfil."
+
+#: templates/visualizacion/base_visualizacion.html:29
 msgid "Main visualization"
 msgstr "Visualización principal"
 
-#: templates/visualizacion/base_visualizacion.html:36
+#: templates/visualizacion/base_visualizacion.html:39
 msgid "Zoom reset"
 msgstr "Reiniciar Zoom"
 
-#: templates/visualizacion/base_visualizacion.html:38
-#: templates/visualizacion/base_visualizacion.html:105
+#: templates/visualizacion/base_visualizacion.html:41
+#: templates/visualizacion/base_visualizacion.html:114
 msgid "Iteration"
 msgstr "Iteración"
 
-#: templates/visualizacion/base_visualizacion.html:58
+#: templates/visualizacion/base_visualizacion.html:63
 msgid "Pseudocode"
 msgstr "Pseudocódigo"
 
-#: templates/visualizacion/base_visualizacion.html:69
+#: templates/visualizacion/base_visualizacion.html:75
 msgid "General statistics"
 msgstr "Estadísticas generales"
 
-#: templates/visualizacion/base_visualizacion.html:99
+#: templates/visualizacion/base_visualizacion.html:108
 msgid "Initial data"
 msgstr "Dato inicial"
 
-#: templates/visualizacion/base_visualizacion.html:100
+#: templates/visualizacion/base_visualizacion.html:109
 msgid "Label"
 msgstr "Etiqueta"
 
-#: templates/visualizacion/base_visualizacion.html:101
+#: templates/visualizacion/base_visualizacion.html:110
 msgid "Classifier"
 msgstr "Clasificador"
 
-#: templates/visualizacion/base_visualizacion.html:102
+#: templates/visualizacion/base_visualizacion.html:111
 msgid "Classifier: Not classified"
 msgstr "Clasificador: No clasificado"
 
-#: templates/visualizacion/base_visualizacion.html:103
+#: templates/visualizacion/base_visualizacion.html:112
 msgid "Label: Not classified"
 msgstr "Etiqueta: No clasificado"
 
-#: templates/visualizacion/base_visualizacion.html:104
+#: templates/visualizacion/base_visualizacion.html:113
 msgid "Measure"
 msgstr "Valor"
 
-#: templates/visualizacion/base_visualizacion.html:106
+#: templates/visualizacion/base_visualizacion.html:115
 msgid "Point"
 msgstr "Punto"
 
-#: templates/visualizacion/base_visualizacion.html:107
+#: templates/visualizacion/base_visualizacion.html:116
 msgid "Position"
 msgstr "Posición"
 
-#: templates/visualizacion/base_visualizacion.html:108
+#: templates/visualizacion/base_visualizacion.html:117
 msgid "overlapping points"
 msgstr "puntos solapados"
+
+#: templates/visualizacion/base_visualizacion.html:142
+msgid "Visualization area"
+msgstr "Área de visualización"
+
+#: templates/visualizacion/base_visualizacion.html:143
+msgid ""
+"This page is the heart of the application. Here, you can observe the "
+"algorithm training process."
+msgstr ""
+"Esta página es el núcleo de la aplicación. Aquí podrás observar el "
+"proceso de entrenamiento del algoritmo."
+
+#: templates/visualizacion/base_visualizacion.html:147
+msgid "This is the main chart area."
+msgstr "Esta es la zona del gráfico principal."
+
+#: templates/visualizacion/base_visualizacion.html:152
+msgid ""
+"This chart will display the data classified by the algorithm. It's "
+"interactive; you can zoom in, scroll around, or select a data point (to "
+"display relevant information)."
+msgstr ""
+"En este gráfico se irán mostrando los datos clasificados por el "
+"algoritmo. Es interactivo, puedes aplicar zoom, desplazarte o seleccionar"
+" un dato (para mostrar información de interés)."
+
+#: templates/visualizacion/base_visualizacion.html:156
+msgid ""
+"You can proceed through the algorithm steps manually or automatically "
+"while visualizing the events."
+msgstr ""
+"Puedes avanzar sobre los pasos del algoritmo de forma manual o automática"
+" mientras se visualizan los eventos."
+
+#: templates/visualizacion/base_visualizacion.html:160
+msgid "This is the statistics area."
+msgstr "Esta es la zona de estadísticas."
+
+#: templates/visualizacion/base_visualizacion.html:165
+msgid ""
+"Here, the statistics extracted in each iteration are displayed in a "
+"general way, as if it were a single model."
+msgstr ""
+"Aquí se muestran las estadísticas extraídas en cada iteración de forma "
+"general, como si fuera un único modelo."
+
+#: templates/visualizacion/base_visualizacion.html:172
+msgid ""
+"Here, the statistics extracted in each iteration for each base classifier"
+" are displayed."
+msgstr ""
+"Aquí se muestran las estadísticas extraídas en cada iteración por cada "
+"clasificador base."
+
+#: templates/visualizacion/base_visualizacion.html:176
+msgid "Through this selector, you can choose the metric you want to see."
+msgstr "Mediante este selector puedes elegir la métrica que deseas ver."
+
+#: templates/visualizacion/base_visualizacion.html:180
+msgid "This allows you to select which base classifier to display."
+msgstr "Esto permite seleccionar qué clasificador base mostrar."
 
 #: templates/visualizacion/singleview.html:3
 msgid "Specific statistics"

@@ -6,7 +6,7 @@
         <h4>{{ gettext('Edit profile') }}</h4>
         <hr class="separacion w-8"/>
     </div>
-    <form method="POST">
+    <form id="form_perfil" method="POST">
         {{ form.csrf_token }}
         <div class="form-group mt-3 mx-5">
             {{ form.name.label }}
@@ -30,7 +30,7 @@
                 </div>
             {% endif %}
         </div>
-        {% if current_user.is_admin and 'perfil' in request.path or not current_user.is_admin%}
+        {% if current_user.is_admin and 'perfil' in request.path or not current_user.is_admin %}
             <div class="form-group mt-3 mx-5">
                 {{ form.current_password.label }}
                 {{ form.current_password(class_="form-control") }}
@@ -58,6 +58,31 @@
             <button type="submit" class="btn btn-primary">{{ gettext('Submit') }}</button>
         </div>
     </form>
+
+    <script>
+        document.getElementById('inicio_tutorial').addEventListener('click', function () {
+            this.style.animation = "none";
+            introJs().setOptions({
+                steps: [
+                    {
+                        title: "{{ gettext("Profile") }}",
+                        intro: "{{ gettext("This is your profile.") }}"
+                    },
+                    {
+                        element: '#resumen_perfil',
+                        intro: "{{ gettext("Here you can see a summary of your profile.") }}"
+                    },
+                    {
+                        element: '#form_perfil',
+                        intro: "{{ gettext("Here you can modify the basic data of your profile.") }}"
+                    }
+                ],
+                'nextLabel': "{{ gettext("Next") }}",
+                'prevLabel': "{{ gettext("Previous") }}",
+                'doneLabel': "{{ gettext("Done") }}",
+            }).start();
+        });
+    </script>
 {% endblock %}
 
 

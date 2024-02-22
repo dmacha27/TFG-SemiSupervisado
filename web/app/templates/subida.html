@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{%  from "macros.html" import tooltip, modalcondiciones %}
+{% from "macros.html" import tooltip, modalcondiciones %}
 {% block head %}
     {{ super() }}
     <script type="text/javascript" src="/js/subida.js"></script>
@@ -8,7 +8,8 @@
 {% block title %}{{ gettext('Dataset upload') }}{% endblock %}
 {% block content %}
     <button id="btn_volver" type="button" onclick="history.back()" class="btn sticky-top">
-        <i class="bi bi-caret-left-fill"></i>{{ gettext('Go back') }}</button>| {{ gettext('Algorithm') }}: {{ titulos[session['ALGORITMO']] }}
+        <i class="bi bi-caret-left-fill"></i>{{ gettext('Go back') }}</button>| {{ gettext('Algorithm') }}:
+    {{ titulos[session['ALGORITMO']] }}
     <div class="text-center pb-3">
         <h1 class="title-mulish text-bold">{{ gettext('Dataset upload') }}</h1>
         <hr class="separacion w-14"/>
@@ -37,24 +38,66 @@
                         <div class="rounded-4 m-2 p-4 text-start">
                             <span id="porcentaje_progreso">0%</span> {{ gettext('completed') }}<br>
                             <div class="progress">
-                                <div id="progreso" class="progress-bar bg-warning" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div id="progreso" class="progress-bar bg-warning" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"></div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <form action="{{ url_for('configuration_bp.configurar_algoritmo', algoritmo=session['ALGORITMO']) }}">
                     {% if ya_hay_fichero %}
-                        <p id="fichero-previo">{{ gettext('Previous file detected: ') }}{{ session['FICHERO']|nombredataset }}</p>
-                        <input class="btn btn-primary" type="submit" value="{{ gettext('Configure algorithm') }}" />
+                        <p id="fichero-previo">
+                            {{ gettext('Previous file detected: ') }}{{ session['FICHERO']|nombredataset }}</p>
+                        <input id="config_btn" class="btn btn-primary" type="submit"
+                               value="{{ gettext('Configure algorithm') }}"/>
                     {% else %}
-                        <input id="config_btn" class="btn btn-primary" type="submit" value="{{ gettext('Configure algorithm') }}" disabled/>
+                        <input id="config_btn" class="btn btn-primary" type="submit"
+                               value="{{ gettext('Configure algorithm') }}" disabled/>
                     {% endif %}
                 </form>
                 <br>
-                <a class="btn btn-success" href="{{url_for('main_bp.descargar_prueba')}}">{{ gettext('Download test file') }}</a>
+                <a id="fichero_prueba" class="btn btn-success"
+                   href="{{ url_for('main_bp.descargar_prueba') }}">{{ gettext('Download test file') }}</a>
             </div>
         </div>
     </div>
     {{ modalcondiciones() }}
+
+    <script>
+
+        document.getElementById('inicio_tutorial').addEventListener('click', function () {
+            this.style.animation = "none";
+            introJs().setOptions({
+                steps: [
+                    {
+                        title: "{{ gettext("Data upload") }}",
+                        intro: "{{ gettext("On this page, you can upload a dataset to test the algorithm. You can follow along with this tutorial while doing the process.") }}"
+                    },
+                    {
+                        element: '#btn_condiciones',
+                        intro: "{{ gettext("It's important that the dataset meets certain conditions.") }}"
+                    },
+                    {
+                        element: '#fichero_prueba',
+                        intro: "{{ gettext("If you don't have a dataset available, you can download this example one (Iris).") }}"
+                    },
+                    {
+                        element: '#soltar',
+                        intro: "{{ gettext("If you have one, you can drag and drop it or select it from your file system.") }}"
+                    }
+                    ,
+                    {
+                        element: '#config_btn',
+                        intro: "{{ gettext("Once loaded, you can proceed to configure the algorithm ") }}" + "{{ titulos[session['ALGORITMO']] }}."
+                    }
+                ],
+                'nextLabel': "{{ gettext("Next") }}",
+                'prevLabel': "{{ gettext("Previous") }}",
+                'doneLabel': "{{ gettext("Done") }}",
+                'showProgress': true
+            }).start();
+        });
+
+    </script>
 {% endblock %}
 

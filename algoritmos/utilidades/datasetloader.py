@@ -94,17 +94,29 @@ class DatasetLoader:
         """
         data = arff.loadarff(self.file)
         df = pd.DataFrame(data[0])
-
         return df
 
-    def _detect_categorical_features(self, x: DataFrame):
+    def _detect_transform_categorical_features(self, x: DataFrame):
         """
         Detecta si existen características categóricas.
 
+        En algunos casos, ciertas características contienen valores
+        numéricos discretos (y en realidad, son categóricos).
+        Para estas características también se transforma el tipo a
+        dato numérico (pues es la misma información que las categorías).
+
         :param x: instancias
-        :return: True si todas son numéricas, False en caso contrario
+        :return: False si todas son numéricas, True en caso contrario
         """
-        return not all(types.is_numeric_dtype(t) for t in list(x.dtypes))
+
+        for column in x.columns:
+            if not pd.api.types.is_numeric_dtype(x[column]):
+                try:
+                    x[column] = pd.to_numeric(x[column])
+                except ValueError:
+                    return True
+
+        return False
 
     def _detect_unlabelled_targets(self, y: DataFrame):
         """
@@ -134,7 +146,7 @@ class DatasetLoader:
 
         x = data.drop(columns=[self.target])
 
-        if self._detect_categorical_features(x):
+        if self._detect_transform_categorical_features(x):
             raise ValueError("Se han detectado características categóricas o indefinidas, "
                              "recuerde que los algoritmos solo soportan características numéricas")
 
