@@ -56,8 +56,21 @@
                     {% endif %}
                 </form>
                 <br>
-                <a id="fichero_prueba" class="btn btn-success"
-                   href="{{ url_for('main_bp.descargar_prueba') }}">{{ gettext('Download test file') }}</a>
+                <div class="btn-group">
+                    <a id="fichero_prueba" class="btn btn-success"
+                       href="{{ url_for('main_bp.descargar_prueba', fichero="iris") }}">{{ gettext('Download test file') }}</a>
+                    <button id="mas_fichero_prueba" type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ url_for('main_bp.descargar_prueba', fichero="iris") }}">Iris</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{{ url_for('main_bp.descargar_prueba', fichero="breast") }}">Breast
+                            Cancer</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('main_bp.descargar_prueba', fichero="diabetes") }}">Diabetes</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -80,6 +93,11 @@
                     {
                         element: '#fichero_prueba',
                         intro: "{{ gettext("If you don't have a dataset available, you can download this example one (Iris).") }}"
+                    },
+                    {
+                        element: '#mas_fichero_prueba',
+                        position: 'top',
+                        intro: "{{ gettext("You can also choose between two other examples.") }}"
                     },
                     {
                         element: '#soltar',

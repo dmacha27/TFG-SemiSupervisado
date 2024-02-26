@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-from flask import flash, render_template, request, redirect, session, url_for, send_file, Blueprint, current_app, abort
+from flask import flash, render_template, request, redirect, session, url_for, send_from_directory, Blueprint, current_app, abort
 from flask_babel import gettext
 from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename
@@ -75,8 +75,10 @@ def descargar_prueba():
     :return: fichero de prueba.
     """
 
-    path = 'datasets/seleccionar/Prueba.arff'
-    return send_file(path, as_attachment=True)
+    fichero = request.args.get('fichero')
+
+    directorio = 'datasets/seleccionar/'
+    return send_from_directory(directory=directorio, path=fichero + '.arff', as_attachment=True)
 
 
 @main_bp.route('/subida', methods=['GET', 'POST'])

@@ -1,21 +1,33 @@
 {% extends "configuracion/base_configuracion.html" %}
-{%  from "macros.html" import selector %}
+{% from "macros.html" import selector %}
 {% block parametros %}
     <div class="mb-3">
         {{ form.clasificador1.label }}
-        {{ form.clasificador1(class_="form-select", oninput="comprobarDiversidad()") }}
+        {% if 'democraticcolearning' in request.path %}
+            {{ form.clasificador1(class_="form-select", oninput="comprobarDiversidad()") }}
+        {% else %}
+            {{ form.clasificador1(class_="form-select") }}
+        {% endif %}
     </div>
     <div class="parametros" id="parametros1"></div>
     <br>
     <div class="mb-3">
         {{ form.clasificador2.label }}
-        {{ form.clasificador2(class_="form-select", oninput="comprobarDiversidad()") }}
+        {% if 'democraticcolearning' in request.path %}
+            {{ form.clasificador2(class_="form-select", oninput="comprobarDiversidad()") }}
+        {% else %}
+            {{ form.clasificador2(class_="form-select") }}
+        {% endif %}
     </div>
     <div class="parametros" id="parametros2"></div>
     <br>
     <div class="mb-3">
         {{ form.clasificador3.label }}
-        {{ form.clasificador3(class_="form-select", oninput="comprobarDiversidad()") }}
+        {% if 'democraticcolearning' in request.path %}
+            {{ form.clasificador3(class_="form-select", oninput="comprobarDiversidad()") }}
+        {% else %}
+            {{ form.clasificador3(class_="form-select") }}
+        {% endif %}
     </div>
     <div class="parametros" id="parametros3"></div>
     <br>
@@ -44,15 +56,17 @@
             generarFormParametros(event.target.value, div_parametros3, "clasificador3");
         });
 
+        let es_democratic = window.location.pathname.includes('democraticcolearning');
+
         const clasificadores_base = Object.keys(todos_parametros);
         clasificador1.value = clasificadores_base[0];
         generarFormParametros(clasificadores_base[0], div_parametros1, "clasificador1");
 
-        clasificador2.value = clasificadores_base[1];
-        generarFormParametros(clasificadores_base[1], div_parametros2, "clasificador2");
+        clasificador2.value = clasificadores_base[es_democratic ? 1 : 0];
+        generarFormParametros(clasificadores_base[es_democratic ? 1 : 0], div_parametros2, "clasificador2");
 
-        clasificador3.value = clasificadores_base[2];
-        generarFormParametros(clasificadores_base[2], div_parametros3, "clasificador3");
+        clasificador3.value = clasificadores_base[es_democratic ? 2 : 0];
+        generarFormParametros(clasificadores_base[es_democratic ? 2 : 0], div_parametros3, "clasificador3");
 
         /**
          *
@@ -62,7 +76,7 @@
          */
         function comprobarDiversidad() {
             let dictionary = Object.fromEntries(clasificadores_base.map(x => [x, 0]));
-            let selectores = [clasificador1,clasificador2,clasificador3];
+            let selectores = [clasificador1, clasificador2, clasificador3];
             for (let i = 0; i < selectores.length; i++) {
                 selectores[i].setCustomValidity('');
                 dictionary[selectores[i].value] += 1;

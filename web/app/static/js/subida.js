@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     ['dragleave', 'drop', 'dragenter', 'dragover'].forEach(function (evento) {
         document.addEventListener(evento, function (e) {
             e.preventDefault();
