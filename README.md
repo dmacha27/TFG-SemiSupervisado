@@ -263,3 +263,10 @@ Lista de recursos que han resultado útiles durante la realización del proyecto
 [CSS-url]: https://www.css3.com/
 [FLASK.io]: https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white
 [FLASK-url]: https://flask.palletsprojects.com/en/2.3.x/
+
+## Financiación
+
+La investigación realizada para el desarrollo de este software ha sido parcialmente financiada por la Junta de Castilla y León (proyecto BU055P20), por el Ministerio de Ciencia e Innovación de España (proyectos PID2020-119894GB-I00 y TED 2021-129485B-C43).
+
+<img width="100%" src="https://raw.githubusercontent.com/admirable-ubu/DN-SSL/main/funding/funding_project.svg" />
+<img width="100%" src="https://raw.githubusercontent.com/admirable-ubu/DN-SSL/main/funding/funding_project_cyl.svg" />
